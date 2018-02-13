@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta charset="utf-8">
     
@@ -16,6 +16,7 @@
 <meta property="og:url" content="http://yoursite.com/wiki/IOS_Runtime/meta_class/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文是对What is a meta-class in Objective-C的翻译,这篇文章主要讲解Objective-C中的元类（meta-class），元类对runtime的理解非常有用。不过快翻译完后，发现已经有前辈翻译过了–Objective-C 中的元类（meta class）是什么？。后面就使用它的翻译。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/meta-class1.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/meta-class2.png">
 <meta property="og:updated_time" content="2018-02-12T10:39:10.000Z">
@@ -90,7 +91,7 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -109,10 +110,10 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Entradas',
+            POSTS: 'Posts',
             PAGES: 'Pages',
-            CATEGORIES: 'Categorias',
-            TAGS: 'Etiquetas',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -143,7 +144,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
     </div>
 
                 </td>
@@ -163,16 +164,16 @@
             <h2 id="name">LJ</h2>
             <h3 id="title">勤总结</h3>
             <span id="location"><i class="fa fa-map-marker"></i>北飘</span>
-            <a id="follow" target="_blank" href="">SEGUIR</a>
+            <a id="follow" target="_blank" href="">FOLLOW</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 27
-                <span>Entradas</span>
+                <span>posts</span>
             </div>
             <div class="article-info-block">
                 13
-                <span>Etiquetas</span>
+                <span>tags</span>
             </div>
         </div>
         
@@ -219,7 +220,7 @@
         
     <div class="widget-wrap" id="categories">
         <h3 class="widget-title">
-            <span>Categorias</span>
+            <span>categories</span>
             &nbsp;
             <a id="allExpand" href="#">
                 <i class="fa fa-angle-double-down fa-2x"></i>
@@ -235,7 +236,7 @@
                             &nbsp;
                             C语言语法
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -251,7 +252,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -498,7 +499,7 @@
         
             
                 <div id="toc" class="toc-article">
-                <strong class="toc-title">Catálogo</strong>
+                <strong class="toc-title">Catalogue</strong>
                     <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Creating-a-class-at-runtime"><span class="toc-number">1.</span> <span class="toc-text">Creating a class at runtime</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么数据结构才能称之为对象"><span class="toc-number">2.</span> <span class="toc-text">什么数据结构才能称之为对象</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是元类"><span class="toc-number">3.</span> <span class="toc-text">什么是元类</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#元类的类是什么？"><span class="toc-number">4.</span> <span class="toc-text">元类的类是什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#实验证明"><span class="toc-number">5.</span> <span class="toc-text">实验证明</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#结论（Conclusion）"><span class="toc-number">6.</span> <span class="toc-text">结论（Conclusion）</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#读后总结"><span class="toc-number">7.</span> <span class="toc-text">读后总结</span></a></li></ol>
                 </div>
             
@@ -627,7 +628,7 @@ struct objc_class {
 <nav id="article-nav">
     
         <a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Más nuevo</strong>
+            <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
                     神经病院Objective-C Runtime入院第一天——isa和Class(转载)
@@ -637,7 +638,7 @@ struct objc_class {
     
     
         <a href="/wiki/IOS_Runtime/runtime1/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Más viejo</strong>
+            <strong class="article-nav-caption">Older</strong>
             <div class="article-nav-title">runtime1</div>
         </a>
     

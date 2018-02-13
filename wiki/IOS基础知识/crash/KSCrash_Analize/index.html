@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh">
 <head>
     <meta charset="utf-8">
     
@@ -16,6 +16,7 @@
 <meta property="og:url" content="http://yoursite.com/wiki/IOS基础知识/crash/KSCrash_Analize/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="KSCrash 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%901.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%904.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%905.jpeg">
@@ -96,7 +97,7 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -115,10 +116,10 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Entradas',
+            POSTS: 'Posts',
             PAGES: 'Pages',
-            CATEGORIES: 'Categorias',
-            TAGS: 'Etiquetas',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
@@ -149,7 +150,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
     </div>
 
                 </td>
@@ -169,16 +170,16 @@
             <h2 id="name">LJ</h2>
             <h3 id="title">勤总结</h3>
             <span id="location"><i class="fa fa-map-marker"></i>北飘</span>
-            <a id="follow" target="_blank" href="">SEGUIR</a>
+            <a id="follow" target="_blank" href="">FOLLOW</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 27
-                <span>Entradas</span>
+                <span>posts</span>
             </div>
             <div class="article-info-block">
                 13
-                <span>Etiquetas</span>
+                <span>tags</span>
             </div>
         </div>
         
@@ -225,7 +226,7 @@
         
     <div class="widget-wrap" id="categories">
         <h3 class="widget-title">
-            <span>Categorias</span>
+            <span>categories</span>
             &nbsp;
             <a id="allExpand" href="#">
                 <i class="fa fa-angle-double-down fa-2x"></i>
@@ -241,7 +242,7 @@
                             &nbsp;
                             C语言语法
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -257,7 +258,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -504,7 +505,7 @@
         
             
                 <div id="toc" class="toc-article">
-                <strong class="toc-title">Catálogo</strong>
+                <strong class="toc-title">Catalogue</strong>
                     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#推导异常收集、符号化的原理"><span class="toc-number">1.</span> <span class="toc-text">推导异常收集、符号化的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译生成可执行APP"><span class="toc-number">1.1.</span> <span class="toc-text">编译生成可执行APP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach-O文件存储格式"><span class="toc-number">1.2.</span> <span class="toc-text">Mach-O文件存储格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.3.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#header"><span class="toc-number">1.3.1.</span> <span class="toc-text">header</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#load-commend"><span class="toc-number">1.3.2.</span> <span class="toc-text">load commend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Data"><span class="toc-number">1.3.3.</span> <span class="toc-text">Data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看Mach-O实用工具"><span class="toc-number">1.3.4.</span> <span class="toc-text">查看Mach-O实用工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定和执行"><span class="toc-number">1.4.</span> <span class="toc-text">绑定和执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用堆栈"><span class="toc-number">1.5.</span> <span class="toc-text">调用堆栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寄存器"><span class="toc-number">1.6.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程状态"><span class="toc-number">1.7.</span> <span class="toc-text">获取线程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思路回溯"><span class="toc-number">1.8.</span> <span class="toc-text">思路回溯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获崩溃方式"><span class="toc-number">1.9.</span> <span class="toc-text">捕获崩溃方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KSCrash异常捕获原理"><span class="toc-number">2.</span> <span class="toc-text">KSCrash异常捕获原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获日志流程"><span class="toc-number">2.1.</span> <span class="toc-text">捕获日志流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获的异常种类"><span class="toc-number">2.2.</span> <span class="toc-text">捕获的异常种类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach异常注册原理"><span class="toc-number">2.3.</span> <span class="toc-text">Mach异常注册原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#signals异常注册"><span class="toc-number">2.4.</span> <span class="toc-text">signals异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-exceptions-异常注册"><span class="toc-number">2.5.</span> <span class="toc-text">C++ exceptions 异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-C-异常注册"><span class="toc-number">2.6.</span> <span class="toc-text">Object C 异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程的调用堆栈、符号化调用堆栈"><span class="toc-number">2.7.</span> <span class="toc-text">获取线程的调用堆栈、符号化调用堆栈</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取线程的调用堆栈、符号化调用堆栈原理"><span class="toc-number">2.7.1.</span> <span class="toc-text">获取线程的调用堆栈、符号化调用堆栈原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取线程状态-代码分析"><span class="toc-number">2.7.2.</span> <span class="toc-text">获取线程状态 代码分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取异常线程的回溯-代码分析"><span class="toc-number">2.7.3.</span> <span class="toc-text">获取异常线程的回溯 代码分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化的代码-代码分析"><span class="toc-number">2.7.4.</span> <span class="toc-text">符号化的代码 代码分析</span></a></li></ol></li></ol></li></ol>
                 </div>
             
@@ -1312,20 +1313,15 @@ remote procedure calls (RPCs)
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS基础知识/crash/Analize_Crash/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Más nuevo</strong>
+        <a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
             <div class="article-nav-title">
                 
-                    收集、符号化IOS崩溃日志
+                    KSCrash崩溃收集原理浅析
                 
             </div>
         </a>
     
-    
-        <a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Más viejo</strong>
-            <div class="article-nav-title">KSCrash崩溃收集原理浅析</div>
-        </a>
     
 </nav>
 
