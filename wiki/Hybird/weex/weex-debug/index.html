@@ -3,22 +3,28 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: hexo | LJ小窝</title>
+    <title>搭建weex断点调试环境 | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="weex断点调试">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJ小窝">
-<meta property="og:url" content="http://yoursite.com/tags/hexo/index.html">
+    <meta name="description" content="Weex Devtools是为 Weex开发者服务的一款调试工具，可对 .we 代码及 JavaScript 代码断点调试，并能够审查 Weex app 运行时属性，支持 iOS 和 Android 两个平台。本文是基于IOS平台。">
+<meta name="keywords" content="weex断点调试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="搭建weex断点调试环境">
+<meta property="og:url" content="http://yoursite.com/wiki/Hybird/weex/weex-debug/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:description" content="Weex Devtools是为 Weex开发者服务的一款调试工具，可对 .we 代码及 JavaScript 代码断点调试，并能够审查 Weex app 运行时属性，支持 iOS 和 Android 两个平台。本文是基于IOS平台。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/weex-debug-chrome.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/weex-debug-chrome1.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/weex-debug-chrome2.png">
+<meta property="og:updated_time" content="2018-02-12T10:43:54.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
+<meta name="twitter:title" content="搭建weex断点调试环境">
+<meta name="twitter:description" content="Weex Devtools是为 Weex开发者服务的一款调试工具，可对 .we 代码及 JavaScript 代码断点调试，并能够审查 Weex app 运行时属性，支持 iOS 和 Android 两个平台。本文是基于IOS平台。">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/weex-debug-chrome.png">
     
 
     
@@ -232,20 +238,20 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             Hybird
                         </a>
                          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file active"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -446,50 +452,176 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#hexo</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-Hybird/weex/weex-debug" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a>
-        </h1>
-    
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
 
-                <div class="article-meta">
-                    
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex断点调试/">weex断点调试</a>
+    </div>
+
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/hexo/hexo-use/">
-            <time datetime="2018-02-07T07:57:29.000Z" itemprop="datePublished">2018-02-07</time>
+        <a href="/wiki/Hybird/weex/weex-debug/">
+            <time datetime="2016-12-28T01:48:40.000Z" itemprop="datePublished">2016-12-28</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/hexo/">hexo</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
+                        
+                    </div>
+                
+                
     
-</div>
+        <h1 class="article-title" itemprop="name">
+            搭建weex断点调试环境
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#安装weex-devtool-模块"><span class="toc-number">1.</span> <span class="toc-text">安装weex-devtool 模块</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#APP集成weex-devtool-iOS-SDK"><span class="toc-number">2.</span> <span class="toc-text">APP集成weex-devtool-iOS SDK</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#调试"><span class="toc-number">3.</span> <span class="toc-text">调试</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>Weex Devtools是为 Weex开发者服务的一款调试工具，可对 .we 代码及 JavaScript 代码断点调试，并能够审查 Weex app 运行时属性，支持 iOS 和 Android 两个平台。本文是基于IOS平台。</p>
+<a id="more"></a>
+<p>Weex Devtools 基于 Chrome devtools 实现了 Chrome Debugging Protocol，能够使用Chrome devtools调试 Weex 项目，其主要功能分为两大部分—— Debugger 和 Inspector。若使用Devtools调试weex项目，需要搭建调试环境，包括两部分：安装weex-devtool模块、App项目中集成weex-devtool SDK。</p>
+<h1 id="安装weex-devtool-模块"><a href="#安装weex-devtool-模块" class="headerlink" title="安装weex-devtool 模块"></a>安装weex-devtool 模块</h1><p>weex-devtool是node.js的一个模块，用来启动服务器和Chrome页面，安装weex-devtool需要使用npm安装，由于使用npm安装特别慢，有时候一点速度都没有，这里使用淘宝的镜像源，切换方法：</p>
+<pre><code>npm install cnpm -g --registry=https://registry.npm.taobao.org
+</code></pre><p>切换完后，使用cnpm安装weex-devtool：</p>
+<pre><code>cnpm install -g weex-devtool
+</code></pre><p>weex-devtool 的用法：</p>
+<pre><code>weex debug [options] [we_file|bundles_dir]
+</code></pre><p>选项有下面几种：</p>
+<pre><code>-h, --help           显示帮助
+-V, --verbose        显示debug服务器运行时的各种log
+-v, --version        显示版本
+-p, --port [port]    设置debug服务器端口号 默认为8088
+-e, --entry [entry]  debug一个目录时,这个参数指定整个目录的入口bundle文件,这个bundle文件的地址会显示在debug主页上(作为二维码)
+-m, --mode [mode]    设置构建we文件的方式,transformer 最基础的风格适合单文件,loader:wepack风格 适合模块化的多文件.默认为transformer
+</code></pre><p>启动服务和chrome页面：</p>
+<pre><code>weex debug  
+</code></pre><p>输出如下：</p>
+<pre><code>bogon:~ lijian$ weex debug
+start debugger server at http://10.144.36.206:8088
+
+The websocket address for native is ws://10.144.36.206:8088/debugProxy/native
+Launching Dev Tools...
+</code></pre><p>输出上面的内容，表示weex-devtool已经并启动。其中ws://10.144.36.206:8088/debugProxy/native是APP连接到Chrome的调试的地址。App集成weex-devtool-iOS后，需要使用这个地址。</p>
+<h1 id="APP集成weex-devtool-iOS-SDK"><a href="#APP集成weex-devtool-iOS-SDK" class="headerlink" title="APP集成weex-devtool-iOS SDK"></a>APP集成weex-devtool-iOS SDK</h1><p>集成weex-devtool-iOS SDK，可以参考<a href="https://github.com/weexteam/weex-devtool-iOS/blob/master/README-zh.md" rel="external nofollow noopener noreferrer" target="_blank">weex-devtool-iOS</a>将 weex-devtool-iOS 集成到项目中。这篇文章中介绍了pod集成方法和源码集成方法。这里假设已经集成完成。直接到使用SDK的步骤。<br>在AppDelegate中添加下面的代码，就可以使APP链接到Chrome的调试环境：</p>
+<pre><code>#import &lt;WXDevtool.h&gt;
+
+[WXDevTool setDebug:YES];
+[WXDevTool launchDevToolDebugWithUrl:@&quot;ws://10.144.36.206:8088/debugProxy/native&quot;];
+</code></pre><p>setDebug:参数为YES时，直接开启debug模式，反之关闭。launchDevToolDebugWithUrl 中的url就是在控制台启动Chrome时输出的地址。</p>
+<h1 id="调试"><a href="#调试" class="headerlink" title="调试"></a>调试</h1><p>到目前为止，环境已配置完成，可以体验下调试过程。启动App，App会连接到chrome，Chrome中会显示出连接上的APP，如下：<br><img src="http://of685p9vy.bkt.clouddn.com/weex-debug-chrome.png" alt="weex-debug-chrome"></p>
+<p>如图所示，有两个功能debug（调试）、inspector（元素省察）。其中debug可以调试JS的代码；inspector 可以审查界面的元素。点击debuger，进入调试提示页面，界面如下：<br><img src="http://of685p9vy.bkt.clouddn.com/weex-debug-chrome1.png" alt="weex-debug-chrome"><br>界面提示：使用option+commond+j进入调试JS代码界面，点击Sources标签，左边的导航栏显示源码列表，可以切换源码。调试面板包括设置断点、单步执行、查看运行时变量值等功能。<br><img src="http://of685p9vy.bkt.clouddn.com/weex-debug-chrome2.png" alt="weex-debug-chrome"></p>
+<p>具体详细的调试方法请参考<a href="http://weex-project.io/cn/doc/how-to/debug-with-devtools.html" rel="external nofollow noopener noreferrer" target="_blank">如何使用 Devtools 调试 Weex 页面</a>。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    dispatch_semaphore 的使用方法
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/Hybird/weex/event-analize/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">weex 事件原理分析</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/Hybird/weex/weex-debug/" data-title="搭建weex断点调试环境" data-url="http://yoursite.com/wiki/Hybird/weex/weex-debug/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">

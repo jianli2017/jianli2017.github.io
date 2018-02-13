@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
+    
+    <lastmod>2018-02-13T10:10:17.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/%E8%87%AA%E5%B7%B1%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E7%BB%8F%E5%8E%86/</loc>
     
     <lastmod>2018-02-13T09:26:11.000Z</lastmod>
@@ -65,14 +72,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
+    <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/about/index.html</loc>
+    <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
@@ -114,30 +121,23 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/Hybird%E7%A0%94%E7%A9%B6/weex/weex-debug/</loc>
+    <loc>http://yoursite.com/wiki/Hybird/weex/weex-debug/</loc>
     
     <lastmod>2018-02-12T10:43:54.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/Hybird%E7%A0%94%E7%A9%B6/weex/weex-conmunication/</loc>
+    <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
     
     <lastmod>2018-02-12T10:43:42.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/Hybird%E7%A0%94%E7%A9%B6/weex/flexBox/</loc>
+    <loc>http://yoursite.com/wiki/Hybird/weex/flexBox/</loc>
     
     <lastmod>2018-02-12T10:43:32.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/Hybird%E7%A0%94%E7%A9%B6/weex/event-analize/</loc>
-    
-    <lastmod>2018-02-12T10:43:22.000Z</lastmod>
     
   </url>
   
