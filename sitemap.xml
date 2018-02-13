@@ -2,13 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9%202/git_learn%E7%9A%84%E5%89%AF%E6%9C%AC/</loc>
-    
-    <lastmod>2018-02-13T05:00:36.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9%203/git_learn%E7%9A%84%E5%89%AF%E6%9C%AC%202/</loc>
     
     <lastmod>2018-02-13T05:00:36.000Z</lastmod>
@@ -16,7 +9,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9/git_learn/</loc>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9/git_learn1/</loc>
+    
+    <lastmod>2018-02-13T05:00:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6%E5%A4%B9%202/git_learn%E7%9A%84%E5%89%AF%E6%9C%AC/</loc>
     
     <lastmod>2018-02-13T05:00:36.000Z</lastmod>
     
