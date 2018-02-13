@@ -16,7 +16,7 @@
 <meta property="og:url" content="http://yoursite.com/wiki/IOS基础知识/foundation/NSInvocation的基本使/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="iOS中可以间接向对象发送消息方式有两种：  使用performSelector:withObject； 使用NSInvocation。performSelector:withObject能完成简单的调用。但是对于大于2个的参数或者有返回值的消息，它就显得有点有心无力了，那么在这种情况下，我们就可以使用NSInvocation来进行这些相对复杂的操作。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:updated_time" content="2018-02-12T10:41:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NSInvocation的基本使">
@@ -88,14 +88,14 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -107,11 +107,11 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
@@ -141,7 +141,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
     </div>
 
                 </td>
@@ -161,16 +161,16 @@
             <h2 id="name">LJ</h2>
             <h3 id="title">勤总结</h3>
             <span id="location"><i class="fa fa-map-marker"></i>北飘</span>
-            <a id="follow" target="_blank" href="">FOLLOW</a>
+            <a id="follow" target="_blank" href="">关注我</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 27
-                <span>posts</span>
+                <span>文章</span>
             </div>
             <div class="article-info-block">
                 13
-                <span>tags</span>
+                <span>标签</span>
             </div>
         </div>
         
@@ -217,7 +217,7 @@
         
     <div class="widget-wrap" id="categories">
         <h3 class="widget-title">
-            <span>categories</span>
+            <span>分类</span>
             &nbsp;
             <a id="allExpand" href="#">
                 <i class="fa fa-angle-double-down fa-2x"></i>
@@ -249,7 +249,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -260,7 +260,7 @@
                             &nbsp;
                             IOS_Runtime
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory open">
@@ -496,7 +496,7 @@
         
             
                 <div id="toc" class="toc-article">
-                <strong class="toc-title">Catalogue</strong>
+                <strong class="toc-title">文章目录</strong>
                     <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#方法签名"><span class="toc-number">1.</span> <span class="toc-text">方法签名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用NSInvocation发送消息"><span class="toc-number">2.</span> <span class="toc-text">使用NSInvocation发送消息</span></a></li></ol>
                 </div>
             
@@ -553,7 +553,7 @@ res = dog
 <nav id="article-nav">
     
         <a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
+            <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
                     神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)
@@ -563,7 +563,7 @@ res = dog
     
     
         <a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
+            <strong class="article-nav-caption">下一篇</strong>
             <div class="article-nav-title">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</div>
         </a>
     

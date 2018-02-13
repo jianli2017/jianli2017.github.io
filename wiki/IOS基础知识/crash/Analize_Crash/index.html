@@ -16,7 +16,7 @@
 <meta property="og:url" content="http://yoursite.com/wiki/IOS基础知识/crash/Analize_Crash/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。">
-<meta property="og:locale" content="zh-Hans">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F3.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%974.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%975_1.png">
@@ -106,14 +106,14 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
     <div class="ins-search-mask"></div>
     <div class="ins-search-container">
         <div class="ins-input-wrapper">
-            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
             <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
         </div>
         <div class="ins-section-wrapper">
@@ -125,11 +125,11 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
-            PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
-            UNTITLED: '(Untitled)',
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
         },
         ROOT_URL: '/',
         CONTENT_URL: '/content.json',
@@ -159,7 +159,7 @@
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
     </div>
 
                 </td>
@@ -179,16 +179,16 @@
             <h2 id="name">LJ</h2>
             <h3 id="title">勤总结</h3>
             <span id="location"><i class="fa fa-map-marker"></i>北飘</span>
-            <a id="follow" target="_blank" href="">FOLLOW</a>
+            <a id="follow" target="_blank" href="">关注我</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 27
-                <span>posts</span>
+                <span>文章</span>
             </div>
             <div class="article-info-block">
                 13
-                <span>tags</span>
+                <span>标签</span>
             </div>
         </div>
         
@@ -235,7 +235,7 @@
         
     <div class="widget-wrap" id="categories">
         <h3 class="widget-title">
-            <span>categories</span>
+            <span>分类</span>
             &nbsp;
             <a id="allExpand" href="#">
                 <i class="fa fa-angle-double-down fa-2x"></i>
@@ -267,7 +267,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -278,7 +278,7 @@
                             &nbsp;
                             IOS_Runtime
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory open">
@@ -514,7 +514,7 @@
         
             
                 <div id="toc" class="toc-article">
-                <strong class="toc-title">Catalogue</strong>
+                <strong class="toc-title">文章目录</strong>
                     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统Crash日志结构分析"><span class="toc-number">1.</span> <span class="toc-text">系统Crash日志结构分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本信息模块"><span class="toc-number">1.1.</span> <span class="toc-text">基本信息模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统信息模块"><span class="toc-number">1.2.</span> <span class="toc-text">系统信息模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常信息模块"><span class="toc-number">1.3.</span> <span class="toc-text">异常信息模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程回溯"><span class="toc-number">1.4.</span> <span class="toc-text">线程回溯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化回溯线程"><span class="toc-number">1.4.1.</span> <span class="toc-text">符号化回溯线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化内幕"><span class="toc-number">1.4.2.</span> <span class="toc-text">符号化内幕</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小小结"><span class="toc-number">1.4.3.</span> <span class="toc-text">小小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程的状态寄存器"><span class="toc-number">1.5.</span> <span class="toc-text">线程的状态寄存器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binary-Images"><span class="toc-number">2.</span> <span class="toc-text">Binary Images</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">2.1.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统收集、符号化Crash日志"><span class="toc-number">3.</span> <span class="toc-text">系统收集、符号化Crash日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CrashReporter收集日志"><span class="toc-number">3.1.</span> <span class="toc-text">CrashReporter收集日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Xcode-解析Crash日志"><span class="toc-number">3.2.</span> <span class="toc-text">Xcode 解析Crash日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#那些年我们一起使用的符号化工具"><span class="toc-number">3.3.</span> <span class="toc-text">那些年我们一起使用的符号化工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打造自己的收集、符号化程序"><span class="toc-number">4.</span> <span class="toc-text">打造自己的收集、符号化程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实现代码"><span class="toc-number">4.1.</span> <span class="toc-text">实现代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布包没带符号表"><span class="toc-number">4.2.</span> <span class="toc-text">发布包没带符号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach-O-File-Format"><span class="toc-number">4.3.</span> <span class="toc-text">Mach-O File Format</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#header"><span class="toc-number">4.3.1.</span> <span class="toc-text">header</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#load-Commond"><span class="toc-number">4.3.2.</span> <span class="toc-text">load Commond</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据部分"><span class="toc-number">4.3.3.</span> <span class="toc-text">数据部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小小结-1"><span class="toc-number">4.3.4.</span> <span class="toc-text">小小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取构架、镜像加载地址"><span class="toc-number">4.4.</span> <span class="toc-text">获取构架、镜像加载地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输出Crash日志"><span class="toc-number">4.5.</span> <span class="toc-text">输出Crash日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-1"><span class="toc-number">4.6.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#你被默默的坑了吗"><span class="toc-number">4.7.</span> <span class="toc-text">你被默默的坑了吗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深度定制异常收集系统"><span class="toc-number">5.</span> <span class="toc-text">深度定制异常收集系统</span></a></li></ol>
                 </div>
             
@@ -1094,7 +1094,7 @@ NSString * getImageLoadAddress()
 <nav id="article-nav">
     
         <a href="/wiki/C语言语法/struct_Analize/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Newer</strong>
+            <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
                     struct定义语法
@@ -1104,7 +1104,7 @@ NSString * getImageLoadAddress()
     
     
         <a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
+            <strong class="article-nav-caption">下一篇</strong>
             <div class="article-nav-title">KSCrash崩溃收集原理浅析</div>
         </a>
     
