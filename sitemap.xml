@@ -65,13 +65,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
-    
-    <lastmod>2018-02-12T11:54:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
@@ -86,6 +79,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
+    
+    <lastmod>2018-02-12T11:54:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/Analize_Crash/</loc>
     
     <lastmod>2018-02-12T10:54:08.000Z</lastmod>
@@ -93,14 +93,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/KSCrash_Analize/</loc>
+    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/22/KSCrash_Analize/</loc>
     
     <lastmod>2018-02-12T10:52:18.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/22/KSCrash_Analize/</loc>
+    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/KSCrash_Analize/</loc>
     
     <lastmod>2018-02-12T10:52:18.000Z</lastmod>
     

@@ -1,105 +1,526 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  
-
-  
-  <title>hexo使用指南 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）">
+    <meta charset="utf-8">
+    
+    <title>hexo使用指南 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="hexo">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）">
 <meta name="keywords" content="hexo">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hexo使用指南">
 <meta property="og:url" content="http://yoursite.com/wiki/工具/hexo/hexo-use/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）">
 <meta property="og:updated_time" content="2018-02-13T06:53:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo使用指南">
 <meta name="twitter:description" content="使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+        <link rel="icon" href="/favicon.ico">
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
 </head>
 </html>
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+                
+                <nav id="sub-nav">
+                    <div class="profile" id="profile-nav">
+                        <a id="profile-anchor" href="javascript:;">
+                            <img class="avatar" src="https://www.gravatar.com/avatar/801b5fd632e95da59d6dbb8f45eff705">
+                            <i class="fa fa-caret-down"></i>
+                        </a>
+                    </div>
+                </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="Type something...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
     </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: 'Posts',
+            PAGES: 'Pages',
+            CATEGORIES: 'Categories',
+            TAGS: 'Tags',
+            UNTITLED: '(Untitled)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
     </div>
-  </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-工具/hexo/hexo-use" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/wiki/工具/hexo/hexo-use/" class="article-date">
-  <time datetime="2018-02-07T07:57:29.000Z" itemprop="datePublished">2018-02-07</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+        <div class="outer">
+            
+                
+
+<aside id="profile">
+    <div class="inner profile-inner">
+        <div class="base-info profile-block">
+            <img id="avatar" src="https://www.gravatar.com/avatar/801b5fd632e95da59d6dbb8f45eff705?s=128">
+            <h2 id="name">zthxxx</h2>
+            <h3 id="title">Designer &amp; Programmer</h3>
+            <span id="location"><i class="fa fa-map-marker"></i>Chengdu, China</span>
+            <a id="follow" target="_blank" href="https://github.com/zthxxx/" rel="external nofollow noopener noreferrer">FOLLOW</a>
+        </div>
+        <div class="article-info profile-block">
+            <div class="article-info-block">
+                27
+                <span>posts</span>
+            </div>
+            <div class="article-info-block">
+                13
+                <span>tags</span>
+            </div>
+        </div>
         
-  
-    <h1 class="article-title" itemprop="name">
-      hexo使用指南
-    </h1>
-  
+        <div class="profile-block social-links">
+            <table>
+                <tr>
+                    
+                    
+                    <td>
+                        <a href="https://github.com/zthxxx/zthxxx.github.io" target="_blank" title="github" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-github"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://stackoverflow.com/users/7277090/zthxxx?tab=profile" target="_blank" title="stack-overflow" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-stack-overflow"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="http://codepen.io/zthxxx/" target="_blank" title="codepen" class="tooltip" rel="external nofollow noopener noreferrer">
+                            <i class="fa fa-codepen"></i>
+                        </a>
+                    </td>
+                    
+                    <td>
+                        <a href="/atom.xml" target="_blank" title="rss" class="tooltip">
+                            <i class="fa fa-rss"></i>
+                        </a>
+                    </td>
+                    
+                </tr>
+            </table>
+        </div>
+        
+    </div>
+</aside>
 
-      </header>
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>categories</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-up fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Hybird研究
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS_Runtime
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS基础知识
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/IOS基础知识/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            22
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            foundation
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/JS/CSS笔记/">CSS笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/"></a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree" style="display: block;">  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file active"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）</p>
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-工具/hexo/hexo-use" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/hexo/">hexo</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/hexo/hexo-use/">
+            <time datetime="2018-02-07T07:57:29.000Z" itemprop="datePublished">2018-02-07</time>
+        </a>
+    </div>
+
+
+                        
+                            <div class="article-meta-button">
+                                <a href="https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/工具/hexo/hexo-use.md" rel="external nofollow noopener noreferrer" target="_blank"> Source </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/工具/hexo/hexo-use.md" rel="external nofollow noopener noreferrer" target="_blank"> Edit </a>
+                            </div>
+                            <div class="article-meta-button">
+                                <a href="https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/工具/hexo/hexo-use.md" rel="external nofollow noopener noreferrer" target="_blank"> History </a>
+                            </div>
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            hexo使用指南
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">Catalogue</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常用命令"><span class="toc-number">1.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GitHub"><span class="toc-number">3.</span> <span class="toc-text">GitHub</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化"><span class="toc-number">4.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成静态页面"><span class="toc-number">5.</span> <span class="toc-text">生成静态页面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地启动"><span class="toc-number">6.</span> <span class="toc-text">本地启动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#写文章"><span class="toc-number">7.</span> <span class="toc-text">写文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fancybox"><span class="toc-number">8.</span> <span class="toc-text">fancybox</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#description"><span class="toc-number">8.1.</span> <span class="toc-text">description</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文章摘要"><span class="toc-number">9.</span> <span class="toc-text">文章摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#主题安装"><span class="toc-number">10.</span> <span class="toc-text">主题安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">11.</span> <span class="toc-text">参考</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）</p>
 <a id="more"></a>
-<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo n #写文章</span><br><span class="line">hexo g #生成</span><br><span class="line">hexo d #部署 # 可与hexo g合并为 hexo d -g</span><br></pre></td></tr></table></figure>
+<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo n #写文章</span><br><span class="line">hexo g #生成</span><br><span class="line">hexo d #部署 # 可与hexo g合并为 hexo d -g</span><br></pre></td></tr></table></figure>
 <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><ul>
 <li>安装Node.js</li>
 <li>安装git（Xcode自带）</li>
 <li>安装hexo</li>
 </ul>
 <p>hexo 是基于Node.js的静态博客程序，使用npm 安装：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm install -g hexo</span><br></pre></td></tr></table></figure>
 <h1 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h1><ul>
 <li>首先注册一个『GitHub』帐号</li>
 <li>建立与你用户名对应的仓库，仓库名必须为『your_user_name.github.com』</li>
@@ -110,44 +531,44 @@
 <p>SSH 作用于git协议，使用SSH 后，git协议的push、pull操作不需要输入密码。</p>
 <h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><p>使用hexo init 命令在当前目录下初始化一个hexo项目</p>
 <h1 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h1><p>cd 到你的init目录，执行如下命令，生成静态页面到 ./public/目录。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo generate</span><br></pre></td></tr></table></figure>
 <h1 id="本地启动"><a href="#本地启动" class="headerlink" title="本地启动"></a>本地启动</h1><p>执行如下命令，启动本地服务，进行文章预览调试。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo server</span><br></pre></td></tr></table></figure>
 <h1 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h1><p>执行new命令，生成指定名称的文章至hexo/source/_posts/postName.md。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new [lay“out] &quot;postName&quot; #新建文章</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new [lay“out] &quot;postName&quot; #新建文章</span><br></pre></td></tr></table></figure>
 <p>其中layout是可选参数，默认值为post。有哪些layout呢，请到scaffolds目录下查看，这些文件名称就是layout名称。当然你可以添加自己的layout，方法就是添加一个文件即可，同时你也可以编辑现有的layout，比如post的layout默认是hexo\scaffolds\post.md</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line">tags:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line">tags:</span><br></pre></td></tr></table></figure>
 <p>请注意，大括号与大括号之间我多加了个空格，否则会被转义，不能正常显示。</p>
 <p>我想添加categories，以免每次手工输入，只需要修改这个文件添加一行，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line">categories: </span><br><span class="line">tags:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line">categories: </span><br><span class="line">tags:</span><br></pre></td></tr></table></figure>
 <p>postName是md文件的名字，同时也出现在你文章的URL中，postName如果包含空格，必须用”将其包围，postName可以为中文。</p>
 <p>注意，所有文件：后面都必须有个空格，不然会报错。</p>
 <p>看一下刚才生成的文件hexo/source/_posts/postName.md，内容如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: postName #文章页面上的显示名称，可以任意修改，不会出现在URL中</span><br><span class="line">date: 2013-12-02 15:30:16 #文章生成时间，一般不改，当然也可以任意修改</span><br><span class="line">categories: #文章分类目录，可以为空，注意:后面有个空格</span><br><span class="line">tags: #文章标签，可空，多标签请用格式[tag1,tag2,tag3]，注意:后面有个空格</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: postName #文章页面上的显示名称，可以任意修改，不会出现在URL中</span><br><span class="line">date: 2013-12-02 15:30:16 #文章生成时间，一般不改，当然也可以任意修改</span><br><span class="line">categories: #文章分类目录，可以为空，注意:后面有个空格</span><br><span class="line">tags: #文章标签，可空，多标签请用格式[tag1,tag2,tag3]，注意:后面有个空格</span><br></pre></td></tr></table></figure>
 <h1 id="fancybox"><a href="#fancybox" class="headerlink" title="fancybox"></a>fancybox</h1><p>可能有人对这个Reading页面中图片的fancybox效果感兴趣，这个是怎么做的呢。<br>很简单，只需要在你的文章*.md文件的头上添加photos项即可，然后一行行添加你要展示的照片：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">layout: photo</span><br><span class="line">title: 我的阅历</span><br><span class="line">date: 2085-01-16 07:33:44</span><br><span class="line">tags: [hexo]</span><br><span class="line">photos:</span><br><span class="line">- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg</span><br><span class="line">- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">layout: photo</span><br><span class="line">title: 我的阅历</span><br><span class="line">date: 2085-01-16 07:33:44</span><br><span class="line">tags: [hexo]</span><br><span class="line">photos:</span><br><span class="line">- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-0.jpg</span><br><span class="line">- http://bruce.u.qiniudn.com/2013/11/27/reading/photos-1.jpg</span><br></pre></td></tr></table></figure>
 <p>经过测试，文件头上的layout: photo可以省略。</p>
 <p>不想每次都手动添加怎么办？同样的，打开您的hexo\scaffolds\photo.md</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">layout: &#123; &#123; layout &#125; &#125;</span><br><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line">tags: </span><br><span class="line">photos:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">layout: &#123; &#123; layout &#125; &#125;</span><br><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line">tags: </span><br><span class="line">photos:</span><br></pre></td></tr></table></figure>
 <p>然后每次可以执行带layout的new命令生成照片文章：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new photo &quot;photoPostName&quot; #新建照片文章</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hexo new photo &quot;photoPostName&quot; #新建照片文章</span><br></pre></td></tr></table></figure>
 <h2 id="description"><a href="#description" class="headerlink" title="description"></a>description</h2><p>markdown文件头中也可以添加description，以覆盖全局配置文件中的description内容，请参考下文_config.yml的介绍。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: hexo你的博客</span><br><span class="line">date: 2013-11-22 17:11:54</span><br><span class="line">categories: default</span><br><span class="line">tags: [hexo]</span><br><span class="line">description: 你对本页的描述</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">title: hexo你的博客</span><br><span class="line">date: 2013-11-22 17:11:54</span><br><span class="line">categories: default</span><br><span class="line">tags: [hexo]</span><br><span class="line">description: 你对本页的描述</span><br></pre></td></tr></table></figure>
 <p>hexo默认会处理全部markdown和html文件，如果不想让hexo处理你的文件，可以在文件头中加入layout: false。</p>
 <h1 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h1><p>在需要显示摘要的地方添加如下代码即可：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是摘要</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">以上是摘要</span><br><span class="line">&lt;!--more--&gt;</span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure>
 <p>more以上内容即是文章摘要，在主页显示，more以下内容点击『&gt; Read More』链接打开全文才显示。</p>
 <p>hexo中所有文件的编码格式均是UTF-8。</p>
 <h1 id="主题安装"><a href="#主题安装" class="headerlink" title="主题安装"></a>主题安装</h1><p>安装主题的方法就是一句git命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/heroicyang/hexo-theme-modernist.git themes/modernist</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">git clone https://github.com/heroicyang/hexo-theme-modernist.git themes/modernist</span><br></pre></td></tr></table></figure>
 <p>目录是否是modernist无所谓，只要与_config.yml文件一致即可。</p>
 <p>安装完成后，打开hexo/_config.yml，修改主题为modernist</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">theme: modernist</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">theme: modernist</span><br></pre></td></tr></table></figure>
 <p>打开hexo/themes/modernist目录，编辑主题配置文件_config.yml：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">menu: #配置页头显示哪些菜单</span><br><span class="line">#  Home: /</span><br><span class="line">  Archives: /archives</span><br><span class="line">  Reading: /reading</span><br><span class="line">  About: /about</span><br><span class="line">#  Guestbook: /about</span><br><span class="line">excerpt_link: Read More #摘要链接文字</span><br><span class="line">archive_yearly: false #按年存档</span><br><span class="line">widgets: #配置页脚显示哪些小挂件</span><br><span class="line">  - category</span><br><span class="line">#  - tag</span><br><span class="line">  - tagcloud</span><br><span class="line">  - recent_posts</span><br><span class="line">#  - blogroll</span><br><span class="line">blogrolls: #友情链接</span><br><span class="line">  - bruce sha&apos;s duapp wordpress: http://ibruce.duapp.com</span><br><span class="line">  - bruce sha&apos;s javaeye: http://buru.iteye.com</span><br><span class="line">  - bruce sha&apos;s oschina blog: http://my.oschina.net/buru</span><br><span class="line">  - bruce sha&apos;s baidu space: http://hi.baidu.com/iburu</span><br><span class="line">fancybox: true #是否开启fancybox效果</span><br><span class="line">duoshuo_shortname: buru #多说账号</span><br><span class="line">google_analytics:</span><br><span class="line">rss:</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">menu: #配置页头显示哪些菜单</span><br><span class="line">#  Home: /</span><br><span class="line">  Archives: /archives</span><br><span class="line">  Reading: /reading</span><br><span class="line">  About: /about</span><br><span class="line">#  Guestbook: /about</span><br><span class="line">excerpt_link: Read More #摘要链接文字</span><br><span class="line">archive_yearly: false #按年存档</span><br><span class="line">widgets: #配置页脚显示哪些小挂件</span><br><span class="line">  - category</span><br><span class="line">#  - tag</span><br><span class="line">  - tagcloud</span><br><span class="line">  - recent_posts</span><br><span class="line">#  - blogroll</span><br><span class="line">blogrolls: #友情链接</span><br><span class="line">  - bruce sha&apos;s duapp wordpress: http://ibruce.duapp.com</span><br><span class="line">  - bruce sha&apos;s javaeye: http://buru.iteye.com</span><br><span class="line">  - bruce sha&apos;s oschina blog: http://my.oschina.net/buru</span><br><span class="line">  - bruce sha&apos;s baidu space: http://hi.baidu.com/iburu</span><br><span class="line">fancybox: true #是否开启fancybox效果</span><br><span class="line">duoshuo_shortname: buru #多说账号</span><br><span class="line">google_analytics:</span><br><span class="line">rss:</span><br></pre></td></tr></table></figure>
 <p>#更新</p>
 <p>更新hexo：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm update -g hexo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">npm update -g hexo</span><br></pre></td></tr></table></figure>
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
 <li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/?utm_source=tuicool" rel="external nofollow noopener noreferrer" target="_blank">hexo你的博客</a></li>
 <li><a href="http://blog.csdn.net/lemonxq/article/details/72676005" rel="external nofollow noopener noreferrer" target="_blank">Hexo静态博客搭建+个人定制</a></li>
@@ -155,146 +576,102 @@
 <li><a href="https://www.cnblogs.com/superGG1990/p/6844952.html" rel="external nofollow noopener noreferrer" target="_blank">初次安装git配置用户名和邮箱</a></li>
 </ul>
 
-      
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/wiki/工具/hexo/hexo-use/" data-id="cjdldpalc001t5cfyhjsed4ps" class="article-share-link">Teilen</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/wiki/工具/git/git详细记录/git仓库/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Neuer</strong>
-      <div class="article-nav-title">
-        
-          Git仓库(转载)
-        
-      </div>
-    </a>
-  
-  
-    <a href="/wiki/工具/git/git简略版/git简略版/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Älter</strong>
-      <div class="article-nav-title"></div>
-    </a>
-  
-</nav>
-
-  
 </article>
 
-</section>
-        
-          <aside id="sidebar">
-  
+
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Kategorien</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Crash/">Crash</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/C语言语法/">C语言语法</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/GCD/">GCD</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/JS/">JS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Tool/">Tool</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/category/">category</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/foundation/">foundation</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/runtime/">runtime</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/weex/">weex</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/工具/git/">git</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/工具/git/git简略版/">git简略版</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/工具/hexo/">hexo</a></li></ul></li></ul>
-    </div>
-  </div>
-
-
-  
+<nav id="article-nav">
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/C-语言语法/">C 语言语法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Crash/">Crash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Git/">Git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/IOS-工具/">IOS 工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NSInvocation/">NSInvocation</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/category/">category</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dispatch-semaphore-GCD/">dispatch_semaphore GCD</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/flexBox/">flexBox</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/runtime/">runtime</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weex/">weex</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/weex断点调试/">weex断点调试</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/消息发送-消息转发/">消息发送 消息转发</a></li></ul>
-    </div>
-  </div>
-
-
-  
+        <a href="/wiki/工具/git/git详细记录/git仓库/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Newer</strong>
+            <div class="article-nav-title">
+                
+                    Git仓库(转载)
+                
+            </div>
+        </a>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/C-语言语法/" style="font-size: 16.67px;">C 语言语法</a> <a href="/tags/Crash/" style="font-size: 16.67px;">Crash</a> <a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/IOS-工具/" style="font-size: 10px;">IOS 工具</a> <a href="/tags/NSInvocation/" style="font-size: 10px;">NSInvocation</a> <a href="/tags/category/" style="font-size: 10px;">category</a> <a href="/tags/dispatch-semaphore-GCD/" style="font-size: 10px;">dispatch_semaphore GCD</a> <a href="/tags/flexBox/" style="font-size: 10px;">flexBox</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/runtime/" style="font-size: 20px;">runtime</a> <a href="/tags/weex/" style="font-size: 13.33px;">weex</a> <a href="/tags/weex断点调试/" style="font-size: 10px;">weex断点调试</a> <a href="/tags/消息发送-消息转发/" style="font-size: 10px;">消息发送 消息转发</a>
-    </div>
-  </div>
-
-  
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">January 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/12/">December 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">November 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/10/">October 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/07/">July 2016</a></li></ul>
-    </div>
-  </div>
-
-
-  
+        <a href="/wiki/工具/git/git简略版/git简略版/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Older</strong>
+            <div class="article-nav-title"></div>
+        </a>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a>
-          </li>
-        
-          <li>
-            <a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a>
-          </li>
-        
-          <li>
-            <a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a>
-          </li>
-        
-          <li>
-            <a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a>
-          </li>
-        
-          <li>
-            <a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
 </nav>
+
+
+
+
+
+    
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
 </body>
