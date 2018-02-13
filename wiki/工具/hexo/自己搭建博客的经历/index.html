@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://yoursite.com/wiki/工具/hexo/自己搭建博客的经历/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文记录自己搭建博客的记录，前提是Node.js、Git安装完成。">
-<meta property="og:updated_time" content="2018-02-13T08:18:59.000Z">
+<meta property="og:updated_time" content="2018-02-13T09:19:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己搭建博客的经历">
 <meta name="twitter:description" content="本文记录自己搭建博客的记录，前提是Node.js、Git安装完成。">
@@ -29,19 +29,19 @@
         <link rel="icon" href="http://of685p9vy.bkt.clouddn.com/header.jpeg">
     
 
-    <link rel="stylesheet" href="../../../../libs/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../../../../libs/open-sans/styles.css">
-    <link rel="stylesheet" href="../../../../libs/source-code-pro/styles.css">
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
 
-    <link rel="stylesheet" href="../../../../css/style.css">
-    <script src="../../../../libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="../../../../libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
     
     
-        <link rel="stylesheet" href="../../../../libs/lightgallery/css/lightgallery.min.css">
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
     
     
-        <link rel="stylesheet" href="../../../../libs/justified-gallery/justifiedGallery.min.css">
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
     
     
     
@@ -55,21 +55,21 @@
         <header id="header">
     <div id="header-main" class="header-inner">
         <div class="outer">
-            <a href="../../../../index.html" id="logo">
+            <a href="/" id="logo">
                 <i class="logo"></i>
                 <span class="site-title">LJ小窝</span>
             </a>
             <nav id="main-nav">
                 
-                    <a class="main-nav-link" href="../../../../index.html">首页</a>
+                    <a class="main-nav-link" href="/">首页</a>
                 
-                    <a class="main-nav-link" href="../../../../archives">归档</a>
+                    <a class="main-nav-link" href="/archives">归档</a>
                 
-                    <a class="main-nav-link" href="../../../../categories">分类</a>
+                    <a class="main-nav-link" href="/categories">分类</a>
                 
-                    <a class="main-nav-link" href="../../../../tags">标签</a>
+                    <a class="main-nav-link" href="/tags">标签</a>
                 
-                    <a class="main-nav-link" href="../../../../about">关于</a>
+                    <a class="main-nav-link" href="/about">关于</a>
                 
             </nav>
             
@@ -86,7 +86,7 @@
             <div id="search-form-wrap">
 
     <form class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar">
         <button type="submit" class="search-form-submit"></button>
     </form>
     <div class="ins-search">
@@ -105,19 +105,19 @@
 (function (window) {
     var INSIGHT_CONFIG = {
         TRANSLATION: {
-            POSTS: 'Posts',
+            POSTS: 'Entradas',
             PAGES: 'Pages',
-            CATEGORIES: 'Categories',
-            TAGS: 'Tags',
+            CATEGORIES: 'Categorias',
+            TAGS: 'Etiquetas',
             UNTITLED: '(Untitled)',
         },
         ROOT_URL: '/',
-        CONTENT_URL: '../../../../content.json',
+        CONTENT_URL: '/content.json',
     };
     window.INSIGHT_CONFIG = INSIGHT_CONFIG;
 })(window);
 </script>
-<script src="../../../../js/insight.js"></script>
+<script src="/js/insight.js"></script>
 
 </div>
         </div>
@@ -126,20 +126,20 @@
         <table class="menu outer">
             <tr>
                 
-                    <td><a class="main-nav-link" href="../../../../index.html">首页</a></td>
+                    <td><a class="main-nav-link" href="/">首页</a></td>
                 
-                    <td><a class="main-nav-link" href="../../../../archives">归档</a></td>
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
                 
-                    <td><a class="main-nav-link" href="../../../../categories">分类</a></td>
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
                 
-                    <td><a class="main-nav-link" href="../../../../tags">标签</a></td>
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
                 
-                    <td><a class="main-nav-link" href="../../../../about">关于</a></td>
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
                 
                 <td>
                     
     <div class="search-form">
-        <input type="text" class="ins-search-input search-form-input" placeholder="Search">
+        <input type="text" class="ins-search-input search-form-input" placeholder="Buscar">
     </div>
 
                 </td>
@@ -158,17 +158,17 @@
             <img id="avatar" src="https://www.gravatar.com/avatar/ec378298471756813dd9ccd01f5a6280?s=128">
             <h2 id="name">LJ</h2>
             <h3 id="title">勤总结</h3>
-            <span id="location"><i class="fa fa-map-marker"></i>蒙古帝国</span>
-            <a id="follow" target="_blank" href="">FOLLOW</a>
+            <span id="location"><i class="fa fa-map-marker"></i>北飘</span>
+            <a id="follow" target="_blank" href="">SEGUIR</a>
         </div>
         <div class="article-info profile-block">
             <div class="article-info-block">
                 27
-                <span>posts</span>
+                <span>Entradas</span>
             </div>
             <div class="article-info-block">
                 13
-                <span>tags</span>
+                <span>Etiquetas</span>
             </div>
         </div>
         
@@ -178,25 +178,25 @@
                     
                     
                     <td>
-                        <a href="../../../../index.html" target="_blank" title="github" class="tooltip">
+                        <a href="/" target="_blank" title="github" class="tooltip">
                             <i class="fa fa-github"></i>
                         </a>
                     </td>
                     
                     <td>
-                        <a href="../../../../index.html" target="_blank" title="stack-overflow" class="tooltip">
+                        <a href="/" target="_blank" title="stack-overflow" class="tooltip">
                             <i class="fa fa-stack-overflow"></i>
                         </a>
                     </td>
                     
                     <td>
-                        <a href="../../../../index.html" target="_blank" title="codepen" class="tooltip">
+                        <a href="/" target="_blank" title="codepen" class="tooltip">
                             <i class="fa fa-codepen"></i>
                         </a>
                     </td>
                     
                     <td>
-                        <a href="../../../../atom.xml" target="_blank" title="rss" class="tooltip">
+                        <a href="/atom.xml" target="_blank" title="rss" class="tooltip">
                             <i class="fa fa-rss"></i>
                         </a>
                     </td>
@@ -215,7 +215,7 @@
         
     <div class="widget-wrap" id="categories">
         <h3 class="widget-title">
-            <span>categories</span>
+            <span>Categorias</span>
             &nbsp;
             <a id="allExpand" href="#">
                 <i class="fa fa-angle-double-down fa-2x"></i>
@@ -231,7 +231,7 @@
                             &nbsp;
                             C语言语法
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="../../../C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="../../../C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -247,7 +247,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="../../../Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="../../../Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="../../../Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -258,7 +258,7 @@
                             &nbsp;
                             IOS_Runtime
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="../../../IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="../../../IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="../../../IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="../../../IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="../../../IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -274,7 +274,7 @@
                             &nbsp;
                             Category
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../IOS基础知识/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -283,7 +283,7 @@
                             &nbsp;
                             GCD
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -299,9 +299,9 @@
                             &nbsp;
                             22
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../IOS基础知识/crash/22/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
                     </li> 
-                     <li class="file"><a href="../../../IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="../../../IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                     <li class="file"><a href="/wiki/IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -310,7 +310,7 @@
                             &nbsp;
                             foundation
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../IOS基础知识/foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -321,7 +321,7 @@
                             &nbsp;
                             JS
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../../JS/CSS笔记/">CSS笔记</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/CSS笔记/">CSS笔记</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory open">
@@ -337,7 +337,7 @@
                             &nbsp;
                             IOS模拟器安装app
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -353,7 +353,7 @@
                             &nbsp;
                             git简略版
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../git/git简略版/git简略版/"></a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/"></a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -362,7 +362,7 @@
                             &nbsp;
                             git详细记录
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="../../git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="../../git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="../../git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -373,7 +373,7 @@
                             &nbsp;
                             hexo
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="">自己搭建博客的经历</a></li>  <li class="file"><a href="../hexo-use/">hexo使用指南</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file active"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -458,29 +458,19 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="../../../../categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="../../../../categories/工具/hexo/">hexo</a>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
     </div>
 
                         
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="">
+        <a href="/wiki/工具/hexo/自己搭建博客的经历/">
             <time datetime="2018-02-13T07:33:17.000Z" itemprop="datePublished">2018-02-13</time>
         </a>
     </div>
 
 
-                        
-                            <div class="article-meta-button">
-                                <a href="https://github.com/zthxxx/Wiki-site/raw/writing/source/_posts/工具/hexo/自己搭建博客的经历.md" rel="external nofollow noopener noreferrer" target="_blank"> Source </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a href="https://github.com/zthxxx/Wiki-site/edit/writing/source/_posts/工具/hexo/自己搭建博客的经历.md" rel="external nofollow noopener noreferrer" target="_blank"> Edit </a>
-                            </div>
-                            <div class="article-meta-button">
-                                <a href="https://github.com/zthxxx/Wiki-site/commits/writing/source/_posts/工具/hexo/自己搭建博客的经历.md" rel="external nofollow noopener noreferrer" target="_blank"> History </a>
-                            </div>
                         
                     </div>
                 
@@ -499,7 +489,7 @@
         
             
                 <div id="toc" class="toc-article">
-                <strong class="toc-title">Catalogue</strong>
+                <strong class="toc-title">Catálogo</strong>
                     <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo-init"><span class="toc-number">1.</span> <span class="toc-text">hexo init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">2.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#站点配置"><span class="toc-number">2.0.1.</span> <span class="toc-text">站点配置</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#遇到的问题"><span class="toc-number">3.</span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li>
                 </div>
             
@@ -538,8 +528,10 @@
 <p>你可以将这些插件合并到<strong>站点</strong>的 <code>package.json</code> 文件中通过 <code>npm install</code> 一次安装，</p>
 <p>或者在<strong>站点目录</strong>下，你可以通过以下命令安装他们：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm i -S hexo-autonofollow hexo-directory-category hexo-generator-feed hexo-generator-json-content hexo-generator-sitemap</span><br></pre></td></tr></table></figure>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h4 id="站点配置"><a href="#站点配置" class="headerlink" title="站点配置"></a>站点配置</h4><p>下面是站点推荐配置<br><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">yaml</span></span><br><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">wiki/:title/</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">skip_render:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">README.md</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">'_posts/**/embed_page/**'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span> <span class="comment"># File name of new posts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Markdown</span></span><br><span class="line"><span class="comment">## https://github.com/hexojs/hexo-renderer-marked</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line"><span class="attr">  gfm:</span> <span class="literal">true</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">### JsonContent</span></span><br><span class="line"><span class="attr">jsonContent:</span></span><br><span class="line"><span class="attr">  meta:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  pages:</span></span><br><span class="line"><span class="attr">    title:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    date:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    path:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    text:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  posts:</span></span><br><span class="line"><span class="attr">    title:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    date:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    path:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    text:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    tags:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    categories:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  ignore:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">404.</span><span class="string">html</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">### Creat sitemap</span></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### Adds nofollow attribute to all external links in your hexo blog posts automatically.</span></span><br><span class="line"><span class="attr">nofollow:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  exclude:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">&lt;your</span> <span class="string">site</span> <span class="string">url</span> <span class="string">domain&gt;</span> <span class="comment"># eg: zthxxx.me</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment（发布git）</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/jianli2017/jianli2017.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 多级目录结构</span></span><br><span class="line"><span class="attr">auto_dir_categorize:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span>  <span class="comment"># options:true, false; default is true</span></span><br><span class="line"><span class="attr">  force:</span> <span class="literal">true</span> <span class="comment"># options:true, false; default is false</span></span><br></pre></td></tr></table></figure></p>
-<p>修改站点 <code>_config.yml</code> 文件中的 <code>theme</code> 选项为 <strong><code>Wikitten</code></strong>。</p>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h4 id="站点配置"><a href="#站点配置" class="headerlink" title="站点配置"></a>站点配置</h4><p>下面是站点推荐配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">yaml</span></span><br><span class="line"><span class="comment"># Hexo Configuration</span></span><br><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="attr">permalink:</span> <span class="string">wiki/:title/</span></span><br><span class="line"></span><br><span class="line"><span class="attr">theme:</span> <span class="string">Wikitten</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Directory</span></span><br><span class="line"><span class="attr">skip_render:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">README.md</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">'_posts/**/embed_page/**'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Writing</span></span><br><span class="line"><span class="attr">new_post_name:</span> <span class="string">:title.md</span> <span class="comment"># File name of new posts</span></span><br><span class="line"></span><br><span class="line"><span class="comment">## Markdown</span></span><br><span class="line"><span class="comment">## https://github.com/hexojs/hexo-renderer-marked</span></span><br><span class="line"><span class="attr">marked:</span></span><br><span class="line"><span class="attr">  gfm:</span> <span class="literal">true</span></span><br><span class="line">  </span><br><span class="line"><span class="comment">## Plugins: https://hexo.io/plugins/</span></span><br><span class="line"><span class="comment">### JsonContent</span></span><br><span class="line"><span class="attr">jsonContent:</span></span><br><span class="line"><span class="attr">  meta:</span> <span class="literal">false</span></span><br><span class="line"><span class="attr">  pages:</span></span><br><span class="line"><span class="attr">    title:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    date:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    path:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    text:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  posts:</span></span><br><span class="line"><span class="attr">    title:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    date:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    path:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    text:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    tags:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">    categories:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  ignore:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="number">404.</span><span class="string">html</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">### Creat sitemap</span></span><br><span class="line"><span class="attr">sitemap:</span></span><br><span class="line"><span class="attr">  path:</span> <span class="string">sitemap.xml</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### Adds nofollow attribute to all external links in your hexo blog posts automatically.</span></span><br><span class="line"><span class="attr">nofollow:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span></span><br><span class="line"><span class="attr">  exclude:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">&lt;your</span> <span class="string">site</span> <span class="string">url</span> <span class="string">domain&gt;</span> <span class="comment"># eg: zthxxx.me</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Deployment（发布git）</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"><span class="attr">  type:</span> <span class="string">git</span></span><br><span class="line"><span class="attr">  repo:</span> <span class="attr">https://github.com/jianli2017/jianli2017.github.io.git</span></span><br><span class="line"><span class="attr">  branch:</span> <span class="string">master</span></span><br><span class="line">  </span><br><span class="line"><span class="comment"># 多级目录结构</span></span><br><span class="line"><span class="attr">auto_dir_categorize:</span></span><br><span class="line"><span class="attr">  enable:</span> <span class="literal">true</span>  <span class="comment"># options:true, false; default is true</span></span><br><span class="line"><span class="attr">  force:</span> <span class="literal">true</span> <span class="comment"># options:true, false; default is false</span></span><br></pre></td></tr></table></figure>
+<p>多级目录结构可以需要安装插件：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --<span class="built_in">save</span> hexo-<span class="built_in">directory</span>-category</span><br></pre></td></tr></table></figure>
 <h2 id="遇到的问题"><a href="#遇到的问题" class="headerlink" title="遇到的问题"></a>遇到的问题</h2><ul>
 <li>不能发布到git上面</li>
 </ul>
@@ -574,8 +566,8 @@
 <nav id="article-nav">
     
     
-        <a href="../../git/git详细记录/git工作区/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">Older</strong>
+        <a href="/wiki/工具/git/git详细记录/git工作区/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">Más viejo</strong>
             <div class="article-nav-title">git时光穿梭(转载)</div>
         </a>
     
@@ -586,6 +578,47 @@
 
 
     
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/工具/hexo/自己搭建博客的经历/" data-title="自己搭建博客的经历" data-url="http://yoursite.com/wiki/工具/hexo/自己搭建博客的经历/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
     
 
 
@@ -607,20 +640,34 @@
     </div>
 </footer>
         
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
 
     
-        <script src="../../../../libs/lightgallery/js/lightgallery.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-thumbnail.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-pager.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-autoplay.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-fullscreen.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-zoom.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-hash.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-share.min.js"></script>
-        <script src="../../../../libs/lightgallery/js/lg-video.min.js"></script>
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
     
     
-        <script src="../../../../libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
     
     
         <script type="text/x-mathjax-config">
@@ -648,7 +695,7 @@
 
 
 <!-- Custom Scripts -->
-<script src="../../../../js/main.js"></script>
+<script src="/js/main.js"></script>
 
     </div>
 </body>
