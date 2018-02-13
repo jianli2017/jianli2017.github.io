@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文记录自己搭建博客的记录，前提是Node.js、Git安装完成。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-13T09:23:12.000Z">
+<meta property="og:updated_time" content="2018-02-13T09:26:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="自己搭建博客的经历">
 <meta name="twitter:description" content="本文记录自己搭建博客的记录，前提是Node.js、Git安装完成。">
@@ -248,7 +248,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird研究/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/flexBox/">flexBox 伸缩盒子模型</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird研究/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -491,15 +491,14 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">Catalogue</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#hexo-init"><span class="toc-number">1.</span> <span class="toc-text">hexo init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">2.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#站点配置"><span class="toc-number">2.0.1.</span> <span class="toc-text">站点配置</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#遇到的问题"><span class="toc-number">3.</span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化hexo环境"><span class="toc-number">1.</span> <span class="toc-text">初始化hexo环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Wikitten主题配置"><span class="toc-number">2.</span> <span class="toc-text">Wikitten主题配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置"><span class="toc-number">3.</span> <span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#站点配置"><span class="toc-number">3.0.1.</span> <span class="toc-text">站点配置</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#遇到的问题"><span class="toc-number">4.</span> <span class="toc-text">遇到的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li>
                 </div>
             
         
         
             <p>本文记录自己搭建博客的记录，前提是Node.js、Git安装完成。</p>
 <a id="more"></a>
-<p>##初始化hexo</p>
-<ul>
+<h2 id="初始化hexo环境"><a href="#初始化hexo环境" class="headerlink" title="初始化hexo环境"></a>初始化hexo环境</h2><ul>
 <li>新建博客的文件夹</li>
 </ul>
 <figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">~<span class="string">/Desktop/jiangli2017</span> </span><br><span class="line"><span class="keyword">cd</span> ~<span class="string">/Desktop/jianli2017</span></span><br></pre></td></tr></table></figure>
@@ -507,7 +506,7 @@
 <li>初始化hexo</li>
 </ul>
 <figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hexo init</span></span><br></pre></td></tr></table></figure>
-<h2 id="hexo-init"><a href="#hexo-init" class="headerlink" title="hexo init"></a>hexo init</h2><p>本博客根据自己的喜好，选择的<a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">Wikitten</a>主题，这个主题类似wiki，具有文章的目录结构。</p>
+<h2 id="Wikitten主题配置"><a href="#Wikitten主题配置" class="headerlink" title="Wikitten主题配置"></a>Wikitten主题配置</h2><p>本博客根据自己的喜好，选择的<a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">Wikitten</a>主题，这个主题类似wiki，具有文章的目录结构。</p>
 <ul>
 <li>进入你的 hexo 站点文件夹，克隆 <code>Wikitten</code> 主题到 <code>themes/</code> 路径下</li>
 </ul>
