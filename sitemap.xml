@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git_learn/</loc>
+    
+    <lastmod>2018-02-13T04:58:04.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/CC_pointer_memry/</loc>
     
     <lastmod>2018-02-13T03:33:40.000Z</lastmod>
@@ -23,13 +30,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
-    
-    <lastmod>2018-02-12T11:54:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
@@ -38,6 +38,13 @@
   
   <url>
     <loc>http://yoursite.com/tags/index.html</loc>
+    
+    <lastmod>2018-02-12T11:54:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
@@ -68,13 +75,6 @@
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/IOS%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85app/IOS_simulator_install_app/</loc>
     
     <lastmod>2018-02-12T10:49:03.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git_learn/</loc>
-    
-    <lastmod>2018-02-12T10:48:50.000Z</lastmod>
     
   </url>
   
