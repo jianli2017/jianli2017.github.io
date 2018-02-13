@@ -4,7 +4,7 @@
   <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/%E8%87%AA%E5%B7%B1%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E7%BB%8F%E5%8E%86/</loc>
     
-    <lastmod>2018-02-13T08:07:52.000Z</lastmod>
+    <lastmod>2018-02-13T08:18:59.000Z</lastmod>
     
   </url>
   
@@ -65,13 +65,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
-    
-    <lastmod>2018-02-12T11:54:24.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
@@ -80,6 +73,13 @@
   
   <url>
     <loc>http://yoursite.com/about/index.html</loc>
+    
+    <lastmod>2018-02-12T11:54:24.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
