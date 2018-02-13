@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
+    
+    <lastmod>2018-02-13T10:55:48.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
     
     <lastmod>2018-02-13T10:19:39.000Z</lastmod>
@@ -72,14 +79,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/about/index.html</loc>
+    <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
+    <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
@@ -128,14 +135,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
-    
-    <lastmod>2018-02-12T10:43:42.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/Hybird/weex/flexBox/</loc>
+    <loc>http://yoursite.com/wiki/JS/flexBox/</loc>
     
     <lastmod>2018-02-12T10:43:32.000Z</lastmod>
     
