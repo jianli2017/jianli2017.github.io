@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
+    
+    <lastmod>2018-02-13T06:52:07.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E8%AF%A6%E7%BB%86%E8%AE%B0%E5%BD%95/git%E5%B7%A5%E4%BD%9C%E5%8C%BA/</loc>
     
     <lastmod>2018-02-13T06:43:38.000Z</lastmod>
@@ -51,14 +58,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/about/index.html</loc>
+    <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
+    <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2018-02-12T11:54:24.000Z</lastmod>
     
@@ -79,14 +86,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/22/KSCrash_Analize/</loc>
+    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/KSCrash_Analize/</loc>
     
     <lastmod>2018-02-12T10:52:18.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/KSCrash_Analize/</loc>
+    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/22/KSCrash_Analize/</loc>
     
     <lastmod>2018-02-12T10:52:18.000Z</lastmod>
     
@@ -138,13 +145,6 @@
     <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/foundation/NSInvocation%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF/</loc>
     
     <lastmod>2018-02-12T10:41:53.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo_use/hexo-use/</loc>
-    
-    <lastmod>2018-02-12T10:40:26.000Z</lastmod>
     
   </url>
   
