@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E7%AE%80%E7%95%A5%E7%89%88/git%E7%AE%80%E7%95%A5%E7%89%88/</loc>
+    
+    <lastmod>2018-02-14T02:48:49.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
     
     <lastmod>2018-02-14T02:35:04.000Z</lastmod>
@@ -47,13 +54,6 @@
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E8%AF%A6%E7%BB%86%E8%AE%B0%E5%BD%95/git%E4%BB%93%E5%BA%93/</loc>
     
     <lastmod>2018-02-13T06:43:11.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E7%AE%80%E7%95%A5%E7%89%88/git%E7%AE%80%E7%95%A5%E7%89%88/</loc>
-    
-    <lastmod>2018-02-13T06:21:01.000Z</lastmod>
     
   </url>
   
