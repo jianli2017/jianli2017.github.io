@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E8%AF%A6%E7%BB%86%E8%AE%B0%E5%BD%95/git%E5%B7%A5%E4%BD%9C%E5%8C%BA/</loc>
+    
+    <lastmod>2018-02-26T08:22:32.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E8%AF%A6%E7%BB%86%E8%AE%B0%E5%BD%95/git%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/</loc>
+    
+    <lastmod>2018-02-26T08:22:29.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E8%AF%A6%E7%BB%86%E8%AE%B0%E5%BD%95/git%E4%BB%93%E5%BA%93/</loc>
     
     <lastmod>2018-02-26T03:47:34.000Z</lastmod>
@@ -40,20 +54,6 @@
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
     
     <lastmod>2018-02-13T06:53:44.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E8%AF%A6%E7%BB%86%E8%AE%B0%E5%BD%95/git%E5%B7%A5%E4%BD%9C%E5%8C%BA/</loc>
-    
-    <lastmod>2018-02-13T06:43:38.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E8%AF%A6%E7%BB%86%E8%AE%B0%E5%BD%95/git%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86/</loc>
-    
-    <lastmod>2018-02-13T06:43:29.000Z</lastmod>
     
   </url>
   
@@ -103,13 +103,6 @@
     <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/Analize_Crash/</loc>
     
     <lastmod>2018-02-12T10:54:08.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/crash/22/KSCrash_Analize/</loc>
-    
-    <lastmod>2018-02-12T10:52:18.000Z</lastmod>
     
   </url>
   
