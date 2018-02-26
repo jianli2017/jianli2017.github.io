@@ -245,7 +245,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -256,7 +256,7 @@
                             &nbsp;
                             IOS_Runtime
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -371,7 +371,7 @@
                             &nbsp;
                             hexo
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -777,72 +777,6 @@
 
 
     
-        <article id="post-IOS基础知识/crash/22/KSCrash_Analize" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS基础知识/">IOS基础知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/crash/">crash</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/crash/22/">22</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Crash/">Crash</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/">
-            <time datetime="2016-07-17T04:18:26.000Z" itemprop="datePublished">2016-07-17</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p><a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a> 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-IOS基础知识/crash/KSCrash_Analize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -896,6 +830,72 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS基础知识/crash/KSCrash_Analize/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS基础知识/crash/22/KSCrash_Analize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS基础知识/">IOS基础知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/crash/">crash</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/crash/22/">22</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Crash/">Crash</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/">
+            <time datetime="2016-07-17T04:18:26.000Z" itemprop="datePublished">2016-07-17</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p><a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a> 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS基础知识/crash/22/KSCrash_Analize/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
