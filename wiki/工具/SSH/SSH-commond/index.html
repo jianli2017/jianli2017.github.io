@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文讲解SSH相关的几个commond。通过在终端输入‘man ssh-xxx’可以查看命令手册。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-28T07:21:58.000Z">
+<meta property="og:updated_time" content="2018-02-28T07:22:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SSH使用">
 <meta name="twitter:description" content="本文讲解SSH相关的几个commond。通过在终端输入‘man ssh-xxx’可以查看命令手册。">
@@ -539,7 +539,7 @@
 <figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Identity</span> <span class="selector-tag">removed</span>: /<span class="selector-tag">Users</span>/<span class="selector-tag">lijian</span>/<span class="selector-class">.ssh</span>/<span class="selector-tag">id_rsa_gomeGitLab</span> (lijian-ds1<span class="variable">@gomeplus</span>.com)</span><br></pre></td></tr></table></figure>
 <p>表示删除成功。</p>
 <h2 id="测试是否可以连接到服务器"><a href="#测试是否可以连接到服务器" class="headerlink" title="测试是否可以连接到服务器"></a>测试是否可以连接到服务器</h2><p>测试是否可以连接到服务器的命令是：</p>
-<p>ssh -T git@github.com</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">ssh</span> <span class="selector-tag">-T</span> <span class="selector-tag">git</span>@<span class="keyword">github</span>.<span class="keyword">com</span></span><br></pre></td></tr></table></figure>
 <p>输出下面内容表示连接成功</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi jianli2017! You<span class="symbol">'ve</span> successfully authenticated, but GitHub does <span class="keyword">not</span> provide shell <span class="keyword">access</span>.</span><br></pre></td></tr></table></figure>
 <h2 id="config配置文件"><a href="#config配置文件" class="headerlink" title="config配置文件"></a>config配置文件</h2><p>如果SSH较多建议使用config文件。如果同一平台，有多个账号，也就是多个SSH。必须使用Config文件!</p>
