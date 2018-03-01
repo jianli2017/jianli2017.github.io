@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>weex 通信原理分析 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="weex">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。">
+<meta name="keywords" content="weex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="weex 通信原理分析">
+<meta property="og:url" content="http://yoursite.com/wiki/Hybird/weex/weex-conmunication/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/weex_Module.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/weex-bridge.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/weex_JS_Native.png">
+<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="weex 通信原理分析">
+<meta name="twitter:description" content="本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/weex_Module.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS_Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS基础知识
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/CSS笔记/">CSS笔记</a></li>  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">cocoapod-private-repo</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-Hybird/weex/weex-conmunication" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/weex-conmunication/">
+            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            weex 通信原理分析
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#万物之源-JavaScriptCore"><span class="toc-number">1.</span> <span class="toc-text">万物之源 -JavaScriptCore</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关键类-JSContext、JSValue"><span class="toc-number">1.1.</span> <span class="toc-text">关键类-JSContext、JSValue</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Native调用JS机制"><span class="toc-number">1.2.</span> <span class="toc-text">Native调用JS机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JS调用Native机制"><span class="toc-number">1.3.</span> <span class="toc-text">JS调用Native机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小小结"><span class="toc-number">1.4.</span> <span class="toc-text">小小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#刨根问底-weex的交互机制"><span class="toc-number">2.</span> <span class="toc-text">刨根问底-weex的交互机制</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#寻踪觅迹-分析初始化"><span class="toc-number">2.1.</span> <span class="toc-text">寻踪觅迹- 分析初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#刨根问底-配置信息和Module"><span class="toc-number">2.2.</span> <span class="toc-text">刨根问底-配置信息和Module</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#终极目标-Bridge-通信机制"><span class="toc-number">2.3.</span> <span class="toc-text">终极目标-Bridge(通信机制)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#归纳总结"><span class="toc-number">3.</span> <span class="toc-text">归纳总结</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。<br><a id="more"></a></p>
+<h2 id="万物之源-JavaScriptCore"><a href="#万物之源-JavaScriptCore" class="headerlink" title="万物之源 -JavaScriptCore"></a>万物之源 -JavaScriptCore</h2><p>不论是RN、weex、JSPatch，他们的核心交互机制都使用JavaScriptCore，通过它完成JS和Native的通信。关于JavaScriptCore的简单介绍可以参考<br><a href="http://blog.csdn.net/lizhongfu2013/article/details/9232129" rel="external nofollow noopener noreferrer" target="_blank">IOS7开发～JavaScriptCore （一）</a>，这里只简单提及下。</p>
+<h3 id="关键类-JSContext、JSValue"><a href="#关键类-JSContext、JSValue" class="headerlink" title="关键类-JSContext、JSValue"></a>关键类-JSContext、JSValue</h3><p>JavaScriptCore中的两个关键类：</p>
+<ol>
+<li>JSContext(JS脚本的执行环境)</li>
+<li>JSValue（JS 和Native传值的载体）</li>
+</ol>
+<p>JSContext 的核心方法- (JSValue <em>)evaluateScript:(NSString </em>)script;，功能是执行JS脚本代码，执行完后，会将JS中的对象、方法添加到JSContext上下文中的全局对象中。这样就可以通过JSContext引用到JS代码中的对象、方法。</p>
+<p>JSValue是用来呈现JS的对象，它可以将JS中的对象、方法转化为Native的对象、函数，反之亦然。下面是JSValue的两个核心方法：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (JSValue *)callWithArguments:(NSArray *)arguments; </span><br><span class="line">- (JSValue *)invokeMethod:(NSString *)<span class="function"><span class="keyword">method</span> </span></span><br><span class="line"><span class="function">            <span class="title">withArguments</span>:</span>(NSArray *)arguments;</span><br></pre></td></tr></table></figure>
+<p>如果JSValue实例代表JS中一个函数变量（变量中存储的是函数），用callWithArguments调用JS的函数。如果拿到了JS代码的执行环境的全局对象，可以向全局对象发送invokeMethod消息调用JS中的函数。参数包括JS的函数名称、调用参数。</p>
+<h3 id="Native调用JS机制"><a href="#Native调用JS机制" class="headerlink" title="Native调用JS机制"></a>Native调用JS机制</h3><p>可以使用JSValue 的callWithArguments 和 invokeMethod方法 单独调用JS中的某个函数 。<br>也可以使用JSContext 的evaluateScript方法执行整个JS代码。下面给出一个例子，其中，test.js的内容如下 </p>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///匿名函数</span></span><br><span class="line"><span class="keyword">var</span> functionVar = <span class="function"><span class="keyword">function</span><span class="params">(num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">jsFucton</span><span class="params">(num)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> num + <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">jsFucton(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+<p>测试代码如下： </p>
+<figure class="highlight prolog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">-(void) nativeCallJS</span><br><span class="line">&#123;</span><br><span class="line">    <span class="symbol">NSString</span> *path = [[<span class="symbol">NSBundle</span> mainBundle]pathForResource:@<span class="string">"test"</span>ofType:@<span class="string">"js"</span>];</span><br><span class="line">    <span class="symbol">NSString</span> *testScript = [<span class="symbol">NSString</span> stringWithContentsOfFile:path encoding:<span class="symbol">NSUTF8StringEncoding</span> error:nil];</span><br><span class="line">    <span class="symbol">JSContext</span> *jsContext = [[<span class="symbol">JSContext</span> alloc] init];</span><br><span class="line">    ///<span class="number">1.</span>执行整个<span class="symbol">JS</span>代码</span><br><span class="line">    <span class="symbol">JSValue</span> *resultEvaluate =[jsContext evaluateScript:testScript];</span><br><span class="line">    <span class="symbol">NSLog</span>(@<span class="string">"resultEvaluate = %@"</span>,[resultEvaluate toObject]);</span><br><span class="line">    </span><br><span class="line">    ///<span class="number">2.</span> callWithArguments 调用方式</span><br><span class="line">    <span class="symbol">JSValue</span> *fuctionVar =  jsContext[@<span class="string">"functionVar"</span>];</span><br><span class="line">    <span class="symbol">JSValue</span> *resultVar = [fuctionVar callWithArguments:@[@(<span class="number">4</span>)]];</span><br><span class="line">    <span class="symbol">NSLog</span>(@<span class="string">"resultVar = %@"</span>,[resultVar toObject]);</span><br><span class="line">    </span><br><span class="line">    ///<span class="number">3.</span> invokeMethod 调用方式</span><br><span class="line">    <span class="symbol">JSValue</span> *resultFuction = [[jsContext globalObject] invokeMethod:@<span class="string">"jsFucton"</span> withArguments:@[@(<span class="number">6</span>)]];</span><br><span class="line">    <span class="symbol">NSLog</span>(@<span class="string">"resultFuction = %@"</span>,[resultFuction toObject]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2016-12-14</span> <span class="number">13:36:27.237</span> Test<span class="number">2222[15246</span>:<span class="number">172495</span>] resultEvaluate = <span class="number">3</span></span><br><span class="line"><span class="number">2016-12-14</span> <span class="number">13:36:27.238</span> Test<span class="number">2222[15246</span>:<span class="number">172495</span>] resultVar = <span class="number">5</span></span><br><span class="line"><span class="number">2016-12-14</span> <span class="number">13:36:30.166</span> Test<span class="number">2222[15246</span>:<span class="number">172495</span>] resultFuction = <span class="number">7</span></span><br></pre></td></tr></table></figure>
+<p>例子中展示了使用JSContext的evaluateScript:方法执行整个JS代码，调用完evaluateScript之后，会将JS代码中的变量、方法添加到jsContext的全局对象中，这样可以使用jsContext[@”functionVar”]访问到JS中的functionVar对象。在JS中，functionVar是一个函数对象，可以向fuctionVar发送callWithArguments消息，执行JS中的functionVar变量中存储的函数。同时也可以使用[[jsContext globalObject] invokeMethod:@”jsFucton” withArguments:@[@(6)]]调用到JS中的jsFucton函数。 上面是Native调用JS的三种方式。每种方式使用的场景不同。</p>
+<h3 id="JS调用Native机制"><a href="#JS调用Native机制" class="headerlink" title="JS调用Native机制"></a>JS调用Native机制</h3><p>JS调用Native有两种方式：</p>
+<ol>
+<li>block</li>
+<li>JSExport</li>
+</ol>
+<p>主要介绍Block方式，因为weex中使用的是Block方式，直接以代码为例：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">NSString</span> *) nativeFuction:(<span class="built_in">NSString</span> *) strParam1 param2:(<span class="built_in">NSString</span> *)strParam2</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%@_%@"</span>,strParam1,strParam2];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>) JSCallNative</span><br><span class="line">&#123;</span><br><span class="line">    JSContext *jsContext = [[JSContext alloc] init];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">///给JS添加一个方法，JS就能调用到Native的方法</span></span><br><span class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line">    jsContext[<span class="string">@"jsMethod"</span>] = ^(<span class="built_in">NSString</span> * strParam1, <span class="built_in">NSString</span> *strParam2)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">NSString</span> * strResult =  [weakSelf nativeFuction:strParam1 param2:strParam2];</span><br><span class="line">        <span class="keyword">return</span> strResult;</span><br><span class="line">    &#125;;</span><br><span class="line">    JSValue *strResult = [jsContext evaluateScript:<span class="string">@"jsMethod('这是第一个参数','这是第二个参数')"</span>];</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"strResult = %@"</span>,[strResult toObject]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出： strResult = 这是第一个参数_这是第二个参数</p>
+<p>在Native中block相当于JS中的function，jsContext[@”jsMethod”]=…相当于给JS添加一个名为jsMethod的function，不过，这个jsMethod的实现是Native的代码。在JS中执行jsMethod方法，就会调用到Native的代码。 </p>
+<h3 id="小小结"><a href="#小小结" class="headerlink" title="小小结"></a>小小结</h3><p>了解了JSContext、JSValue、Native和JS的交互机制，是看懂weex的前提。不论weex如何封装，都离不开上面的基本原理。<br>Native调用JS有三种方式：</p>
+<ol>
+<li>JSValue 的callWithArguments</li>
+<li>JSValue的invokeMethod</li>
+<li>JSContext的evaluateScript</li>
+</ol>
+<p>JS调用Native有两种方式</p>
+<ol>
+<li>block</li>
+<li><p>JSExport</p>
+<h2 id="刨根问底-weex的交互机制"><a href="#刨根问底-weex的交互机制" class="headerlink" title="刨根问底-weex的交互机制"></a>刨根问底-weex的交互机制</h2><p>这一节我一步步的分析weex的通信原理，目标两个：</p>
+</li>
+<li>了解weex通信原理</li>
+<li>了解通信原理相关的两个重要部分Module、Bridge。</li>
+</ol>
+<p>具体的思路是找到SDK初始化的入口，顺着入口逐渐深入分析。直到了解weex的通信机制为止。</p>
+<h3 id="寻踪觅迹-分析初始化"><a href="#寻踪觅迹-分析初始化" class="headerlink" title="寻踪觅迹- 分析初始化"></a>寻踪觅迹- 分析初始化</h3><p>weex SDK的入口是WXSDKEngine类，WXSDKEngine 是一个全局类。其中，initSDKEnviroment:完成sdk的初始化工作：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">+ (void)initSDKEnviroment:(NSString *)<span class="keyword">script</span></span><br><span class="line"><span class="keyword">&#123;</span></span><br><span class="line"><span class="keyword"> </span>   [self _registerDefaultComponents]<span class="comment">;</span></span><br><span class="line">    [self _registerDefaultModules]<span class="comment">;</span></span><br><span class="line">    [self _registerDefaultHandlers]<span class="comment">;</span></span><br><span class="line">    </span><br><span class="line">    [[WXSDKManager <span class="keyword">bridgeMgr] </span>executeJsFramework:<span class="keyword">script];</span></span><br><span class="line"><span class="keyword">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>weex有中有三个重要的部分：Components、Modules、Handlers。<br>Components 是布局Native界面的元素，例如UILabel对应的组件是WXTextComponent，他和html元素text对应。<br>Modules是Native的功能模块，是JS可以访问的Native类。应该封装了必须有Native完成的功能。<br>我们主要关注Modules模块，他是weex中Native和JS通信的核心部分。_registerDefaultModules是注册默认的Module：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)_registerDefaultModules</span><br><span class="line">&#123;</span><br><span class="line">    [self <span class="string">registerModule:</span>@<span class="string">"dom"</span> <span class="string">withClass:</span>NSClassFromString(@<span class="string">"WXDomModule"</span>)];</span><br><span class="line">    [self <span class="string">registerModule:</span>@<span class="string">"navigator"</span> <span class="string">withClass:</span>NSClassFromString(@<span class="string">"WXNavigatorModule"</span>)];</span><br><span class="line">    .....</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码是注册weex提供给开发者的默认模块。每个模块都实现某种功能，<font color="red" size="4" face="黑体">它是JS可以调用的Native类</font>。接着分析registerModule函数： </p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">void</span>)<span class="string">registerModule:</span>(NSString *)name <span class="string">withClass:</span>(Class)clazz</span><br><span class="line">&#123;</span><br><span class="line">		<span class="comment">///注册native的module</span></span><br><span class="line">    NSString *moduleName = [WXModuleFactory <span class="string">registerModule:</span>name <span class="string">withClass:</span>clazz];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">///组成JS的module</span></span><br><span class="line">    NSDictionary *dict = [WXModuleFactory <span class="string">moduleMethodMapsWithName:</span>moduleName];</span><br><span class="line">    [[WXSDKManager bridgeMgr] <span class="string">registerModules:</span>dict];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码完成两个功能，初始化Native端Module的配置信息、初始化JS端Module的配置信息。到目前为止，我们已经找到了weex的入口，后续部分需要分两个单独的模块分析讲解。一个是Module，一个是通信机制。</p>
+<h3 id="刨根问底-配置信息和Module"><a href="#刨根问底-配置信息和Module" class="headerlink" title="刨根问底-配置信息和Module"></a>刨根问底-配置信息和Module</h3><p>Module 相关的类有WXModuleFactory、WXModuleManager、WXModuleProtocol。三个类的类图如下：<br><img src="http://of685p9vy.bkt.clouddn.com/weex_Module.png" alt="weex-module"><br>WXModuleManager只有一个方法，-dispatchMethod:(WXBridgeMethod *)method，根据传入的method在配置文件中找到方法并执行。<br>WXModuleFactory是Module的工厂类，存储着所有Module的配置信息。<br>WXModuleProtocol是Module需要遵守的协议。只有遵守了WXModuleProtocol协议的Native类才叫做Module，他才会被添加到Native和JS的配置信息中，这样JS就可以调用到这个类中的方法。这里贴出WXModuleProtocol的代码如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///1. 定义了module JS 回调native的方法  </span></span><br><span class="line"><span class="selector-tag">typedef</span> <span class="selector-tag">void</span> (^WXModuleCallback)(id result);</span><br><span class="line"><span class="selector-tag">typedef</span> <span class="selector-tag">void</span> (^WXModuleKeepAliveCallback)(id result, BOOL keepAlive);</span><br><span class="line"></span><br><span class="line"><span class="selector-id">#define</span> <span class="selector-tag">WX_EXPORT_METHOD</span>(method) \</span><br><span class="line">+ (NSString *)<span class="selector-tag">WX_CONCAT_WRAPPER</span>(wx_export_method_, __LINE__) &#123; \</span><br><span class="line">    <span class="selector-tag">return</span> <span class="selector-tag">NSStringFromSelector</span>(method); \</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">///2. 导出类</span></span><br><span class="line"><span class="selector-id">#define</span> <span class="selector-tag">WX_EXPORT_MODULE</span>(module)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">///3. 导出方法 (其实是定义了一个类方法 )</span></span><br><span class="line"><span class="selector-tag">WX_EXPORT_METHOD</span>(<span class="variable">@selector</span>(<span class="attribute">getNetUrl</span>:<span class="attribute">page</span>:<span class="attribute">sucCallBack</span>:<span class="attribute">failCallBack</span>:)) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">///4. 执行方法的线程</span></span><br><span class="line"><span class="selector-tag">-</span> (NSThread *)<span class="selector-tag">targetExecuteThread</span>;</span><br><span class="line"></span><br><span class="line">@<span class="selector-tag">property</span> (nonatomic, weak) <span class="selector-tag">WXSDKInstance</span> *<span class="selector-tag">weexInstance</span>;</span><br></pre></td></tr></table></figure>
+<p>主要有三部分：</p>
+<ol>
+<li>定义回调</li>
+<li>定义导出Native方法的方法</li>
+<li>定义Native方法的执行线程。</li>
+</ol>
+<p>回调就是JS执行完Native代码后，可以回调的JS的代码。定义导出方法就是：给每个导出方法定义一个类方法，类方法的名字大概就是wx_export_method_100这种样式，返回导出的方法名称。这样做的目的就是不用初始化Module类，就能获取到Module的导出方法信息，并加入到两端的配置信息中。<br>targetExecuteThread是定义了所有的导出方法执行的线程。如果没有实现，默认在主线程执行方法。如果实现，返回对应的线程，就在该线程中执行方法。<br>到目前为止，Native端的Module配置信息都讲完了。总结为：配置信息中包括了所有Module的导出方法、Module的名称、对应的类。<br>接下来简单分析下JS端的配置信息。注册Module的信息到JS，调用的是WXBridgeManager的registerModules 方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)registerModules:(<span class="built_in">NSDictionary</span> *)modules</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!modules) <span class="keyword">return</span>;</span><br><span class="line">    </span><br><span class="line">    __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line">    WXPerformBlockOnBridgeThread(^()&#123;</span><br><span class="line">        [weakSelf.bridgeCtx registerModules:modules];</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>registerModules: 调用了WXBridgeContext中的registerModules:方法，代码如下：</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)<span class="string">registerModules:</span>(NSDictionary *)modules</span><br><span class="line">&#123;</span><br><span class="line">    [self <span class="string">callJSMethod:</span>@<span class="string">"registerModules"</span> <span class="string">args:</span>@[modules]];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>内部调用了JS中的方法registerModules，下面转入到main.js，registerModules代码如下：</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">registerModules</span>(</span>modules)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>((typeof modules===<span class="string">"undefined"</span>?<span class="string">"undefined"</span>:_typeof(modules))===<span class="string">"object"</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        (<span class="number">0</span>,_register.initModules)(modules)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">initModules</span>(</span>modules,ifReplace)</span><br><span class="line">&#123;</span><br><span class="line">    var _loop=<span class="function"><span class="keyword">function</span> <span class="title">_loop</span>(</span>moduleName)</span><br><span class="line">    &#123;</span><br><span class="line">        var methods=nativeModules[moduleName];</span><br><span class="line">        <span class="keyword">if</span>(!methods)</span><br><span class="line">        &#123;</span><br><span class="line">            methods=&#123;&#125;;</span><br><span class="line">            nativeModules[moduleName]=methods</span><br><span class="line">        &#125;</span><br><span class="line">        modules[moduleName].forEach(</span><br><span class="line">                                    <span class="function"><span class="keyword">function</span>(</span><span class="function"><span class="keyword">method</span>)</span></span><br><span class="line">                                    &#123;</span><br><span class="line">                                        <span class="keyword">if</span>(typeof <span class="function"><span class="keyword">method</span>=</span>==<span class="string">"string"</span>)</span><br><span class="line">                                        &#123;</span><br><span class="line">                                            <span class="function"><span class="keyword">method</span>=</span>&#123;name:<span class="function"><span class="keyword">method</span>&#125;</span></span><br><span class="line">                                        &#125;</span><br><span class="line">                                        <span class="keyword">if</span>(!methods[<span class="function"><span class="keyword">method</span>.<span class="title">name</span>]||<span class="title">ifReplace</span>)</span></span><br><span class="line">                                        &#123;</span><br><span class="line">                                            methods[<span class="function"><span class="keyword">method</span>.<span class="title">name</span>]=</span><span class="function"><span class="keyword">method</span></span></span><br><span class="line">                                        &#125;</span><br><span class="line">                                    &#125;)</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">for</span>(var moduleName in modules)</span><br><span class="line">    &#123;</span><br><span class="line">        _loop(moduleName)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>大概可以理解为：JS中有个nativeModules变量，这个对象保存着module名称和对应的方法列表。注册就是向nativeModules中添加Module的信息。</p>
+<h3 id="终极目标-Bridge-通信机制"><a href="#终极目标-Bridge-通信机制" class="headerlink" title="终极目标-Bridge(通信机制)"></a>终极目标-Bridge(通信机制)</h3><p>接下来了解如何利用这些配置信息完成JS和Native之间的交互。交互就需要一个桥梁，在weex中用Bridge表示。Bridge封装了交互的规则，主要有几个类WXBridgeManager、WXBridgeProtocol、WXBridgeMethod、WXJSCoreBridge、WXBridgeContext。<br>首先将这几个类的类图贴出来：<br><img src="http://of685p9vy.bkt.clouddn.com/weex-bridge.png" alt="bridge类图"><br>WXBridgeManager是Brider的管理类，承接着Native和JS的交互、调试管理、界面更新、事件传递等任务。具体干活的类是WXBridgeContext和WXJSCoreBridge，其中WXJSCoreBridge是遵守了WXBridgeProtocol协议的类。</p>
+<p>图中红色的代码完成Native和JS交互功能的代码。交互分为两部分：JS到Native、Native到JS。首先分析Native到JS这个路径。<br>executeJsMethod: 是Native调用JS的入口方法。内部调用了WXJSCoreBridge的callJSMethod方法，传递的JS方法名是callJS。具体的代码如下：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">- (void)executeJsMethod:(WXBridgeMethod *)<span class="function"><span class="keyword">method</span></span></span><br><span class="line"><span class="function"><span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    ....</span></span></span><br><span class="line"><span class="function"><span class="comment">    [sendQueue addObject:method];</span></span></span><br><span class="line"><span class="function"><span class="comment">    [self performSelector:@selector(_sendQueueLoop) withObject:nil];</span></span></span><br><span class="line"><span class="function"><span class="comment">&#125;</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">- <span class="params">(void)</span>_<span class="title">sendQueueLoop</span></span></span><br><span class="line"><span class="function"><span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">    ///构造方法的相关参数</span></span></span><br><span class="line"><span class="function"><span class="comment">    ....</span></span></span><br><span class="line"><span class="function"><span class="comment">    </span></span></span><br><span class="line"><span class="function"><span class="comment">    ///调用方法</span></span></span><br><span class="line"><span class="function"><span class="comment">    if ([methods count] &gt; 0 &amp;&amp; execIns) &#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">        [self callJSMethod:@"callJS" args:@[execIns, methods]];</span></span></span><br><span class="line"><span class="function"><span class="comment">    &#125;</span></span></span><br><span class="line"><span class="function">    </span></span><br><span class="line"><span class="function">    <span class="title">if</span> <span class="params">(hasTask)</span> <span class="comment">&#123;</span></span></span><br><span class="line"><span class="function"><span class="comment">        [self performSelector:@selector(_sendQueueLoop) withObject:nil];</span></span></span><br><span class="line"><span class="function"><span class="comment">    &#125;</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">- <span class="params">(void)</span><span class="title">callJSMethod</span>:</span>(NSString *)<span class="function"><span class="keyword">method</span> <span class="title">args</span>:</span>(NSArray *)args</span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    if (self.frameworkLoadFinished) &#123;</span></span><br><span class="line"><span class="comment">        [self.jsBridge callJSMethod:method args:args];</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line">    <span class="keyword">else</span> <span class="comment">&#123;</span></span><br><span class="line"><span class="comment">        [_methodQueue addObject:@&#123;@"method":method, @"args":args&#125;</span>];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">///WXJSCoreBridge  的callJSMethod方法</span></span><br><span class="line">- (JSValue *)callJSMethod:(NSString *)<span class="function"><span class="keyword">method</span> <span class="title">args</span>:</span>(NSArray *)args</span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    WXLogDebug(@"Calling JS... method:%@, args:%@", method, args);</span></span><br><span class="line"><span class="comment">    return [[_jsContext globalObject] invokeMethod:method withArguments:args];</span></span><br><span class="line"><span class="comment">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上面是Native调用JS的原理 ，下面分析JS调用Native的原理。</p>
+<p>当首次调用- (id<wxbridgeprotocol>)jsBridge方法创建Bridge时，会调用Bridge的registerCallNativeJS设置JS调用Native的入口。入口名称为callNative，即JS代码中调用callNative函数，就能调用到Native的代码。当进入Native后，会调用WXBridgeContext的invokeNative方法，内部会查找配置信息，然后invoke相应的方法。代码如下：</wxbridgeprotocol></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>&lt;WXBridgeProtocol&gt;)jsBridge</span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    _jsBridge = _debugJS ? [<span class="built_in">NSClassFromString</span>(<span class="string">@"WXDebugger"</span>) alloc] : [[WXJSCoreBridge alloc] init];</span><br><span class="line">     __<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line">    [_jsBridge registerCallNative:^<span class="built_in">NSInteger</span>(<span class="built_in">NSString</span> *instance, <span class="built_in">NSArray</span> *tasks, <span class="built_in">NSString</span> *callback) &#123;</span><br><span class="line">        <span class="keyword">return</span> [weakSelf invokeNative:instance tasks:tasks callback:callback];</span><br><span class="line">    &#125;];</span><br><span class="line">    ....</span><br><span class="line">    <span class="keyword">return</span> _jsBridge;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)registerCallNative:(WXJSCallNative)callNative</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSInteger</span> (^callNativeBlock)(JSValue *, JSValue *, JSValue *) = ^(JSValue *instance, JSValue *tasks, JSValue *callback)&#123;</span><br><span class="line">        <span class="built_in">NSString</span> *instanceId = [instance toString];</span><br><span class="line">        <span class="built_in">NSArray</span> *tasksArray = [tasks toArray];</span><br><span class="line">        <span class="built_in">NSString</span> *callbackId = [callback toString];</span><br><span class="line">        <span class="keyword">return</span> callNative(instanceId, tasksArray, callbackId);</span><br><span class="line">    &#125;;</span><br><span class="line">    _jsContext[<span class="string">@"callNative"</span>] = callNativeBlock;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSInteger</span>)invokeNative:(<span class="built_in">NSString</span> *)instance tasks:(<span class="built_in">NSArray</span> *)tasks callback:(<span class="built_in">NSString</span> *)callback</span><br><span class="line">&#123;</span><br><span class="line">   ...</span><br><span class="line">    <span class="comment">///批量调用方法</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSDictionary</span> *task <span class="keyword">in</span> tasks) &#123;</span><br><span class="line">        WXBridgeMethod *method = [[WXBridgeMethod alloc] initWihData:task];</span><br><span class="line">        method.instance = instance;</span><br><span class="line">        [[WXSDKManager moduleMgr] dispatchMethod:method];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">///下面是处理回调的</span></span><br><span class="line">    <span class="built_in">NSMutableArray</span> *sendQueue = [<span class="keyword">self</span>.sendQueue valueForKey:instance];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (![callback isEqualToString:<span class="string">@"undefined"</span>] &amp;&amp; ![callback isEqualToString:<span class="string">@"-1"</span>] &amp;&amp; callback) &#123;</span><br><span class="line">        WXBridgeMethod *method = [<span class="keyword">self</span> _methodWithCallback:callback];</span><br><span class="line">        method.instance = instance;</span><br><span class="line">        [sendQueue addObject:method];</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(_sendQueueLoop) withObject:<span class="literal">nil</span>];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>图中蓝色代码是Native直接调用JS的函数，分别为： createInstance、destroyInstance、refreshInstance、registerModules、registerComponents。具体的功能在JS那边。这里不做了解。</p>
+<h2 id="归纳总结"><a href="#归纳总结" class="headerlink" title="归纳总结"></a>归纳总结</h2><p>weex的JS和Native通信原理可以使用下面图简单描述：<br><img src="http://of685p9vy.bkt.clouddn.com/weex_JS_Native.png" alt="JS_Native"><br>在weexSDK初始化的时候，完成JS端和Native端的配置信息。JS端的配置信息的作用应该是确保什么样的Native方法可以在JS中调用；Native配置信息的作用是：当JS调用到Native的方法，需要查找调用的Module、方法、方法的SEL等信息，这样才能invoke到相应的方法。weex这样设计的原因大概是为了统一管理JS和Native的通信机制，假如，有许多Native的方法可以被JS调用，那么就需要配置很多的入口，这样随着代码的增加，无法有效维护，weex借助配置信息，巧妙的将入口控制为两个，一个是JS到Native的入口为callNative，一个是Native到JS的入口为callJS。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/Hybird/weex/event-analize/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    weex 事件原理分析
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/工具/git/git简略版/git简略版/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Git笔记</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/Hybird/weex/weex-conmunication/" data-title="weex 通信原理分析" data-url="http://yoursite.com/wiki/Hybird/weex/weex-conmunication/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>

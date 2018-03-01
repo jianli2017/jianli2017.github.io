@@ -1,0 +1,1176 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>收集、符号化IOS崩溃日志 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="Crash">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。">
+<meta name="keywords" content="Crash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="收集、符号化IOS崩溃日志">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS基础知识/crash/Analize_Crash/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F3.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%974.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%975_1.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%976.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%977.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%978.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%979.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F2.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F1.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9710_1.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F11.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F13.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9718.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9714.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9715.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9716.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9717.png">
+<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="收集、符号化IOS崩溃日志">
+<meta name="twitter:description" content="由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F3.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS_Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS基础知识
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/CSS笔记/">CSS笔记</a></li>  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">cocoapod-private-repo</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS基础知识/crash/Analize_Crash" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS基础知识/">IOS基础知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/crash/">crash</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Crash/">Crash</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS基础知识/crash/Analize_Crash/">
+            <time datetime="2016-10-17T04:18:26.000Z" itemprop="datePublished">2016-10-17</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            收集、符号化IOS崩溃日志
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#系统Crash日志结构分析"><span class="toc-number">1.</span> <span class="toc-text">系统Crash日志结构分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#基本信息模块"><span class="toc-number">1.1.</span> <span class="toc-text">基本信息模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#系统信息模块"><span class="toc-number">1.2.</span> <span class="toc-text">系统信息模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常信息模块"><span class="toc-number">1.3.</span> <span class="toc-text">异常信息模块</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程回溯"><span class="toc-number">1.4.</span> <span class="toc-text">线程回溯</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化回溯线程"><span class="toc-number">1.4.1.</span> <span class="toc-text">符号化回溯线程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化内幕"><span class="toc-number">1.4.2.</span> <span class="toc-text">符号化内幕</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小小结"><span class="toc-number">1.4.3.</span> <span class="toc-text">小小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#线程的状态寄存器"><span class="toc-number">1.5.</span> <span class="toc-text">线程的状态寄存器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binary-Images"><span class="toc-number">2.</span> <span class="toc-text">Binary Images</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">2.1.</span> <span class="toc-text">小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统收集、符号化Crash日志"><span class="toc-number">3.</span> <span class="toc-text">系统收集、符号化Crash日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CrashReporter收集日志"><span class="toc-number">3.1.</span> <span class="toc-text">CrashReporter收集日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Xcode-解析Crash日志"><span class="toc-number">3.2.</span> <span class="toc-text">Xcode 解析Crash日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#那些年我们一起使用的符号化工具"><span class="toc-number">3.3.</span> <span class="toc-text">那些年我们一起使用的符号化工具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#打造自己的收集、符号化程序"><span class="toc-number">4.</span> <span class="toc-text">打造自己的收集、符号化程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#实现代码"><span class="toc-number">4.1.</span> <span class="toc-text">实现代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发布包没带符号表"><span class="toc-number">4.2.</span> <span class="toc-text">发布包没带符号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach-O-File-Format"><span class="toc-number">4.3.</span> <span class="toc-text">Mach-O File Format</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#header"><span class="toc-number">4.3.1.</span> <span class="toc-text">header</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#load-Commond"><span class="toc-number">4.3.2.</span> <span class="toc-text">load Commond</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">4.3.2.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">4.3.2.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#数据部分"><span class="toc-number">4.3.3.</span> <span class="toc-text">数据部分</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#小小结-1"><span class="toc-number">4.3.4.</span> <span class="toc-text">小小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取构架、镜像加载地址"><span class="toc-number">4.4.</span> <span class="toc-text">获取构架、镜像加载地址</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#输出Crash日志"><span class="toc-number">4.5.</span> <span class="toc-text">输出Crash日志</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小结-1"><span class="toc-number">4.6.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#你被默默的坑了吗"><span class="toc-number">4.7.</span> <span class="toc-text">你被默默的坑了吗</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#深度定制异常收集系统"><span class="toc-number">5.</span> <span class="toc-text">深度定制异常收集系统</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。<br><a id="more"></a><br>千里之行，始于足下，我们先从系统Crash日志开始。<br><!--合理的应用收集、解析崩溃日志的方法，有N种方式可以完美的消灭大部分的Crash。为了便于理解，我从CrashReporter捕获的标准Crash日志结构、系统Crash收集解析、 定制的Crash报告收集分析。
+若了解CrashReporter收集的崩溃日志的各个部分的含义，对消除Crash应该大有裨益。--></p>
+<h2 id="系统Crash日志结构分析"><a href="#系统Crash日志结构分析" class="headerlink" title="系统Crash日志结构分析"></a>系统Crash日志结构分析</h2><p>系统的Crash日志相信大家都见过，但不一定都认真分析过，所以我想，有必要重新对它做个认识。先贴出一张Crash日志截图，方便大家认识我啊~~~。</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F3.png" alt="收集、解析IOS崩溃日志3"></p>
+<p>Crash日志内容非常，截图只能展示一部分内容，后续会依次贴出每个模块的内容，分别讲解。一个Crash日志由六部分组成：基本信息模块、系统信息模块、异常信息模块、线程回溯、CUP寄存器信息、镜像信息。</p>
+<h3 id="基本信息模块"><a href="#基本信息模块" class="headerlink" title="基本信息模块"></a>基本信息模块</h3><pre><code>///崩溃报告的唯一标识符，标识不同的Crash
+Incident Identifier: 2964A813-5C6B-4E43-B7FD-40965E97F720   
+CrashReporter Key:   d280e6d8a2446a3c34436cf9d1c6e98448d0c5ca
+///代表发生Crash的设备类型
+Hardware Model:      iPhone7,1    
+///Crash的APP名称、APP进程id       
+Process:             Simple-Example [2279]  
+///Crash的APP在设备上的存储路径 
+Path:                /private/var/containers/Bundle/Application/A86C469E-5A97-4948-8BBF-98C0B814088E/Simple-Example.app/Simple-Example    
+///APP 的描述符       
+Identifier:          com.gome.gomeEShop 
+///APP的版本   
+Version:             1.0 (1.0)   
+///代码的构架，可以通过file命名查看代码的编译构架，
+///了解更过的构架信息可以到IOS SDK路径下的/usr/include/mach/machine.h文件中查找  
+Code Type:           ARM-64 (Native)     
+Role:                Foreground
+///父进程
+Parent Process:      launchd [1]     
+Coalition:           com.gome.gomeEShop [1008]
+</code></pre><h3 id="系统信息模块"><a href="#系统信息模块" class="headerlink" title="系统信息模块"></a>系统信息模块</h3><p>系统信息模块包含Crash时间、 APP启动时间、OS 版本信息、Crash日志的格式 </p>
+<pre><code>///Crash发生的时间
+Date/Time:           2016-10-17 16:11:43.7670 +0800
+///Crash的APP的启动时间   
+Launch Time:         2016-10-17 16:11:40.0612 +0800  
+///系统版本，（）内的数字代表的是Bulid号 
+OS Version:          iPhone OS 10.0.2 (14A456)  
+Crash日志的格式，一般为104  
+Report Version:      104 
+</code></pre><h3 id="异常信息模块"><a href="#异常信息模块" class="headerlink" title="异常信息模块"></a>异常信息模块</h3><p>异常信息模块包含异常类型（Mach异常、Unix信号异常）、异常子类型、异常原因、异常线程ID。</p>
+<pre><code>///异常类型
+Exception Type:  EXC_BAD_ACCESS (SIGSEGV)  
+///异常子类型、异常的地址
+Exception Subtype: KERN_INVALID_ADDRESS at 0xffffffffffffffff   
+Termination Signal: Segmentation fault: 11
+///异常原因（非常重要）
+Termination Reason: Namespace SIGNAL, Code 0xb
+Terminating Process: exc handler [0]
+///发生异常的线程ID
+Triggered by Thread:  0    
+</code></pre><p>异常类型(Exception Type)由两部分构成：Mach异常、Unix信号异常。 </p>
+<p>苹果系统有一个微内核，叫做<a href="http://opensource.apple.com/source/xnu/" rel="external nofollow noopener noreferrer" target="_blank">XNU</a>，它的源码可以在opensource上载到。Mach是XNU的核心，因而，Mach异常就指Mach内核异常。Mach包含三部分内容：thread，task，host。后续的章节中很多地方都会用到Mach。不妨移步到<a href="http://web.mit.edu/darwin/src/modules/xnu/osfmk/man/" rel="external nofollow noopener noreferrer" target="_blank">Mach IPC Interface</a>，了解下Mach暴露给用户的API。</p>
+<p>Mach暴露给了用户部分API，允许用户和内核交互。用户态的开发者可以通过Mach API设置thread、task、host的异常端口，来捕获Mach异常，抓取Crash事件。</p>
+<p>Mach异常包括：</p>
+<pre><code>#define EXC_BAD_ACCESS        1    /* Could not access memory */
+    /* Code contains kern_return_t describing error. */
+    /* Subcode contains bad memory address. */
+
+#define EXC_BAD_INSTRUCTION    2    /* Instruction failed */
+    /* Illegal or undefined instruction or operand */
+
+#define EXC_ARITHMETIC        3    /* Arithmetic exception */
+    /* Exact nature of exception is in code field */
+
+#define EXC_EMULATION        4    /* Emulation instruction */
+    /* Emulation support instruction encountered */
+    /* Details in code and subcode fields    */
+
+#define EXC_SOFTWARE        5    /* Software generated exception */
+    /* Exact exception is in code field. */
+    /* Codes 0 - 0xFFFF reserved to hardware */
+    /* Codes 0x10000 - 0x1FFFF reserved for OS emulation (Unix) */
+
+#define EXC_BREAKPOINT        6    /* Trace, breakpoint, etc. */
+    /* Details in code field. */
+
+#define EXC_SYSCALL        7    /* System calls. */
+
+#define EXC_MACH_SYSCALL    8    /* Mach system calls. */
+
+#define EXC_RPC_ALERT        9    /* RPC alert */
+
+#define EXC_CRASH        10    /* Abnormal process exit */
+
+#define EXC_RESOURCE        11    /* Hit resource consumption limit */
+</code></pre><p>Unix信号：信号是通知进程已发生某种情况的软中断技术。例如：某个进程执行了除法操作，其除数为0，则将名为SIGFPE（浮点异常）的信号发送给该进程。</p>
+<p>那么，怎么会有两种异常信息呢？</p>
+<p>念茜的<a href="http://www.cocoachina.com/cms/wap.php?action=article&amp;id=12301" rel="external nofollow noopener noreferrer" target="_blank">漫谈iOS Crash收集框架</a>阐述了两者的关系，我这里再重复下。</p>
+<p>苹果系统是基于Unix系统的，苹果的大牛们为了兼容Unix信号，将Mach异常转化为Unix信号，并投射到异常的线程，这样做的目的是：对于不懂Mach异常的人，也可以使用Unix信号捕获异常。所以，Crash日志有两种异常信息。</p>
+<p>Mach和Unix关系图：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%974.png" alt="收集、解析IOS崩溃日志4"><br>所有Mach异常都在host层被ux_exception转换为相应的Unix信号，并通过threadsignal将信号投递到出错的线程。<!--iOS系统中的 POSIX API 就是通过 Mach 之上的 BSD 层实现的。--></p>
+<p>捕获Mach异常或者Unix信号都可以抓到crash事件，这两种方式哪个更好呢？<br>优选Mach异常，因为Mach异常的处理会先于Unix信号处理，如果Mach异常的handler让程序exit了，那么Unix信号就永远不会到达这个进程了。<!--转换Unix信号是为了兼容更为流行的POSIX标准，这样不必了解Mach内核也可以通过Unix信号的方式来兼容开发。--></p>
+<p>所以，Crash日志中的EXC_BAD_ACCESS 是Mach异常信息，SIGSEGV是Unix信号异常信息。</p>
+<p>小贴士:<br>因为硬件产生的信号(通过CPU陷阱)被Mach层捕获，然后才转换为对应的Unix信号；苹果为了统一机制，于是操作系统和用户产生的信号(通过调用kill和pthread_kill)也首先沉下来被转换为Mach异常，再转换为Unix信号。</p>
+<h3 id="线程回溯"><a href="#线程回溯" class="headerlink" title="线程回溯"></a>线程回溯</h3><h4 id="符号化回溯线程"><a href="#符号化回溯线程" class="headerlink" title="符号化回溯线程"></a>符号化回溯线程</h4><p>线程的回溯是APP Crash瞬间，程序中所有线程的逆向调用堆栈。线程回溯对我们修复Crash非常非常的有用，根据线程回溯，可以分析、定位程序崩溃的原因。</p>
+<p>下面将崩溃的代码、未符号化崩溃日志、符号化崩溃日志贴出来，做个对比性的理解。</p>
+<pre><code>@implementation ViewController
+
+- (IBAction) onCrash:(__unused id) sender
+{
+    char* ptr = (char*)-1;
+    *ptr = 10;  ///这里程序崩溃了 
+}
+
+@end
+</code></pre><p>未符号化的崩溃日志（图5）<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%975_1.png" alt="收集、解析IOS崩溃日志5"><br>符号化的崩溃日志（图6）<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%976.png" alt="收集、解析IOS崩溃日志6"></p>
+<p>图5中红色文字展示了几个名词：镜像文件、加载地址、堆栈地址。还有没有展示出来的一个名词：符号在二进制中的偏移量。他们的含义分别为：</p>
+<p>镜像文件：是可执行二进制文件和二进制文件依赖的动态库的总称。<br>堆栈地址：是代码在内存中执行的内存地址。<br>镜像的加载地址：程序执行时，内核会将包含程序代码的镜像加载到内存中，镜像在内存中的基地址就是加载地址。程序每次启动时，镜像的加载地址是随机的。所以，同一代码在不同的设备中执行时，堆栈地址是不一样的。<br>符号在二进制中的偏移量：按照字面意思理解吧。它以通过下面的公式得到：</p>
+<pre><code>符号在二进制中的偏移量 = 堆栈地址 - 镜像的加载地址  
+</code></pre><p>符号在二进制中的偏移量非常有用，我们就是根据它，从符号文件中查找出地址对应的代码符号。这里的符号文件指的是：带有符号表的可执行二进制文件、dSYM文件，这两种文件在后续章节中都统称为符号文件。</p>
+<p>那么怎么将图5中的Crash日志符号化为图6中的形式呢？</p>
+<p>苹果自带的atos命令行工具可以查找地址对应的符号，在终端中输入：</p>
+<pre><code>/usr/bin/atos -o [符号文件] -arch arm64 -l 0x100030000 0x000000010003522c 
+</code></pre><p>输出结果如下：</p>
+<pre><code>-[ViewController onCrash:] (in Simple-Example) (ViewController.m:10)
+</code></pre><p>是不是很简单的就将地址转换为符号？是的，只需将符号文件（-o指定）、代码构架（-arch指定）、加载地址（-l指定）、堆栈地址 传入atos命令，就能解析出符号。 atos命令解析出了堆栈地址为0x000000010003522c、加载地址为0x100030000对应的符号。符号为[ViewController onCrash:]，也验证了崩溃发生在onCrash函数中，也验证了崩溃日志中的地址是可以符号化的。</p>
+<p>符号化是简单，但是原理是什么？怎么就通过地址找到了Crash代码的符号，要听详细信息，请看《符号化内幕》。</p>
+<h4 id="符号化内幕"><a href="#符号化内幕" class="headerlink" title="符号化内幕"></a>符号化内幕</h4><p>符号化的内幕就是：在符号文件中，通过偏移量查找符号。下面，一步步的来分析，首先计算Crash地址在符号文件中的偏移量，为000000010000522c。</p>
+<pre><code>符号在二进制中的偏移量 = 堆栈地址 - 镜像的加载地址 = 0x000000010003522c -  0x100030000 = 000000010000522c
+</code></pre><p>在符号文件中直接找地址000000010000522c，应该是找不到，在后续你可以理解。我们使用逆向方法，根据符号-[ViewController onCrash:]，找对应的地址，比较是不是000000010000522c，如果是，就充分说明了，通过偏移量是可以查找到内存地址对应的符号的。在终端中输入下面的命令：</p>
+<pre><code>nm [符号文件] | grep &quot;ViewController onCrash:&quot;
+</code></pre><p>输出如下 </p>
+<pre><code>00008320 t -[ViewController onCrash:]
+0000000100005224 t -[ViewController onCrash:]
+</code></pre><p>输出的第一行是armv7s构架的符号，第二行是arm64构架的符号，Crash日志显示的代码构架是arm64，使用第二行，符号-[ViewController onCrash:]对应的偏移量是0000000100005224，而不是 000000010000522c，是我给你埋了个坑吗？专门来坑你的？不是的，不是的，这个问题也困扰了我N久、折磨了我N久。这个公式是在stack overflow上找到的，我也怀疑他们骗了我，但是，仔细看两个地址，又那么的相似、那么的相近—就相差8！！！ 虽说相差8，但毕竟不一样。差之毫厘谬以千里啊。感觉就要成功，但就是不对。就永远差了那么一点点，试了好多崩溃日志，都是差那么一点点，相信你也体会过这种感觉，只差一点点，真的只差一点点。就差那么该死的一点点，问题就能解决。百思不得其姐的困扰、抓狂的困扰 。。好久好久我都没想明白，那一点点是怎么差的。这不，今天写日志组织测试用例的时候，忽然明白了为什么差那一点点，踏破铁鞋无觅处，得来全不费功夫！！。<br>原来，我们通过nm命令查找出的符号地址对，是函数入口地址和对应的函数调用的符号对，仅仅是函数调用的符号，没有函数内部代码的符号，而程序是崩溃到函数内部，崩溃到<em>ptr = 10这句话，内部代码的地址怎么可能和入口地址一样呢！相差一点点！<br>下面根据偏移量000000010000522c和代码推算函数的入口地址吧，看看是什么。崩溃代码</em>ptr = 10前面只有一个语句—定义初始化指针“char<em> ptr = (char</em>)-1”，在64位系统上指针的地址占8个字节，000000010000522c - 8= 0000000100005224， 果然是0000000100005224。这个不就是函数的入口地址嘛，对，就是。原来那一点点的原因在这里。 那么偏移量0000000100005224 对应的符号正是-[ViewController onCrash:]。<!--这就是通过偏移量查找符号的原理。--> </p>
+<p>上面通过nm 命令查找符号可能不直观，可以通过可视化工具<a href="http://of685p9vy.bkt.clouddn.com/MachOView-2.4.9200.dmg" rel="external nofollow noopener noreferrer" target="_blank">MachOView</a>查看。验证下吧，选择 Debug Symbols（ARM64_ALL）-&gt;Symbol Table-&gt;Symbols,然后在右上角的搜索框中输入符号：-[ViewController onCrash:]，结果如下，<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%977.png" alt="收集、解析IOS崩溃日志7"><br>通过这个工具可以直观的查看到符号和地址的对应关系。</p>
+<h4 id="小小结"><a href="#小小结" class="headerlink" title="小小结"></a>小小结</h4><p>ok，终于可以歇一歇了，我们终于把符号化和符号化原理阐述完了。简单的回顾下：</p>
+<ol>
+<li>可以通过系统的atos符号化崩溃日志的单个符号 </li>
+<li>符号化内部原理就是：根据符号在二进制中的偏移量，在符号文件中查找对应的符号。其中：符号在二进制中的偏移量 = 堆栈地址 - 镜像的加载地址。</li>
+</ol>
+<!--### 1.4.4 弱弱的问题
+
+1. 为什么图5中的回溯线程中，Simple-Example镜像中的地址“0x000000010003522c 0x100030000 + 21036”没有解析出来，显示的是一串十六进制的数字，你是否也遇到过？也被这样的问题困惑过？《1.6小节 Binary Images》， 会阐述该问题。-->
+<h3 id="线程的状态寄存器"><a href="#线程的状态寄存器" class="headerlink" title="线程的状态寄存器"></a>线程的状态寄存器</h3><pre><code>Thread 0 crashed with ARM Thread State (64-bit):
+    x0: 0x000000010050b460   x1: 0x0000000100102cea   x2: 0x00000001004339d0   x3: 0x00000001740f8f00
+    x4: 0x00000001740f8f00   x5: 0x00000001740f8f00   x6: 0x0000000000000001   x7: 0x0000000000000000
+    x8: 0xffffffffffffffff   x9: 0x000000000000000a  x10: 0x00000001b3ad0018  x11: 0x00c1580100c15880
+   x12: 0x0000000000c15800  x13: 0x0000000000c15900  x14: 0x0000000000c158c0  x15: 0x0000000000c15801
+   x16: 0x0000000000000000  x17: 0x00000001000c1224  x18: 0x0000000000000000  x19: 0x00000001740f8f00
+   x20: 0x00000001004339d0  x21: 0x0000000100102cea  x22: 0x000000010050b460  x23: 0x0000000170240bd0
+   x24: 0x000000017400db90  x25: 0x0000000000000001  x26: 0x0000000000000000  x27: 0x00000001b2822000
+   x28: 0x0000000000000040   fp: 0x000000016fd41ab0   lr: 0x0000000194aea7b0
+    sp: 0x000000016fd41a90   pc: 0x00000001000c122c cpsr: 0x60000000
+</code></pre><p>这是APP crash的时候，ARM64 构架CPU的32个寄存器的值， 其中fp 帧指针、sp堆栈指针，lr 是返回地址指针，这三个都比较有用，用来逐级回溯线程调用栈。</p>
+<h2 id="Binary-Images"><a href="#Binary-Images" class="headerlink" title="Binary Images"></a>Binary Images</h2><p>图8<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%978.png" alt="收集、解析IOS崩溃日志8"></p>
+<p>镜像文件就是上面讲的可执行程序 和 依赖的所有动态库。<br>镜像文件中包括镜像的加载地址，和线程回溯中的镜像加载地址指的是一个地址。加载地址后面有个UUID，符号文件中也有个UUID，只有这两个地址一致，才能解析出地址对应的符号。符号文件中的UUID可以通过终端中输入下面的命令得到：</p>
+<pre><code>dwarfdump —u [符号文件]
+</code></pre><p>输出如下：</p>
+<pre><code>UUID: C8E0E6E4-F761-3A19-B231-A31C1BB9037A (armv7) 
+UUID: 39BBB8F4-CCB0-3193-8491-C007931CA05E (arm64) 
+</code></pre><p>第二行的arm64构架的UUID居然和图8中的红色矩形框中UUID惊人的一致。是的。必须得一致，这才表示代码对应的符号能在这个符号文件中找到，如果不一致，就没法解析出地址对应的符号。不论是Xcode，还是symbolicatecrash，都解析不了。<br>也可以通过MachOView查看符号文件的UUID，结果如下：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%979.png" alt="收集、解析IOS崩溃日志9"></p>
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这节阐述了崩溃日志的组成结构、通过atos命令行工具符号化崩溃日志以及符号化崩溃日志的原理。同时提及了几个工具有用的工具：</p>
+<ol>
+<li>file,文件类型显示工具（The file-type displaying tool，位于/usr/bin/file）;</li>
+<li>atos,(将数字地址转换为镜像或可执行程序中的符号工具，convert numeric addresses to symbols of binary images or processes，位于/usr/bin/atos);</li>
+<li>nm，（符号表展示工具，The symbol table display tool,位于 /usr/bin/nm）;</li>
+<li>可视化查看Mach-O工具，MachOView。</li>
+</ol>
+<h2 id="系统收集、符号化Crash日志"><a href="#系统收集、符号化Crash日志" class="headerlink" title="系统收集、符号化Crash日志"></a>系统收集、符号化Crash日志</h2><p>系统如何收集、符号化Crash日志有多种方式，主要有如下几种方式：</p>
+<ol>
+<li>CrashReporter收集、Xocde或symbolicatecrash符号化。当iOS系统上的某个 APP崩溃时，IOS系统自带的CrashReporter会创建一份crash日志保存在设备上。如果能拿到Crash的手机，就可以通过Xcode或symbolicatecrash符号化Crash日志。</li>
+<li>第三方SDK。如友盟，鹅厂的<a href="http://bugly.qq.com" rel="external nofollow noopener noreferrer" target="_blank">Bugly</a> 等等  Crash</li>
+<li>打造自己的收集、符号化程序。主要方法：使用NSSetUncaughtExceptionHandler注册异常处理函数，当APP 发生Crash时刻，回调到异常处理函数，在异常处理函数中收集Crash信息，然后上传到服务器；当需要分析的时候，从服务器取回Crash日志，如果没有符号化，使用atos命令符号化。</li>
+<li>开源框架KSCrash。如果上面的几种收集、符号化的方式依然不能满足你的需求，那么完备的KSCrash框架应该是一个不错的选择。</li>
+</ol>
+<p>这章只阐述第一种方式，后续的第三章、第四章分别阐述第三、四种方式。</p>
+<h3 id="CrashReporter收集日志"><a href="#CrashReporter收集日志" class="headerlink" title="CrashReporter收集日志"></a>CrashReporter收集日志</h3><p>CrashReporter 是IOS自带的工具，当APP发生崩溃时，CrashReporter会创建一份Crash日志并保存到设备上。上一章阐述的Crash日志，就是出自CrashReporter之手。</p>
+<p>可以使用Xcode、iTool导出CrashReporter创建的日志。其中：Xcode导出Crash日志的方法如下：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F2.png" alt="导出崩溃日志"><br>在Xcode-&gt;Window菜单-&gt;Devices，弹出的设备面板，选择崩溃的设备 -&gt; 选择右侧的View Device Logs-&gt;选中导出的日志，右击，选中export log, 导出.crash后缀的崩溃日志</p>
+<h3 id="Xcode-解析Crash日志"><a href="#Xcode-解析Crash日志" class="headerlink" title="Xcode 解析Crash日志"></a>Xcode 解析Crash日志</h3><p>Xcode可以将日志中的地址信息符号化为代码中的符号，但有个前提条件：crash log和dSYM或APP携带的UUID一致。crash log携带的UUID指的是镜像的UUID。这两种UUID在《1.6 Binary Images 》 已经阐明。</p>
+<ul>
+<li>如果APP是自己电脑编译生成的，Xcode会根据spotlight自动找到对应的符号文件</li>
+<li><p>如果不是自己电脑编译生成的，只需要将.app和dSYM放入同一文件夹，然后手动生成索引，这样Xcode也能找到。在命令行中输入如下命令手动创建索引：</p>
+<pre><code>mdimport pathName
+</code></pre></li>
+</ul>
+<p>mdimport ,导入文件到datastore（import file hierarchies into the metadata datastore）。<br>上面两种方式确保了Xcode能依据UUID找到地址对应的符号文件，这样，Xcode就能解析出崩溃日志。<!--而且Xcode可以批量解析崩溃日志，比symbolicatecrash好用多了。--></p>
+<p>使用Xcode解析崩溃日志的方法：在Xcode-&gt;Devices-&gt;View Device Logs中，查看设备的所有崩溃日志，如果能解析，Xcode会自动解析崩溃日志。这种方式可以实现批量解析崩溃日志<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F1.png" alt="XCode导出崩溃日志"><br>Xcode解析崩溃日志的优势：</p>
+<ol>
+<li>批量解析，可以一次解析出所有可解析的Crash日志。</li>
+<li>稳定性比symbolicatecrash好。网上说symbolicatecrash经常出现解析不出来，解析出错的问题。但是我没有遇到过。</li>
+</ol>
+<h3 id="那些年我们一起使用的符号化工具"><a href="#那些年我们一起使用的符号化工具" class="headerlink" title="那些年我们一起使用的符号化工具"></a>那些年我们一起使用的符号化工具</h3><p>你是不是也在网上搜过“IOS崩溃解析”？网上有好多的文章都讲symbolicatecrash工具。symbolicatecrash，按照字面意思理解，就是符号化异常工具。symbolicatecrash符号化日志的一般步骤为：</p>
+<ol>
+<li><p>查找symbolicatecrash的存储位置，symbolicatecrash在各个Xcode版本中的位置都不一样，我没有办法记住每个版本的位置，所以使用查找命令查找symbolicatecrash 的位置</p>
+<pre><code>find /Applications/Xcode.app -name symbolicatecrash -type f   #查找symbolicatecrash 的路径。
+</code></pre><p> 输出如下:</p>
+<pre><code>AAA$ find /Applications/Xcode.app -name symbolicatecrash -type f
+/Applications/Xcode.app/Contents/SharedFrameworks/DVTFoundation.framework/Versions/A/Resources/symbolicatecrash
+</code></pre></li>
+<li><p>将符号文件、Crash日志、symbolicatecrash放在同一目录下。cd 到该目录下，终端执行命令：</p>
+<pre><code>./symbolicatecrash name.crash 符号文件 &gt; out.txt
+</code></pre><p> 如果成功，会将符号化的日志重定向到out.txt中。</p>
+</li>
+<li><p>备注： 如果执行中遇到下面的错误：</p>
+<pre><code>Error: &quot;DEVELOPER_DIR&quot; is not defined at ./symbolicatecrash line 60.
+</code></pre><p> 执行下面的命令，设置环境变量</p>
+<pre><code>export DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer
+</code></pre></li>
+</ol>
+<!--/usr/bin/xcode-select -print-path     # 查找Xcode的安装路径，如果输出”/Developer”或者其他非”/Applications/Xcode.app/Contents/Developer/”的内容，运行xcode-select命令：
+
+sudo /usr/bin/xcode-select -switch /Applications/Xcode.app/Contents/Developer/-->
+<h2 id="打造自己的收集、符号化程序"><a href="#打造自己的收集、符号化程序" class="headerlink" title="打造自己的收集、符号化程序"></a>打造自己的收集、符号化程序</h2><p>当APP发布到AppStore后，如果发生了Crash，通常情况下我们拿不到崩溃手机，也就是说拿不到Crash日志。这是一个棘手的问题。有人说可以在开发者中心找到用户上传到苹果的日志，但是，不是所有的用户都会在程序Crash后上传Crash日志，所以有必要打造一个属于我们自己的异常收集系统。下面就讲讲我打造的异常收集系统，主要思路：使用NSSetUncaughtExceptionHandler注册异常处理函数，当APP 发生Crash时，回调到异常处理函数，在异常处理函数中收集Crash信息，然后上传到服务器；当需要分析的时候，从服务器取回Crash日志，如果没有符号化，使用atos命令符号化。由于我没有服务器，就保存到了沙盒路径的Document目录下，可以使用itunes方便的导出日志。这里我提供了一个简单示例代码：<a href="https://github.com/jianli2017/caughtException/tree/master/UncaughtException" rel="external nofollow noopener noreferrer" target="_blank">caughtException</a>，有代码才有真相，才有说服力。那就先从代码入手。</p>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p>这里会分别列出关键的代码。下面是 AppDelegate.m中的代码 </p>
+<pre><code>- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    [LJCaughtException setDefaultHandler];
+    // Override point for customization after application launch.
+    return YES;
+}
+</code></pre><p>在application:didFinishLaunchingWithOptions:中注册异常处理函数，所有的异常注册和异常处理函数的代码都封装到LJCaughtException.m中，如下：</p>
+<pre><code>///先前注册的处理句柄
+NSUncaughtExceptionHandler *preHander;
+
+/// 异常处理函数
+void UncaughtExceptionHandler(NSException * exception)
+{
+    [LJCaughtException  processException:exception];
+}
+
+@implementation LJCaughtException
+
++ (void)setDefaultHandler
+{
+        ///首先保存先前注册的异常处理句柄
+    preHander = [LJCaughtException getHandler];
+    ///注册异常处理句柄
+    NSSetUncaughtExceptionHandler(&amp;UncaughtExceptionHandler);
+}
+
++ (NSUncaughtExceptionHandler *)getHandler
+{
+    return NSGetUncaughtExceptionHandler();
+}
+
+///异常处理句柄
++ (void)processException:(NSException *)exception
+{
+    /// 异常的堆栈信息
+    NSArray *aryCrashBackTrace = [exception callStackSymbols];
+    if (!aryCrashBackTrace)
+    {
+        return;
+    }
+    /// 出现异常的原因
+    NSString *strCrashReason = [exception reason];
+
+    /// 异常名称
+    NSString *strCrashName = [exception name];
+
+    ....
+}
+... 
+
+@end
+</code></pre><p>上面代码可以分解为三个部分理解：</p>
+<ol>
+<li><p>定义异常处理函数：异常处理函数的原型为：</p>
+<p> typedef void NSUncaughtExceptionHandler(NSException *exception);</p>
+</li>
+<li><p>注册异常处理函数：使用NSSetUncaughtExceptionHandler注册异常处理函数,注册的代码为：NSSetUncaughtExceptionHandler(&amp;UncaughtExceptionHandler);</p>
+</li>
+<li><p>执行异常处理函数：当异常发生时，自动执行异常处理函数。异常处理函数内部完成收集Crash信息的功能。</p>
+</li>
+</ol>
+<p>下面是在Debug和Release模式下，Crash时捕获的线程回溯：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9710_1.png" alt="收集、解析IOS崩溃日式10"></p>
+<p>可以看出，使用系统的API可以完美的捕获到崩溃日志，而且符号化了，一行代码（callStackSymbols）就获取了异常线程的回溯并完成了符号化工作，不费吹灰之力。其实，事情没有这么简单，不妨试试发布包，是不是也能像在debug和release模式那样，获取到符号化的异常线程回溯？</p>
+<h3 id="发布包没带符号表"><a href="#发布包没带符号表" class="headerlink" title="发布包没带符号表"></a>发布包没带符号表</h3><p>将测试程序打为发布包，查看异常线程回溯图，如下：<br>图11 发布包的Crash日志<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F11.png" alt="收集、解析IOS崩溃日式11"></p>
+<p>是不是很奇怪，图中红框是异常线程的关键回溯，显示的是镜像的名字，没有被转化为有效的代码符号。这是为什么？</p>
+<p>静静的想想。。。。。。前面提到符号化的前提条件，是得有符号表，那么我们推测debug和release的APP包含了符号表，而发布包没有包含符号表，是不是？ 请在终端中使用nm命令验证下。 </p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BC%8F13.png" alt="收集、解析IOS崩溃日式13"></p>
+<p>确实是，发布包没有符号表，为什么？</p>
+<p>原来，符号表是一个debug产物，如果使用archive模式打包，那么符号表会被剪裁掉。不过你也可以在Xcode的编译选项中配置为符号表不剪裁。方法是设置Strip Style选项为Debugging Symbols，但是会让最后生成的IPA变大约%5。我用我们项目测试，居然大了约%30，可能是代码太多的原因吧。这个对于严格限制APP大小的人来说，是无法接受的。下图是设置发布包带符号表的方法：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9718.png" alt="收集、解析IOS崩溃日志18"></p>
+<p>天无绝人之路，在使用archive打包时，生成了一个dSYM符号文件，这个文件不发布，在本地保存着。这个文件太有用了，也是我们符号化的唯一选择了。</p>
+<p>显然，对于发布到用户手中的发布包，在程序Crash后，不能在用户设备上完成符号化工作，callStackSymbols只能返回带地址的日志信息，需要我们线下符号化，还好苹果提供了一个命令行工具—–atos，完成符号化工作。 若想通过atos工具在符号文件中查找到地址对应的符号，需要代码构架、镜像加载地址这两个参数，查看图11，这两个参数都没有，怎么办？我只能祭出<a href="http://of685p9vy.bkt.clouddn.com/OS%20X%20ABI%20Mach-O%20File%20Format%20Reference.pdf" rel="external nofollow noopener noreferrer" target="_blank">OS X ABI Mach-O File Format Reference</a>和<a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a> 开源框架这两个终极神器。<a href="http://of685p9vy.bkt.clouddn.com/OS%20X%20ABI%20Mach-O%20File%20Format%20Reference.pdf" rel="external nofollow noopener noreferrer" target="_blank">OS X ABI Mach-O File Format Reference</a>阐述了可执行二进制程序的存储格式，提供原理性的支撑。<a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a>包含了获取代码构架和镜像加载地址的代码。依据这两个神器，我们可以顺利的拿到代码构架、镜像加载地址。其中《OS X ABI Mach-O File Format Reference》居然在苹果的官网上找不到了，前段时间都能找到的，幸好我又一个备份，我只能放在七牛上保存起来了。<br><!--既然不能符号，也不是一个完整的Crash日志，没法用Xocde解析，也缺少atos解析的条件：代码构架、镜像加载地址。也就是说这个只能开发的时候用，发布到App Store就没有什么用了？是不是觉得一下回到了解放前？ 
+不过生成了一个dSYM符号文件。--></p>
+<h3 id="Mach-O-File-Format"><a href="#Mach-O-File-Format" class="headerlink" title="Mach-O File Format"></a>Mach-O File Format</h3><p>Mach-O 是Mach object 的意思，就是OS X系统中对象文件的存储格式，对象文件包括： kernel extensions, command-line tools, applications, frameworks, and libraries (shared and static)。 详细的也可以参考<a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/MachOTopics/0-Introduction/introduction.html#//apple_ref/doc/uid/TP40001827-SW1" rel="external nofollow noopener noreferrer" target="_blank">Mach-O Programming Topics</a></p>
+<p>一个Mach-O 文件包括下面三个部分 </p>
+<ol>
+<li>Header: Specifies the target architecture of the file, such as PPC, PPC64, IA-32, or x86-64.</li>
+<li>Load commands: Specify the logical structure of the file and the layout of the file in virtual memory.</li>
+<li>Raw segment data: Contains raw data for the segments defined in the load commands.</li>
+</ol>
+<p>下面是官网上的一张图形化的Mach-O结构示意图：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9714.png" alt="收集、解析IOS崩溃日志14">  </p>
+<p>下面依次讲解这三部分，他们的数据结构定义在mach-o/loader.h中。我会通过三种方式来层显Mach-O文件结构：代码定义、通过命令行工具otool呈现、通过MachOView呈现。其中otool是系统自带的对象文件查看工具。MachOView 是网上下载的可视化查看Mach-O结构工具。由于存在两个代码构架，armv7s、ARM64，他们的定义稍微有点区别，我仅以ARM64构架为例。</p>
+<!--在Xcode中输入：
+
+     #include <mach-o/loader.h>
+
+可以找到这个文件。-->
+<h4 id="header"><a href="#header" class="headerlink" title="header"></a>header</h4><p>header的数据结构的定义如下：</p>
+<pre><code>struct mach_header_64 
+{
+    uint32_t    magic;              ///魔数，标记这个是Mach-O文件
+    cpu_type_t    cputype;      ///cup 的类型
+    cpu_subtype_t    cpusubtype;
+    uint32_t    filetype;    
+    uint32_t    ncmds;             /// load commands 个数
+    uint32_t    sizeofcmds;  
+    uint32_t    flags;        
+    uint32_t    reserved;
+};
+</code></pre><p>终端中查看header： </p>
+<pre><code>otool -hV ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive 
+</code></pre><p>输出如下：</p>
+<pre><code> magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+   MH_MAGIC     ARM         V7  0x00     EXECUTE    23       2432   NOUNDEFS DYLDLINK TWOLEVEL PIE
+Mach header
+      magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+MH_MAGIC_64   ARM64        ALL  0x00     EXECUTE    23       2872   NOUNDEFS DYLDLINK TWOLEVEL PIE
+</code></pre><p>MachOView显示的结果：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9715.png" alt="收集、解析IOS崩溃日志15"> </p>
+<p>magic 是MH_MAGIC_64，固定值：0xfeedfacf，标记这是一个Mach-O文件。<br>filetype 文件类型是EXECUTE，可执行程序，<br>ncmds，load commond个数是23个</p>
+<h4 id="load-Commond"><a href="#load-Commond" class="headerlink" title="load Commond"></a>load Commond</h4><p> load Commond 种类特别多，大概有60多种，每种commond的数据结构是不同的， 我不会去一一的说明，只拿LC_SEGMENT、LC_SYMTAB 做个示例。下面列表了部分load commond。</p>
+<pre><code>#define    LC_SEGMENT    0x1    /* segment of this file to be mapped */
+#define    LC_SYMTAB    0x2    /* link-edit stab symbol table info */
+#define    LC_SYMSEG    0x3    /* link-edit gdb symbol table info (obsolete) */
+#define    LC_THREAD    0x4    /* thread */
+#define    LC_UNIXTHREAD    0x5    /* unix thread (includes a stack) */
+#define    LC_LOADFVMLIB    0x6    /* load a specified fixed VM shared library */
+.....   
+</code></pre><h5 id="LC-SEGMENT"><a href="#LC-SEGMENT" class="headerlink" title="LC_SEGMENT"></a>LC_SEGMENT</h5><p>LC_SEGMENT ,segment load command indicates that a part of this file is to be mapped into a 64-bit task’s address space,说白了，就是映射到内存中的所有数据，自然包括代码、数据等等。segment进一步可以分为 <strong>PAGEZERO、</strong>TEXT、<strong>DATA、 </strong>OBJC、<strong>IMPORT、</strong>LINKEDIT。<strong>PAGEZERO 类型的segment是可执行程序的第一个segment，代表指针地址NULL。</strong>TEXT就是可执行代码，当然是只读了。<strong>DATA 是可写的数据segement，应该就是代码中的变量区域。</strong>OBJC 是Objective-C runtime support library。 The __LINKEDIT segment contains raw data used by the dynamic linker, such as symbol, string, and relocation table entries。</p>
+<p>每种segement可能包含多种类型的内容，例如<strong>TEXT代码段，可以有代码（</strong>text）、字符串（<strong>cstring） 、常量（</strong>const）、符号（<strong>symbol_stub）、字面量（</strong>literal4、__literal8），所以进一步用二级目录（section）表示。下面是segment、section的数据结构：</p>
+<pre><code>struct segment_command_64 
+{ 
+    /* for 64-bit architectures */
+        uint32_t    cmd;        /* LC_SEGMENT_64 */
+        uint32_t    cmdsize;    /* includes sizeof section_64 structs */
+        char        segname[16];    /* segment name */
+        uint64_t    vmaddr;        /* memory address of this segment */
+        uint64_t    vmsize;        /* memory size of this segment */
+        uint64_t    fileoff;    /* file offset of this segment */
+        uint64_t    filesize;    /* amount to map from the file */
+        vm_prot_t    maxprot;    /* maximum VM protection */
+        vm_prot_t    initprot;    /* initial VM protection */
+        uint32_t    nsects;        /* number of sections in segment */
+        uint32_t    flags;        /* flags */
+};
+
+struct section_64 
+{ 
+    /* for 64-bit architectures */
+    char        sectname[16];    /* name of this section */
+    char        segname[16];    /* segment this section goes in */
+    uint64_t    addr;        /* memory address of this section */
+    uint64_t    size;        /* size in bytes of this section */
+    uint32_t    offset;        /* file offset of this section */
+    uint32_t    align;        /* section alignment (power of 2) */
+    uint32_t    reloff;        /* file offset of relocation entries */
+    uint32_t    nreloc;        /* number of relocation entries */
+    uint32_t    flags;        /* flags (section type and attributes)*/
+    uint32_t    reserved1;    /* reserved (for offset or index) */
+    uint32_t    reserved2;    /* reserved (for count or sizeof) */
+    uint32_t    reserved3;    /* reserved */
+};
+</code></pre><p>终端输入：<br>    otool -lV ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive</p>
+<p>输出：</p>
+<pre><code>   ........
+   cmd LC_SEGMENT_64
+ cmdsize 712
+ segname __TEXT
+  vmaddr 0x0000000100000000
+  vmsize 0x0000000000008000
+ fileoff 0
+filesize 32768
+ maxprot r-x
+ initprot r-x
+  nsects 8
+   flags (none)
+   .......
+</code></pre><p>MachOView显示的结果：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9716.png" alt="收集、解析IOS崩溃日志16"><br>图中直观的显示出了LC_SEGMENT的数据 、LC_SEGMENT的二级目录section的数据。</p>
+<h5 id="LC-SYMTAB"><a href="#LC-SYMTAB" class="headerlink" title="LC_SYMTAB"></a>LC_SYMTAB</h5><p>LC_SYMTAB的数据结构如下：</p>
+<pre><code>struct symtab_command {
+    uint32_t    cmd;        /* LC_SYMTAB */
+    uint32_t    cmdsize;    /* sizeof(struct symtab_command) */
+    uint32_t    symoff;        /* symbol table offset */
+    uint32_t    nsyms;        /* number of symbol table entries */
+    uint32_t    stroff;        /* string table offset */
+    uint32_t    strsize;    /* string table size in bytes */
+};
+</code></pre><p>终端输出的结果: </p>
+<pre><code>Load command 6
+     cmd LC_SYMTAB
+ cmdsize 24
+  symoff 132944
+   nsyms 48
+  stroff 133916
+ strsize 1152
+</code></pre><p>MachOView看到的结果：<br><img src="http://of685p9vy.bkt.clouddn.com/%E6%94%B6%E9%9B%86%E3%80%81%E8%A7%A3%E6%9E%90IOS%E5%B4%A9%E6%BA%83%E6%97%A5%E5%BF%9717.png" alt="收集、解析IOS崩溃日志17"></p>
+<p>LC_SYMTAB 指定了符号的个数和相对Mach-O的偏移量。 </p>
+<h4 id="数据部分"><a href="#数据部分" class="headerlink" title="数据部分"></a>数据部分</h4><p>紧跟着load commond 后面的是数据部分，就是各个load commond 对应的具体数据。</p>
+<h4 id="小小结-1"><a href="#小小结-1" class="headerlink" title="小小结"></a>小小结</h4><p>我觉得Mach-O文件的格式非常像 一篇文章的结构，<br>Header部分是文章的摘要，总体描述了非常重要部分。<br>Load commands 相当于目录，Mach-O文件所有内容的索引。<br>Raw segment data 正文内容。</p>
+<p>Mach-O 文件格式就是一个规范，各个部分都有自己的数据格式，内容繁多，只能多看。<br>不过提到了一个有用的工具—otool，查看Mach-O对象文件的命令行工具。</p>
+<h3 id="获取构架、镜像加载地址"><a href="#获取构架、镜像加载地址" class="headerlink" title="获取构架、镜像加载地址"></a>获取构架、镜像加载地址</h3><p>好了，上面说了那么多Mach-O文件结构，主要是提供原理支撑，目的是通过对Mach-O文件结构的理解，找到获取构架、镜像加载地址的方法。<br>构架很好获取，就在Mach-O的文件头中，获取的关键代码如下 ：</p>
+<pre><code>/*
+ 获取代码的构架
+ */
+NSString * getCodeArch()
+{
+    NSString *strSystemArch =nil;
+
+
+    ///获取应用程序的名称
+    NSDictionary *dicInfo =   [[NSBundle mainBundle] infoDictionary];
+    if (LJM_Dic_Not_Valid(dicInfo))
+    {
+        return strSystemArch;
+    }
+    NSString *strAppName = dicInfo[@&quot;CFBundleName&quot;];
+    if (!strAppName)
+    {
+        return strSystemArch;
+    }
+
+    ///获取  cpu 的大小版本号
+    uint32_t count = _dyld_image_count();
+    cpu_type_t cpuType = -1;
+    cpu_type_t cpuSubType =-1;
+
+    for(uint32_t iImg = 0; iImg &lt; count; iImg++)
+    {
+        const char* szName = _dyld_get_image_name(iImg);
+        if (strstr(szName, strAppName.UTF8String) != NULL)
+        {
+            const struct mach_header* machHeader = _dyld_get_image_header(iImg);
+            cpuType = machHeader-&gt;cputype;
+            cpuSubType = machHeader-&gt;cpusubtype;
+            break;
+        }
+    }
+
+    if(cpuType &lt; 0 ||  cpuSubType &lt;0)
+    {
+        return  strSystemArch;
+    }
+    ///转化cpu 版本为文字类型
+    switch(cpuType)
+    {
+        case CPU_TYPE_ARM:
+        {
+            strSystemArch = @&quot;arm&quot;;
+            switch (cpuSubType)
+            {
+                case CPU_SUBTYPE_ARM_V6:
+                    strSystemArch = @&quot;armv6&quot;;
+                    break;
+                case CPU_SUBTYPE_ARM_V7:
+                    strSystemArch = @&quot;armv7&quot;;
+                    break;
+                case CPU_SUBTYPE_ARM_V7F:
+                    strSystemArch = @&quot;armv7f&quot;;
+                    break;
+                case CPU_SUBTYPE_ARM_V7K:
+                    strSystemArch = @&quot;armv7k&quot;;
+                    break;
+#ifdef CPU_SUBTYPE_ARM_V7S
+                case CPU_SUBTYPE_ARM_V7S:
+                    strSystemArch = @&quot;armv7s&quot;;
+                    break;
+#endif
+            }
+            break;
+        }
+#ifdef CPU_TYPE_ARM64
+        case CPU_TYPE_ARM64:
+            strSystemArch = @&quot;arm64&quot;;
+            break;
+#endif
+        case CPU_TYPE_X86:
+            strSystemArch = @&quot;i386&quot;;
+            break;
+        case CPU_TYPE_X86_64:
+            strSystemArch = @&quot;x86_64&quot;;
+            break;
+    }
+    return strSystemArch;
+}
+</code></pre><p>主要思路是：通过_dyld_image_count 获取到所有的镜像个数，然后根据镜像索引（0…镜像个数-1），依次枚举出镜像的名字，然后，镜像名字使用_dyld_get_image_header函数获取到镜像的header结构体信息，赋值到：mach_header* machHeader中。最后，通过machHeader-&gt;cputype（ CPU的类型）和machHeader-&gt;cpusubtype（CPU的子类型）转化为具体的代码构架。</p>
+<p>对于镜像的加载地址，其实就是镜像的header结构体的首地址。详细代码如下</p>
+<pre><code>/*
+ 获取应用程序的加载地址
+ */
+NSString * getImageLoadAddress()
+{
+    NSString *strLoadAddress =nil;
+
+
+    NSString * strAppName = getAppName();
+    if (!strAppName)
+    {
+        return strLoadAddress;
+    }
+
+    ///获取应用程序的load address
+    uint32_t count = _dyld_image_count();
+    for(uint32_t iImg = 0; iImg &lt; count; iImg++)
+    {
+        const char* szName = _dyld_get_image_name(iImg);
+        if (strstr(szName, strAppName.UTF8String) != NULL)
+        {
+            const struct mach_header* header = _dyld_get_image_header(iImg);
+            strLoadAddress = [NSString stringWithFormat:@&quot;0x%lX&quot;,(uintptr_t)header];
+            break;
+        }
+    }
+    return strLoadAddress;
+}
+</code></pre><p>主要思路就是：利用_dyld_get_image_header获取镜像的header结构体，header结构体是整个Mach-O的起始部分，所以，header结构体的首地址就是镜像的加载地址。</p>
+<p>好了，到目前为止，使用atos符号化崩溃日志的三个条件条件（符号文件、代码构架、镜像加载地址）都有了，那么我们就可以完成异常地址的符号化工作了。所以，到目前为止，我们定制的异常系统基本完成了，收集功能、符号化动能都有了。下面来看看我们的系统输出的内容。</p>
+<h3 id="输出Crash日志"><a href="#输出Crash日志" class="headerlink" title="输出Crash日志"></a>输出Crash日志</h3><p>本崩溃收集系统的输出格式使用json格式，输出的信息包括arch、CrashName、CrashReason、CrashBackTrace、CrashSystemVerson 。有了这些信息，我们完全可以符号化崩溃地址了。</p>
+<pre><code>{
+  &quot;strCrashArch&quot; : &quot;arm64&quot;,         ///代码构架
+  &quot;strCrashName&quot; : &quot;NSRangeException&quot;,
+  &quot;strCrashSystemVersion&quot; : &quot;10.0.2&quot;,
+  &quot;strCrashReason&quot; : &quot;*** -[__NSArrayI objectAtIndex:]: index 2 beyond bounds [0 .. 1]&quot;,
+  &quot;aryCrashBackTrace&quot; : [
+    {
+      &quot;strStackAddress&quot; : &quot;0x000000018ec6c1d8&quot;,
+      &quot;strImageName&quot; : &quot;CoreFoundation&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;&lt;redacted&gt;&quot;
+    },
+    {
+      &quot;strStackAddress&quot; : &quot;0x000000018d6a455c&quot;,
+      &quot;strImageName&quot; : &quot;libobjc.A.dylib&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;objc_exception_throw&quot;
+    },
+    {
+      &quot;strStackAddress&quot; : &quot;0x000000018eb48584&quot;,
+      &quot;strImageName&quot; : &quot;CoreFoundation&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;CFRunLoopRemoveTimer&quot;
+    },
+    {
+      &quot;strStackAddress&quot; : &quot;0x00000001000b48a0&quot;,    ///崩溃地址
+      &quot;strImageName&quot; : &quot;UncaughtException&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;0x1000B0000&quot;       ///镜像加载地址
+    },
+    {
+      &quot;strStackAddress&quot; : &quot;0x0000000194aea7b0&quot;,
+      &quot;strImageName&quot; : &quot;UIKit&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;&lt;redacted&gt;&quot;
+    },
+    ........
+    ........
+    {
+      &quot;strStackAddress&quot; : &quot;0x0000000194b1b360&quot;,
+      &quot;strImageName&quot; : &quot;UIKit&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;UIApplicationMain&quot;
+    },
+    {
+      &quot;strStackAddress&quot; : &quot;0x00000001000b4df0&quot;,
+      &quot;strImageName&quot; : &quot;UncaughtException&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;0x1000B0000&quot;
+    },
+    {
+      &quot;strStackAddress&quot; : &quot;0x000000018db285b8&quot;,
+      &quot;strImageName&quot; : &quot;libdyld.dylib&quot;,
+      &quot;strImageLoadAddress&quot; : &quot;&lt;redacted&gt;&quot;
+    }
+  ]
+}
+</code></pre><h3 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h3><p>这章，我们使用苹果的API完成了Crash日志收集系统，这个系统输出的日志可以使用atos在线下符号化。同时介绍了Mach-O的文件结构。 </p>
+<h3 id="你被默默的坑了吗"><a href="#你被默默的坑了吗" class="headerlink" title="你被默默的坑了吗"></a>你被默默的坑了吗</h3><p>通常一个大型的APP总是会引用第三方的SDK，第三方SDK也会集成一个Crash收集服务，以及时发现他们SDK的问题。当多个收集服务集成到一个APP中时，难免出现时序问题，强行覆盖等等的恶意竞争，总会有人默默被坑。所以NSSetUncaughtExceptionHandler设置自己的异常处理函数前，要保存先前的异常处理函数。当我们的异常处理函数执行完，将先前的异常处理函数注册回去。这样才能保证多个异常收集系统能有序工作。</p>
+<!--不过我看我们项目的代码非常的高大上，我们注册异常处理函数延迟执行，当程序启动后10秒，才注册，是不是因为我们被坑过，我不知道。-->
+<h2 id="深度定制异常收集系统"><a href="#深度定制异常收集系统" class="headerlink" title="深度定制异常收集系统"></a>深度定制异常收集系统</h2><p>我们上面定制的系统非常简单，功能单一。只能捕获到Object C异常。不能满足实际项目的需求，所以有必要找一个功能完善的异常收集框架，经过筛选，KSCrash是个不错的选择。</p>
+<p><a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a> 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。</p>
+<p>由于这篇文章罗列的内容太多，废话太多，所有移到《<a href="https://jianli2017.github.io/2016/07/17/KSCrash_Analize/" rel="external nofollow noopener noreferrer" target="_blank">KSCrash崩溃原理浅析</a>》 中单独阐述。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/C语言语法/struct_Analize/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    struct定义语法
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/IOS基础知识/crash/KSCrash_Analize/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">KSCrash崩溃收集原理浅析</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS基础知识/crash/Analize_Crash/" data-title="收集、符号化IOS崩溃日志" data-url="http://yoursite.com/wiki/IOS基础知识/crash/Analize_Crash/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
