@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>iOS事件处理，看我就够了~(转载) | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="事件处理">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="!--本文转载自[iOS事件处理，看我就够了~](https://www.jianshu.com/p/b0884faae603)-- UIResponderUIResponder是iOS中用于处理用户事件的API，可以处理触摸事件、按压事件(3D touch)、远程控制事件、硬件运动事件。可以通过touchesBegan、pressesBegan、motionBegan、remoteControl">
+<meta name="keywords" content="事件处理">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS事件处理，看我就够了~(转载)">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS基础知识/事件处理/iOS事件处理，看我就够了~/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="!--本文转载自[iOS事件处理，看我就够了~](https://www.jianshu.com/p/b0884faae603)-- UIResponderUIResponder是iOS中用于处理用户事件的API，可以处理触摸事件、按压事件(3D touch)、远程控制事件、硬件运动事件。可以通过touchesBegan、pressesBegan、motionBegan、remoteControl">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/enentChain/eventChain.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/enentChain/expend.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/gesture.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/enentChain/btnStack.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/enentChain/example1.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/enentChain/example2.png">
+<meta property="og:updated_time" content="2018-04-27T12:56:18.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS事件处理，看我就够了~(转载)">
+<meta name="twitter:description" content="!--本文转载自[iOS事件处理，看我就够了~](https://www.jianshu.com/p/b0884faae603)-- UIResponderUIResponder是iOS中用于处理用户事件的API，可以处理触摸事件、按压事件(3D touch)、远程控制事件、硬件运动事件。可以通过touchesBegan、pressesBegan、motionBegan、remoteControl">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/enentChain/eventChain.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS_Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS基础知识
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS基础知识/事件处理/iOS事件处理，看我就够了~/">iOS事件处理，看我就够了~(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            理论知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/理论知识/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/CSS笔记/">CSS笔记</a></li>  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Xcode编译常量/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS基础知识/事件处理/iOS事件处理，看我就够了~" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS基础知识/">IOS基础知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/事件处理/">事件处理</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/事件处理/">事件处理</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS基础知识/事件处理/iOS事件处理，看我就够了~/">
+            <time datetime="2016-11-21T04:07:12.000Z" itemprop="datePublished">2016-11-21</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            iOS事件处理，看我就够了~(转载)
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#UIResponder"><span class="toc-number">1.</span> <span class="toc-text">UIResponder</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#查找第一响应者"><span class="toc-number">2.</span> <span class="toc-text">查找第一响应者</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#基础API"><span class="toc-number">2.0.1.</span> <span class="toc-text">基础API</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查找第一响应者-1"><span class="toc-number">2.0.2.</span> <span class="toc-text">查找第一响应者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#注意"><span class="toc-number">2.0.3.</span> <span class="toc-text">注意</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#事件控制"><span class="toc-number">3.</span> <span class="toc-text">事件控制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#事件拦截"><span class="toc-number">3.0.1.</span> <span class="toc-text">事件拦截</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事件转发"><span class="toc-number">3.0.2.</span> <span class="toc-text">事件转发</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#事件逐级传递"><span class="toc-number">3.0.3.</span> <span class="toc-text">事件逐级传递</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Gesture-Recognizer"><span class="toc-number">4.</span> <span class="toc-text">Gesture Recognizer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UIControl"><span class="toc-number">5.</span> <span class="toc-text">UIControl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#事件传递优先级"><span class="toc-number">6.</span> <span class="toc-text">事件传递优先级</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#测试"><span class="toc-number">6.0.1.</span> <span class="toc-text">测试</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#示例1"><span class="toc-number">6.0.1.0.1.</span> <span class="toc-text">示例1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#示例2"><span class="toc-number">6.0.1.0.2.</span> <span class="toc-text">示例2</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#示例3"><span class="toc-number">6.0.1.0.3.</span> <span class="toc-text">示例3</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#分析"><span class="toc-number">6.0.2.</span> <span class="toc-text">分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#接收事件深度剖析"><span class="toc-number">6.1.</span> <span class="toc-text">接收事件深度剖析</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Tips"><span class="toc-number">6.1.0.0.1.</span> <span class="toc-text">Tips</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小技巧"><span class="toc-number">6.2.</span> <span class="toc-text">小技巧</span></a></li>
+                </div>
+            
+        
+        
+            <a href="!--本文转载自[iOS事件处理，看我就够了~](https://www.jianshu.com/p/b0884faae603)--">!--本文转载自[iOS事件处理，看我就够了~](https://www.jianshu.com/p/b0884faae603)--</a>
+<h2 id="UIResponder"><a href="#UIResponder" class="headerlink" title="UIResponder"></a>UIResponder</h2><p>UIResponder是iOS中用于处理用户事件的API，可以处理触摸事件、按压事件(3D touch)、远程控制事件、硬件运动事件。可以通过touchesBegan、pressesBegan、motionBegan、remoteControlReceivedWithEvent等方法，获取到对应的回调消息。UIResponder不只用来接收事件，还可以处理和传递对应的事件，如果当前响应者不能处理，则转发给其他合适的响应者处理。</p>
+<p>应用程序通过响应者来接收和处理事件，响应者可以是继承自UIResponder的任何子类，例如UIView、UIViewController、UIApplication等。<font color="red">当事件来到时，系统会将事件传递给合适的响应者，并且将其成为第一响应者</font>。</p>
+<p>第一响应者未处理的事件，将会在响应者链中进行传递，传递规则由UIResponder的nextResponder决定，可以通过重写该属性来决定传递规则。当一个事件到来时，第一响应者没有接收消息，则顺着响应者链向后传递。</p>
+<h2 id="查找第一响应者"><a href="#查找第一响应者" class="headerlink" title="查找第一响应者"></a>查找第一响应者</h2><h4 id="基础API"><a href="#基础API" class="headerlink" title="基础API"></a>基础API</h4><p>查找第一响应者时，有两个非常关键的API，查找第一响应者就是通过不断调用子视图的这两个API完成的。</p>
+<p>调用下面方法，获取到被点击的视图，也就是第一响应者。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(UIView *)</span>hitTest:<span class="params">(CGPoint)</span>point withEvent:<span class="params">(UIEvent *)</span>event;</span><br></pre></td></tr></table></figure>
+<p>查找点击的视图。 内部会调用pointInside:withEvent方法。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(BOOL)</span>pointInside:<span class="params">(CGPoint)</span>point withEvent:<span class="params">(UIEvent *)</span>event;</span><br></pre></td></tr></table></figure>
+<p>来判断点击区域是否在视图上，是则返回YES，不是则返回NO。</p>
+<h4 id="查找第一响应者-1"><a href="#查找第一响应者-1" class="headerlink" title="查找第一响应者"></a>查找第一响应者</h4><p>应用程序接收到事件后，将事件交给keyWindow并转发给根视图，根视图按照视图层级逐级遍历子视图，并且遍历的过程中不断判断视图范围，并最终找到第一响应者。</p>
+<p>从keyWindow开始，向前逐级遍历子视图，不断调用UIView的hitTest:withEvent:方法，通过该方法查找在点击区域中的视图后，并继续调用返回视图的子视图的hitTest:withEvent:方法，以此类推。如果子视图不在点击区域或没有子视图，则当前视图就是第一响应者。</p>
+<p>在hitTest:withEvent:方法中，会从上到下遍历子视图，并调用subViews的pointInside:withEvent:方法，来找到点击区域内且最上面的子视图。如果找到子视图则调用其hitTest:withEvent:方法，并继续执行这个流程，以此类推。如果子视图不在点击区域内，则忽略这个视图及其子视图，继续遍历其他视图。</p>
+<font color="blue">可以通过重写对应的方法，控制这个遍历过程。通过重写pointInside:withEvent:方法，来做自己的判断并返回YES或NO，返回点击区域是否在视图上。通过重写hitTest:withEvent:方法，返回被点击的视图</font>。<br><br>此方法在遍历视图时，忽略以下三种情况的视图，如果视图具有以下特征则忽略。但是视图的背景颜色是clearColor，并不在忽略范围内。<br><font color="red"><br><br>1.  视图的hidden等于YES。<br><br>2.  视图的alpha小于等于0.01。<br><br>3.  视图的userInteractionEnabled为NO。<br><br></font><br>如果点击事件是发生在视图外，但在其子视图内部，子视图也不能接收事件并成为第一响应者。这是因为在其父视图进行hitTest:withEvent:的过程中，就会将其忽略掉。<br><br>## 事件传递<br><br>#### 传递过程<br><br><u><br>1.  UIApplication接收到事件，将事件传递给keyWindow。<br><br>2.  keyWindow遍历subViews的hitTest:withEvent:方法，找到点击区域内合适的视图来处理事件。<br><br>3.  UIView的子视图也会遍历其subViews的hitTest:withEvent:方法，以此类推。<br><br>4.  直到找到点击区域内，且处于最上方的视图，将视图逐步返回给UIApplication。<br><br>5.  在查找第一响应者的过程中，已经形成了一个响应者链。<br><br>6.  应用程序会先调用第一响应者处理事件。<br><br>7.  如果第一响应者不能处理事件，则调用其nextResponder方法，一直找响应者链中能处理该事件的对象。<br><br>8.  最后到UIApplication后仍然没有能处理该事件的对象，则该事件被废弃。<br></u><br><br>模拟代码<br><br><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIView</span> *)hitTest:(<span class="built_in">CGPoint</span>)point withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.alpha &lt;= <span class="number">0.01</span> || <span class="keyword">self</span>.userInteractionEnabled == <span class="literal">NO</span> || <span class="keyword">self</span>.hidden) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">BOOL</span> inside = [<span class="keyword">self</span> pointInside:point withEvent:event];</span><br><span class="line">    <span class="keyword">if</span> (inside) &#123;</span><br><span class="line">        <span class="built_in">NSArray</span> *subViews = <span class="keyword">self</span>.subviews;</span><br><span class="line">        <span class="comment">// 对子视图从上向下找</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = subViews.count - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="built_in">UIView</span> *subView = subViews[i];</span><br><span class="line">            <span class="built_in">CGPoint</span> insidePoint = [<span class="keyword">self</span> convertPoint:point toView:subView];</span><br><span class="line">            <span class="built_in">UIView</span> *hitView = [subView hitTest:insidePoint withEvent:event];</span><br><span class="line">            <span class="keyword">if</span> (hitView) &#123;</span><br><span class="line">                <span class="keyword">return</span> hitView;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br><br>#### 示例<br><br><img src="http://of685p9vy.bkt.clouddn.com/enentChain/eventChain.png" alt="事件传递"><br><br>事件传递示例<br><br>如上图所示，响应者链如下：<br><br>1.  如果点击UITextField后其会成为第一响应者。<br><br>2.  如果textField未处理事件，则会将事件传递给下一级响应者链，也就是其父视图。<br><br>3.  父视图未处理事件则继续向下传递，也就是UIViewController的View。<br><br>4.  如果控制器的View未处理事件，则会交给控制器处理。<br><br>5.  控制器未处理则会交给UIWindow。<br><br>6.  然后会交给UIApplication。<br><br>7.  最后交给UIApplicationDelegate，如果其未处理则丢弃事件。<br><br><u>事件通过UITouch进行传递，在事件到来时，第一响应者会分配对应的UITouch，UITouch会一直跟随着第一响应者，并且根据当前事件的变化UITouch也会变化，当事件结束后则UITouch被释放。</u><br><br><font color="red">UIViewController没有hitTest:withEvent:方法，所以控制器不参与查找响应视图的过程。但是控制器在响应者链中，如果控制器的View不处理事件，会交给控制器来处理。控制器不处理的话，再交给View的下一级响应者处理。</font>
+
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><ol>
+<li><p>在执行hitTest:withEvent:方法时，如果该视图是hidden等于NO的那三种被忽略的情况，则改视图返回nil。</p>
+</li>
+<li><p>如果当前视图在响应者链中，但其没有处理事件，则不考虑其兄弟视图，即使其兄弟视图和其都在点击范围内。</p>
+</li>
+<li><p>UIImageView的userInteractionEnabled默认为NO，如果想要UIImageView响应交互事件，将属性设置为YES即可响应事件。</p>
+</li>
+</ol>
+<h2 id="事件控制"><a href="#事件控制" class="headerlink" title="事件控制"></a>事件控制</h2><h4 id="事件拦截"><a href="#事件拦截" class="headerlink" title="事件拦截"></a>事件拦截</h4><p>有时候想让指定视图来响应事件，不再向其子视图继续传递事件，可以通过重写hitTest:withEvent:方法。在执行到方法后，直接将该视图返回，而不再继续遍历子视图，这样响应者链的终端就是当前视图。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIView</span> *)hitTest:(<span class="built_in">CGPoint</span>)point withEvent:(<span class="built_in">UIEvent</span> *)event &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="事件转发"><a href="#事件转发" class="headerlink" title="事件转发"></a>事件转发</h4><p>在开发过程中，经常会遇到子视图显示范围超出父视图的情况，这时候可以重写该视图的pointInside:withEvent:方法，将点击区域扩大到能够覆盖所有子视图。</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/enentChain/expend.png" alt="扩大响应区域"></p>
+<p>扩大响应区域</p>
+<p>假设有上面的视图结构，SuperView的Subview超出了其视图范围，如果点击Subview在父视图外面的部分，则不能响应事件。所以通过重写pointInside:withEvent:方法，将响应区域扩大为虚线区域，包含SuperView的所有子视图，即可让子视图响应事件。</p>
+<h4 id="事件逐级传递"><a href="#事件逐级传递" class="headerlink" title="事件逐级传递"></a>事件逐级传递</h4><p>如果想让响应者链中，每一级UIResponder都可以响应事件，可以在每级UIResponder中都实现touches并调用super方法，即可实现响应者链事件逐级传递。</p>
+<p><font color="red">只不过这并不包含UIControl子类以及UIGestureRecognizer的子类，这两类会直接打断响应者链</font>。</p>
+<h2 id="Gesture-Recognizer"><a href="#Gesture-Recognizer" class="headerlink" title="Gesture Recognizer"></a>Gesture Recognizer</h2><p><strong>如果有事件到来时，视图有附加的手势识别器，则手势识别器优先处理事件。如果手势识别器没有处理事件，则将事件交给视图处理，视图如果未处理则顺着响应者链继续向后传递。</strong></p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/gesture.png" alt="手势识别"></p>
+<p>手势识别</p>
+<p>当响应者链和手势同时出现时，也就是既实现了touches方法又添加了手势，会发现touches方法有时会失效，这是因为手势的执行优先级是高于响应者链的。</p>
+<p>事件到来后先会执行hitTest和pointInside操作，通过这两个方法找到第一响应者，这个在上面已经详细讲过了。当找到第一响应者并将其返回给UIApplication后，UIApplication会向第一响应者派发事件，并且遍历整个响应者链。如果响应者链中能够处理当前事件的手势，则将事件交给手势处理，并调用touches的cancelled方法将响应者链取消。</p>
+<p><font color="red">在UIApplication向第一响应者派发事件，并且遍历响应者链查找手势时，会开始执行响应者链中的touches系列方法。</font>会先执行touchesBegan和touchesMoved方法，如果响应者链能够继续响应事件，则执行touchesEnded方法表示事件完成，如果将事件交给手势处理则调用touchesCancelled方法将响应者链打断。</p>
+<p>根据苹果的官方文档，<u>手势不参与响应者链传递事件，但是也通过hitTest的方式查找响应的视图，手势和响应者链一样都需要通过hitTest方法来确定响应者链的。在UIApplication向响应者链派发消息时，只要响应者链中存在能够处理事件的手势，则手势响应事件，如果手势不在响应者链中则不能处理事件。</u></p>
+<p><a href="https://developer.apple.com/documentation/uikit/uigesturerecognizer" rel="external nofollow noopener noreferrer" target="_blank">Apple UIGestureRecognizer Documentation</a></p>
+<h2 id="UIControl"><a href="#UIControl" class="headerlink" title="UIControl"></a>UIControl</h2><p>根据上面的手势和响应者链的处理规则，我们会发现UIButton或者UISlider等控件，并不符合这个处理规则。UIButton可以在其父视图已经添加tapGestureRecognizer的情况下，依然正常响应事件，并且tap手势不响应。</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/enentChain/btnStack.jpg" alt=""></p>
+<p>UIControl</p>
+<p>以UIButton为例，UIButton也是通过hitTest的方式查找第一响应者的。区别在于，<font color="red">如果UIButton是第一响应者，则直接由UIApplication派发事件，不通过Responder Chain派发。</font>如果其不能处理事件，则交给手势处理或响应者链传递。</p>
+<p>不只UIButton是直接由UIApplication派发事件的，所有继承自UIControl的类，都是由UIApplication直接派发事件的。</p>
+<p>[Apple UIControl Documentation][2]</p>
+<h2 id="事件传递优先级"><a href="#事件传递优先级" class="headerlink" title="事件传递优先级"></a>事件传递优先级</h2><h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><p>为了有依据的推断响应事件的实现和传递机制，我们做以下测试。</p>
+<h6 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a>示例1</h6><p><img src="http://of685p9vy.bkt.clouddn.com/enentChain/example1.png" alt=""></p>
+<p>示例1</p>
+<p>假设RootView、SuperView、Button都实现touches方法，并且Button添加buttonAction:的action，点击button后的调用如下。</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line">S<span class="function"><span class="title">uperView</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">S<span class="function"><span class="title">uperView</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line">B<span class="function"><span class="title">utton</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">B<span class="function"><span class="title">utton</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line"></span><br><span class="line">B<span class="function"><span class="title">utton</span> -&gt;</span> touchesBegan:withEvent:</span><br><span class="line">B<span class="function"><span class="title">utton</span> -&gt;</span> touchesEnded:withEvent:</span><br><span class="line">B<span class="function"><span class="title">utton</span> -&gt;</span> buttonAction:</span><br></pre></td></tr></table></figure>
+<h6 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a>示例2</h6><p>还是上面的视图结构，我们给RootView加上UITapGestureRecognizer手势，并且通过tapAction:方法接收回调，点击上面的SuperView后，方法调用如下。</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line">S<span class="function"><span class="title">uperView</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">S<span class="function"><span class="title">uperView</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line">B<span class="function"><span class="title">utton</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">B<span class="function"><span class="title">utton</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> hitTest:withEvent:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> pointInside:withEvent:</span><br><span class="line"></span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> gestureRecognizer:shouldReceivePress:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> gestureRecognizer:shouldBeRequiredToFailByGestureRecognizer:</span><br><span class="line">S<span class="function"><span class="title">uperView</span> -&gt;</span> touchesBegan:withEvent:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> gestureRecognizerShouldBegin:</span><br><span class="line">R<span class="function"><span class="title">ootView</span> -&gt;</span> tapAction:</span><br><span class="line">S<span class="function"><span class="title">uperView</span> -&gt;</span> touchesCancelled:</span><br></pre></td></tr></table></figure>
+<h6 id="示例3"><a href="#示例3" class="headerlink" title="示例3"></a>示例3</h6><p><img src="http://of685p9vy.bkt.clouddn.com/enentChain/example2.png" alt=""></p>
+<p>示例3</p>
+<p>上面的视图中Subview1、Subview2、Subview3是同级视图，都是SuperView的子视图。我们给Subview1加上UITapGestureRecognizer手势，并且通过subView1Action:方法接收回调，点击上面的Subview3后，方法调用如下。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">SuperView -&gt; <span class="string">hitTest:</span><span class="string">withEvent:</span></span><br><span class="line">SuperView -&gt; <span class="string">pointInside:</span><span class="string">withEvent:</span></span><br><span class="line">Subview3 -&gt; <span class="string">hitTest:</span><span class="string">withEvent:</span></span><br><span class="line">Subview3 -&gt; <span class="string">pointInside:</span><span class="string">withEvent:</span></span><br><span class="line">SuperView -&gt; <span class="string">hitTest:</span><span class="string">withEvent:</span></span><br><span class="line">SuperView -&gt; <span class="string">pointInside:</span><span class="string">withEvent:</span></span><br><span class="line"></span><br><span class="line">Subview3 -&gt; <span class="string">touchesBegan:</span><span class="string">withEvent:</span></span><br><span class="line">Subview3 -&gt; <span class="string">touchesEnded:</span><span class="string">withEvent:</span></span><br></pre></td></tr></table></figure>
+<p>通过上面的例子来看，虽然Subview1在Subview3的下面，并且添加了手势，点击区域是在Subview1和Subview3两个视图上的。但是由于经过hitTest和pointInside之后，响应者链中并没有Subview1，所以Subview1的手势并没有被响应。</p>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>根据我们上面的测试，推断iOS响应事件的优先级，以及整体的响应逻辑。</p>
+<p>当事件到来时，会通过hitTest和pointInside两个方法，从Window开始向上面的视图查找，找到第一响应者的视图。找到第一响应者后，系统会判断其是继承自UIControl还是UIResponder，如果是继承自UIControl，则直接通过UIApplication直接向其派发消息，并且不再向响应者链派发消息。</p>
+<p>如果是继承自UIResponder的类，则调用第一响应者的touchesBegin，并且不会立即执行touchesEnded，而是调用之后顺着响应者链向后查找。如果在查找过程中，发现响应者链中有的视图添加了手势，则进入手势的代理方法中，如果代理方法返回可以响应这个事件，则将第一响应者的事件取消，并调用其touchesCanceled方法，然后由手势来响应事件。</p>
+<p>如果手势不能处理事件，则交给第一响应者来处理。如果第一响应者也不能响应事件，则顺着响应者链继续向后查找，直到找到能够处理事件的UIResponder对象。如果找到UIApplication还没有对象响应事件的话，则将这次事件丢弃。</p>
+<h3 id="接收事件深度剖析"><a href="#接收事件深度剖析" class="headerlink" title="接收事件深度剖析"></a>接收事件深度剖析</h3><p>在UIApplication接收到响应事件之前，还有更复杂的系统级的处理，处理流程大致如下。</p>
+<ol>
+<li><p>系统通过IOKit.framework来处理硬件操作，其中屏幕处理也通过IOKit完成(IOKit可能是注册监听了屏幕输出的端口) 当用户操作屏幕，IOKit收到屏幕操作，会将这次操作封装为IOHIDEvent对象。通过mach port(IPC进程间通信)将事件转发给SpringBoard来处理。</p>
+</li>
+<li><p>SpringBoard是iOS系统的桌面程序。SpringBoard收到mach port发过来的事件，唤醒main runloop来处理。 main runloop将事件交给source1处理，source1会调用__IOHIDEventSystemClientQueueCallback()函数。</p>
+</li>
+<li><p>函数内部会判断，是否有程序在前台显示，如果有则通过mach port将IOHIDEvent事件转发给这个程序。 如果前台没有程序在显示，则表明SpringBoard的桌面程序在前台显示，也就是用户在桌面进行了操作。 <strong>IOHIDEventSystemClientQueueCallback()函数会将事件交给source0处理，source0会调用</strong>UIApplicationHandleEventQueue()函数，函数内部会做具体的处理操作。</p>
+</li>
+<li><p>例如用户点击了某个应用程序的icon，会将这个程序启动。 应用程序接收到SpringBoard传来的消息，会唤醒main runloop并将这个消息交给source1处理，source1调用<strong>IOHIDEventSystemClientQueueCallback()函数，在函数内部会将事件交给source0处理，并调用source0的</strong>UIApplicationHandleEventQueue()函数。 在__UIApplicationHandleEventQueue()函数中，会将传递过来的IOHIDEvent转换为UIEvent对象。</p>
+</li>
+<li><p>在函数内部，调用UIApplication的sendEvent:方法，将UIEvent传递给第一响应者或UIControl对象处理，在UIEvent内部包含若干个UITouch对象。</p>
+</li>
+</ol>
+<h6 id="Tips"><a href="#Tips" class="headerlink" title="Tips"></a>Tips</h6><p>source1是runloop用来处理mach port传来的系统事件的，source0是用来处理用户事件的。 source1收到系统事件后，都会调用source0的函数，所以最终这些事件都是由source0处理的。</p>
+<h3 id="小技巧"><a href="#小技巧" class="headerlink" title="小技巧"></a>小技巧</h3><p>在开发中，有时会有找到当前View对应的控制器的需求，这时候就可以利用我们上面所学，根据响应者链来找到最近的控制器。</p>
+<p>在UIResponder中提供了nextResponder方法，通过这个方法可以找到当前响应环节的上一级响应对象。可以从当前UIView开始不断调用nextResponder，查找上一级响应者链的对象，就可以找到离自己最近的UIViewController。</p>
+<p>示例代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIViewController</span> *)parentController &#123;</span><br><span class="line">   <span class="built_in">UIResponder</span> *responder = [<span class="keyword">self</span> nextResponder];</span><br><span class="line">   <span class="keyword">while</span> (responder) &#123;</span><br><span class="line">       <span class="keyword">if</span> ([responder isKindOfClass:[<span class="built_in">UIViewController</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">           <span class="keyword">return</span> (<span class="built_in">UIViewController</span> *)responder;</span><br><span class="line">       &#125;</span><br><span class="line">       responder = [responder nextResponder];</span><br><span class="line">   &#125;</span><br><span class="line">   <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>作者：刘小壮</p>
+<p>链接：<a href="https://www.jianshu.com/p/b0884faae603" rel="external nofollow noopener noreferrer" target="_blank">https://www.jianshu.com/p/b0884faae603</a></p>
+<hr>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/IOS基础知识/理论知识/指定初始化函数/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    正确使用NS_DESIGNATED_INITIALIZER
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/C语言语法/union定义/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">union定义(转载)</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS基础知识/事件处理/iOS事件处理，看我就够了~/" data-title="iOS事件处理，看我就够了~(转载)" data-url="http://yoursite.com/wiki/IOS基础知识/事件处理/iOS事件处理，看我就够了~/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>

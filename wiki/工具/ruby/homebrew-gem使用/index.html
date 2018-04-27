@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>homebrew-gem使用. | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="工具">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="最近使用cocoapod更新repo会报下面错误： Updating spec repo master[!] Failed to connect to GitHub to update the CocoaPods/Specs specs repo - Please check if you are offline, or that GitHub is down 经过查找，发现GitHub在2018">
+<meta name="keywords" content="工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="homebrew-gem使用.">
+<meta property="og:url" content="http://yoursite.com/wiki/工具/ruby/homebrew-gem使用/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="最近使用cocoapod更新repo会报下面错误： Updating spec repo master[!] Failed to connect to GitHub to update the CocoaPods/Specs specs repo - Please check if you are offline, or that GitHub is down 经过查找，发现GitHub在2018">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-04-23T08:19:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="homebrew-gem使用.">
+<meta name="twitter:description" content="最近使用cocoapod更新repo会报下面错误： Updating spec repo master[!] Failed to connect to GitHub to update the CocoaPods/Specs specs repo - Please check if you are offline, or that GitHub is down 经过查找，发现GitHub在2018">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS_Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS_Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS基础知识
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  <li class="file"><a href="/wiki/IOS基础知识/foundation/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/事件处理/iOS事件处理，看我就够了~/">iOS事件处理，看我就够了~(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            理论知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/理论知识/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/CSS笔记/">CSS笔记</a></li>  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Xcode编译常量/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-工具/ruby/homebrew-gem使用" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/ruby/">ruby</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/工具/">工具</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/ruby/homebrew-gem使用/">
+            <time datetime="2018-04-23T04:07:12.000Z" itemprop="datePublished">2018-04-23</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            homebrew-gem使用.
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Homebrew介绍"><span class="toc-number">1.</span> <span class="toc-text">Homebrew介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ruby更新"><span class="toc-number">2.</span> <span class="toc-text">ruby更新</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#更新Home-brew"><span class="toc-number">2.0.1.</span> <span class="toc-text">更新Home brew</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#设置环境变量"><span class="toc-number">2.0.2.</span> <span class="toc-text">设置环境变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gem的自我更新"><span class="toc-number">2.0.3.</span> <span class="toc-text">gem的自我更新</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#gem-介绍"><span class="toc-number">3.</span> <span class="toc-text">gem 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#解决无法连接到GitHub问题"><span class="toc-number">4.</span> <span class="toc-text">解决无法连接到GitHub问题</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#升级openssl"><span class="toc-number">4.0.1.</span> <span class="toc-text">升级openssl</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#升级ruby"><span class="toc-number">4.0.2.</span> <span class="toc-text">升级ruby</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#升级cocoapod"><span class="toc-number">4.0.3.</span> <span class="toc-text">升级cocoapod</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li>
+                </div>
+            
+        
+        
+            <p>最近使用cocoapod更新repo会报下面错误：</p>
+<p>Updating spec repo <code>master</code><br>[!] Failed to connect to GitHub to update the CocoaPods/Specs specs repo - Please check if you are offline, or that GitHub is down</p>
+<p>经过查找，发现GitHub在2018年2月23日移除了弱加密标准，导致无法正常连接到GitHub。<a href="https://blog.github.com/2018-02-23-weak-cryptographic-standards-removed/" rel="external nofollow noopener noreferrer" target="_blank">传送门</a>。</p>
+<p>解决办法是：升级Cocoapod、openssl、ruby。首先介绍下更新ruby使用的Homebrew。</p>
+<h2 id="Homebrew介绍"><a href="#Homebrew介绍" class="headerlink" title="Homebrew介绍"></a>Homebrew介绍</h2><p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。<br>援引官方的一句话：又提示缺少套件啦？别担心，Homebrew 随时守候。Homebrew – OS X 不可或缺的套件管理器。</p>
+<p>使用ruby安装Homebrew</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)”</span></span><br></pre></td></tr></table></figure>
+<p>卸载</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/uninstall)"</span></span><br></pre></td></tr></table></figure>
+<p>homebrew使用 </p>
+<p>安装包 brew install <packagename></packagename></p>
+<p>卸载包 brew uninstall <packagename></packagename></p>
+<p>查询可用包 brew search <packagename></packagename></p>
+<p>查看已经安装列表 brew list</p>
+<p>查看任意包信息brew info <packagename></packagename></p>
+<h2 id="ruby更新"><a href="#ruby更新" class="headerlink" title="ruby更新"></a>ruby更新</h2><p>使用brew安装ruby很方便，但缺点也是很明显的，不能实时进行版本的切换，所以还是用 brew + rvm 或brew + rbenv比较好，但是后面的这种方法我没有走通。所以我使用Homebrew更新ruby。</p>
+<p>我们不去删除系统自带的ruby，gem，而是自己重新安装一套新的ruby，gem，通过更改PATH环境变量的方式来更新系统，</p>
+<p>这样做好处比较安全的，不会破坏原有的苹果系统，又不耽误我使用最新的ruby。</p>
+<h4 id="更新Home-brew"><a href="#更新Home-brew" class="headerlink" title="更新Home brew"></a>更新Home brew</h4><p>好了，开始吧</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span>update</span><br><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>ruby</span><br></pre></td></tr></table></figure>
+<h4 id="设置环境变量"><a href="#设置环境变量" class="headerlink" title="设置环境变量"></a>设置环境变量</h4><p>系统原始版本的/usr/bin/ruby 我们并不删除，只是更改PATH环境变量，且将/usr/local/bin 添加到PATH的前面，这样系统就会首先用</p>
+<p>/usr/local/bin下面找到我们用brew安装的ruby ruby 2.5.1p57(2018-03-29 revision 63029) [x86_64-darwin16]版本的了。</p>
+<p>到自己目录下的.profile 或者 .bashrc 或者  .bash_profile    </p>
+<p>用vim打开 （更改前请备份好这个文件，避免误操作）</p>
+<p>在文件的末尾加入:</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># for brew install</span></span><br><span class="line"><span class="builtin-name">export</span> <span class="attribute">PATH</span>=/usr/local/bin:$PATH</span><br></pre></td></tr></table></figure>
+<p>然后重启终端，就可以用到了新的ruby了</p>
+<p>检验一下</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ruby --version</span><br><span class="line">ruby <span class="number">2.5</span><span class="number">.1</span>p57 (<span class="number">2018</span><span class="number">-03</span><span class="number">-29</span> revision <span class="number">63029</span>) [x86_64-darwin16]</span><br><span class="line">$ which ruby</span><br><span class="line">/usr/local/bin/ruby               注意：系统的是 /usr/bin/ruby</span><br></pre></td></tr></table></figure>
+<h4 id="gem的自我更新"><a href="#gem的自我更新" class="headerlink" title="gem的自我更新"></a>gem的自我更新</h4><p>gem是随着ruby的安装而安装的，所以路径和刚刚安装ruby的路径是相同过的，</p>
+<p>此gem是自己安装路径中的gem (/usr/local/bin/gem)，不是系统的gem(/usr/bin/gem)，我们这里也不动系统的gem</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">which</span> gem</span></span><br><span class="line">/usr/local/bin/gem</span><br></pre></td></tr></table></figure>
+<h2 id="gem-介绍"><a href="#gem-介绍" class="headerlink" title="gem 介绍"></a>gem 介绍</h2><p>Gem是一个管理Ruby库和程序的标准包，它通过<a href="http://rubygems.org/" rel="external nofollow noopener noreferrer" target="_blank">Ruby Gem</a>源来查找、安装、升级和卸载软件包，非常的便捷。</p>
+<p>Ruby 1.9.2版本默认已安装Ruby Gem，如果你使用其它发行版本，请参考“如何安装Ruby Gem”。</p>
+<p>Ruby gem包的安装方式：</p>
+<p>所有的gem包，会被安装到 /[Ruby root]/lib/ruby/gems/[ver]/ 目录下，这其中包括了Cache、doc、gems、specifications 4个目录，cache下放置下载的原生gem包，gems下则放置的是解压过的gem包。<br>当安装过程中遇到问题时，可以进入这些目录，手动删除有问题的gem包，然后重新运行 gem install [gemname] 命令即可。</p>
+<p>Ruby Gem命令详解：</p>
+<p>//更新Gem自身<br>//注意：在某些linux发行版中为了系统稳定性此命令禁止执行<br>$ gem update –system</p>
+<p>// 从Gem源安装gem包<br>$ gem install [gemname]</p>
+<p>// 从本机安装gem包<br>$ gem install -l [gemname].gem</p>
+<p>// 安装指定版本的gem包<br>$ gem install [gemname] –version=[ver]</p>
+<p>// 更新所有已安装的gem包<br>$ gem update</p>
+<p>// 更新指定的gem包<br>// 注意：gem update [gemname]不会升级旧版本的包，此时你可以使用 gem install [gemname] –version=[ver]代替<br>$ gem update [gemname]</p>
+<p>// 删除指定的gem包，注意此命令将删除所有已安装的版本<br>$ gem uninstall [gemname]</p>
+<p>// 删除某指定版本gem<br>$ gem uninstall [gemname] –version=[ver]</p>
+<p>// 查看本机已安装的所有gem包<br>$ gem list [–local]</p>
+<h2 id="解决无法连接到GitHub问题"><a href="#解决无法连接到GitHub问题" class="headerlink" title="解决无法连接到GitHub问题"></a>解决无法连接到GitHub问题</h2><p>通过下面的命令可以解决链接到Github失败的问题 ：</p>
+<h4 id="升级openssl"><a href="#升级openssl" class="headerlink" title="升级openssl"></a>升级openssl</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">which</span> openssl</span></span><br><span class="line">/usr/local/opt/openssl/bin/openssl</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> openssl version</span></span><br><span class="line">OpenSSL 1.0.2o  27 Mar 2018</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">如果openssl版本低，请使用Homebrew更新</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew update</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew install openssl</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> brew upgrade openssl</span></span><br><span class="line"></span><br><span class="line">`` If you need to have this software first in your PATH run: echo 'export PATH="/usr/local/opt/openssl/bin:$PATH"' &gt;&gt; ~/.bash_profile</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">echo</span> <span class="string">'export PATH="/usr/local/opt/openssl/bin:$PATH"'</span> &gt;&gt; ~/.bash_profile</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">source</span> ~/.bash_profile</span></span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">which</span> openssl</span></span><br><span class="line">/usr/local/opt/openssl/bin/openssl</span><br><span class="line"></span><br><span class="line"><span class="meta">$</span><span class="bash"> openssl version</span></span><br><span class="line">OpenSSL 1.0.2n  7 Dec 2017</span><br></pre></td></tr></table></figure>
+<h4 id="升级ruby"><a href="#升级ruby" class="headerlink" title="升级ruby"></a>升级ruby</h4><p>$ ruby –version<br>ruby 2.5.0p0 (2017-12-25 revision 61468) [x86_64-darwin16]</p>
+<p>如果版本比较低，请参考ruby升级</p>
+<h4 id="升级cocoapod"><a href="#升级cocoapod" class="headerlink" title="升级cocoapod"></a>升级cocoapod</h4><p>$ gem install cocoapods -n /usr/local/bin</p>
+<p>$ which pod<br>/usr/local/bin/pod</p>
+<p>$ pod –version<br>1.5.0</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://blog.csdn.net/wks_lovewei/article/details/73369333" rel="external nofollow noopener noreferrer" target="_blank">mac系统用HomeBrew直接安装ruby</a></li>
+<li><a href="https://stackoverflow.com/questions/38993527/cocoapods-failed-to-connect-to-github-to-update-the-cocoapods-specs-specs-repo" rel="external nofollow noopener noreferrer" target="_blank">Cocoapods: Failed to connect to GitHub to update the CocoaPods/Specs specs repo</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">堆区（heap）和栈区（stack）的区别(转载)</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/工具/ruby/homebrew-gem使用/" data-title="homebrew-gem使用." data-url="http://yoursite.com/wiki/工具/ruby/homebrew-gem使用/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
