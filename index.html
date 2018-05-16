@@ -219,6 +219,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             crash
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS基础知识/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
@@ -249,15 +258,6 @@
                             内存管理
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/内存管理/内存学习/">内存学习</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            未命名文件夹
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/未命名文件夹/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -459,6 +459,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS基础知识/Mach_O/Mach_O_File_Struct" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS基础知识/">IOS基础知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/Mach-O/">Mach_O</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/mach/">mach</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/">
+            <time datetime="2018-05-16T04:07:12.000Z" itemprop="datePublished">2018-05-16</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS基础知识/事件处理/iOS事件处理" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1534,67 +1600,6 @@
 </ul>
 </blockquote>
 
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/Cocoapods/cocoapod-learn-install" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
-    </div>
-
-                        
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">
-            <time datetime="2018-02-27T02:29:06.000Z" itemprop="datePublished">2018-02-27</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p><a href="https://guides.cocoapods.org/" rel="external nofollow noopener noreferrer" target="_blank">CocoaPods</a> Get on with building your app, not duplicating code ,是管理iOS工程依赖的第三方库的工具，通过CocoaPods，我们可以很方便地管理每个第三方库的版本，且不需要做太多的配置。本文在<a href="https://www.jianshu.com/p/1711e131987d" rel="external nofollow noopener noreferrer" target="_blank">看一遍就会的CocoaPods的安装和使用教程</a>的基础上稍微修改而来。<br></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/Cocoapods/cocoapod-learn-install/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

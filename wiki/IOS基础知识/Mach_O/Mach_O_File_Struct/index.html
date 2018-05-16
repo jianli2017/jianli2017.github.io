@@ -9,13 +9,13 @@
         <meta name="keywords" content="mach">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）  这张图片说明了几点：  mach-o由三部分构成，header、Load Commands、Data区域。 commond指定了各种数据在Data区域的位置。 每个segment下面可以有一个或多个section。  也可以从下面这张图理解">
+    <meta name="description" content="Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。">
 <meta name="keywords" content="mach">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mach-o文件结构理解">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS基础知识/未命名文件夹/Mach_O_File_Struct/index.html">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）  这张图片说明了几点：  mach-o由三部分构成，header、Load Commands、Data区域。 commond指定了各种数据在Data区域的位置。 每个segment下面可以有一个或多个section。  也可以从下面这张图理解">
+<meta property="og:description" content="Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/mach-o-overall.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/mach_O_new_overall.png">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png">
-<meta property="og:updated_time" content="2018-05-16T12:03:12.000Z">
+<meta property="og:updated_time" content="2018-05-16T12:07:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-o文件结构理解">
-<meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）  这张图片说明了几点：  mach-o由三部分构成，header、Load Commands、Data区域。 commond指定了各种数据在Data区域的位置。 每个segment下面可以有一个或多个section。  也可以从下面这张图理解">
+<meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。">
 <meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/mach-o-overall.jpg">
     
 
@@ -229,6 +229,15 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
                     </li> 
                     
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
                     <li class="directory">
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
@@ -263,15 +272,6 @@
                             内存管理
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS基础知识/内存管理/内存学习/">内存学习</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory open">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
-                            &nbsp;
-                            未命名文件夹
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS基础知识/未命名文件夹/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -472,7 +472,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS基础知识/未命名文件夹/Mach_O_File_Struct" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS基础知识/Mach_O/Mach_O_File_Struct" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -482,7 +482,7 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS基础知识/">IOS基础知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/未命名文件夹/">未命名文件夹</a>
+        <a class="article-category-link" href="/categories/IOS基础知识/">IOS基础知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS基础知识/Mach-O/">Mach_O</a>
     </div>
 
                         
@@ -494,8 +494,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS基础知识/未命名文件夹/Mach_O_File_Struct/">
-            <time datetime="2016-11-21T04:07:12.000Z" itemprop="datePublished">2016-11-21</time>
+        <a href="/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/">
+            <time datetime="2018-05-16T04:07:12.000Z" itemprop="datePublished">2018-05-16</time>
         </a>
     </div>
 
@@ -524,7 +524,8 @@
             
         
         
-            <p>Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）</p>
+            <p>Mach-O是mac系统中文件的存储格式。它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。</p>
+<a id="more"></a>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/mach-o-overall.jpg" alt="mach-o 文件结构"></p>
 <p>这张图片说明了几点：</p>
 <ol>
@@ -541,7 +542,7 @@
 </ol>
 <p>下面开始介绍Header部分</p>
 <h2 id="mach-header"><a href="#mach-header" class="headerlink" title="mach-header"></a>mach-header</h2><p>mach-header 的定义如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">///&lt;mach-o/loader.h&gt;</span></span><br><span class="line"><span class="keyword">struct</span> mach_header_64 &#123;</span><br><span class="line">	uint32_t	magic;		<span class="comment">/* mach magic number identifier */</span></span><br><span class="line">	cpu_type_t	cputype;	<span class="comment">/* cpu specifier */</span></span><br><span class="line">	cpu_subtype_t	cpusubtype;	<span class="comment">/* machine specifier */</span></span><br><span class="line">	uint32_t	filetype;	<span class="comment">/* type of file */</span></span><br><span class="line">	uint32_t	ncmds;		<span class="comment">/* number of load commands */</span></span><br><span class="line">	uint32_t	sizeofcmds;	<span class="comment">/* the size of all the load commands */</span></span><br><span class="line">	uint32_t	flags;		<span class="comment">/* flags */</span></span><br><span class="line">	uint32_t	reserved;	<span class="comment">/* reserved */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///&lt;mach-o/loader.h&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mach_header_64</span> &#123;</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	magic;		<span class="comment">/* mach magic number identifier */</span></span><br><span class="line">	<span class="keyword">cpu_type_t</span>	cputype;	<span class="comment">/* cpu specifier */</span></span><br><span class="line">	<span class="keyword">cpu_subtype_t</span>	cpusubtype;	<span class="comment">/* machine specifier */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	filetype;	<span class="comment">/* type of file */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	ncmds;		<span class="comment">/* number of load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	sizeofcmds;	<span class="comment">/* the size of all the load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* flags */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	reserved;	<span class="comment">/* reserved */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ul>
 <li>magic：魔数，用于快速确认该文件用于64位还是32位<br>可取值（部分）：</li>
 </ul>
@@ -663,19 +664,10 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)
-                
-            </div>
-        </a>
     
-    
-        <a href="/wiki/C语言语法/union定义/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS基础知识/事件处理/iOS事件处理/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">union定义(转载)</div>
+            <div class="article-nav-title">iOS事件处理看我就够了(转载)</div>
         </a>
     
 </nav>
@@ -687,7 +679,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS基础知识/未命名文件夹/Mach_O_File_Struct/" data-title="Mach-o文件结构理解" data-url="http://yoursite.com/wiki/IOS基础知识/未命名文件夹/Mach_O_File_Struct/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/" data-title="Mach-o文件结构理解" data-url="http://yoursite.com/wiki/IOS基础知识/Mach_O/Mach_O_File_Struct/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
