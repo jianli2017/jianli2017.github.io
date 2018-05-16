@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="最近使用cocoapod更新repo会报下面错误： Updating spec repo master[!] Failed to connect to GitHub to update the CocoaPods/Specs specs repo - Please check if you are offline, or that GitHub is down 经过查找，发现GitHub在2018">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-23T08:19:34.000Z">
+<meta property="og:updated_time" content="2018-05-16T12:09:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="homebrew-gem使用.">
 <meta name="twitter:description" content="最近使用cocoapod更新repo会报下面错误： Updating spec repo master[!] Failed to connect to GitHub to update the CocoaPods/Specs specs repo - Please check if you are offline, or that GitHub is down 经过查找，发现GitHub在2018">
@@ -516,6 +516,7 @@
 <p>Updating spec repo <code>master</code><br>[!] Failed to connect to GitHub to update the CocoaPods/Specs specs repo - Please check if you are offline, or that GitHub is down</p>
 <p>经过查找，发现GitHub在2018年2月23日移除了弱加密标准，导致无法正常连接到GitHub。<a href="https://blog.github.com/2018-02-23-weak-cryptographic-standards-removed/" rel="external nofollow noopener noreferrer" target="_blank">传送门</a>。</p>
 <p>解决办法是：升级Cocoapod、openssl、ruby。首先介绍下更新ruby使用的Homebrew。</p>
+<a id="more"></a>
 <h2 id="Homebrew介绍"><a href="#Homebrew介绍" class="headerlink" title="Homebrew介绍"></a>Homebrew介绍</h2><p>Homebrew是一款Mac OS平台下的软件包管理工具，拥有安装、卸载、更新、查看、搜索等很多实用的功能。简单的一条指令，就可以实现包管理，而不用你关心各种依赖和文件路径的情况，十分方便快捷。<br>援引官方的一句话：又提示缺少套件啦？别担心，Homebrew 随时守候。Homebrew – OS X 不可或缺的套件管理器。</p>
 <p>使用ruby安装Homebrew</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/usr/</span>bin<span class="regexp">/ruby -e "$(curl -fsSL https:/</span><span class="regexp">/raw.githubusercontent.com/</span>Homebrew<span class="regexp">/install/m</span>aster<span class="regexp">/install)”</span></span><br></pre></td></tr></table></figure>

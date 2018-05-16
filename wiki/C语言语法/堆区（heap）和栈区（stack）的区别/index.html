@@ -9,18 +9,18 @@
         <meta name="keywords" content="C 语言语法">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="（1）申请方式 栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等； 堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收； （2）操作方式 栈区：操作方式类似于数据结构中的栈； 堆区：不同于数据结构中的堆，分配方式类似于链表。 （3）申请后系统的响应  栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报">
+    <meta name="description" content="（1）申请方式 栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等； 堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收； （2）操作方式 栈区：操作方式类似于数据结构中的栈； 堆区：不同于数据结构中的堆，分配方式类似于链表。 （3）申请后系统的响应  栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将">
 <meta name="keywords" content="C 语言语法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="堆区（heap）和栈区（stack）的区别(转载)">
 <meta property="og:url" content="http://yoursite.com/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="（1）申请方式 栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等； 堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收； （2）操作方式 栈区：操作方式类似于数据结构中的栈； 堆区：不同于数据结构中的堆，分配方式类似于链表。 （3）申请后系统的响应  栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报">
+<meta property="og:description" content="（1）申请方式 栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等； 堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收； （2）操作方式 栈区：操作方式类似于数据结构中的栈； 堆区：不同于数据结构中的堆，分配方式类似于链表。 （3）申请后系统的响应  栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-04-03T04:06:48.000Z">
+<meta property="og:updated_time" content="2018-05-16T12:10:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="堆区（heap）和栈区（stack）的区别(转载)">
-<meta name="twitter:description" content="（1）申请方式 栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等； 堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收； （2）操作方式 栈区：操作方式类似于数据结构中的栈； 堆区：不同于数据结构中的堆，分配方式类似于链表。 （3）申请后系统的响应  栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报">
+<meta name="twitter:description" content="（1）申请方式 栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等； 堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收； （2）操作方式 栈区：操作方式类似于数据结构中的栈； 堆区：不同于数据结构中的堆，分配方式类似于链表。 （3）申请后系统的响应  栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将">
     
 
     
@@ -512,7 +512,8 @@
             
         
         
-            <p>（1）申请方式</p>
+            <a id="more"></a>
+<p>（1）申请方式</p>
 <p>栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等；</p>
 <p>堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收；</p>
 <p>（2）操作方式</p>
