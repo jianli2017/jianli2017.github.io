@@ -9,13 +9,13 @@
         <meta name="keywords" content="Mach-O">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库的源码； 好处应该不止这些。">
+    <meta name="description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
 <meta name="keywords" content="Mach-O">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mach-o文件结构理解">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS /Mach_O/Mach_O_File_Struct/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库的源码； 好处应该不止这些。">
+<meta property="og:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/mach-o-overall_small.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_O_new_overall_small.png">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png">
-<meta property="og:updated_time" content="2018-05-17T02:29:43.000Z">
+<meta property="og:updated_time" content="2018-05-17T02:33:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-o文件结构理解">
-<meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库的源码； 好处应该不止这些。">
+<meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
 <meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/mach-o-overall_small.jpg">
     
 
@@ -528,7 +528,7 @@
 <ol>
 <li>有助于理解崩溃日志解析的原理。理解KSCrash源码；</li>
 <li>有助于理解开源代码fishhook的原理；</li>
-<li>有助于理解腾讯OOMDetector开源库的源码；</li>
+<li>有助于理解腾讯OOMDetector开源库源码；</li>
 <li>好处应该不止这些。</li>
 </ol>
 <a id="more"></a>
@@ -547,11 +547,11 @@
 <li>segment 的类型有__TEXT(程序的代码区域，只读) 、__DATA(程序的数据区域，可读写)</li>
 <li>__DATA segment 后面跟随着多个section，包括__nl__symbol_ptr （not layz符号）__la__symbol_ptr</li>
 </ol>
-<p>下面开始介绍Header部分</p>
+<p>下面来聊聊Header部分</p>
 <h2 id="mach-header"><a href="#mach-header" class="headerlink" title="mach-header"></a>mach-header</h2><p>mach-header 的定义如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///&lt;mach-o/loader.h&gt;</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mach_header_64</span> &#123;</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	magic;		<span class="comment">/* mach magic number identifier */</span></span><br><span class="line">	<span class="keyword">cpu_type_t</span>	cputype;	<span class="comment">/* cpu specifier */</span></span><br><span class="line">	<span class="keyword">cpu_subtype_t</span>	cpusubtype;	<span class="comment">/* machine specifier */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	filetype;	<span class="comment">/* type of file */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	ncmds;		<span class="comment">/* number of load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	sizeofcmds;	<span class="comment">/* the size of all the load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* flags */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	reserved;	<span class="comment">/* reserved */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <ul>
-<li>magic：魔数，用于快速确认该文件用于64位还是32位<br>可取值（部分）：</li>
+<li>magic：魔数，用于快速确认该文件的种类（用于64位还是32位）。可取值（部分）如下：</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_MAGIC_64 0xfeedfacf <span class="comment">/* the 64-bit mach magic number */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_CIGAM_64 0xcffaedfe <span class="comment">/* NXSwapInt(MH_MAGIC_64) */</span></span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -563,7 +563,7 @@
 </ul>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#define CPU_SUBTYPE_X86_ALL		((<span class="name">cpu_subtype_t</span>)<span class="number">3</span>)</span><br><span class="line">#define CPU_SUBTYPE_X86_64_ALL		((<span class="name">cpu_subtype_t</span>)<span class="number">3</span>)</span><br><span class="line">#define CPU_SUBTYPE_ARM_V7		((<span class="name">cpu_subtype_t</span>) <span class="number">9</span>)</span><br><span class="line">#define CPU_SUBTYPE_ARM_V7S		((<span class="name">cpu_subtype_t</span>) <span class="number">11</span>) /* Swift */</span><br></pre></td></tr></table></figure>
 <ul>
-<li>filetype：文件类型，比如可执行文件、库文件、Dsym文件，是2 MH_EXECUTE，代表可执行文件，可取值如下：</li>
+<li>filetype：文件类型，比如可执行文件、库文件、Dsym文件，例如：MH_EXECUTE值是2，代表可执行文件，可取值如下：</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> * Constants <span class="keyword">for</span> the filetype field of the mach_header</span><br><span class="line"> */</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_OBJECT   0x1     <span class="comment">/* relocatable object file */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_EXECUTE  0x2     <span class="comment">/* demand paged executable file */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_FVMLIB   0x3     <span class="comment">/* fixed VM shared library file */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_CORE     0x4     <span class="comment">/* core file */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_PRELOAD  0x5     <span class="comment">/* preloaded executable file */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_DYLIB    0x6     <span class="comment">/* dynamically bound shared library */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_DYLINKER 0x7     <span class="comment">/* dynamic link editor */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_BUNDLE   0x8     <span class="comment">/* dynamically bound bundle file */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_DYLIB_STUB   0x9     <span class="comment">/* shared library stub for static */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_DSYM     0xa     <span class="comment">/* companion file with only debug */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_KEXT_BUNDLE  0xb     <span class="comment">/* x86_64 kexts */</span></span></span><br></pre></td></tr></table></figure>
 <ul>
@@ -573,7 +573,7 @@
 <li>flags：标志位，可取值（部分）如下：</li>
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_DYLDLINK	0x4		<span class="comment">/* the object file is input for the</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   dynamic linker and can't be staticly</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   link edited again */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_PREBOUND	0x10		<span class="comment">/* the file has its dynamic undefined</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   references prebound. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_SPLIT_SEGS	0x20		<span class="comment">/* the file has its read-only and</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   read-write segments split */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_TWOLEVEL	0x80		<span class="comment">/* the image is using two-level name</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   space bindings */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_NOMULTIDEFS	0x200		<span class="comment">/* this umbrella guarantees no multiple</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   defintions of symbols in its</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   sub-images so the two-level namespace</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   hints can always be used. */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_CANONICAL    0x4000		<span class="comment">/* the binary has been canonicalized</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   via the unprebind operation */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_WEAK_DEFINES	0x8000		<span class="comment">/* the final linked image contains</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   external weak symbols */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_BINDS_TO_WEAK 0x10000	<span class="comment">/* the final linked image uses</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   weak symbols */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	MH_PIE 0x200000			<span class="comment">/* When this bit is set, the OS will</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   load the main executable at a</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   random address.  Only used in</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   MH_EXECUTE filetypes. */</span></span></span><br><span class="line">....</span><br></pre></td></tr></table></figure>
-<p>下图是使用machoview查看header的结构：</p>
+<p>下图是借用machoview查看header的结构：</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/machview-header.png" alt="header 结构"></p>
 <p>可以看出：</p>
 <ol>
