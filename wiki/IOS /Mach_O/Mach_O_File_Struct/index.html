@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png">
-<meta property="og:updated_time" content="2018-05-17T02:33:22.000Z">
+<meta property="og:updated_time" content="2018-05-17T02:35:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-o文件结构理解">
 <meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
@@ -519,7 +519,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mach-header"><span class="toc-number">1.</span> <span class="toc-text">mach-header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-command"><span class="toc-number">2.</span> <span class="toc-text">load command</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">2.0.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">2.0.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LC-UUID"><span class="toc-number">2.0.3.</span> <span class="toc-text">LC_UUID</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#注意啦"><span class="toc-number">3.</span> <span class="toc-text">注意啦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mach-header"><span class="toc-number">1.</span> <span class="toc-text">mach-header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-command"><span class="toc-number">2.</span> <span class="toc-text">load command</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">2.0.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">2.0.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LC-UUID"><span class="toc-number">2.0.3.</span> <span class="toc-text">LC_UUID</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#DATA"><span class="toc-number">3.</span> <span class="toc-text">DATA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意啦"><span class="toc-number">4.</span> <span class="toc-text">注意啦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li>
                 </div>
             
         
@@ -655,6 +655,7 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">uuid_command</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_UUID */</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* sizeof(struct uuid_command) */</span></span><br><span class="line">    <span class="keyword">uint8_t</span>	uuid[<span class="number">16</span>];	<span class="comment">/* the 128-bit uuid */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png" alt="uuid"></p>
 <p>每个可执行程序都有一个uuid，这样根据不同的uuid能确定包。比如崩溃日志中就会包含uuid字段。表示是哪个包崩溃了。</p>
+<h2 id="DATA"><a href="#DATA" class="headerlink" title="DATA"></a>DATA</h2><p>DATA是文件的主体，存储着各种类型的实际数据，上一章有部分涉及，例如LC_SYMTAB命令指定的符号表 和String表。这里也没有什么</p>
 <h2 id="注意啦"><a href="#注意啦" class="headerlink" title="注意啦"></a>注意啦</h2><p>网上直接下载的MachOView经常崩溃，是由于有段代码没有做非空判断，所以为了有效使用MachOView，请从<a href="https://github.com/gdbinit/MachOView" rel="external nofollow noopener noreferrer" target="_blank">官网</a>下载代码，然后在崩溃的地方添加非空判断。就OK拉。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://opensource.apple.com/source/xnu/xnu-1456.1.26/EXTERNAL_HEADERS/mach-o/loader.h" rel="external nofollow noopener noreferrer" target="_blank">mach-o/loader.h</a></li>
