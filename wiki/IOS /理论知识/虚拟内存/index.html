@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="这篇文章翻译下Memory Usage Performance Guidelines">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-01T12:18:52.000Z">
+<meta property="og:updated_time" content="2018-06-02T02:45:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="虚拟内存之一----关于">
 <meta name="twitter:description" content="这篇文章翻译下Memory Usage Performance Guidelines">
@@ -603,7 +603,7 @@
 </ol>
 <p>Wired data structures are also associated with the physical page and map tables used to store virtual-memory mapping information, Both of these entities scale with the amount of available physical memory. Consequently, when you add memory to a system, the amount of wired memory increases even if nothing else changes. When a computer is first booted into the Finder, with no other applications running, wired memory can consume approximately 14 megabytes of a 64 megabyte system and 17 megabytes of a 128 megabyte system.<br>Wired data structures还与物理页面、用于存储虚拟内存映射信息的映射表相关联，这两个实体都与可用物理内存的大小相关联。因此，当您向系统添加内存时，即使没有其他变化，wired-memory的数量也会增加。当一台计算机第一次启动Finder时，没有其他应用程序运行时，在64兆系统中wired-memory可以消耗大约14兆字节 在128兆系统中消耗17兆字节。</p>
 <p>Wired memory pages are not immediately moved back to the free list when they become invalid. Instead they are “garbage collected” when the free-page count falls below the threshold that triggers page out events.<br>Wired memory页在无效时不会立即移回空闲列表。相反，当空闲页面数低于触发page out事件的阈值时，它们会被“垃圾收集”。</p>
-<h2 id="Page-Lists-in-the-Kernel"><a href="#Page-Lists-in-the-Kernel" class="headerlink" title="Page Lists in the Kernel"></a>Page Lists in the Kernel</h2><p>The kernel maintains and queries three system-wide lists of physical memory pages:<br>活动列表包含当前映射到内存和最近访问的页面。</p>
+<h2 id="Page-Lists-in-the-Kernel"><a href="#Page-Lists-in-the-Kernel" class="headerlink" title="Page Lists in the Kernel"></a>Page Lists in the Kernel</h2><p>The kernel maintains and queries three system-wide lists of physical memory pages:<br>内核维护和查询三个系统范围的物理内存页列表:。</p>
 <ul>
 <li>The active list contains pages that are currently mapped into memory and have been recently accessed.</li>
 <li>The inactive list contains pages that are currently resident in physical memory but have not been accessed recently. These pages contain valid data but may be removed from memory at any time.</li>
@@ -612,10 +612,10 @@
 <ul>
 <li>活动列表包含当前映射到内存和最近访问的页面。</li>
 <li>非活动列表包含当前驻留在物理内存中但最近未被访问的页面。这些页面包含有效的数据，但是可以随时从内存中删除。</li>
-<li>空闲列表包含与VM对象的任何地址空间没有关联的物理内存页。任何需要这些页面的进程都可以立即使用这些页面。</li>
+<li>空闲列表包含 没有和任何VM对象关联的物理内存页。任何需要这些页面的进程都可以立即使用这些页面。</li>
 </ul>
-<p>When the number of pages on the free list falls below a threshold (determined by the size of physical memory), the pager attempts to balance the queues. It does this by pulling pages from the inactive list. If a page has been accessed recently, it is reactivated and placed on the end of the active list. In OS X, if an inactive page contains data that has not been written to the backing store recently, its contents must be paged out to disk before it can be placed on the free list. (In iOS, modified but inactive pages must remain in memory and be cleaned up by the application that owns them.) If an inactive page has not been modified and is not permanently resident (wired), it is stolen (any current virtual mappings to it are destroyed) and added to the free list. Once the free list size exceeds the target threshold, the pager rests.<br>当空闲列表中的页面数低于阈值(由物理内存大小决定)时，寻呼机将尝试平衡队列。它通过从非活动列表中提取页面来实现这一点。如果最近访问了某个页面，则重新激活该页面并将其放置在活动列表的末尾。在OS X中，如果一个不活动的页面包含了最近没有写到后台存储的数据，那么在它被放到空闲列表之前，它的内容必须被分页到磁盘上。(在iOS中，修改但不活跃的页面必须保留在内存中，并由拥有它们的应用程序进行清理。)如果一个不活动的页面没有被修改，并且不是永久驻留(有线)，那么它将被窃取(它的任何当前虚拟映射都将被销毁)并添加到空闲列表中。一旦空闲列表大小超过目标阈值，寻呼机就会停止。</p>
-<p>The kernel moves pages from the active list to the inactive list if they are not accessed; it moves pages from the inactive list to the active list on a soft fault (see Paging In Process). When virtual pages are swapped out, the associated physical pages are placed in the free list. Also, when processes explicitly free memory, the kernel moves the affected pages to the free list.<br>内核将未访问的页面从活动列表移动到非活动列表;它将页面从非活动列表移动到软错误上的活动列表(请参阅分页In Process)。当虚拟页面交换出去时，相关的物理页面被放在空闲列表中。此外，当进程显式地释放内存时，内核将受影响的页面移动到空闲列表。</p>
+<p>When the number of pages on the free list falls below a threshold (determined by the size of physical memory), the pager attempts to balance the queues. It does this by pulling pages from the inactive list. If a page has been accessed recently, it is reactivated and placed on the end of the active list. In OS X, if an inactive page contains data that has not been written to the backing store recently, its contents must be paged out to disk before it can be placed on the free list. (In iOS, modified but inactive pages must remain in memory and be cleaned up by the application that owns them.) If an inactive page has not been modified and is not permanently resident (wired), it is stolen (any current virtual mappings to it are destroyed) and added to the free list. Once the free list size exceeds the target threshold, the pager rests.<br>当空闲列表中的页面数低于阈值(由物理内存大小决定)时，pager将尝试平衡队列。它通过从非活动列表中提取页面来实现这一点。如果最近访问了某个页面，则重新激活该页面并将其放置在活动列表的末尾。在OS X中，如果一个不活动的页面包含了最近没有写到后台存储的数据，那么在它被放到空闲列表之前，它的内容必须被分页到磁盘上。(在iOS中，修改但不活跃的页面必须保留在内存中，并由拥有它们的应用程序进行清理。) 如果一个不活动的页面没有被修改，并且不是永久驻留(wired)，那么它将被窃取(它的任何当前虚拟映射都将被销毁)并添加到空闲列表中。一旦空闲列表大小超过目标阈值，pager就会停止。</p>
+<p>The kernel moves pages from the active list to the inactive list if they are not accessed; it moves pages from the inactive list to the active list on a soft fault (see Paging In Process). When virtual pages are swapped out, the associated physical pages are placed in the free list. Also, when processes explicitly free memory, the kernel moves the affected pages to the free list.<br>内核将未访问的页面从活动列表移动到非活动列表;通过soft fault将页面从非活动列表移动到活动列表 (请参阅分页In Process)。当虚拟页面交换出去时，相关的物理页面被放在空闲列表中。此外，当进程显式地释放内存时，内核将受影响的页面移动到空闲列表。</p>
 <h2 id="名称解释"><a href="#名称解释" class="headerlink" title="名称解释"></a>名称解释</h2><p>Mac的内存使用：Wired, Active, Inactive和Free</p>
 <ul>
 <li>Wired(联动): 系统核心占用的，永远不会从系统物【[内存】中去除。</li>
