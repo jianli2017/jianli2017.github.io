@@ -228,9 +228,9 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            foundation
+                            foundation使用记录
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /foundation/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS /foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS /foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -255,9 +255,18 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            理论知识
+                            动态库
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /理论知识/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS /理论知识/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS /理论知识/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /虚拟内存/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS /虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS /虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -278,15 +287,6 @@
                             JS
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            Xcode编译常量
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Xcode编译常量/xcode编译环境变量/">flexBox 伸缩盒子模型</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -321,6 +321,15 @@
                             SSH
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -459,6 +468,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS /crash/Analize_Crash" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS </a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/crash/">crash</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Crash/">Crash</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS /crash/Analize_Crash/">
+            <time datetime="2016-10-17T04:18:26.000Z" itemprop="datePublished">2016-10-17</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS /crash/Analize_Crash/">收集、符号化IOS崩溃日志</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。<br></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS /crash/Analize_Crash/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS /crash/KSCrash_Analize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         

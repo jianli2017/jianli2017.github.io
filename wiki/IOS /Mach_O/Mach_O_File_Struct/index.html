@@ -25,10 +25,10 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/nl_symbol_ptr_section.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/segment_types.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/systab.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png">
-<meta property="og:updated_time" content="2018-06-04T12:17:16.000Z">
+<meta property="og:updated_time" content="2018-06-04T13:02:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-o文件结构理解">
 <meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
@@ -242,9 +242,9 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            foundation
+                            foundation使用记录
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /foundation/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS /foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS /foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -269,9 +269,18 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            理论知识
+                            动态库
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /理论知识/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS /理论知识/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS /理论知识/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /虚拟内存/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS /虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS /虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -292,15 +301,6 @@
                             JS
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            Xcode编译常量
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Xcode编译常量/xcode编译环境变量/">flexBox 伸缩盒子模型</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -335,6 +335,15 @@
                             SSH
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -519,7 +528,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mach-header"><span class="toc-number">1.</span> <span class="toc-text">mach-header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-command"><span class="toc-number">2.</span> <span class="toc-text">load command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">2.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">2.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-UUID"><span class="toc-number">2.3.</span> <span class="toc-text">LC_UUID</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DATA"><span class="toc-number">3.</span> <span class="toc-text">DATA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意啦"><span class="toc-number">4.</span> <span class="toc-text">注意啦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总体结构"><span class="toc-number">1.</span> <span class="toc-text">总体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mach-header"><span class="toc-number">2.</span> <span class="toc-text">mach-header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-command"><span class="toc-number">3.</span> <span class="toc-text">load command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">3.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">3.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-UUID"><span class="toc-number">3.3.</span> <span class="toc-text">LC_UUID</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DATA"><span class="toc-number">4.</span> <span class="toc-text">DATA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意啦"><span class="toc-number">5.</span> <span class="toc-text">注意啦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
                 </div>
             
         
@@ -532,7 +541,7 @@
 <li>好处应该不止这些。</li>
 </ol>
 <a id="more"></a>
-<p>它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。</p>
+<h2 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h2><p>它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/mach-o-overall_small.jpg" alt="mach-o 文件结构"></p>
 <p>这张图片说明了几点：</p>
 <ol>
@@ -640,6 +649,11 @@
 <li>string表的大小是22093264</li>
 </ol>
 <p>这个commond同时指定了两个表的位置信息。</p>
+<h3 id="LC-UUID"><a href="#LC-UUID" class="headerlink" title="LC_UUID"></a>LC_UUID</h3><p>LC_UUID 用来标识唯一APP，命令的定义如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">uuid_command</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_UUID */</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* sizeof(struct uuid_command) */</span></span><br><span class="line">    <span class="keyword">uint8_t</span>	uuid[<span class="number">16</span>];	<span class="comment">/* the 128-bit uuid */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png" alt="uuid"></p>
+<p>每个可执行程序都有一个uuid，这样根据不同的uuid能确定包。比如崩溃日志中就会包含uuid字段。表示是哪个包崩溃了。</p>
+<h2 id="DATA"><a href="#DATA" class="headerlink" title="DATA"></a>DATA</h2><p>DATA是文件的主体，存储着各种类型的实际数据，上一章有部分图片就是贴的DATA区域的，例如LC_SYMTAB命令指定的符号表 和String表。这章就over了。</p>
 <p>符号表具体结构(这部分位于DATA区域，不属于load command，顺便讲下)定义如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nlist_64</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">uint32_t</span>  n_strx; <span class="comment">/* index into the string table */</span></span><br><span class="line">    &#125; n_un;</span><br><span class="line">    <span class="keyword">uint8_t</span> n_type;        <span class="comment">/* type flag, see below */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> n_sect;        <span class="comment">/* section number or NO_SECT */</span></span><br><span class="line">    <span class="keyword">uint16_t</span> n_desc;       <span class="comment">/* see &lt;mach-o/stab.h&gt; */</span></span><br><span class="line">    <span class="keyword">uint64_t</span> n_value;      <span class="comment">/* value of this symbol (or stab offset) */</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Symbols with a index into the string table of zero (n_un.n_strx == 0) are</span></span><br><span class="line"><span class="comment"> * defined to have a null, "", name.  Therefore all string indexes to non null</span></span><br><span class="line"><span class="comment"> * names must not have a zero string index.  This is bit historical information</span></span><br><span class="line"><span class="comment"> * that has never been well documented.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * The n_type field really contains four fields:</span></span><br><span class="line"><span class="comment"> *	unsigned char N_STAB:3,</span></span><br><span class="line"><span class="comment"> *		      N_PEXT:1,</span></span><br><span class="line"><span class="comment"> *		      N_TYPE:3,</span></span><br><span class="line"><span class="comment"> *		      N_EXT:1;</span></span><br><span class="line"><span class="comment"> * which are used via the following masks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_STAB	0xe0  <span class="comment">/* if any of these bits set, a symbolic debugging entry */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_PEXT	0x10  <span class="comment">/* private external symbol bit */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_TYPE	0x0e  <span class="comment">/* mask for the type bits */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_EXT	0x01  <span class="comment">/* external symbol bit, set for external symbols */</span></span></span><br></pre></td></tr></table></figure>
 <p>示意图如下：<br><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png" alt="symbol"></p>
@@ -651,11 +665,6 @@
 <p>下面看看String表的0xbbf8处是不是[GMRYouHaoHuoReq getRequestURL]，符号表的地址是0x049C6D40 加上偏移量0x000BBFB1 ，等于0x54d633d。</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png" alt="string table"></p>
 <p>可以看出string表的0x54d633d地址出就是：[GMRYouHaoHuoReq getRequestURL]。</p>
-<h3 id="LC-UUID"><a href="#LC-UUID" class="headerlink" title="LC_UUID"></a>LC_UUID</h3><p>LC_UUID 用来标识唯一APP，命令的定义如下:</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">uuid_command</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_UUID */</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* sizeof(struct uuid_command) */</span></span><br><span class="line">    <span class="keyword">uint8_t</span>	uuid[<span class="number">16</span>];	<span class="comment">/* the 128-bit uuid */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png" alt="uuid"></p>
-<p>每个可执行程序都有一个uuid，这样根据不同的uuid能确定包。比如崩溃日志中就会包含uuid字段。表示是哪个包崩溃了。</p>
-<h2 id="DATA"><a href="#DATA" class="headerlink" title="DATA"></a>DATA</h2><p>DATA是文件的主体，存储着各种类型的实际数据，上一章有部分图片就是贴的DATA区域的，例如LC_SYMTAB命令指定的符号表 和String表。这章就over了。</p>
 <h2 id="注意啦"><a href="#注意啦" class="headerlink" title="注意啦"></a>注意啦</h2><p>网上直接下载的MachOView经常崩溃，是由于有段代码没有做非空判断，所以为了有效使用MachOView，请从<a href="https://github.com/gdbinit/MachOView" rel="external nofollow noopener noreferrer" target="_blank">官网</a>下载代码，然后在崩溃的地方添加非空判断。就OK拉。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://opensource.apple.com/source/xnu/xnu-1456.1.26/EXTERNAL_HEADERS/mach-o/loader.h" rel="external nofollow noopener noreferrer" target="_blank">mach-o/loader.h</a></li>
@@ -674,7 +683,7 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS /理论知识/虚拟内存/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/IOS /虚拟内存/虚拟内存/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 

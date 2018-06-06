@@ -3,22 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>分类: 理论知识 | LJ小窝</title>
+    <title>NSInvocation的基本使 | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="NSInvocation">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJ小窝">
-<meta property="og:url" content="http://yoursite.com/categories/IOS/理论知识/index.html">
+    <meta name="description" content="iOS中可以间接向对象发送消息方式有两种：  使用performSelector:withObject； 使用NSInvocation。performSelector:withObject能完成简单的调用。但是对于大于2个的参数或者有返回值的消息，它就显得有点有心无力了，那么在这种情况下，我们就可以使用NSInvocation来进行这些相对复杂的操作。">
+<meta name="keywords" content="NSInvocation">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSInvocation的基本使">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS /foundation使用记录/NSInvocation的基本使/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:description" content="iOS中可以间接向对象发送消息方式有两种：  使用performSelector:withObject； 使用NSInvocation。performSelector:withObject能完成简单的调用。但是对于大于2个的参数或者有返回值的消息，它就显得有点有心无力了，那么在这种情况下，我们就可以使用NSInvocation来进行这些相对复杂的操作。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
+<meta name="twitter:title" content="NSInvocation的基本使">
+<meta name="twitter:description" content="iOS中可以间接向对象发送消息方式有两种：  使用performSelector:withObject； 使用NSInvocation。performSelector:withObject能完成简单的调用。但是对于大于2个的参数或者有返回值的消息，它就显得有点有心无力了，那么在这种情况下，我们就可以使用NSInvocation来进行这些相对复杂的操作。">
     
 
     
@@ -181,9 +183,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             IOS 
                         </a>
@@ -224,13 +226,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS /crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
-                            foundation
+                            foundation使用记录
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /foundation/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS /foundation/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file active"><a href="/wiki/IOS /foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -255,9 +257,18 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            理论知识
+                            动态库
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /理论知识/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS /理论知识/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS /理论知识/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /虚拟内存/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS /虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS /虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -278,15 +289,6 @@
                             JS
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            Xcode编译常量
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Xcode编译常量/xcode编译环境变量/">flexBox 伸缩盒子模型</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -321,6 +323,15 @@
                             SSH
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -458,122 +469,180 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">理论知识</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-IOS /foundation使用记录/NSInvocation的基本使" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/IOS /理论知识/虚拟内存之2/">查看虚拟内存</a>
-        </h1>
-    
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS </a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
+    </div>
 
-                <div class="article-meta">
-                    
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSInvocation/">NSInvocation</a>
+    </div>
+
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS /理论知识/虚拟内存之2/">
-            <time datetime="2018-06-02T04:07:12.000Z" itemprop="datePublished">2018-06-02</time>
+        <a href="/wiki/IOS /foundation使用记录/NSInvocation的基本使/">
+            <time datetime="2016-11-24T07:35:49.000Z" itemprop="datePublished">2016-11-24</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS </a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/理论知识/">理论知识</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/虚拟内存/">虚拟内存</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                        
+                    </div>
+                
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/IOS /理论知识/虚拟内存/">虚拟内存之一----关于</a>
+        <h1 class="article-title" itemprop="name">
+            NSInvocation的基本使
         </h1>
     
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS /理论知识/虚拟内存/">
-            <time datetime="2018-06-01T04:07:12.000Z" itemprop="datePublished">2018-06-01</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS </a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/理论知识/">理论知识</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/虚拟内存1/">虚拟内存1</a>
-    </div>
-
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#方法签名"><span class="toc-number">1.</span> <span class="toc-text">方法签名</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用NSInvocation发送消息"><span class="toc-number">2.</span> <span class="toc-text">使用NSInvocation发送消息</span></a></li></ol>
                 </div>
+            
+        
+        
+            <p>iOS中可以间接向对象发送消息方式有两种：</p>
+<ol>
+<li>使用performSelector:withObject；</li>
+<li>使用NSInvocation。<br>performSelector:withObject能完成简单的调用。但是对于大于2个的参数或者有返回值的消息，它就显得有点有心无力了，那么在这种情况下，我们就可以使用NSInvocation来进行这些相对复杂的操作。<a id="more"></a>
+</li>
+</ol>
+<h1 id="方法签名"><a href="#方法签名" class="headerlink" title="方法签名"></a>方法签名</h1><p>An NSMethodSignature object records type information for the return value and parameters of a method. It is used to forward messages that the receiving object does not respond to—most notably in the case of distributed objects.<br>NSMethodSignature对象记录了方法的参数和返回值的类型信息。它被用于转发接受者不能处理的消息。</p>
+<p>You typically create an NSMethodSignature object using the NSObject methodSignatureForSelector: instance method . It is then used to create an NSInvocation object,。</p>
+<p>NSObject的实例方法methodSignatureForSelector:是创建NSMethodSignature对象的典型方法。 使用NSMethodSignature对象用于创建NSInvocation 对象(通过NSInvocation的invocationWithMethodSignature:类方法)。<br>下面是创建方法签名的代码：</p>
+<pre><code>///1. 创建方法签名
+NSMethodSignature  *signature = [ViewController instanceMethodSignatureForSelector:@selector(fucWithName:)];
+if (signature == nil)
+{
+    return;
+}
+</code></pre><p>使用numberOfArguments获取方法的参数个数，参数个数比sel多两个隐藏参数，一个是self,一个是_cmd。页可以使用getArgumentTypeAtIndex:获取参数。还可以使用methodReturnType获取返回类型。</p>
+<h1 id="使用NSInvocation发送消息"><a href="#使用NSInvocation发送消息" class="headerlink" title="使用NSInvocation发送消息"></a>使用NSInvocation发送消息</h1><pre><code>///2、创建NSInvocation对象
+NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+invocation.target = self;
+//注意：这里的方法名一定要与方法签名类中的方法一致
+invocation.selector = @selector(fucWithName:);
+NSString *strName = @&quot;dog&quot;;
+//这里的Index要从2开始，以为0跟1已经被占据了，分别是self（target）,selector(_cmd)
+[invocation setArgument:&amp;strName atIndex:2];
+
+
+//3、调用invoke方法
+[invocation invoke];
+
+id res = nil;
+if (signature.methodReturnLength != 0)
+{
+    [invocation getReturnValue:&amp;res];
+}
+NSLog(@&quot;res = %@&quot;,res);
+</code></pre><p>首先使用invocationWithMethodSignature:创建一个NSInvocation对象，然后设置对象的target、selector。NSInvocation对象实际上就是将方法封装为对象。然后使用invoke方法调用消息。使用getReturnValue获取返回值。输出的结果如下：</p>
+<pre><code>ViewController object receive message functionWithName:
+res = dog
+</code></pre>
             </div>
-        </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
     
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+<nav id="article-nav">
+    
+        <a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/IOS /理论知识/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS /理论知识/指定初始化函数/">
-            <time datetime="2018-03-21T04:07:12.000Z" itemprop="datePublished">2018-03-21</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS </a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/理论知识/">理论知识</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/指定初始化函数/">指定初始化函数</a>
-    </div>
-
-                </div>
+                    神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)
+                
             </div>
-        </div>
+        </a>
     
-</div>
+    
+        <a href="/wiki/IOS_Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS /foundation使用记录/NSInvocation的基本使/" data-title="NSInvocation的基本使" data-url="http://yoursite.com/wiki/IOS /foundation使用记录/NSInvocation的基本使/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">
