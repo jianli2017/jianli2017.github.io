@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/learnMachO.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/libbacktraceRecording.jpg">
-<meta property="og:updated_time" content="2018-06-21T08:34:39.000Z">
+<meta property="og:updated_time" content="2018-06-21T10:57:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fishhook学习记录">
 <meta name="twitter:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度学习改开源库。">
@@ -535,7 +535,7 @@
         
             <p><a href="https://github.com/facebook/fishhook" rel="external nofollow noopener noreferrer" target="_blank">fishhook</a>是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度学习改开源库。</p>
 <a id="more"></a>
-<h2 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h2><p>这个源码是OOMDetector中替换malloc函数的源码。使用这个源码的目的是可以方便的看出fishhook提供的api的调用方式。</p>
+<h2 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h2><p>这个源码是OOMDetector中替换malloc函数的源码。使用这个源码的目的是顺便可以学习fishhook api的调用方式。</p>
 <p>首先，fishhook定义了一个结构体，存储替换的数据。定义如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rebinding</span> &#123;</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *name;  <span class="comment">//替换的函数名字</span></span><br><span class="line">  <span class="keyword">void</span> *replacement; <span class="comment">//替换后的函数指针</span></span><br><span class="line">  <span class="keyword">void</span> **replaced;   <span class="comment">//原始的方法</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>下面的替换malloc等函数的入口函数，该函数调用了fishhook的<code>rebind_symbols_for_imagename</code>函数。</p>
