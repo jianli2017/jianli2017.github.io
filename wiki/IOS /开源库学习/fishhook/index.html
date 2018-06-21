@@ -9,20 +9,20 @@
         <meta name="keywords" content="fishhook">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度学习改开源库。">
+    <meta name="description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。">
 <meta name="keywords" content="fishhook">
 <meta property="og:type" content="article">
 <meta property="og:title" content="fishhook学习记录">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS /开源库学习/fishhook/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度学习改开源库。">
+<meta property="og:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/learnMachO.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/libbacktraceRecording.jpg">
-<meta property="og:updated_time" content="2018-06-21T10:57:34.000Z">
+<meta property="og:updated_time" content="2018-06-21T11:11:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fishhook学习记录">
-<meta name="twitter:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度学习改开源库。">
+<meta name="twitter:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。">
 <meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/learnMachO.jpg">
     
 
@@ -533,10 +533,10 @@
             
         
         
-            <p><a href="https://github.com/facebook/fishhook" rel="external nofollow noopener noreferrer" target="_blank">fishhook</a>是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度学习改开源库。</p>
+            <p><a href="https://github.com/facebook/fishhook" rel="external nofollow noopener noreferrer" target="_blank">fishhook</a>是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。</p>
 <a id="more"></a>
-<h2 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h2><p>这个源码是OOMDetector中替换malloc函数的源码。使用这个源码的目的是顺便可以学习fishhook api的调用方式。</p>
-<p>首先，fishhook定义了一个结构体，存储替换的数据。定义如下：</p>
+<h2 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h2><p>源码使用OOMDetector，OOMDetector使用fishhook替换malloc函数。使用OOMDetector的目的是顺便可以学习fishhook api的调用方式，同时也能学习fishhook源码。</p>
+<p>首先，fishhook定义了一个结构体，存储绑定的数据。定义如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">rebinding</span> &#123;</span></span><br><span class="line">  <span class="keyword">const</span> <span class="keyword">char</span> *name;  <span class="comment">//替换的函数名字</span></span><br><span class="line">  <span class="keyword">void</span> *replacement; <span class="comment">//替换后的函数指针</span></span><br><span class="line">  <span class="keyword">void</span> **replaced;   <span class="comment">//原始的方法</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>下面的替换malloc等函数的入口函数，该函数调用了fishhook的<code>rebind_symbols_for_imagename</code>函数。</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">hookMalloc</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(!isPaused)&#123;</span><br><span class="line">        beSureAllRebindingFuncBeenCalled();</span><br><span class="line">        </span><br><span class="line">        orig_malloc = <span class="built_in">malloc</span>;</span><br><span class="line">        orig_calloc = <span class="built_in">calloc</span>;</span><br><span class="line">        orig_valloc = valloc;</span><br><span class="line">        orig_realloc = <span class="built_in">realloc</span>;</span><br><span class="line">        orig_block_copy = _Block_copy;</span><br><span class="line">        </span><br><span class="line">        rebind_symbols_for_imagename(</span><br><span class="line">                                     (struct rebinding[<span class="number">5</span>])&#123;</span><br><span class="line">                                         &#123;<span class="string">"realloc"</span>,(<span class="keyword">void</span>*)new_realloc,(<span class="keyword">void</span>**)&amp;orig_realloc&#125;,</span><br><span class="line">                                         &#123;<span class="string">"malloc"</span>, (<span class="keyword">void</span>*)new_malloc, (<span class="keyword">void</span> **)&amp;orig_malloc&#125;,</span><br><span class="line">                                         &#123;<span class="string">"valloc"</span>,(<span class="keyword">void</span>*)new_valloc,(<span class="keyword">void</span>**)&amp;orig_valloc&#125;,</span><br><span class="line">                                         &#123;<span class="string">"calloc"</span>,(<span class="keyword">void</span>*)new_calloc,(<span class="keyword">void</span>**)&amp;orig_calloc&#125;,</span><br><span class="line">                                         &#123;<span class="string">"_Block_copy"</span>,(<span class="keyword">void</span>*)new_block_copy,(<span class="keyword">void</span>**)&amp;orig_block_copy&#125;&#125;,</span><br><span class="line">                                     <span class="number">5</span>,</span><br><span class="line">                                     getImagename());</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        isPaused = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
