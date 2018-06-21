@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png">
-<meta property="og:updated_time" content="2018-06-04T13:02:31.000Z">
+<meta property="og:updated_time" content="2018-06-21T04:06:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-o文件结构理解">
 <meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
@@ -272,6 +272,15 @@
                             动态库
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS /开源库学习/fishhook/">fishhook学习记录</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -528,7 +537,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总体结构"><span class="toc-number">1.</span> <span class="toc-text">总体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mach-header"><span class="toc-number">2.</span> <span class="toc-text">mach-header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-command"><span class="toc-number">3.</span> <span class="toc-text">load command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">3.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">3.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-UUID"><span class="toc-number">3.3.</span> <span class="toc-text">LC_UUID</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DATA"><span class="toc-number">4.</span> <span class="toc-text">DATA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意啦"><span class="toc-number">5.</span> <span class="toc-text">注意啦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#总体结构"><span class="toc-number">1.</span> <span class="toc-text">总体结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#mach-header"><span class="toc-number">2.</span> <span class="toc-text">mach-header</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-command"><span class="toc-number">3.</span> <span class="toc-text">load command</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SEGMENT"><span class="toc-number">3.1.</span> <span class="toc-text">LC_SEGMENT</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-SYMTAB"><span class="toc-number">3.2.</span> <span class="toc-text">LC_SYMTAB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-UUID"><span class="toc-number">3.3.</span> <span class="toc-text">LC_UUID</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LC-DYSYMTAB（动态符号表）"><span class="toc-number">3.4.</span> <span class="toc-text">LC_DYSYMTAB（动态符号表）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DATA部分"><span class="toc-number">4.</span> <span class="toc-text">DATA部分</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号表"><span class="toc-number">4.1.</span> <span class="toc-text">符号表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#string表"><span class="toc-number">4.2.</span> <span class="toc-text">string表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#动态符号表。"><span class="toc-number">4.3.</span> <span class="toc-text">动态符号表。</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注意啦"><span class="toc-number">5.</span> <span class="toc-text">注意啦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
                 </div>
             
         
@@ -634,9 +643,9 @@
 <li>内存对齐大小 8</li>
 <li>间接符号索引是1198 （这里不太懂什么意思）</li>
 </ol>
-<p>另外一半segment 有四种，如图所示：</p>
+<p>segment 有四种，如图所示：</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/segment_types.png" alt="segment_types"></p>
-<p>可以看出一半有<strong>PAGEZERO、</strong>TEXT、<strong>DATA、</strong>LINKEDIT。</p>
+<p>可以看出有<strong>PAGEZERO、</strong>TEXT、<strong>DATA、</strong>LINKEDIT。</p>
 <h3 id="LC-SYMTAB"><a href="#LC-SYMTAB" class="headerlink" title="LC_SYMTAB"></a>LC_SYMTAB</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * The symtab_command contains the offsets and sizes of the link-edit 4.3BSD</span></span><br><span class="line"><span class="comment"> * "stab" style symbol table information as described in the header files</span></span><br><span class="line"><span class="comment"> * &lt;nlist.h&gt; and &lt;stab.h&gt;.</span></span><br><span class="line"><span class="comment"> * symtab_command 包含了符号表、字符串索引表 的偏移量和大小 。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">symtab_command</span> &#123;</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_SYMTAB */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* sizeof(struct symtab_command) */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	symoff;		<span class="comment">/* symbol table offset */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	nsyms;		<span class="comment">/* number of symbol table entries */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	stroff;		<span class="comment">/* string table offset */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	strsize;	<span class="comment">/* string table size in bytes */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>下面是LC_SYMTAB command示意图：</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/systab.png" alt="symbol table"></p>
@@ -653,18 +662,186 @@
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">uuid_command</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_UUID */</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* sizeof(struct uuid_command) */</span></span><br><span class="line">    <span class="keyword">uint8_t</span>	uuid[<span class="number">16</span>];	<span class="comment">/* the 128-bit uuid */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png" alt="uuid"></p>
 <p>每个可执行程序都有一个uuid，这样根据不同的uuid能确定包。比如崩溃日志中就会包含uuid字段。表示是哪个包崩溃了。</p>
-<h2 id="DATA"><a href="#DATA" class="headerlink" title="DATA"></a>DATA</h2><p>DATA是文件的主体，存储着各种类型的实际数据，上一章有部分图片就是贴的DATA区域的，例如LC_SYMTAB命令指定的符号表 和String表。这章就over了。</p>
-<p>符号表具体结构(这部分位于DATA区域，不属于load command，顺便讲下)定义如下：</p>
+<h3 id="LC-DYSYMTAB（动态符号表）"><a href="#LC-DYSYMTAB（动态符号表）" class="headerlink" title="LC_DYSYMTAB（动态符号表）"></a>LC_DYSYMTAB（动态符号表）</h3><p>下面的描述摘至<mach-o loader.h="">。<br>This is the second set of the symbolic information which is used to support  the data structures for the dynamically link editor.</mach-o></p>
+<p>LC_DYSYMTAB 是第二种符号信集，这个符号集被动态连接器的数据结构使用。</p>
+<ul>
+<li>The original set of symbolic information in the symtab_command which contains</li>
+<li>the symbol and string tables must also be present when this load command is</li>
+<li><p>present.<br>当这个command（动态符号command）出现的时候，symtab_command必须出现，symtab_command包含符号表和String表。</p>
+<p>When this load command is present the symbol table is organized into three groups of symbols:</p>
+</li>
+</ul>
+<p>当这个加载命令出现的时候，符号表被组织为三部分：</p>
+<ol>
+<li>local symbols (static and debugging symbols) - grouped by module</li>
+<li>defined external symbols - grouped by module (sorted by name if not lib)</li>
+<li>undefined external symbols (sorted by name if MH_BINDATLOAD is not set, and in order the were seen by the static linker if MH_BINDATLOAD is set)</li>
+</ol>
+<p>In this load command there are offsets and counts to each of the three groups of symbols.</p>
+<p>这个命令指定了每个部分的偏移量和符号个数：</p>
+<p>This load command contains a the offsets and sizes of the following new symbolic information tables:</p>
+<p>这个命令包含下面新的符号：</p>
+<ol>
+<li>table of contents</li>
+<li>module table</li>
+<li>reference symbol table</li>
+<li>indirect symbol table</li>
+</ol>
+<p>The first three tables above (the table of contents, module table and reference symbol table) are only present if the file is a dynamically linked shared library. </p>
+<p>前三个只有文件是动态库的时候才出现。 </p>
+<p>For executable and object modules, which are files containing only one module, the information that would be in these three tables is determined as follows:</p>
+<ol>
+<li>table of contents - the defined external symbols are sorted by name</li>
+<li>module table - the file contains only one module so everything in the file is part of the module.</li>
+<li>reference symbol table - is the defined and undefined external symbols</li>
+</ol>
+<p>For dynamically linked shared library files this load command also contains offsets and sizes to the pool of relocation entries for all sections separated into two groups:</p>
+<ol>
+<li>external relocation entries</li>
+<li>local relocation entries</li>
+</ol>
+<p>For executable and object modules the relocation entries continue to hang off the section structures.</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cmd</td>
+<td>uint32_t</td>
+<td>LC_DYSYMTAB</td>
+</tr>
+<tr>
+<td>cmdsize</td>
+<td>uint32_t</td>
+<td>sizeof(struct dysymtab_command)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ilocalsym</td>
+<td>uint32_t</td>
+<td>index to local symbols</td>
+</tr>
+<tr>
+<td>nlocalsym</td>
+<td>uint32_t</td>
+<td>number of local symbols</td>
+</tr>
+<tr>
+<td>iextdefsym</td>
+<td>uint32_t</td>
+<td>index to externally defined symbols</td>
+</tr>
+<tr>
+<td>nextdefsym</td>
+<td>uint32_t</td>
+<td>number of externally defined symbols</td>
+</tr>
+<tr>
+<td>iundefsym</td>
+<td>uint32_t</td>
+<td>index to undefined symbols</td>
+</tr>
+<tr>
+<td>nundefsym</td>
+<td>uint32_t</td>
+<td>number of undefined symbols</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>tocoff</td>
+<td>uint32_t</td>
+<td>file offset to table of contents</td>
+</tr>
+<tr>
+<td>ntoc</td>
+<td>uint32_t</td>
+<td>number of entries in table of contents</td>
+</tr>
+<tr>
+<td>modtaboff</td>
+<td>uint32_t</td>
+<td>file offset to module table</td>
+</tr>
+<tr>
+<td>nmodtab</td>
+<td>uint32_t</td>
+<td>number of module table entries</td>
+</tr>
+<tr>
+<td>extrefsymoff</td>
+<td>uint32_t</td>
+<td>offset to referenced symbol table</td>
+</tr>
+<tr>
+<td>nextrefsyms</td>
+<td>uint32_t</td>
+<td>number of referenced symbol table entries</td>
+</tr>
+<tr>
+<td>indirectsymoff</td>
+<td>uint32_t</td>
+<td>file offset to the indirect symbol table</td>
+</tr>
+<tr>
+<td>nindirectsyms</td>
+<td>uint32_t</td>
+<td>number of indirect symbol table entries</td>
+</tr>
+<tr>
+<td>–</td>
+<td>–</td>
+<td>–</td>
+</tr>
+<tr>
+<td>extreloff</td>
+<td>uint32_t</td>
+<td>offset to external relocation entries</td>
+</tr>
+<tr>
+<td>nextrel</td>
+<td>uint32_t</td>
+<td>number of external relocation entries</td>
+</tr>
+<tr>
+<td>locreloff</td>
+<td>uint32_t</td>
+<td>offset to local relocation entries</td>
+</tr>
+<tr>
+<td>nlocrel</td>
+<td>uint32_t</td>
+<td>number of local relocation entries</td>
+</tr>
+</tbody>
+</table>
+<p>总结就是定义了各种符号的偏移量和各种符号的个数</p>
+<h2 id="DATA部分"><a href="#DATA部分" class="headerlink" title="DATA部分"></a>DATA部分</h2><p>DATA部分是Mach-O文件的主体，存储着各种类型的实际数据，例如LC_SEGMENT（<strong>TEXT）指定的代码段, LC_SEGMENT（</strong>DATA）指定的数据段。 LC_SYMTAB（__LINKEDIT）段指定的符号表和String表、以及动态符号表，等等。<br>这里只介绍符号表、String表、动态符号表三种结构</p>
+<h3 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h3><p>符号表的数据结构如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nlist_64</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">uint32_t</span>  n_strx; <span class="comment">/* index into the string table */</span></span><br><span class="line">    &#125; n_un;</span><br><span class="line">    <span class="keyword">uint8_t</span> n_type;        <span class="comment">/* type flag, see below */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> n_sect;        <span class="comment">/* section number or NO_SECT */</span></span><br><span class="line">    <span class="keyword">uint16_t</span> n_desc;       <span class="comment">/* see &lt;mach-o/stab.h&gt; */</span></span><br><span class="line">    <span class="keyword">uint64_t</span> n_value;      <span class="comment">/* value of this symbol (or stab offset) */</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Symbols with a index into the string table of zero (n_un.n_strx == 0) are</span></span><br><span class="line"><span class="comment"> * defined to have a null, "", name.  Therefore all string indexes to non null</span></span><br><span class="line"><span class="comment"> * names must not have a zero string index.  This is bit historical information</span></span><br><span class="line"><span class="comment"> * that has never been well documented.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * The n_type field really contains four fields:</span></span><br><span class="line"><span class="comment"> *	unsigned char N_STAB:3,</span></span><br><span class="line"><span class="comment"> *		      N_PEXT:1,</span></span><br><span class="line"><span class="comment"> *		      N_TYPE:3,</span></span><br><span class="line"><span class="comment"> *		      N_EXT:1;</span></span><br><span class="line"><span class="comment"> * which are used via the following masks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_STAB	0xe0  <span class="comment">/* if any of these bits set, a symbolic debugging entry */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_PEXT	0x10  <span class="comment">/* private external symbol bit */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_TYPE	0x0e  <span class="comment">/* mask for the type bits */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_EXT	0x01  <span class="comment">/* external symbol bit, set for external symbols */</span></span></span><br></pre></td></tr></table></figure>
 <p>示意图如下：<br><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png" alt="symbol"></p>
 <p>可以看出：</p>
 <ol>
 <li>String表的偏移量是0xbbff8, 翻译后是[GMRYouHaoHuoReq getRequestURL]</li>
-<li>地址是0x100003300，意思如果[GMRYouHaoHuoReq getRequestURL]函数内部崩溃，那么崩溃日志中的地址就和0x100003300对应。</li>
+<li>地址是0x100003300，</li>
 </ol>
-<p>下面看看String表的0xbbf8处是不是[GMRYouHaoHuoReq getRequestURL]，符号表的地址是0x049C6D40 加上偏移量0x000BBFB1 ，等于0x54d633d。</p>
+<h3 id="string表"><a href="#string表" class="headerlink" title="string表"></a>string表</h3><p>String表顺序列出了二进制mach-O文件的中的所有可见字符串。串之间通过0x00分隔。可以通过相对String表起始位置的偏移量随机访问String表中的字符串。符号表结构中的n_strx指定的就是String表中的偏移量。通过这个偏移量可以访问到符号对应的具体字符串。</p>
+<p>例如： String表的0xbbf8处是不是[GMRYouHaoHuoReq getRequestURL]，string表的地址是0x049C6D40 加上偏移量0x000BBFB1 ，等于0x54d633d。</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png" alt="string table"></p>
-<p>可以看出string表的0x54d633d地址出就是：[GMRYouHaoHuoReq getRequestURL]。</p>
+<p>可以看出string表的0x54d633d地址出就是：[GMRYouHaoHuoReq getRequestURL]。  </p>
+<h3 id="动态符号表。"><a href="#动态符号表。" class="headerlink" title="动态符号表。"></a>动态符号表。</h3><p>动态符号表中存储着动态连接器使用的相关符号。 每个符号一般占用32bit的存储空间。存储的内容是符号表中的索引。</p>
 <h2 id="注意啦"><a href="#注意啦" class="headerlink" title="注意啦"></a>注意啦</h2><p>网上直接下载的MachOView经常崩溃，是由于有段代码没有做非空判断，所以为了有效使用MachOView，请从<a href="https://github.com/gdbinit/MachOView" rel="external nofollow noopener noreferrer" target="_blank">官网</a>下载代码，然后在崩溃的地方添加非空判断。就OK拉。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://opensource.apple.com/source/xnu/xnu-1456.1.26/EXTERNAL_HEADERS/mach-o/loader.h" rel="external nofollow noopener noreferrer" target="_blank">mach-o/loader.h</a></li>
