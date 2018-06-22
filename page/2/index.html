@@ -174,6 +174,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/"></a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             weex
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  </ul> 
@@ -477,7 +486,7 @@
 </aside>
             
             <section id="main">
-        <article id="post-Hybird/weex/weex_four" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-Hybird/weex/weex_one" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -499,7 +508,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/weex_four/">
+        <a href="/wiki/Hybird/weex/weex_one/">
             <time datetime="2018-05-04T04:07:12.000Z" itemprop="datePublished">2018-05-04</time>
         </a>
     </div>
@@ -511,7 +520,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a>
+            <a class="article-title" href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a>
         </h1>
     
 
@@ -524,134 +533,68 @@
             
         
         
-            <h3 id="一、Flex-布局是什么？"><a href="#一、Flex-布局是什么？" class="headerlink" title="一、Flex 布局是什么？"></a>一、Flex 布局是什么？</h3><p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
-<p>任何一个容器都可以指定为 Flex 布局。</p>
-<blockquote>
-<p>.box{ display: flex; }</p>
-</blockquote>
-<p>行内元素也可以使用 Flex 布局。</p>
-<blockquote>
-<p>.box{ display: inline-flex; }</p>
-</blockquote>
-<p>Webkit 内核的浏览器，必须加上-webkit前缀。</p>
-<blockquote>
-<p>.box{ display: -webkit-flex; /<em> Safari </em>/ display: flex; }</p>
-</blockquote>
-<p>注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</p>
-<h3 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h3><p><strong>采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。</strong></p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_1.png" alt=""></p>
-<font color="red">容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。</font>
-
-<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
-<h3 id="三、容器的属性"><a href="#三、容器的属性" class="headerlink" title="三、容器的属性"></a>三、容器的属性</h3><p>以下6个属性设置在容器上。</p>
+            <h2 id="React-Native-和-Weex"><a href="#React-Native-和-Weex" class="headerlink" title="React Native 和 Weex"></a>React Native 和 Weex</h2><p>自从Weex出生的那一天起，就无法摆脱和React Native相互比较的命运。React Native宣称“Learn once, write anywhere”，而Weex宣称“Write Once, Run Everywhere”。Weex从出生那天起，就被给予了一统三端的厚望。React Native可以支持iOS、Android，而Weex可以支持iOS、Android、HTML5。</p>
+<p>在Native端，两者的最大的区别可能就是在对JSBundle是否分包。React Native官方只允许将React Native基础JS库和业务JS一起打成一个JS bundle，没有提供分包的功能，所以如果想节约流量就必须制作分包打包工具。而Weex默认打的JS bundle只包含业务JS代码，体积小很多，基础JS库包含在Weex SDK中，这一点Weex与Facebook的React Native和微软的Cordova相比，Weex更加轻量，体积小巧。</p>
+<p>在JS端，Weex又被人称为Vue Native，所以 React Native 和 Weex 的区别就在 React 和 Vue 两者上了。</p>
+<p>笔者没有写过React Native，所以也没法客观的去比较两者。不过知乎上有一个关于Weex 和 React Native很好的对比文章<a href="https://zhuanlan.zhihu.com/p/21677103" rel="external nofollow noopener noreferrer" target="_blank">《weex&amp;React Native对比》</a>，推荐大家阅读。</p>
+<p>前两天<a href="http://www.weibo.com/122678100" rel="external nofollow noopener noreferrer" target="_blank">@Allen 许帅</a>也在<a href="http://tech.glowing.com/cn/" rel="external nofollow noopener noreferrer" target="_blank">Glow 技术团队博客</a>上面发布了一篇<a href="http://tech.glowing.com/cn/react-native-at-glow/" rel="external nofollow noopener noreferrer" target="_blank">《React Native 在 Glow 的实践》</a>这篇文章里面也谈了很多关于React Native实践相关的点，也强烈推荐大家去阅读。</p>
+<h2 id="入门手册"><a href="#入门手册" class="headerlink" title="入门手册"></a>入门手册</h2><p>关于小白想入门Weex，当然最基础的还是要通读文档，文档是官方最好的学习资料。官方的基础文档有两份：</p>
+<p><a href="http://weex-project.io/cn/guide/" rel="external nofollow noopener noreferrer" target="_blank">教程文档</a><br><a href="http://weex-project.io/cn/references/" rel="external nofollow noopener noreferrer" target="_blank">手册文档</a></p>
+<p>在文档手册里面包含了Weex所有目前有的组件，模块，每个组件和模块的用法和属性。遇到问题可以先过来翻翻。很有可能有些组件和模块没有那些属性。</p>
+<h2 id="Weex系列工具"><a href="#Weex系列工具" class="headerlink" title="Weex系列工具"></a>Weex系列工具</h2><p>看完官方文档以后，就可以开始上手构建工程项目了。</p>
+<p>Weex也和前端项目一样，拥有它自己的脚手架全家桶。</p>
 <ol>
-<li>flex-direction</li>
-<li>flex-wrap</li>
-<li>flex-flow</li>
-<li>justify-content</li>
-<li>align-items</li>
-<li>align-content</li>
+<li>weex-toolkit </li>
+<li>weexpack </li>
+<li>playground </li>
+<li>code snippets </li>
+<li>weex-devtool。</li>
 </ol>
-<h3 id="3-1-flex-direction属性"><a href="#3-1-flex-direction属性" class="headerlink" title="3.1 flex-direction属性"></a>3.1 flex-direction属性</h3><p><strong>flex-direction属性决定主轴的方向（即项目的排列方向）。</strong></p>
-<p><code>.box { flex-direction: row | row-reverse | column | column-reverse; }</code></p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_2.png" alt=""></p>
-<p>它可能有4个值。</p>
+<h4 id="weex-toolkit"><a href="#weex-toolkit" class="headerlink" title="weex-toolkit"></a>weex-toolkit</h4><p>weex-toolkit是用来初始化项目，编译，运行，debug所有工具。</p>
+<p>通过下面的命令安装 </p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g weex-toolkit</span><br></pre></td></tr></table></figure>
+<p>安装完成后就可以使用weex 命令了 </p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex-toolkit.png" alt=""></p>
+<p>我们主要用的就是debug 和 compile命令。debug 是启动chrome调试器 、compile命令是将写好的js文件编译为JS bundle。</p>
+<h4 id="weexpack"><a href="#weexpack" class="headerlink" title="weexpack"></a>weexpack</h4><p>weexpack是用来打包JSBundle的，实际也是对Webpack的封装。</p>
+<h4 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h4><p>playground是一个上架的App，这个可以用来通过扫码实时在手机上显示出实际的页面。</p>
+<p> <img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/playground.png" alt=""></p>
+<h4 id="code-snippets"><a href="#code-snippets" class="headerlink" title="code snippets"></a>code snippets</h4><p>code snippets这个是一个在线的playground。</p>
+<p> <img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/dotwe.png" alt=""></p>
+<h4 id="weex-devtool"><a href="#weex-devtool" class="headerlink" title="weex-devtool"></a>weex-devtool</h4><p>weex-devtool 可以使用chrome调试JS 代码。  这个工具我认为主要方便前端开发使用。</p>
+<p>使用步骤，首先启动调试服务，终端输入</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">weex</span> <span class="literal">debug</span></span><br></pre></td></tr></table></figure>
+<p>结果如下:</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebug.png" alt=""></p>
+<p>同时启动chrome。然后在代码中将host换为图中的host。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">NSString *strHost =  [[NSUserDefaults standardUserDefaults] <span class="string">objectForKey:</span>GWX_WEEX_DEBUG_HOST];</span><br><span class="line">    <span class="keyword">if</span>(strHost.length&gt;<span class="number">5</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        NSString *strURL = [NSString <span class="string">stringWithFormat:</span>@<span class="string">"ws://%@/debugProxy/native"</span>,strHost];</span><br><span class="line">        [WXDevTool <span class="string">setDebug:</span>YES];</span><br><span class="line">        [WXLog <span class="string">setLogLevel:</span>WXLogLevelLog];</span><br><span class="line">        [WXDevTool <span class="string">launchDevToolDebugWithUrl:</span>strURL];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        [WXDebugTool <span class="string">setDebug:</span>NO];</span><br><span class="line">        [WXLog <span class="string">setLogLevel:</span>WXLogLevelError];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>启动app，看到app链接到了 chrome调试服务器 </p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebugapp.png" alt=""></p>
+<p>下图是debuger 截图 ：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebugdebug.png" alt=""></p>
+<p>下图是inspect截图：<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebugpage.png" alt=""></p>
+<p>具体使用方法看这两篇文章即可：</p>
 <ol>
-<li>row（默认值）：主轴为水平方向，起点在左端。</li>
-<li>row-reverse：主轴为水平方向，起点在右端。</li>
-<li>column：主轴为垂直方向，起点在上沿。</li>
-<li>column-reverse：主轴为垂直方向，起点在下沿。</li>
+<li><p><a href="https://zhuanlan.zhihu.com/p/25331465" rel="external nofollow noopener noreferrer" target="_blank">《Weex 入坑指南：Debug 调试是一门手艺活》</a>  </p>
+</li>
+<li><p><a href="https://github.com/weexteam/article/issues/50" rel="external nofollow noopener noreferrer" target="_blank">《Weex调试神器——Weex Devtools使用手册》</a></p>
+</li>
 </ol>
-<h3 id="3-2-flex-wrap属性"><a href="#3-2-flex-wrap属性" class="headerlink" title="3.2 flex-wrap属性"></a>3.2 flex-wrap属性</h3><p><strong>默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。</strong></p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_3.png" alt=""></p>
-<blockquote>
-<p>.box{ flex-wrap: nowrap | wrap | wrap-reverse; }</p>
-</blockquote>
-<p>它可能取三个值。</p>
-<p>（1）nowrap（默认）：不换行。</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_4.png" alt=""></p>
-<p>（2）wrap：换行，第一行在上方。</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_6.jpg" alt=""></p>
-<p>（3）wrap-reverse：换行，第一行在下方。</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_6.png" alt=""></p>
-<h3 id="3-3-flex-flow"><a href="#3-3-flex-flow" class="headerlink" title="3.3 flex-flow"></a>3.3 flex-flow</h3><p>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。</p>
-<blockquote>
-<p>.box { flex-flow: || ; }</p>
-</blockquote>
-<h3 id="3-4-justify-content属性"><a href="#3-4-justify-content属性" class="headerlink" title="3.4 justify-content属性"></a>3.4 justify-content属性</h3><p>justify-content属性定义了项目在主轴上的对齐方式。</p>
-<blockquote>
-<p>.box { justify-content: flex-start | flex-end | center | space-between | space-around; }</p>
-</blockquote>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_7.png" alt=""></p>
-<p>它可能取5个值，具体对齐方式与轴的方向有关。下面假设主轴为从左到右。</p>
-<blockquote>
-<p>flex-start（默认值）：左对齐flex-end：右对齐center： 居中space-between：两端对齐，项目之间的间隔都相等。space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</p>
-</blockquote>
-<h3 id="3-5-align-items属性"><a href="#3-5-align-items属性" class="headerlink" title="3.5 align-items属性"></a>3.5 align-items属性</h3><font color="red"><strong>align-items属性定义项目在交叉轴上如何对齐。</strong></font>
-
-<blockquote>
-<p>.box { align-items: flex-start | flex-end | center | baseline | stretch; }</p>
-</blockquote>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_8.png" alt=""></p>
-<p>它可能取5个值。具体的对齐方式与交叉轴的方向有关，下面假设交叉轴从上到下。</p>
-<blockquote>
-<p>flex-start：交叉轴的起点对齐。flex-end：交叉轴的终点对齐。center：交叉轴的中点对齐。baseline: 项目的第一行文字的基线对齐。stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</p>
-</blockquote>
-<h3 id="3-6-align-content属性"><a href="#3-6-align-content属性" class="headerlink" title="3.6 align-content属性"></a>3.6 align-content属性</h3><p>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
-<blockquote>
-<p>.box { align-content: flex-start | flex-end | center | space-between | space-around | stretch; }</p>
-</blockquote>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_9.png" alt=""></p>
-<p>该属性可能取6个值。</p>
-<blockquote>
-<p>flex-start：与交叉轴的起点对齐。flex-end：与交叉轴的终点对齐。center：与交叉轴的中点对齐。space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。stretch（默认值）：轴线占满整个交叉轴。</p>
-</blockquote>
-<h3 id="四、项目的属性"><a href="#四、项目的属性" class="headerlink" title="四、项目的属性"></a>四、项目的属性</h3><p>以下6个属性设置在项目上。</p>
-<ol>
-<li>order</li>
-<li>flex-grow</li>
-<li>flex-shrink</li>
-<li>flex-basis</li>
-<li>flexalign-self</li>
-</ol>
-<h3 id="4-1-order属性"><a href="#4-1-order属性" class="headerlink" title="4.1 order属性"></a>4.1 order属性</h3><p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
-<blockquote>
-<p>.item { order: ; }</p>
-</blockquote>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_10.png" alt=""></p>
-<h3 id="4-2-flex-grow属性"><a href="#4-2-flex-grow属性" class="headerlink" title="4.2 flex-grow属性"></a>4.2 flex-grow属性</h3><p>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</p>
-<blockquote>
-<p>.item { flex-grow: ; /<em> default 0 </em>/ }</p>
-</blockquote>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_11.png" alt=""></p>
-<p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
-<h3 id="4-3-flex-shrink属性"><a href="#4-3-flex-shrink属性" class="headerlink" title="4.3 flex-shrink属性"></a>4.3 flex-shrink属性</h3><p>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
-<blockquote>
-<p>.item { flex-shrink: ; /<em> default 1 </em>/ }</p>
-</blockquote>
-<p><img src="weexImage/weex_flex_12.jpg" alt=""></p>
-<p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。</p>
-<p>负值对该属性无效。</p>
-<h3 id="4-4-flex-basis属性"><a href="#4-4-flex-basis属性" class="headerlink" title="4.4 flex-basis属性"></a>4.4 flex-basis属性</h3><p>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</p>
-<blockquote>
-<p>.item { flex-basis: | auto; /<em> default auto </em>/ }</p>
-</blockquote>
-<p>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</p>
-<h3 id="4-5-flex属性"><a href="#4-5-flex属性" class="headerlink" title="4.5 flex属性"></a>4.5 flex属性</h3><p>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>
-<blockquote>
-<p>.item { flex: none | [ &lt;’flex-grow’&gt; &lt;’flex-shrink’&gt;? || &lt;’flex-basis’&gt; ] }</p>
-</blockquote>
-<p>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。</p>
-<p>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</p>
-<h3 id="4-6-align-self属性"><a href="#4-6-align-self属性" class="headerlink" title="4.6 align-self属性"></a>4.6 align-self属性</h3><p><strong>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</strong></p>
-<blockquote>
-<p>.item { align-self: auto | flex-start | flex-end | center | baseline | stretch; }</p>
-</blockquote>
-<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex_flex_12.jpg" alt=""></p>
-<p>该属性可能取6个值，除了auto，其他都与align-items属性完全一致。</p>
-<hr>
-<h2 id="抄袭地址"><a href="#抄袭地址" class="headerlink" title="抄袭地址"></a>抄袭地址</h2><ol>
-<li><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" rel="external nofollow noopener noreferrer" target="_blank">Flex 布局教程：语法篇</a></li>
+<h2 id="Weex-Market插件"><a href="#Weex-Market插件" class="headerlink" title="Weex Market插件"></a><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_pseudo-best_practices_for_iOS_developers.md#2-weex-market%E6%8F%92%E4%BB%B6" rel="external nofollow noopener noreferrer" target="_blank">Weex Market插件</a></h2><p>在日常开发中，我们可以全部自己开发完所有的Weex界面，当然还可以用一些已有的优秀的轮子。Weex的所有优秀的轮子都在Weex Market里面。</p>
+<p> <a href="https://camo.githubusercontent.com/bdaba9a49b7d7b32486fb7d68a1c5c965c07b19c/687474703a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f313139343031322d353631643838663562333739353763352e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" rel="external nofollow noopener noreferrer" target="_blank">Weex Market</a> </p>
+<p>在这个Market里面有很多已经写好的轮子，直接拿来用，可以节约很多时间。</p>
+<p>比如这里很火的weex-chart。weex-chart图表插件是通过g2-mobile依赖[gcanvas插件][23]实现的</p>
+<p>如果你想使用[Weex Market][24]的Plugin插件，你可以使用weex plugin 命令：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weex plugin <span class="keyword">add</span><span class="bash"> plugin_name</span></span><br></pre></td></tr></table></figure>
+<p>你只需要输入插件的名称就可以从远程添加插件到你本地的项目，比如添加 weex-chart，我们可以输入命令：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weex plugin <span class="keyword">add</span><span class="bash"> weex-chart</span></span><br></pre></td></tr></table></figure>
+<p>我们可以使用plugin remove移除插件，比如移除安装好的 weex-cahrt：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weex plugin <span class="builtin-name">remove</span> weex-chart</span><br></pre></td></tr></table></figure>
+<p>这个插件库里面我用过weex-router，还不错，用它来做weex的路由管理。推荐使用。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://weex-project.io/cn/guide/" rel="external nofollow noopener noreferrer" target="_blank">官方教程</a></li>
+<li><a href="http://weex-project.io/cn/references/" rel="external nofollow noopener noreferrer" target="_blank">官方手册</a></li>
+<li><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_pseudo-best_practices_for_iOS_developers.md#ios-开发者的-weex-伪最佳实践指北" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者的 Weex 伪最佳实践指北</a></li>
 </ol>
 
             </div>
@@ -789,6 +732,295 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/工具/ruby/homebrew-gem使用/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-Hybird/webview/gome-Webview" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>通用webview记录 </p>
+<p>目录：</p>
+<ol>
+<li><a href="#webview1">为什么做通用webView</a></li>
+<li><a href="#webview2">通用webView与混合式app的联系</a></li>
+<li><a href="#webview3">WKWebview介绍</a></li>
+<li><a href="#webview4">通用webView与JS交互形式</a></li>
+<li><a href="#webview5">现有webView支持那些JS交互</a></li>
+<li><a href="#webview6">插件的扩展方法</a></li>
+<li><a href="#webview7">webview中遇到的问题</a></li>
+<li><a href="#webview8">调试Webview的JS代码方法</a></li>
+<li><a href="#webview9">参考</a></li>
+</ol>
+<h1 id="1、为什么做通用webView"><a href="#1、为什么做通用webView" class="headerlink" title=" 1、为什么做通用webView"></a><div id="webview1"> 1、为什么做通用webView</div></h1><ol>
+<li>两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇到问题。</li>
+<li>JS交互不统一：美信模板普遍使用URL方式于Native交互，在线模板主要使用JSBridge交互，并且不同模块的Bridge也有一定的区别，不是统一的。</li>
+</ol>
+<p>为了解决上面问题，就需要融合两套webview，并使用统一的JS交互机制，JS交互机制最后使用的是现有混合app的js交互机制–cordova，同时为了提高性能，统一将UIwebview替换为WKWebview。</p>
+<p>所以主要工作有两部分：</p>
+<ol>
+<li>使用wkwebview构建新的综合模板</li>
+<li>重新规划、开发混合app和Webview的插件</li>
+</ol>
+<h2 id="2、通用webView与混合式app的联系"><a href="#2、通用webView与混合式app的联系" class="headerlink" title=" 2、通用webView与混合式app的联系"></a><div id="webview2"> 2、通用webView与混合式app的联系</div></h2><p>混合app和webview有非常相似的功能，但也有一定的区别，下图的目的是说明它俩的关系：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/webview_cordova.png" alt="webView与混合式app"></p>
+<p>图1</p>
+<p>混合app和通用webview都是使用WKWebview容器渲染html页面，并使用统一的JS交互机制于Native交互。唯一不同点是：混合app启动的时候将远端的html文件以插件或组件的形式下载到本地，当渲染混合app的时候，根据插件信息，查找本地的html文件，并加载。而通用webview直接使用URL加载部署在远端服务器上的html文件。所以混合app的体验、性能都优于通用webview。</p>
+<h2 id="3、WKWebview-介绍"><a href="#3、WKWebview-介绍" class="headerlink" title="3、WKWebview 介绍"></a><div id="webview3">3、WKWebview 介绍</div></h2><p>iOS8之后苹果推荐使用WKWebView替代UIWebView，其主要的有点有：</p>
+<ol>
+<li>WKWebView更多的支持HTML5的特性</li>
+<li>WKWebView更快，占用内存可能只有UIWebView的1/3 ~ 1/4</li>
+<li>WKWebView高达60fps的滚动刷新率和丰富的内置手势</li>
+<li>WKWebView具有Safari相同的JavaScript引擎</li>
+<li>WKWebView增加了加载进度属性</li>
+<li>将UIWebViewDelegate和UIWebView重构成了14个类与3个协议</li>
+</ol>
+<h3 id="3-1-创建WKWebview"><a href="#3-1-创建WKWebview" class="headerlink" title="3.1 创建WKWebview"></a>3.1 创建WKWebview</h3><p>WKWebview既可以使用alloc、init方法创建，也可以使用自己的方法创建，下面是创建WKWebview的实例代码：</p>
+<pre><code>WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+[userContentController addScriptMessageHandler:self name:CDV_BRIDGE_NAME];
+
+WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+configuration.userContentController = userContentController;
+
+WKWebView* wkWebView = [[WKWebView alloc] initWithFrame:frame configuration:configuration];
+</code></pre><h3 id="3-2-WKWebview加载页面"><a href="#3-2-WKWebview加载页面" class="headerlink" title="3.2 WKWebview加载页面"></a>3.2 WKWebview加载页面</h3><pre><code>WKWebView *webView =self.webViewEngine.engineWebView;
+strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+NSURL *url = [NSURL URLWithString:GMK_Str_Protect(strUrl)];
+if (nil == url)
+{
+    [self notFoundHtml];
+    return;
+}
+NSMutableURLRequest* appReq = [NSMutableURLRequest requestWithURL:url
+                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                  timeoutInterval:20.0];
+if (nil == appReq)
+{
+    [self notFoundHtml];
+    return;
+}
+
+[self.webViewEngine loadRequest:appReq];
+</code></pre><h3 id="3-3-WKWebview代理"><a href="#3-3-WKWebview代理" class="headerlink" title="3.3 WKWebview代理"></a>3.3 WKWebview代理</h3><p>WKWebView有两个代理,WKUIDelegate 和 WKNavigationDelegate。WKNavigationDelegate主要处理一些跳转、加载处理操作；WKUIDelegate主要处理UI相关的操作：确认框，警告框，提示框。因此WKNavigationDelegate更加常用。下面是WKNavigationDelegate的代理列表：</p>
+<pre><code>///二、页面是否加载 ，相当于shouldStartLoadWithRequest
+- (void) webView: (WKWebView *) webView decidePolicyForNavigationAction: (WKNavigationAction*) navigationAction decisionHandler: (void (^)(WKNavigationActionPolicy)) decisionHandler
+{
+    //允许跳转
+    decisionHandler(WKNavigationResponsePolicyAllow);
+    //不允许跳转
+    //decisionHandler(WKNavigationResponsePolicyCancel);
+}
+
+///三、页面开始加载
+- (void)webView:(WKWebView*)webView didStartProvisionalNavigation:(WKNavigation*)navigation
+{
+
+}
+///四、收到响应
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler 
+{
+    //允许跳转
+    decisionHandler(WKNavigationResponsePolicyAllow);
+    //不允许跳转
+    //decisionHandler(WKNavigationResponsePolicyCancel);
+}
+///五、收到数据
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation 
+{ 
+}
+///六、页面加载完成
+- (void)webView:(WKWebView*)webView didFinishNavigation:(WKNavigation*)navigation
+{
+}
+///七、页面加载失败
+- (void)webView:(WKWebView*)theWebView didFailNavigation:(WKNavigation*)navigation withError:(NSError*)error
+{
+
+}
+/// 八、跳转失败
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
+{
+
+}
+/// 九、重定向
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation
+{
+}
+
+///十、这个目的解决白屏问题  （ios9以上）
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView API_AVAILABLE(macosx(10.11), ios(9.0))
+{
+    [self loadRequestWithUrl:self.strCurrentURL];
+}
+</code></pre><p>WKUIDelegate有下面三个代理：</p>
+<pre><code>- (void)                        webView:(WKWebView*)webView
+     runJavaScriptAlertPanelWithMessage:(NSString*)message
+                       initiatedByFrame:(WKFrameInfo*)frame
+                      completionHandler:(void (^)(void))completionHandler
+
+- (void)                        webView:(WKWebView*)webView
+   runJavaScriptConfirmPanelWithMessage:(NSString*)message
+                       initiatedByFrame:(WKFrameInfo*)frame
+                      completionHandler:(void (^)(BOOL result))completionHandler
+
+- (void)                        webView:(WKWebView*)webView
+  runJavaScriptTextInputPanelWithPrompt:(NSString*)prompt
+                            defaultText:(NSString*)defaultText
+                       initiatedByFrame:(WKFrameInfo*)frame
+                      completionHandler:(void (^)(NSString* result))completionHandler
+</code></pre><h3 id="3-3-WKUserContentController"><a href="#3-3-WKUserContentController" class="headerlink" title="3.3 WKUserContentController"></a>3.3 WKUserContentController</h3><p>A WKUserContentController object provides a way for JavaScript to post<br> messages to a web view.</p>
+<p> WKUserContentController 对象为JavaSript提供了向webview发送消息的方式。</p>
+<p> The user content controller associated with a web view is specified by its<br> web view configuration.</p>
+<p> WKUserContentController 通过WKWebViewConfiguration 关联到webview。</p>
+<p> 下面的代码是创建WKUserContentController，并关联到WKWebview的代码：</p>
+<pre><code>///创建WKUserContentController
+WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+[userContentController addScriptMessageHandler:self name:CDV_BRIDGE_NAME];
+
+///关联到webview
+WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+configuration.userContentController = userContentController
+</code></pre><p>关联以后，JS就可以通过下面的代码向WKWebview发送消息。</p>
+<pre><code>window.webkit.messageHandlers.&lt;name&gt;.postMessage(&lt;messageBody&gt;)
+</code></pre><p>WKWebview接收到JS的消息后，会触发WKScriptMessageHandler协议的userContentController：didReceiveScriptMessage:方法：</p>
+<pre><code>- (void)userContentController:(WKUserContentController*)userContentController
+  didReceiveScriptMessage:(WKScriptMessage*)message
+{
+    if (![message.name isEqualToString:CDV_BRIDGE_NAME]) {
+        return;
+    }
+
+    CDVViewController* vc = (CDVViewController*)self.viewController;
+    NSArray* jsonEntry = message.body; // NSString:callbackId, NSString:service, NSString:action, NSArray:args
+}
+</code></pre><p>在这个方法中就可以根据消息的内容，调用Native的功能。</p>
+<h3 id="3-4-动态注入JS"><a href="#3-4-动态注入JS" class="headerlink" title="3.4 动态注入JS"></a>3.4 动态注入JS</h3><p>WKWebview支持将JS预先注入到Webview中，可以定制带document加载前或者后执行注入的JS。注入JS是将WKUserScript关联的webview的configuration中，代码示例如下。</p>
+<pre><code>/// 4. cookie信息脚本()
+WKUserScript * cookieScript = [[WKUserScript alloc]
+                                   initWithSource:mstrCookieInfo
+                                   injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+if (GMK_Ary_Is_Valid(webView.configuration.userContentController.userScripts))
+{
+    [webView.configuration.userContentController removeAllUserScripts];
+}
+if (script)
+{
+    [webView.configuration.userContentController addUserScript:script];
+}
+</code></pre><h1 id="4、通用webView与JS交互"><a href="#4、通用webView与JS交互" class="headerlink" title=" 4、通用webView与JS交互"></a><div id="webview4"> 4、通用webView与JS交互</div></h1><p>下图是cordova中JS和Native的交互机制<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_JS.png" alt="cordova中JS和Native的交互机制"></p>
+<p>下面是 cordova源码的结构<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_class_ship.png" alt="cordovad的组织结构"></p>
+<p>下面是 cordova初始化webview的流程<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_init.png" alt="cordovad的组织结构"></p>
+<h2 id="5、现有webView支持那些JS交互"><a href="#5、现有webView支持那些JS交互" class="headerlink" title="5、现有webView支持那些JS交互"></a><div id="webview5">5、现有webView支持那些JS交互</div></h2><p>在开发通用webview的时候，统一规划了插件。规划后插件列表如下：</p>
+<ol>
+<li>cordova-plugin-gome-AddressBook 通信录插件，包含选择联系人接口</li>
+<li>cordova-plugin-gome-business 业务类型插件，包括上传金融加密 face++，我的国美关闭浮层等接口</li>
+<li>cordova-plugin-gome-cashier收银台插件</li>
+<li>cordova-plugin-gome-CustomerService在线客服插件</li>
+<li>cordova-plugin-gome-device  设备信息插件，包括拨打电话、获取设备信息接口</li>
+<li>cordova-plugin-gome-location 定位插件，包括获取四级区域信息接口</li>
+<li>cordova-plugin-gome-login登录插件，包括调起登录，用户信息，是否登录接口</li>
+<li>cordova-plugin-gome-network 网络请求插件，包括发送网络请求、获取网络连接状态接口</li>
+<li>cordova-plugin-gome-picture 图片插件，包括调起原生插件、保存图片</li>
+<li>cordova-plugin-gome-route 路由插件，包括打开vc，关闭当前页面接口</li>
+<li>cordova-plugin-gome-share 分享插件，包括调起分享组件接口</li>
+<li>cordova-plugin-gome-shopChat购物车插件，包括刷新购物车数量接口</li>
+<li>cordova-plugin-gome-statistics统计插件 ，webview埋点时候</li>
+<li>cordova-plugin-gome-view视图插件，包括toast、 初始化导航栏、错误页面、显示隐藏导航栏接口</li>
+</ol>
+<p>所有插件的详细信息请参考：<a href="http://m-wiki.ds.gome.com.cn/android/hybrid/Plugins.html" rel="external nofollow noopener noreferrer" target="_blank">plugin插件列表</a></p>
+<h1 id="6、插件的扩展方法"><a href="#6、插件的扩展方法" class="headerlink" title="6、插件的扩展方法"></a><div id="webview6">6、插件的扩展方法</div></h1><p>如果现有的插件不能满足新的需求，需要扩展新的插件，扩展方法如下：</p>
+<ul>
+<li><p>首先确定插件的别名，这个名字需要三端一样，然后确定插件的类名（这个按照代码规范命名就可以）。</p>
+</li>
+<li><p>将插件别名和插件类名的对应关系添加到cordova的配置文件中。配置文件查找方法、书写方法如图：</p>
+</li>
+</ul>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config1.png" alt="插件扩展方法1"><br>图1<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config2.png" alt="插件扩展方法2"><br>图2<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config3.png" alt="插件扩展方法3"><br>图3</p>
+<ul>
+<li><p>创建插件类，这个类必须继承于CDVPlugin类；</p>
+</li>
+<li><p>定义插件方法，插件方法需要三端统一。方法的格式就是：-(void)<methodname>:(CDVInvokedUrlCommand *)command；</methodname></p>
+</li>
+<li><p>实现方法，实现插件方法分3部分：解析参数判断、完成Native的功能、将结果回调给JS；</p>
+</li>
+</ul>
+<p>参数解析：</p>
+<p>CDVInvokedUrlCommand 类是对JS传递过来参数的封装，我们从arguments属性中获取参数，CDVInvokedUrlCommand的属性定义如下：</p>
+<pre><code>@property (nonatomic, readonly) NSArray* arguments;
+@property (nonatomic, readonly) NSString* callbackId;
+@property (nonatomic, readonly) NSString* className;
+@property (nonatomic, readonly) NSString* methodName;
+</code></pre><p>回调结果：</p>
+<p>回调的数据格式需要预先定义好，然后使用下面的代码将数据回调给JS：</p>
+<pre><code>NSDictionary *dic = @{GMM_ViewPlugin_Successed:@&quot;Y&quot;};
+CDVPluginResult * result=[CDVPluginResult resultWithStatus:CDVCommandStatus_OK 
+                                       messageAsDictionary:dic];
+[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+</code></pre><h1 id="7、webview中遇到的问题"><a href="#7、webview中遇到的问题" class="headerlink" title="7、webview中遇到的问题"></a><div id="webview7">7、webview中遇到的问题</div></h1><ul>
+<li><p>_blank 问题：</p>
+<p> a便签中如果有_blank属性，表示在新的窗口打开页面，但是我们打不开，解决办法是添加如下代理的实现，直接在当前窗口加载url</p>
+<p>  -(WKWebView <em>)webView:(WKWebView </em>)webView createWebViewWithConfiguration:(WKWebViewConfiguration <em>)configuration forNavigationAction:(WKNavigationAction </em>)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures<br>  {</p>
+<pre><code>if (!navigationAction.targetFrame.isMainFrame) {
+    [webView loadRequest:navigationAction.request];
+}
+return nil;
+</code></pre><p>  }</p>
+</li>
+<li><p>cookie问题、白屏问题</p>
+<p>这个问题都是参考 <a href="http://www.cnblogs.com/NSong/p/6489802.html" rel="external nofollow noopener noreferrer" target="_blank">WKWebView 那些坑</a>解决的，都有不错的解决方法</p>
+</li>
+<li><p>NSURLErrorCancelled 问题。</p>
+<p>webview如果上一个请求没有完成，立即操作界面，触发新的网络请求，wk代理会收到错误，错误码是NSURLErrorCancelled，这个时候不应该展示错误页面，需要直接return。</p>
+</li>
+<li><p>webview出现错误页面诊断方法<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_error.png" alt="插件扩展方法3"><br>遇到这个界面，请先自行定位，定位方法：</p>
+<ul>
+<li><p>首先找到GMBCordovaVC的WK失败代理：</p>
+<pre><code>webView: didFailNavigation: withError:
+webView:didFailProvisionalNavigation: withError:
+</code></pre></li>
+<li>然后打印出错误原因</li>
+<li><p>根据NSError中的错误码分析错误的原因，解决问题。</p>
+<p>下面是我遇到的几个记录下来的错误码，通过分析，大部分能明白错误的原因：</p>
+<p>Error Domain=WebKitErrorDomain Code=102 “Frame load interrupted” UserInfo={_WKRecoveryAttempterErrorKey=<br><wkreloadframeerrorrecoveryattempter: 0x60000062fa80="">, NSErrorFailingURLStringKey=<a href="https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=</a>, NSErrorFailingURLKey=<a href="https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=</a>, NSLocalizedDescription=Frame load interrupted}</wkreloadframeerrorrecoveryattempter:></p>
+<p>这个是加载中访问了<a href="https://login.m.gomeplus.com/login.html" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html</a> url，打断了加载。</p>
+<p>Error Domain=NSURLErrorDomain Code=-1002 “unsupported URL” UserInfo={_WKRecoveryAttempterErrorKey=<wkreloadframeerrorrecoveryattempter: 0x608000233ae0="">, NSErrorFailingURLStringKey=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, NSErrorFailingURLKey=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, NSLocalizedDescription=unsupported URL, NSUnderlyingError=0x604000653440 {Error Domain=kCFErrorDomainCFNetwork Code=-1002 “(null)”}}</wkreloadframeerrorrecoveryattempter:></p>
+<p>这个是JS中访问了不支持的scheme,itms-appss</p>
+<p>Error Domain=NSURLErrorDomain Code=-1202 “The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk.” UserInfo={NSURLErrorFailingURLPeerTrustErrorKey=<sectrustref: 0x600000301200="">, NSLocalizedRecoverySuggestion=Would you like to connect to the server anyway?, NSErrorFailingURLStringKey=<a href="https://m.gomeholdings.com/content/2017042516183080569_.html" rel="external nofollow noopener noreferrer" target="_blank">https://m.gomeholdings.com/content/2017042516183080569_.html</a>, NSErrorFailingURLKey=<a href="https://m.gomeholdings.com/content/2017042516183080569_.html" rel="external nofollow noopener noreferrer" target="_blank">https://m.gomeholdings.com/content/2017042516183080569_.html</a>, NSErrorPeerCertificateChainKey=(<br>   “<cert(0x7fef30f1fc40) s:="" *.gomeholdings.com="" i:="" charles="" proxy="" ca="" (3="" \u516b\u6708="" 2016,="" bogon)="">“,<br>   “<cert(0x7fef30f12390) s:="" charles="" proxy="" ca="" (3="" \u516b\u6708="" 2016,="" bogon)="" i:="">“<br>), NSErrorClientCertificateStateKey=0, NSLocalizedDescription=The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk., _WKRecoveryAttempterErrorKey=<wkreloadframeerrorrecoveryattempter: 0x600000829e60="">, _kCFStreamErrorDomainKey=3, NSUnderlyingError=0x600000a52f90 {Error Domain=kCFErrorDomainCFNetwork Code=-1202 “(null)” UserInfo={_kCFStreamPropertySSLClientCertificateState=0, _kCFNetworkCFStreamSSLErrorOriginalValue=-9813, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9813}}, _kCFStreamErrorCodeKey=-9813}</wkreloadframeerrorrecoveryattempter:></cert(0x7fef30f12390)></cert(0x7fef30f1fc40)></sectrustref:></p>
+<p>这个是认证服务器证书失败。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="8、调试Webview的JS代码方法"><a href="#8、调试Webview的JS代码方法" class="headerlink" title="8、调试Webview的JS代码方法"></a><div id="webview8">8、调试Webview的JS代码方法</div></h1><p>在项目的过程中，有时会遇到webview刷新不出界面的现象，这时，就需要调试html页面，查找问题，进而判断是否是咱们的问题。调试使用safari自带的功能就可以完成。具体步骤：</p>
+<ul>
+<li>打开safari开发模式。在safari菜单栏，选择safari、偏好设置、高级，在最下面将 “在菜单中显示开发菜单” 选中。<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_1.png" alt="插件扩展方法3"></li>
+<li>链接到webview界面。选择开发、Simulator、 对应的页面，打开调试器。<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_2.png" alt="插件扩展方法3"></li>
+<li>调试代码，查找错误，判断是否是JS的错误<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_3.png" alt="插件扩展方法3"></li>
+</ul>
+<h1 id="9、参考"><a href="#9、参考" class="headerlink" title="9、参考"></a><div id="webview9">9、参考</div></h1><ol>
+<li><a href="https://www.jianshu.com/p/4fa8c4eb1316" rel="external nofollow noopener noreferrer" target="_blank">IOS进阶之WKWebView</a></li>
+<li><a href="http://blog.csdn.net/pangshishan1/article/details/52212994" rel="external nofollow noopener noreferrer" target="_blank">iOS 给webView加进度条(WKWebView)</a></li>
+<li><a href="http://www.cnblogs.com/NSong/p/6489802.html" rel="external nofollow noopener noreferrer" target="_blank">WKWebView 那些坑</a></li>
+<li><a href="http://www.cocoachina.com/cms/wap.php?action=article&amp;id=21818" rel="external nofollow noopener noreferrer" target="_blank">WKWebView强大的新特性</a></li>
+</ol>
+
             </div>
         
         <footer class="article-footer">
@@ -1632,68 +1864,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/工具/SSH/ssh-theory/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/Cocoapods/Cocoapods-new-spec" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
-    </div>
-
-                        
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">
-            <time datetime="2018-02-27T07:06:13.000Z" itemprop="datePublished">2018-02-27</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
-<ul>
-<li><a href=""></a></li>
-<li><a href=""></a></li>
-</ul>
-</blockquote>
-
             </div>
         
         <footer class="article-footer">

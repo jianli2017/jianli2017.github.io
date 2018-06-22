@@ -3,27 +3,35 @@
 <head>
     <meta charset="utf-8">
     
-    <title>内存学习 | LJ小窝</title>
+    <title>LJ小窝</title>
     
     
-        <meta name="keywords" content="git">
+        <meta name="keywords" content="LJ小窝">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="本文记录内存学习的关键内容">
-<meta name="keywords" content="git">
+    <meta name="description" content="通用webview记录  目录：  为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考   1、为什么做通用webView 两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇">
 <meta property="og:type" content="article">
-<meta property="og:title" content="内存学习">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/内存管理/内存学习/index.html">
+<meta property="og:title" content="LJ小窝">
+<meta property="og:url" content="http://yoursite.com/wiki/Hybird/webview/gome-Webview/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="本文记录内存学习的关键内容">
+<meta property="og:description" content="通用webview记录  目录：  为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考   1、为什么做通用webView 两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/foundation/memory/%E5%88%9D%E5%A7%8B%E5%BA%94%E7%94%A8%E5%85%B3%E7%B3%BB.png">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/foundation/memory/%E5%BC%BA%E5%BC%95%E7%94%A8%E7%BB%93%E6%9E%9C.png">
-<meta property="og:updated_time" content="2018-03-23T11:29:10.000Z">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/webview_cordova.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_JS.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_class_ship.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_init.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config1.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config2.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config3.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_error.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_1.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_2.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_3.png">
+<meta property="og:updated_time" content="2018-06-22T06:28:51.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="内存学习">
-<meta name="twitter:description" content="本文记录内存学习的关键内容">
-<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/foundation/memory/%E5%88%9D%E5%A7%8B%E5%BA%94%E7%94%A8%E5%85%B3%E7%B3%BB.png">
+<meta name="twitter:title" content="LJ小窝">
+<meta name="twitter:description" content="通用webview记录  目录：  为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考   1、为什么做通用webView 两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/webview_cordova.png">
     
 
     
@@ -168,20 +176,20 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             Hybird
                         </a>
                          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             webview
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/"></a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/Hybird/webview/gome-Webview/"></a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -195,9 +203,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -265,13 +273,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             内存管理
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -490,198 +498,281 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/内存管理/内存学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-Hybird/webview/gome-Webview" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/内存管理/">内存管理</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/git/">git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/内存管理/内存学习/">
-            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 class="article-title" itemprop="name">
-            内存学习
-        </h1>
-    
-
-            </header>
         
         
         <div class="article-entry" itemprop="articleBody">
         
         
             
-                <div id="toc" class="toc-article">
-                <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#概述"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#内存管理的思考方式"><span class="toc-number">2.</span> <span class="toc-text">内存管理的思考方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#所有权修饰符"><span class="toc-number">3.</span> <span class="toc-text">所有权修饰符</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#weak修饰符"><span class="toc-number">3.1.</span> <span class="toc-text">__weak修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#unsafe-unretained修饰符"><span class="toc-number">3.2.</span> <span class="toc-text">__unsafe_unretained修饰符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#autorelease"><span class="toc-number">3.3.</span> <span class="toc-text">__autorelease</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#规则"><span class="toc-number">4.</span> <span class="toc-text">规则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ARC-实现"><span class="toc-number">5.</span> <span class="toc-text">ARC 实现</span></a></li></ol>
-                </div>
-            
         
         
-            <p>本文记录内存学习的关键内容</p>
-<a id="more"></a>
-<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><table>
-<thead>
-<tr>
-<th>对照明设备所做的动作</th>
-<th>对Objective-C对象所做的动作</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>开灯</td>
-<td>生产对象</td>
-</tr>
-<tr>
-<td>需要照明</td>
-<td>持有对象</td>
-</tr>
-<tr>
-<td>不需要照明</td>
-<td>释放对象</td>
-</tr>
-<tr>
-<td>关灯</td>
-<td>废弃对象</td>
-</tr>
-</tbody>
-</table>
-<h2 id="内存管理的思考方式"><a href="#内存管理的思考方式" class="headerlink" title="内存管理的思考方式"></a>内存管理的思考方式</h2><ul>
-<li>自己生成的对象，自己持有</li>
-<li>非自己生成的对象，自己也能持有</li>
-<li>不再需要自己持有的对象时释放</li>
-<li>非自己持有的对象无法释放</li>
-</ul>
-<p>对象操作与Objective-C方法的对应</p>
-<table>
-<thead>
-<tr>
-<th>对象操作</th>
-<th>Objective-C方法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>生成并持有对象</td>
-<td>alloc/ new/ copy/ mutableCopy</td>
-</tr>
-<tr>
-<td>持有对象</td>
-<td>retain方法</td>
-</tr>
-<tr>
-<td>是否对象</td>
-<td>release 方法</td>
-</tr>
-<tr>
-<td>废弃对象</td>
-<td>dealloc方法</td>
-</tr>
-</tbody>
-</table>
-<p>Cocoa框架中的Foundation框架中的NSObject类担负内存管理的职责。</p>
-<p>生成对象的内部实现</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">id</span>) allocObect</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">id</span> obj = &#123;[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">///自己持有对象</span></span><br><span class="line">	<span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="keyword">id</span>) allocObect</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">id</span> obj = &#123;[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">///自己持有对象</span></span><br><span class="line">	</span><br><span class="line">	[obj autorelease];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">///取得对象的存在，单自己不持有对象</span></span><br><span class="line">	<span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>autorelease 使对象在超出指定的生存范围时，能够自动正确的释放。</p>
-<p>GNU引用计数器是在对象的头部存储。</p>
-<p>GNU实现总结：</p>
-<ul>
-<li>在Objective-C对象中存在引用计数器这一个整数值</li>
-<li>在调用alloc或者是retain方法后，应用计数器加1</li>
-<li>在调用release方法后，引用计数器减1</li>
-<li>引用计数器为0时，调用dealloc方法废弃对象。</li>
-</ul>
-<p>苹果的实现：</p>
-<p>保存在引用计数器表的记录中。好处可以追溯到各个对象的内存</p>
-<p>autorelease的使用方法：</p>
-<ul>
-<li>生成并持有NSAutoreleasePool对象</li>
-<li>调用已分配对象的autorelease方法</li>
-<li>废弃NSAutoreleasePool对象</li>
-</ul>
-<p>NSAutoreleasePool对象的生命周期相当于C语言变量的作用域</p>
-<p>NSRunloop每次循环过程中NSAutoreleasePool对象被生成或者释放 </p>
-<h2 id="所有权修饰符"><a href="#所有权修饰符" class="headerlink" title="所有权修饰符"></a>所有权修饰符</h2><p>所谓对象类型就是指向NSObject这样的Objective-C类的指针。id类型用于隐藏对象类型的类名部分。</p>
-<ul>
-<li>__strong </li>
-<li>__weak</li>
-<li>__unsafe_unretained</li>
-<li>__autoreleasing</li>
-</ul>
-<p>__strong修饰符是id类型和对象类型默认的所有权修饰符</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///arc有效</span></span><br><span class="line"><span class="keyword">id</span> __<span class="keyword">strong</span> obj = [[<span class="built_in">NSObject</span> alloc] init];</span><br></pre></td></tr></table></figure>
-<p>上面代码相当于：</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	<span class="comment">///arc无效</span></span><br><span class="line">	<span class="keyword">id</span> obj = [[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">///变量obj 持有NSObject对象。</span></span><br><span class="line">	<span class="comment">///一些操作</span></span><br><span class="line">	...</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	[obj release];</span><br><span class="line">	<span class="comment">///释放对象， NSObject对象没有持有着，所以废弃</span></span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>持有强引用的变量在超出作用域时被废弃，随着强引用的失效，引用的对象会随之释放。</p>
-<p>__strong修饰符的变量，不仅只在变量的作用域中，在赋值上也能正确的管理其对象的所有者。</p>
-<p><strong>strong、</strong>weak、__autoreleasing 可以保证附加这些属性的自动变量初始化为nil.</p>
-<p>一个非常经典的例子,专门收敲的啊。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> __<span class="keyword">strong</span> obj0 = [[<span class="built_in">NSObject</span> alloc] init];  <span class="comment">/*对象A*/</span></span><br><span class="line"><span class="keyword">id</span> __<span class="keyword">strong</span> obj1 = [[<span class="built_in">NSObject</span> alloc] init];  <span class="comment">/*对象B*/</span></span><br><span class="line"><span class="keyword">id</span> __<span class="keyword">strong</span> obj2 = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">/*变量obj0持有对象A</span></span><br><span class="line"><span class="comment">变量obj1持有对象B</span></span><br><span class="line"><span class="comment">变量obj2不持有任何对象</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    </span><br><span class="line">obj0 = obj1;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">obj0持有obj1持有的对象B，由于obj0被赋值，所以原先对A对象的强引用失效</span></span><br><span class="line"><span class="comment">A对象不存在持有这，A对象释放。并废弃。</span></span><br><span class="line"><span class="comment">此时，持有B的的强引用变量为obj0 、obj1</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    </span><br><span class="line">obj2 = obj0;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">obj2持有 由obj0赋值的对象B的强引用。</span></span><br><span class="line"><span class="comment">此时持有对象B的强引用变量为obj0、obj1、obj2</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    </span><br><span class="line">obj1 = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">/*nil被赋予了obj1，所以对对象B的强引用失效，可以设想为对象B的引用计数目前为2</span></span><br><span class="line"><span class="comment">此时持有对象B的强引用变量为obj0、obj2</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    </span><br><span class="line">obj0 = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">/*nil被赋予了obj0，所以对对象B的强引用失效，可以设想为对象B的引用计数目前为1</span></span><br><span class="line"><span class="comment">此时持有对象B的强引用变量为obj2</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">    </span><br><span class="line">obj2 = <span class="literal">nil</span>;</span><br><span class="line"><span class="comment">/*nil被赋予了obj2，所以对对象B的强引用失效，可以设想为对象B的引用计数目前为0</span></span><br><span class="line"><span class="comment"> 对象B不存在持有着，废弃对象B</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Test</span> : <span class="title">NSObject</span></span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">id</span> __<span class="keyword">strong</span> obj_;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>) setObject:(<span class="keyword">id</span> __<span class="keyword">strong</span>) obj;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Test</span></span></span><br><span class="line">-(<span class="keyword">id</span>)init</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-(<span class="keyword">void</span>) setObject:(<span class="keyword">id</span> __<span class="keyword">strong</span>) obj</span><br><span class="line">&#123;</span><br><span class="line">    obj_ = obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> viewDidLoad];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">id</span> test0 = [[Test alloc] init]; <span class="comment">/*对象A*/</span></span><br><span class="line">    <span class="comment">/*test0 持有Test对象A的强引用*/</span></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">id</span> test1 = [[Test alloc] init]; <span class="comment">/*对象B*/</span></span><br><span class="line">    <span class="comment">/*test1 持有Test对象B的强引用变量*/</span></span><br><span class="line">    </span><br><span class="line">    [test0 setObject:test1];</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     Test对象A的obj_成员变量持有Test对象B的强应用，</span></span><br><span class="line"><span class="comment">     此时持有对象B的强引用变量为：</span></span><br><span class="line"><span class="comment">     test1、test0.obj_</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    </span><br><span class="line">    [test1 setObject:test0];</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     对象B的obj_成员变量持有对象A的强引用</span></span><br><span class="line"><span class="comment">     此时持有对象A的强引用变量为 test0、test1.obj_*/</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    test0 超出作用域，强引用失效</span></span><br><span class="line"><span class="comment">    所以自动释放对象A</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">    test1 变量超出作用于，强引用失效</span></span><br><span class="line"><span class="comment">    自动释放对象B</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">    此时持有对象A的变量有test1.obj_</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">    此时持有对象B的变量有test0.obj_</span></span><br><span class="line"><span class="comment"> </span></span><br><span class="line"><span class="comment">    内存泄漏</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<p><img src="http://of685p9vy.bkt.clouddn.com/foundation/memory/%E5%88%9D%E5%A7%8B%E5%BA%94%E7%94%A8%E5%85%B3%E7%B3%BB.png" alt="初始内存关系"><br>上图是对象A和对象B内存持有状态</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/foundation/memory/%E5%BC%BA%E5%BC%95%E7%94%A8%E7%BB%93%E6%9E%9C.png" alt="强引用"></p>
-<p>test0 超出作用域，强引用失效，所以自动释放对象A，A对象还有B的obj_持有，不能废弃。</p>
-<p>test1 变量超出作用于，强引用失效，自动释放对象B（计数器减2-&gt;1）。对象B还有对象A的obj_属性持有，引用计数器为1，不能废弃</p>
-<p>最后对象A、B 在超出作用域没有释放，内存泄漏。</p>
-<h3 id="weak修饰符"><a href="#weak修饰符" class="headerlink" title="__weak修饰符"></a>__weak修饰符</h3><p>__weak修饰符不能持有对象实例。</p>
-<p><strong>weak修饰符还有一个优点，在持有某对象的弱引用时，若改对象废弃，则次弱引用将自动失效且被赋值为nil。 通过检查附有</strong>weak修饰符的变量是否为nil，可以判断被赋值的对象是否已经被废弃。</p>
-<h3 id="unsafe-unretained修饰符"><a href="#unsafe-unretained修饰符" class="headerlink" title="__unsafe_unretained修饰符"></a>__unsafe_unretained修饰符</h3><p>尽管ARC式的内存管理是编译器的工作，但附有<strong>unsafe_unretained修饰符的变量不属于编译器的内存管理对象
-</strong>unsafe_unretained</p>
-<h3 id="autorelease"><a href="#autorelease" class="headerlink" title="__autorelease"></a>__autorelease</h3><p>ARC有效时，autorelease功能也是起作用的。</p>
-<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@autoreleasepool</span>&#123;</span><br><span class="line">        <span class="keyword">id</span> __<span class="keyword">weak</span> obj = [[<span class="built_in">NSObject</span> alloc] init];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>对象赋值给附有__autorelease修饰符的变量等价于在ARC无效是调用对象的autorelease方法。即对象被注册到autoreleasepool中。用@autoreleasepool快代替NSAutoreleasePool</p>
-<p> 显示地附加<strong>autorelease修饰符同显示地附加</strong>strong修饰符一样罕见</p>
-<p> id指针或对象的指针的指针在没有显示指定时，会被附加上__autoreleasing修饰符。</p>
-<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> - (<span class="keyword">BOOL</span>) performOperationWithError:(NSError **) <span class="built_in">error</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">///等同于</span></span><br><span class="line">- (<span class="keyword">BOOL</span>) performOperationWithError:(NSError * __autoreleasing*) <span class="built_in">error</span>;</span><br></pre></td></tr></table></figure>
-<p>无论ARC是否有效，@autoreleasepool和 调试用的非公开函数_obj_autoreleasePoolPrint()都可以使用。</p>
-<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><ol>
-<li>不能使用retain/release/retainCount/autorelease</li>
-<li>不能使用NSAllocateObject/NSDeallocateObject</li>
-<li>必须准守内存内存管理的方法命名规则</li>
-<li>不能显示调用dealloc</li>
-<li>使用@autoreleasepool快代替NSAutoreleasePool</li>
-<li>不能使用区域NSZone</li>
-<li>对象型变量不能作为C语言结构体（struct/union）成员</li>
-<li>显示的转化id和void* </li>
-</ol>
-<p>内存管理命名方法规则</p>
+            <p>通用webview记录 </p>
+<p>目录：</p>
 <ol>
-<li>alloc</li>
-<li>new</li>
-<li>copy</li>
-<li>mutableCopy</li>
+<li><a href="#webview1">为什么做通用webView</a></li>
+<li><a href="#webview2">通用webView与混合式app的联系</a></li>
+<li><a href="#webview3">WKWebview介绍</a></li>
+<li><a href="#webview4">通用webView与JS交互形式</a></li>
+<li><a href="#webview5">现有webView支持那些JS交互</a></li>
+<li><a href="#webview6">插件的扩展方法</a></li>
+<li><a href="#webview7">webview中遇到的问题</a></li>
+<li><a href="#webview8">调试Webview的JS代码方法</a></li>
+<li><a href="#webview9">参考</a></li>
 </ol>
-<p>在arc有效的时候，追加一条 init</p>
-<p>以init开始的方法规则要不alloc/new/copy/mutableCopy更严格，改方法必须是实例方法并且必须返回对象，返回的对象应为id类型或者该方法声明类的对象类型，亦或该类的超类或者子类，返回的对象并不注册到autoreleasepool中，基本上是对alloc方法返回的对象进行初始化并返回该对象。</p>
-<p>在arc无效的时候在dealloc方法中需要显示的调用[super dealloc]  ,arc有效的时候不能调用，如果调用了，违反了第4条规则。</p>
-<p> struct Data<br> {<br>         NSObject  __unsafe_unretained *ary;<br> };</p>
-<p>要把对象添加到结构体成员中时，可强制转换为void* 或者加上<strong>unsafe_unretained修饰符。</strong>unsafe_unretained修饰符修饰的变量不属于编译器内存管理对象。</p>
-<h2 id="ARC-实现"><a href="#ARC-实现" class="headerlink" title="ARC 实现"></a>ARC 实现</h2><p>ARC是由编译器进行内存管理的</p>
+<h1 id="1、为什么做通用webView"><a href="#1、为什么做通用webView" class="headerlink" title=" 1、为什么做通用webView"></a><div id="webview1"> 1、为什么做通用webView</div></h1><ol>
+<li>两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇到问题。</li>
+<li>JS交互不统一：美信模板普遍使用URL方式于Native交互，在线模板主要使用JSBridge交互，并且不同模块的Bridge也有一定的区别，不是统一的。</li>
+</ol>
+<p>为了解决上面问题，就需要融合两套webview，并使用统一的JS交互机制，JS交互机制最后使用的是现有混合app的js交互机制–cordova，同时为了提高性能，统一将UIwebview替换为WKWebview。</p>
+<p>所以主要工作有两部分：</p>
+<ol>
+<li>使用wkwebview构建新的综合模板</li>
+<li>重新规划、开发混合app和Webview的插件</li>
+</ol>
+<h2 id="2、通用webView与混合式app的联系"><a href="#2、通用webView与混合式app的联系" class="headerlink" title=" 2、通用webView与混合式app的联系"></a><div id="webview2"> 2、通用webView与混合式app的联系</div></h2><p>混合app和webview有非常相似的功能，但也有一定的区别，下图的目的是说明它俩的关系：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/webview_cordova.png" alt="webView与混合式app"></p>
+<p>图1</p>
+<p>混合app和通用webview都是使用WKWebview容器渲染html页面，并使用统一的JS交互机制于Native交互。唯一不同点是：混合app启动的时候将远端的html文件以插件或组件的形式下载到本地，当渲染混合app的时候，根据插件信息，查找本地的html文件，并加载。而通用webview直接使用URL加载部署在远端服务器上的html文件。所以混合app的体验、性能都优于通用webview。</p>
+<h2 id="3、WKWebview-介绍"><a href="#3、WKWebview-介绍" class="headerlink" title="3、WKWebview 介绍"></a><div id="webview3">3、WKWebview 介绍</div></h2><p>iOS8之后苹果推荐使用WKWebView替代UIWebView，其主要的有点有：</p>
+<ol>
+<li>WKWebView更多的支持HTML5的特性</li>
+<li>WKWebView更快，占用内存可能只有UIWebView的1/3 ~ 1/4</li>
+<li>WKWebView高达60fps的滚动刷新率和丰富的内置手势</li>
+<li>WKWebView具有Safari相同的JavaScript引擎</li>
+<li>WKWebView增加了加载进度属性</li>
+<li>将UIWebViewDelegate和UIWebView重构成了14个类与3个协议</li>
+</ol>
+<h3 id="3-1-创建WKWebview"><a href="#3-1-创建WKWebview" class="headerlink" title="3.1 创建WKWebview"></a>3.1 创建WKWebview</h3><p>WKWebview既可以使用alloc、init方法创建，也可以使用自己的方法创建，下面是创建WKWebview的实例代码：</p>
+<pre><code>WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+[userContentController addScriptMessageHandler:self name:CDV_BRIDGE_NAME];
+
+WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+configuration.userContentController = userContentController;
+
+WKWebView* wkWebView = [[WKWebView alloc] initWithFrame:frame configuration:configuration];
+</code></pre><h3 id="3-2-WKWebview加载页面"><a href="#3-2-WKWebview加载页面" class="headerlink" title="3.2 WKWebview加载页面"></a>3.2 WKWebview加载页面</h3><pre><code>WKWebView *webView =self.webViewEngine.engineWebView;
+strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+NSURL *url = [NSURL URLWithString:GMK_Str_Protect(strUrl)];
+if (nil == url)
+{
+    [self notFoundHtml];
+    return;
+}
+NSMutableURLRequest* appReq = [NSMutableURLRequest requestWithURL:url
+                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
+                                                  timeoutInterval:20.0];
+if (nil == appReq)
+{
+    [self notFoundHtml];
+    return;
+}
+
+[self.webViewEngine loadRequest:appReq];
+</code></pre><h3 id="3-3-WKWebview代理"><a href="#3-3-WKWebview代理" class="headerlink" title="3.3 WKWebview代理"></a>3.3 WKWebview代理</h3><p>WKWebView有两个代理,WKUIDelegate 和 WKNavigationDelegate。WKNavigationDelegate主要处理一些跳转、加载处理操作；WKUIDelegate主要处理UI相关的操作：确认框，警告框，提示框。因此WKNavigationDelegate更加常用。下面是WKNavigationDelegate的代理列表：</p>
+<pre><code>///二、页面是否加载 ，相当于shouldStartLoadWithRequest
+- (void) webView: (WKWebView *) webView decidePolicyForNavigationAction: (WKNavigationAction*) navigationAction decisionHandler: (void (^)(WKNavigationActionPolicy)) decisionHandler
+{
+    //允许跳转
+    decisionHandler(WKNavigationResponsePolicyAllow);
+    //不允许跳转
+    //decisionHandler(WKNavigationResponsePolicyCancel);
+}
+
+///三、页面开始加载
+- (void)webView:(WKWebView*)webView didStartProvisionalNavigation:(WKNavigation*)navigation
+{
+
+}
+///四、收到响应
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler 
+{
+    //允许跳转
+    decisionHandler(WKNavigationResponsePolicyAllow);
+    //不允许跳转
+    //decisionHandler(WKNavigationResponsePolicyCancel);
+}
+///五、收到数据
+- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation 
+{ 
+}
+///六、页面加载完成
+- (void)webView:(WKWebView*)webView didFinishNavigation:(WKNavigation*)navigation
+{
+}
+///七、页面加载失败
+- (void)webView:(WKWebView*)theWebView didFailNavigation:(WKNavigation*)navigation withError:(NSError*)error
+{
+
+}
+/// 八、跳转失败
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
+{
+
+}
+/// 九、重定向
+- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation
+{
+}
+
+///十、这个目的解决白屏问题  （ios9以上）
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView API_AVAILABLE(macosx(10.11), ios(9.0))
+{
+    [self loadRequestWithUrl:self.strCurrentURL];
+}
+</code></pre><p>WKUIDelegate有下面三个代理：</p>
+<pre><code>- (void)                        webView:(WKWebView*)webView
+     runJavaScriptAlertPanelWithMessage:(NSString*)message
+                       initiatedByFrame:(WKFrameInfo*)frame
+                      completionHandler:(void (^)(void))completionHandler
+
+- (void)                        webView:(WKWebView*)webView
+   runJavaScriptConfirmPanelWithMessage:(NSString*)message
+                       initiatedByFrame:(WKFrameInfo*)frame
+                      completionHandler:(void (^)(BOOL result))completionHandler
+
+- (void)                        webView:(WKWebView*)webView
+  runJavaScriptTextInputPanelWithPrompt:(NSString*)prompt
+                            defaultText:(NSString*)defaultText
+                       initiatedByFrame:(WKFrameInfo*)frame
+                      completionHandler:(void (^)(NSString* result))completionHandler
+</code></pre><h3 id="3-3-WKUserContentController"><a href="#3-3-WKUserContentController" class="headerlink" title="3.3 WKUserContentController"></a>3.3 WKUserContentController</h3><p>A WKUserContentController object provides a way for JavaScript to post<br> messages to a web view.</p>
+<p> WKUserContentController 对象为JavaSript提供了向webview发送消息的方式。</p>
+<p> The user content controller associated with a web view is specified by its<br> web view configuration.</p>
+<p> WKUserContentController 通过WKWebViewConfiguration 关联到webview。</p>
+<p> 下面的代码是创建WKUserContentController，并关联到WKWebview的代码：</p>
+<pre><code>///创建WKUserContentController
+WKUserContentController* userContentController = [[WKUserContentController alloc] init];
+[userContentController addScriptMessageHandler:self name:CDV_BRIDGE_NAME];
+
+///关联到webview
+WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
+configuration.userContentController = userContentController
+</code></pre><p>关联以后，JS就可以通过下面的代码向WKWebview发送消息。</p>
+<pre><code>window.webkit.messageHandlers.&lt;name&gt;.postMessage(&lt;messageBody&gt;)
+</code></pre><p>WKWebview接收到JS的消息后，会触发WKScriptMessageHandler协议的userContentController：didReceiveScriptMessage:方法：</p>
+<pre><code>- (void)userContentController:(WKUserContentController*)userContentController
+  didReceiveScriptMessage:(WKScriptMessage*)message
+{
+    if (![message.name isEqualToString:CDV_BRIDGE_NAME]) {
+        return;
+    }
+
+    CDVViewController* vc = (CDVViewController*)self.viewController;
+    NSArray* jsonEntry = message.body; // NSString:callbackId, NSString:service, NSString:action, NSArray:args
+}
+</code></pre><p>在这个方法中就可以根据消息的内容，调用Native的功能。</p>
+<h3 id="3-4-动态注入JS"><a href="#3-4-动态注入JS" class="headerlink" title="3.4 动态注入JS"></a>3.4 动态注入JS</h3><p>WKWebview支持将JS预先注入到Webview中，可以定制带document加载前或者后执行注入的JS。注入JS是将WKUserScript关联的webview的configuration中，代码示例如下。</p>
+<pre><code>/// 4. cookie信息脚本()
+WKUserScript * cookieScript = [[WKUserScript alloc]
+                                   initWithSource:mstrCookieInfo
+                                   injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
+if (GMK_Ary_Is_Valid(webView.configuration.userContentController.userScripts))
+{
+    [webView.configuration.userContentController removeAllUserScripts];
+}
+if (script)
+{
+    [webView.configuration.userContentController addUserScript:script];
+}
+</code></pre><h1 id="4、通用webView与JS交互"><a href="#4、通用webView与JS交互" class="headerlink" title=" 4、通用webView与JS交互"></a><div id="webview4"> 4、通用webView与JS交互</div></h1><p>下图是cordova中JS和Native的交互机制<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_JS.png" alt="cordova中JS和Native的交互机制"></p>
+<p>下面是 cordova源码的结构<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_class_ship.png" alt="cordovad的组织结构"></p>
+<p>下面是 cordova初始化webview的流程<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_init.png" alt="cordovad的组织结构"></p>
+<h2 id="5、现有webView支持那些JS交互"><a href="#5、现有webView支持那些JS交互" class="headerlink" title="5、现有webView支持那些JS交互"></a><div id="webview5">5、现有webView支持那些JS交互</div></h2><p>在开发通用webview的时候，统一规划了插件。规划后插件列表如下：</p>
+<ol>
+<li>cordova-plugin-gome-AddressBook 通信录插件，包含选择联系人接口</li>
+<li>cordova-plugin-gome-business 业务类型插件，包括上传金融加密 face++，我的国美关闭浮层等接口</li>
+<li>cordova-plugin-gome-cashier收银台插件</li>
+<li>cordova-plugin-gome-CustomerService在线客服插件</li>
+<li>cordova-plugin-gome-device  设备信息插件，包括拨打电话、获取设备信息接口</li>
+<li>cordova-plugin-gome-location 定位插件，包括获取四级区域信息接口</li>
+<li>cordova-plugin-gome-login登录插件，包括调起登录，用户信息，是否登录接口</li>
+<li>cordova-plugin-gome-network 网络请求插件，包括发送网络请求、获取网络连接状态接口</li>
+<li>cordova-plugin-gome-picture 图片插件，包括调起原生插件、保存图片</li>
+<li>cordova-plugin-gome-route 路由插件，包括打开vc，关闭当前页面接口</li>
+<li>cordova-plugin-gome-share 分享插件，包括调起分享组件接口</li>
+<li>cordova-plugin-gome-shopChat购物车插件，包括刷新购物车数量接口</li>
+<li>cordova-plugin-gome-statistics统计插件 ，webview埋点时候</li>
+<li>cordova-plugin-gome-view视图插件，包括toast、 初始化导航栏、错误页面、显示隐藏导航栏接口</li>
+</ol>
+<p>所有插件的详细信息请参考：<a href="http://m-wiki.ds.gome.com.cn/android/hybrid/Plugins.html" rel="external nofollow noopener noreferrer" target="_blank">plugin插件列表</a></p>
+<h1 id="6、插件的扩展方法"><a href="#6、插件的扩展方法" class="headerlink" title="6、插件的扩展方法"></a><div id="webview6">6、插件的扩展方法</div></h1><p>如果现有的插件不能满足新的需求，需要扩展新的插件，扩展方法如下：</p>
+<ul>
+<li><p>首先确定插件的别名，这个名字需要三端一样，然后确定插件的类名（这个按照代码规范命名就可以）。</p>
+</li>
+<li><p>将插件别名和插件类名的对应关系添加到cordova的配置文件中。配置文件查找方法、书写方法如图：</p>
+</li>
+</ul>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config1.png" alt="插件扩展方法1"><br>图1<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config2.png" alt="插件扩展方法2"><br>图2<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_config3.png" alt="插件扩展方法3"><br>图3</p>
+<ul>
+<li><p>创建插件类，这个类必须继承于CDVPlugin类；</p>
+</li>
+<li><p>定义插件方法，插件方法需要三端统一。方法的格式就是：-(void)<methodname>:(CDVInvokedUrlCommand *)command；</methodname></p>
+</li>
+<li><p>实现方法，实现插件方法分3部分：解析参数判断、完成Native的功能、将结果回调给JS；</p>
+</li>
+</ul>
+<p>参数解析：</p>
+<p>CDVInvokedUrlCommand 类是对JS传递过来参数的封装，我们从arguments属性中获取参数，CDVInvokedUrlCommand的属性定义如下：</p>
+<pre><code>@property (nonatomic, readonly) NSArray* arguments;
+@property (nonatomic, readonly) NSString* callbackId;
+@property (nonatomic, readonly) NSString* className;
+@property (nonatomic, readonly) NSString* methodName;
+</code></pre><p>回调结果：</p>
+<p>回调的数据格式需要预先定义好，然后使用下面的代码将数据回调给JS：</p>
+<pre><code>NSDictionary *dic = @{GMM_ViewPlugin_Successed:@&quot;Y&quot;};
+CDVPluginResult * result=[CDVPluginResult resultWithStatus:CDVCommandStatus_OK 
+                                       messageAsDictionary:dic];
+[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+</code></pre><h1 id="7、webview中遇到的问题"><a href="#7、webview中遇到的问题" class="headerlink" title="7、webview中遇到的问题"></a><div id="webview7">7、webview中遇到的问题</div></h1><ul>
+<li><p>_blank 问题：</p>
+<p> a便签中如果有_blank属性，表示在新的窗口打开页面，但是我们打不开，解决办法是添加如下代理的实现，直接在当前窗口加载url</p>
+<p>  -(WKWebView <em>)webView:(WKWebView </em>)webView createWebViewWithConfiguration:(WKWebViewConfiguration <em>)configuration forNavigationAction:(WKNavigationAction </em>)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures<br>  {</p>
+<pre><code>if (!navigationAction.targetFrame.isMainFrame) {
+    [webView loadRequest:navigationAction.request];
+}
+return nil;
+</code></pre><p>  }</p>
+</li>
+<li><p>cookie问题、白屏问题</p>
+<p>这个问题都是参考 <a href="http://www.cnblogs.com/NSong/p/6489802.html" rel="external nofollow noopener noreferrer" target="_blank">WKWebView 那些坑</a>解决的，都有不错的解决方法</p>
+</li>
+<li><p>NSURLErrorCancelled 问题。</p>
+<p>webview如果上一个请求没有完成，立即操作界面，触发新的网络请求，wk代理会收到错误，错误码是NSURLErrorCancelled，这个时候不应该展示错误页面，需要直接return。</p>
+</li>
+<li><p>webview出现错误页面诊断方法<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/cordova_error.png" alt="插件扩展方法3"><br>遇到这个界面，请先自行定位，定位方法：</p>
+<ul>
+<li><p>首先找到GMBCordovaVC的WK失败代理：</p>
+<pre><code>webView: didFailNavigation: withError:
+webView:didFailProvisionalNavigation: withError:
+</code></pre></li>
+<li>然后打印出错误原因</li>
+<li><p>根据NSError中的错误码分析错误的原因，解决问题。</p>
+<p>下面是我遇到的几个记录下来的错误码，通过分析，大部分能明白错误的原因：</p>
+<p>Error Domain=WebKitErrorDomain Code=102 “Frame load interrupted” UserInfo={_WKRecoveryAttempterErrorKey=<br><wkreloadframeerrorrecoveryattempter: 0x60000062fa80="">, NSErrorFailingURLStringKey=<a href="https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=</a>, NSErrorFailingURLKey=<a href="https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=</a>, NSLocalizedDescription=Frame load interrupted}</wkreloadframeerrorrecoveryattempter:></p>
+<p>这个是加载中访问了<a href="https://login.m.gomeplus.com/login.html" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html</a> url，打断了加载。</p>
+<p>Error Domain=NSURLErrorDomain Code=-1002 “unsupported URL” UserInfo={_WKRecoveryAttempterErrorKey=<wkreloadframeerrorrecoveryattempter: 0x608000233ae0="">, NSErrorFailingURLStringKey=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, NSErrorFailingURLKey=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, NSLocalizedDescription=unsupported URL, NSUnderlyingError=0x604000653440 {Error Domain=kCFErrorDomainCFNetwork Code=-1002 “(null)”}}</wkreloadframeerrorrecoveryattempter:></p>
+<p>这个是JS中访问了不支持的scheme,itms-appss</p>
+<p>Error Domain=NSURLErrorDomain Code=-1202 “The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk.” UserInfo={NSURLErrorFailingURLPeerTrustErrorKey=<sectrustref: 0x600000301200="">, NSLocalizedRecoverySuggestion=Would you like to connect to the server anyway?, NSErrorFailingURLStringKey=<a href="https://m.gomeholdings.com/content/2017042516183080569_.html" rel="external nofollow noopener noreferrer" target="_blank">https://m.gomeholdings.com/content/2017042516183080569_.html</a>, NSErrorFailingURLKey=<a href="https://m.gomeholdings.com/content/2017042516183080569_.html" rel="external nofollow noopener noreferrer" target="_blank">https://m.gomeholdings.com/content/2017042516183080569_.html</a>, NSErrorPeerCertificateChainKey=(<br>   “<cert(0x7fef30f1fc40) s:="" *.gomeholdings.com="" i:="" charles="" proxy="" ca="" (3="" \u516b\u6708="" 2016,="" bogon)="">“,<br>   “<cert(0x7fef30f12390) s:="" charles="" proxy="" ca="" (3="" \u516b\u6708="" 2016,="" bogon)="" i:="">“<br>), NSErrorClientCertificateStateKey=0, NSLocalizedDescription=The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk., _WKRecoveryAttempterErrorKey=<wkreloadframeerrorrecoveryattempter: 0x600000829e60="">, _kCFStreamErrorDomainKey=3, NSUnderlyingError=0x600000a52f90 {Error Domain=kCFErrorDomainCFNetwork Code=-1202 “(null)” UserInfo={_kCFStreamPropertySSLClientCertificateState=0, _kCFNetworkCFStreamSSLErrorOriginalValue=-9813, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9813}}, _kCFStreamErrorCodeKey=-9813}</wkreloadframeerrorrecoveryattempter:></cert(0x7fef30f12390)></cert(0x7fef30f1fc40)></sectrustref:></p>
+<p>这个是认证服务器证书失败。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="8、调试Webview的JS代码方法"><a href="#8、调试Webview的JS代码方法" class="headerlink" title="8、调试Webview的JS代码方法"></a><div id="webview8">8、调试Webview的JS代码方法</div></h1><p>在项目的过程中，有时会遇到webview刷新不出界面的现象，这时，就需要调试html页面，查找问题，进而判断是否是咱们的问题。调试使用safari自带的功能就可以完成。具体步骤：</p>
+<ul>
+<li>打开safari开发模式。在safari菜单栏，选择safari、偏好设置、高级，在最下面将 “在菜单中显示开发菜单” 选中。<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_1.png" alt="插件扩展方法3"></li>
+<li>链接到webview界面。选择开发、Simulator、 对应的页面，打开调试器。<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_2.png" alt="插件扩展方法3"></li>
+<li>调试代码，查找错误，判断是否是JS的错误<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_3.png" alt="插件扩展方法3"></li>
+</ul>
+<h1 id="9、参考"><a href="#9、参考" class="headerlink" title="9、参考"></a><div id="webview9">9、参考</div></h1><ol>
+<li><a href="https://www.jianshu.com/p/4fa8c4eb1316" rel="external nofollow noopener noreferrer" target="_blank">IOS进阶之WKWebView</a></li>
+<li><a href="http://blog.csdn.net/pangshishan1/article/details/52212994" rel="external nofollow noopener noreferrer" target="_blank">iOS 给webView加进度条(WKWebView)</a></li>
+<li><a href="http://www.cnblogs.com/NSong/p/6489802.html" rel="external nofollow noopener noreferrer" target="_blank">WKWebView 那些坑</a></li>
+<li><a href="http://www.cocoachina.com/cms/wap.php?action=article&amp;id=21818" rel="external nofollow noopener noreferrer" target="_blank">WKWebView强大的新特性</a></li>
+</ol>
 
             </div>
         
@@ -694,19 +785,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/正则表达式/正则表达式学习/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/工具/ruby/homebrew-gem使用/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    正则表达式学习摘要
+                    homebrew-gem使用.
                 
             </div>
         </a>
     
     
-        <a href="/wiki/JS/flexBox/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">flexBox 伸缩盒子模型</div>
+            <div class="article-nav-title">堆区（heap）和栈区（stack）的区别(转载)</div>
         </a>
     
 </nav>
@@ -718,7 +809,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/内存管理/内存学习/" data-title="内存学习" data-url="http://yoursite.com/wiki/IOS/内存管理/内存学习/"></div>
+    <div class="ds-thread" data-thread-key="wiki/Hybird/webview/gome-Webview/" data-title="" data-url="http://yoursite.com/wiki/Hybird/webview/gome-Webview/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
