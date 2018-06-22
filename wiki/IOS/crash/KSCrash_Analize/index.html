@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>KSCrash崩溃收集原理浅析 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="Crash">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="KSCrash 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。">
+<meta name="keywords" content="Crash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KSCrash崩溃收集原理浅析">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/KSCrash_Analize/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="KSCrash 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%901.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%904.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%905.jpeg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%906.jpeg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%903.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_mach%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_sinal%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_%E7%AC%A6%E5%8F%B7%E8%BF%87%E7%A8%8B.png">
+<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="KSCrash崩溃收集原理浅析">
+<meta name="twitter:description" content="KSCrash 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%901.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/crash/KSCrash_Analize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/crash/">crash</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Crash/">Crash</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/crash/KSCrash_Analize/">
+            <time datetime="2016-07-17T04:18:26.000Z" itemprop="datePublished">2016-07-17</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            KSCrash崩溃收集原理浅析
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#推导异常收集、符号化的原理"><span class="toc-number">1.</span> <span class="toc-text">推导异常收集、符号化的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译生成可执行APP"><span class="toc-number">1.1.</span> <span class="toc-text">编译生成可执行APP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach-O文件存储格式"><span class="toc-number">1.2.</span> <span class="toc-text">Mach-O文件存储格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.3.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#header"><span class="toc-number">1.3.1.</span> <span class="toc-text">header</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#load-commend"><span class="toc-number">1.3.2.</span> <span class="toc-text">load commend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Data"><span class="toc-number">1.3.3.</span> <span class="toc-text">Data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看Mach-O实用工具"><span class="toc-number">1.3.4.</span> <span class="toc-text">查看Mach-O实用工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定和执行"><span class="toc-number">1.4.</span> <span class="toc-text">绑定和执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用堆栈"><span class="toc-number">1.5.</span> <span class="toc-text">调用堆栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寄存器"><span class="toc-number">1.6.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程状态"><span class="toc-number">1.7.</span> <span class="toc-text">获取线程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思路回溯"><span class="toc-number">1.8.</span> <span class="toc-text">思路回溯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获崩溃方式"><span class="toc-number">1.9.</span> <span class="toc-text">捕获崩溃方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KSCrash异常捕获原理"><span class="toc-number">2.</span> <span class="toc-text">KSCrash异常捕获原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获日志流程"><span class="toc-number">2.1.</span> <span class="toc-text">捕获日志流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获的异常种类"><span class="toc-number">2.2.</span> <span class="toc-text">捕获的异常种类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach异常注册原理"><span class="toc-number">2.3.</span> <span class="toc-text">Mach异常注册原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#signals异常注册"><span class="toc-number">2.4.</span> <span class="toc-text">signals异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-exceptions-异常注册"><span class="toc-number">2.5.</span> <span class="toc-text">C++ exceptions 异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-C-异常注册"><span class="toc-number">2.6.</span> <span class="toc-text">Object C 异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程的调用堆栈、符号化调用堆栈"><span class="toc-number">2.7.</span> <span class="toc-text">获取线程的调用堆栈、符号化调用堆栈</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取线程的调用堆栈、符号化调用堆栈原理"><span class="toc-number">2.7.1.</span> <span class="toc-text">获取线程的调用堆栈、符号化调用堆栈原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取线程状态-代码分析"><span class="toc-number">2.7.2.</span> <span class="toc-text">获取线程状态 代码分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取异常线程的回溯-代码分析"><span class="toc-number">2.7.3.</span> <span class="toc-text">获取异常线程的回溯 代码分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化的代码-代码分析"><span class="toc-number">2.7.4.</span> <span class="toc-text">符号化的代码 代码分析</span></a></li></ol></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <p><a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a> 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。</p>
+<a id="more"></a>
+<p>目前异常收集的框架非常多，有集成了收集、统计功能的一条龙产品，如，友盟，鹅厂的<a href="http://bugly.qq.com" rel="external nofollow noopener noreferrer" target="_blank">Bugly</a> 等等；也有几个开源框架，如，<a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a>，plcrashreporter，CrashKit。<br>基于我们项目的安全性考虑，即，不希望第三方SDK看到崩溃日志，我选取了开源框架这条路。纵览这几个开源框架，只有<a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a>一直在更新。所以，毫不犹豫的选用了它。</p>
+<!--# 一、什么是KSCrash
+
+[KSCrash](https://github.com/kstenerud/KSCrash) 是一个崩溃日志收集的开源框架，可以在程序发生Crash时，捕获到所有线程的调用堆栈。加入你的APP有符号表，KSCrash还能在线符号化崩溃日志。-->
+<p>APP Crash后，获取崩溃线程的程调用堆栈的过程，是程序执行过程的逆向过程。那么，了解APP的执行正向过程，对获取崩溃线程的调用堆栈是非常非常有益的。所以，在分析KSCrash原理前，依照APP正向执行过程先推导下 异常收集、符号化的原理。</p>
+<h2 id="推导异常收集、符号化的原理"><a href="#推导异常收集、符号化的原理" class="headerlink" title="推导异常收集、符号化的原理"></a>推导异常收集、符号化的原理</h2><p>本节描述的内容只是按照自己的理解编写的，由于道行尚浅，理解不深，所以具体安排的内容不一定合理。依据APP执行的过程，主要囊括了：编译生成可执行APP、内核加载并启动APP、调用堆栈等，并穿插了一点理解KSCrash的必备知识。</p>
+<h3 id="编译生成可执行APP"><a href="#编译生成可执行APP" class="headerlink" title="编译生成可执行APP"></a>编译生成可执行APP</h3><p>开发者通过IDE集成开发环境（例如Xcode），将源码文件转化为临时中间文件（这种文件应该是机器语言了），然后使用链接器（/usr/bin/ld）将临时的对象文件（object file）合并为可执行文件。不过上面的编译、链接步骤都集成到Xcode中了。我们在Xcode中编译的时候，体会不到这个过程。在苹果系统中，可执行APP的存储格式是Mach-O格式。所以我们先了解下Mach-O文件格式。</p>
+<h3 id="Mach-O文件存储格式"><a href="#Mach-O文件存储格式" class="headerlink" title="Mach-O文件存储格式"></a>Mach-O文件存储格式</h3><p>Mach-O (Mach object的缩写) 是苹果系统上存储可执行程序和库（libraries）的标准格式。它是BSD系统中.a文件格式的替代物，它封装着程序的可执行代码和数据。可以参考<a href="http://of685p9vy.bkt.clouddn.com/OS%20X%20ABI%20Mach-O%20File%20Format%20Reference.pdf" rel="external nofollow noopener noreferrer" target="_blank">《OS X ABI Mach-O File Format Reference》</a>官方文档。这个文档在官网打不来了，我就链接到我自己的pdf地址了。</p>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>Mach-O文件包括三个组成部分，分别如下：</p>
+<ol>
+<li>header：指定了文件的基本信息，如CUP类型、加载命令个数等。</li>
+<li>Load commands：加载命令，指定了文件的逻辑结构、在虚拟内存（virtual memory）中文件的布局。你可以理解为一片文章的目录。</li>
+<li>Raw segment data：数据部分。</li>
+</ol>
+<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%901.png" alt="KSCrash崩溃原理浅析1"><br>这个是官网上的结构示意图。</p>
+<h4 id="header"><a href="#header" class="headerlink" title="header"></a>header</h4><p>Mach-O文件的开头部分是就是Header—文件头。Header的数据结构定义在XNU微内核的<a href="http://opensource.apple.com/source/xnu/xnu-792.13.8/osfmk/mach-o/loader.h" rel="external nofollow noopener noreferrer" target="_blank">loader.h</a>文件中。loader.h也可以在IOS SDK的/usr/include/mach-o目录下找到，header的数据结构定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mach_header</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	magic;		<span class="comment">/* mach magic number identifier */</span></span><br><span class="line">	<span class="keyword">cpu_type_t</span>	cputype;	<span class="comment">/* cpu specifier */</span></span><br><span class="line">	<span class="keyword">cpu_subtype_t</span>	cpusubtype;	<span class="comment">/* machine specifier */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	filetype;	<span class="comment">/* type of file */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	ncmds;		<span class="comment">/* number of load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	sizeofcmds;	<span class="comment">/* the size of all the load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* flags */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>可以看出包括了 ：魔数、cup的类型、子类型、文件的类型、load commend个数、load commend大小等数据。</p>
+<h4 id="load-commend"><a href="#load-commend" class="headerlink" title="load commend"></a>load commend</h4><p>紧跟在Header后面的是load commend。load commend指定了文件的布局。具体指定了以下内容：</p>
+<p>• The initial layout of the file in virtual memory 文件在虚拟内存中的初始布局</p>
+<p>• The location of the symbol table (used for dynamic linking) 符号表的位置</p>
+<p>• The initial execution state of the main thread of the program 程序主线程的入口地址</p>
+<p>• The names of shared libraries that contain definitions for the main executable’s imported symbols 主执行文件依赖的分享库</p>
+<p>load commend 的种类非常多，loader.h 中的定义了各种所有的类型。我们仅以LC_SEGMENT、LC_SYMTAB（符号表）为例了解load commend。每种类型的load commend都有对应的数据结构，可以在loader.h文件中查看。下面是部分类型Load Commond：</p>
+<pre><code>#define    LC_SEGMENT    0x1    ///代码段
+#define    LC_SYMTAB    0x2      /// 符号表 
+#define    LC_SYMSEG    0x3    /* link-edit gdb symbol table info (obsolete) */
+#define    LC_THREAD    0x4    /* thread */
+#define    LC_UNIXTHREAD    0x5    /* unix thread (includes a stack) */
+#define    LC_LOADFVMLIB    0x6    /* load a specified fixed VM shared library */
+#define    LC_IDFVMLIB    0x7    /* fixed VM shared library identification */
+#define    LC_IDENT    0x8    /* object identification info (obsolete) */
+#define LC_FVMFILE    0x9    /* fixed VM file inclusion (internal use) */
+#define LC_PREPAGE      0xa     /* prepage command (internal use) */
+#define    LC_DYSYMTAB    0xb    /* dynamic link-edit symbol table info */
+#define    LC_LOAD_DYLIB    0xc    /* load a dynamically linked shared library */
+#define    LC_ID_DYLIB    0xd    /* dynamically linked shared lib ident */
+#define LC_LOAD_DYLINKER 0xe    /* load a dynamic linker */
+#define LC_ID_DYLINKER    0xf    /* dynamic linker identification */
+#define    LC_PREBOUND_DYLIB 0x10    /* modules prebound for a dynamically */
+...................
+</code></pre><h4 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h4><p>Data紧跟在Load Commond后面。load commend中定义的各种数据都存储在这部分中。</p>
+<h4 id="查看Mach-O实用工具"><a href="#查看Mach-O实用工具" class="headerlink" title="查看Mach-O实用工具"></a>查看Mach-O实用工具</h4><p>在终端中有几个工具是可以查看Mach-O文件内容的。另外位于usr/include/mach-o/dyld.h中的函数可以在程序中访问Mach-O文件内容。</p>
+<ol>
+<li><p>文件类型展示工具-file。The file-type displaying tool, 位于/usr/bin/file，显示文件的类型，对于多构架的文件，它显示每个构架下的镜像类型。在终端中输入：</p>
+<pre><code>~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive
+</code></pre><p> 输出：</p>
+<pre><code>/Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive: Mach-O universal binary with 2 architectures
+</code></pre><p> /Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive (for architecture armv7):    Mach-O executable arm<br> /Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive (for architecture arm64):    Mach-O 64-bit executable</p>
+</li>
+<li><p>对象文件展示工具otool。The object-file displaying tool，位于/usr/bin/otool，显示Mach-O文件的各种数据。查看Mach-O header内容，在终端中输入：</p>
+<pre><code>otool -hV ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive 
+</code></pre><p> 输出：</p>
+<pre><code> Mach header
+   magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+MH_MAGIC     ARM         V7  0x00     EXECUTE    23       2432   NOUNDEFS DYLDLINK TWOLEVEL PIE
+</code></pre><p> Mach header</p>
+<pre><code>magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+</code></pre><p> MH_MAGIC_64   ARM64        ALL  0x00     EXECUTE    23       2872   NOUNDEFS DYLDLINK TWOLEVEL PIE</p>
+<p> 可以使用otool 查看load commend。在终端中输入：</p>
+<pre><code>otool -lV ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive 
+</code></pre><p> 输出：</p>
+<pre><code>Mach header
+  magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
+</code></pre><p>  0xfeedface      12          9  0x00           2    23       2432 0x00200085<br> Load command 0</p>
+<pre><code>cmd LC_SEGMENT
+</code></pre><p>   cmdsize 56<br>   segname __PAGEZERO</p>
+<pre><code>vmaddr 0x00000000
+vmsize 0x00004000
+</code></pre><p>   fileoff 0<br>  filesize 0<br>   maxprot 0x00000000<br>  initprot 0x00000000</p>
+<pre><code>nsects 0
+ flags 0x0
+</code></pre><p>   ……….</p>
+</li>
+<li><p>符号展示工具-nm，The symbol table display tool,位于 /usr/bin/nm, allows you to view the contents of an object file’s symbol table。查看符号表，在终端中输入：</p>
+<pre><code>nm ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive 
+</code></pre><p> 输出：</p>
+<pre><code>/Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive (for architecture arm64):
+             U _NSGetUncaughtExceptionHandler
+             U _NSLog
+             U _NSSearchPathForDirectoriesInDomains
+             U _NSSetUncaughtExceptionHandler
+             U _NSStringFromClass
+             U _objc_msgSend
+             U _objc_msgSendSuper2
+             U _objc_release
+             U _objc_retain
+             U _objc_retainAutorelease
+             U _objc_retainAutoreleasedReturnValue
+             U _objc_setProperty_nonatomic_copy
+             U _objc_storeStrong
+             U _strstr
+             U dyld_stub_binder
+             ...........
+</code></pre></li>
+</ol>
+<h3 id="绑定和执行"><a href="#绑定和执行" class="headerlink" title="绑定和执行"></a>绑定和执行</h3><p>根据上面分析的可执行文件的结构，我们可以看到，可执行文件中已经包含了符号表 ，这个符号表是可执行代码的虚拟地址和代码中符号的对应表。符号表是绑定过程中建立的，程序的绑定有很多种，可以参看下面的文档：<a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/executing_files.html#//apple_ref/doc/uid/TP40001829-97047-TPXREF111" rel="external nofollow noopener noreferrer" target="_blank">Mach-O Programming Topics - Binding Symbols</a>，里面详细介绍了绑定和查找符号的过程。</p>
+<p>看到符号表，那么我们可以做这样的设想：如果程序崩溃，只要我们获取到了崩溃调用堆栈的回溯地址，然后从这个符号表中查找对应的符号，就完成了调用堆栈的符号化工作？ 还有就是我们如何获取程序的调用堆栈呢？还有很多需要我们接着往下看。为了知道如何获取调用堆栈的回溯，我们了解下程序的执行过程：</p>
+<p>程序的执行过程：内核首先加载可执行文件，并且检测程序文件的起始部分的mach_header结构，内核验证是否合法的Macj-O文件，解析header中的load commands。加载Load Commond中指定依赖镜像到内存中，然后启动进程，执行程序的入口函数，进入正常的run loop。</p>
+<h3 id="调用堆栈"><a href="#调用堆栈" class="headerlink" title="调用堆栈"></a>调用堆栈</h3><p>首先介绍一下什么叫调用堆栈：假设我们为了完成一个任务1，任务1的完成需要完成任务2…. 分别定义为几个函数：function1,function2,function3,funtion4。即，function1调用function2，function2调用function3，function3调用function4。在function4运行过程中，我们可以从线程当前堆栈中了解到调用他的那几个函数分别是谁。function4、function3、function2、function1呈现出一种“堆栈”的特征，最后被调用的函数出现在最上方。因此称呼这种关系为调用堆栈(call stack)。 下面有一个图展示下：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%904.jpg" alt="KSCrash崩溃原理浅析4"></p>
+<p>函数调用经常是嵌套的，在同一时刻，堆栈中会有多个函数的信息。每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。栈帧是堆栈的逻辑片段，当调用函数时逻辑栈帧被压入堆栈, 当函数返回时逻辑栈帧被从堆栈中弹出。栈帧存放着函数参数，局部变量及恢复前一栈帧所需要的数据等。理解了入栈和出栈，基本能理解调用堆栈，下面两个图，一个是入栈，一个是出栈，图中描述的很清楚。</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%905.jpeg" alt="KSCrash崩溃原理浅析5"><br><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%906.jpeg" alt="KSCrash崩溃原理浅析6"></p>
+<p>所以获取到崩溃时线程的ebp和esp 就能回溯到上一个调用，依次类推，回溯出所有的调用堆栈。下面了解下寄存器。</p>
+<h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><p>为了线程获取BP和SP，我们需要了解一点点寄存器。因为他们保存在CPU的寄存器中。<br>arm64构架的寄存器在<a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0055b/IHI0055B_aapcs64.pdf" rel="external nofollow noopener noreferrer" target="_blank">Procedure Call Standard for the ARM 64-bit Architecture (AArch64)</a>有详细的说明。不过都是英文的，我没有看，我从代码中也找到了它的定义，位于IOS SDK的usr/include/arm目录下的_mcontext.h文件中。其中几个关键的定义的代码我摘录下来了，如下：</p>
+<pre><code>_STRUCT_MCONTEXT64
+{
+    _STRUCT_X86_EXCEPTION_STATE64  __es; ///异常寄存器
+    _STRUCT_X86_THREAD_STATE64  __ss;    ///线程状态寄存器
+    _STRUCT_X86_FLOAT_STATE64  __fs;     ///浮点寄存器
+};
+</code></pre><p>这个结构体<br>定义了所有的寄存器。其中_STRUCT_MCONTEXT64结构体定义了三大类寄存器，根据字面意思理解为：异常寄存器、线程状态寄存器、浮点寄存器。我们只关注线程状态寄存器。</p>
+<pre><code>_STRUCT_ARM_THREAD_STATE64
+{
+    __uint64_t    __x[29];   ///General purpose registers x0-x28
+    __uint64_t    __fp;         ///这里就是BP,x29
+    __uint64_t    __lr;         /// Link register x30 
+    __uint64_t    __sp;         ///这里就是SP   x31
+    __uint64_t    __pc;         Program counter
+    __uint32_t    __cpsr;    Current program status register
+    __uint32_t    __pad;    /* Same size for 32-bit or 64-bit clients */
+};
+</code></pre><p>不管你见或者不见我我就在那里，BP就在 _STRUCT_MCONTEXT64-&gt;<strong>ss.</strong>fp里，SP就在_STRUCT_MCONTEXT64-&gt;<strong>ss-&gt;</strong>sp里。不知不觉的问题已经转化了，转化为获取线程的_STRUCT_X86_THREAD_STATE64数据，即，获取线程的状态结构体。</p>
+<p>XNU微内核的核心部分Mach，里面暴露了一些线程的接口函数，我们应该能获取到线程的状态结构体。了解这些函数的接口定义可以参考：<a href="http://web.mit.edu/darwin/src/modules/xnu/osfmk/man/" rel="external nofollow noopener noreferrer" target="_blank">Mach IPC Interface</a>、<a href="https://developer.apple.com/library/mac/documentation/Darwin/Conceptual/KernelProgramming/Mach/Mach.html" rel="external nofollow noopener noreferrer" target="_blank">IPC 原理讲解</a>。</p>
+<h3 id="获取线程状态"><a href="#获取线程状态" class="headerlink" title="获取线程状态"></a>获取线程状态</h3><p>IPC 接口文档的线程接口部分（Thread Interface）的 thread_get_state函数可以获取线程的状态。他的定义如下：</p>
+<pre><code>kern_return_t   thread_get_state
+                (thread_act_t                     target_thread,
+                 thread_state_flavor_t                   flavor,
+                 thread_state_t                       old_state,
+                 mach_msg_type_number_t         old_state_count);
+</code></pre><p>thread_get_state函数返回target_thread的执行状态，存储在flavor参数里。看着上面的定义，是不是一点感觉都没有，一头雾水，摸不着头脑？我也是，幸好KSCrash中有这部分代码，贴出来瞅瞅：</p>
+<pre><code>bool ksmach_threadState(const thread_t thread,
+                        STRUCT_MCONTEXT_L* const machineContext)
+{
+    return ksmach_fillState(thread,
+                            (thread_state_t)&amp;machineContext-&gt;__ss,
+                            ARM_THREAD_STATE,
+                            ARM_THREAD_STATE_COUNT);
+}
+
+bool ksmach_fillState(const thread_t thread,
+                      const thread_state_t state,
+                      const thread_state_flavor_t flavor,
+                      const mach_msg_type_number_t stateCount)
+{
+    mach_msg_type_number_t stateCountBuff = stateCount;
+    kern_return_t kr;
+
+    kr = thread_get_state(thread, flavor, state, &amp;stateCountBuff);
+    if(kr != KERN_SUCCESS)
+    {
+        KSLOG_ERROR(&quot;thread_get_state: %s&quot;, mach_error_string(kr));
+        return false;
+    }
+    return true;
+}
+</code></pre><p>上面代码说明了thread_get_state函数可以根据线程ID（thread_t thread），获取到线程状态（_STRUCT_ARM_THREAD_STATE64），也就是通过线程ID，就能获取到线程当前执行状态的BP 和SP。</p>
+<h3 id="思路回溯"><a href="#思路回溯" class="headerlink" title="思路回溯"></a>思路回溯</h3><p>上面讲了，那么多，目的只有一个，就是理出一个思路—–获取程序崩溃时线程的调用堆栈。现在大概是这样的：</p>
+<ol>
+<li><p>程序发生崩溃，我们获取到崩溃的线程，取出线程的threadID。</p>
+</li>
+<li><p>通过thread_get_state函数， 获取线程ID为threadID的线程的 当前执行状态，目的是获取：帧指针BP、栈指针SP；</p>
+</li>
+<li><p>依据《1.4 调用堆栈》原理、BP、SP，循环取出线程的调用堆栈。</p>
+</li>
+<li><p>依据《1.2 Mach-O文件存储格式》原理，将调用堆栈中的地址转换为代码中的符号。</p>
+</li>
+</ol>
+<p>总体逻辑现在通了，但是，还有好多好多的细节，等待我们去完善，比如，一个关键的逻辑，我是怎么知道程序崩溃了呢？从而让程序执行到崩溃处理函数里，完成线程回溯功能。</p>
+<p>通过分析KS的代码，得知，可以在程序启动的时候注册崩溃的处理函数，程序崩溃发生时，会执行崩溃处理函数。</p>
+<p>其实，捕获异常的方式多种多样，不同捕获方式，捕获的原理不同。捕获原理请参看《二、KSCrash异常捕获原理》。这里只扫盲下经典的捕获方式。</p>
+<h3 id="捕获崩溃方式"><a href="#捕获崩溃方式" class="headerlink" title="捕获崩溃方式"></a>捕获崩溃方式</h3><p>捕获崩溃的方式有：</p>
+<ol>
+<li>捕获Mach 异常</li>
+<li>捕获Unix 信号<br>其实，这部分内容在<a href="http://www.wtoutiao.com/p/h27ist.html" rel="external nofollow noopener noreferrer" target="_blank">漫谈 iOS Crash 收集框架</a>中阐述的非常明白。为了表示写的好，这里再重复的阐述下。</li>
+</ol>
+<p>iOS 系统自带的Apple’s Crash Reporter 记录在设备中的 Crash 日志，Exception Type项通常会包含两个元素：Mach 异常 和 Unix 信号。</p>
+<pre><code>Exception Type:         EXC_BAD_ACCESS (SIGSEGV)    
+Exception Subtype:      KERN_INVALID_ADDRESS at 0x041a6f3
+</code></pre><p>Mach 异常是什么？它又是如何与 Unix 信号建立联系的？<br>Mach 是一个 XNU 的微内核核心，Mach 异常是指最底层的内核级异常，被定义在 <mach exception_types.h="">下 。每个 thread，task，host 都有一个异常端口数组，Mach 的部分 API 暴露给了用户态，用户态的开发者可以直接通过 Mach API 设置 thread，task，host 的异常端口，来捕获 Mach 异常，抓取 Crash 事件。</mach></p>
+<p>所有 Mach 异常都在 host 层被ux_exception转换为相应的 Unix 信号，并通过threadsignal将信号投递到出错的线程。iOS 中的 POSIX API 就是通过 Mach 之上的 BSD 层实现的。</p>
+<p>因此，EXC_BAD_ACCESS (SIGSEGV)表示的意思是：Mach 层的EXC_BAD_ACCESS异常，在 host 层被转换成 SIGSEGV 信号投递到出错的线程。既然最终以信号的方式投递到出错的线程，那么就可以通过注册 signalHandler 来捕获信号:</p>
+<pre><code>signal(SIGSEGV,signalHandler);
+</code></pre><p>捕获 Mach 异常或者 Unix 信号都可以抓到 crash 事件，这两种方式哪个更好呢？优选 Mach 异常，因为 Mach 异常处理会先于 Unix 信号处理发生，如果 Mach 异常的 handler 让程序 exit 了，那么 Unix 信号就永远不会到达这个进程了。转换 Unix 信号是为了兼容更为流行的 POSIX 标准 (SUS 规范)，这样不必了解 Mach 内核也可以通过 Unix 信号的方式来兼容开发。</p>
+<h2 id="KSCrash异常捕获原理"><a href="#KSCrash异常捕获原理" class="headerlink" title="KSCrash异常捕获原理"></a>KSCrash异常捕获原理</h2><p>KSCrash是一个完备的异常捕获开源框架，它不仅可以捕获到各种异常，并可在设备上完成符号化工作。同时，还有很多高级的特性，例如查找僵尸对象（Zombie）、 内存自省（Introspection）、 主线程死锁检测。</p>
+<h3 id="捕获日志流程"><a href="#捕获日志流程" class="headerlink" title="捕获日志流程"></a>捕获日志流程</h3><p>这里只分析KSCrash获取崩溃日志的原理。下面是主要的流程：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%903.png" alt="KSCrash崩溃原理浅析3"></p>
+<p>获取崩溃日志主要流程有：</p>
+<ol>
+<li>注册异常处理函数</li>
+<li>等待异常发生</li>
+<li>异常发生</li>
+<li>回调到异常处理函数</li>
+<li>在异常处理函数中获取异常发生时刻的所有线程</li>
+<li>循环获取每个线程的调用堆栈</li>
+<li>符号化调用堆栈</li>
+<li>保存异常日志</li>
+<li>程序结束</li>
+<li>下次启动发送上次的崩溃日志</li>
+</ol>
+<h3 id="捕获的异常种类"><a href="#捕获的异常种类" class="headerlink" title="捕获的异常种类"></a>捕获的异常种类</h3><p>根据<a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a>的官网介绍，它可以捕获多种异常,包括：</p>
+<ul>
+<li>Mach kernel exceptions  </li>
+<li>Fatal signals  </li>
+<li>C++ exceptions  </li>
+<li>Objective-C exceptions  </li>
+<li>Main thread deadlock (experimental)  </li>
+<li>Custom crashes (e.g. from scripting languages)  </li>
+</ul>
+<p>下面主要介绍下 Mach kernel exceptions、Fatal signals、C++ exceptions异常的注册异常处理函数原理。</p>
+<h3 id="Mach异常注册原理"><a href="#Mach异常注册原理" class="headerlink" title="Mach异常注册原理"></a>Mach异常注册原理</h3><p>下面是mach exceptions 的注册流程图</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_mach%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png" alt="KSCrash崩溃原理浅析_mach 异常安装">   </p>
+<p>基本流程是：</p>
+<ol>
+<li>首先调用task_get_exception_ports 保存先前的异常处理端口。</li>
+<li>调用mach_port_allocate  创建异常处理端口g_exceptionPort。<!--xnu的进程内通信可以通过端口进行。--></li>
+<li>调用 mach_port_insert_right 获取端口的权限</li>
+<li>设置异常处理端口  </li>
+<li>创建线程，线程中不停的调用mach_msg ，读取g_exceptionPort端口上的数据，如果异常发生，mach_msg成功，进入异常处理流程。</li>
+<li>恢复先前的异常处理端口</li>
+<li>调用ksmachexc_i_fetchMachineState 获取线程状态。</li>
+<li>保存状态并完成符号化功能。</li>
+<li>卸载异常处理函数。</li>
+</ol>
+<p>千言万语，不如几行代码的说服力，所以后面的内容都使用代码+注释的形式表述。</p>
+<pre><code>bool kscrashsentry_installMachHandler(KSCrash_SentryContext* const context)
+{
+    bool attributes_created = false;
+    pthread_attr_t attr;
+
+    kern_return_t kr;
+    int error;
+
+    const task_t thisTask = mach_task_self();
+    exception_mask_t mask = EXC_MASK_BAD_ACCESS |
+    EXC_MASK_BAD_INSTRUCTION |
+    EXC_MASK_ARITHMETIC |
+    EXC_MASK_SOFTWARE |
+    EXC_MASK_BREAKPOINT;
+
+    if(g_installed)
+    {
+        return true;
+    }
+    g_installed = 1;
+
+    g_context = context;
+
+    ///获取先前异常捕获的端口
+    kr = task_get_exception_ports(thisTask,
+                                  mask,
+                                  g_previousExceptionPorts.masks,
+                                  &amp;g_previousExceptionPorts.count,
+                                  g_previousExceptionPorts.ports,
+                                  g_previousExceptionPorts.behaviors,
+                                  g_previousExceptionPorts.flavors);
+
+    if(g_exceptionPort == MACH_PORT_NULL)
+    {
+            ///创建异常捕获端口
+        kr = mach_port_allocate(thisTask,
+                                MACH_PORT_RIGHT_RECEIVE,
+                                &amp;g_exceptionPort);
+        ///获取端口的权限
+        kr = mach_port_insert_right(thisTask,
+                                    g_exceptionPort,
+                                    g_exceptionPort,
+                                    MACH_MSG_TYPE_MAKE_SEND);
+    }
+        ///设置异常捕获端口
+    kr = task_set_exception_ports(thisTask,
+                                  mask,
+                                  g_exceptionPort,
+                                  EXCEPTION_DEFAULT,
+                                  THREAD_STATE_NONE);
+    ///启动读异常端口数据的线程
+    pthread_attr_init(&amp;attr);
+    attributes_created = true;
+    pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);
+    error = pthread_create(&amp;g_secondaryPThread,
+                           &amp;attr,
+                           &amp;ksmachexc_i_handleExceptions,
+                           kThreadSecondary);
+
+    g_secondaryMachThread = pthread_mach_thread_np(g_secondaryPThread);
+    context-&gt;reservedThreads[KSCrashReservedThreadTypeMachSecondary] = g_secondaryMachThread;
+
+    error = pthread_create(&amp;g_primaryPThread,
+                           &amp;attr,
+                           &amp;ksmachexc_i_handleExceptions,
+                           kThreadPrimary);
+
+    pthread_attr_destroy(&amp;attr);
+    g_primaryMachThread = pthread_mach_thread_np(g_primaryPThread);
+    context-&gt;reservedThreads[KSCrashReservedThreadTypeMachPrimary] = g_primaryMachThread;
+failed:
+    return false;
+}
+</code></pre><p>这里完了展示主要逻辑，去掉了很多日志和错误判断的代码。下面是异常处理函数</p>
+<pre><code>void* ksmachexc_i_handleExceptions(void* const userData)
+{
+    MachExceptionMessage exceptionMessage = {{0}};
+    MachReplyMessage replyMessage = {{0}};
+
+    const char* threadName = (const char*) userData;
+    pthread_setname_np(threadName);
+    if(threadName == kThreadSecondary)
+    {
+        thread_suspend(ksmach_thread_self());
+    }
+
+    for(;;)
+    {
+            ///读取异常端口
+        kern_return_t kr = mach_msg(&amp;exceptionMessage.header,
+                                    MACH_RCV_MSG,
+                                    0,
+                                    sizeof(exceptionMessage),
+                                    g_exceptionPort,
+                                    MACH_MSG_TIMEOUT_NONE,
+                                    MACH_PORT_NULL);
+        if(kr == KERN_SUCCESS)
+        {
+            break;
+        }
+    }
+        ///读取到异常信息，证明崩溃发生
+    if(g_installed)
+    {
+        bool wasHandlingCrash = g_context-&gt;handlingCrash;
+        kscrashsentry_beginHandlingCrash(g_context);
+
+        ///挂起所有的线程
+        kscrashsentry_suspendThreads();
+
+        // Switch to the secondary thread if necessary, or uninstall the handler
+        // to avoid a death loop.
+        if(ksmach_thread_self() == g_primaryMachThread)
+        {
+            KSLOG_DEBUG(&quot;This is the primary exception thread. Activating secondary thread.&quot;);
+            if(thread_resume(g_secondaryMachThread) != KERN_SUCCESS)
+            {
+                KSLOG_DEBUG(&quot;Could not activate secondary thread. Restoring original exception ports.&quot;);
+                ksmachexc_i_restoreExceptionPorts();
+            }
+        }
+        else
+        {
+            KSLOG_DEBUG(&quot;This is the secondary exception thread. Restoring original exception ports.&quot;);
+            ksmachexc_i_restoreExceptionPorts();
+        }
+                ///是否正在处理异常 
+        if(wasHandlingCrash)
+        {
+            KSLOG_INFO(&quot;Detected crash in the crash reporter. Restoring original handlers.&quot;);
+            // The crash reporter itself crashed. Make a note of this and
+            // uninstall all handlers so that we don&apos;t get stuck in a loop.
+            g_context-&gt;crashedDuringCrashHandling = true;
+            kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
+        }
+
+        /// 填充异常信息 
+        STRUCT_MCONTEXT_L machineContext;
+        if(ksmachexc_i_fetchMachineState(exceptionMessage.thread.name, &amp;machineContext))
+        {
+            if(exceptionMessage.exception == EXC_BAD_ACCESS)
+            {
+                g_context-&gt;faultAddress = ksmach_faultAddress(&amp;machineContext);
+            }
+            else
+            {
+                g_context-&gt;faultAddress = ksmach_instructionAddress(&amp;machineContext);
+            }
+        }
+
+        g_context-&gt;crashType = KSCrashTypeMachException;
+        g_context-&gt;offendingThread = exceptionMessage.thread.name;
+        g_context-&gt;registersAreValid = true;
+        g_context-&gt;mach.type = exceptionMessage.exception;
+        g_context-&gt;mach.code = exceptionMessage.code[0];
+        g_context-&gt;mach.subcode = exceptionMessage.code[1];
+
+        g_context-&gt;onCrash();
+
+        kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
+        kscrashsentry_resumeThreads();
+    }
+
+    // Send a reply saying &quot;I didn&apos;t handle this exception&quot;.
+    replyMessage.header = exceptionMessage.header;
+    replyMessage.NDR = exceptionMessage.NDR;
+    replyMessage.returnCode = KERN_FAILURE;
+
+    mach_msg(&amp;replyMessage.header,
+             MACH_SEND_MSG,
+             sizeof(replyMessage),
+             0,
+             MACH_PORT_NULL,
+             MACH_MSG_TIMEOUT_NONE,
+             MACH_PORT_NULL);
+
+    return NULL;
+}
+</code></pre><h3 id="signals异常注册"><a href="#signals异常注册" class="headerlink" title="signals异常注册"></a>signals异常注册</h3><p>下图是signals exceptions 异常处理函数的注册过程：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_sinal%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png" alt="KSCrash崩溃原理浅析_sinal 异常安装"></p>
+<p>替换信号处理函数栈 </p>
+<pre><code>int sigaltstack(const stack_t *ss, stack_t *oss);&lt;/signal.h&gt;
+
+int sigaction(int signo,const struct sigaction *restrict act,
+              struct sigaction *restrict oact);
+</code></pre><p>给信号signum设置新的信号处理函数act， 同时保留该信号原有的信号处理函数oldact  </p>
+<p>安装的信号句柄是g_signalStack，信号的种类包括如下：</p>
+<pre><code>SIGABRT,     /* abort() */
+SIGBUS,  /* bus error */
+SIGFPE,  /* floating point exception */
+SIGILL,  /* illegal instruction (not reset when caught) */
+SIGPIPE,  /* write on a pipe with no one to read it */
+SIGSEGV,  /* segmentation violation */
+SIGSYS,  /* bad argument to system call */
+SIGTRAP,  /* trace trap (not reset when caught) */
+</code></pre><h3 id="C-exceptions-异常注册"><a href="#C-exceptions-异常注册" class="headerlink" title="C++ exceptions 异常注册"></a>C++ exceptions 异常注册</h3><p>这个比较简单，直接调用了标注库的std::set_terminate(CPPExceptionTerminate)函数，设置CPPExceptionTerminate为C++ exceptions 的异常处理函数。</p>
+<h3 id="Object-C-异常注册"><a href="#Object-C-异常注册" class="headerlink" title="Object C 异常注册"></a>Object C 异常注册</h3><p>具体看代码Sentry 目录下的KSCrashSentry_NSException.m文件</p>
+<h3 id="获取线程的调用堆栈、符号化调用堆栈"><a href="#获取线程的调用堆栈、符号化调用堆栈" class="headerlink" title="获取线程的调用堆栈、符号化调用堆栈"></a>获取线程的调用堆栈、符号化调用堆栈</h3><h4 id="获取线程的调用堆栈、符号化调用堆栈原理"><a href="#获取线程的调用堆栈、符号化调用堆栈原理" class="headerlink" title="获取线程的调用堆栈、符号化调用堆栈原理"></a>获取线程的调用堆栈、符号化调用堆栈原理</h4><p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_%E7%AC%A6%E5%8F%B7%E8%BF%87%E7%A8%8B.png" alt="KSCrash崩溃原理浅析_符号过程"></p>
+<p>下面只用代码讲解，代码只保留主要逻辑，kscrash_i_onCrash符号化的入口函数：</p>
+<pre><code>void kscrash_i_onCrash(void)
+{
+        ...
+        ///根据崩溃上下文context，写崩溃日志
+    kscrashreport_writeMinimalReport(context, g_recrashReportFilePath);
+    ......
+}
+
+void kscrashreport_writeStandardReport(KSCrash_Context* const crashContext,
+                                       const char* const path)
+{
+        ......
+        /// 写崩溃时刻所有线程的  回溯
+    kscrw_i_writeAllThreads(writer,
+                                KSCrashField_Threads,
+                                &amp;crashContext-&gt;crash,
+                                crashContext-&gt;config.introspectionRules.enabled,
+                                crashContext-&gt;config.searchThreadNames,
+                                crashContext-&gt;config.searchQueueNames);
+    .....
+}
+
+
+void kscrw_i_writeAllThreads(const KSCrashReportWriter* const writer,
+                             const char* const key,
+                             const KSCrash_SentryContext* const crash,
+                             bool writeNotableAddresses,
+                             bool searchThreadNames,
+                             bool searchQueueNames)
+{
+    const task_t thisTask = mach_task_self();
+    thread_act_array_t threads;
+    mach_msg_type_number_t numThreads;
+    kern_return_t kr;
+    ///获取所有线程
+    if((kr = task_threads(thisTask, &amp;threads, &amp;numThreads)) != KERN_SUCCESS)
+    {
+        KSLOG_ERROR(&quot;task_threads: %s&quot;, mach_error_string(kr));
+        return;
+    }
+
+    // Fetch info for all threads.
+    writer-&gt;beginArray(writer, key);
+    {
+        for(mach_msg_type_number_t i = 0; i &lt; numThreads; i++)
+        {
+            kscrw_i_writeThread(writer, NULL, crash, threads[i], (int)i, writeNotableAddresses, searchThreadNames,
+                                searchQueueNames);
+        }
+    }
+    ....
+}
+void kscrw_i_writeThread(const KSCrashReportWriter* const writer,
+                         const char* const key,
+                         const KSCrash_SentryContext* const crash,
+                         const thread_t thread,
+                         const int index,
+                         const bool writeNotableAddresses,
+                         const bool searchThreadNames,
+                         const bool searchQueueNames)
+{
+    bool isCrashedThread = thread == crash-&gt;offendingThread;
+    char nameBuffer[128];
+    STRUCT_MCONTEXT_L machineContextBuffer;
+    uintptr_t backtraceBuffer[kMaxBacktraceDepth];
+    int backtraceLength = sizeof(backtraceBuffer) / sizeof(*backtraceBuffer);
+    int skippedEntries = 0;
+        /// 获取线程状态、 异常状态
+    STRUCT_MCONTEXT_L* machineContext = kscrw_i_getMachineContext(crash,
+                                                                 thread,
+                                                                 &amp;machineContextBuffer);
+    ///获取异常线程的回溯
+    uintptr_t* backtrace = kscrw_i_getBacktrace(crash,
+                                                thread,
+                                                machineContext,
+                                                backtraceBuffer,
+                                                &amp;backtraceLength,
+                                                &amp;skippedEntries);
+
+     if(backtrace != NULL)
+     {
+                 ///符号化线程回溯
+         kscrw_i_writeBacktrace(writer,
+                                KSCrashField_Backtrace,
+                                backtrace,
+                                backtraceLength,
+                                skippedEntries);
+     }
+    ......
+}
+</code></pre><p>代码分析到目前，关键的代码已经出现了，三部分：</p>
+<ol>
+<li>获取线程状态、 异常状态</li>
+<li>获取异常线程的回溯</li>
+<li>符号化线程回溯</li>
+</ol>
+<h4 id="获取线程状态-代码分析"><a href="#获取线程状态-代码分析" class="headerlink" title="获取线程状态 代码分析"></a>获取线程状态 代码分析</h4><pre><code>STRUCT_MCONTEXT_L* kscrw_i_getMachineContext(const KSCrash_SentryContext* const crash,
+                                            const thread_t thread,
+                                            STRUCT_MCONTEXT_L* const machineContextBuffer)
+{
+    if(!kscrw_i_fetchMachineState(thread, machineContextBuffer))
+    {
+        return NULL;
+    }
+    return machineContextBuffer;
+}
+
+bool kscrw_i_fetchMachineState(const thread_t thread,
+                               STRUCT_MCONTEXT_L* const machineContextBuffer)
+{
+    if(!ksmach_threadState(thread, machineContextBuffer))
+    {
+        return false;
+    }
+
+    if(!ksmach_exceptionState(thread, machineContextBuffer))
+    {
+        return false;
+    }
+
+    return true;
+}
+
+bool ksmach_threadState(const thread_t thread,
+                        STRUCT_MCONTEXT_L* const machineContext)
+{
+    return ksmach_fillState(thread,
+                            (thread_state_t)&amp;machineContext-&gt;__ss,
+                            ARM_THREAD_STATE64,
+                            ARM_THREAD_STATE64_COUNT);
+}
+
+bool ksmach_fillState(const thread_t thread,
+                      const thread_state_t state,
+                      const thread_state_flavor_t flavor,
+                      const mach_msg_type_number_t stateCount)
+{
+    mach_msg_type_number_t stateCountBuff = stateCount;
+    kern_return_t kr;
+
+    kr = thread_get_state(thread, flavor, state, &amp;stateCountBuff);
+    if(kr != KERN_SUCCESS)
+    {
+        return false;
+    }
+    return true;
+}
+
+bool ksmach_exceptionState(const thread_t thread,
+                           STRUCT_MCONTEXT_L* const machineContext)
+{
+    return ksmach_fillState(thread,
+                            (thread_state_t)&amp;machineContext-&gt;__es,
+                            ARM_EXCEPTION_STATE64,
+                            ARM_EXCEPTION_STATE64_COUNT);
+}
+</code></pre><h4 id="获取异常线程的回溯-代码分析"><a href="#获取异常线程的回溯-代码分析" class="headerlink" title="获取异常线程的回溯 代码分析"></a>获取异常线程的回溯 代码分析</h4><pre><code>uintptr_t* kscrw_i_getBacktrace(const KSCrash_SentryContext* const crash,
+                                const thread_t thread,
+                                const STRUCT_MCONTEXT_L* const machineContext,
+                                uintptr_t* const backtraceBuffer,
+                                int* const backtraceLength,
+                                int* const skippedEntries)
+{
+    int actualSkippedEntries = 0;
+    int actualLength = ksbt_backtraceLength(machineContext);
+    *backtraceLength = ksbt_backtraceThreadState(machineContext,
+                                                 backtraceBuffer,
+                                                 actualSkippedEntries,
+                                                 *backtraceLength);
+    return backtraceBuffer;
+}
+
+int ksbt_backtraceThreadState(const STRUCT_MCONTEXT_L* const machineContext,
+                              uintptr_t*const backtraceBuffer,
+                              const int skipEntries,
+                              const int maxEntries)
+{
+    int i = 0;
+
+    if(skipEntries == 0)
+    {
+        const uintptr_t instructionAddress = ksmach_instructionAddress(machineContext);
+        backtraceBuffer[i] = instructionAddress;
+        i++;
+    }
+
+
+    KSFrameEntry frame = {0};
+
+    const uintptr_t framePtr = ksmach_framePointer(machineContext);
+    if(framePtr == 0 ||
+       ksmach_copyMem((void*)framePtr, &amp;frame, sizeof(frame)) != KERN_SUCCESS)
+    {
+        return 0;
+    }
+    for(; i &lt; maxEntries; i++)
+    {
+        backtraceBuffer[i] = frame.return_address;
+        if(backtraceBuffer[i] == 0 ||
+           frame.previous == 0 ||
+           ksmach_copyMem(frame.previous, &amp;frame, sizeof(frame)) != KERN_SUCCESS)
+        {
+            break;
+        }
+    }
+    return i;
+}
+
+uintptr_t ksmach_instructionAddress(const STRUCT_MCONTEXT_L* const machineContext)
+{
+    return machineContext-&gt;__ss.__pc;
+}
+</code></pre><h4 id="符号化的代码-代码分析"><a href="#符号化的代码-代码分析" class="headerlink" title="符号化的代码 代码分析"></a>符号化的代码 代码分析</h4><pre><code>struct nlist_64 {
+    union {
+        uint32_t  n_strx; /* index into the string table */
+    } n_un;
+    uint8_t n_type;        /* type flag, see below */
+    uint8_t n_sect;        /* section number or NO_SECT */
+    uint16_t n_desc;       /* see &lt;mach-o/stab.h&gt; */
+    uint64_t n_value;      /* value of this symbol (or stab offset) */
+};
+
+typedef struct dl_info 
+{
+    const char      *dli_fname;     /* Pathname of shared object */
+    void            *dli_fbase;     /* Base address of shared object */
+    const char      *dli_sname;     /* Name of nearest symbol */
+    void            *dli_saddr;     /* Address of nearest symbol */
+} Dl_info;
+
+void kscrw_i_writeBacktrace(const KSCrashReportWriter* const writer,
+                            const char* const key,
+                            const uintptr_t* const backtrace,
+                            const int backtraceLength,
+                            const int skippedEntries)
+{
+    Dl_info symbolicated[backtraceLength];
+    ksbt_symbolicate(backtrace, symbolicated, backtraceLength, skippedEntries);
+}
+
+#define CALL_INSTRUCTION_FROM_RETURN_ADDRESS(A) (DETAG_INSTRUCTION_ADDRESS((A)) - 1)
+
+void ksbt_symbolicate(const uintptr_t* const backtraceBuffer,
+                      Dl_info* const symbolsBuffer,
+                      const int numEntries,
+                      const int skippedEntries)
+{
+    int i = 0;
+    for(; i &lt; numEntries; i++)
+    {
+        ksdl_dladdr(CALL_INSTRUCTION_FROM_RETURN_ADDRESS(backtraceBuffer[i]), &amp;symbolsBuffer[i]);
+    }
+}
+
+bool ksdl_dladdr(const uintptr_t address, Dl_info* const info)
+{
+    info-&gt;dli_fname = NULL;
+    info-&gt;dli_fbase = NULL;
+    info-&gt;dli_sname = NULL;
+    info-&gt;dli_saddr = NULL;
+
+    const uint32_t idx = ksdl_imageIndexContainingAddress(address);
+    if(idx == UINT_MAX)
+    {
+        return false;
+    }
+    const struct mach_header* header = _dyld_get_image_header(idx);
+    const uintptr_t imageVMAddrSlide = (uintptr_t)_dyld_get_image_vmaddr_slide(idx);
+    /// 符号在镜像的偏移量 = 堆栈地址 - 镜像的加载地址
+    const uintptr_t addressWithSlide = address - imageVMAddrSlide;
+
+    const uintptr_t segmentBase = ksdl_segmentBaseOfImageIndex(idx) + imageVMAddrSlide;
+    if(segmentBase == 0)
+    {
+        return false;
+    }
+
+    info-&gt;dli_fname = _dyld_get_image_name(idx);
+    info-&gt;dli_fbase = (void*)header;
+
+    // Find symbol tables and get whichever symbol is closest to the address.
+    const STRUCT_NLIST* bestMatch = NULL;
+    uintptr_t bestDistance = ULONG_MAX;
+    uintptr_t cmdPtr = ksdl_firstCmdAfterHeader(header);
+    if(cmdPtr == 0)
+    {
+        return false;
+    }
+
+    for(uint32_t iCmd = 0; iCmd &lt; header-&gt;ncmds; iCmd++)
+    {
+        const struct load_command* loadCmd = (struct load_command*)cmdPtr;
+
+        ///查找LC_SYMTAB load command 
+        if(loadCmd-&gt;cmd == LC_SYMTAB)
+        {
+            const struct symtab_command* symtabCmd = (struct symtab_command*)cmdPtr;
+            const STRUCT_NLIST* symbolTable = (STRUCT_NLIST*)(segmentBase + symtabCmd-&gt;symoff);
+            const uintptr_t stringTable = segmentBase + symtabCmd-&gt;stroff;
+                        ///在符号表中循环查找，直到首次达到 镜像偏移量imageVMAddrSlide 
+            for(uint32_t iSym = 0; iSym &lt; symtabCmd-&gt;nsyms; iSym++)
+            {
+                // If n_value is 0, the symbol refers to an external object.
+                if(symbolTable[iSym].n_value != 0)
+                {
+                    uintptr_t symbolBase = symbolTable[iSym].n_value;
+                    uintptr_t currentDistance = addressWithSlide - symbolBase;
+                    if((addressWithSlide &gt;= symbolBase) &amp;&amp;
+                       (currentDistance &lt;= bestDistance))
+                    {
+                        bestMatch = symbolTable + iSym;
+                        bestDistance = currentDistance;
+                    }
+                }
+            }
+            ///取出符号信息，符号信息存储在 
+            if(bestMatch != NULL)
+            {
+                info-&gt;dli_saddr = (void*)(bestMatch-&gt;n_value + imageVMAddrSlide);
+                info-&gt;dli_sname = (char*)((intptr_t)stringTable + (intptr_t)bestMatch-&gt;n_un.n_strx);
+                if(*info-&gt;dli_sname == &apos;_&apos;)
+                {
+                    info-&gt;dli_sname++;
+                }
+                // This happens if all symbols have been stripped.
+                if(info-&gt;dli_saddr == info-&gt;dli_fbase &amp;&amp; bestMatch-&gt;n_type == 3)
+                {
+                    info-&gt;dli_sname = NULL;
+                }
+                break;
+            }
+        }
+        cmdPtr += loadCmd-&gt;cmdsize;
+    }
+
+    return true;
+}
+</code></pre><p>上面是所有的关键代码。用到了一些Mach 的API，单不是苹果私有API，放心用吧。</p>
+<!--首先使用task_threads 获取崩溃时候所有的调用线程。
+
+然后获取通过kscrw_i_getBacktrace 获取每个线程的调用堆栈的回溯，kscrw_i_getBacktrace 函数获取调用堆栈的原理就是根据寄存器中指定的栈基址指针rbp、当前栈帧地址rsp两个指针，一次复制出调用堆栈。
+
+接着，使用ksbt_symbolicate 符号化各个调用堆栈。符号化的过程就是根据地址，在符号表查找对应的符号。这个过程参考文档：[ OS X ABI Mach-O File Format Reference](https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/MachORuntime/index.html#//apple_ref/doc/uid/20001298-96661)。
+
+最后写入文件。
+-->
+<!--下面是IPC 的一个介绍（没用，做个记录）：
+
+
+Interprocess Communication (IPC)
+
+Communication between tasks is an important element of the Mach philosophy. Mach supports a client/server system structure in which tasks (clients) access services by making requests of other tasks (servers) via messages sent over a communication channel.
+
+在任务间交互式mach的重要元素。Mach 支持client/server结构，在这种结构中，客户端任务向服务端任务发送请求，访问服务端的服务。
+
+The endpoints of these communication channels in Mach are called ports, while port rights denote permission to use the channel. The forms of IPC provided by Mach include
+
+在mach中发送消息的交互通道叫做prot，端口的权限标识了使用channel的许可，IPC的种类包括：
+message queues
+semaphores
+notifications
+lock sets
+remote procedure calls (RPCs)
+-->
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/IOS/crash/Analize_Crash/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    收集、符号化IOS崩溃日志
+                
+            </div>
+        </a>
+    
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/crash/KSCrash_Analize/" data-title="KSCrash崩溃收集原理浅析" data-url="http://yoursite.com/wiki/IOS/crash/KSCrash_Analize/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>

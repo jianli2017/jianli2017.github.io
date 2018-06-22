@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>查看虚拟内存 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="虚拟内存">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="If you need more detailed information about virtual memory usage, you can use the top, vm_stat, pagestuff, and vmmap command-line tools for analyzing your Mac apps. The information returned by these t">
+<meta name="keywords" content="虚拟内存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="查看虚拟内存">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/虚拟内存/虚拟内存之2/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="If you need more detailed information about virtual memory usage, you can use the top, vm_stat, pagestuff, and vmmap command-line tools for analyzing your Mac apps. The information returned by these t">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-02T04:47:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="查看虚拟内存">
+<meta name="twitter:description" content="If you need more detailed information about virtual memory usage, you can use the top, vm_stat, pagestuff, and vmmap command-line tools for analyzing your Mac apps. The information returned by these t">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file active"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/虚拟内存/虚拟内存之2" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/虚拟内存/">虚拟内存</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/虚拟内存/">虚拟内存</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/虚拟内存/虚拟内存之2/">
+            <time datetime="2018-06-02T04:07:12.000Z" itemprop="datePublished">2018-06-02</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            查看虚拟内存
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing-Virtual-Memory-Statistics（查看虚拟内存统计信息）"><span class="toc-number">1.</span> <span class="toc-text">Viewing Virtual Memory Statistics（查看虚拟内存统计信息）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing-Mach-O-Code-Pages"><span class="toc-number">2.</span> <span class="toc-text">Viewing Mach-O Code Pages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Viewing-Virtual-Memory-Regions"><span class="toc-number">3.</span> <span class="toc-text">Viewing Virtual Memory Regions</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>If you need more detailed information about virtual memory usage, you can use the top, vm_stat, pagestuff, and vmmap command-line tools for analyzing your Mac apps. The information returned by these tools ranges from summary information about all the system processes to detailed information about a specific process.<br>如果您需要关于虚拟内存使用的更详细的信息，您可以使用上面的vm_stat、pagestuff和vmmap命令行工具来分析您的Mac应用程序。这些工具返回的信息范围从关于所有系统流程的总结信息到关于特定流程的详细信息。</p>
+<p>The following sections provide information on using the vm_stat, pagestuff, and vmmap tools to gather detailed memory information. For more information on using Instruments to analyze memory, see <a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/index.html#//apple_ref/doc/uid/TP40004652" rel="external nofollow noopener noreferrer" target="_blank">Instruments User Guide</a> and the other articles in this document. For information on how to use the top tool,<br>以下部分提供了关于使用vm_stat、pagestuff和vmmap工具收集详细内存信息的信息。有关使用仪器分析内存的更多信息，请参阅<a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/index.html#//apple_ref/doc/uid/TP40004652" rel="external nofollow noopener noreferrer" target="_blank">仪器用户指南</a>和本文中的其他文章。有关如何使用顶部工具的信息，请参见<a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/PerformanceOverview/Introduction/Introduction.html#//apple_ref/doc/uid/TP40001410" rel="external nofollow noopener noreferrer" target="_blank">2</a>。see <a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/PerformanceOverview/Introduction/Introduction.html#//apple_ref/doc/uid/TP40001410" rel="external nofollow noopener noreferrer" target="_blank">Performance Overview</a>.</p>
+<a id="more"></a>
+<h2 id="Viewing-Virtual-Memory-Statistics（查看虚拟内存统计信息）"><a href="#Viewing-Virtual-Memory-Statistics（查看虚拟内存统计信息）" class="headerlink" title="Viewing Virtual Memory Statistics（查看虚拟内存统计信息）"></a>Viewing Virtual Memory Statistics（查看虚拟内存统计信息）</h2><p>The vm_stat tool displays high-level statistics about the current virtual memory usage of the system. By default, vm_stat displays these statistics once, but you can specify an interval value (in seconds) to update these statistics continuously. For information on the usage of this tool, see the vm_stat man page.<br>vm_stat工具显示关于系统当前虚拟内存使用情况的高级统计信息。默认情况下，vm_stat只显示这些统计信息一次，但是您可以指定一个间隔值(以秒为单位)来持续更新这些统计信息。有关此工具使用的信息，请参见vm_stat手册页。</p>
+<p>Listing 1 shows an example of the output from vm_stat. </p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">Mach Virtual Memory Statistics: (page size <span class="keyword">of</span> <span class="number">4096</span> bytes)</span><br><span class="line">Pages free:                     <span class="number">3194</span>.</span><br><span class="line">Pages active:                  <span class="number">34594</span>.</span><br><span class="line">Pages inactive:                <span class="number">17870</span>.</span><br><span class="line">Pages wired down:               <span class="number">9878</span>.</span><br><span class="line"><span class="string">"Translation faults"</span>:        <span class="number">6333197</span>.</span><br><span class="line">Pages copy-on-write:           <span class="number">81385</span>.</span><br><span class="line">Pages zero filled:           <span class="number">3180051</span>.</span><br><span class="line">Pages reactivated:            <span class="number">343961</span>.</span><br><span class="line">Pageins:                       <span class="number">33043</span>.</span><br><span class="line">Pageouts:                      <span class="number">78496</span>.</span><br><span class="line">Object cache: <span class="number">66227</span> hits <span class="keyword">of</span> <span class="number">96952</span> lookups (<span class="number">68</span><span class="comment">% hit rate)</span></span><br></pre></td></tr></table></figure>
+<h2 id="Viewing-Mach-O-Code-Pages"><a href="#Viewing-Mach-O-Code-Pages" class="headerlink" title="Viewing Mach-O Code Pages"></a>Viewing Mach-O Code Pages</h2><p>The pagestufftool displays information about the specified logical pages of a file conforming to the Mach-O executable format. For each specified page of code, symbols (function and static data structure names) are displayed. All pages in the <strong>TEXT, </strong>text section are displayed if no page numbers are given.<br>pagestufftool显示符合Mach-O可执行格式的文件的指定逻辑页的信息。对于每个指定的代码页，将显示符号(函数和静态数据结构名称)。如果没有给出页码，则显示__TEXT节中的所有页面。</p>
+<p>Listing 2 shows part of the output from pagestuff for the TextEdit application. This output is the result of running the tool with the -a option, which prints information about all of the executable’s code pages. It includes the virtual address locations of each page and the type of information on that page.<br>清单2显示了TextEdit应用程序的页面内容的部分输出。此输出是使用-a选项运行工具的结果，该选项打印关于可执行文件的所有代码页的信息。它包括每个页面的虚拟地址位置和页面上的信息类型。</p>
+<p>Listing 2  Partial output of pagestuff tool</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">File<span class="built_in"> Page </span>0 contains Mach-O headers</span><br><span class="line">File<span class="built_in"> Page </span>1 contains Mach-O headers</span><br><span class="line">File<span class="built_in"> Page </span>2 contains contents of section (__TEXT,__text)</span><br><span class="line">Symbols on file<span class="built_in"> page </span>2 virtual<span class="built_in"> address </span>0x3a08 <span class="keyword">to</span> 0x4000</span><br><span class="line">File<span class="built_in"> Page </span>3 contains contents of section (__TEXT,__text)</span><br><span class="line">Symbols on file<span class="built_in"> page </span>3 virtual<span class="built_in"> address </span>0x4000 <span class="keyword">to</span> 0x5000</span><br><span class="line">File<span class="built_in"> Page </span>4 contains contents of section (__TEXT,__text)</span><br><span class="line">Symbols on file<span class="built_in"> page </span>4 virtual<span class="built_in"> address </span>0x5000 <span class="keyword">to</span> 0x6000</span><br><span class="line"> </span><br><span class="line"><span class="built_in">..</span>.</span><br><span class="line">File<span class="built_in"> Page </span>22 contains contents of section (__TEXT,__cstring)</span><br><span class="line">File<span class="built_in"> Page </span>22 contains contents of section (__TEXT,__literal4)</span><br><span class="line">File<span class="built_in"> Page </span>22 contains contents of section (__TEXT,__literal8)</span><br><span class="line">File<span class="built_in"> Page </span>22 contains contents of section (__TEXT,__const)</span><br><span class="line">Symbols on file<span class="built_in"> page </span>22 virtual<span class="built_in"> address </span>0x17000 <span class="keyword">to</span> 0x17ffc</span><br><span class="line">File<span class="built_in"> Page </span>23 contains contents of section (__DATA,__data)</span><br><span class="line">File<span class="built_in"> Page </span>23 contains contents of section (__DATA,__la_symbol_ptr)</span><br><span class="line">File<span class="built_in"> Page </span>23 contains contents of section (__DATA,__nl_symbol_ptr)</span><br><span class="line">File<span class="built_in"> Page </span>23 contains contents of section (__DATA,__dyld)</span><br><span class="line">File<span class="built_in"> Page </span>23 contains contents of section (__DATA,__cfstring)</span><br><span class="line">File<span class="built_in"> Page </span>23 contains contents of section (__DATA,__bss)</span><br><span class="line">File<span class="built_in"> Page </span>23 contains contents of section (__DATA,__common)</span><br><span class="line">Symbols on file<span class="built_in"> page </span>23 virtual<span class="built_in"> address </span>0x18000 <span class="keyword">to</span> 0x18d48</span><br><span class="line"> 0x00018000 _NXArgc</span><br><span class="line"> 0x00018004 _NXArgv</span><br><span class="line"> 0x00018008 _environ</span><br><span class="line"> 0x0001800c ___progname</span><br><span class="line"><span class="built_in">..</span>.</span><br></pre></td></tr></table></figure>
+<p>In the preceding listing, if a page exports any symbols, those symbols are also displayed by the -a option. If you want to view the symbols for a single page, pass in the desired page number instead of the -a option. For more information about the pagestuff tool and its supported options, see the pagestuff man page.</p>
+<p>在前面的列表中，如果一个页面导出任何符号，那么这些符号也会被a选项显示。如果要查看单个页面的符号，请输入所需的页码，而不是-a选项。有关pagestuff工具及其支持选项的更多信息，请参见pagestuff man页面。</p>
+<h2 id="Viewing-Virtual-Memory-Regions"><a href="#Viewing-Virtual-Memory-Regions" class="headerlink" title="Viewing Virtual Memory Regions"></a>Viewing Virtual Memory Regions</h2><p>The vmmap and vmmap64 tools display the virtual memory regions allocated for a specified process. These tools provide access to the virtual memory of 32-bit and 64-bit applications, respectively. You can use them to understand the purpose of memory at a given address and how that memory is being used. For each virtual-memory region, these tools display the type of page, the starting address, region size (in kilobytes), read/write permissions, sharing mode, and the purpose of the pages in that region.<br>vmmap和vmmap64工具显示为指定进程分配的虚拟内存区域。这些工具分别提供对32位和64位应用程序的虚拟内存的访问。您可以使用它们来理解给定地址的内存用途以及内存的使用方式。对于每个虚拟内存区域，这些工具显示页面的类型、起始地址、区域大小(单位为千字节)、读/写权限、共享模式和该区域的页面用途。</p>
+<p>The following sections show you how to interpret the output from the vmmap tool. For more information about the vmmap and vmmap64 tools, see the vmmap or vmmap64 man pages.<br>以下部分将向您展示如何解释vmmap工具的输出。有关vmmap和vmmap64工具的更多信息，请参见vmmap或vmmap64手册页面。</p>
+<p>Sample Output From vmmap<br>Listing 3 shows some sample output from the vmmap tool. This example is not a full listing of the tool’s output but is an abbreviated version showing the primary sections.</p>
+<p>Listing 3  Typical output of vmmap</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">==== Non-writable regions <span class="keyword">for</span> process 313</span><br><span class="line">__PAGEZERO              0 [   4K] ---/--- <span class="attribute">SM</span>=NUL <span class="built_in">..</span>.ts/MacOS/Clock</span><br><span class="line">__TEXT               1000 [  40K] r-x/rwx <span class="attribute">SM</span>=COW <span class="built_in">..</span>.ts/MacOS/Clock</span><br><span class="line">__LINKEDIT           e000 [   4K] r--/rwx <span class="attribute">SM</span>=COW <span class="built_in">..</span>.ts/w/Clock</span><br><span class="line">                    90000 [   4K] r--/r-- <span class="attribute">SM</span>=SHM</span><br><span class="line">                   340000 [3228K] r--/rwx <span class="attribute">SM</span>=COW 00000100 00320<span class="built_in">..</span>.</span><br><span class="line">                   789000 [3228K] r--/rwx <span class="attribute">SM</span>=COW 00000100 00320<span class="built_in">..</span>.</span><br><span class="line">Submap           90000000-9fffffff r--/r-- machine-wide submap</span><br><span class="line">__TEXT           90000000  [ 932K] r-x/r-x <span class="attribute">SM</span>=COW /usr/lib/libSystem.B.dylib</span><br><span class="line">__LINKEDIT       900e9000   [ 260K] r--/r-- <span class="attribute">SM</span>=COW /usr/lib/libSystem.B.dylib</span><br><span class="line">__TEXT           90130000 [ 740K] r-x/r-x <span class="attribute">SM</span>=COW <span class="built_in">..</span>./Versions/A/CoreFoundation</span><br><span class="line">__LINKEDIT       901e9000 [ 188K] r--/r-- <span class="attribute">SM</span>=COW <span class="built_in">..</span>./Versions/A/CoreFoundation</span><br><span class="line">__TEXT           90220000 [2144K] r-x/r-x <span class="attribute">SM</span>=COW <span class="built_in">..</span>./Versions/A/CarbonCore</span><br><span class="line">__LINKEDIT       90438000 [ 296K] r--/r-- <span class="attribute">SM</span>=COW <span class="built_in">..</span>./Versions/A/CarbonCore</span><br><span class="line"> </span><br><span class="line">[<span class="built_in">..</span>.data omitted<span class="built_in">..</span>.]</span><br><span class="line"></span><br><span class="line">==== Writable regions <span class="keyword">for</span> process 606</span><br><span class="line">__DATA             18000 [   4K] rw-/rwx <span class="attribute">SM</span>=PRV /Contents/MacOS/TextEdit</span><br><span class="line">__OBJC             19000 [   8K] rw-/rwx <span class="attribute">SM</span>=COW /Contents/MacOS/TextEdit</span><br><span class="line">MALLOC_OTHER       1d000 [ 256K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line">MALLOC_USED(DefaultMallocZone_0x5d2c0)     5d000 [ 256K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line">                   9d000 [ 372K] rw-/rwx <span class="attribute">SM</span>=COW 33320000 00000020 00000000 00001b84<span class="built_in">..</span>.</span><br><span class="line">VALLOC_USED(DefaultMallocZone_0x5d2c0)     ff000 [  36K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line">MALLOC_USED(CoreGraphicsDefaultZone_0x10  108000 [ 256K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line">MALLOC_USED(CoreGraphicsRegionZone_0x148  148000 [ 256K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line"> </span><br><span class="line">[<span class="built_in">..</span>.data omitted<span class="built_in">..</span>.]</span><br><span class="line"></span><br><span class="line">Submap           a000b000-a012ffff r--/r-- process-only submap</span><br><span class="line">__DATA           a0130000 [  28K] rw-/rw- <span class="attribute">SM</span>=COW <span class="built_in">..</span>./Versions/A/CoreFoundation</span><br><span class="line">Submap           a0137000-a021ffff r--/r-- process-only submap</span><br><span class="line">__DATA           a0220000 [  20K] rw-/rw- <span class="attribute">SM</span>=COW <span class="built_in">..</span>./Versions/A/CarbonCore</span><br><span class="line">Submap           a0225000-a048ffff r--/r-- process-only submap</span><br><span class="line">__DATA           a0490000 [  12K] rw-/rw- <span class="attribute">SM</span>=COW <span class="built_in">..</span>./IOKit.framework/Versions/A/IOKit</span><br><span class="line">Submap           a0493000-a050ffff r--/r-- process-only submap</span><br><span class="line">__DATA           a0510000 [  36K] rw-/rw- <span class="attribute">SM</span>=COW <span class="built_in">..</span>./Versions/A/OSServices</span><br><span class="line">                 b959e000 [   4K] rw-/rw- <span class="attribute">SM</span>=SHM</span><br><span class="line">                 b95a0000 [   4K] rw-/rw- <span class="attribute">SM</span>=SHM</span><br><span class="line">                 b9630000 [ 164K] rw-/rw- <span class="attribute">SM</span>=SHM</span><br><span class="line">                 b965a000 [ 896K] rw-/rw- <span class="attribute">SM</span>=SHM</span><br><span class="line">                 bff80000 [ 504K] rw-/rwx <span class="attribute">SM</span>=ZER</span><br><span class="line">STACK[0]         bfffe000 [   4K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line">                 bffff000 [   4K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line">__DATA           c000c000 [   4K] rw-/rwx <span class="attribute">SM</span>=PRV <span class="built_in">..</span>./Versions/A/ApplicationEnhancer</span><br><span class="line">STACK[1]         f0001000 [ 512K] rw-/rwx <span class="attribute">SM</span>=PRV</span><br><span class="line">                 ff002000 [12272K] rw-/rw- <span class="attribute">SM</span>=SHM</span><br><span class="line">                 </span><br><span class="line">                 ==== Legend</span><br><span class="line"><span class="attribute">SM</span>=sharing mode:</span><br><span class="line">    <span class="attribute">COW</span>=copy_on_write <span class="attribute">PRV</span>=private <span class="attribute">NUL</span>=empty <span class="attribute">ALI</span>=aliased</span><br><span class="line">    <span class="attribute">SHM</span>=shared <span class="attribute">ZER</span>=zero_filled S/<span class="attribute">A</span>=shared_alias</span><br><span class="line"> </span><br><span class="line">==== Summary <span class="keyword">for</span> process 313</span><br><span class="line">ReadOnly portion of Libraries: <span class="attribute">Total</span>=27420KB <span class="attribute">resident</span>=12416KB(45%) <span class="attribute">swapped_out_or_unallocated</span>=15004KB(55%)</span><br><span class="line">Writable regions: <span class="attribute">Total</span>=21632KB <span class="attribute">written</span>=536KB(2%) <span class="attribute">resident</span>=1916KB(9%) <span class="attribute">swapped_out</span>=0KB(0%) <span class="attribute">unallocated</span>=19716KB(91%)</span><br></pre></td></tr></table></figure>
+<p>If you specify the -d parameter (plus an interval in seconds), vmmap takes two snapshots of virtual-memory usage—one at the beginning of a specified interval and the other at the end—and displays the differences. It shows three sets of differences:</p>
+<ul>
+<li>individual differences</li>
+<li>regions in the first snapshot that are not in the second</li>
+<li>regions in the second snapshot that are not in the first</li>
+</ul>
+<p>如果您指定-d参数(加上以秒为单位的间隔)，vmmap将获取两个虚拟内存使用快照(一个在指定的间隔开始，另一个在结束)，并显示差异。它显示了三组差异:</p>
+<ul>
+<li>个体差异</li>
+<li>第一个快照中的区域而不是第二个快照中的区域</li>
+<li>第二个快照中不属于第一个快照的区域</li>
+</ul>
+<p>Interpreting vmmap’s Output<br>The columns of vmmap output have no headings. Instead you can interpret the type of data in each column by its format. Table 1 describes these columns.</p>
+<p>Table 1  Column descriptions for vmmap</p>
+<p><strong>Table 1</strong>  Column descriptions for vmmap</p>
+<table>
+<thead>
+<tr>
+<th>Column Number</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><code>__TEXT</code>, <code>__LINKEDIT</code>, <code>MALLOC_USED</code>, <code>STACK</code>, and so on</td>
+<td>The purpose of the memory. This column can contain the name of a Mach-O segment or the memory allocation technique.</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>(DefaultMallocZone_0x5d2c0)</code></td>
+<td>If present, the zone used for allocation.</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>4eee000</code></td>
+<td>The virtual memory address of the region.</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>[ 124K]</code></td>
+<td>The size of the region, measured in kilobytes</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>rw-/rwx</code></td>
+<td>Read, write and execution permissions for the region. The first set of flags specifies the current protection for the region. The second set of values specifies the maximum protection for the region. If an entry contains a dash (<code>-</code>), the process does not have the target permission.</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>SM=PRV</code></td>
+<td>Sharing mode for the region, either <code>COW</code> (copy-on-write), <code>PRV</code> (private), <code>NUL</code> (empty), <code>ALI</code> (aliased), or <code>SHM</code> (shared).</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>...ts/MacOS/Clock</code></td>
+<td>The end of the pathname identifying the executable mapped into this region of virtual memory. If the region is stack or heap memory, nothing is displayed in this column.</td>
+</tr>
+</tbody>
+</table>
+<p>Column 1 identifies the purpose of the memory. A <strong>TEXT segment contains read-only code and data. A </strong>DATA segment contains data that may be both readable and writable. For allocated data, this column shows how the memory was allocated, such as on the stack, using malloc, and so on. For regions loaded from a library, the far right column shows the name of the library loaded into memory.<br>第1列标识内存的用途。<strong>TEXT段包含只读代码和数据。</strong>DATA段包含可读和可写的数据。对于已分配的数据，这一列显示如何分配内存，例如使用malloc在堆栈上，等等。对于从库中加载的区域，最右边的列显示加载到内存中的库的名称。</p>
+<p>The size of the virtual memory region (column 4) represents the total size reserved for that region. This number may not reflect the actual number of memory pages allocated for the region. For example, calling vm_allocate reserves a set of memory pages but does not allocate any physical memory until the pages are actually touched. Similarly, a memory-mapped file may reserve a set of pages, but the system does not load pages until a read or write event occurs on the file.<br>虚拟内存区域的大小(第4列)表示该区域保留的总大小。这个数字可能不能反映为该区域分配的内存页的实际数量。例如，调用vm_allocation会保留一组内存页，但在实际操作这些页之前不会分配任何物理内存。类似地，内存映射文件可以保留一组页面，但是系统在文件上发生读或写事件之前不会加载页面。</p>
+<p>The protection mode (column 5) describes the access restrictions for the memory region. A memory region contains separate flags for read, write, and execution permissions. Each virtual memory region has a current permission, and a maximum permission. In the output from vmmap, the current permission appears first followed by the maximum permission. Thus, if the permissions are “r–/rwx“ the page is currently read-only but allows read, write, and execution access as its maximum allowed permissions. Typically, the current permissions do not permit writing to a region. However, these permissions may change under certain circumstances. For example, a debugger may request write access to a page in order to set a breakpoint.<br>保护模式(第5列)描述了内存区域的访问限制。内存区域包含用于读取、写入和执行权限的单独标志。每个虚拟内存区域都有一个当前权限和最大权限。在vmmap的输出中，当前权限首先显示为最大权限。因此，如果权限是“r- /rwx”，页面当前是只读的，但允许读、写和执行访问作为其最大允许的权限。通常，当前权限不允许写入区域。但是，这些权限在某些情况下可能会改变。例如，调试器可以请求对页面的写访问，以便设置断点。</p>
+<p>The sharing mode (SM= field) tells you whether pages are shared between processes and what happens when pages are modified. Private pages (PRV) are visible only to the process and are allocated as they are used. Private pages can also be paged out to disk. Copy-on-write (COW) pages are shared by multiple processes (or shared by a single process in multiple locations). When the page is modified, the writing process then receives its own copy of the page. Empty (NUL) sharing implies that the page does not really exist in physical memory. Aliased (ALI) and shared (SHM) memory are shared between processes.<br>共享模式(SM= field)告诉您进程之间是否共享页面，以及修改页面时会发生什么。私有页面(PRV)只对进程可见，并在使用它们时进行分配。还可以将私有页面分页到磁盘。写时复制(COW)页面由多个进程共享(或由多个位置的单个进程共享)。当页面被修改时，编写过程将收到它自己的页面副本。空(NUL)共享意味着页面并不真正存在于物理内存中。别名(ALI)和共享(SHM)内存在进程之间共享。</p>
+<p>The sharing mode typically describes the general mode controlling the region. For example, as copy-on-write pages are modified, they become private to the application. However, the region containing those private pages is still copy-on-write until all pages become private. Once all pages are private, the sharing mode changes to private.<br>共享模式通常描述控制该区域的通用模式。例如，当对写后复制的页面进行修改时，它们将成为应用程序的私有页面。但是，包含这些私有页面的区域仍然是“写时复制”，直到所有页面变为私有。一旦所有页面都是私有的，共享模式就会变为私有。</p>
+<p>Some lines in the output of vmmap describe submaps. A submap is a shared set of virtual memory page descriptions that the operating system can reuse between multiple processes. For example, the memory between 0x90000000 and 0xAFFFFFFF is a submap containing the most common dynamic libraries. Submaps minimize the operating system’s memory usage by representing the virtual memory regions only once. Submaps can either be shared by all processes (machine-wide) or be local to the process (process-only). If the contents of a machine-wide submap are changed—for example, the debugger makes a section of memory for a dynamic library writable so it can insert debugging traps—then the submap becomes local, and the kernel allocates memory to store the extra copy.<br>vmmap输出中的一些行描述子映射。子映射是操作系统可以在多个进程之间重用的一组共享的虚拟内存页面描述。例如，0x90000000和0xAFFFFFFF之间的内存是包含最常见动态库的子映射。子映射只表示一次虚拟内存区域，从而最小化操作系统的内存使用。子映射可以由所有进程(机器范围内)共享，也可以是进程(仅处理)的本地映射。如果修改了机器范围的子映射的内容(例如，调试器为动态库编写一个内存段，以便它可以插入调试trap)，那么子映射就变成本地的，内核分配内存来存储额外的副本。</p>
+<p>[a]:</p>
+<p>[a]:</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Xcode编译环境变量
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/IOS/虚拟内存/虚拟内存/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">虚拟内存之一----关于</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/虚拟内存/虚拟内存之2/" data-title="查看虚拟内存" data-url="http://yoursite.com/wiki/IOS/虚拟内存/虚拟内存之2/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
