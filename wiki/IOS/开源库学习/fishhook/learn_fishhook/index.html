@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhook_code_struct.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/learnMachO.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/libbacktraceRecording.jpg">
-<meta property="og:updated_time" content="2018-06-22T09:46:59.000Z">
+<meta property="og:updated_time" content="2018-06-22T09:54:30.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fishhook学习记录">
 <meta name="twitter:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。">
@@ -572,7 +572,7 @@
         
             <p><a href="https://github.com/facebook/fishhook" rel="external nofollow noopener noreferrer" target="_blank">fishhook</a>是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。</p>
 <a id="more"></a>
-<h2 id="源码示意图"><a href="#源码示意图" class="headerlink" title="源码示意图"></a>源码示意图</h2><p>先给个简单的源码示意图。循序渐进理解啊。直接上源码有点懵，几个函数名称太相似了。</p>
+<h2 id="源码示意图"><a href="#源码示意图" class="headerlink" title="源码示意图"></a>源码示意图</h2><p>先给个简单的源码示意图。循序渐进理解啊。直接上源码有点懵，几个函数名称太相似了。不过呢，看图，好像就四个函数、247行代码而已。</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhook_code_struct.png" alt="源码示意图"></p>
 <h2 id="源码解读"><a href="#源码解读" class="headerlink" title="源码解读"></a>源码解读</h2><p>源码使用OOMDetector，OOMDetector使用fishhook替换malloc函数。使用OOMDetector的目的是顺便可以学习fishhook api的调用方式，同时也能学习fishhook源码。</p>
 <p>首先，fishhook定义了一个结构体，存储绑定的数据。定义如下：</p>
