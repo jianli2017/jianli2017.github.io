@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/system_detail.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/mach_o/1/stringtable.png">
-<meta property="og:updated_time" content="2018-06-21T04:06:54.000Z">
+<meta property="og:updated_time" content="2018-06-22T08:13:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-o文件结构理解">
 <meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
@@ -433,9 +433,18 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             正则表达式
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
                     </li> 
                      </ul> 
     </div>
@@ -620,7 +629,7 @@
 <li>MH_PIE 随机地址空间</li>
 </ol>
 <p>接下来介绍head后的load command部分。</p>
-<h2 id="load-command"><a href="#load-command" class="headerlink" title="load command"></a>load command</h2><p>Load commands紧跟在头部之后，这些加载指令清晰地告诉加载器如何处理二进制数据，有些命令是由内核处理的，有些是由动态链接器处理的。在源码中有明显的注释来说明这些是动态连接器处理的。</p>
+<h2 id="load-command"><a href="#load-command" class="headerlink" title="load command"></a>load command</h2><p>Load commands紧跟在头部之后。Load commands指定了文件的布局结构和链接特征。有很多很多种Load commands。这些加载指令清晰地告诉加载器如何处理二进制数据，有些命令是由内核处理的，有些是由动态链接器处理的。  </p>
 <p>这里列举几个看上去比较熟悉的….</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &lt;mach-o/loader.h&gt;</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_SEGMENT	0x1	<span class="comment">/* segment of this file to be mapped  被映射到内存的段*/</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_SYMTAB	0x2	<span class="comment">/* link-edit stab symbol table info  符号表*/</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_DYSYMTAB	0xb	<span class="comment">/* dynamic link-edit symbol table info 动态符号表*/</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_LOAD_DYLIB	0xc	<span class="comment">/* load a dynamically linked shared library 动态链接库*/</span></span></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * load a dynamically linked shared library that is allowed to be missing</span></span><br><span class="line"><span class="comment"> * (all symbols are weak imported).</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_LOAD_WEAK_DYLIB (0x18 | LC_REQ_DYLD)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_SEGMENT_64	0x19	<span class="comment">/* 64-bit segment of this file to be</span></span></span><br><span class="line"><span class="meta"><span class="comment">				   mapped */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LC_UUID		0x1b	<span class="comment">/* the uuid */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LC_RPATH       (0x1c | LC_REQ_DYLD)    <span class="comment">/* runpath additions */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LC_CODE_SIGNATURE 0x1d	<span class="comment">/* local of code signature */</span></span></span><br></pre></td></tr></table></figure>
 <p>load command的基本定义如下：</p>
@@ -681,14 +690,9 @@
 <p><img src="http://of685p9vy.bkt.clouddn.com/mach_o/1/uuid.png" alt="uuid"></p>
 <p>每个可执行程序都有一个uuid，这样根据不同的uuid能确定包。比如崩溃日志中就会包含uuid字段。表示是哪个包崩溃了。</p>
 <h3 id="LC-DYSYMTAB（动态符号表）"><a href="#LC-DYSYMTAB（动态符号表）" class="headerlink" title="LC_DYSYMTAB（动态符号表）"></a>LC_DYSYMTAB（动态符号表）</h3><p>下面的描述摘至<mach-o loader.h="">。<br>This is the second set of the symbolic information which is used to support  the data structures for the dynamically link editor.</mach-o></p>
-<p>LC_DYSYMTAB 是第二种符号信集，这个符号集被动态连接器的数据结构使用。</p>
-<ul>
-<li>The original set of symbolic information in the symtab_command which contains</li>
-<li>the symbol and string tables must also be present when this load command is</li>
-<li><p>present.<br>当这个command（动态符号command）出现的时候，symtab_command必须出现，symtab_command包含符号表和String表。</p>
+<p>LC_DYSYMTAB 是第二种类型符号集，这个符号集被动态连接器的数据结构使用。</p>
+<p>The original set of symbolic information in the symtab_command which contains the symbol and string tables must also be present when this load command is present.<br>当这个command（动态符号command）出现的时候，symtab_command必须出现，symtab_command包含符号表和String表。</p>
 <p>When this load command is present the symbol table is organized into three groups of symbols:</p>
-</li>
-</ul>
 <p>当这个加载命令出现的时候，符号表被组织为三部分：</p>
 <ol>
 <li>local symbols (static and debugging symbols) - grouped by module</li>
@@ -739,9 +743,9 @@
 <td>sizeof(struct dysymtab_command)</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 </tr>
 <tr>
 <td>ilocalsym</td>
@@ -774,9 +778,9 @@
 <td>number of undefined symbols</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
 </tr>
 <tr>
 <td>tocoff</td>
@@ -888,9 +892,9 @@
         </a>
     
     
-        <a href="/wiki/Hybird/weex/weex_four/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/Hybird/weex/weex_two/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">weex系列抄之四---flex 布局</div>
+            <div class="article-nav-title">weex系列抄之二---weex原理</div>
         </a>
     
 </nav>
