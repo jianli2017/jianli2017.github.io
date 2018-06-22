@@ -3,18 +3,19 @@
 <head>
     <meta charset="utf-8">
     
-    <title>LJ小窝</title>
+    <title>通用webview开发记录 | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="webview">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="通用webview记录  目录：  为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考   1、为什么做通用webView 两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇">
+    <meta name="description" content="为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考">
+<meta name="keywords" content="webview">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LJ小窝">
+<meta property="og:title" content="通用webview开发记录">
 <meta property="og:url" content="http://yoursite.com/wiki/Hybird/webview/gome-Webview/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="通用webview记录  目录：  为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考   1、为什么做通用webView 两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇">
+<meta property="og:description" content="为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/webview_cordova.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/Cordova_JS.png">
@@ -27,10 +28,10 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_1.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_2.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/safari_config_3.png">
-<meta property="og:updated_time" content="2018-06-22T06:28:51.000Z">
+<meta property="og:updated_time" content="2018-06-22T06:35:58.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="通用webview记录  目录：  为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考   1、为什么做通用webView 两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇">
+<meta name="twitter:title" content="通用webview开发记录">
+<meta name="twitter:description" content="为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考">
 <meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/hybird/webview/webview/webview_cordova.png">
     
 
@@ -189,7 +190,7 @@
                             &nbsp;
                             webview
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/Hybird/webview/gome-Webview/"></a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -198,7 +199,7 @@
                             &nbsp;
                             weex
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -511,16 +512,55 @@
     <div class="article-inner">
         
         
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/webview/">webview</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/webview/">webview</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/webview/gome-Webview/">
+            <time datetime="2018-02-04T04:07:12.000Z" itemprop="datePublished">2018-02-04</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            通用webview开发记录
+        </h1>
+    
+
+            </header>
+        
         
         <div class="article-entry" itemprop="articleBody">
         
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1、为什么做通用webView"><span class="toc-number">1.</span> <span class="toc-text"> 1、为什么做通用webView</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2、通用webView与混合式app的联系"><span class="toc-number">1.1.</span> <span class="toc-text"> 2、通用webView与混合式app的联系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3、WKWebview-介绍"><span class="toc-number">1.2.</span> <span class="toc-text">3、WKWebview 介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-创建WKWebview"><span class="toc-number">1.2.1.</span> <span class="toc-text">3.1 创建WKWebview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-2-WKWebview加载页面"><span class="toc-number">1.2.2.</span> <span class="toc-text">3.2 WKWebview加载页面</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-WKWebview代理"><span class="toc-number">1.2.3.</span> <span class="toc-text">3.3 WKWebview代理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-WKUserContentController"><span class="toc-number">1.2.4.</span> <span class="toc-text">3.3 WKUserContentController</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-4-动态注入JS"><span class="toc-number">1.2.5.</span> <span class="toc-text">3.4 动态注入JS</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4、通用webView与JS交互"><span class="toc-number">2.</span> <span class="toc-text"> 4、通用webView与JS交互</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5、现有webView支持那些JS交互"><span class="toc-number">2.1.</span> <span class="toc-text">5、现有webView支持那些JS交互</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6、插件的扩展方法"><span class="toc-number">3.</span> <span class="toc-text">6、插件的扩展方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7、webview中遇到的问题"><span class="toc-number">4.</span> <span class="toc-text">7、webview中遇到的问题</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8、调试Webview的JS代码方法"><span class="toc-number">5.</span> <span class="toc-text">8、调试Webview的JS代码方法</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9、参考"><span class="toc-number">6.</span> <span class="toc-text">9、参考</span></a></li></ol>
+                </div>
+            
         
         
-            <p>通用webview记录 </p>
-<p>目录：</p>
-<ol>
+            <ol>
 <li><a href="#webview1">为什么做通用webView</a></li>
 <li><a href="#webview2">通用webView与混合式app的联系</a></li>
 <li><a href="#webview3">WKWebview介绍</a></li>
@@ -531,6 +571,7 @@
 <li><a href="#webview8">调试Webview的JS代码方法</a></li>
 <li><a href="#webview9">参考</a></li>
 </ol>
+<a id="more"></a>
 <h1 id="1、为什么做通用webView"><a href="#1、为什么做通用webView" class="headerlink" title=" 1、为什么做通用webView"></a><div id="webview1"> 1、为什么做通用webView</div></h1><ol>
 <li>两套webview代码：维护复杂、两者交互难。比如：使用在线模板加载美信页面就会遇到问题。</li>
 <li>JS交互不统一：美信模板普遍使用URL方式于Native交互，在线模板主要使用JSBridge交互，并且不同模块的Bridge也有一定的区别，不是统一的。</li>
@@ -794,19 +835,19 @@ webView:didFailProvisionalNavigation: withError:
     
 <nav id="article-nav">
     
-        <a href="/wiki/工具/ruby/homebrew-gem使用/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/工具/hexo/hexo-use/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    homebrew-gem使用.
+                    hexo使用指南
                 
             </div>
         </a>
     
     
-        <a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/GCD/use-dispatch-semaphore/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">堆区（heap）和栈区（stack）的区别(转载)</div>
+            <div class="article-nav-title">dispatch_semaphore 的使用方法</div>
         </a>
     
 </nav>
@@ -818,7 +859,7 @@ webView:didFailProvisionalNavigation: withError:
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/Hybird/webview/gome-Webview/" data-title="" data-url="http://yoursite.com/wiki/Hybird/webview/gome-Webview/"></div>
+    <div class="ds-thread" data-thread-key="wiki/Hybird/webview/gome-Webview/" data-title="通用webview开发记录" data-url="http://yoursite.com/wiki/Hybird/webview/gome-Webview/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
