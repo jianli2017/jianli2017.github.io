@@ -13,13 +13,13 @@
 <meta name="keywords" content="fishhook">
 <meta property="og:type" content="article">
 <meta property="og:title" content="fishhook学习记录">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/开源库学习/fishhook/index.html">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/开源库学习/fishhook/fishhook/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/learnMachO.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/libbacktraceRecording.jpg">
-<meta property="og:updated_time" content="2018-06-21T11:11:36.000Z">
+<meta property="og:updated_time" content="2018-06-22T09:05:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fishhook学习记录">
 <meta name="twitter:description" content="fishhook是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。">
@@ -289,7 +289,16 @@
                             &nbsp;
                             开源库学习
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishHookPicture/">图解fishhook</a></li>  <li class="file active"><a href="/wiki/IOS/开源库学习/fishhook/">fishhook学习记录</a></li>  </ul> 
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file active"><a href="/wiki/IOS/开源库学习/fishhook/fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -508,7 +517,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/开源库学习/fishhook" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/开源库学习/fishhook/fishhook" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -518,7 +527,7 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/开源库学习/">开源库学习</a>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/开源库学习/">开源库学习</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/开源库学习/fishhook/">fishhook</a>
     </div>
 
                         
@@ -530,7 +539,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/开源库学习/fishhook/">
+        <a href="/wiki/IOS/开源库学习/fishhook/fishhook/">
             <time datetime="2018-06-20T04:07:12.000Z" itemprop="datePublished">2018-06-20</time>
         </a>
     </div>
@@ -571,6 +580,8 @@
 <p>下面是新的<code>new_malloc</code>函数定义：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">new_malloc</span><span class="params">(<span class="keyword">size_t</span> size)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">void</span> *ptr = orig_malloc(size);</span><br><span class="line">    <span class="keyword">if</span>(!isPaused)&#123;</span><br><span class="line">        global_leakChecker-&gt;recordMallocStack((<span class="keyword">vm_address_t</span>)ptr, (<span class="keyword">uint32_t</span>)size,<span class="string">"malloc"</span>,<span class="number">2</span>);</span><br><span class="line">    &#125;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __enable_malloc_logger__</span></span><br><span class="line">    malloc_printf(<span class="string">"malloc ptr:%p size:%lu thread:%lu\n"</span>,ptr, size,mach_thread_self());</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line">    <span class="keyword">return</span> ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>new_malloc</code>函数首先会调用原来的<code>malloc</code>函数，接着会记录申请的内存的堆栈。</p>
+<p>下面是原始函数的定义：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">static void* (<span class="name">*orig_malloc</span>)(<span class="name">size_t</span>)<span class="comment">;</span></span><br><span class="line">static void* (<span class="name">*orig_calloc</span>)(<span class="name">size_t</span>, size_t)<span class="comment">;</span></span><br><span class="line">static void* (<span class="name">*orig_realloc</span>)(<span class="name">void</span> *, size_t);</span><br><span class="line">static void* (<span class="name">*orig_valloc</span>)(<span class="name">size_t</span>)<span class="comment">;</span></span><br><span class="line">static void* (<span class="name">*orig_block_copy</span>)(<span class="name">const</span> void *aBlock);</span><br></pre></td></tr></table></figure>
 <p>下面是rebind_symbols_for_imagename第三个入参————镜像名称的获取方式：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">char</span> *<span class="title">getImagename</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* name = _dyld_get_image_name(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>* tmp = <span class="built_in">strrchr</span>(name, <span class="string">'/'</span>);</span><br><span class="line">    <span class="keyword">if</span> (tmp) &#123;</span><br><span class="line">        name = tmp + <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> name;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>调用了<mach-o dyld.h=""> 头文件中的<code>_dyld_get_image_name</code>函数。 <code>_dyld_get_image_name</code> 根据镜像的索引，获取镜像的名称。<code>strrchr</code>函数是反向查找第一个给定字符。返回查找到的结果。</mach-o></p>
@@ -623,7 +634,7 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/开源库学习/fishHookPicture/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
@@ -647,7 +658,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/开源库学习/fishhook/" data-title="fishhook学习记录" data-url="http://yoursite.com/wiki/IOS/开源库学习/fishhook/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/开源库学习/fishhook/fishhook/" data-title="fishhook学习记录" data-url="http://yoursite.com/wiki/IOS/开源库学习/fishhook/fishhook/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;

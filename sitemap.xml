@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/fishhook/fishhook/</loc>
+    
+    <lastmod>2018-06-22T09:05:52.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/Mach_O/Mach_O_File_Struct/</loc>
     
     <lastmod>2018-06-22T08:38:08.000Z</lastmod>
@@ -51,16 +58,9 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/fishHookPicture/</loc>
+    <loc>http://yoursite.com/wiki/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/fishhook/fishHookPicture/</loc>
     
     <lastmod>2018-06-21T11:52:16.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/fishhook/</loc>
-    
-    <lastmod>2018-06-21T11:11:36.000Z</lastmod>
     
   </url>
   

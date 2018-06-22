@@ -3,24 +3,34 @@
 <head>
     <meta charset="utf-8">
     
-    <title>runtime1 | LJ小窝</title>
+    <title>图解fishhook | LJ小窝</title>
     
     
-        <meta name="keywords" content="runtime">
+        <meta name="keywords" content="图解fishhook">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C是动态语言，OC上所有方法的调用/类的生成都通过Objective-C Runtime在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替">
-<meta name="keywords" content="runtime">
+    <meta name="description" content="本文尝试9图片解释fishhook原理">
+<meta name="keywords" content="图解fishhook">
 <meta property="og:type" content="article">
-<meta property="og:title" content="runtime1">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/runtime1/index.html">
+<meta property="og:title" content="图解fishhook">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/开源库学习/fishhook/fishHookPicture/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C是动态语言，OC上所有方法的调用/类的生成都通过Objective-C Runtime在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替">
+<meta property="og:description" content="本文尝试9图片解释fishhook原理">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP1.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP2.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP3.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP4.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP5.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP6.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP7.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP8.jpg">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP9.jpg">
+<meta property="og:updated_time" content="2018-06-21T11:52:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="runtime1">
-<meta name="twitter:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C是动态语言，OC上所有方法的调用/类的生成都通过Objective-C Runtime在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替">
+<meta name="twitter:title" content="图解fishhook">
+<meta name="twitter:description" content="本文尝试9图片解释fishhook原理">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP1.jpg">
     
 
     
@@ -226,13 +236,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             Runtime
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -280,20 +290,20 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             开源库学习
                         </a>
                          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             fishhook
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishhook/">fishhook学习记录</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishhook/">fishhook学习记录</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -514,7 +524,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/Runtime/runtime1" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/开源库学习/fishhook/fishHookPicture" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -524,20 +534,20 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/开源库学习/">开源库学习</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/开源库学习/fishhook/">fishhook</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/runtime/">runtime</a>
+        <a class="tag-link" href="/tags/图解fishhook/">图解fishhook</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/runtime1/">
-            <time datetime="2016-11-03T09:27:29.000Z" itemprop="datePublished">2016-11-03</time>
+        <a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">
+            <time datetime="2018-06-21T04:07:12.000Z" itemprop="datePublished">2018-06-21</time>
         </a>
     </div>
 
@@ -548,7 +558,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            runtime1
+            图解fishhook
         </h1>
     
 
@@ -561,110 +571,34 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#消息发送Messaging阶段—objc-msgSend源码解析"><span class="toc-number">1.</span> <span class="toc-text">消息发送Messaging阶段—objc_msgSend源码解析</span></a></li></ol>
+                    
                 </div>
             
         
         
-            <p>现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C是动态语言，OC上所有<strong>方法的调用/类的生成</strong>都通过Objective-C Runtime在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替换任何类的实现以及新增任意类。今天就来详细解析一下OC中runtime最为吸引人的地方。<br><a id="more"></a></p>
-<p>#objc_msgSend函数简介</p>
-<p>最初接触到OC Runtime，一定是从[receiver message]这里开始的。[receiver message]会被编译器转化为：</p>
-<pre><code>id objc_msgSend ( id self, SEL op, ... );
-</code></pre><p>这是一个可变参数函数。第二个参数类型是SEL。SEL在OC中是方法选择器。</p>
-<pre><code>typedef struct objc_selector *SEL;
-</code></pre><p>objc_selector是一个映射到方法的C字符串。下面就做了个测试：</p>
-<pre><code>-(NSString *) selectorTestWithName:(NSString *)strName sex:(NSString *) strSex
-{
-    NSLog(@&quot;sel = %s&quot;, @selector(selectorTestWithName:sex:));
-    return nil;
-}
-</code></pre><p>输出如下：</p>
-<pre><code>sel = selectorTestWithName:sex:
-</code></pre><p>需要注意的是@selector()选择子只与函数名有关。不同类中相同名字的方法所对应的方法选择器是相同的，即使方法名字相同而变量类型不同也会导致它们具有相同的方法选择器。由于这点特性，也导致了OC不支持函数重载。</p>
-<p>在receiver拿到对应的selector之后，如果自己无法执行这个方法，那么该条消息要被转发。或者临时动态的添加方法实现。如果转发到最后依旧没法处理，程序就会崩溃。</p>
-<p><strong>所以编译期仅仅是确定了要发送消息，而消息如何处理是要运行期需要解决的事情。</strong></p>
-<p>objc_msgSend函数究竟会干什么事情呢？</p>
-<p>1.检测这个 selector是不是要忽略的。<br>2.检查target是不是为nil。<br>如果这里有相应的nil的处理函数，就跳转到相应的函数中。 如果没有处理nil的函数，就自动清理现场并返回。这一点就是为何在OC中给nil发送消息不会崩溃的原因。<br>3.确定不是给nil发消息之后，在该class的缓存中查找方法对应的IMP实现。<br>如果找到，就跳转进去执行。 如果没有找到，就在方法分发表里面继续查找，一直找到NSObject为止。<br>4.如果还没有找到，那就需要开始消息转发阶段了。至此，发送消息Messaging阶段完成。<strong>这一阶段主要完成的是通过select()快速查找IMP的过程</strong>。</p>
-<h1 id="消息发送Messaging阶段—objc-msgSend源码解析"><a href="#消息发送Messaging阶段—objc-msgSend源码解析" class="headerlink" title="消息发送Messaging阶段—objc_msgSend源码解析"></a>消息发送Messaging阶段—objc_msgSend源码解析</h1><p>在这篇文章Obj-C Optimization: The faster objc_msgSend中看到了这样一段C版本的objc_msgSend的源码。</p>
-<p>#include <objc objc-runtime.h=""></objc></p>
-<pre><code>id  c_objc_msgSend( struct objc_class /* ahem */ *self, SEL _cmd, ...)  
-{
-   struct objc_class    *cls;
-   struct objc_cache    *cache;
-   unsigned int         hash;
-   struct objc_method   *method;   
-   unsigned int         index;
+            <p>本文尝试9图片解释fishhook原理<br><a id="more"></a></p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP1.jpg" alt="图1"></p>
+<p>图1. load command中_DATA segement中__la_symbol_ptr section结构图,说明该section和动态符号表对应的起始索引是146</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP2.jpg" alt="图2"></p>
+<p>图2.数据区域中__la_symbol_ptr的结构,可以看出该section的起始地址是0x00240B0，图2和图3是为了找malloc函数指针的位置</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP3.jpg" alt="图3"></p>
+<p>图3.数据区域中__la_symbol_ptr的结构,  偏移了一定的位置。文件0x000242B0地址出存储的是malloc函数指针。</p>
+<p>计算偏移数量的方法：0x242B0  - 0x240B0 = 0x200<br>每个条目占用8个字节0x200/0x8 = 0x40  = 64<br>得出：在符号表中，malloc偏移64个条目</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP4.jpg" alt="图4"></p>
+<p>图4 .转到数据区域中动态符号表的起始位置处，该图说明动态符号表的起始地址是0x3B0A4</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP5.jpg" alt="图5"></p>
+<p>图5 。 计算<strong>la_symbol_ptr 对应的符号在动态符号表中的位置： 0x3B060 + 146*4 = 0x3B060 + 0x248 = 0x3B2A8，<br>地址0x0003B2A8处后面的符号和</strong>la_symbol_ptr中的条目对应。 </p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP6.jpg" alt="图6"></p>
+<p>图6 .  查找64个偏移后的动态符号表的地址：0x3B2A8 + 0x40*x4 = 0x3B3A8，地址0x3B3A8中存储的值是符号表中的索引，<br>为0xb32。由于machoviewer看不到符号表，所以用代码查看符号表中索引为0xB32 的符号信息。</p>
+<p>查看代码：struct nlist_64 const * mallocNlist =[self getSymbol64ByIndex:0xB32];</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP7.jpg" alt="图7"></p>
+<p>图7 .代码查看符号表示意图。符号表的索引为0xB32的符号的信息。可以看出n_strx的值是0x2B07，<br>这个值指的是string表中的偏移量 </p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP8.jpg" alt="图8"></p>
+<p>图8 .  string 表，string表的起始地址是0x3B498</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/iOS/%E5%BC%80%E6%BA%90%E5%BA%93/fishhook/fishhookP9.jpg" alt="图9"></p>
+<p>图9 .  string 表， 偏移0x2B07 后的结果—— 0x3B498 + 0x2B07 = 0x3DF9F， 这个地址存储的字符串就是图3中</p>
+<p>地址为0x10001ef10的函数指针的名称，名称是malloc。这个名称和我么要替换的名称一致，所以替换图3中的<br>0x10001ef10，替换成新指定函数指针地址。实现替换。</p>
 
-   if( self)
-   {
-      cls   = self-&gt;isa;
-      cache = cls-&gt;cache;
-      hash  = cache-&gt;mask;
-      index = (unsigned int) _cmd &amp; hash;
-
-      do
-      {
-         method = cache-&gt;buckets[ index];
-         if( ! method)
-            goto recache;
-         index = (index + 1) &amp; cache-&gt;mask;
-      }
-      while( method-&gt;method_name != _cmd);
-      return( (*method-&gt;method_imp)( (id) self, _cmd));
-   }
-   return( (id) self);
-
-recache:  
-   /* ... */
-   return( 0);
-}
-</code></pre><p>该源码中有一个do-while循环，这个循环就是上一章里面提到的在方法分发表里面查找method的过程。</p>
-<p>不过在obj4-680里面的objc-msg-x86_64.s文件中实现是一段汇编代码。</p>
-<pre><code>/********************************************************************
- *
- * id objc_msgSend(id self, SEL _cmd,...);
- *
- ********************************************************************/
-
- .data
- .align 3
- .globl _objc_debug_taggedpointer_classes
-_objc_debug_taggedpointer_classes:  
- .fill 16, 8, 0
-
- ENTRY _objc_msgSend
- MESSENGER_START
-
- NilTest NORMAL
-
- GetIsaFast NORMAL  // r11 = self-&gt;isa
- CacheLookup NORMAL  // calls IMP on success
-
- NilTestSupport NORMAL
-
- GetIsaSupport NORMAL
-
-// cache miss: go search the method lists
-LCacheMiss:  
- // isa still in r11
- MethodTableLookup %a1, %a2 // r11 = IMP
- cmp %r11, %r11  // set eq (nonstret) for forwarding
- jmp *%r11   // goto *imp
-
- END_ENTRY _objc_msgSend
-
-
- ENTRY _objc_msgSend_fixup
- int3
- END_ENTRY _objc_msgSend_fixup
-
-
- STATIC_ENTRY _objc_msgSend_fixedup
- // Load _cmd from the message_ref
- movq 8(%a2), %a2
- jmp _objc_msgSend
- END_ENTRY _objc_msgSend_fixedup
-</code></pre>
             </div>
         
         <footer class="article-footer">
@@ -676,19 +610,19 @@ LCacheMiss:
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/Runtime/meta_class/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/Mach_O/machoviewer/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    What is a meta-class in Objective-C(译文)
+                    mach-o Viewer 源码学习
                 
             </div>
         </a>
     
     
-        <a href="/wiki/C语言语法/CC_pointer_memry/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/开源库学习/fishhook/fishhook/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">二级指针动态申请内存</div>
+            <div class="article-nav-title">fishhook学习记录</div>
         </a>
     
 </nav>
@@ -700,7 +634,7 @@ LCacheMiss:
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/runtime1/" data-title="runtime1" data-url="http://yoursite.com/wiki/IOS/Runtime/runtime1/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/开源库学习/fishhook/fishHookPicture/" data-title="图解fishhook" data-url="http://yoursite.com/wiki/IOS/开源库学习/fishhook/fishHookPicture/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
