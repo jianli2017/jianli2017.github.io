@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>Markdown公式编辑 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="Markdown">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="如何插入公式 行中公式（放在文中与其他文字编辑）：可以用如下方法表示：$数学公式$ 独立公式可以用下面的方法表示：$$数学公式$$ 自动编号的公式可以用如下的方法表示：12345\begin&amp;#123;equation&amp;#125;数学公式\label&amp;#123;eq:当前公式名&amp;#125;\end&amp;#123;equation&amp;#125;自动编号后的公式可在全文任意处使用 \eqref&amp;#123;">
+<meta name="keywords" content="Markdown">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Markdown公式编辑">
+<meta property="og:url" content="http://yoursite.com/wiki/工具/markdowm/Markdown公式编辑学习笔记/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="如何插入公式 行中公式（放在文中与其他文字编辑）：可以用如下方法表示：$数学公式$ 独立公式可以用下面的方法表示：$$数学公式$$ 自动编号的公式可以用如下的方法表示：12345\begin&amp;#123;equation&amp;#125;数学公式\label&amp;#123;eq:当前公式名&amp;#125;\end&amp;#123;equation&amp;#125;自动编号后的公式可在全文任意处使用 \eqref&amp;#123;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-25T10:06:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Markdown公式编辑">
+<meta name="twitter:description" content="如何插入公式 行中公式（放在文中与其他文字编辑）：可以用如下方法表示：$数学公式$ 独立公式可以用下面的方法表示：$$数学公式$$ 自动编号的公式可以用如下的方法表示：12345\begin&amp;#123;equation&amp;#125;数学公式\label&amp;#123;eq:当前公式名&amp;#125;\end&amp;#123;equation&amp;#125;自动编号后的公式可在全文任意处使用 \eqref&amp;#123;">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-工具/markdowm/Markdown公式编辑学习笔记" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/markdowm/">markdowm</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Markdown/">Markdown</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">
+            <time datetime="2018-06-25T04:11:12.000Z" itemprop="datePublished">2018-06-25</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            Markdown公式编辑
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#如何插入公式"><span class="toc-number">1.</span> <span class="toc-text">如何插入公式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#下标"><span class="toc-number">2.</span> <span class="toc-text">下标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#括号和分隔符"><span class="toc-number">3.</span> <span class="toc-text">括号和分隔符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#分数"><span class="toc-number">4.</span> <span class="toc-text">分数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开方"><span class="toc-number">5.</span> <span class="toc-text">开方</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#省略号"><span class="toc-number">6.</span> <span class="toc-text">省略号</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矢量"><span class="toc-number">7.</span> <span class="toc-text">矢量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#积分"><span class="toc-number">8.</span> <span class="toc-text">积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字体"><span class="toc-number">9.</span> <span class="toc-text">字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#积分-1"><span class="toc-number">10.</span> <span class="toc-text">积分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#极限"><span class="toc-number">11.</span> <span class="toc-text">极限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">12.</span> <span class="toc-text">参考</span></a></li></ol>
+                </div>
+            
+        
+        
+            <a id="more"></a>
+<h2 id="如何插入公式"><a href="#如何插入公式" class="headerlink" title="如何插入公式"></a>如何插入公式</h2><ol>
+<li>行中公式（放在文中与其他文字编辑）：可以用如下方法表示：<code>$数学公式$</code></li>
+<li>独立公式可以用下面的方法表示：<code>$$数学公式$$</code></li>
+<li>自动编号的公式可以用如下的方法表示：<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">\<span class="name">begin</span><span class="string">&#123;equation&#125;</span></span></span><br><span class="line">数学公式</span><br><span class="line"><span class="tag">\<span class="name">label</span><span class="string">&#123;eq:当前公式名&#125;</span></span></span><br><span class="line"><span class="tag">\<span class="name">end</span><span class="string">&#123;equation&#125;</span></span></span><br><span class="line">自动编号后的公式可在全文任意处使用 <span class="tag">\<span class="name">eqref</span><span class="string">&#123;eq:公式名&#125;</span></span> 语句引用。</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>例子</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$ J_<span class="tag">\<span class="name">alpha</span></span>(x) = <span class="tag">\<span class="name">sum</span></span>_&#123;m=0&#125;^<span class="tag">\<span class="name">infty</span></span> <span class="tag">\<span class="name">frac</span><span class="string">&#123;(-1)^m&#125;</span><span class="string">&#123;m! \Gamma (m + \alpha + 1)&#125;</span></span> &#123;<span class="tag">\<span class="name">left</span></span>(&#123; <span class="tag">\<span class="name">frac</span><span class="string">&#123;x&#125;</span><span class="string">&#123;2&#125;</span></span> &#125;<span class="tag">\<span class="name">right</span></span>)&#125;^&#123;2m + <span class="tag">\<span class="name">alpha</span></span>&#125; <span class="tag">\<span class="name">text</span></span> &#123;，行内公式示例&#125; $</span></span><br></pre></td></tr></table></figure>
+<p>显示<br>$ J<em>\alpha(x) = \sum</em>{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，行内公式示例} $</p>
+<p>例子<br><figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$$ J_<span class="tag">\<span class="name">alpha</span></span>(x) = <span class="tag">\<span class="name">sum</span></span>_&#123;m=0&#125;^<span class="tag">\<span class="name">infty</span></span> <span class="tag">\<span class="name">frac</span><span class="string">&#123;(-1)^m&#125;</span><span class="string">&#123;m! \Gamma (m + \alpha + 1)&#125;</span></span> &#123;<span class="tag">\<span class="name">left</span></span>(&#123; <span class="tag">\<span class="name">frac</span><span class="string">&#123;x&#125;</span><span class="string">&#123;2&#125;</span></span> &#125;<span class="tag">\<span class="name">right</span></span>)&#125;^&#123;2m + <span class="tag">\<span class="name">alpha</span></span>&#125; <span class="tag">\<span class="name">text</span></span> &#123;，独立公式示例&#125; $$</span></span><br></pre></td></tr></table></figure></p>
+<p>显示<br>$$ J<em>\alpha(x) = \sum</em>{m=0}^\infty \frac{(-1)^m}{m! \Gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，独立公式示例} $$</p>
+<h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p><code>^</code> 表示上标， <code>_</code> 表示下标。如果上下标的内容多于一个字符，需要用<code>{}</code>将这些内容括成一个整体。上下标可以嵌套，也可以同时使用。</p>
+<p>例子</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span><span class="symbol">$</span> x^&#123;y^z&#125;=(<span class="number">1</span>+&#123;\rm e&#125;^x)^&#123;<span class="number">-2</span>xy^w&#125; <span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+<p>显示</p>
+<p>$$ x^{y^z}=(1+{\rm e}^x)^{-2xy^w} $$</p>
+<p>另外，如果要在左右两边都有上下标，可以用<code>\sideset</code> 命令</p>
+<p>例子：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span><span class="symbol">$</span> \sideset&#123;^<span class="number">1</span>_2&#125;&#123;^<span class="number">3</span>_4&#125;\bigotimes <span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+<p>显示</p>
+<p>$$ \sideset{^1_2}{^3_4}\bigotimes $$</p>
+<h2 id="括号和分隔符"><a href="#括号和分隔符" class="headerlink" title="括号和分隔符"></a>括号和分隔符</h2><p><code>()</code>、<code>[]</code>和<code>|</code>表示符号本身，使用 <code>\{\}</code> 来表示 <code>{}</code>。当要显示大号的括号或分隔符时，要用 \left 和 \right 命令。<br>一些特殊的括号：</p>
+<table>
+<thead>
+<tr>
+<th>输入</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$$\langle表达式\rangle$$</code></td>
+<td>$$\langle表达式\rangle$$</td>
+</tr>
+<tr>
+<td><code>$$\lceil表达式\rceil$$</code></td>
+<td>$$\lceil表达式\rceil$$</td>
+</tr>
+<tr>
+<td><code>$$\lfloor表达式\rfloor$$</code></td>
+<td>$$\lfloor表达式\rfloor$$</td>
+</tr>
+<tr>
+<td><code>$$\lbrace表达式\rbrace$$</code></td>
+<td>$$\lbrace表达式\rbrace$$</td>
+</tr>
+</tbody>
+</table>
+<p>例子</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$$ f(x,y,z) = <span class="number">3</span>y^<span class="number">2</span>z \left( <span class="number">3</span>+\frac&#123;<span class="number">7</span>x+<span class="number">5</span>&#125;&#123;<span class="number">1</span>+y^<span class="number">2</span>&#125; \right) $$</span><br></pre></td></tr></table></figure>
+<p>显示<br>$$ f(x,y,z) = 3y^2z \left( 3+\frac{7x+5}{1+y^2} \right) $$</p>
+<h2 id="分数"><a href="#分数" class="headerlink" title="分数"></a>分数</h2><p>通常使用 <code>\frac {分子} {分母}</code>命令产生一个分数<code>\frac {分子} {分母}</code>，分数可嵌套。<br>便捷情况可直接输入 \frac ab来快速生成一个\frac ab。<br>如果分式很复杂，亦可使用 分子 \over 分母 命令，此时分数仅有一层。</p>
+<p>例子：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span><span class="symbol">$</span>\<span class="built-in">frac</span>&#123;a<span class="number">-1</span>&#125;&#123;b<span class="number">-1</span>&#125; \quad <span class="keyword">and</span> \quad &#123;a+<span class="number">1</span>\over b+<span class="number">1</span>&#125;<span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+<p>显示</p>
+<p>$$\frac{a-1}{b-1} \quad and \quad {a+1\over b+1}$$</p>
+<h2 id="开方"><a href="#开方" class="headerlink" title="开方"></a>开方</h2><p>使用 <code>\sqrt [根指数，省略时为2] {被开方数}</code>命令输入开方。</p>
+<p>例子：</p>
+<p><code>$$\sqrt{2} \quad and \quad \sqrt[n]{3}$$</code></p>
+<p>显示</p>
+<p>$$\sqrt{2} \quad and \quad \sqrt[n]{3}$$</p>
+<h2 id="省略号"><a href="#省略号" class="headerlink" title="省略号"></a>省略号</h2><p>数学公式中常见的省略号有两种，<code>\ldots</code> 表示与文本底线对齐的省略号，<code>\cdots</code> 表示与文本中线对齐的省略号。</p>
+<p>例子：</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$<span class="keyword">$f</span>(x_1,x_2,<span class="symbol">\u</span>nderbrace&#123;<span class="symbol">\l</span>dots&#125;_&#123;<span class="symbol">\r</span>m ldots&#125; ,x_n) = x_1^2 + x_2^2 + <span class="symbol">\u</span>nderbrace&#123;<span class="symbol">\c</span>dots&#125;_&#123;<span class="symbol">\r</span>m cdots&#125; + x_n^2$$</span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p>$$f(x_1,x<em>2,\underbrace{\ldots}</em>{\rm ldots} ,x_n) = x_1^2 + x<em>2^2 + \underbrace{\cdots}</em>{\rm cdots} + x_n^2$$</p>
+<h2 id="矢量"><a href="#矢量" class="headerlink" title="矢量"></a>矢量</h2><p>使用 <code>\vec{矢量}</code>来自动产生一个矢量。也可以使用 <code>\overrightarrow</code>等命令自定义字母上方的符号。</p>
+<p>例子：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$$<span class="tag">\<span class="name">vec</span><span class="string">&#123;a&#125;</span></span> <span class="tag">\<span class="name">cdot</span></span> <span class="tag">\<span class="name">vec</span><span class="string">&#123;b&#125;</span>=<span class="number">0</span></span>$$</span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p>例子：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$$<span class="tag">\<span class="name">overleftarrow</span><span class="string">&#123;xy&#125;</span></span> <span class="tag">\<span class="name">quad</span></span> and <span class="tag">\<span class="name">quad</span></span> <span class="tag">\<span class="name">overleftrightarrow</span><span class="string">&#123;xy&#125;</span></span> <span class="tag">\<span class="name">quad</span></span> and <span class="tag">\<span class="name">quad</span></span> <span class="tag">\<span class="name">overrightarrow</span><span class="string">&#123;xy&#125;</span></span>$$</span></span><br></pre></td></tr></table></figure>
+<p>显示：<br>$$\overleftarrow{xy} \quad and \quad \overleftrightarrow{xy} \quad and \quad \overrightarrow{xy}$$</p>
+<h2 id="积分"><a href="#积分" class="headerlink" title="积分"></a>积分</h2><p>使用 \int_积分下限^积分上限 {被积表达式} 来输入一个积分。</p>
+<p>例子：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span><span class="symbol">$</span>\int_0^<span class="number">1</span> &#123;x^<span class="number">2</span>&#125; \,&#123;\rm d&#125;x<span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p>$$\int_0^1 {x^2} \,{\rm d}x$$</p>
+<h2 id="字体"><a href="#字体" class="headerlink" title="字体"></a>字体</h2><table>
+<thead>
+<tr>
+<th>输入</th>
+<th>说明</th>
+<th>显示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>\rm</code></td>
+<td>罗马体</td>
+<td>$$\rm Sample$$</td>
+</tr>
+<tr>
+<td><code>\it</code></td>
+<td>意大利体</td>
+<td>$$\it Sample $$</td>
+</tr>
+<tr>
+<td><code>\bf</code></td>
+<td>粗体</td>
+<td>$$\bf Sample $$</td>
+</tr>
+<tr>
+<td><code>\sf</code></td>
+<td>等线体</td>
+<td>$$\sf Sample $$</td>
+</tr>
+<tr>
+<td><code>\tt</code></td>
+<td>打字机体</td>
+<td>$$\tt Sample $$</td>
+</tr>
+<tr>
+<td><code>\frak</code></td>
+<td>旧德式字体</td>
+<td>$$\frak Sample $$</td>
+</tr>
+<tr>
+<td><code>\cal</code></td>
+<td>花体</td>
+<td>$$\cal Sample $$</td>
+</tr>
+<tr>
+<td><code>\Bbb</code></td>
+<td>黑板粗体</td>
+<td>$$\Bbb Sample $$</td>
+</tr>
+<tr>
+<td><code>\mit</code></td>
+<td>数学斜体</td>
+<td>$$\mit Sample $$</td>
+</tr>
+<tr>
+<td>\scr</td>
+<td>手写体</td>
+<td>$$\scr Sample$$</td>
+</tr>
+</tbody>
+</table>
+<h2 id="积分-1"><a href="#积分-1" class="headerlink" title="积分"></a>积分</h2><p>使用 <code>\int_积分下限^积分上限 {被积表达式}</code> 来输入一个积分。</p>
+<p>例子：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">$</span><span class="symbol">$</span>\int_0^<span class="number">1</span> &#123;x^<span class="number">2</span>&#125; \,&#123;\rm d&#125;x<span class="symbol">$</span><span class="symbol">$</span></span><br></pre></td></tr></table></figure>
+<p>显示<br>$$\int_0^1 {x^2} \,{\rm d}x$$</p>
+<h2 id="极限"><a href="#极限" class="headerlink" title="极限"></a>极限</h2><p>使用\lim_{变量 \to 表达式} 表达式 来输入一个极限。如有需求，可以更改 \to 符号至任意符号。</p>
+<p>例子：</p>
+<figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$$ <span class="tag">\<span class="name">lim</span></span>_&#123;n <span class="tag">\<span class="name">to</span></span> +<span class="tag">\<span class="name">infty</span></span>&#125; <span class="tag">\<span class="name">frac</span><span class="string">&#123;1&#125;</span><span class="string">&#123;n(n+1)&#125;</span></span> <span class="tag">\<span class="name">quad</span></span> and <span class="tag">\<span class="name">quad</span></span> <span class="tag">\<span class="name">lim</span></span>_&#123;x<span class="tag">\<span class="name">leftarrow</span><span class="string">&#123;示例&#125;</span></span>&#125; <span class="tag">\<span class="name">frac</span><span class="string">&#123;1&#125;</span><span class="string">&#123;n(n+1)&#125;</span></span> $$</span></span><br></pre></td></tr></table></figure>
+<p>显示：</p>
+<p>$$ \lim<em>{n \to +\infty} \frac{1}{n(n+1)} \quad and \quad \lim</em>{x\leftarrow{示例}} \frac{1}{n(n+1)} $$</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.zybuluo.com/codeep/note/163962" rel="external nofollow noopener noreferrer" target="_blank">Cmd Markdown 公式指导手册</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/数据知识/数学基础知识/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">数学知识一对数指数</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/工具/markdowm/Markdown公式编辑学习笔记/" data-title="Markdown公式编辑" data-url="http://yoursite.com/wiki/工具/markdowm/Markdown公式编辑学习笔记/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>

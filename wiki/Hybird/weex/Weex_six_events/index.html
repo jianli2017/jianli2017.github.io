@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>weex系列抄之一---事件处理 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="weex">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="weex">
+<meta property="og:type" content="article">
+<meta property="og:title" content="weex系列抄之一---事件处理">
+<meta property="og:url" content="http://yoursite.com/wiki/Hybird/weex/Weex_six_events/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-a02a52ecc0fd8691.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-07d0847d907f8fa9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-7a8ad495c476db65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-9bf2beec8ba1fb3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-d539c86914cdc7ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-f55d817e6397b58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-7045d54290886db8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-f5bc628a35e0623e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-54c227c43a2d3c20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-4ce6ab0c48383c8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-18f16117ad60e038.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-489fe952c028acc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-38a401738793eae9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-c8282fcd911caaa2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/1194012-c990ddac97537e7b.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-06-25T09:44:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="weex系列抄之一---事件处理">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/1194012-a02a52ecc0fd8691.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-Hybird/weex/Weex_six_events" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/Weex_six_events/">
+            <time datetime="2018-05-04T05:07:12.000Z" itemprop="datePublished">2018-05-04</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            weex系列抄之一---事件处理
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#前言"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#目录"><span class="toc-number">2.</span> <span class="toc-text">目录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一-Weex的事件类型"><span class="toc-number">3.</span> <span class="toc-text">一.Weex的事件类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-通用事件"><span class="toc-number">3.1.</span> <span class="toc-text">1. 通用事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（一）点击事件"><span class="toc-number">3.2.</span> <span class="toc-text">（一）点击事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）计算缩放比例因子"><span class="toc-number">3.3.</span> <span class="toc-text">（1）计算缩放比例因子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）计算视图的缩放尺寸"><span class="toc-number">3.4.</span> <span class="toc-text">（2）计算视图的缩放尺寸</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（二）轻扫事件"><span class="toc-number">3.5.</span> <span class="toc-text">（二）轻扫事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（三）长按事件"><span class="toc-number">3.6.</span> <span class="toc-text">（三）长按事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（四）拖动事件"><span class="toc-number">3.7.</span> <span class="toc-text">（四）拖动事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（五）通用触摸事件"><span class="toc-number">3.8.</span> <span class="toc-text">（五）通用触摸事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-Appear-事件"><span class="toc-number">3.9.</span> <span class="toc-text">2. Appear 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-Disappear-事件"><span class="toc-number">3.10.</span> <span class="toc-text">3. Disappear 事件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Page-事件"><span class="toc-number">3.11.</span> <span class="toc-text">4. Page 事件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二-Weex-的事件传递"><span class="toc-number">4.</span> <span class="toc-text">二.Weex 的事件传递</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#（1）callback"><span class="toc-number">4.1.</span> <span class="toc-text">（1）callback</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#（2）fireEvent-params-domChanges"><span class="toc-number">4.2.</span> <span class="toc-text">（2）fireEvent:params:domChanges:</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">5.</span> <span class="toc-text">最后</span></a></li></ol>
+                </div>
+            
+        
+        
+            <!--
+<p align='center'>
+<img src='http://upload-images.jianshu.io/upload_images/1194012-cc51f3fa785a0464.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240'>
+</p>
+-->
+<a id="more"></a>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在前两篇文章里面分别谈了 Weex 如何在 Native 端初始化的和 Weex 是如何高效的渲染 Native 的原生 UI 的。Native 这边还缺一块，那就是 Native 产生的一些事件，是怎么传回给 JS 的。这篇文章就详细分析这一部分。</p>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ul>
+<li>1.Weex 的事件类型</li>
+<li>2.Weex 的事件传递</li>
+</ul>
+<h2 id="一-Weex的事件类型"><a href="#一-Weex的事件类型" class="headerlink" title="一.Weex的事件类型"></a>一.Weex的事件类型</h2><p>在 Weex 中，目前最新版本中事件总共分为 4 种类型，通用事件，Appear 事件，Disappear 事件，Page 事件。</p>
+<p>在 Weex 的组件里面只包含前三种事件，即通用事件，Appear 事件，Disappear 事件。</p>
+<p>当 WXComponent 添加事件的时候，会调用以下函数：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)_addEventOnMainThread:(<span class="built_in">NSString</span> *)addEventName</span><br><span class="line">&#123;</span><br><span class="line">    WX_ADD_EVENT(appear, addAppearEvent)</span><br><span class="line">    WX_ADD_EVENT(disappear, addDisappearEvent)</span><br><span class="line">    </span><br><span class="line">    WX_ADD_EVENT(click, addClickEvent)</span><br><span class="line">    WX_ADD_EVENT(swipe, addSwipeEvent)</span><br><span class="line">    WX_ADD_EVENT(longpress, addLongPressEvent)</span><br><span class="line">    </span><br><span class="line">    WX_ADD_EVENT(panstart, addPanStartEvent)</span><br><span class="line">    WX_ADD_EVENT(panmove, addPanMoveEvent)</span><br><span class="line">    WX_ADD_EVENT(panend, addPanEndEvent)</span><br><span class="line">    </span><br><span class="line">    WX_ADD_EVENT(horizontalpan, addHorizontalPanEvent)</span><br><span class="line">    WX_ADD_EVENT(verticalpan, addVerticalPanEvent)</span><br><span class="line">    </span><br><span class="line">    WX_ADD_EVENT(touchstart, addTouchStartEvent)</span><br><span class="line">    WX_ADD_EVENT(touchmove, addTouchMoveEvent)</span><br><span class="line">    WX_ADD_EVENT(touchend, addTouchEndEvent)</span><br><span class="line">    WX_ADD_EVENT(touchcancel, addTouchCancelEvent)</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> addEvent:addEventName];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>WX_ADD_EVENT 是一个宏：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="meta">#define WX_ADD_EVENT(eventName, addSelector) \</span></span><br><span class="line"><span class="keyword">if</span> ([addEventName isEqualToString:@<span class="meta">#eventName]) &#123;\</span></span><br><span class="line">    [<span class="keyword">self</span> addSelector];\</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>即是判断待添加的事件 addEventName 的名字和默认支持的事件名字 eventName 是否一致，如果一致，就执行 addSelector 方法。</p>
+<p>最后会执行一个 addEvent: 方法，每个组件里面会可以重写这个方法。在这个方法里面做的就是对组件的状态的标识。</p>
+<p>比如 WXWebComponent 组件里面的 addEvent: 方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addEvent:(<span class="built_in">NSString</span> *)eventName</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([eventName isEqualToString:<span class="string">@"pagestart"</span>]) &#123;</span><br><span class="line">        _startLoadEvent = <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ([eventName isEqualToString:<span class="string">@"pagefinish"</span>]) &#123;</span><br><span class="line">        _finishLoadEvent = <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ([eventName isEqualToString:<span class="string">@"error"</span>]) &#123;</span><br><span class="line">        _failLoadEvent = <span class="literal">YES</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个方法里面即对 Web 组件里面的状态进行了标识。</p>
+<p>接下来就看看这几个组件是怎么识别事件的触发的。</p>
+<h3 id="1-通用事件"><a href="#1-通用事件" class="headerlink" title="1. 通用事件"></a>1. 通用事件</h3><p>在 WXComponent 的定义里，定义了如下和事件相关的变量：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">WXComponent</span> ()</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">@package</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">BOOL</span> _appearEvent;</span><br><span class="line">    <span class="built_in">BOOL</span> _disappearEvent;</span><br><span class="line">    <span class="built_in">UITapGestureRecognizer</span> *_tapGesture;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *_swipeGestures;</span><br><span class="line">    <span class="built_in">UILongPressGestureRecognizer</span> *_longPressGesture;</span><br><span class="line">    <span class="built_in">UIPanGestureRecognizer</span> *_panGesture;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">BOOL</span> _listenPanStart;</span><br><span class="line">    <span class="built_in">BOOL</span> _listenPanMove;</span><br><span class="line">    <span class="built_in">BOOL</span> _listenPanEnd;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">BOOL</span> _listenHorizontalPan;</span><br><span class="line">    <span class="built_in">BOOL</span> _listenVerticalPan;</span><br><span class="line">    </span><br><span class="line">    WXTouchGestureRecognizer* _touchGesture;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述变量里面就包含有4个手势识别器和1个自定义手势识别器。所以Weex的通用事件里面就包含这5种，点击事件，轻扫事件，长按事件，拖动事件，通用触摸事件。</p>
+<h3 id="（一）点击事件"><a href="#（一）点击事件" class="headerlink" title="（一）点击事件"></a>（一）点击事件</h3><p>首先看点击事件：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">WX_ADD_EVENT(click, addClickEvent)</span><br></pre></td></tr></table></figure>
+<p>点击事件是通过上面这个宏加到指定视图上的。这个宏上面提到过了。这里直接把宏展开</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#define WX_ADD_EVENT(click, addClickEvent) \</span></span><br><span class="line"><span class="keyword">if</span> ([addEventName isEqualToString:@“click”]) &#123;\</span><br><span class="line">    [<span class="keyword">self</span> addClickEvent];\</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果 addEventName 传进来 event 的是 @“click”，那么就是执行 addClickEvent 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addClickEvent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_tapGesture) &#123;</span><br><span class="line">        _tapGesture = [[<span class="built_in">UITapGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(onClick:)];</span><br><span class="line">        _tapGesture.delegate = <span class="keyword">self</span>;</span><br><span class="line">        [<span class="keyword">self</span>.view addGestureRecognizer:_tapGesture];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>给当前的视图增加一个点击手势，触发的方法是 onClick: 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onClick:(__unused <span class="built_in">UITapGestureRecognizer</span> *)recognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *position = [[<span class="built_in">NSMutableDictionary</span> alloc] initWithCapacity:<span class="number">4</span>];</span><br><span class="line">    <span class="built_in">CGFloat</span> scaleFactor = <span class="keyword">self</span>.weexInstance.pixelScaleFactor;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">CGRectEqualToRect</span>(<span class="keyword">self</span>.calculatedFrame, <span class="built_in">CGRectZero</span>)) &#123;</span><br><span class="line">        <span class="built_in">CGRect</span> frame = [<span class="keyword">self</span>.view.superview convertRect:<span class="keyword">self</span>.calculatedFrame toView:<span class="keyword">self</span>.view.window];</span><br><span class="line">        position[<span class="string">@"x"</span>] = @(frame.origin.x/scaleFactor);</span><br><span class="line">        position[<span class="string">@"y"</span>] = @(frame.origin.y/scaleFactor);</span><br><span class="line">        position[<span class="string">@"width"</span>] = @(frame.size.width/scaleFactor);</span><br><span class="line">        position[<span class="string">@"height"</span>] = @(frame.size.height/scaleFactor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> fireEvent:<span class="string">@"click"</span> params:@&#123;<span class="string">@"position"</span>:position&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一旦用户点击屏幕，就会触发点击手势，点击手势就会执行上述的 onClick: 方法。在这个方法中，Weex 会计算点击出点击到的视图的坐标以及宽高尺寸。</p>
+<p>说到这里就需要提到 Weex 的坐标计算方法了。</p>
+<h3 id="（1）计算缩放比例因子"><a href="#（1）计算缩放比例因子" class="headerlink" title="（1）计算缩放比例因子"></a>（1）计算缩放比例因子</h3><p>在日常 iOS 开发中，开发者使用的计算单位是 pt。</p>
+<p>iPhone5 分辨率320pt x 568pt<br>iPhone6 分辨率375pt x 667pt<br>iPhone6 Plus 分辨率414pt x 736pt  </p>
+<p>由于每个屏幕的 ppi 不同(ppi:Pixels Per Inch，即每英寸所拥有的像素数目，屏幕像素密度。)，最终会导致分辨率的不同。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-a02a52ecc0fd8691.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-07d0847d907f8fa9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>这也就是我们日常说的@1x，@2x，@3x，目前 iPhone 手机也就3种 ppi</p>
+<p>@1x，163ppi（iPhone3gs）<br>@2x，326ppi（iPhone4、4s、5、5s、6，6s，7）<br>@3x，401ppi（iPhone6+、6s+、7+）  </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-7a8ad495c476db65.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>px 即 pixels 像素，1px 代表屏幕上一个物理的像素点。</p>
+<p>iPhone5 像素640px x 1136px<br>iPhone6 像素750px x 1334px<br>iPhone6 Plus 像素1242px x 2208px  </p>
+<p>而 Weex 的开发中，目前都是用的 px，而且 <strong>Weex 对于长度值目前只支持像素 px 值，还不支持相对单位（em、rem）</strong>。</p>
+<p>那么就需要 pt 和 px 的换算了。</p>
+<p>在 Weex 的世界里，定义了一个默认屏幕尺寸，用来适配 iOS，Android 各种不同大小的屏幕。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// The default screen width which helps us to calculate the real size or scale in different devices.</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> CGFloat WXDefaultScreenWidth = <span class="number">750.0</span>;</span><br></pre></td></tr></table></figure>
+<p>在 Weex 中定义的默认的屏幕宽度是750，注意是宽度。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">+ (<span class="built_in">CGFloat</span>)defaultPixelScaleFactor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">CGFloat</span> defaultScaleFactor;</span><br><span class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">        defaultScaleFactor = [<span class="keyword">self</span> portraitScreenSize].width / WXDefaultScreenWidth;</span><br><span class="line">    &#125;);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> defaultScaleFactor;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里计算了一个默认的缩放比例因子，portraitScreenSize 里面计算出了屏幕在 portrait 方向下的大小，即如果方向是 landscape，那么缩放比例因子应该等于 WXScreenSize().height / WXDefaultScreenWidth，反之应该等于 WXScreenSize().width / WXDefaultScreenWidth。</p>
+<p>这里计算的是 pt。</p>
+<p>iPhone 4、4s、5、5s、5c、SE的比例因子是 0.42666667<br>iPhone 6、6s、7比例因子是0.5<br>iPhone 6+、6s+、7+比例因子是0.552  </p>
+<h3 id="（2）计算视图的缩放尺寸"><a href="#（2）计算视图的缩放尺寸" class="headerlink" title="（2）计算视图的缩放尺寸"></a>（2）计算视图的缩放尺寸</h3><p>计算视图的缩放尺寸主要在这个方法里面被计算。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)_calculateFrameWithSuperAbsolutePosition:(<span class="built_in">CGPoint</span>)superAbsolutePosition</span><br><span class="line">                           gatherDirtyComponents:(<span class="built_in">NSMutableSet</span>&lt;WXComponent *&gt; *)dirtyComponents</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_cssNode-&gt;layout.should_update) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    _cssNode-&gt;layout.should_update = <span class="literal">false</span>;</span><br><span class="line">    _isLayoutDirty = <span class="literal">NO</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 计算视图的Frame</span></span><br><span class="line">    <span class="built_in">CGRect</span> newFrame = <span class="built_in">CGRectMake</span>(WXRoundPixelValue(_cssNode-&gt;layout.position[CSS_LEFT]),</span><br><span class="line">                                 WXRoundPixelValue(_cssNode-&gt;layout.position[CSS_TOP]),</span><br><span class="line">                                 WXRoundPixelValue(_cssNode-&gt;layout.dimensions[CSS_WIDTH]),</span><br><span class="line">                                 WXRoundPixelValue(_cssNode-&gt;layout.dimensions[CSS_HEIGHT]));</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">BOOL</span> isFrameChanged = <span class="literal">NO</span>;</span><br><span class="line">    <span class="comment">// 比较newFrame和_calculatedFrame，第一次_calculatedFrame为CGRectZero</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">CGRectEqualToRect</span>(newFrame, _calculatedFrame)) &#123;</span><br><span class="line">        isFrameChanged = <span class="literal">YES</span>;</span><br><span class="line">        _calculatedFrame = newFrame;</span><br><span class="line">        [dirtyComponents addObject:<span class="keyword">self</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGPoint</span> newAbsolutePosition = [<span class="keyword">self</span> computeNewAbsolutePosition:superAbsolutePosition];</span><br><span class="line">    </span><br><span class="line">    _cssNode-&gt;layout.dimensions[CSS_WIDTH] = CSS_UNDEFINED;</span><br><span class="line">    _cssNode-&gt;layout.dimensions[CSS_HEIGHT] = CSS_UNDEFINED;</span><br><span class="line">    _cssNode-&gt;layout.position[CSS_LEFT] = <span class="number">0</span>;</span><br><span class="line">    _cssNode-&gt;layout.position[CSS_TOP] = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">self</span> _frameDidCalculated:isFrameChanged];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (WXComponent *subcomponent <span class="keyword">in</span> _subcomponents) &#123;</span><br><span class="line">        [subcomponent _calculateFrameWithSuperAbsolutePosition:newAbsolutePosition gatherDirtyComponents:dirtyComponents];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>newFrame 就是计算出来的缩放过的 Frame。</p>
+<p>如果尝试自己手动计算 Vue.js 上设置的 px 与实际的视图坐标值相比，你会发现永远都差一点，虽然偏差不多，但是总有误差，原因在哪里呢？就在 WXRoundPixelValue 这个函数里面。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGFloat</span> WXRoundPixelValue(<span class="built_in">CGFloat</span> value)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">CGFloat</span> scale = WXScreenScale();</span><br><span class="line">    <span class="keyword">return</span> round(value * scale) / scale;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>WXRoundPixelValue 这个函数里面进行了一次四舍五入的计算，这里会对精度有所损失，所以就会导致最终 Native 的组件的坐标会偏差一点。</p>
+<p>举个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">&lt;style&gt;</span><br><span class="line"></span><br><span class="line">    .pic&#123;</span><br><span class="line">        width: <span class="number">200</span>px;</span><br><span class="line">        height: <span class="number">200</span>px;</span><br><span class="line">        margin-top: <span class="number">100</span>px;</span><br><span class="line">        left: <span class="number">200</span>px;</span><br><span class="line">        background-color: #a88859;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&lt;<span class="regexp">/style&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这里是一个 imageComponent，坐标是距离上边距 100px，距离左边距 200px，宽 200px，高 200px。</p>
+<p>假设我们是在 iPhone 7+ 的屏幕上，ppi 对应的应该是 scale = 3（即@3x）。</p>
+<p>按照 Weex 的上述的计算方法算，那么对应缩放的 px 为：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">x = <span class="number">200</span> * ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">110.400000</span></span><br><span class="line">y = <span class="number">100</span> * ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">55.200000</span></span><br><span class="line">width = <span class="number">200</span> * ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">110.400000</span></span><br><span class="line">height = <span class="number">200</span> * ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">110.400000</span></span><br></pre></td></tr></table></figure>
+<p>再转换成 pt：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">x = round ( <span class="number">110.400000</span> * <span class="number">3</span> ) / <span class="number">3</span> = <span class="number">110.333333</span></span><br><span class="line">y = round ( <span class="number">55.200000</span> * <span class="number">3</span> ) / <span class="number">3</span> = <span class="number">55.333333</span></span><br><span class="line">width = round ( <span class="number">110.400000</span> * <span class="number">3</span> ) / <span class="number">3</span> = <span class="number">110.333333</span></span><br><span class="line">height = round ( <span class="number">110.400000</span> * <span class="number">3</span> ) / <span class="number">3</span> = <span class="number">110.333333</span></span><br></pre></td></tr></table></figure>
+<p>如果只是单纯的认为是针对 750 的成比缩放，那么这里 110.333333 / ( 414.0 / 750.0 ) = 199.87922101，你会发现这个数字距离 200 还是差了零点几。精度就是损失在了 round函数上了</p>
+<p>那么当前的 imageComponent 在父视图里面的 Frame = （110.333333，55.333333，110.333333，110.333333）。</p>
+<p>回到 onClick: 方法里面。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onClick:(__unused <span class="built_in">UITapGestureRecognizer</span> *)recognizer</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *position = [[<span class="built_in">NSMutableDictionary</span> alloc] initWithCapacity:<span class="number">4</span>];</span><br><span class="line">    <span class="built_in">CGFloat</span> scaleFactor = <span class="keyword">self</span>.weexInstance.pixelScaleFactor;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">CGRectEqualToRect</span>(<span class="keyword">self</span>.calculatedFrame, <span class="built_in">CGRectZero</span>)) &#123;</span><br><span class="line">        <span class="built_in">CGRect</span> frame = [<span class="keyword">self</span>.view.superview convertRect:<span class="keyword">self</span>.calculatedFrame toView:<span class="keyword">self</span>.view.window];</span><br><span class="line">        position[<span class="string">@"x"</span>] = @(frame.origin.x/scaleFactor);</span><br><span class="line">        position[<span class="string">@"y"</span>] = @(frame.origin.y/scaleFactor);</span><br><span class="line">        position[<span class="string">@"width"</span>] = @(frame.size.width/scaleFactor);</span><br><span class="line">        position[<span class="string">@"height"</span>] = @(frame.size.height/scaleFactor);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    [<span class="keyword">self</span> fireEvent:<span class="string">@"click"</span> params:@&#123;<span class="string">@"position"</span>:position&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果点击到视图，就会触发点击手势的处理方法，就会进入到上述方法里。</p>
+<p>这里会计算出点击到的视图相对于 window 的绝对坐标。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">CGRect</span> frame = [<span class="keyword">self</span>.view.superview convertRect:<span class="keyword">self</span>.calculatedFrame toView:<span class="keyword">self</span>.view.window];</span><br></pre></td></tr></table></figure>
+<p>上面这句话会进行一个坐标转换。坐标系转换到全局的 window 的左边。</p>
+<p>还是按照上面举的例子，如果 imageComponent 经过转换以后，frame = （110.33333333333333, 119.33333333333334, 110.33333333333333, 110.33333333333331），这里就是 y 轴的距离发生了变化，因为就加上了 navigation + statusBar 的64的高度。</p>
+<p>计算出了这个 window 绝对坐标之后，还要还原成相对于 750.0 宽度的“尺寸”。这里之所以打引号，就是因为这里有精度损失，在 round 函数那里丢了一些精度。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">x = <span class="number">110.33333333333333</span> / ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">199.8792270531401</span></span><br><span class="line">y = <span class="number">119.33333333333334</span> / ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">216.1835748792271</span></span><br><span class="line">width = <span class="number">110.33333333333333</span> / ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">199.8792270531401</span></span><br><span class="line">height = <span class="number">110.33333333333333</span> / ( <span class="number">414.0</span> / <span class="number">750.0</span> ) = <span class="number">199.8792270531401</span></span><br></pre></td></tr></table></figure>
+<p>上述就是点击以后经过转换最终得到的坐标，这个坐标会传递给 JS。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-9bf2beec8ba1fb3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="（二）轻扫事件"><a href="#（二）轻扫事件" class="headerlink" title="（二）轻扫事件"></a>（二）轻扫事件</h3><p>接着是轻扫事件。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">WX_ADD_EVENT(swipe, addSwipeEvent)</span><br></pre></td></tr></table></figure>
+<p>这个宏和上面点击事件的展开原理一样，这里不再赘述。</p>
+<p>如果 addEventName 传进来event的是@“swipe”，那么就是执行 addSwipeEvent 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addSwipeEvent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (_swipeGestures) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    _swipeGestures = [<span class="built_in">NSMutableArray</span> arrayWithCapacity:<span class="number">4</span>];</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 下面的代码写的比较“奇怪”，原因在于UISwipeGestureRecognizer的direction属性，是一个可选的位掩码，但是每个手势识别器又只能处理一个方向的手势，所以就导致了下面需要生成四个UISwipeGestureRecognizer的手势识别器。</span></span><br><span class="line"></span><br><span class="line">    SEL selector = <span class="keyword">@selector</span>(onSwipe:);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 新建一个upSwipeRecognizer</span></span><br><span class="line">    <span class="built_in">UISwipeGestureRecognizer</span> *upSwipeRecognizer = [[<span class="built_in">UISwipeGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span></span><br><span class="line">                                                                                            action:selector];</span><br><span class="line">    upSwipeRecognizer.direction = <span class="built_in">UISwipeGestureRecognizerDirectionUp</span>;</span><br><span class="line">    upSwipeRecognizer.delegate = <span class="keyword">self</span>;</span><br><span class="line">    [_swipeGestures addObject:upSwipeRecognizer];</span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:upSwipeRecognizer];</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">    <span class="comment">// 新建一个downSwipeRecognizer</span></span><br><span class="line">    <span class="built_in">UISwipeGestureRecognizer</span> *downSwipeRecognizer = [[<span class="built_in">UISwipeGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span></span><br><span class="line">                                                                                              action:selector];</span><br><span class="line">    downSwipeRecognizer.direction = <span class="built_in">UISwipeGestureRecognizerDirectionDown</span>;</span><br><span class="line">    downSwipeRecognizer.delegate = <span class="keyword">self</span>;</span><br><span class="line">    [_swipeGestures addObject:downSwipeRecognizer];</span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:downSwipeRecognizer];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 新建一个rightSwipeRecognizer</span></span><br><span class="line">    <span class="built_in">UISwipeGestureRecognizer</span> *rightSwipeRecognizer = [[<span class="built_in">UISwipeGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span></span><br><span class="line">                                                                                               action:selector];</span><br><span class="line">    rightSwipeRecognizer.direction = <span class="built_in">UISwipeGestureRecognizerDirectionRight</span>;</span><br><span class="line">    rightSwipeRecognizer.delegate = <span class="keyword">self</span>;</span><br><span class="line">    [_swipeGestures addObject:rightSwipeRecognizer];</span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:rightSwipeRecognizer];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 新建一个leftSwipeRecognizer</span></span><br><span class="line">    <span class="built_in">UISwipeGestureRecognizer</span> *leftSwipeRecognizer = [[<span class="built_in">UISwipeGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span></span><br><span class="line">                                                                                              action:selector];</span><br><span class="line">    leftSwipeRecognizer.direction = <span class="built_in">UISwipeGestureRecognizerDirectionLeft</span>;</span><br><span class="line">    leftSwipeRecognizer.delegate = <span class="keyword">self</span>;</span><br><span class="line">    [_swipeGestures addObject:leftSwipeRecognizer];</span><br><span class="line">    [<span class="keyword">self</span>.view addGestureRecognizer:leftSwipeRecognizer];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面会新建4个方向上的手势识别器。因为每个手势识别器又只能处理一个方向的手势，所以就导致了需要生成四个 UISwipeGestureRecognizer 的手势识别器。</p>
+<p>给当前的视图增加一个轻扫手势，触发的方法是 onSwipe: 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onSwipe:(<span class="built_in">UISwipeGestureRecognizer</span> *)gesture</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">UISwipeGestureRecognizerDirection</span> direction = gesture.direction;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSString</span> *directionString;</span><br><span class="line">    <span class="keyword">switch</span>(direction) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UISwipeGestureRecognizerDirectionLeft</span>:</span><br><span class="line">            directionString = <span class="string">@"left"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UISwipeGestureRecognizerDirectionRight</span>:</span><br><span class="line">            directionString = <span class="string">@"right"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UISwipeGestureRecognizerDirectionUp</span>:</span><br><span class="line">            directionString = <span class="string">@"up"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="built_in">UISwipeGestureRecognizerDirectionDown</span>:</span><br><span class="line">            directionString = <span class="string">@"down"</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            directionString = <span class="string">@"unknown"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">CGPoint</span> screenLocation = [gesture locationInView:<span class="keyword">self</span>.view.window];</span><br><span class="line">    <span class="built_in">CGPoint</span> pageLoacation = [gesture locationInView:<span class="keyword">self</span>.weexInstance.rootView];</span><br><span class="line">    <span class="built_in">NSDictionary</span> *resultTouch = [<span class="keyword">self</span> touchResultWithScreenLocation:screenLocation pageLocation:pageLoacation identifier:gesture.wx_identifier];</span><br><span class="line">    [<span class="keyword">self</span> fireEvent:<span class="string">@"swipe"</span> params:@&#123;<span class="string">@"direction"</span>:directionString, <span class="string">@"changedTouches"</span>:resultTouch ? @[resultTouch] : @[]&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当用户轻扫以后，会触发轻扫手势，于是会在 window 上和 rootView 上会获取到2个坐标。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="built_in">NSDictionary</span> *)touchResultWithScreenLocation:(<span class="built_in">CGPoint</span>)screenLocation pageLocation:(<span class="built_in">CGPoint</span>)pageLocation identifier:(<span class="built_in">NSNumber</span> *)identifier</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *resultTouch = [[<span class="built_in">NSMutableDictionary</span> alloc] initWithCapacity:<span class="number">5</span>];</span><br><span class="line">    <span class="built_in">CGFloat</span> scaleFactor = <span class="keyword">self</span>.weexInstance.pixelScaleFactor;</span><br><span class="line">    resultTouch[<span class="string">@"screenX"</span>] = @(screenLocation.x/scaleFactor);</span><br><span class="line">    resultTouch[<span class="string">@"screenY"</span>] = @(screenLocation.y/scaleFactor);</span><br><span class="line">    resultTouch[<span class="string">@"pageX"</span>] = @(pageLocation.x/scaleFactor);</span><br><span class="line">    resultTouch[<span class="string">@"pageY"</span>] = @(pageLocation.y/scaleFactor);</span><br><span class="line">    resultTouch[<span class="string">@"identifier"</span>] = identifier;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> resultTouch;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>screenLocation 和 pageLocation 两个坐标点，还是会根据缩放比例还原成相对于750宽度的页面的坐标。screenLocation 的 X 值和 Y 值、pageLocation 的 X 值和 Y 值分别封装到 resultTouch 字典里。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIGestureRecognizer</span> (<span class="title">WXGesture</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSNumber</span> *)wx_identifier</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSNumber</span> *identifier = objc_getAssociatedObject(<span class="keyword">self</span>, _cmd);</span><br><span class="line">    <span class="keyword">if</span> (!identifier) &#123;</span><br><span class="line">        <span class="keyword">static</span> <span class="built_in">NSUInteger</span> _gestureIdentifier;</span><br><span class="line">        identifier = @(_gestureIdentifier++);</span><br><span class="line">        <span class="keyword">self</span>.wx_identifier = identifier;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> identifier;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setWx_identifier:(<span class="built_in">NSNumber</span> *)wx_identifier</span><br><span class="line">&#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, <span class="keyword">@selector</span>(wx_identifier), wx_identifier, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>最后 resultTouch 里面还包含一个 identifier 的参数，这个 identifier 是一个全局唯一的 NSUInteger。wx_identifier 被关联到了各个手势识别器上了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-d539c86914cdc7ad.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="（三）长按事件"><a href="#（三）长按事件" class="headerlink" title="（三）长按事件"></a>（三）长按事件</h3><p>接着是轻扫事件。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">WX_ADD_EVENT(longpress, addLongPressEvent)</span><br></pre></td></tr></table></figure>
+<p>这个宏和上面点击事件的展开原理一样，这里不再赘述。</p>
+<p>如果 addEventName 传进来 event 的是 @“longpress”，那么就是执行 addLongPressEvent 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addLongPressEvent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_longPressGesture) &#123;</span><br><span class="line">        _longPressGesture = [[<span class="built_in">UILongPressGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(onLongPress:)];</span><br><span class="line">        _longPressGesture.delegate = <span class="keyword">self</span>;</span><br><span class="line">        [<span class="keyword">self</span>.view addGestureRecognizer:_longPressGesture];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>给当前的视图增加一个长按手势，触发的方法是 onLongPress: 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)onLongPress:(<span class="built_in">UILongPressGestureRecognizer</span> *)gesture</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (gesture.state == <span class="built_in">UIGestureRecognizerStateBegan</span>) &#123;</span><br><span class="line">        <span class="built_in">CGPoint</span> screenLocation = [gesture locationInView:<span class="keyword">self</span>.view.window];</span><br><span class="line">        <span class="built_in">CGPoint</span> pageLoacation = [gesture locationInView:<span class="keyword">self</span>.weexInstance.rootView];</span><br><span class="line">        <span class="built_in">NSDictionary</span> *resultTouch = [<span class="keyword">self</span> touchResultWithScreenLocation:screenLocation pageLocation:pageLoacation identifier:gesture.wx_identifier];</span><br><span class="line">        [<span class="keyword">self</span> fireEvent:<span class="string">@"longpress"</span> params:@&#123;<span class="string">@"changedTouches"</span>:resultTouch ? @[resultTouch] : @[]&#125;];</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (gesture.state == <span class="built_in">UIGestureRecognizerStateEnded</span>) &#123;</span><br><span class="line">        gesture.wx_identifier = <span class="literal">nil</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>长按手势传给 JS 的参数和轻扫的参数 changedTouches 几乎一致。在长按手势开始的时候就传递给 JS 两个 Point，screenLocation 和 pageLoacation，以及手势的wx_identifier。这部分和轻扫手势基本一样，不多赘述。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-f55d817e6397b58d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="（四）拖动事件"><a href="#（四）拖动事件" class="headerlink" title="（四）拖动事件"></a>（四）拖动事件</h3><p>拖动事件在 Weex 里面包含5个事件。分别对应着拖动的5种状态：拖动开始，拖动中，拖动结束，水平拖动，竖直拖动。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">WX_ADD_EVENT(panstart, addPanStartEvent)</span><br><span class="line">WX_ADD_EVENT(panmove, addPanMoveEvent)</span><br><span class="line">WX_ADD_EVENT(panend, addPanEndEvent)</span><br><span class="line">WX_ADD_EVENT(horizontalpan, addHorizontalPanEvent)</span><br><span class="line">WX_ADD_EVENT(verticalpan, addVerticalPanEvent)</span><br></pre></td></tr></table></figure>
+<p>为了区分上面5种状态，Weex 还对每个状态增加了一个 BOOL 变量来判断当前的状态。分别如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">BOOL</span> _listenPanStart;</span><br><span class="line"><span class="built_in">BOOL</span> _listenPanMove;</span><br><span class="line"><span class="built_in">BOOL</span> _listenPanEnd;</span><br><span class="line"><span class="built_in">BOOL</span> _listenHorizontalPan;</span><br><span class="line"><span class="built_in">BOOL</span> _listenVerticalPan;</span><br></pre></td></tr></table></figure>
+<p>通过宏增加的5个事件，实质都是执行了 addPanGesture 方法，只不过每个状态的事件都会跟对应的BOOL变量。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addPanStartEvent</span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">// 拖动开始</span></span><br><span class="line">    _listenPanStart = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addPanGesture];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addPanMoveEvent</span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">// 拖动中</span></span><br><span class="line">    _listenPanMove = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addPanGesture];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addPanEndEvent</span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">// 拖动结束</span></span><br><span class="line">    _listenPanEnd = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addPanGesture];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addHorizontalPanEvent</span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">// 水平拖动</span></span><br><span class="line">    _listenHorizontalPan = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addPanGesture];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addVerticalPanEvent</span><br><span class="line">&#123;</span><br><span class="line">   <span class="comment">// 竖直拖动</span></span><br><span class="line">    _listenVerticalPan = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span> addPanGesture];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终都是调用addPanGesture方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addPanGesture</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!_panGesture) &#123;</span><br><span class="line">        _panGesture = [[<span class="built_in">UIPanGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(onPan:)];</span><br><span class="line">        _panGesture.delegate = <span class="keyword">self</span>;</span><br><span class="line">        [<span class="keyword">self</span>.view addGestureRecognizer:_panGesture];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>给当前的视图增加一个拖动手势，触发的方法是 onPan: 方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (void)onPan:(UIPanGestureRecognizer *)gesture</span><br><span class="line">&#123;</span><br><span class="line">    CGPoint screenLocation = [gesture locationInView:self.view.window];</span><br><span class="line">    CGPoint pageLoacation = [gesture locationInView:self.weexInstance.rootView];</span><br><span class="line">    NSString *eventName;</span><br><span class="line">    NSString *state = @&quot;&quot;;</span><br><span class="line">    NSDictionary *resultTouch = [self touchResultWithScreenLocation:screenLocation pageLocation:pageLoacation identifier:gesture.wx_identifier];</span><br><span class="line">    </span><br><span class="line">    if (gesture.state == UIGestureRecognizerStateBegan) &#123;</span><br><span class="line">        if (_listenPanStart) &#123;</span><br><span class="line">            eventName = @&quot;panstart&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        state = @&quot;start&quot;;</span><br><span class="line">    &#125; else if (gesture.state == UIGestureRecognizerStateEnded) &#123;</span><br><span class="line">        if (_listenPanEnd) &#123;</span><br><span class="line">            eventName = @&quot;panend&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        state = @&quot;end&quot;;</span><br><span class="line">        gesture.wx_identifier = nil;</span><br><span class="line">    &#125; else if (gesture.state == UIGestureRecognizerStateChanged) &#123;</span><br><span class="line">        if (_listenPanMove) &#123;</span><br><span class="line">             eventName = @&quot;panmove&quot;;</span><br><span class="line">        &#125;</span><br><span class="line">        state = @&quot;move&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    CGPoint translation = [_panGesture translationInView:self.view];</span><br><span class="line">    </span><br><span class="line">    if (_listenHorizontalPan &amp;&amp; fabs(translation.y) &lt;= fabs(translation.x)) &#123;</span><br><span class="line">        [self fireEvent:@&quot;horizontalpan&quot; params:@&#123;@&quot;state&quot;:state, @&quot;changedTouches&quot;:resultTouch ? @[resultTouch] : @[]&#125;];</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    if (_listenVerticalPan &amp;&amp; fabs(translation.y) &gt; fabs(translation.x)) &#123;</span><br><span class="line">        [self fireEvent:@&quot;verticalpan&quot; params:@&#123;@&quot;state&quot;:state, @&quot;changedTouches&quot;:resultTouch ? @[resultTouch] : @[]&#125;];</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    if (eventName) &#123;</span><br><span class="line">        [self fireEvent:eventName params:@&#123;@&quot;changedTouches&quot;:resultTouch ? @[resultTouch] : @[]&#125;];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>拖动事件最终传给 JS 的 resultTouch 字典和前两个手势的原理一样，也是需要传入两个 Point，screenLocation 和 pageLoacation，这里不再赘述。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-7045d54290886db8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>根据 _listenPanStart，_listenPanEnd，_listenPanMove 判断当前的状态，并生成与之对应的 eventName 和 state 字符串。</p>
+<p>根据 _panGesture 在当前视图上拖动形成的有方向的向量，进行判断当前拖动的方向。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-f5bc628a35e0623e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<h3 id="（五）通用触摸事件"><a href="#（五）通用触摸事件" class="headerlink" title="（五）通用触摸事件"></a>（五）通用触摸事件</h3><p>最后就是通用的触摸事件。</p>
+<p>Weex 里面对每个 Component 都新建了一个手势识别器。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">WXTouchGestureRecognizer</span> : <span class="title">UIGestureRecognizer</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> listenTouchStart;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> listenTouchMove;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> listenTouchEnd;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> listenTouchCancel;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> listenPseudoTouch;</span><br><span class="line">&#123;</span><br><span class="line">    __<span class="keyword">weak</span> WXComponent *_component;</span><br><span class="line">    <span class="built_in">NSUInteger</span> _touchIdentifier;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithComponent:(WXComponent *)component <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>WXTouchGestureRecognizer 是继承自 UIGestureRecognizer。里面就5个 BOOL。分别表示5种状态。</p>
+<p>WXTouchGestureRecognizer 会弱引用当前的 WXComponent，并且也依旧有touchIdentifier。</p>
+<p>Weex 通过以下4个宏注册触摸事件方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">WX_ADD_EVENT(touchstart, addTouchStartEvent)</span><br><span class="line">WX_ADD_EVENT(touchmove, addTouchMoveEvent)</span><br><span class="line">WX_ADD_EVENT(touchend, addTouchEndEvent)</span><br><span class="line">WX_ADD_EVENT(touchcancel, addTouchCancelEvent)</span><br></pre></td></tr></table></figure>
+<p>通过上述宏增加的4个事件，实质都是改变每个状态的事件都会跟对应的BOOL变量。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addTouchStartEvent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.touchGesture.listenTouchStart = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addTouchMoveEvent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.touchGesture.listenTouchMove = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addTouchEndEvent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.touchGesture.listenTouchEnd = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addTouchCancelEvent</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">self</span>.touchGesture.listenTouchCancel = <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当用户开始触摸屏幕，在屏幕上移动，手指从屏幕上结束触摸，取消触摸，分别都会触发touchesBegan:，touchesMoved:，touchesEnded:，touchesCancelled:方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesBegan:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> touchesBegan:touches withEvent:event];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_listenTouchStart) &#123;</span><br><span class="line">        [<span class="keyword">self</span> fireTouchEvent:<span class="string">@"touchstart"</span> withTouches:touches];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(_listenPseudoTouch) &#123;</span><br><span class="line">        <span class="built_in">NSMutableDictionary</span> *styles = [_component getPseudoClassStyles:<span class="string">@"active"</span>];</span><br><span class="line">        [_component updatePseudoClassStyles:styles];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesMoved:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> touchesMoved:touches withEvent:event];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_listenTouchMove) &#123;</span><br><span class="line">        [<span class="keyword">self</span> fireTouchEvent:<span class="string">@"touchmove"</span> withTouches:touches];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesEnded:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">    [<span class="keyword">super</span> touchesEnded:touches withEvent:event];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_listenTouchEnd) &#123;</span><br><span class="line">        [<span class="keyword">self</span> fireTouchEvent:<span class="string">@"touchend"</span> withTouches:touches];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(_listenPseudoTouch) &#123;</span><br><span class="line">        [<span class="keyword">self</span> recoveryPseudoStyles:_component.styles];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)touchesCancelled:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches withEvent:(<span class="built_in">UIEvent</span> *)event</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">super</span> touchesCancelled:touches withEvent:event];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_listenTouchCancel) &#123;</span><br><span class="line">        [<span class="keyword">self</span> fireTouchEvent:<span class="string">@"touchcancel"</span> withTouches:touches];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(_listenPseudoTouch) &#123;</span><br><span class="line">        [<span class="keyword">self</span> recoveryPseudoStyles:_component.styles];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述的4个事件里面实质都是在调用 fireTouchEvent:withTouches: 方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fireTouchEvent:(<span class="built_in">NSString</span> *)eventName withTouches:(<span class="built_in">NSSet</span>&lt;<span class="built_in">UITouch</span> *&gt; *)touches</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableArray</span> *resultTouches = [<span class="built_in">NSMutableArray</span> new];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">UITouch</span> *touch <span class="keyword">in</span> touches) &#123;</span><br><span class="line">        <span class="built_in">CGPoint</span> screenLocation = [touch locationInView:touch.window];</span><br><span class="line">        <span class="built_in">CGPoint</span> pageLocation = [touch locationInView:_component.weexInstance.rootView];</span><br><span class="line">        <span class="keyword">if</span> (!touch.wx_identifier) &#123;</span><br><span class="line">            touch.wx_identifier = @(_touchIdentifier++);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">NSDictionary</span> *resultTouch = [_component touchResultWithScreenLocation:screenLocation pageLocation:pageLocation identifier:touch.wx_identifier];</span><br><span class="line">        [resultTouches addObject:resultTouch];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [_component fireEvent:eventName params:@&#123;<span class="string">@"changedTouches"</span>:resultTouches ?: @[]&#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>最终这个方法和前3个手势一样，都需要给 resultTouches 传入2个Point和1个wx_identifier。原理一致。</p>
+<p>至于坐标如何传递给JS见第二章。</p>
+<h3 id="2-Appear-事件"><a href="#2-Appear-事件" class="headerlink" title="2. Appear 事件"></a>2. Appear 事件</h3><p>如果一个位于某个可滚动区域内的组件被绑定了 appear 事件，那么当这个组件的状态变为在屏幕上可见时，该事件将被触发。</p>
+<p>所以绑定了 Appear 事件的都是可以滚动的视图。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-54c227c43a2d3c20.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">WX_ADD_EVENT(appear, addAppearEvent)</span><br></pre></td></tr></table></figure>
+<p>通过上述的宏给可以滚动的视图增加 Appear 事件。也就是当前视图执行 addAppearEvent 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addAppearEvent</span><br><span class="line">&#123;</span><br><span class="line">    _appearEvent = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span>.ancestorScroller addScrollToListener:<span class="keyword">self</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 Weex 的每个组件里面都有2个 BOOL 记录着当前 _appearEvent 和 _disappearEvent 的状态。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">BOOL</span> _appearEvent;</span><br><span class="line"><span class="built_in">BOOL</span> _disappearEvent;</span><br></pre></td></tr></table></figure>
+<p>当增加对应的事件的时候，就会把对应的 BOOL 变成 YES。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">id</span>&lt;WXScrollerProtocol&gt;)ancestorScroller</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span>(!_ancestorScroller) &#123;</span><br><span class="line">        WXComponent *supercomponent = <span class="keyword">self</span>.supercomponent;</span><br><span class="line">        <span class="keyword">while</span> (supercomponent) &#123;</span><br><span class="line">            <span class="keyword">if</span>([supercomponent conformsToProtocol:<span class="class"><span class="keyword">@protocol</span>(<span class="title">WXScrollerProtocol</span>)]) </span>&#123;</span><br><span class="line">                _ancestorScroller = (<span class="keyword">id</span>&lt;WXScrollerProtocol&gt;)supercomponent;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            supercomponent = supercomponent.supercomponent;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> _ancestorScroller;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于 Appear 事件和 Disappear 事件都必须要求是滚动视图，所以这里会遍历当前视图的 supercomponent，直到找到一个遵循 WXScrollerProtocol 的 supercomponent。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addScrollToListener:(WXComponent *)target</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">BOOL</span> has = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">for</span> (WXScrollToTarget *targetData <span class="keyword">in</span> <span class="keyword">self</span>.listenerArray) &#123;</span><br><span class="line">        <span class="keyword">if</span> (targetData.target == target) &#123;</span><br><span class="line">            has = <span class="literal">YES</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!has) &#123;</span><br><span class="line">        WXScrollToTarget *scrollTarget = [[WXScrollToTarget alloc] init];</span><br><span class="line">        scrollTarget.target = target;</span><br><span class="line">        scrollTarget.hasAppear = <span class="literal">NO</span>;</span><br><span class="line">        [<span class="keyword">self</span>.listenerArray addObject:scrollTarget];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在滚动视图里面包含有一个 listenerArray，数组里面装的都是被监听的对象。添加进这个数组会先判断当前是否有相同的 WXScrollToTarget，避免重复添加，如果没有重复的就新建一个 WXScrollToTarget，再添加进 listenerArray中。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">WXScrollToTarget</span> : <span class="title">NSObject</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>)   WXComponent *target;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">BOOL</span> hasAppear;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>WXScrollToTarget 是一个普通的对象，里面弱引用了当前需要监听的 WXComponent，以及一个 BOOL 变量记录当前是否 Appear 了。</p>
+<p>当滚动视图滚动的时候，就会触发 scrollViewDidScroll: 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)scrollViewDidScroll:(<span class="built_in">UIScrollView</span> *)scrollView</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//apply block which are registered</span></span><br><span class="line">    WXSDKInstance *instance = <span class="keyword">self</span>.weexInstance;</span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.ref isEqualToString:WX_SDK_ROOT_REF] &amp;&amp;</span><br><span class="line">        [<span class="keyword">self</span> isKindOfClass:[WXScrollerComponent <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (instance.onScroll) &#123;</span><br><span class="line">            instance.onScroll(scrollView.contentOffset);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (_lastContentOffset.x &gt; scrollView.contentOffset.x) &#123;</span><br><span class="line">        _direction = <span class="string">@"right"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (_lastContentOffset.x &lt; scrollView.contentOffset.x) &#123;</span><br><span class="line">        _direction = <span class="string">@"left"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(_lastContentOffset.y &gt; scrollView.contentOffset.y) &#123;</span><br><span class="line">        _direction = <span class="string">@"down"</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span>(_lastContentOffset.y &lt; scrollView.contentOffset.y) &#123;</span><br><span class="line">        _direction = <span class="string">@"up"</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    _lastContentOffset = scrollView.contentOffset;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// check sticky</span></span><br><span class="line">    [<span class="keyword">self</span> adjustSticky];</span><br><span class="line">    [<span class="keyword">self</span> handleLoadMore];</span><br><span class="line">    [<span class="keyword">self</span> handleAppear];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.onScroll) &#123;</span><br><span class="line">        <span class="keyword">self</span>.onScroll(scrollView);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的方法中[self handleAppear]就是触发了判断是否 Appear 了。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)handleAppear</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (![<span class="keyword">self</span> isViewLoaded]) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">UIScrollView</span> *scrollView = (<span class="built_in">UIScrollView</span> *)<span class="keyword">self</span>.view;</span><br><span class="line">    <span class="built_in">CGFloat</span> vx = scrollView.contentInset.left + scrollView.contentOffset.x;</span><br><span class="line">    <span class="built_in">CGFloat</span> vy = scrollView.contentInset.top + scrollView.contentOffset.y;</span><br><span class="line">    <span class="built_in">CGFloat</span> vw = scrollView.frame.size.width - scrollView.contentInset.left - scrollView.contentInset.right;</span><br><span class="line">    <span class="built_in">CGFloat</span> vh = scrollView.frame.size.height - scrollView.contentInset.top - scrollView.contentInset.bottom;</span><br><span class="line">    <span class="built_in">CGRect</span> scrollRect = <span class="built_in">CGRectMake</span>(vx, vy, vw, vh);;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// notify action for appear</span></span><br><span class="line">    <span class="keyword">for</span>(WXScrollToTarget *target <span class="keyword">in</span> <span class="keyword">self</span>.listenerArray)&#123;</span><br><span class="line">        [<span class="keyword">self</span> scrollToTarget:target scrollRect:scrollRect];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面这个方法会把 listenerArray 数组里面的每个 WXScrollToTarget 对象都调用 scrollToTarget:scrollRect: 方法。根据当前滚动的情况传入一个 CGRect，这个 CGRect 就是当前滚动到那个矩形区域的坐标信息以及宽和高。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)scrollToTarget:(WXScrollToTarget *)target scrollRect:(<span class="built_in">CGRect</span>)rect</span><br><span class="line">&#123;</span><br><span class="line">    WXComponent *component = target.target;</span><br><span class="line">    <span class="keyword">if</span> (![component isViewLoaded]) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 计算出当前的可见区域的顶部坐标</span></span><br><span class="line">    <span class="built_in">CGFloat</span> ctop;</span><br><span class="line">    <span class="keyword">if</span> (component &amp;&amp; component-&gt;_view &amp;&amp; component-&gt;_view.superview) &#123;</span><br><span class="line">        ctop = [component-&gt;_view.superview convertPoint:component-&gt;_view.frame.origin toView:_view].y;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ctop = <span class="number">0.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 计算出当前的可见区域的底部坐标</span></span><br><span class="line">    <span class="built_in">CGFloat</span> cbottom = ctop + <span class="built_in">CGRectGetHeight</span>(component.calculatedFrame);</span><br><span class="line">    <span class="comment">// 计算出当前的可见区域的左边界坐标</span></span><br><span class="line">    <span class="built_in">CGFloat</span> cleft;</span><br><span class="line">    <span class="keyword">if</span> (component &amp;&amp; component-&gt;_view &amp;&amp; component-&gt;_view.superview) &#123;</span><br><span class="line">        cleft = [component-&gt;_view.superview convertPoint:component-&gt;_view.frame.origin toView:_view].x;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        cleft = <span class="number">0.0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 计算出当前的可见区域的右边界坐标</span></span><br><span class="line">    <span class="built_in">CGFloat</span> cright = cleft + <span class="built_in">CGRectGetWidth</span>(component.calculatedFrame);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 获取传入的滚动的区域</span></span><br><span class="line">    <span class="built_in">CGFloat</span> vtop = <span class="built_in">CGRectGetMinY</span>(rect), vbottom = <span class="built_in">CGRectGetMaxY</span>(rect), vleft = <span class="built_in">CGRectGetMinX</span>(rect), vright = <span class="built_in">CGRectGetMaxX</span>(rect);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 判断当前可见区域是否包含在传入的滚动区域内，如果在，并且监听了appear事件，就触发appear事件，否则如果监听了disappear事件就触发disappear事件</span></span><br><span class="line">    <span class="keyword">if</span>(cbottom &gt; vtop &amp;&amp; ctop &lt;= vbottom &amp;&amp; cleft &lt;= vright &amp;&amp; cright &gt; vleft)&#123;</span><br><span class="line">        <span class="keyword">if</span>(!target.hasAppear &amp;&amp; component)&#123;</span><br><span class="line">            target.hasAppear = <span class="literal">YES</span>;</span><br><span class="line">            <span class="comment">// 如果当前监听了appear，就触发appear事件</span></span><br><span class="line">            <span class="keyword">if</span> (component-&gt;_appearEvent) &#123;</span><br><span class="line">                [component fireEvent:<span class="string">@"appear"</span> params:_direction ? @&#123;<span class="string">@"direction"</span>:_direction&#125; : <span class="literal">nil</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(target.hasAppear &amp;&amp; component)&#123;</span><br><span class="line">            target.hasAppear = <span class="literal">NO</span>;</span><br><span class="line">            <span class="comment">// 如果当前监听了disappear，就触发disappear事件</span></span><br><span class="line">            <span class="keyword">if</span>(component-&gt;_disappearEvent)&#123;</span><br><span class="line">                [component fireEvent:<span class="string">@"disappear"</span> params:_direction ? @&#123;<span class="string">@"direction"</span>:_direction&#125; : <span class="literal">nil</span>];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-4ce6ab0c48383c8b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>scrollToTarget:scrollRect: 方法的核心就是拿当前可视区域和传入的滚动区域进行对比，如果在该区域内，且监听了 appear 事件，就会触发 appear 事件，如果不在该区域内，且监听了 disappear 事件，就会触发 disappear 事件。</p>
+<h3 id="3-Disappear-事件"><a href="#3-Disappear-事件" class="headerlink" title="3. Disappear 事件"></a>3. Disappear 事件</h3><p>如果一个位于某个可滚动区域内的组件被绑定了 disappear 事件，那么当这个组件被滑出屏幕变为不可见状态时，该事件将被触发。</p>
+<p>同理，绑定了 Disappear 事件的都是可以滚动的视图。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-18f16117ad60e038.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">WX_ADD_EVENT(disappear, addDisappearEvent)</span><br></pre></td></tr></table></figure>
+<p>通过上述的宏给可以滚动的视图增加 Disappear 事件。也就是当前视图执行 addDisappearEvent 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)addDisappearEvent</span><br><span class="line">&#123;</span><br><span class="line">    _disappearEvent = <span class="literal">YES</span>;</span><br><span class="line">    [<span class="keyword">self</span>.ancestorScroller addScrollToListener:<span class="keyword">self</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接下去的和 Appear 事件的原理就一模一样了。</p>
+<h3 id="4-Page-事件"><a href="#4-Page-事件" class="headerlink" title="4. Page 事件"></a>4. Page 事件</h3><p><strong>暂时 Weex 只支持 iOS 和 Android，H5 暂不支持。</strong></p>
+<p>Weex 通过 viewappear 和 viewdisappear 事件提供了简单的页面状态管理能力。</p>
+<p>viewappear 事件会在页面就要显示或配置的任何页面动画被执行前触发，例如，当调用 navigator 模块的 push 方法时，该事件将会在打开新页面时被触发。viewdisappear 事件会在页面就要关闭时被触发。</p>
+<p>与组件 Component的 appear 和 disappear 事件不同的是，viewappear 和 viewdisappear 事件关注的是整个页面的状态，所以它们必须绑定到页面的根元素上。</p>
+<p>特殊情况下，这两个事件也能被绑定到非根元素的 body 组件上，例如 wxc-navpage 组件。</p>
+<p>举个例子：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)_updateInstanceState:(WXState)state</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (_instance &amp;&amp; _instance.state != state) &#123;</span><br><span class="line">        _instance.state = state;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (state == WeexInstanceAppear) &#123;</span><br><span class="line">            [[WXSDKManager bridgeMgr] fireEvent:_instance.instanceId ref:WX_SDK_ROOT_REF type:<span class="string">@"viewappear"</span> params:<span class="literal">nil</span> domChanges:<span class="literal">nil</span>];</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (state == WeexInstanceDisappear) &#123;</span><br><span class="line">            [[WXSDKManager bridgeMgr] fireEvent:_instance.instanceId ref:WX_SDK_ROOT_REF type:<span class="string">@"viewdisappear"</span> params:<span class="literal">nil</span> domChanges:<span class="literal">nil</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如在 WXBaseViewController 里面，有这样一个更新当前 Instance 状态的方法，这个方法里面就会触发 viewappear 和 viewdisappear 事件。</p>
+<p>其中 WX_SDK_ROOT_REF 就是 _root</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#define WX_SDK_ROOT_REF     @<span class="meta-string">"_root"</span></span></span><br></pre></td></tr></table></figure>
+<p>上述更新状态的方法同样出现在 WXEmbedComponent 组件中。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)_updateState:(WXState)state</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (_renderFinished &amp;&amp; _embedInstance &amp;&amp; _embedInstance.state != state) &#123;</span><br><span class="line">        _embedInstance.state = state;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (state == WeexInstanceAppear) &#123;</span><br><span class="line">            [<span class="keyword">self</span> setNavigationWithStyles:<span class="keyword">self</span>.embedInstance.naviBarStyles];</span><br><span class="line">            [[WXSDKManager bridgeMgr] fireEvent:<span class="keyword">self</span>.embedInstance.instanceId ref:WX_SDK_ROOT_REF type:<span class="string">@"viewappear"</span> params:<span class="literal">nil</span> domChanges:<span class="literal">nil</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (state == WeexInstanceDisappear) &#123;</span><br><span class="line">            [[WXSDKManager bridgeMgr] fireEvent:<span class="keyword">self</span>.embedInstance.instanceId ref:WX_SDK_ROOT_REF type:<span class="string">@"viewdisappear"</span> params:<span class="literal">nil</span> domChanges:<span class="literal">nil</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="二-Weex-的事件传递"><a href="#二-Weex-的事件传递" class="headerlink" title="二.Weex 的事件传递"></a>二.Weex 的事件传递</h2><p>在 Weex 中，iOS Native 把事件传递给 JS 目前只有2种方式，一是 Module 模块的 callback，二是通过 Component 组件自定义的通知事件。</p>
+<h3 id="（1）callback"><a href="#（1）callback" class="headerlink" title="（1）callback"></a>（1）callback</h3><p><img src="http://upload-images.jianshu.io/upload_images/1194012-489fe952c028acc3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在 WXModuleProtocol 中定义了2种可以 callback 给 JS 的闭包。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @abstract the module callback , result can be string or dictionary.</span></span><br><span class="line"><span class="comment"> * @discussion callback data to js, the id of callback function will be removed to save memory.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^WXModuleCallback)(<span class="keyword">id</span> result);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @abstract the module callback , result can be string or dictionary.</span></span><br><span class="line"><span class="comment"> * @discussion callback data to js, you can specify the keepAlive parameter to keep callback function id keepalive or not. If the keepAlive is true, it won't be removed until instance destroyed, so you can call it repetitious.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">void</span> (^WXModuleKeepAliveCallback)(<span class="keyword">id</span> result, <span class="built_in">BOOL</span> keepAlive);</span><br></pre></td></tr></table></figure>
+<p>两个闭包都可以 callback 把 data 传递回给 JS，data 可以是字符串或者字典。</p>
+<p>这两个闭包的区别在于：</p>
+<ol>
+<li>WXModuleCallback 用于 Module 组件，为了节约内存，该回调只能回调通知 JS 一次，之后会被释放，多用于一次结果。</li>
+<li>WXModuleKeepAliveCallback 同样是用于 Module 组件，但是该回调可以设置是否为多次回调类型，如果设置了 keepAlive，那么可以进行持续监听变化，多次回调，并返回给 JS。</li>
+</ol>
+<p>在 Weex 中使用 WXModuleCallback 回调，很多情况是把状态回调给 JS，比如成功或者失败的状态，还有一些出错的信息回调给 JS。</p>
+<p>比如在 WXStorageModule 中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setItem:(<span class="built_in">NSString</span> *)key value:(<span class="built_in">NSString</span> *)value callback:(WXModuleCallback)callback</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> checkInput:key]) &#123;</span><br><span class="line">        callback(@&#123;<span class="string">@"result"</span>:<span class="string">@"failed"</span>,<span class="string">@"data"</span>:<span class="string">@"key must a string or number!"</span>&#125;);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span> checkInput:value]) &#123;</span><br><span class="line">        callback(@&#123;<span class="string">@"result"</span>:<span class="string">@"failed"</span>,<span class="string">@"data"</span>:<span class="string">@"value must a string or number!"</span>&#125;);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ([key isKindOfClass:[<span class="built_in">NSNumber</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        key = [((<span class="built_in">NSNumber</span> *)key) stringValue];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ([value isKindOfClass:[<span class="built_in">NSNumber</span> <span class="keyword">class</span>]]) &#123;</span><br><span class="line">        value = [((<span class="built_in">NSNumber</span> *)value) stringValue];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> ([WXUtility isBlankString:key]) &#123;</span><br><span class="line">        callback(@&#123;<span class="string">@"result"</span>:<span class="string">@"failed"</span>,<span class="string">@"data"</span>:<span class="string">@"invalid_param"</span>&#125;);</span><br><span class="line">        <span class="keyword">return</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    [<span class="keyword">self</span> setObject:value forKey:key persistent:<span class="literal">NO</span> callback:callback];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在调用 setItem:value:callback: 方法里面，如果 setKey-value 的时候失败了，会把错误信息通过 WXModuleCallback 回调给JS。</p>
+<p>当然，如果调用存储模块 WXStorageModule 的某些查询信息的方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)length:(WXModuleCallback)callback</span><br><span class="line">&#123;</span><br><span class="line">    callback(@&#123;<span class="string">@"result"</span>:<span class="string">@"success"</span>,<span class="string">@"data"</span>:@([[WXStorageModule memory] count])&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)getAllKeys:(WXModuleCallback)callback</span><br><span class="line">&#123;</span><br><span class="line">    callback(@&#123;<span class="string">@"result"</span>:<span class="string">@"success"</span>,<span class="string">@"data"</span>:[WXStorageModule memory].allKeys&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>length: 和 getAllKeys: 方法调用成功，会把成功的状态和数据通过 WXModuleCallback 回调给JS。</p>
+<p>在 Weex 中使用了 WXModuleKeepAliveCallback 的模块总共只有以下4个：</p>
+<p>WXDomModule，WXStreamModule，WXWebSocketModule，WXGlobalEventModule</p>
+<p>在 WXDomModule 模块中，JS 调用获取 Component 组件的位置信息和宽高信息的时候，需要把这些坐标和尺寸信息回调给 JS，不过这里虽然用到了WXModuleKeepAliveCallback，但是 keepAlive 是 false，并没有用到多次回调的功能。</p>
+<p>在 WXStreamModule 模块中，由于这是一个传输流的模块，所以肯定需要用到WXModuleKeepAliveCallback，需要持续不断的监听数据的变化，并把进度回调给 JS，这里用到了 keepAlive。WXStreamModule 模块中也会用到 WXModuleCallback，WXModuleCallback 会即时把各个状态回调给 JS。</p>
+<p>在 WXWebSocketModule 模块中</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">WXWebSocketModule</span>()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)WXModuleKeepAliveCallback errorCallBack;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)WXModuleKeepAliveCallback messageCallBack;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)WXModuleKeepAliveCallback openCallBack;</span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>)WXModuleKeepAliveCallback closeCallBack;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>用到了4个 WXModuleKeepAliveCallback 回调，这4个 callback 分别是把 error 错误信息，message 收到的数据，open 打开链接的状态，close 关闭链接的状态，持续的回调给 JS。</p>
+<p>在 WXGlobalEventModule 模块中，有一个 fireGlobalEvent: 方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fireGlobalEvent:(<span class="built_in">NSNotification</span> *)notification</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSDictionary</span> * userInfo = notification.userInfo;</span><br><span class="line">    <span class="built_in">NSString</span> * userWeexInstanceId = userInfo[<span class="string">@"weexInstance"</span>];</span><br><span class="line"></span><br><span class="line">    WXSDKInstance * userWeexInstance = [WXSDKManager instanceForID:userWeexInstanceId];</span><br><span class="line">   <span class="comment">// 防止userInstanceId存在，但是instance实际已经被销毁了</span></span><br><span class="line">    <span class="keyword">if</span> (!userWeexInstanceId || userWeexInstance == weexInstance) &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (WXModuleKeepAliveCallback callback <span class="keyword">in</span> _eventCallback[notification.name]) &#123;</span><br><span class="line">            callback(userInfo[<span class="string">@"param"</span>], <span class="literal">true</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>开发者可以通过 WXGlobalEventModule 进行全局的通知，在 userInfo 里面可以夹带 weexInstance 的参数。native 是不需要关心 userWeexInstanceId，这个参数是给 JS 用的。</p>
+<p>Native 开发者只需要在用到了 WXGlobalEventModule 的模块里加上事件的监听者，然后发送全局通知即可。userInfo[@”param”]会被回调给 JS。</p>
+<h3 id="（2）fireEvent-params-domChanges"><a href="#（2）fireEvent-params-domChanges" class="headerlink" title="（2）fireEvent:params:domChanges:"></a>（2）fireEvent:params:domChanges:</h3><p><img src="http://upload-images.jianshu.io/upload_images/1194012-38a401738793eae9.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>在开头我们介绍的 Weex 事件的4种类型，通用事件，Appear 事件，Disappear 事件，Page 事件，全部都是通过 fireEvent:params:domChanges: 这种方式，Native 触发事件之后，Native 把参数传递给 JS 的。</p>
+<p>在 WXComponent 里面定义了2个可以给 JS 发送消息的方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @abstract Fire an event to the component in Javascript.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param eventName The name of the event to fire</span></span><br><span class="line"><span class="comment"> * @param params The parameters to fire with</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line">- (<span class="keyword">void</span>)fireEvent:(<span class="built_in">NSString</span> *)eventName params:(<span class="keyword">nullable</span> <span class="built_in">NSDictionary</span> *)params;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * @abstract Fire an event to the component and tell Javascript which value has been changed. </span></span><br><span class="line"><span class="comment"> * Used for two-way data binding.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param eventName The name of the event to fire</span></span><br><span class="line"><span class="comment"> * @param params The parameters to fire with</span></span><br><span class="line"><span class="comment"> * @param domChanges The values has been changed, used for two-way data binding.</span></span><br><span class="line"><span class="comment"> **/</span></span><br><span class="line">- (<span class="keyword">void</span>)fireEvent:(<span class="built_in">NSString</span> *)eventName params:(<span class="keyword">nullable</span> <span class="built_in">NSDictionary</span> *)params domChanges:(<span class="keyword">nullable</span> <span class="built_in">NSDictionary</span> *)domChanges;</span><br></pre></td></tr></table></figure>
+<p>这两个方法的区别就在于最后一个 domChanges 的参数，有这个参数的方法主要多用于 Weex 的 Native 和 JS 的双向数据绑定。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fireEvent:(<span class="built_in">NSString</span> *)eventName params:(<span class="built_in">NSDictionary</span> *)params</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> fireEvent:eventName params:params domChanges:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fireEvent:(<span class="built_in">NSString</span> *)eventName params:(<span class="built_in">NSDictionary</span> *)params domChanges:(<span class="built_in">NSDictionary</span> *)domChanges</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *dict = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">    <span class="built_in">NSTimeInterval</span> timeSp = [[<span class="built_in">NSDate</span> date] timeIntervalSince1970] * <span class="number">1000</span>;</span><br><span class="line">    [dict setObject:@(timeSp) forKey:<span class="string">@"timestamp"</span>];</span><br><span class="line">    <span class="keyword">if</span> (params) &#123;</span><br><span class="line">        [dict addEntriesFromDictionary:params];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    [[WXSDKManager bridgeMgr] fireEvent:<span class="keyword">self</span>.weexInstance.instanceId ref:<span class="keyword">self</span>.ref type:eventName params:dict domChanges:domChanges];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述就是两个方法的具体实现。可以看到 fireEvent:params: 方法就是调用了 fireEvent:params:domChanges: 方法，只不过最后的 domChanges 参数传了 nil。</p>
+<p>在fireEvent:params:domChanges: 方法中会对 params 字典做了一次加工，加上了 timestamp 的键值。最终还是会调用 WXBridgeManager 里面的 fireEvent:ref: type:params:domChanges: 方法。</p>
+<p>在 WXBridgeManager 中具体实现了上述的两个方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fireEvent:(<span class="built_in">NSString</span> *)instanceId ref:(<span class="built_in">NSString</span> *)ref type:(<span class="built_in">NSString</span> *)type params:(<span class="built_in">NSDictionary</span> *)params</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> fireEvent:instanceId ref:ref type:type params:params domChanges:<span class="literal">nil</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)fireEvent:(<span class="built_in">NSString</span> *)instanceId ref:(<span class="built_in">NSString</span> *)ref type:(<span class="built_in">NSString</span> *)type params:(<span class="built_in">NSDictionary</span> *)params domChanges:(<span class="built_in">NSDictionary</span> *)domChanges</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!type || !ref) &#123;</span><br><span class="line">        WXLogError(<span class="string">@"Event type and component ref should not be nil"</span>);</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">NSArray</span> *args = @[ref, type, params?:@&#123;&#125;, domChanges?:@&#123;&#125;];</span><br><span class="line">    WXSDKInstance *instance = [WXSDKManager instanceForID:instanceId];</span><br><span class="line">    </span><br><span class="line">    WXCallJSMethod *method = [[WXCallJSMethod alloc] initWithModuleName:<span class="literal">nil</span> methodName:<span class="string">@"fireEvent"</span> arguments:args instance:instance];</span><br><span class="line">    [<span class="keyword">self</span> callJsMethod:method];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>入参 ref, type, params, domChanges 封装到最终的 args 参数数组里面，最后会封装出 WXCallJSMethod 方法，通过 WXBridgeManager 的 callJsMethod 调用到 JS 的 fireEvent 方法。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-c8282fcd911caaa2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>这里可以举个例子：</p>
+<p>假设一个场景，用户点击了一张图片，于是就会改变 label 上的一段文字。</p>
+<p>首先图片是 imageComponent，用户点击会触发该 Component 的 onclick: 方法</p>
+<p>组件里面会调用 fireEvent:params: 方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[<span class="keyword">self</span> fireEvent:<span class="string">@"click"</span> params:@&#123;<span class="string">@"position"</span>:position&#125;];</span><br></pre></td></tr></table></figure>
+<p>最终通过 fireEvent:params:domChanges: 方法，发送给 JS 的参数字典大概如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">args:(</span><br><span class="line">    <span class="number">0</span>,</span><br><span class="line">        (</span><br><span class="line">                &#123;</span><br><span class="line">            args =             (</span><br><span class="line">                <span class="number">3</span>,</span><br><span class="line">                click,</span><br><span class="line">                                &#123;</span><br><span class="line">                    position =                     &#123;</span><br><span class="line">                        height = <span class="string">"199.8792270531401"</span>;</span><br><span class="line">                        width = <span class="string">"199.8792270531401"</span>;</span><br><span class="line">                        x = <span class="string">"274.7584541062802"</span>;</span><br><span class="line">                        y = <span class="string">"115.9420289855072"</span>;</span><br><span class="line">                    &#125;;</span><br><span class="line">                    timestamp = <span class="string">"1489932655404.133"</span>;</span><br><span class="line">                &#125;,</span><br><span class="line">                                &#123;</span><br><span class="line">                &#125;</span><br><span class="line">            );</span><br><span class="line">            method = fireEvent;</span><br><span class="line">            <span class="keyword">module</span> = <span class="string">""</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>JSFramework 收到了 fireEvent 方法调用以后，处理完，知道 label 需要更新，于是又会开始 call Native，调用 Native 的方法。调用 Native 的 callNative 方法，发过来的参数如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">(</span><br><span class="line">        &#123;</span><br><span class="line">        args =         (</span><br><span class="line">            <span class="number">4</span>,</span><br><span class="line">                        &#123;</span><br><span class="line">                value = <span class="string">"\U56fe\U7247\U88ab\U70b9\U51fb"</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        );</span><br><span class="line">        method = updateAttrs;</span><br><span class="line">        <span class="keyword">module</span> = dom;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>最终会调用 Dom 的 updateAttrs 方法，会去更新 id 为4的 value，id 为4对应的就是 label，更新它的值就是刷新 label。</p>
+<p>接着 JSFramework 还会继续调用 Native 的 callNative 方法，发过来的参数如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">(</span><br><span class="line">        &#123;</span><br><span class="line">        args =         (</span><br><span class="line">        );</span><br><span class="line">        method = updateFinish;</span><br><span class="line">        <span class="keyword">module</span> = dom;</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>调用 Dom 的 updateFinish 方法，即页面刷新完毕。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>至此，Weex 从 View 的创建，到渲染，产生事件回调 JSFramework，这一系列的流程源码都解析完成了。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/1194012-c990ddac97537e7b.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt=""></p>
+<p>中间涉及到了3个子线程，mainThread，com.taobao.weex.component，com.taobao.weex.bridge，分别是 UI 主线程，DOM 线程，JSbridge 线程。</p>
+<p>Native 端目前还差神秘的 JSFramework 的源码解析。请大家多多指点。</p>
+<hr>
+<p>Weex 源码解析系列文章：</p>
+<p><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_how_to_work_in_iOS.md" rel="external nofollow noopener noreferrer" target="_blank">Weex 是如何在 iOS 客户端上跑起来的</a><br><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_layout_engine_powered_by_Flexbox&#39;s_algorithm.md" rel="external nofollow noopener noreferrer" target="_blank">由 FlexBox 算法强力驱动的 Weex 布局引擎</a><br><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_events.md" rel="external nofollow noopener noreferrer" target="_blank">Weex 事件传递的那些事儿</a><br><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_ingenuity_JS_framework.md" rel="external nofollow noopener noreferrer" target="_blank">Weex 中别具匠心的 JS Framework</a><br><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_pseudo-best_practices_for_iOS_developers.md" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者的 Weex 伪最佳实践指北</a>  </p>
+<hr>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    Mach-o文件结构理解
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/Hybird/weex/Weex_five/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/Hybird/weex/Weex_six_events/" data-title="weex系列抄之一---事件处理" data-url="http://yoursite.com/wiki/Hybird/weex/Weex_six_events/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
