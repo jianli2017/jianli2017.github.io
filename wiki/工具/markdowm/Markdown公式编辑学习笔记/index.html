@@ -9,18 +9,18 @@
         <meta name="keywords" content="Markdown">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="如何插入公式 行中公式（放在文中与其他文字编辑）：可以用如下方法表示：$数学公式$ 独立公式可以用下面的方法表示：$$数学公式$$ 自动编号的公式可以用如下的方法表示：12345\begin&amp;#123;equation&amp;#125;数学公式\label&amp;#123;eq:当前公式名&amp;#125;\end&amp;#123;equation&amp;#125;自动编号后的公式可在全文任意处使用 \eqref&amp;#123;">
+    <meta name="description" content="Markdown中使用LaTEX 编写含有数学公式的博客。">
 <meta name="keywords" content="Markdown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Markdown公式编辑">
 <meta property="og:url" content="http://yoursite.com/wiki/工具/markdowm/Markdown公式编辑学习笔记/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="如何插入公式 行中公式（放在文中与其他文字编辑）：可以用如下方法表示：$数学公式$ 独立公式可以用下面的方法表示：$$数学公式$$ 自动编号的公式可以用如下的方法表示：12345\begin&amp;#123;equation&amp;#125;数学公式\label&amp;#123;eq:当前公式名&amp;#125;\end&amp;#123;equation&amp;#125;自动编号后的公式可在全文任意处使用 \eqref&amp;#123;">
+<meta property="og:description" content="Markdown中使用LaTEX 编写含有数学公式的博客。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-06-25T11:21:15.000Z">
+<meta property="og:updated_time" content="2018-06-26T03:04:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Markdown公式编辑">
-<meta name="twitter:description" content="如何插入公式 行中公式（放在文中与其他文字编辑）：可以用如下方法表示：$数学公式$ 独立公式可以用下面的方法表示：$$数学公式$$ 自动编号的公式可以用如下的方法表示：12345\begin&amp;#123;equation&amp;#125;数学公式\label&amp;#123;eq:当前公式名&amp;#125;\end&amp;#123;equation&amp;#125;自动编号后的公式可在全文任意处使用 \eqref&amp;#123;">
+<meta name="twitter:description" content="Markdown中使用LaTEX 编写含有数学公式的博客。">
     
 
     
@@ -593,7 +593,8 @@
             
         
         
-            <a id="more"></a>
+            <p>Markdown中使用LaTEX 编写含有数学公式的博客。</p>
+<a id="more"></a>
 <h2 id="如何插入公式"><a href="#如何插入公式" class="headerlink" title="如何插入公式"></a>如何插入公式</h2><ol>
 <li>行中公式（放在文中与其他文字编辑）：可以用如下方法表示：<code>$数学公式$</code></li>
 <li>独立公式可以用下面的方法表示：<code>$$数学公式$$</code></li>
@@ -602,8 +603,8 @@
 </ol>
 <p>例子</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$ J_<span class="tag">\<span class="name">alpha</span></span>(x) = <span class="tag">\<span class="name">sum</span></span>_&#123;m=0&#125;^<span class="tag">\<span class="name">infty</span></span> <span class="tag">\<span class="name">frac</span><span class="string">&#123;(-1)^m&#125;</span><span class="string">&#123;m! \gamma (m + \alpha + 1)&#125;</span></span> &#123;<span class="tag">\<span class="name">left</span></span>(&#123; <span class="tag">\<span class="name">frac</span><span class="string">&#123;x&#125;</span><span class="string">&#123;2&#125;</span></span> &#125;<span class="tag">\<span class="name">right</span></span>)&#125;^&#123;2m + <span class="tag">\<span class="name">alpha</span></span>&#125; <span class="tag">\<span class="name">text</span></span> &#123;，not one line &#125; $</span></span><br></pre></td></tr></table></figure>
-<p>显示$ J_\alpha(x)=\sum_0^\infty a $</p>
-<p>$$\sum_{i=1}^n \frac{1}{i^2} \quad and \quad \prod_{i=1}^n \frac{1}{i^2} \quad and \quad \bigcup_{i=1}^{2} R$$<br>例子</p>
+<p>显示$ J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，not one line } $</p>
+<p>例子</p>
 <figure class="highlight tex"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="formula">$$ J_<span class="tag">\<span class="name">alpha</span></span>(x) = <span class="tag">\<span class="name">sum</span></span>_&#123;m=0&#125;^<span class="tag">\<span class="name">infty</span></span> <span class="tag">\<span class="name">frac</span><span class="string">&#123;(-1)^m&#125;</span><span class="string">&#123;m! \gamma (m + \alpha + 1)&#125;</span></span> &#123;<span class="tag">\<span class="name">left</span></span>(&#123; <span class="tag">\<span class="name">frac</span><span class="string">&#123;x&#125;</span><span class="string">&#123;2&#125;</span></span> &#125;<span class="tag">\<span class="name">right</span></span>)&#125;^&#123;2m + <span class="tag">\<span class="name">alpha</span></span>&#125; <span class="tag">\<span class="name">text</span></span> &#123;，独立公式示例&#125;$$</span></span><br></pre></td></tr></table></figure>
 <p>显示</p>
 <p>$$ J_\alpha(x) = \sum_{m=0}^\infty \frac{(-1)^m}{m! \gamma (m + \alpha + 1)} {\left({ \frac{x}{2} }\right)}^{2m + \alpha} \text {，独立公式示例} $$</p>
