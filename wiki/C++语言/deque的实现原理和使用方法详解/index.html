@@ -3,22 +3,27 @@
 <head>
     <meta charset="utf-8">
     
-    <title>归档: 2018/5 | LJ小窝</title>
+    <title>deque的实现原理和使用方法详解(抄袭) | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="deque">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJ小窝">
-<meta property="og:url" content="http://yoursite.com/archives/2018/05/index.html">
+    <meta name="description" content="本文抄袭至STL源码剖析——deque的实现原理和使用方法详解。只用于本人学习。">
+<meta name="keywords" content="deque">
+<meta property="og:type" content="article">
+<meta property="og:title" content="deque的实现原理和使用方法详解(抄袭)">
+<meta property="og:url" content="http://yoursite.com/wiki/C++语言/deque的实现原理和使用方法详解/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:description" content="本文抄袭至STL源码剖析——deque的实现原理和使用方法详解。只用于本人学习。">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/C++/deque/dequeStruct.png">
+<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/C++/deque/dequePointer.png">
+<meta property="og:updated_time" content="2018-06-26T06:22:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
+<meta name="twitter:title" content="deque的实现原理和使用方法详解(抄袭)">
+<meta name="twitter:description" content="本文抄袭至STL源码剖析——deque的实现原理和使用方法详解。只用于本人学习。">
+<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/C++/deque/dequeStruct.png">
     
 
     
@@ -154,13 +159,13 @@
         
         
          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             C++语言
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解(抄袭)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  <li class="file active"><a href="/wiki/C++语言/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解(抄袭)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -539,247 +544,166 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><div class="timeline timeline-wrap">
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar-o"></i></span>
-                <h1 class="title"><a href="/archives/2018/">2018</a></h1>
-            </div>
-    
-            <div class="timeline-row timeline-row-major">
-                <span class="node"><i class="fa fa-calendar"></i></span>
-                <h1 class="title"><a href="/archives/2018/05/">2018-05</a><span class="archive-list-count">6</span></h1>
-            </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-C++语言/deque的实现原理和使用方法详解" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a>
-        </h1>
-    
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a>
+    </div>
 
-                
-                <div class="article-meta">
-                    
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/deque/">deque</a>
+    </div>
+
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">
-            <time datetime="2018-05-16T04:07:12.000Z" itemprop="datePublished">2018-05-16</time>
+        <a href="/wiki/C++语言/deque的实现原理和使用方法详解/">
+            <time datetime="2018-06-26T02:07:12.000Z" itemprop="datePublished">2018-06-26</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Mach-O/">Mach_O</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Mach-O/">Mach-O</a>
-    </div>
-
-                </div>
+                        
+                    </div>
                 
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a>
+        <h1 class="article-title" itemprop="name">
+            deque的实现原理和使用方法详解(抄袭)
         </h1>
     
 
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/Weex_six_events/">
-            <time datetime="2018-05-04T05:07:12.000Z" itemprop="datePublished">2018-05-04</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Deque-简介"><span class="toc-number">1.</span> <span class="toc-text">Deque 简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Deque-实现原理"><span class="toc-number">2.</span> <span class="toc-text">Deque 实现原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-的中控器"><span class="toc-number">2.1.</span> <span class="toc-text">deque 的中控器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-的迭代器"><span class="toc-number">2.2.</span> <span class="toc-text">deque 的迭代器</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#deque-使用"><span class="toc-number">3.</span> <span class="toc-text">deque 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-对象的默认构造"><span class="toc-number">3.1.</span> <span class="toc-text">deque 对象的默认构造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-元素添加移除操作"><span class="toc-number">3.2.</span> <span class="toc-text">deque 元素添加移除操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-的数据存取"><span class="toc-number">3.3.</span> <span class="toc-text">deque 的数据存取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-与迭代器"><span class="toc-number">3.4.</span> <span class="toc-text">deque 与迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-对象的带参数构造"><span class="toc-number">3.5.</span> <span class="toc-text">deque 对象的带参数构造</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-的赋值"><span class="toc-number">3.6.</span> <span class="toc-text">deque 的赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#deque-的大小"><span class="toc-number">3.7.</span> <span class="toc-text">deque 的大小</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#源网址"><span class="toc-number">4.</span> <span class="toc-text">源网址</span></a></li></ol>
                 </div>
-                
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a>
-        </h1>
-    
+            
+        
+        
+            <p>本文抄袭至<a href="https://blog.csdn.net/baidu_28312631/article/details/48000123" rel="external nofollow noopener noreferrer" target="_blank">STL源码剖析——deque的实现原理和使用方法详解</a>。只用于本人学习。</p>
+<a id="more"></a>
+<h2 id="Deque-简介"><a href="#Deque-简介" class="headerlink" title="Deque 简介"></a>Deque 简介</h2><ol>
+<li>deque是“double—ended queue”的缩写，和vector一样都是STL的容器，deque 是双端数组，而 vector 是单端的。</li>
+<li>deque 在接口上和 vector 非常相似，在许多操作的地方可以直接替换。</li>
+<li>deque 可以随机存取元素（支持索引值直接存取，用[]操作符或at()方法，这个等下会详讲）。</li>
+<li>deque 头部和尾部添加或移除元素都非常快速。但是在中间插入元素或移除元素比较费时。</li>
+<li>使用时需要包含头文件 #include<deque> 。</deque></li>
+</ol>
+<h2 id="Deque-实现原理"><a href="#Deque-实现原理" class="headerlink" title="Deque 实现原理"></a>Deque 实现原理</h2><h3 id="deque-的中控器"><a href="#deque-的中控器" class="headerlink" title="deque 的中控器"></a>deque 的中控器</h3><p>deque是连续空间（至少逻辑上看来如此），连续线性空间总令我们联想到array或vector。<strong>array无法成长，vector虽可成长</strong>，却只能向尾端成长，而且其所谓的成长原是个假象，事实上是<font color="blue"><strong>（1）另觅更大空间；（2）将原数据复制过去；（3）释放原空间三部曲。</strong></font>如果不是vector每次配置新空间时都有留下一些余裕，其成长假象所带来的代价将是相当高昂。</p>
+<font color="blue"><strong>deque系由一段一段的定量连续空间构成。</strong></font>一旦有必要在deque的前端或尾端增加新空间，便配置一段定量连续空间，串接在整个deque的头端或尾端。deque的最大任务，便是在这些分段的定量连续空间上，维护其整体连续的假象，并提供随机存取的接口。避开了“重新配置、复制、释放”的轮回，代价则是复杂的迭代器架构。<br><br>受到分段连续线性空间的字面影响，我们可能以为deque的实现复杂度和vector相比虽不中亦不远矣，其实不然。主要因为，既是分段连续线性空间，就必须有中央控制，而为了维持整体连续的假象，数据结构的设计及迭代器前进后退等操作都颇为繁琐。deque的实现代码分量远比vector或list都多得多。<br><br><font color="blue"><strong>deque采用一块所谓的map作为主控</strong>。这里所谓map是一小块连续空间，其中每个元素（此处称为一个节点，node）都是指针，<strong>指向另一段（较大的）连续线性空间，称为缓冲区</strong>。<strong>缓冲区才是deque的储存空间主体</strong>。SGI STL 允许我们指定缓冲区大小，默认值0表示将使用512 bytes 缓冲区。</font>
 
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/weex_two/">
-            <time datetime="2018-05-04T04:07:12.000Z" itemprop="datePublished">2018-05-04</time>
+<p>deque的整体架构如下图所示：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/C++/deque/dequeStruct.png" alt="deque的整体架构"></p>
+<h3 id="deque-的迭代器"><a href="#deque-的迭代器" class="headerlink" title="deque 的迭代器"></a>deque 的迭代器</h3><p>让我们思考一下，deque的迭代器应该具备什么结构，首先，它必须能够指出分段连续空间（亦即缓冲区）在哪里，其次它必须能够判断自己是否已经处于其所在缓冲区的边缘，如果是，一旦前进或后退就必须跳跃至下一个或上一个缓冲区。为了能够正确跳跃，deque必须随时掌握管控中心（map）。所以在迭代器中需要定义：当前元素的指针，当前元素所在缓冲区的起始指针，当前元素所在缓冲区的尾指针，指向map中指向所在缓区地址的指针，分别为cur, first, last, node。</p>
+<p>指针结构如下图所示：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/C++/deque/dequePointer.png" alt="指针结构"></p>
+<p>在上面介绍中我们大致了解了deque 的基本概念和实现原理，现在我就开始介绍如何使用 deque。</p>
+<h2 id="deque-使用"><a href="#deque-使用" class="headerlink" title="deque 使用"></a>deque 使用</h2><h3 id="deque-对象的默认构造"><a href="#deque-对象的默认构造" class="headerlink" title="deque 对象的默认构造"></a>deque 对象的默认构造</h3><p>deque 采用模板类实现，deque 对象的默认构造形式：deque<t> dequeT；   </t></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">int</span>&gt; deqInt;            <span class="comment">//一个存放int的deque容器。  </span></span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="keyword">float</span>&gt; deqFloat;       <span class="comment">//一个存放float的deque容器。  </span></span><br><span class="line"><span class="built_in">deque</span>&lt;<span class="built_in">string</span>&gt; deqString;     <span class="comment">//一个存放string的deque容器。  </span></span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>尖括号内还可以设置指针类型或自定义类型。</p>
+<h3 id="deque-元素添加移除操作"><a href="#deque-元素添加移除操作" class="headerlink" title="deque 元素添加移除操作"></a>deque 元素添加移除操作</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>.push_back(elem);       <span class="comment">//在容器尾部添加一个数据  </span></span><br><span class="line"><span class="built_in">deque</span>.push_front(elem);     <span class="comment">//在容器头部插入一个数据  </span></span><br><span class="line"><span class="built_in">deque</span>.pop_back();           <span class="comment">//删除容器最后一个数据  </span></span><br><span class="line"><span class="built_in">deque</span>.pop_front();          <span class="comment">//删除容器第一个数据</span></span><br></pre></td></tr></table></figure>
+<h3 id="deque-的数据存取"><a href="#deque-的数据存取" class="headerlink" title="deque 的数据存取"></a>deque 的数据存取</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>.at(idx);    <span class="comment">//返回索引idx所指的数据，如果idx越界，抛出out_of_range。  </span></span><br><span class="line"><span class="built_in">deque</span>[idx];      <span class="comment">//返回索引idx所指的数据，如果idx越界，不抛出异常，直接出错。  </span></span><br><span class="line"><span class="built_in">deque</span>.front();   <span class="comment">//返回第一个数据。  </span></span><br><span class="line"><span class="built_in">deque</span>.back();    <span class="comment">//返回最后一个数据</span></span><br></pre></td></tr></table></figure>
+<h3 id="deque-与迭代器"><a href="#deque-与迭代器" class="headerlink" title="deque 与迭代器"></a>deque 与迭代器</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>.begin();  <span class="comment">//返回容器中第一个元素的迭代器。  </span></span><br><span class="line"><span class="built_in">deque</span>.end();  <span class="comment">//返回容器中最后一个元素之后的迭代器。  </span></span><br><span class="line"><span class="built_in">deque</span>.rbegin();  <span class="comment">//返回容器中倒数第一个元素的迭代器。  </span></span><br><span class="line"><span class="built_in">deque</span>.rend();   <span class="comment">//返回容器中倒数最后一个元素之后的迭代器。</span></span><br></pre></td></tr></table></figure>
+<h3 id="deque-对象的带参数构造"><a href="#deque-对象的带参数构造" class="headerlink" title="deque 对象的带参数构造"></a>deque 对象的带参数构造</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>(beg,end);    <span class="comment">//构造函数将[beg, end)区间中的元素拷贝给本身。注意该区间是左闭右开的区间。  </span></span><br><span class="line"><span class="built_in">deque</span>(n,elem);   <span class="comment">//构造函数将n个elem拷贝给本身。  </span></span><br><span class="line"><span class="built_in">deque</span>(<span class="keyword">const</span> <span class="built_in">deque</span> &amp;deq);  <span class="comment">//拷贝构造函数。</span></span><br></pre></td></tr></table></figure>
+<h3 id="deque-的赋值"><a href="#deque-的赋值" class="headerlink" title="deque 的赋值"></a>deque 的赋值</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">deque</span>.assign(beg,end);   <span class="comment">//将[beg, end)区间中的数据拷贝赋值给本身。注意该区间是左闭右开的区间。  </span></span><br><span class="line"><span class="built_in">deque</span>.assign(n,elem);  <span class="comment">//将n个elem拷贝赋值给本身。  </span></span><br><span class="line"><span class="built_in">deque</span>&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> <span class="built_in">deque</span> &amp;deq); <span class="comment">//重载等号操作符   </span></span><br><span class="line"><span class="built_in">deque</span>.swap(deq);  <span class="comment">// 将deq与本身的元素互换</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">deque&lt;int&gt; deqIntA,deqIntB,deqIntC,deqIntD;  </span><br><span class="line">deqIntA.push_back(<span class="number">1</span>);  </span><br><span class="line">deqIntA.push_back(<span class="number">3</span>);  </span><br><span class="line">deqIntA.push_back(<span class="number">5</span>);  </span><br><span class="line">deqIntA.push_back(<span class="number">7</span>);  </span><br><span class="line">deqIntA.push_back(<span class="number">9</span>);  </span><br><span class="line">  </span><br><span class="line">deqIntB.assign(deqIntA.begin(),deqIntA.end());  <span class="comment">// 1 3 5 7 9  </span></span><br><span class="line">      </span><br><span class="line">deqIntC.assign(<span class="number">5</span>,<span class="number">8</span>);        <span class="comment">//8 8 8 8 8  </span></span><br><span class="line">  </span><br><span class="line">deqIntD = deqIntA;      <span class="comment">//1 3 5 7 9  </span></span><br><span class="line">  </span><br><span class="line">deqIntC.swap(deqIntD);      <span class="comment">//互换</span></span><br></pre></td></tr></table></figure>
+<h3 id="deque-的大小"><a href="#deque-的大小" class="headerlink" title="deque 的大小"></a>deque 的大小</h3><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">deque.size();      <span class="comment">//返回容器中元素的个数  </span></span><br><span class="line">deque.empty();     <span class="comment">//判断容器是否为空  </span></span><br><span class="line">  </span><br><span class="line">deque.resize(num);   <span class="comment">//重新指定容器的长度为num，若容器变长，则以默认值填充新位置。  </span></span><br><span class="line">                    <span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。  </span></span><br><span class="line">                      </span><br><span class="line">deque.resize(num, elem);  <span class="comment">//重新指定容器的长度为num，若容器变长，则以elem值填充新位置。  </span></span><br><span class="line">                        <span class="comment">//如果容器变短，则末尾超出容器长度的元素被删除。</span></span><br><span class="line">```  </span><br><span class="line"></span><br><span class="line">### deque 的插入</span><br></pre></td></tr></table></figure>
+<p>deque.insert(pos,elem);   //在pos位置插入一个elem元素的拷贝，返回新数据的位置。<br>deque.insert(pos,n,elem);   //在pos位置插入n个elem数据，无返回值。<br>deque.insert(pos,beg,end);   //在pos位置插入[beg,end)区间的数据，无返回值。<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### deque 的删除</span><br></pre></td></tr></table></figure></p>
+<p>deque.clear();  //移除容器的所有数据<br>deque.erase(beg,end);  //删除[beg,end)区间的数据，返回下一个数据的位置。<br>deque.erase(pos);    //删除pos位置的数据，返回下一个数据的位置。<br>```</p>
+<h2 id="源网址"><a href="#源网址" class="headerlink" title="源网址"></a>源网址</h2><ul>
+<li><a href="https://blog.csdn.net/baidu_28312631/article/details/48000123" rel="external nofollow noopener noreferrer" target="_blank">STL源码剖析——deque的实现原理和使用方法详解</a></li>
+</ul>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Markdown公式编辑</div>
         </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                </div>
-                
-            </div>
-        </div>
     
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
+</nav>
+
+
+
+
+
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a>
-        </h1>
     
-
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/Weex_five/">
-            <time datetime="2018-05-04T04:07:12.000Z" itemprop="datePublished">2018-05-04</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                </div>
-                
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a>
-        </h1>
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/C++语言/deque的实现原理和使用方法详解/" data-title="deque的实现原理和使用方法详解(抄袭)" data-url="http://yoursite.com/wiki/C++语言/deque的实现原理和使用方法详解/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
     
 
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/weex_four/">
-            <time datetime="2018-05-04T04:07:12.000Z" itemprop="datePublished">2018-05-04</time>
-        </a>
-    </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                </div>
-                
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a>
-        </h1>
-    
-
-                
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/weex_one/">
-            <time datetime="2018-05-04T04:07:12.000Z" itemprop="datePublished">2018-05-04</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                </div>
-                
-            </div>
-        </div>
-    
-</div>
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">

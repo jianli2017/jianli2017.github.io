@@ -160,7 +160,7 @@
                             &nbsp;
                             C++语言
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解(抄袭)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -410,7 +410,7 @@
                             &nbsp;
                             hexo
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/ LaTex/">支持LaTEX的hexo博客</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -540,6 +540,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-Hybird/weex/weex-conmunication" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/weex-conmunication/">
+            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。<br></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/Hybird/weex/weex-conmunication/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-JS/flexBox" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1124,72 +1190,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/meta_class/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/runtime1" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/runtime/">runtime</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/runtime1/">
-            <time datetime="2016-11-03T09:27:29.000Z" itemprop="datePublished">2016-11-03</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/runtime1/">runtime1</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C是动态语言，OC上所有<strong>方法的调用/类的生成</strong>都通过Objective-C Runtime在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替换任何类的实现以及新增任意类。今天就来详细解析一下OC中runtime最为吸引人的地方。<br></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/runtime1/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
