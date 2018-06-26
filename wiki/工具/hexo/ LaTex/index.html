@@ -3,22 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>标签: Markdown | LJ小窝</title>
+    <title>支持LaTEX的hexo博客 | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="hexo_LaTEX">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJ小窝">
-<meta property="og:url" content="http://yoursite.com/tags/Markdown/index.html">
+    <meta name="description" content="本文主要解决hexo 博客部分数学公式不能正常显示的问题。 使Marked.js与MathJax共存因此我提供一个修改marked.js源码的方式来避开这些问题   针对下划线的问题，我决定取消_作为斜体转义，因为marked.js中也是斜体的意思，所以取消掉_的转义并不影响我们使用markdown，只要我们习惯用作为斜体字标记就行了。  针对marked.js与Mathjax对于个别字符二次转义">
+<meta name="keywords" content="hexo_LaTEX">
+<meta property="og:type" content="article">
+<meta property="og:title" content="支持LaTEX的hexo博客">
+<meta property="og:url" content="http://yoursite.com/wiki/工具/hexo/ LaTex/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:description" content="本文主要解决hexo 博客部分数学公式不能正常显示的问题。 使Marked.js与MathJax共存因此我提供一个修改marked.js源码的方式来避开这些问题   针对下划线的问题，我决定取消_作为斜体转义，因为marked.js中也是斜体的意思，所以取消掉_的转义并不影响我们使用markdown，只要我们习惯用作为斜体字标记就行了。  针对marked.js与Mathjax对于个别字符二次转义">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-26T03:09:53.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
+<meta name="twitter:title" content="支持LaTEX的hexo博客">
+<meta name="twitter:description" content="本文主要解决hexo 博客部分数学公式不能正常显示的问题。 使Marked.js与MathJax共存因此我提供一个修改marked.js源码的方式来避开这些问题   针对下划线的问题，我决定取消_作为斜体转义，因为marked.js中也是斜体的意思，所以取消掉_的转义并不影响我们使用markdown，只要我们习惯用作为斜体字标记就行了。  针对marked.js与Mathjax对于个别字符二次转义">
     
 
     
@@ -334,9 +336,9 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             工具
                         </a>
@@ -404,13 +406,13 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             hexo
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/ LaTex/">支持LaTEX的hexo博客</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file active"><a href="/wiki/工具/hexo/ LaTex/">支持LaTEX的hexo博客</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -539,50 +541,158 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-tag"></i></span>
-        <h1 class="title">#Markdown</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-工具/hexo/ LaTex" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a>
-        </h1>
-    
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
+    </div>
 
-                <div class="article-meta">
-                    
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/hexo-LaTEX/">hexo_LaTEX</a>
+    </div>
+
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">
-            <time datetime="2018-06-25T04:11:12.000Z" itemprop="datePublished">2018-06-25</time>
+        <a href="/wiki/工具/hexo/ LaTex/">
+            <time datetime="2018-02-21T04:07:12.000Z" itemprop="datePublished">2018-02-21</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/markdowm/">markdowm</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Markdown/">Markdown</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
+                        
+                    </div>
+                
+                
     
-</div>
+        <h1 class="article-title" itemprop="name">
+            支持LaTEX的hexo博客
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#使Marked-js与MathJax共存"><span class="toc-number">1.</span> <span class="toc-text">使Marked.js与MathJax共存</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>本文主要解决hexo 博客部分数学公式不能正常显示的问题。</p>
+<h2 id="使Marked-js与MathJax共存"><a href="#使Marked-js与MathJax共存" class="headerlink" title="使Marked.js与MathJax共存"></a>使Marked.js与MathJax共存</h2><p>因此我提供一个修改marked.js源码的方式来避开这些问题 </p>
+<ul>
+<li>针对下划线的问题，我决定取消_作为斜体转义，因为marked.js中<em>也是斜体的意思，所以取消掉_的转义并不影响我们使用markdown，只要我们习惯用</em>作为斜体字标记就行了。 </li>
+<li>针对marked.js与Mathjax对于个别字符二次转义的问题，我们只要不让marked.js去转义\\,\{,\}在MathJax中有特殊用途的字符就行了。<br>具体修改方式，用编辑器打开marked.js（在./node_modules/marked/lib/中）</li>
+</ul>
+<p>Step 1:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">\\`*&#123;&#125;\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">`*\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<p>这一步是在原基础上取消了对\\,\{,\}的转义(escape)</p>
+<p>Step 2:</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em: /^<span class="symbol">\b</span>_((?:[^_]|__)+?)_<span class="symbol">\b</span>|^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em:/^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
+<p>这样一来MathJax就能与marked.js共存了。重启一下hexo看一下吧</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/工具/Cocoapods/cocoapod-learn-install/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    cocoapod学习 安装和使用（1）
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/工具/hexo/自己搭建博客的经历/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">自己搭建博客的经历</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/工具/hexo/ LaTex/" data-title="支持LaTEX的hexo博客" data-url="http://yoursite.com/wiki/工具/hexo/ LaTex/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">
