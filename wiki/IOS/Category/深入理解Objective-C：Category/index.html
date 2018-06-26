@@ -235,7 +235,7 @@
                             &nbsp;
                             Mach_O
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -244,7 +244,7 @@
                             &nbsp;
                             Runtime
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -262,7 +262,7 @@
                             &nbsp;
                             foundation使用记录
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -726,7 +726,7 @@ static struct _category_t *L_OBJC_LABEL_CATEGORY_$ [1] __attribute__((used, sect
 <ol>
 <li>首先编译器生成了实例方法列表OBJC$_CATEGORY_INSTANCE_METHODSMyClass$_MyAddition和属性列表OBJC$_PROP_LISTMyClass$_MyAddition，两者的命名都遵循了公共前缀+类名+category名字的命名方式，而且实例方法列表里面填充的正是我们在MyAddition这个category里面写的方法printName，而属性列表里面填充的也正是我们在MyAddition里添加的name属性。还有一个需要注意到的事实就是category的名字用来给各种列表以及后面的category结构体本身命名，而且有static来修饰，所以在同一个编译单元里我们的category名不能重复，否则会出现编译错误。</li>
 <li>其次，编译器生成了category本身OBJC$_CATEGORYMyClass$_MyAddition，并用前面生成的列表来初始化category本身。</li>
-<li>最后，编译器在DATA段下的objc_catlist section里保存了一个大小为1的category_t的数组L_OBJC<em>LABELCATEGORY$（当然，如果有多个category，会生成对应长度的数组^</em>^），用于运行期category的加载。<br>到这里，编译器的工作就接近尾声了，对于category在运行期怎么加载，我们下节揭晓。</li>
+<li>最后，编译器在DATA段下的objc_catlist section里保存了一个大小为1的category_t的数组L_OBJC_LABELCATEGORY$（当然，如果有多个category，会生成对应长度的数组^_^），用于运行期category的加载。<br>到这里，编译器的工作就接近尾声了，对于category在运行期怎么加载，我们下节揭晓。</li>
 </ol>
 <h1 id="追本溯源-category如何加载"><a href="#追本溯源-category如何加载" class="headerlink" title="追本溯源-category如何加载"></a>追本溯源-category如何加载</h1><p>我们知道，Objective-C的运行是依赖OC的runtime的，而OC的runtime和其他系统库一样，是OS X和iOS通过dyld动态加载的。<br>想了解更多dyld地同学可以移步这里。<br>对于OC运行时，入口方法如下（在objc-os.mm文件中）：</p>
 <pre><code>void _objc_init(void)
