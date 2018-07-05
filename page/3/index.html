@@ -185,7 +185,7 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
                     </li> 
-                     <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                     <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  </ul> 
                     </li> 
@@ -567,6 +567,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/事件处理/iOS事件处理" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/事件处理/">事件处理</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/事件处理/">事件处理</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/事件处理/iOS事件处理/">
+            <time datetime="2018-04-27T04:07:12.000Z" itemprop="datePublished">2018-04-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文转载自<a href="https://www.jianshu.com/p/b0884faae603" rel="external nofollow noopener noreferrer" target="_blank">iOS事件处理，看我就够了~</a></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/事件处理/iOS事件处理/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-工具/ruby/homebrew-gem使用" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1589,83 +1655,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/工具/Cocoapods/cocoapod-learn-install/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/hexo/LaTex" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/hexo-LaTEX/">hexo_LaTEX</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/hexo/LaTex/">
-            <time datetime="2018-02-21T04:07:12.000Z" itemprop="datePublished">2018-02-21</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p>本文主要解决hexo 博客部分数学公式不能正常显示的问题。</p>
-<h2 id="使Marked-js与MathJax共存"><a href="#使Marked-js与MathJax共存" class="headerlink" title="使Marked.js与MathJax共存"></a>使Marked.js与MathJax共存</h2><p>因此我提供一个修改marked.js源码的方式来避开这些问题 </p>
-<ul>
-<li>针对下划线的问题，我决定取消_作为斜体转义，因为marked.js中<em>也是斜体的意思，所以取消掉_的转义并不影响我们使用markdown，只要我们习惯用</em>作为斜体字标记就行了。 </li>
-<li>针对marked.js与Mathjax对于个别字符二次转义的问题，我们只要不让marked.js去转义\\,\{,\}在MathJax中有特殊用途的字符就行了。<br>具体修改方式，用编辑器打开marked.js（在./node_modules/marked/lib/中）</li>
-</ul>
-<p>Step 1:</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">\\`*&#123;&#125;\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
-<p>替换成</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">`*\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
-<p>这一步是在原基础上取消了对\\,\{,\}的转义(escape)</p>
-<p>Step 2:</p>
-<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em: /^<span class="symbol">\b</span>_((?:[^_]|__)+?)_<span class="symbol">\b</span>|^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
-<p>替换成</p>
-<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em:/^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
-<p>这样一来MathJax就能与marked.js共存了。重启一下hexo看一下吧</p>
-
             </div>
         
         <footer class="article-footer">

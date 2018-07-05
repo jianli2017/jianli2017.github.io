@@ -3,22 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>分类: Cocoapods | LJ小窝</title>
+    <title>为什么`forward_list`不支持`push_back`操作？ | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="forward_list">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJ小窝">
-<meta property="og:url" content="http://yoursite.com/categories/工具/Cocoapods/index.html">
+    <meta name="description" content="为什么forward_list不支持push_back操作？由于forward_list是单向链表，所以我们如果想要访问尾元素，都要从首元素开始跌代，算法复杂度为O(n)。而对于list为双向链表，直接通过尾指针可以访问尾元素，实现在尾元素添加元素，函数复杂度为O(1)，而vector，string,deque,也可以通过尾指针来添加元素，函数复杂度为O(1)。 同样的原因也有forward_li">
+<meta name="keywords" content="forward_list">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为什么`forward_list`不支持`push_back`操作？">
+<meta property="og:url" content="http://yoursite.com/wiki/C++语言/container/forward_list不支持push_back操作/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:description" content="为什么forward_list不支持push_back操作？由于forward_list是单向链表，所以我们如果想要访问尾元素，都要从首元素开始跌代，算法复杂度为O(n)。而对于list为双向链表，直接通过尾指针可以访问尾元素，实现在尾元素添加元素，函数复杂度为O(1)，而vector，string,deque,也可以通过尾指针来添加元素，函数复杂度为O(1)。 同样的原因也有forward_li">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-06-27T02:40:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
+<meta name="twitter:title" content="为什么`forward_list`不支持`push_back`操作？">
+<meta name="twitter:description" content="为什么forward_list不支持push_back操作？由于forward_list是单向链表，所以我们如果想要访问尾元素，都要从首元素开始跌代，算法复杂度为O(n)。而对于list为双向链表，直接通过尾指针可以访问尾元素，实现在尾元素添加元素，函数复杂度为O(1)，而vector，string,deque,也可以通过尾指针来添加元素，函数复杂度为O(1)。 同样的原因也有forward_li">
     
 
     
@@ -154,16 +156,16 @@
         
         
          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             C++语言
                         </a>
                          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             container
                         </a>
@@ -185,7 +187,7 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
                     </li> 
-                     <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  </ul> 
+                     <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  <li class="file active"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/C++语言/运算符优先级表/">运算符优先级表</a></li>  </ul> 
                     </li> 
@@ -566,107 +568,135 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">Cocoapods</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-C++语言/container/forward_list不支持push_back操作" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a>
-        </h1>
-    
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/container/">container</a>
+    </div>
 
-                <div class="article-meta">
-                    
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/forward-list/">forward_list</a>
+    </div>
+
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">
-            <time datetime="2018-03-01T06:50:54.000Z" itemprop="datePublished">2018-03-01</time>
+        <a href="/wiki/C++语言/container/forward_list不支持push_back操作/">
+            <time datetime="2018-06-27T02:07:12.000Z" itemprop="datePublished">2018-06-27</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
-    </div>
-
-                    
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                        
+                    </div>
+                
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a>
+        <h1 class="article-title" itemprop="name">
+            为什么`forward_list`不支持`push_back`操作？
         </h1>
     
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">
-            <time datetime="2018-02-27T07:06:13.000Z" itemprop="datePublished">2018-02-27</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
-    </div>
-
-                    
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么forward-list不支持push-back操作？"><span class="toc-number">1.</span> <span class="toc-text">为什么forward_list不支持push_back操作？</span></a></li></ol>
                 </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a>
-        </h1>
-    
+            
+        
+        
+            <h2 id="为什么forward-list不支持push-back操作？"><a href="#为什么forward-list不支持push-back操作？" class="headerlink" title="为什么forward_list不支持push_back操作？"></a>为什么forward_list不支持push_back操作？</h2><p>由于forward_list是单向链表，所以我们如果想要访问尾元素，都要从首元素开始跌代，算法复杂度为O(n)。而对于list为双向链表，直接通过尾指针可以访问尾元素，实现在尾元素添加元素，函数复杂度为O(1)，而vector，string,deque,也可以通过尾指针来添加元素，函数复杂度为O(1)。</p>
+<p>同样的原因也有forward_list不支持pop_back。<br>由于类似原因(算法的复杂度)，有vector，string，不支持push_front，pop_front，但是通过insert，和erase操作仍然可以完成添加/删除首元素。</p>
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">
-            <time datetime="2018-02-27T02:29:06.000Z" itemprop="datePublished">2018-02-27</time>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/C++语言/container/容器基本操作/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">容器基本操作</div>
         </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
-    </div>
-
-                    
-                </div>
-            </div>
-        </div>
     
-</div>
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/C++语言/container/forward_list不支持push_back操作/" data-title="为什么`forward_list`不支持`push_back`操作？" data-url="http://yoursite.com/wiki/C++语言/container/forward_list不支持push_back操作/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">
