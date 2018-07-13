@@ -643,7 +643,7 @@
 <p>函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么<br>运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。</p>
 <p>如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。</p>
 <h2 id="拷贝、赋值、销毁"><a href="#拷贝、赋值、销毁" class="headerlink" title="拷贝、赋值、销毁"></a>拷贝、赋值、销毁</h2><h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><p>如果一个函数的第一个参数是自身类型的引用，且任何额为的参数都有默认值，则，此构造函数是拷贝构造函数。</p>
-<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class"></span>&#123;		</span><br><span class="line">		plublic:</span><br><span class="line">		Foo(canst Foo&amp;); <span class="comment">// 拷贝构造函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class"></span>&#123;		</span><br><span class="line">   plublic:</span><br><span class="line">   Foo(canst Foo&amp;); <span class="comment">// 拷贝构造函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h4 id="合成拷贝构造函数"><a href="#合成拷贝构造函数" class="headerlink" title="合成拷贝构造函数"></a>合成拷贝构造函数</h4><p>如果我们没有为一个类定义拷贝构造函数，编译器会为我们定义一个。这个拷贝构造函数称为合成拷贝构造函数。合成的拷贝构造函数会将其参数逐个拷贝到正在创建的对象中。除了静态成员。</p>
 <p>合成拷贝构造函数如何拷贝：</p>
 <ol>
@@ -653,8 +653,7 @@
 </ol>
 <p>例子：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sales_data::Sales_data(const Sales_data&amp; orig):</span><br><span class="line"><span class="function"><span class="title">bookNO</span><span class="params">(orig.bookNO)</span></span>,</span><br><span class="line"><span class="function"><span class="title">units_sold</span><span class="params">(orig.units_sold)</span></span>,</span><br><span class="line"><span class="function"><span class="title">revenue</span><span class="params">(orig.revenue)</span></span></span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
-<p>####拷贝初始化</p>
-<ol>
+<h4 id="拷贝初始化"><a href="#拷贝初始化" class="headerlink" title="拷贝初始化"></a>拷贝初始化</h4><ol>
 <li>直接初始化：我们实际上要求编译器用普通的函数匹配类选择与我们提供的参数最匹配的构造函数</li>
 <li>拷贝初始化：要求编译器将右侧运算对象拷贝到正在创建的对象中，如果需要的话，还进行类型转换。</li>
 </ol>
