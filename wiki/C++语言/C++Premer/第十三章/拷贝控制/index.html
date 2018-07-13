@@ -9,18 +9,18 @@
         <meta name="keywords" content="拷贝控制">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。 拷贝、赋值、销毁拷贝构造函数如果一个函数的第一个参数是自">
+    <meta name="description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
 <meta name="keywords" content="拷贝控制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拷贝控制">
 <meta property="og:url" content="http://yoursite.com/wiki/C++语言/C++Premer/第十三章/拷贝控制/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。 拷贝、赋值、销毁拷贝构造函数如果一个函数的第一个参数是自">
+<meta property="og:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-13T07:12:52.000Z">
+<meta property="og:updated_time" content="2018-07-13T07:13:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拷贝控制">
-<meta name="twitter:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。 拷贝、赋值、销毁拷贝构造函数如果一个函数的第一个参数是自">
+<meta name="twitter:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
     
 
     
@@ -648,6 +648,7 @@
 </ol>
 <p>函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么<br>运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。</p>
 <p>如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。</p>
+<a id="more"></a>
 <h2 id="拷贝、赋值、销毁"><a href="#拷贝、赋值、销毁" class="headerlink" title="拷贝、赋值、销毁"></a>拷贝、赋值、销毁</h2><h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><p>如果一个函数的第一个参数是自身类型的引用，且任何额为的参数都有默认值，则，此构造函数是拷贝构造函数。</p>
 <figure class="highlight actionscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Foo</span></span></span><br><span class="line"><span class="class"></span>&#123;		</span><br><span class="line">   plublic:</span><br><span class="line">   Foo(canst Foo&amp;); <span class="comment">// 拷贝构造函数</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <h4 id="合成拷贝构造函数"><a href="#合成拷贝构造函数" class="headerlink" title="合成拷贝构造函数"></a>合成拷贝构造函数</h4><p>如果我们没有为一个类定义拷贝构造函数，编译器会为我们定义一个。这个拷贝构造函数称为合成拷贝构造函数。合成的拷贝构造函数会将其参数逐个拷贝到正在创建的对象中。除了静态成员。</p>
