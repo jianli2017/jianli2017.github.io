@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-13T07:13:23.000Z">
+<meta property="og:updated_time" content="2018-07-13T08:21:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拷贝控制">
 <meta name="twitter:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
@@ -633,7 +633,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝、赋值、销毁"><span class="toc-number">1.</span> <span class="toc-text">拷贝、赋值、销毁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">1.1.</span> <span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#合成拷贝构造函数"><span class="toc-number">1.1.1.</span> <span class="toc-text">合成拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝初始化"><span class="toc-number">1.1.2.</span> <span class="toc-text">拷贝初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数和返回值"><span class="toc-number">1.1.3.</span> <span class="toc-text">参数和返回值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝赋值运算符"><span class="toc-number">1.2.</span> <span class="toc-text">拷贝赋值运算符</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝、赋值、销毁"><span class="toc-number">1.</span> <span class="toc-text">拷贝、赋值、销毁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">1.1.</span> <span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#合成拷贝构造函数"><span class="toc-number">1.1.1.</span> <span class="toc-text">合成拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝初始化"><span class="toc-number">1.1.2.</span> <span class="toc-text">拷贝初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数和返回值"><span class="toc-number">1.1.3.</span> <span class="toc-text">参数和返回值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝赋值运算符"><span class="toc-number">1.2.</span> <span class="toc-text">拷贝赋值运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#析构函数"><span class="toc-number">1.3.</span> <span class="toc-text">析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三五法则"><span class="toc-number">1.4.</span> <span class="toc-text">三五法则</span></a></li></ol></li></ol>
                 </div>
             
         
@@ -672,7 +672,28 @@
 <li>insert 、push（emplace 直接初始化）</li>
 </ol>
 <h4 id="参数和返回值"><a href="#参数和返回值" class="headerlink" title="参数和返回值"></a>参数和返回值</h4><p>当一个函数具有非引用类型的返回值类型时，返回值会被用来初始化调用方的结果</p>
-<h3 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h3>
+<h3 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h3><p>赋值运算符就是一个名为opertor =的函数，类似于任何其他函数，运算符函数也有一个返回类型和一个参数列表。<br>如果一个运算符是一个成员函数，其左侧运算对象就绑定到隐式this参数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo &amp;);</span><br></pre></td></tr></table></figure></p>
+<p>赋值运算符通常应该返回一个指向其左侧运算对象的引用。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Sales_data&amp; Sales_data::<span class="keyword">operator</span>=(<span class="keyword">const</span> Sales_data &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	booNO = rhs.bookNO;</span><br><span class="line">	units_sold = rhs.units_sold;</span><br><span class="line">	revenue = rhs.revenue;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><ol>
+<li>构造函数初始化对象的非static数据成员。</li>
+<li>析构函数释放对象使用的资源，并销毁对象的非静态成员。</li>
+</ol>
+<p>析构函数是类的一个成员函数，名字由波浪号接类名构成，没有返回值，不接受参数。<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">~Foo()</span>;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>在构造函数中，成员的初始化是在函数体执行前完成的，且按照他们在类中出现的顺序进行初始化。</li>
+<li>在析构函数中，首先执行函数体，然后销毁成员，成员按初始化顺序的逆序销毁。</li>
+</ol>
+<p>隐式销毁一个内置指针类型的成员不会delete它所指向的对象。智能指针是类类型，所以具有析构函数，所以销毁的时候会销毁其指向的对象。</p>
+<p>什么时候会调用析构函数：</p>
+<ol>
+<li>变量在离开其作用域时</li>
+<li>对象被销毁，其成员被销毁</li>
+<li>容器被销毁，其成员被销毁</li>
+<li>动态分配的对象，delete 运算符时会被销毁</li>
+<li>对于临时对象，当创建他的完整表达式结束时被销毁</li>
+</ol>
+<p><font color="red">析构函数自身并不直接销毁成员，成员实在析构函数体之后隐含的析构阶段中被销毁的</font></p>
+<h3 id="三五法则"><a href="#三五法则" class="headerlink" title="三五法则"></a>三五法则</h3>
             </div>
         
         <footer class="article-footer">
