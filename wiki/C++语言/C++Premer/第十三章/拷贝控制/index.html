@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-13T08:21:11.000Z">
+<meta property="og:updated_time" content="2018-07-13T11:17:53.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拷贝控制">
 <meta name="twitter:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
@@ -633,7 +633,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝、赋值、销毁"><span class="toc-number">1.</span> <span class="toc-text">拷贝、赋值、销毁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">1.1.</span> <span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#合成拷贝构造函数"><span class="toc-number">1.1.1.</span> <span class="toc-text">合成拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝初始化"><span class="toc-number">1.1.2.</span> <span class="toc-text">拷贝初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数和返回值"><span class="toc-number">1.1.3.</span> <span class="toc-text">参数和返回值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝赋值运算符"><span class="toc-number">1.2.</span> <span class="toc-text">拷贝赋值运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#析构函数"><span class="toc-number">1.3.</span> <span class="toc-text">析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三五法则"><span class="toc-number">1.4.</span> <span class="toc-text">三五法则</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝、赋值、销毁"><span class="toc-number">1.</span> <span class="toc-text">拷贝、赋值、销毁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">1.1.</span> <span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#合成拷贝构造函数"><span class="toc-number">1.1.1.</span> <span class="toc-text">合成拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝初始化"><span class="toc-number">1.1.2.</span> <span class="toc-text">拷贝初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数和返回值"><span class="toc-number">1.1.3.</span> <span class="toc-text">参数和返回值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝赋值运算符"><span class="toc-number">1.2.</span> <span class="toc-text">拷贝赋值运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#析构函数"><span class="toc-number">1.3.</span> <span class="toc-text">析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三五法则"><span class="toc-number">1.4.</span> <span class="toc-text">三五法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-default"><span class="toc-number">1.5.</span> <span class="toc-text">使用=default</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阻止拷贝"><span class="toc-number">1.6.</span> <span class="toc-text">阻止拷贝</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝控制和资源管理"><span class="toc-number">2.</span> <span class="toc-text">拷贝控制和资源管理</span></a></li></ol>
                 </div>
             
         
@@ -693,7 +693,35 @@
 <li>对于临时对象，当创建他的完整表达式结束时被销毁</li>
 </ol>
 <p><font color="red">析构函数自身并不直接销毁成员，成员实在析构函数体之后隐含的析构阶段中被销毁的</font></p>
-<h3 id="三五法则"><a href="#三五法则" class="headerlink" title="三五法则"></a>三五法则</h3>
+<h3 id="三五法则"><a href="#三五法则" class="headerlink" title="三五法则"></a>三五法则</h3><p>需要析构函数的类也需要拷贝和赋值。<br>需要拷贝操作的类也需要赋值操作。</p>
+<h3 id="使用-default"><a href="#使用-default" class="headerlink" title="使用=default"></a>使用=default</h3><p>可以通过将拷贝控制成员定义为=default来显示的要求编译器生产合成的版本。合成函数将隐式的声明为内联的，如果不希望合成的成员函数是内联函数，应该只对成员的类外定义使用=default。</p>
+<h3 id="阻止拷贝"><a href="#阻止拷贝" class="headerlink" title="阻止拷贝"></a>阻止拷贝</h3><p>应用场景：iostream类阻止了拷贝，以避免多个对象写入或读取相同的io缓存。<br>删除函数是这样一种函数：我们虽然声明了他们，单不能以任何方式使用他们。</p>
+<p>=default 、=delete区别：</p>
+<ol>
+<li>=delete必须在函数第一次声明的时候。=default直到编译器生产代码的时候才需要。</li>
+<li>可以对任何函数指定=delete，只能对编译器可以合成的默认构造函数或者拷贝控制成员使用=default。</li>
+</ol>
+<p>析构函数不能是删除的，如果析构函数被删除了，就无法消化此类型的对象了。对于一个删除了析构函数的类型，编译器将不允许定义该类型的变量或者创建该类的临时变量。如果一个类的某个成员的类型删除了析构函数，我们不能定义该类的变量或者临时对象。因为如果一个成员的析构函数是删除的，则改成员无法被销毁，而如果一个成员无法被销毁，则对象整体也就无法被销毁了。</p>
+<p>对于删除了析构函数的类型，虽然不能定义这种类型的变量或者成员，但可以动态分配这种类型的对象。但是不能释放这些对象。</p>
+<p>合成的拷贝成员可能是删除的：如果一个类有数据成员不能默认构造、拷贝、赋值、销毁。则对应的成员函数将被定义为删除的。</p>
+<p>一个成员有删除的或不可访问的析构函数会导致合成的默认和拷贝构造函数被定义为删除的。原因是：如果没有这条规则，我们可能创建出无法销毁的对象。</p>
+<p>对于据用引用成员或者无法默认构造的const成员的类。编译器不会为其合成默认构造函数。如果一个类有const成员，则他不能使用合成的拷贝赋值运算符，毕竟，次运算符视图赋值所有成员，而将一个新值赋予一个const对象是不可能的。虽然我们可以将一个新值赋予一个引用成员，但这样做改变的是引用指向的对象的值，而不是引用本身。</p>
+<h2 id="拷贝控制和资源管理"><a href="#拷贝控制和资源管理" class="headerlink" title="拷贝控制和资源管理"></a>拷贝控制和资源管理</h2><p>管理类外资源的类必须定义拷贝控制函数。</p>
+<ol>
+<li>类值拷贝</li>
+<li>类指针拷贝</li>
+</ol>
+<p>赋值运算符通常组合了析构函数和构造函数的操作。类型析构函数，赋值操作会销毁左侧运算对象的资源。类似拷贝构造函数，赋值操作会从右侧运算对象拷贝数据。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HasPtr&amp; HasPtr::<span class="keyword">operator</span>=(<span class="keyword">const</span> HasPtr &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">auto</span> newp = <span class="keyword">new</span> <span class="built_in">string</span>(*rhs.ps); <span class="comment">//拷贝底层String</span></span><br><span class="line">	<span class="keyword">delete</span> ps; <span class="comment">//是否旧内存</span></span><br><span class="line">	ps = newp;</span><br><span class="line">	i=rhs.i;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>; <span class="comment">//返回本对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于一个赋值运算符来说，正确工作非常重要的，即使将一个对象赋予它吱声，也要能正确工作。一个好的方法是在销毁左侧运算对象资源之前拷贝右侧运算对象。</p>
+<p>引用计数的工作方式：</p>
+<ul>
+<li>除了初始化对象外，每个构造函数（拷贝构造函数除外）还要创建一个引用计数，用来记录有多少对象与正在创建的对象共享状态。当我们创建一个对象时，只有一个对象共享状态，因此将计数器初始化为1。</li>
+<li>拷贝构造函数不分配新的计数器，而是拷贝给定对象的数据成员，包括计数器。拷贝析构函数递增共享的计数器。指出给定对象的状态又被一个新用户共享。</li>
+<li>析构函数递减计数器。指出共享状态的用户少了一个。如果计数器变为0，则析构函数释放状态。</li>
+<li>拷贝赋值运算符递增右侧运算对象的计算器。递减左侧运算对象的计数器。如果左侧运算对象的计数器变为0，意味着它的共享状态没有用户了，拷贝赋值运算符就必须销毁状态。</li>
+</ul>
+
             </div>
         
         <footer class="article-footer">
