@@ -172,6 +172,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Premer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             第十三章
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Premer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
@@ -181,9 +190,27 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Premer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             第十五章 面向对象程序设计
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Premer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Premer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -421,7 +448,7 @@
                             &nbsp;
                             linux命令
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/$0,$?,$!等的特殊用法/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/export命令/">set命令</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -630,6 +657,342 @@
 </aside>
             
             <section id="main">
+        <article id="post-C++语言/C++Premer/第十三章/拷贝控制" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Premer/">C++Premer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Premer/第十三章/">第十三章</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/拷贝控制/">拷贝控制</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/C++Premer/第十三章/拷贝控制/">
+            <time datetime="2018-07-13T04:07:12.000Z" itemprop="datePublished">2018-07-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/C++Premer/第十三章/拷贝控制/">拷贝控制</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>我们将学到：拷贝、赋值、移动、销毁做什么？</p>
+<ol>
+<li>拷贝构造函数  </li>
+<li>拷贝赋值运算符</li>
+<li>移动构造函数</li>
+<li>移动赋值运算符</li>
+<li>析构函数</li>
+</ol>
+<p>函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么<br>运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。</p>
+<p>如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/C++Premer/第十三章/拷贝控制/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/container/forward_list不支持push_back操作" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/container/">container</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/forward-list/">forward_list</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/container/forward_list不支持push_back操作/">
+            <time datetime="2018-06-27T02:07:12.000Z" itemprop="datePublished">2018-06-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="为什么forward-list不支持push-back操作？"><a href="#为什么forward-list不支持push-back操作？" class="headerlink" title="为什么forward_list不支持push_back操作？"></a>为什么forward_list不支持push_back操作？</h2><p>由于forward_list是单向链表，所以我们如果想要访问尾元素，都要从首元素开始跌代，算法复杂度为O(n)。而对于list为双向链表，直接通过尾指针可以访问尾元素，实现在尾元素添加元素，函数复杂度为O(1)，而vector，string,deque,也可以通过尾指针来添加元素，函数复杂度为O(1)。</p>
+<p>同样的原因也有forward_list不支持pop_back。<br>由于类似原因(算法的复杂度)，有vector，string，不支持push_front，pop_front，但是通过insert，和erase操作仍然可以完成添加/删除首元素。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/container/容器基本操作" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/container/">container</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/容器操作/">容器操作</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/container/容器基本操作/">
+            <time datetime="2018-06-26T08:07:12.000Z" itemprop="datePublished">2018-06-26</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文列举C++中容器的通用操作。来源于C++ primer</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/container/容器基本操作/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/container/list/C++标准库中的list的实现原理" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/container/">container</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/container/list/">list</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/list/">list</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">
+            <time datetime="2018-06-26T07:07:12.000Z" itemprop="datePublished">2018-06-26</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文抄袭至<a href="https://blog.csdn.net/loveyou11111111/article/details/49763197" rel="external nofollow noopener noreferrer" target="_blank">C++标准库中的list的实现原理</a></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/container/deque/deque的实现原理和使用方法详解" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/container/">container</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/container/deque/">deque</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/deque/">deque</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">
+            <time datetime="2018-06-26T02:07:12.000Z" itemprop="datePublished">2018-06-26</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文抄袭至<a href="https://blog.csdn.net/baidu_28312631/article/details/48000123" rel="external nofollow noopener noreferrer" target="_blank">STL源码剖析——deque的实现原理和使用方法详解</a>。只用于本人学习。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-工具/markdowm/Markdown公式编辑学习笔记" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1550,334 +1913,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/开源库学习/fishhook/learn_fishhook" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/开源库学习/">开源库学习</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/开源库学习/fishhook/">fishhook</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/fishhook/">fishhook</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">
-            <time datetime="2018-06-20T04:07:12.000Z" itemprop="datePublished">2018-06-20</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p><a href="https://github.com/facebook/fishhook" rel="external nofollow noopener noreferrer" target="_blank">fishhook</a>是一个可以替换C函数的开源库，官网的readme讲解了重新绑定的原理。本文从源码的角度去学习fishhook。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/动态库/static_lib_aggregate_script" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/动态库/">动态库</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/ios/">ios</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/动态库/static_lib_aggregate_script/">
-            <time datetime="2018-06-06T04:07:12.000Z" itemprop="datePublished">2018-06-06</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>这篇文章解释合并真机模拟器静态库的脚本</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/动态库/static_lib_aggregate_script/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/Xcode编译常量/xcode编译环境变量" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Xcode编译常量/">Xcode编译常量</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/工具/">工具</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">
-            <time datetime="2018-06-06T04:07:12.000Z" itemprop="datePublished">2018-06-06</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p>看图吧</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/%E5%B7%A5%E5%85%B7/xcode/Xcode%E7%BC%96%E8%AF%91%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.png" alt="xcode 环境变量"></p>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/虚拟内存/虚拟内存之2" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/虚拟内存/">虚拟内存</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/虚拟内存/">虚拟内存</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/虚拟内存/虚拟内存之2/">
-            <time datetime="2018-06-02T04:07:12.000Z" itemprop="datePublished">2018-06-02</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>If you need more detailed information about virtual memory usage, you can use the top, vm_stat, pagestuff, and vmmap command-line tools for analyzing your Mac apps. The information returned by these tools ranges from summary information about all the system processes to detailed information about a specific process.<br>如果您需要关于虚拟内存使用的更详细的信息，您可以使用上面的vm_stat、pagestuff和vmmap命令行工具来分析您的Mac应用程序。这些工具返回的信息范围从关于所有系统流程的总结信息到关于特定流程的详细信息。</p>
-<p>The following sections provide information on using the vm_stat, pagestuff, and vmmap tools to gather detailed memory information. For more information on using Instruments to analyze memory, see <a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/index.html#//apple_ref/doc/uid/TP40004652" rel="external nofollow noopener noreferrer" target="_blank">Instruments User Guide</a> and the other articles in this document. For information on how to use the top tool,<br>以下部分提供了关于使用vm_stat、pagestuff和vmmap工具收集详细内存信息的信息。有关使用仪器分析内存的更多信息，请参阅<a href="https://developer.apple.com/library/content/documentation/DeveloperTools/Conceptual/InstrumentsUserGuide/index.html#//apple_ref/doc/uid/TP40004652" rel="external nofollow noopener noreferrer" target="_blank">仪器用户指南</a>和本文中的其他文章。有关如何使用顶部工具的信息，请参见<a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/PerformanceOverview/Introduction/Introduction.html#//apple_ref/doc/uid/TP40001410" rel="external nofollow noopener noreferrer" target="_blank">2</a>。see <a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/PerformanceOverview/Introduction/Introduction.html#//apple_ref/doc/uid/TP40001410" rel="external nofollow noopener noreferrer" target="_blank">Performance Overview</a>.</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/虚拟内存/虚拟内存之2/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/虚拟内存/虚拟内存" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/虚拟内存/">虚拟内存</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/虚拟内存1/">虚拟内存1</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/虚拟内存/虚拟内存/">
-            <time datetime="2018-06-01T04:07:12.000Z" itemprop="datePublished">2018-06-01</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>这篇文章翻译下<a href="https://developer.apple.com/library/content/documentation/Performance/Conceptual/ManagingMemory/Articles/AboutMemory.html" rel="external nofollow noopener noreferrer" target="_blank">Memory Usage Performance Guidelines</a></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/虚拟内存/虚拟内存/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
