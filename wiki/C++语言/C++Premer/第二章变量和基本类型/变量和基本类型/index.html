@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="C++ 是静态数据类型语言，类型检查发生在编译时。数据类型是程序的基础，他告诉我们数据的意义以及我们能在数据上执行的操作。 主要内容 ：  基本内置类型 变量 复合类型 const限定符 处理类型 自定义数据类型">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-03T07:23:38.000Z">
+<meta property="og:updated_time" content="2018-08-13T03:27:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="变量和基本类型">
 <meta name="twitter:description" content="C++ 是静态数据类型语言，类型检查发生在编译时。数据类型是程序的基础，他告诉我们数据的意义以及我们能在数据上执行的操作。 主要内容 ：  基本内置类型 变量 复合类型 const限定符 处理类型 自定义数据类型">
@@ -705,7 +705,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本内置类型"><span class="toc-number">1.</span> <span class="toc-text">基本内置类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换"><span class="toc-number">1.1.</span> <span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#含有无符号类型的表达式"><span class="toc-number">1.2.</span> <span class="toc-text">含有无符号类型的表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字面值常量"><span class="toc-number">1.3.</span> <span class="toc-text">字面值常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定字面值的类型"><span class="toc-number">1.4.</span> <span class="toc-text">指定字面值的类型</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本内置类型"><span class="toc-number">1.</span> <span class="toc-text">基本内置类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型转换"><span class="toc-number">1.1.</span> <span class="toc-text">类型转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#含有无符号类型的表达式"><span class="toc-number">1.2.</span> <span class="toc-text">含有无符号类型的表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字面值常量"><span class="toc-number">1.3.</span> <span class="toc-text">字面值常量</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指定字面值的类型"><span class="toc-number">1.4.</span> <span class="toc-text">指定字面值的类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#变量"><span class="toc-number">2.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量定义"><span class="toc-number">2.1.</span> <span class="toc-text">变量定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#变量声明和定义的关系"><span class="toc-number">2.2.</span> <span class="toc-text">变量声明和定义的关系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标识符"><span class="toc-number">2.3.</span> <span class="toc-text">标识符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#名字的作用域"><span class="toc-number">2.4.</span> <span class="toc-text">名字的作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#符合类型（引用、指针）"><span class="toc-number">3.</span> <span class="toc-text">符合类型（引用、指针）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#引用"><span class="toc-number">3.1.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针"><span class="toc-number">3.2.</span> <span class="toc-text">指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#理解符合类型"><span class="toc-number">3.3.</span> <span class="toc-text">理解符合类型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#指向指针的指针"><span class="toc-number">3.3.1.</span> <span class="toc-text">指向指针的指针</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指向指针的引用"><span class="toc-number">3.3.2.</span> <span class="toc-text">指向指针的引用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const-引用"><span class="toc-number">3.4.</span> <span class="toc-text">const 引用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#初始化和对const的引用"><span class="toc-number">3.4.1.</span> <span class="toc-text">初始化和对const的引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#对const的引用可能引用一个并非const的对象"><span class="toc-number">3.4.2.</span> <span class="toc-text">对const的引用可能引用一个并非const的对象</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指针和const"><span class="toc-number">3.5.</span> <span class="toc-text">指针和const</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#const指针"><span class="toc-number">3.5.1.</span> <span class="toc-text">const指针</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#顶层const"><span class="toc-number">3.6.</span> <span class="toc-text">顶层const</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#constexpr-和常量表达式"><span class="toc-number">3.7.</span> <span class="toc-text">constexpr 和常量表达式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#字面值类型"><span class="toc-number">3.7.1.</span> <span class="toc-text">字面值类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#指针和constexpr"><span class="toc-number">3.7.2.</span> <span class="toc-text">指针和constexpr</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#处理类型"><span class="toc-number">4.</span> <span class="toc-text">处理类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类型别名（type-alias）"><span class="toc-number">4.1.</span> <span class="toc-text">类型别名（type alias）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#指针、常量和类型别名"><span class="toc-number">4.1.1.</span> <span class="toc-text">指针、常量和类型别名</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#auto类型说明符"><span class="toc-number">4.2.</span> <span class="toc-text">auto类型说明符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#decltype-类型指示符"><span class="toc-number">4.3.</span> <span class="toc-text">decltype 类型指示符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义数据结构"><span class="toc-number">5.</span> <span class="toc-text">自定义数据结构</span></a></li></ol>
                 </div>
             
         
@@ -918,6 +918,138 @@
 </tr>
 </tbody>
 </table>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>变量提供具名的、可供程序操作的存储空间。C++每个变量都有数据类型，数据类型决定着变量所占内存空间的大小、布局方式、该空间能存储的值的范围、以及变量能参与的运算。</p>
+<h3 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义"></a>变量定义</h3><p>基本形式：类型说明符（type specifier） + 变量名</p>
+<p>string表示可变长字符序列  的数据类型</p>
+<p>对象是指能存储数据并具有某种类型的存储空间。</p>
+<p>当一次定义了两个或多个变量时，对象的名字随着定义也马上可以使用了。因此在同一条语句中，可以用先定义的变量去初始化后定义的其他变量。</p>
+<p>初始化不是赋值，初始化的含义是创建变量时赋予其一个初始值。而赋值的含义是把对象的当前值擦除，而以一个新值来代替。</p>
+<p>初始化的四种形式：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> a = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> a&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">a</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>或括号的初始化形式称为<strong>初始化列表</strong>。</p>
+<p>初始化列表用于内置类型的变量时：<strong>如果初始值存在丢失信息的风险，编译器报错。</strong></p>
+<p>如果定义变量时没有指定值，则变量被默认初始化（default initialized），此时变量被赋予了默认值。</p>
+<p>函数体之外的内置变量被初始化为0；函数体内的内置类型的对象如果没有初始化，则其值未定义。类的对象如果没有显示初始化，则其值由类确定。</p>
+<h3 id="变量声明和定义的关系"><a href="#变量声明和定义的关系" class="headerlink" title="变量声明和定义的关系"></a>变量声明和定义的关系</h3><p>声明：规定了变量的类型和名字，这一点上和定义相同。<br>定义：除了规定变量的类型和名字，还申请存储空间、为变量赋一个初始值。</p>
+<p>声明代码：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">extern</span> <span class="keyword">int</span> i;  <span class="comment">//声明i，而非定义i，</span></span><br><span class="line"><span class="keyword">extern</span> <span class="keyword">double</span> pi = <span class="number">3.14</span>; 任何包含了显示初始化的声明既变为定义。</span><br></pre></td></tr></table></figure>
+<p>变量能且只能别定义一次，但是可以被多次声明。</p>
+<p>这相当于为分离式编程提供了支持</p>
+<p>C++是一种静态类型语言，其含义是在编译阶段检查类型。其中检查类型的过程称为类型检查。 编译器知道每一个实体对象的类型是通过类型声明。</p>
+<h3 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h3><p>用户定义的标识符不能连续出现两个下划线、不能以下划线紧连大写字母开头、定义在函数体外的标识符不能以下划线开头。</p>
+<p>变量命名规范：</p>
+<ol>
+<li>标识符要能体现实际含义</li>
+<li>变量一般用小写字母</li>
+<li>用户定义的类名一般以大写字母开头</li>
+<li>标识符由多个单词组成，则单词间应该有明显区分</li>
+</ol>
+<h3 id="名字的作用域"><a href="#名字的作用域" class="headerlink" title="名字的作用域"></a>名字的作用域</h3><p>名字的有效区域始于名字的声明语句，以声明语句所在的作用域未端为结束。</p>
+<p>第一次使用变量时再定义变量，这样好处：</p>
+<ol>
+<li>更容易找到变量的定义</li>
+<li>容易赋值合理的初始值</li>
+</ol>
+<ol>
+<li>全局作用域</li>
+<li>块作用域</li>
+<li>嵌套作用域</li>
+</ol>
+<ol>
+<li>内层作用域可以访问外层作用域中的名字</li>
+<li>内层作用域中可以重新定义外层作用域中的名字</li>
+<li>使用作用域运算符可以直接访问外层作用域中的名字</li>
+</ol>
+<h2 id="符合类型（引用、指针）"><a href="#符合类型（引用、指针）" class="headerlink" title="符合类型（引用、指针）"></a>符合类型（引用、指针）</h2><p>符合类型是基于其他类型定义的类型（compound type）</p>
+<p>基本数据类型  + 声明符</p>
+<p><strong>声明符</strong>命令了一个变量，并指定该变量的相关类型。</p>
+<h3 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h3><p>引用（reference） 为对象起了另一个名字。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> &amp;refVal = ival;</span><br></pre></td></tr></table></figure>
+<p>一般在初始化变量时，初始值会被拷贝到新建的对象中，然而，定义引用时，程序把引用和它的初始值绑定在一起。而不是将初始值拷贝给引用。一旦初始化完成，引用将和他的初始值一直绑定在一起。因为无法令引用重新绑定到另一个对象，因此，引用必须初始化。</p>
+<p>定义一个引用后，对其进行的所有操作都是在与之绑定的对象进行的。</p>
+<ol>
+<li>获取引用的值：实际上是获取了与引用绑定的对象的值。</li>
+<li>以引用为初始值： 实际上是以与引用绑定的对象作为初始值。</li>
+</ol>
+<p>因为引用本身不是一个对象，所以不能定义引用的引用。</p>
+<p>用于在一条语句中定义多个引用，其中每个引用标识符都必须以符号&amp;开头。</p>
+<p>引用的类型要和与之绑定的对象严格匹配。引用只能绑定在一个对象上，而不能与字面值或某个表达式的计算结果绑定在一起。</p>
+<h3 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h3><p>与引用类型，指针也实现了对其他对象的间接访问。</p>
+<p>指针和引用的区别：</p>
+<ol>
+<li>指针本身也是对象，允许对指针赋值和拷贝，而且在指针的生命周期内，它可以先后指向几个不同的对象。</li>
+<li>指针无需在定义的时候赋值。</li>
+</ol>
+<p>指针存放某个对象的地址。要想获取该地址，使用取地址符</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> ival = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">int</span> *p = &amp;ival;<span class="comment">//p存放变量ival的地址。 或者说p是指向变量ival的指针。</span></span><br></pre></td></tr></table></figure>
+<p>指针的类型都要和它所指向的对象严格匹配。</p>
+<p>指针值：指针的值（即地址）应属于下列4中转态之一：</p>
+<ol>
+<li>指向一个对象。</li>
+<li>指向紧邻对象所占空间的下一个位置</li>
+<li>空指针，意味着指针没有指向任何对象。</li>
+<li>无效指针，也就是上述情况之外的其他值。</li>
+</ol>
+<p>解引用来访问该对象，解引用操作仅适用于那些确实指向了某个对象的有效指针。</p>
+<p>空指针使用nullptr，新标准使用NULL，NULL是预处理变量。</p>
+<p>如果使用了未经初始化的指针，则该指针所占内存空间的当前内容被看做是一个地址值，访问该指针，相当于去访问一个本不存在的位置上的</p>
+<p>指针和引用都能踢动对其他对象的间接访问，然而，在具体实现细节上，二者有很大不同，其中最重要的一点就是引用本身并非一个对象。一旦定义了引用，就无法领其在绑定到另外的对象。之后每次使用这个引用都是访问他最初绑定的那个对象。</p>
+<p>给指针赋值，就是令其存放一个新地址。</p>
+<p>如果两个指针存放的地址值相同，则他们相等。</p>
+<p>void<em> 是一种特殊的指针类型，可用于存放任何对象的地址。一个`void</em><code>指针存放着一个地址。这一点和其他指针类似。不同的是，我们对该地址中到底是什么类型的对象不了解。 不能直接操作</code>void*` 指针所指的对象。因为我们不知道这个对象到底是什么类型。</p>
+<h3 id="理解符合类型"><a href="#理解符合类型" class="headerlink" title="理解符合类型"></a>理解符合类型</h3><figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//p是<span class="built_in">int</span>型指针、r是一个<span class="built_in">int</span>型引用</span><br><span class="line"><span class="built_in">int</span> i = <span class="number">1024</span>, *p = &amp;i, &amp;r = i<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h4 id="指向指针的指针"><a href="#指向指针的指针" class="headerlink" title="指向指针的指针"></a>指向指针的指针</h4><figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">int</span> ival = <span class="number">1024</span>;</span><br><span class="line"><span class="built_in">int</span> *<span class="built_in">pi</span> = &amp;ival;</span><br><span class="line"><span class="built_in">int</span> **ppi = &amp;<span class="built_in">pi</span>; ///ppi指向一个<span class="built_in">int</span>型的指针</span><br></pre></td></tr></table></figure>
+<p>ppi  -&gt; pi -&gt; ival (1024)</p>
+<h4 id="指向指针的引用"><a href="#指向指针的引用" class="headerlink" title="指向指针的引用"></a>指向指针的引用</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">int</span> *p;</span><br><span class="line"><span class="keyword">int</span> *&amp;r = p ;<span class="comment">//r是一个对指针p的引用</span></span><br><span class="line">r = &amp;i; <span class="comment">//r 引用了一个指针，因此给r赋值，就是令p指向i</span></span><br><span class="line">*r = <span class="number">0</span>; <span class="comment">//解引用r得到i，也就是p指向的对象，将i的值改为0</span></span><br></pre></td></tr></table></figure>
+<p>离变量名最近的符号对变量类型有最直接的影响。所以r是引用。</p>
+<p>##const限定符</p>
+<p>默认情况下，const对象仅仅在文件内有效。如果想在多个文件中共享const对象，就对const变量不管是声明还是定义都添加extern关键字。这样只需定义一次就可以了。</p>
+<h3 id="const-引用"><a href="#const-引用" class="headerlink" title="const 引用"></a>const 引用</h3><p>可以把引用绑定到const 对象上，我们称为对常量的引用（refernce to const） 。一定要记住，</p>
+<h4 id="初始化和对const的引用"><a href="#初始化和对const的引用" class="headerlink" title="初始化和对const的引用"></a>初始化和对const的引用</h4><p>引用的类型必须和其所引用对象的类型一致，但是有两个例外，第一种例外情况是初始化常量引用时允许用任何表达式作为初始值，只要改表达式的结果能转化成引用的类型即可。尤其，允许为一个常量引用绑定非常量对象、字面值，甚至是一般表达式。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;r1 = i; <span class="comment">//允许将const int&amp;绑定到一个普通int对象上</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;r2 = <span class="number">42</span>;  <span class="comment">//正确</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> &amp;r3 = r1*<span class="number">2</span> <span class="comment">//正确</span></span><br><span class="line"><span class="keyword">int</span> &amp;r4 = r1* <span class="number">2</span>;  <span class="comment">//错误</span></span><br></pre></td></tr></table></figure>
+<h4 id="对const的引用可能引用一个并非const的对象"><a href="#对const的引用可能引用一个并非const的对象" class="headerlink" title="对const的引用可能引用一个并非const的对象"></a>对const的引用可能引用一个并非const的对象</h4><p>必须认识到：常量引用仅对引用可参与的操作做出了限定，对引用的对象本身是不是一个常量未作限定。</p>
+<h3 id="指针和const"><a href="#指针和const" class="headerlink" title="指针和const"></a>指针和const</h3><p>指向常量的指针（pointer to const） 不能用于改变其所指对象的值，要想存放常量对象的地址，只能使用指向常量的指针。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="number">3.14</span>; <span class="comment">//pi是个常量，它的值不能改变</span></span><br><span class="line"><span class="keyword">double</span> *ptr  = &amp;pi;  <span class="comment">// 错误：ptr是一个普通指针</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> *cptr = &amp;pi; <span class="comment">//正确：cptr可以指向一个双精度常量</span></span><br><span class="line">*cptr = <span class="number">42</span>; <span class="comment">//错误：不能给*cptr赋值</span></span><br></pre></td></tr></table></figure>
+<p>指针的类型必须与其所指对象的类型一致，但是有两个例外，其中一个是：允许一个指向常量的指针指向一个非常量对象。</p>
+<p>试试这样想吧：所谓指向常量的指针和引用，不过是指针或引用“自以为是”罢了，他们觉得自己指向了常量，所以自觉的不去改变所指对象的值。</p>
+<h4 id="const指针"><a href="#const指针" class="headerlink" title="const指针"></a>const指针</h4><p>指针是对象而引用不是，所以就像其他对象类型一样，允许指针本身定为常量。常量指针必须初始化，而且一旦初始化完成，它的值就不能改变了。把*放在const关键字之前用以说明指针是一个常量。即不能改变指针本身的值，而非指向的那个值。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> errNumb = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> *<span class="keyword">const</span> curErr = &amp;errNumb; <span class="comment">//curErr将一直指向errNumb</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> pi = <span class="number">3.14</span>; </span><br><span class="line"><span class="keyword">const</span> <span class="keyword">double</span> * <span class="keyword">const</span> pip <span class="comment">//pip 是一个指向常量对象的常量指针</span></span><br></pre></td></tr></table></figure>
+<p>要想弄清楚这些声明的含义，最行之有效的方法是从右向左阅读</p>
+<h3 id="顶层const"><a href="#顶层const" class="headerlink" title="顶层const"></a>顶层const</h3><p>指针本身是一个对象，它又可以指向另外一个对象，因此，指针本身是不是常量以及指针所指的是不是一个常量，是两个相互独立的问题，用名词顶层const表示指针本身是一个常量，而用名词底层const 表示指针所指的对象是一个常量。</p>
+<p>更一般的，顶层const可以表示任意的对象是常量，这一点对任何类型都适用，如算术类型、类、指针等。底层const则与指针和引用等复合类型的基本类型部分有关。比较特殊的是，指针类型既可以是顶层const，也可以是底层const。</p>
+<p>当执行对象的拷贝操作时，常量的顶层const还是底层const区别名下，其中顶层const不受影响：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ci = <span class="number">42</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *p2 = &amp;ci <span class="comment">//允许改变p2的值，底层const</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> *<span class="keyword">const</span> p3 = p2;  <span class="comment">//正确，底层一样</span></span><br></pre></td></tr></table></figure>
+<p>另一方面，底层const的限制不能忽视</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> *p = p3; <span class="comment">//错误，p指向的值可以通过p改变，但p指向的值是常量，所以错误</span></span><br></pre></td></tr></table></figure>
+<h3 id="constexpr-和常量表达式"><a href="#constexpr-和常量表达式" class="headerlink" title="constexpr 和常量表达式"></a>constexpr 和常量表达式</h3><p>常量表达式（const expression） 是指值不会改变并且在编译过程就能得到计算结果的表达式。用常量表达式初始化的const对象也是常量表达式</p>
+<p>constexpr变量：如果认定变量是一个常量表达式，那就把它声明为constexpr类型</p>
+<h4 id="字面值类型"><a href="#字面值类型" class="headerlink" title="字面值类型"></a>字面值类型</h4><p>字面值类型： 比较简单，值也显而易见，容易得到，算术类型、引用类型、指针都属于字面值类型。  string 不属于，也就不能被定义成constexpr。</p>
+<p>函数体内定义的变量，一般来说并非存放固定地址中，因此constexpr指针不能指向这样的变量。相反的，定义于多有函数体之外的对象，其地址固定不变，能用来初始哈constexpr指针。</p>
+<h4 id="指针和constexpr"><a href="#指针和constexpr" class="headerlink" title="指针和constexpr"></a>指针和constexpr</h4><p>在constexpr声明中如果定义了一个指针，限定符constexpr仅对指针有效，与指针所指对象无关</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> * p = <span class="literal">nullptr</span>  <span class="comment">//p是一个指向整型常量的 指针</span></span><br><span class="line"><span class="keyword">constexpr</span> <span class="keyword">int</span> *q = <span class="literal">nullptr</span>; <span class="comment">//q是一个指向整形的向量指针。</span></span><br></pre></td></tr></table></figure>
+<h2 id="处理类型"><a href="#处理类型" class="headerlink" title="处理类型"></a>处理类型</h2><p>为了简化复杂类型的定义</p>
+<h3 id="类型别名（type-alias）"><a href="#类型别名（type-alias）" class="headerlink" title="类型别名（type alias）"></a>类型别名（type alias）</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> wages;  <span class="comment">//wages是double的同义词</span></span><br><span class="line"><span class="keyword">typedef</span> wage base,*p ;<span class="comment">// base 是double的同义词，p是double*的同义词</span></span><br><span class="line"><span class="keyword">using</span> SI = Sales_item; <span class="comment">//SI 是sales_item的同义词</span></span><br></pre></td></tr></table></figure>
+<p>using 把等号左侧的名字规定成等号右侧类型的别名。</p>
+<h4 id="指针、常量和类型别名"><a href="#指针、常量和类型别名" class="headerlink" title="指针、常量和类型别名"></a>指针、常量和类型别名</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">char</span>* pstring;</span><br><span class="line"><span class="keyword">const</span> pstring cstr = <span class="number">0</span>;<span class="comment">// cstr 是指向char的常量指针</span></span><br></pre></td></tr></table></figure>
+<p>pstring 的基本数据类型是指针 。 不能展开，如果展开就错了</p>
+<figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="built_in">char</span> * <span class="built_in">cstr</span> = <span class="number">0</span>;</span><br></pre></td></tr></table></figure>
+<p>展开就成了底层常量了</p>
+<h3 id="auto类型说明符"><a href="#auto类型说明符" class="headerlink" title="auto类型说明符"></a>auto类型说明符</h3><p>auto让编译器通过初始值来推断变量的类型，显然，auto的定义必须有初始值。</p>
+<ol>
+<li>引用： 编译器以引用对象的类型作为auto的类型，希望推断引用，需要 auto &amp;</li>
+<li>顶层const常量： 忽略，希望推断顶层const常量，需要用const auto</li>
+<li>底层const常量： 保留</li>
+</ol>
+<h3 id="decltype-类型指示符"><a href="#decltype-类型指示符" class="headerlink" title="decltype 类型指示符"></a>decltype 类型指示符</h3><p>场景：希望从表达式的类型推断出要定义的变量类型，但是不想用改表达式的值初始化变量。decltype不实际计算表达式的值。</p>
+<p>decltype处理顶层const和引用的方式与auto有些不同，如果decltyoe使用的表达式时一个表里，则decltype返回改变量的类型，包括顶层const和引用在内。</p>
+<p>引用从来都作为其所指对象的同义词出现，只有用在decltype处是个例外。</p>
+<p>如果表达式的内容是解引用操作，则decltype将得到引用类型。正如我们所熟悉的那样，解引用指针可以得到指针所指的对象，而且还能给这个对象赋值，因此，decltype（*p）的结果类型就是int&amp;，而非int。</p>
+<p>decltype的表达式如果是加上括号的变量，结果是引用。</p>
+<h2 id="自定义数据结构"><a href="#自定义数据结构" class="headerlink" title="自定义数据结构"></a>自定义数据结构</h2><p>类体右侧表示结束的花括号后必须写一个分号，这是因为类体后面可以紧跟变量名，以表示该类型对象的定义，所以分号必不可少。</p>
+<p>可以为数据成员提供一个<strong>类内初始值</strong>，创建对象时，类内初始值将用于初始化数据成员，没有初始值的成员将被默认初始化。</p>
+<p>头文件通常包含哪些只能被定义一次的实体。例如类、const、constexpr变量等。</p>
+<p>确保头文件多次包含仍能安全工作的技术是<strong>预处理器</strong>，预处理器是在编译之前执行的一段程序。#include就是预处理，当预处理器看到#include标记时，就会用指定的头文件内容替换#include</p>
+<p>C++程序还会用到的一项预处理功能是头文件保护符（header guard），头文件</p>
 
             </div>
         
