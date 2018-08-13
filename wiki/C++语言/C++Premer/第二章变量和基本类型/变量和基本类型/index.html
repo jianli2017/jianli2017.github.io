@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="C++ 是静态数据类型语言，类型检查发生在编译时。数据类型是程序的基础，他告诉我们数据的意义以及我们能在数据上执行的操作。 主要内容 ：  基本内置类型 变量 复合类型 const限定符 处理类型 自定义数据类型">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-13T03:27:05.000Z">
+<meta property="og:updated_time" content="2018-08-13T05:59:29.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="变量和基本类型">
 <meta name="twitter:description" content="C++ 是静态数据类型语言，类型检查发生在编译时。数据类型是程序的基础，他告诉我们数据的意义以及我们能在数据上执行的操作。 主要内容 ：  基本内置类型 变量 复合类型 const限定符 处理类型 自定义数据类型">
@@ -221,9 +221,9 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            C++关键字
+                            C++关键字扫盲
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字/static/">static关键字作用总结(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字/explicit-learn/">explicit实例浅析(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字扫盲/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字扫盲/static/">static关键字作用总结(转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -722,7 +722,7 @@
 </ol>
 <a id="more"></a>
 <h2 id="基本内置类型"><a href="#基本内置类型" class="headerlink" title="基本内置类型"></a>基本内置类型</h2><p>C++ 定义了一套包括算术类型和空类型的基本数据类型。</p>
-<p>算术类型</p>
+<p>算术类型：</p>
 <table>
 <thead>
 <tr>
@@ -773,7 +773,7 @@
 <td>32</td>
 </tr>
 <tr>
-<td>longlong</td>
+<td>long long</td>
 <td>长整形</td>
 <td>64</td>
 </tr>
@@ -794,26 +794,32 @@
 </tr>
 </tbody>
 </table>
-<p>寻址的最小内存块为 字节 byte 大多数的字节由8个bit构成<br>存储的基本单元称为 字 word 一般32或64bit</p>
-<p>通常，float一个字，double两个字，long double4、4个字，类型float和double 分别有7个和16个有效位。</p>
+<ol>
+<li>寻址的最小内存块为 <strong>字节(byte)</strong> 大多数的字节由8个bit构成。</li>
+<li>存储的基本单元称为 <strong>字(word) </strong>一般32或64bit。</li>
+</ol>
+<p>通常，float一个字，double两个字，long double4个字，类型float和double 分别有<strong>7</strong>个和<strong>16</strong>个有效位。</p>
 <p>与其他类型不同，字符型被分为三种：char、signed char 、 unsigned char。char 和signed char 并不是一种，尽管类型有三种，但是字符的表现形式却只有两种：带符号的和无符号的。类型char实际上会表现为上述两种的一种，具体由编译器决定。</p>
 <p>如何选择类型：</p>
 <ol>
-<li>在算术表达式中不要使用char 、bool 只有在存放字符或者bool值时候才使用它们，应为类型char在一些机器上有符号，而在另外一些机器上又是无符号的，所以，如果使用char 进行运算特别容易出问题。如果使用一个不大的整数，那么明确指定它的类型是signed char 或者 unsigned char。</li>
+<li>在算术表达式中不要使用char 、bool 只有在存放字符或者bool值时候才使用它们，因为类型char在一些机器上有符号，而在另外一些机器上又是无符号的，所以，如果使用char 进行运算特别容易出问题。如果使用一个不大的整数，那么明确指定它的类型是signed char 或者 unsigned char。</li>
 <li>执行浮点运算选用double，这是因为float通常进度不够。对于某些机器，双精度运算甚至比单精度还快。</li>
 </ol>
 <h3 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h3><p>当给某种类型的对象强制赋予了另一种类型的值时，到底发生了什么？</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool </span><span class="keyword">b </span>= <span class="number">42</span><span class="comment">;</span></span><br><span class="line">int i = <span class="keyword">b </span><span class="comment">; ///i的值时1</span></span><br></pre></td></tr></table></figure>
 <ol>
-<li>当把一个非布尔类型的算术值赋给布尔类型时，初始值0是false，否则为true</li>
-<li>帮把一个布尔值赋值给非布尔类型时，初始值false 是0，true是1.</li>
+<li>当把一个非布尔类型的算术值赋给布尔类型时，初始值0是false，否则为true。</li>
+<li>当把一个布尔值赋值给非布尔类型时，初始值false 是0，true是1.</li>
 <li>浮点数赋值给整数类型时，进行近视处理，保留小数部分之前的。</li>
 <li>将超出范围的值赋值给无符号类型：结果是初始值对无符号类型表示的总数取模后的余数。</li>
 <li>将超出范围的值赋给带符号类型，结果未定义。</li>
 </ol>
-<h3 id="含有无符号类型的表达式"><a href="#含有无符号类型的表达式" class="headerlink" title="含有无符号类型的表达式"></a>含有无符号类型的表达式</h3><p>无符号数递减不能是负值，如果为负值，会是取模的余数</p>
-<p>切勿混用带符号和无符号类型。如果表达式里面既有带符号的，又有无符号的，带符号的数会转化为无符号的数。</p>
-<h3 id="字面值常量"><a href="#字面值常量" class="headerlink" title="字面值常量"></a>字面值常量</h3><table>
+<h3 id="含有无符号类型的表达式"><a href="#含有无符号类型的表达式" class="headerlink" title="含有无符号类型的表达式"></a>含有无符号类型的表达式</h3><p><font color="red"></font></p>
+<ol>
+<li>无符号数递减不能是负值，如果为负值，会是取模的余数。</li>
+<li>切勿混用带符号和无符号类型。如果表达式里面既有带符号的，又有无符号的，带符号的数会转化为无符号的数。<br><h3 id="字面值常量"><a href="#字面值常量" class="headerlink" title="字面值常量"></a>字面值常量</h3></li>
+</ol>
+<table>
 <thead>
 <tr>
 <th>字面常量</th>
@@ -835,16 +841,18 @@
 </tr>
 </tbody>
 </table>
-<p>类型是能容纳该数值的尺寸最小的那个（int long， long long），默认是带符号的。类型short没有对应的字面值。浮点型字面值类型是double。</p>
-<p>字符串字面值的类型实际上是由常量字符构成的数组，末尾添加‘\0’。</p>
-<p>如果两个字符串字面值位置紧邻且仅由空格，缩进、换行符分隔，则他们实际上是一个整体</p>
+<ol>
+<li>字面值常量的类型是能容纳该数值的尺寸最小的那个（int long， long long），默认是带符号的。类型short没有对应的字面值。浮点型字面值类型是double。</li>
+<li><strong>字符串字面值的类型实际上是由常量字符构成的数组，末尾添加‘\0’。</strong></li>
+<li><strong>如果两个字符串字面值位置紧邻且仅由空格，缩进、换行符分隔，则他们实际上是一个整体</strong></li>
+</ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"a really"</span> </span><br><span class="line">              <span class="string">"that spans"</span>;</span><br></pre></td></tr></table></figure>
 <p>有两种类型字符不能直接使用，需要转义：</p>
 <ol>
 <li>不可打印</li>
 <li>特殊含义字符：单引号、双引号、问号、反斜杠</li>
 </ol>
-<h3 id="指定字面值的类型"><a href="#指定字面值的类型" class="headerlink" title="指定字面值的类型"></a>指定字面值的类型</h3><p>指定字符和字符串字面值</p>
+<h3 id="指定字面值的类型"><a href="#指定字面值的类型" class="headerlink" title="指定字面值的类型"></a>指定字面值的类型</h3><p>指定字符和字符串字面值：指定的方法如下表：</p>
 <table>
 <thead>
 <tr>
@@ -926,7 +934,7 @@
 <p>初始化不是赋值，初始化的含义是创建变量时赋予其一个初始值。而赋值的含义是把对象的当前值擦除，而以一个新值来代替。</p>
 <p>初始化的四种形式：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> a = &#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="keyword">int</span> a&#123;<span class="number">0</span>&#125;;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">a</span><span class="params">(<span class="number">0</span>)</span></span>;</span><br></pre></td></tr></table></figure>
-<p>或括号的初始化形式称为<strong>初始化列表</strong>。</p>
+<p>花括号的初始化形式称为<strong>初始化列表</strong>。</p>
 <p>初始化列表用于内置类型的变量时：<strong>如果初始值存在丢失信息的风险，编译器报错。</strong></p>
 <p>如果定义变量时没有指定值，则变量被默认初始化（default initialized），此时变量被赋予了默认值。</p>
 <p>函数体之外的内置变量被初始化为0；函数体内的内置类型的对象如果没有初始化，则其值未定义。类的对象如果没有显示初始化，则其值由类确定。</p>
@@ -1049,7 +1057,8 @@
 <p>可以为数据成员提供一个<strong>类内初始值</strong>，创建对象时，类内初始值将用于初始化数据成员，没有初始值的成员将被默认初始化。</p>
 <p>头文件通常包含哪些只能被定义一次的实体。例如类、const、constexpr变量等。</p>
 <p>确保头文件多次包含仍能安全工作的技术是<strong>预处理器</strong>，预处理器是在编译之前执行的一段程序。#include就是预处理，当预处理器看到#include标记时，就会用指定的头文件内容替换#include</p>
-<p>C++程序还会用到的一项预处理功能是头文件保护符（header guard），头文件</p>
+<p>C++程序还会用到的一项预处理功能是头文件保护符（header guard），头文件保护符依赖于预处理变量，预处理变量有两种状态：已定义、未定义。#define指令把一个名字设定为预处理变量。另外两个指令则分别检查某个指定的预处理变量是否已经定义。#ifdef、#ifndef、#endif。</p>
+<p>预处理变量无视C++语言中关于作用域的规则。</p>
 
             </div>
         
@@ -1062,19 +1071,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/C++语言/C++Premer/第十六章 模板和泛型编程/模板和泛型编程/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/C++语言/C++Premer/第十九章特殊工具和技术/特殊工具和技术/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    模板和泛型编程
+                    特殊工具和技术
                 
             </div>
         </a>
     
     
-        <a href="/wiki/IOS/库/组件化-库/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/C++语言/C++Premer/第十六章 模板和泛型编程/模板和泛型编程/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">组件化-库</div>
+            <div class="article-nav-title">模板和泛型编程</div>
         </a>
     
 </nav>
