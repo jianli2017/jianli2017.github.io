@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-08-14T09:15:16.000Z</updated>
+  <updated>2018-08-16T02:12:41.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -18,12 +18,12 @@
   
   <entry>
     <title>表达式</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/第四章 表达式/表达式/</id>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第四章 表达式/表达式/</id>
     <published>2018-08-14T04:07:12.000Z</published>
-    <updated>2018-08-14T09:15:16.000Z</updated>
+    <updated>2018-08-16T02:12:41.000Z</updated>
     
-    <content type="html"><![CDATA[<p>主要内容：</p><ol><li>基础</li><li>算术运算符</li><li>逻辑和关系运算符</li><li>赋值运算符</li><li>递增和递减运算符</li><li>成员访问运算符</li><li>条件运算符</li><li>位运算符</li><li>sizeof运算符</li><li>逗号运算符</li><li>类型转换运算符</li><li>运算符优先级</li></ol><a id="more"></a><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ol><li>优先级（precedence）</li><li>结合律（asscociativity）</li><li>求值顺序</li></ol><p>当一个对象被用作右值的时候，用的是对象的值（内容）；当对象被用作左值的时候，用的是对象的身份（在内存的位置）。</p>]]></content>
+    <content type="html"><![CDATA[<p>主要内容：</p><ol><li>基础</li><li>算术运算符</li><li>逻辑和关系运算符</li><li>赋值运算符</li><li>递增和递减运算符</li><li>成员访问运算符</li><li>条件运算符</li><li>位运算符</li><li>sizeof运算符</li><li>逗号运算符</li><li>类型转换运算符</li><li>运算符优先级</li></ol><a id="more"></a><h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ol><li>优先级（precedence）</li><li>结合律（asscociativity）</li><li>求值顺序</li></ol><p>当一个对象被用作右值的时候，用的是对象的值（内容）；当对象被用作左值的时候，用的是对象的身份（在内存的位置）。</p><ol><li>赋值运算符需要一个（非常量）左值作为其左侧运算对象，得到的结果也是一个左值。</li><li>取地址运算符作用域左值运算对象，返回一个指向改运算对象的指针，这个指针是一个右值。</li><li>内置解引用、下标运算符、迭代器解引用求值结果是左值.</li><li>内置类型、迭代器递增运算符作用域左值，前置版本结果左值.</li></ol><p>使用关键字decltype的时候，左值和右值有所不同，如果表达式的求值结果是左值，decltype作用于该表达式（不是变量）得到一个引用类型。</p><ol><li>优先级</li><li>结合律</li><li>求值顺序</li></ol><p>有4种表达式明确规定了求值顺序</p><ol><li>逻辑与&amp;&amp;</li><li>逻辑或||</li><li>条件运算符？：</li><li>逗号表达式</li></ol><h2 id="算术运算符"><a href="#算术运算符" class="headerlink" title="算术运算符"></a>算术运算符</h2><p>(-m)/n = m/(-n) = -(m/n)</p><p>m%(-n) = m%n</p><p>(-m)%n = -(m%n)</p><p>m%n的符号和m的相同</p><h2 id="逻辑和关系运算符"><a href="#逻辑和关系运算符" class="headerlink" title="逻辑和关系运算符"></a>逻辑和关系运算符</h2><p>逻辑与、逻辑或求值短路</p><p>几个关系运算符链子一起会产生意想不到的结果</p><p>进行比较运算时，除非比较的对象是布尔类型，否则不要使用布尔字面值true和false作为运算对象。</p><h2 id="赋值运算符"><a href="#赋值运算符" class="headerlink" title="赋值运算符"></a>赋值运算符</h2><p>赋值运算符的结果是左侧运算对象，并且是左值。如果赋值运算符的两个运算对象类型不同，右侧对象将转换为左侧运行对象类型。</p><p>赋值运算符满足右结合律，这个和其他的二元运算符不太一样。</p><p>赋值运算符的优先级低于关系运算符</p><h2 id="递增递减运算符"><a href="#递增递减运算符" class="headerlink" title="递增递减运算符"></a>递增递减运算符</h2><p>为啥有？ 某些迭代器不支持算术运算</p><ol><li>前置版本递增：首先将运算对象加1，然后将改变后的对象作为求值结果。</li><li>后置版本的递增：将运算对象加1，但是求值结果是运算对象改变之前的那个值的副本。</li></ol><p>优先使用前置版本，前置版本的递增运算符避免了不必要的功过，把加1后的对象直接返回，相反：后置版本需要将原始值存储下来，以便返回未修改的内容，对于复杂的迭代器，这种额外的工作消耗巨大。</p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">*iter++  <span class="comment">//这种写法比较普遍，后置++的优先级高,等价于下面两行代码</span></span><br><span class="line">*iter;</span><br><span class="line">++iter</span><br><span class="line"><span class="keyword">auto</span> pbeg = v.<span class="built_in">begin</span>();</span><br><span class="line"><span class="built_in">while</span>(pbeg != v.<span class="built_in">end</span>() )</span><br><span class="line">&#123;</span><br><span class="line">cout &lt;&lt; *pbeg++ &lt;&lt; <span class="built_in">end</span> ;  <span class="comment">//输出当前值，并将pbeg向前移动一个元素</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">while</span> (<span class="built_in">begin</span> != v.<span class="built_in">end</span> &amp;&amp; !isspace(*<span class="built_in">begin</span>))</span><br><span class="line">&#123;</span><br><span class="line">*<span class="built_in">begin</span> = toupper(*<span class="built_in">begin</span>++);  <span class="comment">//错误：该语句未定义</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">///可以解释为下面的任何一种</span></span><br><span class="line">*<span class="built_in">begin</span> = toupper(*<span class="built_in">begin</span>);</span><br><span class="line">*(<span class="built_in">begin</span>+<span class="number">1</span>) = touper(*<span class="built_in">begin</span>)</span><br></pre></td></tr></table></figure><p>所以，如果一条子表达式改变了某个运算对象的值，另一个表达式又要使用该值的话，运算符的求值顺序非常关键。</p><h2 id="成员访问运算符"><a href="#成员访问运算符" class="headerlink" title="成员访问运算符"></a>成员访问运算符</h2><p>表达式ptr-&gt;mem 等价于 (*ptr).mem。</p><p>箭头运算符作用于一个指针类型的运算对象，结果是一个左值。点运算符分成两种两种情况：如果成员所属的对象是左值，结果是左值，反之，如果成员所属的对象是右值，那么结果是右值。</p><h2 id="条件运算符"><a href="#条件运算符" class="headerlink" title="条件运算符"></a>条件运算符</h2><p>条件运算符将简单的if else 逻辑切入到单个表达式当中。基本形式</p><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">cond</span>? <span class="symbol">expr1:</span> expr2</span><br></pre></td></tr></table></figure><h2 id="移位运算符"><a href="#移位运算符" class="headerlink" title="移位运算符"></a>移位运算符</h2><p>二进制移位，移出边界之外的位就被舍弃掉了</p><p>位求反运算符~ 将运算对象逐位求反。</p><p>如果运算对象是小整数，它的值会被自动提升。</p><ol><li>位于 &amp;</li><li>位或 |</li><li>位异或 ^</li></ol><h2 id="sizeof-运算符"><a href="#sizeof-运算符" class="headerlink" title="sizeof 运算符"></a>sizeof 运算符</h2><p>sizeof返回一个表达式或者一个类型名字所占的字节数，满足右结合律，返回值类型是size_t类型。sizeof并不计算运算对象的值。</p><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">sizeof</span>(<span class="keyword">type</span>)</span><br><span class="line"><span class="keyword">sizeof</span> expr</span><br></pre></td></tr></table></figure><p>sizeof *p  sizeof不需要解引用指针也能知道它所指对象的类型，所以即使p是无效指针也不会有什么影响。</p><ol><li>对char或者类型是char的表达式执行sizeof运算，结果是1.</li><li>对引用类型执行sizeof运算得到被引用对象所占空间的大小。</li><li>对指针执行sizeof运算，得到指针本身所占内存的大小</li><li>对解引用指针指向sizeof运算，得到指针所指对象所占空间的大小，指针不需要有效</li><li>对数组执行sizeof运算，得到整个数组所占空间的大小，等价于对数组中所有的元素各执行一次sizeof运算，并求和。sizeof不会把数组转化为指针。</li><li>对string、vector对象执行sizeof运算，只返回该类型固定部分大小。不会计算对象中元素所占空间。</li></ol><h3 id="逗号运算符"><a href="#逗号运算符" class="headerlink" title="逗号运算符"></a>逗号运算符</h3><p>对于逗号运算符，首先对左侧的表达式求值，然后将求值结果丢弃，逗号运算符真正的结果是右侧表达式的值。如果右侧运算对象是左值，那么求值结果是左值。</p><h2 id="类型转换"><a href="#类型转换" class="headerlink" title="类型转换"></a>类型转换</h2><p>C++语言不会直接将两个不同类型的值相加，而是先根据类型转换规则，设法将运算对象的类型统一后再求值。</p><p>隐式类型转换发生场景</p><ol><li>在大多数表达式中，比int类型小的整数值首先提升为较大的整数类型。</li><li>在条件中，非布尔类型转换为布尔类型。</li><li>初始化过程中，初始值转换为变量的类型。在赋值语句中，右侧对象转换为左侧运算对象类型</li><li>算术或者关系运算对象有多种类型，需要转换为同一种类型</li><li>函数调用时会发生类型转换</li></ol><h3 id="算术转换"><a href="#算术转换" class="headerlink" title="算术转换"></a>算术转换</h3><p>整数提示：char signed char、 unsigned char、 short 、unsigned short 、bool 一般会提升为int </p><p>有符号的转化为无符号的（大小相等）<br>整数转化为浮点数<br>转化为宽类型</p><h3 id="其他隐式类型转换"><a href="#其他隐式类型转换" class="headerlink" title="其他隐式类型转换"></a>其他隐式类型转换</h3><ol><li>数组转成指针： 在大多数用到数组的表达式中，数组自动转换成指向数组首元素的指针。当数组被用作decltyoe关键字参数，或者取地址&amp;，sizeof及typeid等运算对象时，上述转化不会发生。如果用引用初始化数组，也不会发生转化。</li><li>指针的转化：常量整数0或者字面值nullptr能转化成任意指针类型。指向任何非常量指针能转换成void<em> 指向任何对象的指针能转化成const void </em></li><li>转换成布尔类型：存在一种从算术类型或者指针类型向布尔类型自动转化的机制，如果指针或算术类型值为0，转换结果是false，否则转换结果是true。</li><li>转换成常量：允许冲非常量类型的指针转化为常量类型的指针。</li><li>命名的强制类型转换。</li></ol><p>static_cast：任何具有明确定义的类型转化，只要不包含底层const，都可以使用<br>const_cast：只能改变运算对象的底层const<br>reinterpret_cast: 通常为运算对象的位模式提供较底层次上的重新解释。</p><h2 id="运算符优先级"><a href="#运算符优先级" class="headerlink" title="运算符优先级"></a>运算符优先级</h2><table><thead><tr><th>结合律</th><th>运算符</th><th>功能</th><th>用法</th></tr></thead><tbody><tr><td>左</td><td>::</td><td>全局作用域</td><td>::name</td></tr><tr><td>左</td><td>::</td><td>类作用域</td><td>class::name</td></tr><tr><td>左</td><td>::</td><td>命名空间作用域</td><td>namespace::name</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>.</td><td>成员选择</td><td>object.member</td></tr><tr><td>左</td><td>-&gt;</td><td>成员选择</td><td>pointer-&gt;member</td></tr><tr><td>左</td><td>[]</td><td>下标</td><td>expr[expr]</td></tr><tr><td>左</td><td>()</td><td>函数调用</td><td>name(expr_lit)</td></tr><tr><td>左</td><td>()</td><td>类型构造</td><td>type(expr_lit)</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>右</td><td>++</td><td>后置递增运算</td><td>lvalue++</td></tr><tr><td>右</td><td>–</td><td>后置递减运算</td><td>lvalue–</td></tr><tr><td>右</td><td>typeid</td><td>类型ID</td><td>typeid(type)</td></tr><tr><td>右</td><td>typeid</td><td>运行时类型ID</td><td>typeid(expr)</td></tr><tr><td>右</td><td>explicit cast</td><td>类型转换</td><td>cast_name<type>(expr)</type></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>右</td><td>++</td><td>前置递增运算</td><td>++lvalue</td></tr><tr><td>右</td><td>–</td><td>前置递减运算</td><td>–lvalue</td></tr><tr><td>右</td><td>~</td><td>位求反</td><td>~expr</td></tr><tr><td>右</td><td>!</td><td>逻辑非</td><td>!expr</td></tr><tr><td>右</td><td>-</td><td>一元负号</td><td>-expr</td></tr><tr><td>右</td><td>+</td><td>一元正号</td><td>+expr</td></tr><tr><td>右</td><td>*</td><td>解引用</td><td>*expr</td></tr><tr><td>右</td><td>&amp;</td><td>取地址</td><td>&amp;lvalue</td></tr><tr><td>右</td><td>()</td><td>类型转换</td><td>(type)expr</td></tr><tr><td>右</td><td>sizeof</td><td>对象大小</td><td>sizeof expr</td></tr><tr><td>右</td><td>sizeof</td><td>类型大小</td><td>sizeof(type)</td></tr><tr><td>右</td><td>Sizeof…</td><td>参数包的大小</td><td>sizeof…(name)</td></tr><tr><td>右</td><td>new</td><td>创建对象</td><td>new type</td></tr><tr><td>右</td><td>new []</td><td>创建数组</td><td>new type[size]</td></tr><tr><td>右</td><td>delete</td><td>释放对象</td><td>delete expr</td></tr><tr><td>右</td><td>delete []</td><td>释放数组</td><td>delete [] expr</td></tr><tr><td>右</td><td>noexcept</td><td>能否抛出异常</td><td>noexcept(expr)</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>-&gt;*</td><td>指向成员选择的指针</td><td>ptr-&gt;*prt_to_member</td></tr><tr><td>左</td><td>.*</td><td>指向成员选择的指针</td><td>obj.*prt_to_member</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>*</td><td>乘法</td><td>expr*expr</td></tr><tr><td>左</td><td>/</td><td>除法</td><td>expr/expr</td></tr><tr><td>左</td><td>%</td><td>取模（取余）</td><td>expr%expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>+</td><td>加法</td><td>expr + expr</td></tr><tr><td>左</td><td>-</td><td>减法</td><td>expr -expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>&lt;&lt;</td><td>向左移位</td><td>expr &lt;&lt; expr</td></tr><tr><td>左</td><td>&gt;&gt;</td><td>向右移位</td><td>expr &gt;&gt; expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>&lt;</td><td>小于</td><td>expr &lt; expr</td></tr><tr><td>左</td><td>&lt;=</td><td>小于等于</td><td>expr &lt;=expr</td></tr><tr><td>左</td><td>&gt;</td><td>大于</td><td>expr &gt; expr</td></tr><tr><td>左</td><td>&gt;=</td><td>大于等于</td><td>expr &gt;= expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>==</td><td>相等</td><td>expr == expr</td></tr><tr><td>左</td><td>!=</td><td>不相等</td><td>expr != expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>&amp;</td><td>位与</td><td>expr &amp; expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>^</td><td>位异或</td><td>expr ^ expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>`</td><td>`</td><td>位或</td><td>`expr</td><td>expr`</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>&amp;&amp;</td><td>逻辑与</td><td>expr &amp;&amp; expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>`</td><td></td><td>`</td><td>逻辑或</td><td>`expr</td><td></td><td>expr`</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>?:</td><td>条件</td><td>expr?expr:expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>=</td><td>赋值</td><td>lvalue = expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>*=,/-,%=</td><td>符合赋值</td><td>lvalue+=expr等</td></tr><tr><td>左</td><td>+=,-=</td><td>符合赋值</td><td></td></tr><tr><td>左</td><td>&lt;&lt;=,&gt;&gt;=</td><td>符合赋值</td><td></td></tr><tr><td>左</td><td>&amp;=,`</td><td>=`,^=</td><td>符合赋值</td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>右</td><td>throw</td><td>抛出异常</td><td>throw expr</td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td></td><td></td><td></td><td></td></tr><tr><td>左</td><td>,</td><td>逗号</td><td>expr,expr</td></tr><tr><td></td><td></td><td></td></tr></tbody></table>]]></content>
     
     <summary type="html">
     
@@ -47,9 +47,9 @@
     
       <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
     
-      <category term="第四章 表达式" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+      <category term="第四章 表达式" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     
     
       <category term="表达式" scheme="http://yoursite.com/tags/%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
@@ -58,8 +58,8 @@
   
   <entry>
     <title>字符串、向量、数组</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E3%80%81%E6%95%B0%E7%BB%84/%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E3%80%81%E6%95%B0%E7%BB%84/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/第三章 字符串、向量、数组/字符串、向量、数组/</id>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E4%B8%89%E7%AB%A0%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E3%80%81%E6%95%B0%E7%BB%84/%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E3%80%81%E6%95%B0%E7%BB%84/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/</id>
     <published>2018-08-10T04:07:12.000Z</published>
     <updated>2018-08-14T09:02:25.000Z</updated>
     
@@ -82,9 +82,9 @@
     
       <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
     
-      <category term="第三章 字符串、向量、数组" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E3%80%81%E6%95%B0%E7%BB%84/"/>
+      <category term="第三章 字符串、向量、数组" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E4%B8%89%E7%AB%A0-%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E5%90%91%E9%87%8F%E3%80%81%E6%95%B0%E7%BB%84/"/>
     
     
       <category term="字符串" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2/"/>
@@ -93,8 +93,8 @@
   
   <entry>
     <title>特殊工具和技术</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0%E7%89%B9%E6%AE%8A%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/%E7%89%B9%E6%AE%8A%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/第十九章特殊工具和技术/特殊工具和技术/</id>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0%E7%89%B9%E6%AE%8A%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/%E7%89%B9%E6%AE%8A%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/</id>
     <published>2018-08-02T01:07:12.000Z</published>
     <updated>2018-08-02T11:11:43.000Z</updated>
     
@@ -111,9 +111,9 @@
     
       <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
     
-      <category term="第十九章特殊工具和技术" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0%E7%89%B9%E6%AE%8A%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/"/>
+      <category term="第十九章特殊工具和技术" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E4%B9%9D%E7%AB%A0%E7%89%B9%E6%AE%8A%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/"/>
     
     
       <category term="特殊工具和技术" scheme="http://yoursite.com/tags/%E7%89%B9%E6%AE%8A%E5%B7%A5%E5%85%B7%E5%92%8C%E6%8A%80%E6%9C%AF/"/>
@@ -121,9 +121,35 @@
   </entry>
   
   <entry>
+    <title>模板和泛型编程</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
+    <published>2018-07-25T04:07:12.000Z</published>
+    <updated>2018-07-26T07:57:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>主要有模板和泛型编程内容</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;主要有模板和泛型编程内容&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>变量和基本类型</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/第二章变量和基本类型/变量和基本类型/</id>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/</id>
     <published>2018-07-25T04:07:12.000Z</published>
     <updated>2018-08-13T05:59:29.000Z</updated>
     
@@ -146,82 +172,12 @@
     
       <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
     
-      <category term="第二章变量和基本类型" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
+      <category term="第二章变量和基本类型" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
     
     
       <category term="变量和基本类型" scheme="http://yoursite.com/tags/%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>模板和泛型编程</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/第十六章 模板和泛型编程/模板和泛型编程/</id>
-    <published>2018-07-25T04:07:12.000Z</published>
-    <updated>2018-07-26T07:57:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>主要有模板和泛型编程内容</p><a id="more"></a>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;主要有模板和泛型编程内容&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
-    
-      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>set命令</title>
-    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/set%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/wiki/linux命令/set命令/</id>
-    <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T10:29:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="built_in">command</span> 1</span><br><span class="line"><span class="built_in">command</span> 2</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure><p>Every script you write should include set -e at the top. This tells bash that it should exit the script if any statement returns a non-true return value. The benefit of using -e is that it prevents errors snowballing into serious issues when they could have been caught earlier. Again, for readability you may want to use set -o errexit.</p><p>你写的每个脚本都应该在文件开头加上set -e,这句语句告诉bash如果任何语句的执行结果不是true则应该退出。这样的好处是防止错误像滚雪球般变大导致一个致命的错误，而这些错误本应该在之前就被处理掉。如果要增加可读性，可以使用set -o errexit，它的作用与set -e相同。</p><p>Using -e gives you error checking for free. If you forget to check something, bash will do it for you. Unfortunately it means you can’t check $? as bash will never get to the checking code if it isn’t zero. There are other constructs you could use:</p><p>使用-e帮助你检查错误。如果你忘记检查（执行语句的结果），bash会帮你执行。不幸的是，你将无法检查$?，因为如果执行的语句不是返回0，bash将无法执行到检查的代码。你可以使用其他的结构：</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">command</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"$?"</span>-ne <span class="number">0</span>]; then </span><br><span class="line">echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi </span><br><span class="line">could be replaced with</span><br></pre></td></tr></table></figure><p>能够被代替为</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">command || &#123; echo <span class="string">"command failed"</span>; <span class="keyword">exit</span> <span class="number">1</span>; &#125; </span><br><span class="line">or</span><br><span class="line">或者</span><br><span class="line"><span class="keyword">if</span> ! command; then</span><br><span class="line"> echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>What if you have a command that returns non-zero or you are not interested in its return value? You can use command || true, or if you have a longer section of code, you can turn off the error checking, but I recommend you use this sparingly.</p><p>如果你有一个命令返回非0或者你对语句执行的结果不关心，那你可以使用command || true，或者你有一段很长的代码，你可以关闭错误检查（不使用set -e），但是我还是建议你保守地使用这个语句。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
-    
-    
-      <category term="set" scheme="http://yoursite.com/tags/set/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>set命令</title>
-    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/export%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/wiki/linux命令/export命令/</id>
-    <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T11:00:24.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>export命令设置或显示环境变量。</p><a id="more"></a><h2 id="Linux-export-命令"><a href="#Linux-export-命令" class="headerlink" title="Linux export 命令"></a>Linux export 命令</h2><p>功能说明：设置或显示环境变量。（比如我们要用一个命令，但这个命令的执行文件不在当前目录，这样我们每次用的时候必须指定执行文件的目录，麻烦，在代码中先执行export，这个相当于告诉程序，执行某某东西时，需要的文件或什么东东在这些目录里）</p><p>语　　法：export [-fnp][变量名称]=[变量设置值]</p><p>补充说明：在shell中执行程序时，shell会提供一组环境变量。 export可新增，修改或删除环境变量，供后续执行的程序使用。export的效力仅及于该此登陆操作。</p><p>参　　数：</p><p>-f 　代表[变量名称]中为函数名称。</p><p>　-n 　删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。<br>　<br>　-p 　列出所有的shell赋予程序的环境变量。<br>　<br>　一个变量创建时，它不会自动地为在它之后创建的shell进程所知。而命令export可以向后面的shell传递变量的值。当一个shell脚本调用并执行时，它不会自动得到原为脚本（调用者）里定义的变量的访问权，除非这些变量已经被显式地设置为可用。export命令可以用于传递一个或多个变量的值到任何后继脚本。     —-《UNIX教程》<br>　<br>　<br>　<br>　在 linux 里设置环境变量的方法 （ export PATH ）<br>　<br>　一般来说，配置交叉编译工具链的时候需要指定编译工具的路径，此时就需要设置环境变量。例如我的mips-linux-gcc编译器在“/opt/au1200_rm /build_tools/bin”目录下，build_tools就是我的编译工具，则有如下三种方法来设置环境变量：<br>　<br>　1、直接用export命令：<br>　#export PATH=$PATH:/opt/au1200_rm/build_tools/bin<br>　查看是否已经设好，可用命令export查看：<br>　<br>　<br>　<br>　[root@localhost bin]#export<br>　declare -x BASH_ENV=”/root/.bashrc”<br>　declare -x G_BROKEN_FILENAMES=”1”<br>　declare -x HISTSIZE=”1000”<br>　declare -x HOME=”/root”<br>　declare -x HOSTNAME=”localhost.localdomain”<br>　declare -x INPUTRC=”/etc/inputrc”<br>　declare -x LANG=”zh_CN.GB18030”<br>　declare -x LANGUAGE=”zh_CN.GB18030:zh_CN.GB2312:zh_CN”<br>　declare -x LESSOPEN=”|/usr/bin/lesspipe.sh %s”<br>　declare -x LOGNAME=”root”<br>　declare -x LS_COLORS=”no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:<em>.cmd=01;32:</em>.exe=01;32:<em>.com=01;32:</em>.btm=01;32:<em>.bat=01;32:</em>.sh=01;32:<em>.csh=01;32:</em>.tar=01;31:<em>.tgz=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lzh=01;31:<em>.zip=01;31:</em>.z=01;31:<em>.Z=01;31:</em>.gz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tz=01;31:</em>.rpm=01;31:<em>.cpio=01;31:</em>.jpg=01;35:<em>.gif=01;35:</em>.bmp=01;35:<em>.xbm=01;35:</em>.xpm=01;35:<em>.png=01;35:</em>.tif=01;35:”<br>　declare -x MAIL=”/var/spool/mail/root”<br>　declare -x OLDPWD=”/opt/au1200_rm/build_tools”<br>　declare -x PATH=”/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/root/bin:/opt/au1200_rm/build_tools/bin”<br>　declare -x PWD=”/opt/au1200_rm/build_tools/bin”<br>　declare -x SHELL=”/bin/bash”<br>　declare -x SHLVL=”1”<br>　declare -x SSH_ASKPASS=”/usr/libexec/openssh/gnome-ssh-askpass”<br>　declare -x SSH_AUTH_SOCK=”/tmp/ssh-XX3LKWhz/agent.4242”<br>　declare -x SSH_CLIENT=”10.3.37.152 2236 22”<br>　declare -x SSH_CONNECTION=”10.3.37.152 2236 10.3.37.186 22”<br>　declare -x SSH_TTY=”/dev/pts/2”<br>　declare -x TERM=”linux”<br>　declare -x USER=”root”<br>　declare -x USERNAME=”root”<br>　<br>　可以看到灰色部分有设置的路径，说明环境变量已经设好，PATH里面已经有了我要加的编译器的路径。<br>　<br>　2、修改profile文件：<br>　#vi /etc/profile<br>　在里面加入:<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　3. 修改.bashrc文件：<br>　# vi /root/.bashrc<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　后两种方法一般需要重新注销系统才能生效，最后可以通过echo命令测试一下：<br>　# echo $PATH<br>　看看输出里面是不是已经有了 /my_new_path这个路径了。<br>　<br>　另有：4. 修改/etc/re.local文件：<br>　# vi /etc/re.local<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　<br>　———————————————————————————————————————–<br>　<br>　“/bin”、“/sbin”、“ /usr/bin”、“/usr/sbin”、“/usr/local/bin”等路径已经在系统环境变量中了，如果可执行文件在这几个标准位置，在终端命令行输入该软件可执行文件的文件名和参数(如果需要参数)，回车即可。<br>　<br>　　　如果不在标准位置，文件名前面需要加上完整的路径。不过每次都这样跑就太麻烦了，一个“一劳永逸”的办法是把这个路径加入环境变量。命令 export $PATH=”路径”(或“PATH=$PATH:路径”) ($PATH为环境变量名，如DVSDK；调用时用$DVSDK)可以把这个路径加入环境变量，但是退出这个命令行就失效了。要想永久生效，需要把这行添加到环境变量文件里。有两个文件可选：“/etc/profile”和用户主目录下的“.bash_profile”，“/etc/profile”对系统里所有用户都有效，用户主目录下的“.bash_profile”只对这个用户有效。<br>　　　<br>　　　　　export $PATH=”$PATH:路径1:路径2:…:路径n” （或“PATH=$PATH:路径1:路径2:…:路径n”　），意思是可执行文件的路径包括原先设定的路径，也包括从“路径1”到“路径n”的所有路径。当用户输入一个一串字符并按回车后，shell会依次在这些路径里找对应的可执行文件并交给系统核心执行。那个“$PATH”表示原先设定的路径仍然有效，注意不要漏掉。某些软件可能还有“PATH”以外类型的环境变量需要添加，但方法与此相同，并且也需要注意“$”。<br>　　　　　<br>　　　　　　　注意，与DOS/Window不同，UNIX类系统环境变量中路径名用冒号分隔，不是分号。另外，软件越装越多，环境变量越添越多，为了避免造成混乱，建议所有语句都添加在文件结尾，按软件的安装顺序添加。<br>　　　　　　　<br>　　　　　　　　　格式如下()：<br>　　　　　　　　　<br>　　　　　　　　　　　# 软件名-版本号<br>　　　　　　　　　　　<br>　　　　　　　　　　　　　PATH=$PATH:路径1:路径 2:…:路径n<br>　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　其他环境变量=$其他环境变量:…<br>　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　在“profile”和“.bash_profile”中，“#”是注释符号，写在这里除了视觉分隔外没有任何效果。<br>　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　设置完毕，注销并重新登录，设置就生效了。如果不注销，直接在shell里执行这些语句，也能生效，但是作用范围只限于执行了这些语句的shell。<br>　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　相关的环境变量生效后，就不必老跑到软件的可执行文件目录里去操作了。<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　———————————————————————————————————————–<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　 执行一个脚本时，会先开启一个子shell环境（不知道执行其它程序是不是这样），然后将父shell中的所有系统环境变量复制过来，这个脚本中的语句就在子shell中执行。（也就是说父shell的环境变量在子shell中可以调用，但反过来就不行，如果在子shell中定义了环境变量，则只对该shell或者它的子shell有效，当该子shell结束时，也可以理解为脚本执行完时，变量消失。）为了证明这一点，请看脚本内容：<br>　　　　　　　　　　　　　　　　　　　　　　 　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　这样的脚本执行完后，test实际上是不存在的。接着看下面的：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　bash<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　这里在脚本最后一行再开一个子shell，该shell应该是脚本文件所在shell的子shell，这个脚本执行完后，是可以看到test这个变量的，因为现在是处于它的子shell中，当用exit退出子shell后，test变量消失。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　如果用source对脚本进行执行时，如果不加export，就不会在子shell中看到这个变量，因为它还不是一个系统环境变量呀，如脚本内容是：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　用source执行后，在shell下是能看到这个变量，但再执行bash开一个子shell时，test是不会被复制到子shell中的，因为执行脚本文件其实也是在一个子shell中运行，所以我再建另一个脚本文件执行时，是不会输入任何东西的，内容如：echo $test。所以这点特别注意了，明明在提示符下可以用echo $test输出变量值，为什么把它放进脚本文件就不行了呢？<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　所以得出的结论是：1、执行脚本时是在一个子shell环境运行的，脚本执行完后该子shell自动退出；2、一个shell中的系统环境变量才会被复制到子shell中（用export定义的变量）；3、一个shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。3、不用export定义的变量只对该shell有效，对子shell也是无效的。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　　　后来根据版主的提示，整理了一下贴子：为什么一个脚本直接执行和用source执行不一行呢？这也是我自己碰到的一个问题。manual原文是这样的：Read and execute commands from filename in the current shell environment and return the exit status of the last command executed from filename.明白了为什么不一样了吧？直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;export命令设置或显示环境变量。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
-    
-    
-      <category term="set" scheme="http://yoursite.com/tags/set/"/>
     
   </entry>
   
@@ -264,6 +220,50 @@
     <summary type="html">
     
       &lt;p&gt;记录下linux shell下的特殊用法及参数的说明.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
+    
+    
+      <category term="set" scheme="http://yoursite.com/tags/set/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>set命令</title>
+    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/export%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/wiki/linux命令/export命令/</id>
+    <published>2018-07-20T04:07:12.000Z</published>
+    <updated>2018-07-20T11:00:24.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>export命令设置或显示环境变量。</p><a id="more"></a><h2 id="Linux-export-命令"><a href="#Linux-export-命令" class="headerlink" title="Linux export 命令"></a>Linux export 命令</h2><p>功能说明：设置或显示环境变量。（比如我们要用一个命令，但这个命令的执行文件不在当前目录，这样我们每次用的时候必须指定执行文件的目录，麻烦，在代码中先执行export，这个相当于告诉程序，执行某某东西时，需要的文件或什么东东在这些目录里）</p><p>语　　法：export [-fnp][变量名称]=[变量设置值]</p><p>补充说明：在shell中执行程序时，shell会提供一组环境变量。 export可新增，修改或删除环境变量，供后续执行的程序使用。export的效力仅及于该此登陆操作。</p><p>参　　数：</p><p>-f 　代表[变量名称]中为函数名称。</p><p>　-n 　删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。<br>　<br>　-p 　列出所有的shell赋予程序的环境变量。<br>　<br>　一个变量创建时，它不会自动地为在它之后创建的shell进程所知。而命令export可以向后面的shell传递变量的值。当一个shell脚本调用并执行时，它不会自动得到原为脚本（调用者）里定义的变量的访问权，除非这些变量已经被显式地设置为可用。export命令可以用于传递一个或多个变量的值到任何后继脚本。     —-《UNIX教程》<br>　<br>　<br>　<br>　在 linux 里设置环境变量的方法 （ export PATH ）<br>　<br>　一般来说，配置交叉编译工具链的时候需要指定编译工具的路径，此时就需要设置环境变量。例如我的mips-linux-gcc编译器在“/opt/au1200_rm /build_tools/bin”目录下，build_tools就是我的编译工具，则有如下三种方法来设置环境变量：<br>　<br>　1、直接用export命令：<br>　#export PATH=$PATH:/opt/au1200_rm/build_tools/bin<br>　查看是否已经设好，可用命令export查看：<br>　<br>　<br>　<br>　[root@localhost bin]#export<br>　declare -x BASH_ENV=”/root/.bashrc”<br>　declare -x G_BROKEN_FILENAMES=”1”<br>　declare -x HISTSIZE=”1000”<br>　declare -x HOME=”/root”<br>　declare -x HOSTNAME=”localhost.localdomain”<br>　declare -x INPUTRC=”/etc/inputrc”<br>　declare -x LANG=”zh_CN.GB18030”<br>　declare -x LANGUAGE=”zh_CN.GB18030:zh_CN.GB2312:zh_CN”<br>　declare -x LESSOPEN=”|/usr/bin/lesspipe.sh %s”<br>　declare -x LOGNAME=”root”<br>　declare -x LS_COLORS=”no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:<em>.cmd=01;32:</em>.exe=01;32:<em>.com=01;32:</em>.btm=01;32:<em>.bat=01;32:</em>.sh=01;32:<em>.csh=01;32:</em>.tar=01;31:<em>.tgz=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lzh=01;31:<em>.zip=01;31:</em>.z=01;31:<em>.Z=01;31:</em>.gz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tz=01;31:</em>.rpm=01;31:<em>.cpio=01;31:</em>.jpg=01;35:<em>.gif=01;35:</em>.bmp=01;35:<em>.xbm=01;35:</em>.xpm=01;35:<em>.png=01;35:</em>.tif=01;35:”<br>　declare -x MAIL=”/var/spool/mail/root”<br>　declare -x OLDPWD=”/opt/au1200_rm/build_tools”<br>　declare -x PATH=”/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/root/bin:/opt/au1200_rm/build_tools/bin”<br>　declare -x PWD=”/opt/au1200_rm/build_tools/bin”<br>　declare -x SHELL=”/bin/bash”<br>　declare -x SHLVL=”1”<br>　declare -x SSH_ASKPASS=”/usr/libexec/openssh/gnome-ssh-askpass”<br>　declare -x SSH_AUTH_SOCK=”/tmp/ssh-XX3LKWhz/agent.4242”<br>　declare -x SSH_CLIENT=”10.3.37.152 2236 22”<br>　declare -x SSH_CONNECTION=”10.3.37.152 2236 10.3.37.186 22”<br>　declare -x SSH_TTY=”/dev/pts/2”<br>　declare -x TERM=”linux”<br>　declare -x USER=”root”<br>　declare -x USERNAME=”root”<br>　<br>　可以看到灰色部分有设置的路径，说明环境变量已经设好，PATH里面已经有了我要加的编译器的路径。<br>　<br>　2、修改profile文件：<br>　#vi /etc/profile<br>　在里面加入:<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　3. 修改.bashrc文件：<br>　# vi /root/.bashrc<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　后两种方法一般需要重新注销系统才能生效，最后可以通过echo命令测试一下：<br>　# echo $PATH<br>　看看输出里面是不是已经有了 /my_new_path这个路径了。<br>　<br>　另有：4. 修改/etc/re.local文件：<br>　# vi /etc/re.local<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　<br>　———————————————————————————————————————–<br>　<br>　“/bin”、“/sbin”、“ /usr/bin”、“/usr/sbin”、“/usr/local/bin”等路径已经在系统环境变量中了，如果可执行文件在这几个标准位置，在终端命令行输入该软件可执行文件的文件名和参数(如果需要参数)，回车即可。<br>　<br>　　　如果不在标准位置，文件名前面需要加上完整的路径。不过每次都这样跑就太麻烦了，一个“一劳永逸”的办法是把这个路径加入环境变量。命令 export $PATH=”路径”(或“PATH=$PATH:路径”) ($PATH为环境变量名，如DVSDK；调用时用$DVSDK)可以把这个路径加入环境变量，但是退出这个命令行就失效了。要想永久生效，需要把这行添加到环境变量文件里。有两个文件可选：“/etc/profile”和用户主目录下的“.bash_profile”，“/etc/profile”对系统里所有用户都有效，用户主目录下的“.bash_profile”只对这个用户有效。<br>　　　<br>　　　　　export $PATH=”$PATH:路径1:路径2:…:路径n” （或“PATH=$PATH:路径1:路径2:…:路径n”　），意思是可执行文件的路径包括原先设定的路径，也包括从“路径1”到“路径n”的所有路径。当用户输入一个一串字符并按回车后，shell会依次在这些路径里找对应的可执行文件并交给系统核心执行。那个“$PATH”表示原先设定的路径仍然有效，注意不要漏掉。某些软件可能还有“PATH”以外类型的环境变量需要添加，但方法与此相同，并且也需要注意“$”。<br>　　　　　<br>　　　　　　　注意，与DOS/Window不同，UNIX类系统环境变量中路径名用冒号分隔，不是分号。另外，软件越装越多，环境变量越添越多，为了避免造成混乱，建议所有语句都添加在文件结尾，按软件的安装顺序添加。<br>　　　　　　　<br>　　　　　　　　　格式如下()：<br>　　　　　　　　　<br>　　　　　　　　　　　# 软件名-版本号<br>　　　　　　　　　　　<br>　　　　　　　　　　　　　PATH=$PATH:路径1:路径 2:…:路径n<br>　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　其他环境变量=$其他环境变量:…<br>　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　在“profile”和“.bash_profile”中，“#”是注释符号，写在这里除了视觉分隔外没有任何效果。<br>　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　设置完毕，注销并重新登录，设置就生效了。如果不注销，直接在shell里执行这些语句，也能生效，但是作用范围只限于执行了这些语句的shell。<br>　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　相关的环境变量生效后，就不必老跑到软件的可执行文件目录里去操作了。<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　———————————————————————————————————————–<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　 执行一个脚本时，会先开启一个子shell环境（不知道执行其它程序是不是这样），然后将父shell中的所有系统环境变量复制过来，这个脚本中的语句就在子shell中执行。（也就是说父shell的环境变量在子shell中可以调用，但反过来就不行，如果在子shell中定义了环境变量，则只对该shell或者它的子shell有效，当该子shell结束时，也可以理解为脚本执行完时，变量消失。）为了证明这一点，请看脚本内容：<br>　　　　　　　　　　　　　　　　　　　　　　 　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　这样的脚本执行完后，test实际上是不存在的。接着看下面的：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　bash<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　这里在脚本最后一行再开一个子shell，该shell应该是脚本文件所在shell的子shell，这个脚本执行完后，是可以看到test这个变量的，因为现在是处于它的子shell中，当用exit退出子shell后，test变量消失。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　如果用source对脚本进行执行时，如果不加export，就不会在子shell中看到这个变量，因为它还不是一个系统环境变量呀，如脚本内容是：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　用source执行后，在shell下是能看到这个变量，但再执行bash开一个子shell时，test是不会被复制到子shell中的，因为执行脚本文件其实也是在一个子shell中运行，所以我再建另一个脚本文件执行时，是不会输入任何东西的，内容如：echo $test。所以这点特别注意了，明明在提示符下可以用echo $test输出变量值，为什么把它放进脚本文件就不行了呢？<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　所以得出的结论是：1、执行脚本时是在一个子shell环境运行的，脚本执行完后该子shell自动退出；2、一个shell中的系统环境变量才会被复制到子shell中（用export定义的变量）；3、一个shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。3、不用export定义的变量只对该shell有效，对子shell也是无效的。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　　　后来根据版主的提示，整理了一下贴子：为什么一个脚本直接执行和用source执行不一行呢？这也是我自己碰到的一个问题。manual原文是这样的：Read and execute commands from filename in the current shell environment and return the exit status of the last command executed from filename.明白了为什么不一样了吧？直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;export命令设置或显示环境变量。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
+    
+    
+      <category term="set" scheme="http://yoursite.com/tags/set/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>set命令</title>
+    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/set%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/wiki/linux命令/set命令/</id>
+    <published>2018-07-20T04:07:12.000Z</published>
+    <updated>2018-07-20T10:29:05.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="built_in">command</span> 1</span><br><span class="line"><span class="built_in">command</span> 2</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure><p>Every script you write should include set -e at the top. This tells bash that it should exit the script if any statement returns a non-true return value. The benefit of using -e is that it prevents errors snowballing into serious issues when they could have been caught earlier. Again, for readability you may want to use set -o errexit.</p><p>你写的每个脚本都应该在文件开头加上set -e,这句语句告诉bash如果任何语句的执行结果不是true则应该退出。这样的好处是防止错误像滚雪球般变大导致一个致命的错误，而这些错误本应该在之前就被处理掉。如果要增加可读性，可以使用set -o errexit，它的作用与set -e相同。</p><p>Using -e gives you error checking for free. If you forget to check something, bash will do it for you. Unfortunately it means you can’t check $? as bash will never get to the checking code if it isn’t zero. There are other constructs you could use:</p><p>使用-e帮助你检查错误。如果你忘记检查（执行语句的结果），bash会帮你执行。不幸的是，你将无法检查$?，因为如果执行的语句不是返回0，bash将无法执行到检查的代码。你可以使用其他的结构：</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">command</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"$?"</span>-ne <span class="number">0</span>]; then </span><br><span class="line">echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi </span><br><span class="line">could be replaced with</span><br></pre></td></tr></table></figure><p>能够被代替为</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">command || &#123; echo <span class="string">"command failed"</span>; <span class="keyword">exit</span> <span class="number">1</span>; &#125; </span><br><span class="line">or</span><br><span class="line">或者</span><br><span class="line"><span class="keyword">if</span> ! command; then</span><br><span class="line"> echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>What if you have a command that returns non-zero or you are not interested in its return value? You can use command || true, or if you have a longer section of code, you can turn off the error checking, but I recommend you use this sparingly.</p><p>如果你有一个命令返回非0或者你对语句执行的结果不关心，那你可以使用command || true，或者你有一段很长的代码，你可以关闭错误检查（不使用set -e），但是我还是建议你保守地使用这个语句。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出&lt;/p&gt;
     
     </summary>
     
@@ -323,35 +323,9 @@
   </entry>
   
   <entry>
-    <title>面向对象程序设计</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/第十五章 面向对象程序设计/面向对象程序设计/</id>
-    <published>2018-07-13T04:07:12.000Z</published>
-    <updated>2018-07-19T10:53:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>主要有虚函数、访问控制等内容</p><a id="more"></a><h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><p>静态类型和动态类型</p><ol><li>通过使用数据抽象，可以将类的接口和实现分离</li><li>使用继承可以定义相似类型并对相似类型建模</li><li>使用动态绑定，可以忽略相似类型的区别，而用统一的方式使用对象</li></ol><p>当我们使用基类的引用或者指针调用一个虚函数时将发生动态绑定。</p><ol><li>成员函数如果没用被声明为虚函数，解析过程发生在编译时候</li><li>成员函数声明为虚函数，根据调用指针在运行的时候确定调用的版本。</li></ol><p>派生类显示的著名他使用哪个成员函数改写基类的虚函数，具体措施是在该函数的形参列表后面增加一个override关键字。</p><p>回避虚函数使用：在函数名前加作用域运算符。</p><h2 id="访问控制与继承"><a href="#访问控制与继承" class="headerlink" title="访问控制与继承"></a>访问控制与继承</h2><ol><li>protected用来声明希望与派生类共享、但不被共有访问的成员。</li><li>派生类成员和友元只能通过派生类对象访问基类的受保护的成员。</li><li>protected成员对于派生类和友元来说可以访问。</li><li>protected对于类的用户来说不可访问。</li></ol><p>某个类对其继承而来的成员的访问权限收到两个因素的影响：</p><ol><li>基类中该成员的访问说明符</li><li>派生列表中派生访问说明符</li></ol><p>爸爸受保护的属性，儿子的小三（友元）想通过儿子窃取，不行（友元不能传递）</p><p>爸爸受保护的属性，爸爸的小三想通过儿子获取，可以（谁的小三就能获取到谁的保护属性，小三具有破坏性）</p><p>派生类的作用域位于基类的作用域内</p><ol><li>class的访问说明符、派生访问说明符默认都是private</li><li>struct的访问说明符、派生访问说明符默认都是public的</li></ol><p>两个角度理解访问控制：</p><ol><li>普通用户</li><li>实现者</li></ol><p>派生类的成员隐藏同名的基类成员。</p><p>使用作用域运算符来使用一个被隐藏的基类成员</p><p>除了覆盖继承而来的虚函数，派生类最好不用重新定义其他在基类中名字</p><p>函数调用解析过程</p><p>假如我们调用p-&gt;mem()，</p><ol><li>确定p的静态类型</li><li>在静态类型对应的类中找mem</li><li>找到后判断是否虚函数，是产生虚函数调用版本、不是编译器产生常规调用版本。</li></ol><p>名字查找先于类型检测</p><h2 id="构造函数与拷贝控制"><a href="#构造函数与拷贝控制" class="headerlink" title="构造函数与拷贝控制"></a>构造函数与拷贝控制</h2><p>析构函数定义成虚函数，确保删除指针能执行正确的版本。</p><p>如果基类的析构函数不是虚函数，则delete一个指向派生类对象的基类指针将产生未定义的行为。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;主要有虚函数、访问控制等内容&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
-    
-      <category term="第十五章 面向对象程序设计" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-      <category term="面向对象程序设计" scheme="http://yoursite.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
-    
-  </entry>
-  
-  <entry>
     <title>拷贝控制</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0/%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/第十三章/拷贝控制/</id>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0/%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十三章/拷贝控制/</id>
     <published>2018-07-13T04:07:12.000Z</published>
     <updated>2018-07-13T11:17:53.000Z</updated>
     
@@ -374,12 +348,38 @@
     
       <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
     
-      <category term="第十三章" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0/"/>
+      <category term="第十三章" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0/"/>
     
     
       <category term="拷贝控制" scheme="http://yoursite.com/tags/%E6%8B%B7%E8%B4%9D%E6%8E%A7%E5%88%B6/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>面向对象程序设计</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/</id>
+    <published>2018-07-13T04:07:12.000Z</published>
+    <updated>2018-07-19T10:53:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>主要有虚函数、访问控制等内容</p><a id="more"></a><h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><p>静态类型和动态类型</p><ol><li>通过使用数据抽象，可以将类的接口和实现分离</li><li>使用继承可以定义相似类型并对相似类型建模</li><li>使用动态绑定，可以忽略相似类型的区别，而用统一的方式使用对象</li></ol><p>当我们使用基类的引用或者指针调用一个虚函数时将发生动态绑定。</p><ol><li>成员函数如果没用被声明为虚函数，解析过程发生在编译时候</li><li>成员函数声明为虚函数，根据调用指针在运行的时候确定调用的版本。</li></ol><p>派生类显示的著名他使用哪个成员函数改写基类的虚函数，具体措施是在该函数的形参列表后面增加一个override关键字。</p><p>回避虚函数使用：在函数名前加作用域运算符。</p><h2 id="访问控制与继承"><a href="#访问控制与继承" class="headerlink" title="访问控制与继承"></a>访问控制与继承</h2><ol><li>protected用来声明希望与派生类共享、但不被共有访问的成员。</li><li>派生类成员和友元只能通过派生类对象访问基类的受保护的成员。</li><li>protected成员对于派生类和友元来说可以访问。</li><li>protected对于类的用户来说不可访问。</li></ol><p>某个类对其继承而来的成员的访问权限收到两个因素的影响：</p><ol><li>基类中该成员的访问说明符</li><li>派生列表中派生访问说明符</li></ol><p>爸爸受保护的属性，儿子的小三（友元）想通过儿子窃取，不行（友元不能传递）</p><p>爸爸受保护的属性，爸爸的小三想通过儿子获取，可以（谁的小三就能获取到谁的保护属性，小三具有破坏性）</p><p>派生类的作用域位于基类的作用域内</p><ol><li>class的访问说明符、派生访问说明符默认都是private</li><li>struct的访问说明符、派生访问说明符默认都是public的</li></ol><p>两个角度理解访问控制：</p><ol><li>普通用户</li><li>实现者</li></ol><p>派生类的成员隐藏同名的基类成员。</p><p>使用作用域运算符来使用一个被隐藏的基类成员</p><p>除了覆盖继承而来的虚函数，派生类最好不用重新定义其他在基类中名字</p><p>函数调用解析过程</p><p>假如我们调用p-&gt;mem()，</p><ol><li>确定p的静态类型</li><li>在静态类型对应的类中找mem</li><li>找到后判断是否虚函数，是产生虚函数调用版本、不是编译器产生常规调用版本。</li></ol><p>名字查找先于类型检测</p><h2 id="构造函数与拷贝控制"><a href="#构造函数与拷贝控制" class="headerlink" title="构造函数与拷贝控制"></a>构造函数与拷贝控制</h2><p>析构函数定义成虚函数，确保删除指针能执行正确的版本。</p><p>如果基类的析构函数不是虚函数，则delete一个指向派生类对象的基类指针将产生未定义的行为。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;主要有虚函数、访问控制等内容&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第十五章 面向对象程序设计" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    
+    
+      <category term="面向对象程序设计" scheme="http://yoursite.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   
@@ -538,8 +538,8 @@
   
   <entry>
     <title>运算符优先级表</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Premer/%E8%BF%90%E7%AE%97%E7%AC%A6/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Premer/运算符/运算符优先级表/</id>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%9B%9B%E7%AB%A0%20%E8%A1%A8%E8%BE%BE%E5%BC%8F/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7%E8%A1%A8/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/</id>
     <published>2018-06-23T04:07:12.000Z</published>
     <updated>2018-07-05T11:09:40.000Z</updated>
     
@@ -560,9 +560,9 @@
     
       <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="C++Premer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/"/>
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
     
-      <category term="运算符" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Premer/%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
+      <category term="第四章 表达式" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%9B%9B%E7%AB%A0-%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
     
     
       <category term="运算符优先级" scheme="http://yoursite.com/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%E4%BC%98%E5%85%88%E7%BA%A7/"/>
