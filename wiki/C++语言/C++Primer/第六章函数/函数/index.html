@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>函数 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="函数">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="主要内容：  函数基础 参数传递 函数类型和return语句 函数重载 特殊用途语言特性 函数匹配 函数指针">
+<meta name="keywords" content="函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数">
+<meta property="og:url" content="http://yoursite.com/wiki/C++语言/C++Primer/第六章函数/函数/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="主要内容：  函数基础 参数传递 函数类型和return语句 函数重载 特殊用途语言特性 函数匹配 函数指针">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-08-20T11:58:48.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数">
+<meta name="twitter:description" content="主要内容：  函数基础 参数传递 函数类型和return语句 函数重载 特殊用途语言特性 函数匹配 函数指针">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/Mach_O_File_Struct/">Mach-o文件结构理解</a></li>  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/$0,$?,$!等的特殊用法/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/export命令/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-C++语言/C++Primer/第六章函数/函数" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第六章函数/">第六章函数</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/函数/">函数</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/C++Primer/第六章函数/函数/">
+            <time datetime="2018-07-13T04:07:12.000Z" itemprop="datePublished">2018-07-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            函数
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数基础"><span class="toc-number">1.</span> <span class="toc-text">函数基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#局部对象"><span class="toc-number">1.1.</span> <span class="toc-text">局部对象</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数声明"><span class="toc-number">1.2.</span> <span class="toc-text">函数声明</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参数传递"><span class="toc-number">2.</span> <span class="toc-text">参数传递</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#传值参数"><span class="toc-number">2.1.</span> <span class="toc-text">传值参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#传引用参数"><span class="toc-number">2.2.</span> <span class="toc-text">传引用参数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const形参和实参"><span class="toc-number">2.3.</span> <span class="toc-text">const形参和实参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组形参"><span class="toc-number">2.4.</span> <span class="toc-text">数组形参</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#main：处理命令行选项"><span class="toc-number">2.5.</span> <span class="toc-text">main：处理命令行选项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#含有可变形参的函数"><span class="toc-number">2.6.</span> <span class="toc-text">含有可变形参的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#initializer-list"><span class="toc-number">2.6.1.</span> <span class="toc-text">initializer_list</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#省略符形参"><span class="toc-number">2.7.</span> <span class="toc-text">省略符形参</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回类型和return语句"><span class="toc-number">3.</span> <span class="toc-text">返回类型和return语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#无返回值函数"><span class="toc-number">3.1.</span> <span class="toc-text">无返回值函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有返回值的函数"><span class="toc-number">3.2.</span> <span class="toc-text">有返回值的函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#值是如何被返回的"><span class="toc-number">3.2.1.</span> <span class="toc-text">值是如何被返回的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不要返回局部对象的指针或者引用"><span class="toc-number">3.2.2.</span> <span class="toc-text">不要返回局部对象的指针或者引用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#返回类类型的函数和调用运算符"><span class="toc-number">3.2.3.</span> <span class="toc-text">返回类类型的函数和调用运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#引用返回左值"><span class="toc-number">3.2.4.</span> <span class="toc-text">引用返回左值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#列表初始化返回值"><span class="toc-number">3.2.5.</span> <span class="toc-text">列表初始化返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#主函数main的返回值"><span class="toc-number">3.2.6.</span> <span class="toc-text">主函数main的返回值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#返回数组指针"><span class="toc-number">3.3.</span> <span class="toc-text">返回数组指针</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <p>主要内容：</p>
+<ol>
+<li>函数基础</li>
+<li>参数传递</li>
+<li>函数类型和return语句</li>
+<li>函数重载</li>
+<li>特殊用途语言特性</li>
+<li>函数匹配</li>
+<li>函数指针</li>
+</ol>
+<a id="more"></a>
+<p>函数是一个命名了的代码块，我们通过调用函数执行响应的代码。</p>
+<h2 id="函数基础"><a href="#函数基础" class="headerlink" title="函数基础"></a>函数基础</h2><p>函数的组成部分：</p>
+<ol>
+<li>返回类型</li>
+<li>函数名字</li>
+<li>形参列表</li>
+<li>函数体</li>
+</ol>
+<p>我们通过调用运算符来执行函数，调用运算符的形式是一对圆括号。</p>
+<p>函数调用完成的工作：</p>
+<ol>
+<li>用实参初始化函数对应的形参</li>
+<li>将控制权转移给被调函数，此时主调函数（calling function）的执行被暂时中断，被调函数（called function）开始执行</li>
+</ol>
+<p>return语句完成的工作：</p>
+<ol>
+<li>返回return语句中的值</li>
+<li>将控制权从被调函数转移回主调函数。</li>
+</ol>
+<p>函数的形参：即使两个形参的类型一样，也必须把两个类型都写出来。任何两个形参都不能同名，而且函数最外层作用域中的局部变量也不能使用与函数形参一样的名字。</p>
+<p>函数返回类型：函数的返回类型不能是数组类型、函数类型，但是可以是指向数组或者函数的指针。为啥？</p>
+<h3 id="局部对象"><a href="#局部对象" class="headerlink" title="局部对象"></a>局部对象</h3><p>名字有作用域，对象有生命周期。</p>
+<ol>
+<li>名字的作用域是程序文本的一部分，名字在其中可见</li>
+<li>对象的生命周期是程序执行过程中该对象存在的一段时间</li>
+</ol>
+<p>形参和函数体内部定义的变量统称为局部变量。局部变量会隐藏在外层作用域中同名的其他所有声明。</p>
+<p>在所有函数体之外定义的对象，存在于程序的整个过程中，此类对象在程序启动的时候被创建，直到程序结束才会销毁。</p>
+<p>自动对象:当函数的控制路径经过变量定义语句时，创建该对象，当达到定义语句所在的快末尾时销毁，我们把只存在于快执行期间的对象称为自动对象。</p>
+<p>形参是自动变量，函数开始执行时为形参申请空间，因为形参定义在函数作用域内，所以一旦函数终止，形参就被销毁。</p>
+<p>局部静态对象：生命周期贯穿函数调用及之后的时间，在程序执行路径第一次经过对象的定义语句时初始化对象。并且直到程序终止才被销毁。</p>
+<p>如果局部静态变量没有显示的初始化，执行值初始化，内置类型的局部静态变量初始化为0.</p>
+<h3 id="函数声明"><a href="#函数声明" class="headerlink" title="函数声明"></a>函数声明</h3><p>函数的声明不包括函数体，所以他无需形参名字。</p>
+<h2 id="参数传递"><a href="#参数传递" class="headerlink" title="参数传递"></a>参数传递</h2><ol>
+<li>引用传递：引用形参是他对象实参的别名</li>
+<li>值传递：值拷贝，形参和实参是两个相互独立的对象</li>
+</ol>
+<h3 id="传值参数"><a href="#传值参数" class="headerlink" title="传值参数"></a>传值参数</h3><p>当初始化一个非引用类型的变量时，初始值被拷贝给变量。对变量的改动不会影响初始值。</p>
+<p>指针形参：指针的行为和其他非引用类型一样，当执行指针拷贝操作时，拷贝的是指针的值，拷贝之后，两个指针是不同的指针。因为指针使我们可以间接的访问他所指的对象，所以通过指针可以修改它所指对象的值。</p>
+<h3 id="传引用参数"><a href="#传引用参数" class="headerlink" title="传引用参数"></a>传引用参数</h3><p>对引用的操作实际上是作用在引用所引用对象上。</p>
+<p>优点吧：</p>
+<ol>
+<li>使用引用避免拷贝：拷贝大的类类型对象或者容器对象比较低效，甚至有的类类型根本不支持拷贝操作，当某种类型不支持拷贝操作时，函数只能通过引用参数访问该类型对象。</li>
+<li>使用引用形参返回额外信息。</li>
+</ol>
+<h3 id="const形参和实参"><a href="#const形参和实参" class="headerlink" title="const形参和实参"></a>const形参和实参</h3><p>当形参有顶层const时，传给它常量或非常量对象都可以。</p>
+<p>我们可以使用非常量初始化一个底层const对象。C++允许字面值初始化常量引用。</p>
+<p>常量引用接收的实参范围大，可以接收非常量、常量、字面值、需要类型转换的对象。</p>
+<h3 id="数组形参"><a href="#数组形参" class="headerlink" title="数组形参"></a>数组形参</h3><p>数组的特点：</p>
+<ol>
+<li>内置类型。</li>
+<li>不允许拷贝，所以不能以值传递方式使用数组。</li>
+<li>使用数组时，大部分情况会转换为指向数组首元素的指针。</li>
+</ol>
+<p>管理指针形参，标记数组的大小：</p>
+<ol>
+<li>使用标记指定数组的大小，就是数组本身包含一个结束标记，典型的例子是C风格的字符串</li>
+<li>使用标准库，需要传入两个指针，一个指向数组首元素，另一个指向尾元素的下一个位置。</li>
+<li>显示传递一个表示数组大小的形参</li>
+</ol>
+<p>数组引用形参：引用绑定到数组实参上。纬度也是类型的一部分，但是这样限制只能传递数组大小为10 的实参，函数模板可以实现传递任何大小的数组。</p>
+<p>传递多维数组： 数组真正传递的是首元素的地址，因为，多维数组时数组的数组，所以首元素本身是一个数组，就是指向数组的指针，可以想象，数组的第二纬的大小是数组类型的一部分。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">int</span>  (*matrix)<span class="selector-attr">[10]</span> ; <span class="comment">//第二个纬度是类型的一部分。</span></span><br></pre></td></tr></table></figure>
+<h3 id="main：处理命令行选项"><a href="#main：处理命令行选项" class="headerlink" title="main：处理命令行选项"></a>main：处理命令行选项</h3><p>argv中的可选实参从argv[1]开始，argv[0]保存程序的名字，而非用户的输入。</p>
+<h3 id="含有可变形参的函数"><a href="#含有可变形参的函数" class="headerlink" title="含有可变形参的函数"></a>含有可变形参的函数</h3><p>可变参数的的实现方式：</p>
+<ol>
+<li>传递initializer——list标准库类型，所有实参类型相同</li>
+<li>可变参数模板，参数类型不同</li>
+<li>特殊的形参类型——省略号，一般用于和C交互的程序</li>
+</ol>
+<h4 id="initializer-list"><a href="#initializer-list" class="headerlink" title="initializer_list"></a>initializer_list</h4><p>实参数量未知，类型相同。</p>
+<table>
+<thead>
+<tr>
+<th>initializer_list提供的操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>initializer_list&lt;T&gt; lst;</code></td>
+<td>默认初始化，T类型元素的空列表</td>
+</tr>
+<tr>
+<td><code>initializer_list&lt;T&gt; lst{a,b,c...}  list2 = list</code></td>
+<td>lst的元素数量和初始值一样多，lst元素是对应初始值的副本，列表中的元素是const</td>
+</tr>
+<tr>
+<td>lst2(lst)</td>
+<td>拷贝或者赋值一个initializer_list对象，不会拷贝列表中的元素，拷贝后，原始列表和副本共享元素</td>
+</tr>
+<tr>
+<td>list.size()</td>
+<td>列表中元素数量</td>
+</tr>
+<tr>
+<td>list.begin()</td>
+<td>list中首元素指针</td>
+</tr>
+<tr>
+<td>list.end()</td>
+<td>list中尾元素下一个位置</td>
+</tr>
+</tbody>
+</table>
+<p>如果想向initializer_list形参中传递一个值的序列，则必须把序列放在一个或括号中。</p>
+<h3 id="省略符形参"><a href="#省略符形参" class="headerlink" title="省略符形参"></a>省略符形参</h3><p>省略符形参是为了便于C++程序访问某些特殊的C代码设置的。这些代码使用名为varargs的C标准库。大多数类类型对象在传递给省略符形参时，都无法正确拷贝。省略符形参只能出现在形参列表的最后一个位置。省略符形参对应的实参无需进行类型检查。省略符前面的逗号可以省略。</p>
+<h2 id="返回类型和return语句"><a href="#返回类型和return语句" class="headerlink" title="返回类型和return语句"></a>返回类型和return语句</h2><h3 id="无返回值函数"><a href="#无返回值函数" class="headerlink" title="无返回值函数"></a>无返回值函数</h3><p>返回void的函数不要求非得有return语句，因为在这类函数的最后一句后面会隐式的执行return。。</p>
+<p>强行令void函数返回其他类型的表达式将产生编译错误。</p>
+<h3 id="有返回值的函数"><a href="#有返回值的函数" class="headerlink" title="有返回值的函数"></a>有返回值的函数</h3><p>return语句的返回值类型必须与函数的返回类型形同，或者可以隐式转换。</p>
+<h4 id="值是如何被返回的"><a href="#值是如何被返回的" class="headerlink" title="值是如何被返回的"></a>值是如何被返回的</h4><p>返回一个值，和初始化一个变量或者形参的方式完全一样。</p>
+<h4 id="不要返回局部对象的指针或者引用"><a href="#不要返回局部对象的指针或者引用" class="headerlink" title="不要返回局部对象的指针或者引用"></a>不要返回局部对象的指针或者引用</h4><p>因为局部对象释放了，引用或者指针无效</p>
+<h4 id="返回类类型的函数和调用运算符"><a href="#返回类类型的函数和调用运算符" class="headerlink" title="返回类类型的函数和调用运算符"></a>返回类类型的函数和调用运算符</h4><p>为啥点运算符和箭头运算符、调用运算符优先级形同呢？如果调用一个函数，返回一个对象，我么可以直接通过点运算符访问对象的属性。他们是左结合律</p>
+<h4 id="引用返回左值"><a href="#引用返回左值" class="headerlink" title="引用返回左值"></a>引用返回左值</h4><p>我们能为返回类型是非常量引用的函数的结果赋值。就是把函数调用放在赋值语句的左侧。</p>
+<h4 id="列表初始化返回值"><a href="#列表初始化返回值" class="headerlink" title="列表初始化返回值"></a>列表初始化返回值</h4><h4 id="主函数main的返回值"><a href="#主函数main的返回值" class="headerlink" title="主函数main的返回值"></a>主函数main的返回值</h4><p>main可以不写返回值，编译器帮插入</p>
+<h3 id="返回数组指针"><a href="#返回数组指针" class="headerlink" title="返回数组指针"></a>返回数组指针</h3><p>因为数组不能拷贝，所以函数不能返回数组，不过函数可以返回数组的指针或者引用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> arrT[<span class="number">10</span>];</span><br><span class="line"><span class="keyword">using</span> arrT = <span class="keyword">int</span>[<span class="number">10</span>]; <span class="comment">//arrT是是一个类型别名，表示类型是10个整数的数组。</span></span><br></pre></td></tr></table></figure>
+<p>基本形式]、示例：</p>
+<p>``<br>type (*function(parameter_list))[demension]</p>
+<p>int (*func(int i))[10];<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">理解的方式：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>. <span class="function"><span class="keyword">func</span><span class="params">(int i)</span></span> 表示条用<span class="function"><span class="keyword">func</span>函数时需要一个<span class="title">int</span>类型的实参</span></span><br><span class="line"><span class="function">2. <span class="params">(* <span class="keyword">func</span><span class="params">(int i)</span></span></span>) 意味着我们可以对函数调用的结果执行解引用操作</span><br><span class="line"><span class="number">3</span>. (* <span class="function"><span class="keyword">func</span><span class="params">(int i)</span></span>)[<span class="number">10</span>] 表示解引用<span class="function"><span class="keyword">func</span>的调用将得到一个大小是10的数组</span></span><br><span class="line"><span class="function">4. <span class="title">int</span> <span class="params">(*<span class="keyword">func</span><span class="params">(int i)</span></span></span>)[<span class="number">10</span>] 表示数组中的元素类型是int类型</span><br><span class="line"></span><br><span class="line">使用尾置返回类型： <span class="type">C</span>++新标准中可以还有一种简化上述<span class="function"><span class="keyword">func</span>声明的方法，就是使用位置返回类型。任何函数定义都能使用位置返回，位置返回类型跟在新参列表后面，并以-&gt;开头。为了表示函数真正的返回类型跟在形参列表之后，我们在本应该出现返回类型的地方放置一个<span class="title">auto</span>。</span></span><br></pre></td></tr></table></figure></p>
+<p>auto func(int i) -&gt; int(*)[10];<br><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">使用<span class="keyword">decltype</span>： 如果我们知道函数返回的指针指向哪个数组，就可以使用<span class="keyword">decltype</span>关键字声明返回类型。<span class="keyword">decltype</span>并不负责把数组类型转换为对应的指针。所以<span class="keyword">decltype</span>的结果是数组。</span><br><span class="line"></span><br><span class="line">## 函数重载</span><br><span class="line"></span><br><span class="line">对于重载的函数来说，他们应该在形参数量或形参类型上有所不同。返回类型不能当做重载的判断依据。</span><br><span class="line"></span><br><span class="line">重载和<span class="keyword">const</span>：顶层<span class="keyword">const</span>不构成重载。底层<span class="keyword">const</span>构成重载</span><br><span class="line"></span><br><span class="line"><span class="keyword">const_cast</span>和重载：<span class="keyword">const_cast</span>在重载函数的场景最有用。</span><br><span class="line"></span><br><span class="line">### 重载与作用域</span><br><span class="line"></span><br><span class="line">如果在内存作用域中声明名字，他将隐藏外层作用域中声明的同名实体。在不同的作用域无法重载函数名。</span><br><span class="line"></span><br><span class="line">在C++中，名字查找发生在类型检查之前</span><br><span class="line"></span><br><span class="line">## 特殊用途语言特殊</span><br><span class="line"></span><br><span class="line">### 默认实参</span><br><span class="line"></span><br><span class="line">某些函数有这样一种形参，在函数的很多次调用中，他们都被赋予一个相同的值。此时，我们吧这个反复出现的值称为函数的默认实参。调用含有默认实参的函数时，可以包含该实参，也可以省略改实参。</span><br><span class="line"></span><br><span class="line">默认实参作为形参的初始值出现在形参列表中，我们可以为一个或多个形参定义默认值，不过注意的是，一旦某个形参被赋予了默认值，它后面的所有形参都必须有默认值。</span><br><span class="line"></span><br><span class="line">函数调用时，实参按位置解析，默认实参负责填补函数调用缺少的尾部实参。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">当设计含有默认实参的函数时，其中一项任务是合理设置形参的顺序，尽量让不怎么使用默认值的形参出现在前面。而让那些经常使用默认值的形参出现在后面。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">#### 默认实参声明</span><br><span class="line"></span><br><span class="line">对于函数的声明，通常的习惯是将其放在头文件中，并且一个函数只声明一次，但是多次声明同一个函数也是合法的。不过有一点注意：在给定的作用域中，一个形参只能被赋予一次默认实参。换句话说，函数的后续声明只能为之前那些没有默认值的形参添加默认实参。而且该形参的右侧的所有形参必须有默认值。</span><br><span class="line"></span><br><span class="line">通常，应该在函数声明中指定默认实参，并将声明放在合适的头文件中。</span><br><span class="line"></span><br><span class="line">默认实参的初始值：用作默认实参的名字在函数声明所在的作用域内解析，而这些名字的求值过程烦死在函数调用时。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### 内联函数 和<span class="keyword">constexpr</span>函数</span><br><span class="line"></span><br><span class="line">内联函数可以避免函数调用的开销： 通常在调用点内联的展开。在函数的返回类型前面加上关键字<span class="keyword">inline</span>，可以将函数声明为内联的。内联说明只是向编译器发出的一个请求，编译器可以选择忽略这个请求。</span><br><span class="line"></span><br><span class="line">一般来说：内联机制用于优化规模较小、流程直接、频繁调用的函数。</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span>函数：是指 能用于常量表达式的函数。需要满足两个条件</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 函数的返回类型和所有形参类型都是字面值类型</span><br><span class="line"><span class="number">2.</span> 函数体内必须有且只有一条<span class="built_in">return</span>语句。</span><br><span class="line"></span><br><span class="line">为了能在编译过程中随时展开，<span class="keyword">constexpr</span>函数被隐式的指定为内联函数。</span><br><span class="line"></span><br><span class="line"><span class="keyword">constexpr</span>函数不一定返回常量表达式。由编译器确定是不是常量。</span><br><span class="line"></span><br><span class="line">### 调试帮组</span><br><span class="line"></span><br><span class="line">###<span class="meta"># assert预处理宏</span></span><br></pre></td></tr></table></figure></p>
+<p>assert(expr)<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">首先对expr求值，如果表达式的值为假（0），assert输出信息并终止程序执行，如果表达式为真，assert什么页不做。</span><br><span class="line"></span><br><span class="line">预处理名字由预处理器而非编译器管理，所以使用assert无需使用using声明。宏名字在程序内必须唯一。</span><br><span class="line"></span><br><span class="line"><span class="section">#### NDEBUG 预处理变量</span></span><br><span class="line"></span><br><span class="line">assert的行为依赖于一个名为NDEUBG的预处理变量的状态。如果定义了NDEBUG，则assert什么页不做。</span><br><span class="line"></span><br><span class="line">除了C++编译器定义的<span class="strong">__func__</span>之外，预处理器还定义了另外4个对于程序调试很有用的名字。</span><br><span class="line"></span><br><span class="line"><span class="bullet">1. </span><span class="code">`__FILE__`</span> 存放文件名的字符串字面值</span><br><span class="line"><span class="bullet">2. </span><span class="code">`__LINE__ `</span>存放当前行号的整形字面值</span><br><span class="line"><span class="bullet">3. </span><span class="code">`__TIME__`</span> 存放文件编译时间的字符串字面值</span><br><span class="line"><span class="bullet">4. </span><span class="code">`__DATW__ `</span>存放文件编译日志的字符串字面值。</span><br><span class="line"></span><br><span class="line"><span class="section">## 函数匹配</span></span><br><span class="line"></span><br><span class="line"><span class="section">### 确定候选函数、可行函数</span></span><br><span class="line"></span><br><span class="line">函数匹配的第一步是选定本次调用对象的重载函数集，集合中的函数称为候选函数（candidate function）。候选函数具备两个特征：</span><br><span class="line"></span><br><span class="line"><span class="bullet">1. </span>于被调用函数同名</span><br><span class="line"><span class="bullet">2. </span>其声明在调用点可见</span><br><span class="line"></span><br><span class="line">第二步：考察本次调用提供的实参，然后从候选函数中选出能被这组实参调用的函数，这些新选出的函数称为可行函数（viable function）。可行函数的特征</span><br><span class="line"></span><br><span class="line"><span class="bullet">1. </span>其形参数量与本次调用提供的实参数量相等</span><br><span class="line"><span class="bullet">2. </span>每个实参的类型与对象的形参类型相同或者能转化为形参类型。</span><br><span class="line"></span><br><span class="line">第三步： 寻找最佳匹配</span><br><span class="line"></span><br><span class="line">最佳的条件：</span><br><span class="line"></span><br><span class="line"><span class="bullet">1. </span>该函数每个实参的匹配都不劣于其他可行函数的匹配</span><br><span class="line"><span class="bullet">2. </span>至少有一个实参的匹配优于其他可行函数提供的匹配。</span><br><span class="line"></span><br><span class="line"><span class="section">### 实参类型转换</span></span><br><span class="line"></span><br><span class="line">编译器将实参类型到形参类型的转化划分为几个等级：具体的排序如下：</span><br><span class="line"></span><br><span class="line"><span class="bullet">1. </span>精确匹配： 类型完全相同、实参从数组类型或函数类型转换成对应的指针类型、向实参类型添加顶层const或者从实参中删除顶层const</span><br><span class="line"><span class="bullet">2. </span>通过const转化实现的匹配</span><br><span class="line"><span class="bullet">3. </span>通过类型提升实现的匹配</span><br><span class="line"><span class="bullet">4. </span>通过算术类型转换实现的匹配</span><br><span class="line"><span class="bullet">5. </span>通过类类型转换实现的匹配</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="section">### 函数匹配和const实参</span></span><br><span class="line"></span><br><span class="line">如果两个函数的唯一区别是他的指针形参指向常量或者非常量。则编译器通过实参是否常量来决定需用那个函数。如果实参是指向常量的指针，调用形参是const*的函数。否则，调用普通版本函数。</span><br><span class="line"></span><br><span class="line"><span class="section">## 函数指针</span></span><br><span class="line"></span><br><span class="line">函数指针指向的是函数，而非对象，和其他指针一样，函数指针指向某种特定的类型。函数的类型是由它的返回类型和形参类型共同决定的。于函数名无关。要想声明一个可以指向函数的指针，只需要用指针代替函数名即可：</span><br></pre></td></tr></table></figure></p>
+<p>bool (*pf)(const string&amp;, const string &amp;);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">当我们把函数名当一个值使用时，函数自动的转化为指针。我们还可以直接使用函数指针调用改函数，无需提前解引用指针。不同函数类型的指针间不存在类型转换</span><br></pre></td></tr></table></figure></p>
+<p>pf = lengthCompara;<br>pf = &amp; lengthCompara; //等价的赋值语句<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">重载函数的指针：指针类型必须与重载函数中的某一个精确匹配。</span><br><span class="line"></span><br><span class="line">函数指针形参：虽然不能定义函数类型的形参，但是形参可以是指向函数的指针。形参如果是函数类型，会自动转化为函数指针类型。decltype作用于函数，只返回函数类型，如果需要函数指针，需要单加*</span><br><span class="line"></span><br><span class="line">返回指向函数的指针：和数组类型，不能返回一个函数，但能返回指向函数类型的指针，我们必须把返回类型写成指针形式，编译器不会自动将函数类型转换为指针类型</span><br></pre></td></tr></table></figure></p>
+<p>typedef bool Func(const string&amp;, const string &amp;);  //函数类型<br>using Func = bool(const string&amp;, const string &amp;) //函数类型</p>
+<p>typedef bool (<em>Func1)(const string&amp;, const string &amp;);  //函数指针类型<br>using Func1 = bool(</em>)(const string&amp;, const string &amp;) //函数指针类型<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
+<p>int (<em>f1(int))( int </em>, int)<br>```</p>
+<ol>
+<li>f1 有形参列表，所以f1是个函数，f1前面有个* 所以f1 返回一个指针</li>
+<li>指针的类型本身也包含了形参列表。因此，指针直线函数</li>
+<li>改函数的返回类型是int </li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/C++语言/C++关键字理解/explicit-learn/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    explicit实例浅析(转载)
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">面向对象程序设计</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/C++语言/C++Primer/第六章函数/函数/" data-title="函数" data-url="http://yoursite.com/wiki/C++语言/C++Primer/第六章函数/函数/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
