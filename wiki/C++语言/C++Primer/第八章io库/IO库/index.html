@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="主要内容  IO类 文件输入输出 string流">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-27T07:50:35.804Z">
+<meta property="og:updated_time" content="2018-08-27T10:51:38.547Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IO库">
 <meta name="twitter:description" content="主要内容  IO类 文件输入输出 string流">
@@ -186,6 +186,15 @@
                             第三章 字符串、向量、数组
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -759,7 +768,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IO类"><span class="toc-number">1.</span> <span class="toc-text">IO类</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#IO类"><span class="toc-number">1.</span> <span class="toc-text">IO类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IO对象无拷贝或赋值"><span class="toc-number">1.1.</span> <span class="toc-text">IO对象无拷贝或赋值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#条件状态"><span class="toc-number">1.2.</span> <span class="toc-text">条件状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#文件输入输出"><span class="toc-number">2.</span> <span class="toc-text">文件输入输出</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件模式"><span class="toc-number">2.1.</span> <span class="toc-text">文件模式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#stirng流"><span class="toc-number">3.</span> <span class="toc-text">stirng流</span></a></li></ol>
                 </div>
             
         
@@ -771,7 +780,175 @@
 <li>string流</li>
 </ol>
 <a id="more"></a>
-<h2 id="IO类"><a href="#IO类" class="headerlink" title="IO类"></a>IO类</h2>
+<h2 id="IO类"><a href="#IO类" class="headerlink" title="IO类"></a>IO类</h2><h3 id="IO对象无拷贝或赋值"><a href="#IO对象无拷贝或赋值" class="headerlink" title="IO对象无拷贝或赋值"></a>IO对象无拷贝或赋值</h3><p>进行IO操作的函数通常以引用方式传递、返回流。读写一个IO对象会改变其状态，因此，传递和返回的引用不能是const的。</p>
+<h3 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h3><table>
+<thead>
+<tr>
+<th>状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>strm::iostate</td>
+<td>strm是一种IO类型，iostate是一种机器相关的类型，提供了表达条件状态的完整功能</td>
+</tr>
+<tr>
+<td>strm::badbit</td>
+<td>指出输出流已崩溃</td>
+</tr>
+<tr>
+<td>strm::faillbit</td>
+<td>一个IO操作失败</td>
+</tr>
+<tr>
+<td>strm::eofbit</td>
+<td>流达到了文件结尾</td>
+</tr>
+<tr>
+<td>strm::goodbit</td>
+<td>流未处于错误状态，此值保证为0</td>
+</tr>
+<tr>
+<td>s.eof()</td>
+<td>若流s的eofbit置位，则返回true</td>
+</tr>
+<tr>
+<td>s.fail()</td>
+<td>若流s的failbit置位，则返回true</td>
+</tr>
+<tr>
+<td>s.bad()</td>
+<td>若流s的badbit置位，则返回true</td>
+</tr>
+<tr>
+<td>s.good()</td>
+<td>若流处于有效状态，则返回true</td>
+</tr>
+<tr>
+<td>s.clear()</td>
+<td>将流的所有状态复位</td>
+</tr>
+<tr>
+<td>s.clear(flags)</td>
+<td>根据给定的flags标志位，将流s中对应的条件状态位复位</td>
+</tr>
+<tr>
+<td>s.setstate(flags)将流s中对应条件状态位置位</td>
+<td></td>
+</tr>
+<tr>
+<td>s.rdstate()</td>
+<td>返回流s的当前条件状态</td>
+</tr>
+</tbody>
+</table>
+<p>一个流一旦发生错误状态，其后续的IO操作都失败。只有流处于无错状态是，我们才可以从它读取数据、写入数据。</p>
+<p>属性缓存区：</p>
+<ol>
+<li>endl， 换行并刷新缓冲区</li>
+<li>flush ，刷新缓存区，不输出任何额为的字符</li>
+<li>ends，向缓冲区插入一个空字符，然后刷新缓冲区</li>
+</ol>
+<p>unitbuf 操纵符：如果每次输出操作后，都属性缓存区，我们可以使用unitbuf操纵符。</p>
+<p>如果程序崩溃，输出缓冲区不会被刷新。</p>
+<p>tie： 如果本对象关联到一个输出流，则返回的就是这个流的指针，如果对象未关联到流，则返回空指针。tie的第二个版本接受一个指向ostream的指针，将自己关联到此ostream。</p>
+<h2 id="文件输入输出"><a href="#文件输入输出" class="headerlink" title="文件输入输出"></a>文件输入输出</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>fstream fstrm</td>
+<td>创建一个未绑定的文件流</td>
+</tr>
+<tr>
+<td>fstream fstrm(s)</td>
+<td>创建一个fstream，并打开名为s的文件。 s可以是string类型，或者是一个指向C风格字符串类型</td>
+</tr>
+<tr>
+<td>fstream fstrm(s,mode)</td>
+<td>安装mode打开文件</td>
+</tr>
+<tr>
+<td>fstrm.open(s)</td>
+<td>打开名为s的文件，并将文件与fstrm绑定，返回void</td>
+</tr>
+<tr>
+<td>fstrm.close()</td>
+<td>关闭于fstrm绑定的文件，返回void</td>
+</tr>
+<tr>
+<td>fstrm.is_open</td>
+<td>返回一个bool，指出与fstrm关联的文件是否成功打开且尚未关闭</td>
+</tr>
+</tbody>
+</table>
+<p>创建文件流对象时，我们可以提供文件名，如果提供了一个文件名，则open自动被调用。</p>
+<h3 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h3><table>
+<thead>
+<tr>
+<th>文件模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>以读方式打开</td>
+</tr>
+<tr>
+<td>out</td>
+<td>以写方式打开</td>
+</tr>
+<tr>
+<td>app</td>
+<td>每次写操作前均定位到文件末尾</td>
+</tr>
+<tr>
+<td>ate</td>
+<td>打开文件后，立即定位到文件末尾</td>
+</tr>
+<tr>
+<td>trunc</td>
+<td>截断文件</td>
+</tr>
+<tr>
+<td>binary</td>
+<td>以二进制方式进行IO</td>
+</tr>
+</tbody>
+</table>
+<h2 id="stirng流"><a href="#stirng流" class="headerlink" title="stirng流"></a>stirng流</h2><table>
+<thead>
+<tr>
+<th>操作</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>sstream strm</td>
+<td>strm是未绑定的stringstream对象</td>
+</tr>
+<tr>
+<td>sstram strm(s)</td>
+<td>strm 是一个sstream对象，保存string的一个拷贝，此构造函数是explicit的</td>
+</tr>
+<tr>
+<td>strm.str()</td>
+<td>返回strm中保存的string的拷贝</td>
+</tr>
+<tr>
+<td>strm.str(s)</td>
+<td>将string s 拷贝到strm中，返回void</td>
+</tr>
+</tbody>
+</table>
+
             </div>
         
         <footer class="article-footer">
@@ -782,6 +959,15 @@
 
     
 <nav id="article-nav">
+    
+        <a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    顺序容器
+                
+            </div>
+        </a>
     
     
         <a href="/wiki/WWDC/What’s New in User Notifications/" id="article-nav-older" class="article-nav-link-wrap">

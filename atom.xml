@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-08-27T07:50:35.804Z</updated>
+  <updated>2018-08-27T10:54:38.495Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,47 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>顺序容器</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E4%B9%9D%E7%AB%A0%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/</id>
+    <published>2018-08-27T10:07:12.000Z</published>
+    <updated>2018-08-27T10:54:38.495Z</updated>
+    
+    <content type="html"><![CDATA[<p>主要内容</p><ol><li>顺序容器概述</li><li>容器库概览</li><li>顺序容器操作</li><li>vector对象是如何生长的</li><li>额外的string操作</li><li>容器适配器</li></ol><a id="more"></a><h2 id="顺序容器概述"><a href="#顺序容器概述" class="headerlink" title="顺序容器概述"></a>顺序容器概述</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;主要内容&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;顺序容器概述&lt;/li&gt;
+&lt;li&gt;容器库概览&lt;/li&gt;
+&lt;li&gt;顺序容器操作&lt;/li&gt;
+&lt;li&gt;vector对象是如何生长的&lt;/li&gt;
+&lt;li&gt;额外的string操作&lt;/li&gt;
+&lt;li&gt;容器适配器&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第九章顺序容器" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E4%B9%9D%E7%AB%A0%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/"/>
+    
+    
+      <category term="顺序容器" scheme="http://yoursite.com/tags/%E9%A1%BA%E5%BA%8F%E5%AE%B9%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
     <title>IO库</title>
     <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%85%AB%E7%AB%A0io%E5%BA%93/IO%E5%BA%93/"/>
     <id>http://yoursite.com/wiki/C++语言/C++Primer/第八章io库/IO库/</id>
     <published>2018-08-27T04:07:12.000Z</published>
-    <updated>2018-08-27T07:50:35.804Z</updated>
+    <updated>2018-08-27T10:51:38.547Z</updated>
     
-    <content type="html"><![CDATA[<p>主要内容</p><ol><li>IO类</li><li>文件输入输出</li><li>string流</li></ol><a id="more"></a><h2 id="IO类"><a href="#IO类" class="headerlink" title="IO类"></a>IO类</h2>]]></content>
+    <content type="html"><![CDATA[<p>主要内容</p><ol><li>IO类</li><li>文件输入输出</li><li>string流</li></ol><a id="more"></a><h2 id="IO类"><a href="#IO类" class="headerlink" title="IO类"></a>IO类</h2><h3 id="IO对象无拷贝或赋值"><a href="#IO对象无拷贝或赋值" class="headerlink" title="IO对象无拷贝或赋值"></a>IO对象无拷贝或赋值</h3><p>进行IO操作的函数通常以引用方式传递、返回流。读写一个IO对象会改变其状态，因此，传递和返回的引用不能是const的。</p><h3 id="条件状态"><a href="#条件状态" class="headerlink" title="条件状态"></a>条件状态</h3><table><thead><tr><th>状态</th><th>说明</th></tr></thead><tbody><tr><td>strm::iostate</td><td>strm是一种IO类型，iostate是一种机器相关的类型，提供了表达条件状态的完整功能</td></tr><tr><td>strm::badbit</td><td>指出输出流已崩溃</td></tr><tr><td>strm::faillbit</td><td>一个IO操作失败</td></tr><tr><td>strm::eofbit</td><td>流达到了文件结尾</td></tr><tr><td>strm::goodbit</td><td>流未处于错误状态，此值保证为0</td></tr><tr><td>s.eof()</td><td>若流s的eofbit置位，则返回true</td></tr><tr><td>s.fail()</td><td>若流s的failbit置位，则返回true</td></tr><tr><td>s.bad()</td><td>若流s的badbit置位，则返回true</td></tr><tr><td>s.good()</td><td>若流处于有效状态，则返回true</td></tr><tr><td>s.clear()</td><td>将流的所有状态复位</td></tr><tr><td>s.clear(flags)</td><td>根据给定的flags标志位，将流s中对应的条件状态位复位</td></tr><tr><td>s.setstate(flags)将流s中对应条件状态位置位</td><td></td></tr><tr><td>s.rdstate()</td><td>返回流s的当前条件状态</td></tr></tbody></table><p>一个流一旦发生错误状态，其后续的IO操作都失败。只有流处于无错状态是，我们才可以从它读取数据、写入数据。</p><p>属性缓存区：</p><ol><li>endl， 换行并刷新缓冲区</li><li>flush ，刷新缓存区，不输出任何额为的字符</li><li>ends，向缓冲区插入一个空字符，然后刷新缓冲区</li></ol><p>unitbuf 操纵符：如果每次输出操作后，都属性缓存区，我们可以使用unitbuf操纵符。</p><p>如果程序崩溃，输出缓冲区不会被刷新。</p><p>tie： 如果本对象关联到一个输出流，则返回的就是这个流的指针，如果对象未关联到流，则返回空指针。tie的第二个版本接受一个指向ostream的指针，将自己关联到此ostream。</p><h2 id="文件输入输出"><a href="#文件输入输出" class="headerlink" title="文件输入输出"></a>文件输入输出</h2><table><thead><tr><th>操作</th><th>说明</th></tr></thead><tbody><tr><td>fstream fstrm</td><td>创建一个未绑定的文件流</td></tr><tr><td>fstream fstrm(s)</td><td>创建一个fstream，并打开名为s的文件。 s可以是string类型，或者是一个指向C风格字符串类型</td></tr><tr><td>fstream fstrm(s,mode)</td><td>安装mode打开文件</td></tr><tr><td>fstrm.open(s)</td><td>打开名为s的文件，并将文件与fstrm绑定，返回void</td></tr><tr><td>fstrm.close()</td><td>关闭于fstrm绑定的文件，返回void</td></tr><tr><td>fstrm.is_open</td><td>返回一个bool，指出与fstrm关联的文件是否成功打开且尚未关闭</td></tr></tbody></table><p>创建文件流对象时，我们可以提供文件名，如果提供了一个文件名，则open自动被调用。</p><h3 id="文件模式"><a href="#文件模式" class="headerlink" title="文件模式"></a>文件模式</h3><table><thead><tr><th>文件模式</th><th>说明</th></tr></thead><tbody><tr><td>in</td><td>以读方式打开</td></tr><tr><td>out</td><td>以写方式打开</td></tr><tr><td>app</td><td>每次写操作前均定位到文件末尾</td></tr><tr><td>ate</td><td>打开文件后，立即定位到文件末尾</td></tr><tr><td>trunc</td><td>截断文件</td></tr><tr><td>binary</td><td>以二进制方式进行IO</td></tr></tbody></table><h2 id="stirng流"><a href="#stirng流" class="headerlink" title="stirng流"></a>stirng流</h2><table><thead><tr><th>操作</th><th>说明</th></tr></thead><tbody><tr><td>sstream strm</td><td>strm是未绑定的stringstream对象</td></tr><tr><td>sstram strm(s)</td><td>strm 是一个sstream对象，保存string的一个拷贝，此构造函数是explicit的</td></tr><tr><td>strm.str()</td><td>返回strm中保存的string的拷贝</td></tr><tr><td>strm.str(s)</td><td>将string s 拷贝到strm中，返回void</td></tr></tbody></table>]]></content>
     
     <summary type="html">
     
@@ -256,32 +290,6 @@
   </entry>
   
   <entry>
-    <title>模板和泛型编程</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
-    <published>2018-07-25T04:07:12.000Z</published>
-    <updated>2018-07-26T07:57:23.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>主要有模板和泛型编程内容</p><a id="more"></a>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;主要有模板和泛型编程内容&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
-    
-      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
     <title>变量和基本类型</title>
     <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
     <id>http://yoursite.com/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/</id>
@@ -317,6 +325,59 @@
   </entry>
   
   <entry>
+    <title>模板和泛型编程</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
+    <published>2018-07-25T04:07:12.000Z</published>
+    <updated>2018-07-26T07:57:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>主要有模板和泛型编程内容</p><a id="more"></a>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;主要有模板和泛型编程内容&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>组件化-库</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%BA%93/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%BA%93/"/>
+    <id>http://yoursite.com/wiki/IOS/库/组件化-库/</id>
+    <published>2018-07-20T04:07:12.000Z</published>
+    <updated>2018-07-20T10:31:32.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="http://www.cocoachina.com/ios/20170427/19136.html" rel="external nofollow noopener noreferrer" target="_blank">组件化-动态库实战</a>    </p><p><a href="https://blog.csdn.net/u013604612/article/details/43197465" rel="external nofollow noopener noreferrer" target="_blank">iOS开发——创建你自己的Framework</a>  </p><p><a href="http://blog.startry.com/2015/08/25/Renaming-umbrella-header-for-iOS-framework/" rel="external nofollow noopener noreferrer" target="_blank">iOS - Umbrella Header在framework中的应用</a></p><p><a href="https://www.jianshu.com/p/48aff237e8ff" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发中的『库』(一)</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;http://www.cocoachina.com/ios/20170427/19136.html&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;组件化-动态库实战&lt;/a&gt;    
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="库" scheme="http://yoursite.com/categories/IOS/%E5%BA%93/"/>
+    
+    
+      <category term="组件化" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
     <title>set命令</title>
     <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/set%E5%91%BD%E4%BB%A4/"/>
     <id>http://yoursite.com/wiki/linux命令/set命令/</id>
@@ -328,28 +389,6 @@
     <summary type="html">
     
       &lt;p&gt;set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
-    
-    
-      <category term="set" scheme="http://yoursite.com/tags/set/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>set命令</title>
-    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/$0,$?,$!%E7%AD%89%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/"/>
-    <id>http://yoursite.com/wiki/linux命令/$0,$?,$!等的特殊用法/</id>
-    <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T11:15:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录下linux shell下的特殊用法及参数的说明.</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">变量说明:</span><br><span class="line"></span><br><span class="line">$$ </span><br><span class="line">Shell本身的PID（ProcessID） </span><br><span class="line">$! </span><br><span class="line">Shell最后运行的后台Process的PID </span><br><span class="line">$? </span><br><span class="line">最后运行的命令的结束代码（返回值） </span><br><span class="line">$- </span><br><span class="line">使用Set命令设定的Flag一览 </span><br><span class="line">$* </span><br><span class="line">所有参数列表。如<span class="string">"$*"</span>用「<span class="string">"」括起来的情况、以"</span><span class="variable">$1</span> <span class="variable">$2</span> … <span class="variable">$n</span><span class="string">"的形式输出所有参数。 </span></span><br><span class="line"><span class="string"><span class="variable">$@</span> </span></span><br><span class="line"><span class="string">所有参数列表。如"</span><span class="variable">$@</span><span class="string">"用「"</span>」括起来的情况、以<span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span> … <span class="string">"<span class="variable">$n</span>"</span> 的形式输出所有参数。 </span><br><span class="line"><span class="variable">$#</span> </span><br><span class="line">添加到Shell的参数个数 </span><br><span class="line"><span class="variable">$0</span> </span><br><span class="line">Shell本身的文件名 </span><br><span class="line"><span class="variable">$1</span>～<span class="variable">$n</span> </span><br><span class="line">添加到Shell的各参数值。<span class="variable">$1</span>是第1参数、<span class="variable">$2</span>是第2参数…。</span><br><span class="line"></span><br><span class="line">我们先写一个简单的脚本，执行以后再解释各个变量的意义 </span><br><span class="line"><span class="comment"># touch variable </span></span><br><span class="line"><span class="comment"># vi variable </span></span><br><span class="line">脚本内容如下： </span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"number:<span class="variable">$#</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scname:<span class="variable">$0</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"first :<span class="variable">$1</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"second:<span class="variable">$2</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"argume:<span class="variable">$@</span>"</span> </span><br><span class="line">保存退出 </span><br><span class="line">赋予脚本执行权限 </span><br><span class="line"><span class="comment"># chmod +x variable </span></span><br><span class="line">执行脚本 </span><br><span class="line"><span class="comment"># ./variable aa bb </span></span><br><span class="line">number:2 </span><br><span class="line">scname:./variable </span><br><span class="line">first: aa </span><br><span class="line">second:bb </span><br><span class="line">argume:aa bb </span><br><span class="line">通过显示结果可以看到： </span><br><span class="line"><span class="variable">$#</span> 是传给脚本的参数个数 </span><br><span class="line"><span class="variable">$0</span> 是脚本本身的名字 </span><br><span class="line"><span class="variable">$1</span>是传递给该shell脚本的第一个参数 </span><br><span class="line"><span class="variable">$2</span>是传递给该shell脚本的第二个参数 </span><br><span class="line"><span class="variable">$@</span> 是传给脚本的所有参数的列表</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录下linux shell下的特殊用法及参数的说明.&lt;/p&gt;
     
     </summary>
     
@@ -383,29 +422,24 @@
   </entry>
   
   <entry>
-    <title>组件化-库</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%BA%93/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%BA%93/"/>
-    <id>http://yoursite.com/wiki/IOS/库/组件化-库/</id>
+    <title>set命令</title>
+    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/$0,$?,$!%E7%AD%89%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/"/>
+    <id>http://yoursite.com/wiki/linux命令/$0,$?,$!等的特殊用法/</id>
     <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T10:31:32.000Z</updated>
+    <updated>2018-07-20T11:15:33.000Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="http://www.cocoachina.com/ios/20170427/19136.html" rel="external nofollow noopener noreferrer" target="_blank">组件化-动态库实战</a>    </p><p><a href="https://blog.csdn.net/u013604612/article/details/43197465" rel="external nofollow noopener noreferrer" target="_blank">iOS开发——创建你自己的Framework</a>  </p><p><a href="http://blog.startry.com/2015/08/25/Renaming-umbrella-header-for-iOS-framework/" rel="external nofollow noopener noreferrer" target="_blank">iOS - Umbrella Header在framework中的应用</a></p><p><a href="https://www.jianshu.com/p/48aff237e8ff" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发中的『库』(一)</a></p>]]></content>
+    <content type="html"><![CDATA[<p>记录下linux shell下的特殊用法及参数的说明.</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">变量说明:</span><br><span class="line"></span><br><span class="line">$$ </span><br><span class="line">Shell本身的PID（ProcessID） </span><br><span class="line">$! </span><br><span class="line">Shell最后运行的后台Process的PID </span><br><span class="line">$? </span><br><span class="line">最后运行的命令的结束代码（返回值） </span><br><span class="line">$- </span><br><span class="line">使用Set命令设定的Flag一览 </span><br><span class="line">$* </span><br><span class="line">所有参数列表。如<span class="string">"$*"</span>用「<span class="string">"」括起来的情况、以"</span><span class="variable">$1</span> <span class="variable">$2</span> … <span class="variable">$n</span><span class="string">"的形式输出所有参数。 </span></span><br><span class="line"><span class="string"><span class="variable">$@</span> </span></span><br><span class="line"><span class="string">所有参数列表。如"</span><span class="variable">$@</span><span class="string">"用「"</span>」括起来的情况、以<span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span> … <span class="string">"<span class="variable">$n</span>"</span> 的形式输出所有参数。 </span><br><span class="line"><span class="variable">$#</span> </span><br><span class="line">添加到Shell的参数个数 </span><br><span class="line"><span class="variable">$0</span> </span><br><span class="line">Shell本身的文件名 </span><br><span class="line"><span class="variable">$1</span>～<span class="variable">$n</span> </span><br><span class="line">添加到Shell的各参数值。<span class="variable">$1</span>是第1参数、<span class="variable">$2</span>是第2参数…。</span><br><span class="line"></span><br><span class="line">我们先写一个简单的脚本，执行以后再解释各个变量的意义 </span><br><span class="line"><span class="comment"># touch variable </span></span><br><span class="line"><span class="comment"># vi variable </span></span><br><span class="line">脚本内容如下： </span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"number:<span class="variable">$#</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scname:<span class="variable">$0</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"first :<span class="variable">$1</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"second:<span class="variable">$2</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"argume:<span class="variable">$@</span>"</span> </span><br><span class="line">保存退出 </span><br><span class="line">赋予脚本执行权限 </span><br><span class="line"><span class="comment"># chmod +x variable </span></span><br><span class="line">执行脚本 </span><br><span class="line"><span class="comment"># ./variable aa bb </span></span><br><span class="line">number:2 </span><br><span class="line">scname:./variable </span><br><span class="line">first: aa </span><br><span class="line">second:bb </span><br><span class="line">argume:aa bb </span><br><span class="line">通过显示结果可以看到： </span><br><span class="line"><span class="variable">$#</span> 是传给脚本的参数个数 </span><br><span class="line"><span class="variable">$0</span> 是脚本本身的名字 </span><br><span class="line"><span class="variable">$1</span>是传递给该shell脚本的第一个参数 </span><br><span class="line"><span class="variable">$2</span>是传递给该shell脚本的第二个参数 </span><br><span class="line"><span class="variable">$@</span> 是传给脚本的所有参数的列表</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;a href=&quot;http://www.cocoachina.com/ios/20170427/19136.html&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;组件化-动态库实战&lt;/a&gt;    
-      
+      &lt;p&gt;记录下linux shell下的特殊用法及参数的说明.&lt;/p&gt;
     
     </summary>
     
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="库" scheme="http://yoursite.com/categories/IOS/%E5%BA%93/"/>
+      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
     
     
-      <category term="组件化" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
+      <category term="set" scheme="http://yoursite.com/tags/set/"/>
     
   </entry>
   
@@ -454,32 +488,6 @@
     
     
       <category term="explicit" scheme="http://yoursite.com/tags/explicit/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>面向对象程序设计</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/</id>
-    <published>2018-07-13T04:07:12.000Z</published>
-    <updated>2018-07-19T10:53:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>主要有虚函数、访问控制等内容</p><a id="more"></a><h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><p>静态类型和动态类型</p><ol><li>通过使用数据抽象，可以将类的接口和实现分离</li><li>使用继承可以定义相似类型并对相似类型建模</li><li>使用动态绑定，可以忽略相似类型的区别，而用统一的方式使用对象</li></ol><p>当我们使用基类的引用或者指针调用一个虚函数时将发生动态绑定。</p><ol><li>成员函数如果没用被声明为虚函数，解析过程发生在编译时候</li><li>成员函数声明为虚函数，根据调用指针在运行的时候确定调用的版本。</li></ol><p>派生类显示的著名他使用哪个成员函数改写基类的虚函数，具体措施是在该函数的形参列表后面增加一个override关键字。</p><p>回避虚函数使用：在函数名前加作用域运算符。</p><h2 id="访问控制与继承"><a href="#访问控制与继承" class="headerlink" title="访问控制与继承"></a>访问控制与继承</h2><ol><li>protected用来声明希望与派生类共享、但不被共有访问的成员。</li><li>派生类成员和友元只能通过派生类对象访问基类的受保护的成员。</li><li>protected成员对于派生类和友元来说可以访问。</li><li>protected对于类的用户来说不可访问。</li></ol><p>某个类对其继承而来的成员的访问权限收到两个因素的影响：</p><ol><li>基类中该成员的访问说明符</li><li>派生列表中派生访问说明符</li></ol><p>爸爸受保护的属性，儿子的小三（友元）想通过儿子窃取，不行（友元不能传递）</p><p>爸爸受保护的属性，爸爸的小三想通过儿子获取，可以（谁的小三就能获取到谁的保护属性，小三具有破坏性）</p><p>派生类的作用域位于基类的作用域内</p><ol><li>class的访问说明符、派生访问说明符默认都是private</li><li>struct的访问说明符、派生访问说明符默认都是public的</li></ol><p>两个角度理解访问控制：</p><ol><li>普通用户</li><li>实现者</li></ol><p>派生类的成员隐藏同名的基类成员。</p><p>使用作用域运算符来使用一个被隐藏的基类成员</p><p>除了覆盖继承而来的虚函数，派生类最好不用重新定义其他在基类中名字</p><p>函数调用解析过程</p><p>假如我们调用p-&gt;mem()，</p><ol><li>确定p的静态类型</li><li>在静态类型对应的类中找mem</li><li>找到后判断是否虚函数，是产生虚函数调用版本、不是编译器产生常规调用版本。</li></ol><p>名字查找先于类型检测</p><h2 id="构造函数与拷贝控制"><a href="#构造函数与拷贝控制" class="headerlink" title="构造函数与拷贝控制"></a>构造函数与拷贝控制</h2><p>析构函数定义成虚函数，确保删除指针能执行正确的版本。</p><p>如果基类的析构函数不是虚函数，则delete一个指向派生类对象的基类指针将产生未定义的行为。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;主要有虚函数、访问控制等内容&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
-    
-      <category term="第十五章 面向对象程序设计" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
-    
-    
-      <category term="面向对象程序设计" scheme="http://yoursite.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
     
   </entry>
   
@@ -554,6 +562,32 @@
   </entry>
   
   <entry>
+    <title>面向对象程序设计</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0%20%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/</id>
+    <published>2018-07-13T04:07:12.000Z</published>
+    <updated>2018-07-19T10:53:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>主要有虚函数、访问控制等内容</p><a id="more"></a><h2 id="虚函数"><a href="#虚函数" class="headerlink" title="虚函数"></a>虚函数</h2><p>静态类型和动态类型</p><ol><li>通过使用数据抽象，可以将类的接口和实现分离</li><li>使用继承可以定义相似类型并对相似类型建模</li><li>使用动态绑定，可以忽略相似类型的区别，而用统一的方式使用对象</li></ol><p>当我们使用基类的引用或者指针调用一个虚函数时将发生动态绑定。</p><ol><li>成员函数如果没用被声明为虚函数，解析过程发生在编译时候</li><li>成员函数声明为虚函数，根据调用指针在运行的时候确定调用的版本。</li></ol><p>派生类显示的著名他使用哪个成员函数改写基类的虚函数，具体措施是在该函数的形参列表后面增加一个override关键字。</p><p>回避虚函数使用：在函数名前加作用域运算符。</p><h2 id="访问控制与继承"><a href="#访问控制与继承" class="headerlink" title="访问控制与继承"></a>访问控制与继承</h2><ol><li>protected用来声明希望与派生类共享、但不被共有访问的成员。</li><li>派生类成员和友元只能通过派生类对象访问基类的受保护的成员。</li><li>protected成员对于派生类和友元来说可以访问。</li><li>protected对于类的用户来说不可访问。</li></ol><p>某个类对其继承而来的成员的访问权限收到两个因素的影响：</p><ol><li>基类中该成员的访问说明符</li><li>派生列表中派生访问说明符</li></ol><p>爸爸受保护的属性，儿子的小三（友元）想通过儿子窃取，不行（友元不能传递）</p><p>爸爸受保护的属性，爸爸的小三想通过儿子获取，可以（谁的小三就能获取到谁的保护属性，小三具有破坏性）</p><p>派生类的作用域位于基类的作用域内</p><ol><li>class的访问说明符、派生访问说明符默认都是private</li><li>struct的访问说明符、派生访问说明符默认都是public的</li></ol><p>两个角度理解访问控制：</p><ol><li>普通用户</li><li>实现者</li></ol><p>派生类的成员隐藏同名的基类成员。</p><p>使用作用域运算符来使用一个被隐藏的基类成员</p><p>除了覆盖继承而来的虚函数，派生类最好不用重新定义其他在基类中名字</p><p>函数调用解析过程</p><p>假如我们调用p-&gt;mem()，</p><ol><li>确定p的静态类型</li><li>在静态类型对应的类中找mem</li><li>找到后判断是否虚函数，是产生虚函数调用版本、不是编译器产生常规调用版本。</li></ol><p>名字查找先于类型检测</p><h2 id="构造函数与拷贝控制"><a href="#构造函数与拷贝控制" class="headerlink" title="构造函数与拷贝控制"></a>构造函数与拷贝控制</h2><p>析构函数定义成虚函数，确保删除指针能执行正确的版本。</p><p>如果基类的析构函数不是虚函数，则delete一个指向派生类对象的基类指针将产生未定义的行为。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;主要有虚函数、访问控制等内容&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第十五章 面向对象程序设计" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E4%BA%94%E7%AB%A0-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    
+    
+      <category term="面向对象程序设计" scheme="http://yoursite.com/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%A8%8B%E5%BA%8F%E8%AE%BE%E8%AE%A1/"/>
+    
+  </entry>
+  
+  <entry>
     <title>为什么`forward_list`不支持`push_back`操作？</title>
     <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/container/forward_list%E4%B8%8D%E6%94%AF%E6%8C%81push_back%E6%93%8D%E4%BD%9C/"/>
     <id>http://yoursite.com/wiki/C++语言/container/forward_list不支持push_back操作/</id>
@@ -577,30 +611,6 @@
     
     
       <category term="forward_list" scheme="http://yoursite.com/tags/forward-list/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>容器基本操作</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/container/%E5%AE%B9%E5%99%A8%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/"/>
-    <id>http://yoursite.com/wiki/C++语言/container/容器基本操作/</id>
-    <published>2018-06-26T08:07:12.000Z</published>
-    <updated>2018-06-26T08:19:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文列举C++中容器的通用操作。来源于C++ primer</p><a id="more"></a><table><thead><tr><th>类型</th><th>说明</th></tr></thead><tbody><tr><td><font color="blue"><strong>类型别名</strong></font></td><td></td></tr><tr><td>iterator</td><td>容器的迭代器类型</td></tr><tr><td>const_iterator</td><td>可以读取元素，但不能修改元素的迭代器类型</td></tr><tr><td>size_type</td><td>无符号整数类型，足够保存此种容器类型最大可能大小</td></tr><tr><td>difference_type</td><td>带符号整数类型，足够保存两个迭代器之间的距离</td></tr><tr><td>value_type</td><td>元素类型</td></tr><tr><td>reference</td><td>元素的左值类型，与value_type&amp;含义相同</td></tr><tr><td>const_reference</td><td>元素的const左值类型(const value_type &amp;)</td></tr><tr><td><font color="blue"><strong>构造函数</strong></font></td><td></td></tr><tr><td>C c;</td><td>默认构造函数，构造空的容器</td></tr><tr><td>C c1(c2)</td><td>构造出c2的拷贝c1</td></tr><tr><td>C c(b,e)</td><td>构造c，将迭代器b和e指定的范围内的元素拷贝到c （array不支持）</td></tr><tr><td>C c{a,b,c …}</td><td>列表初始化</td></tr><tr><td><font color="blue"><strong>赋值与swap</strong></font></td><td></td></tr><tr><td>c1= c2</td><td>将c1中的元素地换为c2中的元素</td></tr><tr><td>c1 = {a,b,c …}</td><td>将c1中的元素退换为列表中的元素（array不适用）</td></tr><tr><td>a.swap(b)</td><td>交换a和b的元素</td></tr><tr><td>swap(a,b)</td><td>与a.swap(b)等价</td></tr><tr><td><font color="blue"><strong>大小</strong></font></td><td></td></tr><tr><td>c.size()</td><td>c中元素的书面（forward_list不支持）</td></tr><tr><td>c.max_size()</td><td>c可保存的最大元素数目</td></tr><tr><td>c.empty()</td><td>c中存储了元素，返回false，否则返回true</td></tr><tr><td><font color="blue"><strong>添加删除元素（不使用array）</strong></font></td><td>在不同的容器中，这些操作的接口都不同</td></tr><tr><td>c.insert(args)</td><td>将args中的元素拷贝进c</td></tr><tr><td>c.emplace(inits)</td><td>使用inits构造c中的一个元素</td></tr><tr><td>c.erase(args)</td><td>删除args指定的元素</td></tr><tr><td>c.clear()</td><td>删除c中的所有元素，返回void</td></tr><tr><td><font color="blue"><strong>关系运算符</strong></font></td><td></td></tr><tr><td>==， !=</td><td>所有容器都支持相等（不等于）运算符</td></tr><tr><td>&lt;,&lt;=,&gt;,&gt;=</td><td>无序关联容器不支持</td></tr><tr><td><font color="blue"><strong>获取迭代器</strong></font></td><td></td></tr><tr><td>c.begin(), c.end()</td><td>返回指向c的首元素和尾元素之后位置的迭代器</td></tr><tr><td>c.cbegin(),c.cend()</td><td>返回const_iterator</td></tr><tr><td><font color="blue"><strong>反向容器的额外成员（不支持forward_list）</strong></font></td><td></td></tr><tr><td>reverse_iterator</td><td>逆序寻址元素的迭代器</td></tr><tr><td><code>const_reverse_iterator</code></td><td>不修改元素的逆序迭代器</td></tr><tr><td>c.rbegin(),c.rend()</td><td>返回指向c的尾元素和首元素之前位置的迭代器</td></tr><tr><td>c.crbegin(),c.crend</td><td>返回<code>const_reverse_iterator</code></td></tr></tbody></table>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文列举C++中容器的通用操作。来源于C++ primer&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="container" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/container/"/>
-    
-    
-      <category term="容器操作" scheme="http://yoursite.com/tags/%E5%AE%B9%E5%99%A8%E6%93%8D%E4%BD%9C/"/>
     
   </entry>
   
