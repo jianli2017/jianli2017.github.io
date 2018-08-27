@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="主要内容：  定义抽象数据类型 访问控制与封装 类的其他特性 类的作用域 构造函数再探 类的静态成员  数据抽象能帮助我们将对象的具体实现和对象所能执行的操作分离开来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-21T11:28:27.000Z">
+<meta property="og:updated_time" content="2018-08-27T07:46:20.108Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="类">
 <meta name="twitter:description" content="主要内容：  定义抽象数据类型 访问控制与封装 类的其他特性 类的作用域 构造函数再探 类的静态成员  数据抽象能帮助我们将对象的具体实现和对象所能执行的操作分离开来。">
@@ -195,6 +195,15 @@
                             第二章变量和基本类型
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -484,6 +493,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            WWDC
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  <li class="file"><a href="/wiki/WWDC/union定义的副本/">union定义(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             linux命令
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/$0,$?,$!等的特殊用法/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/export命令/">set命令</a></li>  </ul> 
@@ -741,7 +759,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义抽象数据类型"><span class="toc-number">1.</span> <span class="toc-text">定义抽象数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#设计Sales-data类"><span class="toc-number">1.1.</span> <span class="toc-text">设计Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义改进的Sales-data类"><span class="toc-number">1.2.</span> <span class="toc-text">定义改进的Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义类相关的非成员函数"><span class="toc-number">1.3.</span> <span class="toc-text">定义类相关的非成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数"><span class="toc-number">1.4.</span> <span class="toc-text">构造函数</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义抽象数据类型"><span class="toc-number">1.</span> <span class="toc-text">定义抽象数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、设计Sales-data类"><span class="toc-number">1.1.</span> <span class="toc-text">一、设计Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、定义改进的Sales-data类"><span class="toc-number">1.2.</span> <span class="toc-text">二、定义改进的Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、定义类相关的非成员函数"><span class="toc-number">1.3.</span> <span class="toc-text">三、定义类相关的非成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、构造函数"><span class="toc-number">1.4.</span> <span class="toc-text">四、构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝、赋值、析构"><span class="toc-number">1.5.</span> <span class="toc-text">拷贝、赋值、析构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问控制与封装"><span class="toc-number">2.</span> <span class="toc-text">访问控制与封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#友元"><span class="toc-number">2.1.</span> <span class="toc-text">友元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的其他特性"><span class="toc-number">3.</span> <span class="toc-text">类的其他特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类成员再探"><span class="toc-number">3.1.</span> <span class="toc-text">类成员再探</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#返回-this的成员函数"><span class="toc-number">3.2.</span> <span class="toc-text">返回*this的成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类类型"><span class="toc-number">3.3.</span> <span class="toc-text">类类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友元再探"><span class="toc-number">3.4.</span> <span class="toc-text">友元再探</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的作用域"><span class="toc-number">4.</span> <span class="toc-text">类的作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#名字查找和类的作用域"><span class="toc-number">4.1.</span> <span class="toc-text">名字查找和类的作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数再探"><span class="toc-number">5.</span> <span class="toc-text">构造函数再探</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数初始值列表"><span class="toc-number">5.1.</span> <span class="toc-text">构造函数初始值列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#委托构造函数"><span class="toc-number">5.2.</span> <span class="toc-text">委托构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认构造函数的作用"><span class="toc-number">5.3.</span> <span class="toc-text">默认构造函数的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式的类类型转化"><span class="toc-number">5.4.</span> <span class="toc-text">隐式的类类型转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合类"><span class="toc-number">5.5.</span> <span class="toc-text">聚合类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字面值常量类"><span class="toc-number">5.6.</span> <span class="toc-text">字面值常量类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的静态成员"><span class="toc-number">6.</span> <span class="toc-text">类的静态成员</span></a></li></ol>
                 </div>
             
         
@@ -757,14 +775,14 @@
 </ol>
 <p>数据抽象能帮助我们将对象的具体实现和对象所能执行的操作分离开来。</p>
 <a id="more"></a>
-<h2 id="定义抽象数据类型"><a href="#定义抽象数据类型" class="headerlink" title="定义抽象数据类型"></a>定义抽象数据类型</h2><h3 id="设计Sales-data类"><a href="#设计Sales-data类" class="headerlink" title="设计Sales_data类"></a>设计Sales_data类</h3><ol>
+<h2 id="定义抽象数据类型"><a href="#定义抽象数据类型" class="headerlink" title="定义抽象数据类型"></a>定义抽象数据类型</h2><h3 id="一、设计Sales-data类"><a href="#一、设计Sales-data类" class="headerlink" title="一、设计Sales_data类"></a>一、设计Sales_data类</h3><ol>
 <li>一个isbn成员函数，返回对象的ISBN编号</li>
 <li>一个combine成员函数，用于将一个Sales_data对象加到另一个对象上</li>
 <li>一个名为add的函数，执行两个Sales_data对象的加法</li>
 <li>一个read函数，将数据从istream读入到Sales_data对象中</li>
 <li>一个print函数，将Sales_data对象的值输入到ostream </li>
 </ol>
-<h3 id="定义改进的Sales-data类"><a href="#定义改进的Sales-data类" class="headerlink" title="定义改进的Sales_data类"></a>定义改进的Sales_data类</h3><p>定义在类内部的函数隐式的inline函数。</p>
+<h3 id="二、定义改进的Sales-data类"><a href="#二、定义改进的Sales-data类" class="headerlink" title="二、定义改进的Sales_data类"></a>二、定义改进的Sales_data类</h3><p>定义在类内部的函数隐式的inline函数。</p>
 <p>成员函数通过一个名为this的额外隐式参数来访问调用它的那个对象。对我们调用一个成员函数时，用请求该函数的对象地址初始化this。如果调用：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">total</span><span class="selector-class">.isbn</span>()</span><br></pre></td></tr></table></figure>
 <p>则编译器负责把total的地址传给isbn的隐式参数this，可以等价的认为编译器将该调用重写成如下形式</p>
@@ -778,8 +796,146 @@
 <li>如果成员被定义成常量成员函数，那么他的定义也必须在参数列表后明确指定const属性。</li>
 <li>类外部定义的成员的名字必须包含所属的类名</li>
 </ol>
-<h3 id="定义类相关的非成员函数"><a href="#定义类相关的非成员函数" class="headerlink" title="定义类相关的非成员函数"></a>定义类相关的非成员函数</h3><p>IO类属于不能拷贝的类型，所以只能通过引用来传递他们，而且，因为读取和写入的操作会改变流的内容，所以两个函数接受都是普通引用，而非对常量的引用。</p>
-<h3 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h3><p>类通过特殊的成员函数来控制其对象的初始化过程，这些函数叫做构造函数。构造函数的任务是初始化类对象的数据成员，无论何时，只要类的对象被创建，就会执行构造函数。</p>
+<h3 id="三、定义类相关的非成员函数"><a href="#三、定义类相关的非成员函数" class="headerlink" title="三、定义类相关的非成员函数"></a>三、定义类相关的非成员函数</h3><p>IO类属于不能拷贝的类型，所以只能通过引用来传递他们，而且，因为读取和写入的操作会改变流的内容，所以两个函数接受都是普通引用，而非对常量的引用。</p>
+<h3 id="四、构造函数"><a href="#四、构造函数" class="headerlink" title="四、构造函数"></a>四、构造函数</h3><p>类通过特殊的成员函数来控制其对象的初始化过程，这些函数叫做构造函数。构造函数的任务是初始化类对象的数据成员，无论何时，只要类的对象被创建，就会执行构造函数。</p>
+<p>构造函数的名字和和类名相同，和其他函数不一样的是，构造函数没有返回类型。</p>
+<p>构造函数不能声明为const的，当我们创建一个const对象时，直到构造函数完成初始化过程，对象才能真正取得常量属性，所以构造函数在const对象构造的过程中，是可以向其写值的。</p>
+<p>合成的默认构造函数：类通过特殊的构造函数来控制默认初始化过程，这个函数叫做默认构造函数，默认构造函数无需任何实参。编译器创建的构造函数又被称为合成的默认构造函数（synthesized default constructor）。合成默认构造函数初始化规则：</p>
+<ol>
+<li>如果存在类内初始值，用它初始化</li>
+<li>否则，默认初始化</li>
+</ol>
+<p>某些类不能依赖合成的默认构造函数，原因有三：</p>
+<ol>
+<li>只有当类内没有声明任何构造函数时，编译器才会自动的生产默认构造函数。</li>
+<li>如果累内部有内置类型或者符合类型成员，则只有当这些成员全部被赋予了类内初始值时，这个类才适合使用合成的默认构造函数。</li>
+<li>有些类不能合成默认的构造函数</li>
+</ol>
+<p>=default： 如果我们定义了其他的构造函数，同时，也需要默认构造函数，并且默认构造函数的功能等同于合成的默认构造函数，使用=default来要求编译器生成构造函数。如果=default在类的内部，则是内联的。</p>
+<p>构造函数初始值列表：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Sales_data</span>(const <span class="attribute">std</span>::string &amp; s,unsinged n, double p)<span class="selector-pseudo">:bookNo(s)</span>,<span class="selector-tag">unit_sold</span>(n),<span class="selector-tag">revenue</span>(p*n)&#123;&#125;;</span><br></pre></td></tr></table></figure>
+<p>冒号和花括号之间的代码称为构造函数初始值列表。当某个数据成员被构造函数初始值列表忽略时，他将以合成默认构造函数相同的方式隐式初始化。</p>
+<h3 id="拷贝、赋值、析构"><a href="#拷贝、赋值、析构" class="headerlink" title="拷贝、赋值、析构"></a>拷贝、赋值、析构</h3><p>拷贝、赋值、析构发生的场景</p>
+<ol>
+<li>拷贝：初始化变量、以值的方式传递、返回一个对象。（用同类型的对象或者自己类型的对象）</li>
+<li>赋值：使用赋值运算符时发送。</li>
+<li>析构：当对象不存在时销毁，超出作用域、vector容器销毁时存储在其中的对象销毁</li>
+<li>构造： 用成员的值创建（不是自己的类型）</li>
+</ol>
+<p>如果我们不主动定义这些操作。编译器将替我们合成默认的。编译器生成的版本将对对象的每个成员执行拷贝、赋值、销毁操作。</p>
+<p>某些类不能依赖合成的版本：例如动态类型。vector、string能避免分配和释放内存带来的复杂性。如果类中包含vector、string，合成的版本能正常工作</p>
+<h2 id="访问控制与封装"><a href="#访问控制与封装" class="headerlink" title="访问控制与封装"></a>访问控制与封装</h2><p>使用访问说明符（access specifiers）控制类的封装性</p>
+<ol>
+<li>定义在public说明符后面的成员在整个程序内可以被访问。public成员定义类的接口</li>
+<li>定义在private说明符之后的成员可以被类的成员访问，但不能被类的使用者访问。private部分封装了类的实现细节。</li>
+</ol>
+<p>使用class、struct关键字：class和struct定义的唯一区别是默认的访问权限。如果我们使用struct关键字，则定义在第一个访问说明符之前的成员是public的。如果是class，则是private。</p>
+<h3 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h3><p>类可以允许其他的类或者函数访问它的非公有成员，方法是令其他类或者函数称为它的友元（friend），如果类想把一个函数作为它的友元，只需要增加一条以friend关键字开始的函数声明语句即可。</p>
+<p>友元声明只能出现在类定义的内部，但是在类内部出现的位置不限，友元不是类的成员，也不受它所在区域访问控制级别的约束。</p>
+<p>封装的优点：</p>
+<ol>
+<li>用户代码不会无意间破坏封装对象的状态</li>
+<li>被封装的类的具体实现细节可以随时改变，而无需调整用户级别的代码。</li>
+</ol>
+<p>友元的声明：友元的声明仅仅指定了访问权限，而非一个通常意义上的声明，如果我们需要类的用户能够调用某个友元函数，那么我们必须在友元声明之外再专门对函数进行一次声明。</p>
+<h2 id="类的其他特性"><a href="#类的其他特性" class="headerlink" title="类的其他特性"></a>类的其他特性</h2><p>这些特性包括：类型成员、类的成员的类内初始值、可变数据成员、从成员返回this* 、关于如何定义并使用类类型及友元类。</p>
+<h3 id="类成员再探"><a href="#类成员再探" class="headerlink" title="类成员再探"></a>类成员再探</h3><p>类型成员： 某种类型在类中的别名。类定义的类型名字和其他成员一样，存在访问控制。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Screen</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="keyword">typedef</span> <span class="built_in">std</span>::<span class="built_in">string</span>::size_type pos;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	pos cursor = <span class="number">0</span>;</span><br><span class="line">	pos height = <span class="number">0</span>, width = <span class="number">0</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">string</span> contents;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类型成员必须先定义后使用。 和类的其他成员的区别</p>
+<p>因为我们已经提供了一个构造函数，所以编译器将不会自动生成默认构造函数，如果我们的类需要默认构造函数，必须显示的把他声明出来。</p>
+<p>令成员作为内联函数：定义在类内部的成员函数自动是inline的。</p>
+<p>我们无需在声明和定义的地方同时说明inline，单这么做是合法的。不过最好只在类的外部定义的地方说明inline，这样可以使类更容易理解。</p>
+<p>inline成员函数也应该与相应的类定义在同一个头文件中。</p>
+<p>重载成员函数：和普通成员函数一样。</p>
+<p>可变数据成员： 有时，我们希望能修改类的某个数据成员，即使是在一个const成员函数。可以通过在变量的声明中加入mutable关键字做到这一点。一个可变数据成员永远不会是const的，即使const对象的成员。</p>
+<p>类内初始值：必须使用等号或者花括号</p>
+<h3 id="返回-this的成员函数"><a href="#返回-this的成员函数" class="headerlink" title="返回*this的成员函数"></a>返回*this的成员函数</h3><p>从const成员函数返回<em>this，一个const成员函数如果以引用的形式返回</em>this，那么他的返回类型将是常量引用。</p>
+<p>基于const的重载：通过成员函数是否是const的，我们可以对其进行重载。</p>
+<h3 id="类类型"><a href="#类类型" class="headerlink" title="类类型"></a>类类型</h3><p>类的声明： class Screen </p>
+<p>对于类型Screen来说，在它的声明之后定义之前，是一个不完全类型（incomlete type）。也就是说，此时我们已知Screen是一个类类型，但是不清楚他到底包含哪些成员。</p>
+<p>不完全类型只能在非常有限的情景下使用，可以定义指向这种类型的指针或引用，也可以声明（但不是定义）以不完全类型作为参数或者返回类型的函数</p>
+<h3 id="友元再探"><a href="#友元再探" class="headerlink" title="友元再探"></a>友元再探</h3><p>类可以把其他的类定义成友元，也可以把其他类（之前定义过的）的成员函数定义成友元</p>
+<p>类之间的友元：如果一个类定义了友元类，则友元类的成员函数可以访问此类包括非公有成员在内的所有成员。友元不存在传递性</p>
+<p>令成员函数作为友元：</p>
+<h2 id="类的作用域"><a href="#类的作用域" class="headerlink" title="类的作用域"></a>类的作用域</h2><p>一旦遇到了类名，定义的剩余部分就在类的作用域之内了。这里的剩余部分包括参数列表、函数体。</p>
+<p>函数的返回类型通常出现在函数名之前，因此，当成员杉树定义在类的外部，返回类型中使用的名字都位于类的作用域之外。</p>
+<h3 id="名字查找和类的作用域"><a href="#名字查找和类的作用域" class="headerlink" title="名字查找和类的作用域"></a>名字查找和类的作用域</h3><p>名字查找（name lookup）</p>
+<p>普通名字查找：</p>
+<ol>
+<li>在名字所在的块中寻找其声明语句，只考虑名字的使用之前出现的声明</li>
+<li>如果没有找到，继续查找外层作用域</li>
+<li>如果最终没有找到匹配的声明，则程序报错</li>
+</ol>
+<p>类的定义步骤：</p>
+<ol>
+<li>首先，编译成员的声明</li>
+<li>知道类全部可见后，编译函数体</li>
+</ol>
+<p>编译器处理完类中的全部声明后，才会处理成员函数的定义</p>
+<p>用于类成员声明的名字查找：上面两阶段的处理方式只适用于成员函数中适用的名字，声明中使用的名字，包括返回类型、参数列表中使用的名字，都必须在使用前确保可见。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">double</span> Money;</span><br><span class="line"><span class="built_in">string</span> bal;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Account</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="function">Money <span class="title">balance</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> bal;&#125;;</span><br><span class="line">	</span><br><span class="line">	Money bal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Money 出现在声明中，所有从使用处开始找名字，找到了外层的double。 balance 函数体，等成员声明编译完后，处理，所以bal是成员。不是外层的string。</p>
+<p>类型名需要特殊处理：类内部不能重新定义外层作用域中的类型名字，类内部的类型名字定义放在类的开始处，</p>
+<p>成员定义中的普通块作用域中的名字查找：</p>
+<ol>
+<li>首先在成员函数内查找名字的声明，只有在函数使用前面出现的声明才被考虑</li>
+<li>如果在成员函数内没有找到，则在类内继续查找，这是类的所有成员都可以考虑</li>
+<li>如果类内也没有该名字的声明，在成员函数定义之前的作用域内继续查找。</li>
+</ol>
+<p>不建议成员的名字作为某个成员函数的参数。</p>
+<p>类作用域之后，在外围作用域中查找：  可以使用::访问隐藏的外层中的名字 。</p>
+<h2 id="构造函数再探"><a href="#构造函数再探" class="headerlink" title="构造函数再探"></a>构造函数再探</h2><h3 id="构造函数初始值列表"><a href="#构造函数初始值列表" class="headerlink" title="构造函数初始值列表"></a>构造函数初始值列表</h3><p>如果没有在构造函数的初始值列表中显示的初始化成员，则该成员在构造函数体之前执行默认初始化。</p>
+<p>构造函数的初始值有时必不可少：有时候我们可以忽略数据成员的初始化和赋值之间的差异，单并非总是这样，如果成员有const或者引用的话，必须将其初始哈。</p>
+<p>随着构造函数体的开始执行，初始化就完成了，我们初始化const或者引用类型的数据成员的唯一机会就是通过构造函数初始值。</p>
+<p>成员是const、引用或者属于某种未提供默认构造函数的类型。我们必须通过构造函数初始值列表为这些成员提供初始值。</p>
+<p>成员初始化顺序：成员的初始化顺序与他们在类定义中的出现顺序一致，构造函数初始值列表中初始值的前后位置关系不会影响实际的初始化顺序。</p>
+<h3 id="委托构造函数"><a href="#委托构造函数" class="headerlink" title="委托构造函数"></a>委托构造函数</h3><p>一个委托构造函数使用它所属类的其他构造函数执行他自己的初始化过程，或者把他自己的一些职责委托给了其他构造函数 。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">Sales_data</span>(<span class="attribute">std</span>::string s, unsigned cnt , double price )<span class="selector-pseudo">:bookNo(s)</span>, <span class="selector-tag">units_sold</span>(cnt),<span class="selector-tag">revenue</span>(cnt*price)&#123;&#125;</span><br><span class="line"><span class="selector-tag">Sales_data</span>()<span class="selector-pseudo">:Sales_data(""</span>,<span class="selector-tag">0</span>,<span class="selector-tag">0</span>)&#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>当一个构造函数委托给另一个构造函数时，受委托的构造函数的初始值列表和函数体一次被执行，然后将控制权交给委托函数体。</p>
+<h3 id="默认构造函数的作用"><a href="#默认构造函数的作用" class="headerlink" title="默认构造函数的作用"></a>默认构造函数的作用</h3><p>当对象被默认初始化或者值初始化时，自动执行默认构造函数。 默认初始化发送的场景：</p>
+<ol>
+<li>当我们在快作用域内，不适用任何初始值定义一个非静态变量。</li>
+<li>当一个类本身还有一个类类型的成员，且使用合成的默认构造函数。</li>
+<li>当类类型成员没有在构造函数初始值列表中显示的初始化时。</li>
+</ol>
+<p>值初始化发生的场景：</p>
+<ol>
+<li>在数组初始化的过程中，如果我们提供的初始值数量少于数组的大小时。</li>
+<li>当我们不适用初始值定义一个局部静态变量时</li>
+<li>当我们通过书写形如T()的表达式显示的请求值初始化时。</li>
+</ol>
+<p>实际中，如果定义了其他的构造函数，那么最好定义一个默认构造函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">Sales_data <span class="title">obj</span><span class="params">()</span></span>; <span class="comment">///声明了一个函数，而非对象</span></span><br><span class="line">Sales_data obj2;  <span class="comment">///obj2是一个对象，默认初始化</span></span><br></pre></td></tr></table></figure>
+<h3 id="隐式的类类型转化"><a href="#隐式的类类型转化" class="headerlink" title="隐式的类类型转化"></a>隐式的类类型转化</h3><p>如果构造函数只接受一个实参，则它实际上定义了转换为此类型的隐式转化机制，有时候，我们把这样的构造函数称为转换构造函数。</p>
+<p>能通过一个实参调用的构造函数，定义了一条从构造函数的参数类型向类类型隐式转化的规则。</p>
+<p>只允许一步类型转换</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">item.combine(<span class="string">"9-999-9999"</span>); <span class="regexp">//</span>错误，两步转化，<span class="number">1</span>、char * -&gt;string <span class="number">2</span>. string-&gt;Sales_data</span><br></pre></td></tr></table></figure>
+<p><strong>抑制构造函数定义的隐式转化：</strong> 我们可以通过将构造函数声明成explicit加以阻止。</p>
+<p>关键字explicit只对一个实参的构造函数有效，需要多个实参的构造函数不能用于执行隐式类型转换，所以无需将这些构造函数指定为explicit，只能在类内声明构造函数时使用explicit关键字，在类外部定义时，不应该重复。</p>
+<p>explicit构造函数只能用于直接初始化：不能将explicit构造函数用于拷贝形式的初始化过程。当我们用explicit关键字声明构造函数时，它将只能以直接初始化的形式使用，而且，编译器不会再自动类型转换过程中使用该构造函数。</p>
+<p>显示类型转换可以使用explicit构造函数。</p>
+<p>标准库中含有显示构造函数的类：</p>
+<ol>
+<li>接受一个参数const char*的string的构造函数不是explicit的</li>
+<li>接受一个容量参数的vector的构造函数是explicit的。</li>
+</ol>
+<h3 id="聚合类"><a href="#聚合类" class="headerlink" title="聚合类"></a>聚合类</h3><p>特定：</p>
+<ol>
+<li>所有成员都是public</li>
+<li>没有定义任何构造函数</li>
+<li>没有类内初始值</li>
+<li>没有基类、virturl函数。</li>
+</ol>
+<p>可以提供一个花括号括起来的成员初始值列表。列表中成员的顺序和聚合类的成员的顺序一直， 如果初始值列表的元素的个数少于成员数量，后面的被值初始化。</p>
+<h3 id="字面值常量类"><a href="#字面值常量类" class="headerlink" title="字面值常量类"></a>字面值常量类</h3><h2 id="类的静态成员"><a href="#类的静态成员" class="headerlink" title="类的静态成员"></a>类的静态成员</h2><p>类的静态成员和类本身直接相关。静态函数没有this，不能是const，通过作用域访问静态成员，也可以通过对象访问静态成员，成员函数可以不通过作用域直接访问静态成员。</p>
+<p>定义静态成员：我们可以在类的内部、外部定义静态成员函数。在类的外部定义静态成员时，不能重复static关键字，改关键字只能在类的内部声明语句中。静态成语不属于任何一个对象，他们不是在类创建的时候定义的，这意味着不能又类的构造函数初始化。</p>
+<p>静态成员的类内初始化：通常情况下，静态成员不应该在类的内部初始化，然而，我们可以为静态成员提供const整数类型的类内初始值。</p>
+<p>即使一个常量金泰数据成员在类内部被初始化了，通常情况下，他们也应该在类外部定义下该成员。</p>
+<p>静态成员的功能：</p>
+<ol>
+<li>可以是不完全类型</li>
+<li>可以作为默认参数。</li>
+</ol>
 
             </div>
         
