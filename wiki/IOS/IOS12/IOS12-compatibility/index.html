@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="主要遇到的问题：  Xcode10移除了libstdc++库，由libc++这个库取而代之，苹果的解释是libstdc++已经标记为废弃有5年了，建议大家使用经过了llvm优化过并且全面支持C++11的libc++库。 CocoaPods 1.3.1 版本不能将pod中的资源文件拷贝到APP中">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-22T08:04:01.212Z">
+<meta property="og:updated_time" content="2018-09-13T08:02:20.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="IOS12 兼容">
 <meta name="twitter:description" content="主要遇到的问题：  Xcode10移除了libstdc++库，由libc++这个库取而代之，苹果的解释是libstdc++已经标记为废弃有5年了，建议大家使用经过了llvm优化过并且全面支持C++11的libc++库。 CocoaPods 1.3.1 版本不能将pod中的资源文件拷贝到APP中">
@@ -264,6 +264,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             第四章 表达式
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  </ul> 
@@ -278,6 +287,33 @@
                             C++关键字理解
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -504,7 +540,7 @@
                             &nbsp;
                             WWDC
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  <li class="file"><a href="/wiki/WWDC/union定义的副本/">union定义(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -768,7 +804,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#libstdc-问题"><span class="toc-number">1.</span> <span class="toc-text">libstdc++问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CocoaPods无法复制资源到app中"><span class="toc-number">2.</span> <span class="toc-text">CocoaPods无法复制资源到app中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">3.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#libstdc-问题"><span class="toc-number">1.</span> <span class="toc-text">libstdc++问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#临时解决方案"><span class="toc-number">1.1.</span> <span class="toc-text">临时解决方案</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模拟器无法启动的解决方案"><span class="toc-number">1.2.</span> <span class="toc-text">模拟器无法启动的解决方案</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CocoaPods无法复制资源到app中"><span class="toc-number">2.</span> <span class="toc-text">CocoaPods无法复制资源到app中</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#info-重复问题"><span class="toc-number">3.</span> <span class="toc-text">info 重复问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">4.</span> <span class="toc-text">参考</span></a></li></ol>
                 </div>
             
         
@@ -783,7 +819,7 @@
 <li>现象是无法找到libstdc++，编译报错如下：</li>
 </ul>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">library</span> <span class="selector-tag">not</span> <span class="selector-tag">found</span> <span class="selector-tag">for</span> <span class="selector-tag">-lstdc</span>++<span class="selector-class">.6</span><span class="selector-class">.0</span><span class="selector-class">.9</span></span><br></pre></td></tr></table></figure>
-<ul>
+<h3 id="临时解决方案"><a href="#临时解决方案" class="headerlink" title="临时解决方案"></a>临时解决方案</h3><ul>
 <li>临时解决办法—-从Xcode9中复制libstdc++库到Xcode10中，命令如下：</li>
 </ul>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cp <span class="regexp">/Applications/</span>Xcode.app<span class="regexp">/Contents/</span>Developer<span class="regexp">/Platforms/i</span>PhoneOS.platform<span class="regexp">/Developer/</span>SDKs<span class="regexp">/iPhoneOS.sdk/u</span>sr<span class="regexp">/lib/</span>libstdc++.* <span class="regexp">/Applications/</span>Xcode-beta.app<span class="regexp">/Contents/</span>Developer<span class="regexp">/Platforms/i</span>PhoneOS.platform<span class="regexp">/Developer/</span>SDKs<span class="regexp">/iPhoneOS.sdk/u</span>sr<span class="regexp">/lib/</span></span><br><span class="line"></span><br><span class="line">cp <span class="regexp">/Applications/</span>Xcode.app<span class="regexp">/Contents/</span>Developer<span class="regexp">/Platforms/i</span>PhoneSimulator.platform<span class="regexp">/Developer/</span>SDKs<span class="regexp">/iPhoneSimulator.sdk/u</span>sr<span class="regexp">/lib/</span>libstdc++.* <span class="regexp">/Applications/</span>Xcode-beta.app<span class="regexp">/Contents/</span>Developer<span class="regexp">/Platforms/i</span>PhoneSimulator.platform<span class="regexp">/Developer/</span>SDKs<span class="regexp">/iPhoneSimulator.sdk/u</span>sr<span class="regexp">/lib/</span></span><br></pre></td></tr></table></figure>
@@ -791,6 +827,16 @@
 <li>最终解决办法：</li>
 </ul>
 <p>需要联系第三方公司，将GMThirdParty/BestPay 、GMF_EaseMobSDK2.2.9更新。</p>
+<h3 id="模拟器无法启动的解决方案"><a href="#模拟器无法启动的解决方案" class="headerlink" title="模拟器无法启动的解决方案"></a>模拟器无法启动的解决方案</h3><p>报错如下：    </p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">dyld:</span> Library not <span class="symbol">loaded:</span> /usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libstdc</span>++.6.<span class="title">dylib</span></span></span><br><span class="line">  Referenced <span class="symbol">from:</span> /Users/lijian/Library/Developer/CoreSimulator/Devices/<span class="number">6</span>CB2CF98-<span class="number">149</span>C-<span class="number">43</span>A1-<span class="number">8</span>A93-<span class="number">516</span>FE4243C8C/data/Containers/Bundle/Application/<span class="number">2</span>C25BADD-A36F-<span class="number">4</span>B11-<span class="number">9885</span>-<span class="number">34E8</span>AEE826AC/GomeStaff.app/GomeStaff</span><br><span class="line">  <span class="symbol">Reason:</span> no suitable image found.  Did <span class="symbol">find:</span></span><br><span class="line">	/usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libstdc</span>++.6.<span class="title">dylib</span>: <span class="title">mach</span>-<span class="title">o</span>, <span class="title">but</span> <span class="title">not</span> <span class="title">built</span> <span class="title">for</span> <span class="title">iOS</span> <span class="title">simulator</span></span></span><br></pre></td></tr></table></figure>
+<p>原因分析： </p>
+<p>上面的错误的含义是动态链接器无法加载到libstdc++.6.dylib，但是真机上是可以加载出来，所以，推测模拟器的运行环境去掉了这个库，那么，我们如果将模拟器的运行环境中添加上这个库，是不是就可以了？ 答案是肯定的。</p>
+<p>下面的问题是：我么如何找到模拟器运行环境加载库的路径呢？ 我的思路是使用xcode9运行模拟器，然后打印系统库的加载路径，这个路径就是我们要找的路径。</p>
+<p>查找系统库的方法如下,用xcode9运行下面的代码：</p>
+<figure class="highlight autoit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mach-o/dyld.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;mach/mach.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">int</span> i = <span class="number">0</span><span class="comment">; i &lt; _dyld_image_count(); i++)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> char* aa = _dyld_get_image_name(i)<span class="comment">;</span></span><br><span class="line">    NSString *str = [NSString stringWithUTF8String:aa]<span class="comment">;</span></span><br><span class="line">    LOG_LJ_(@<span class="string">"~~~~~~~~~~~~~~~~~~~~~~~~%@"</span>,str)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~<span class="regexp">/Users/lijian</span><span class="regexp">/Downloads/</span>Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/Library/CoreSimulator/Profiles/Runtimes/iOS.simruntime/Contents/Resources/RuntimeRoot/usr/<span class="class"><span class="keyword">lib</span>/<span class="title">libiconv</span>.2.<span class="title">dylib</span></span></span><br></pre></td></tr></table></figure>
+<p>上面的路径就是模拟器的系统库路径。所以，将xcode9对应目录下的三个libstdc++复制到xcode10的对应目录即可。</p>
 <h2 id="CocoaPods无法复制资源到app中"><a href="#CocoaPods无法复制资源到app中" class="headerlink" title="CocoaPods无法复制资源到app中"></a>CocoaPods无法复制资源到app中</h2><p>现象：登录界面没有图标，或者启动时 NSBundle的initWithUrl方法崩溃。</p>
 <p>解决办法：</p>
 <ol>
@@ -798,6 +844,11 @@
 <li>移除<code>Build Phases</code> 中的 <code>[cp]Copy Pods Resources</code> 。</li>
 <li>重新pod install。</li>
 </ol>
+<h2 id="info-重复问题"><a href="#info-重复问题" class="headerlink" title="info 重复问题"></a>info 重复问题</h2><p>报错如下：</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Multiple commands produce <span class="string">'/Users/lijian/Library/Developer/Xcode/DerivedData/GomeStaff-eccvobvclqelmrgkhibvvrxbftdz/Build/Products/Debug-iphonesimulator/GomeStaff.app/Info.plist'</span>:</span><br><span class="line"><span class="number">1</span>) Target <span class="string">'GomeStaff'</span> (project <span class="string">'GomeStaff'</span>) <span class="keyword">has</span> <span class="keyword">copy</span> command <span class="keyword">from</span> <span class="string">'/Users/lijian/Desktop/GomeGit/GomeStaff/GomeStaff/Supporting Files/Info.plist'</span> <span class="keyword">to</span> <span class="string">'/Users/lijian/Library/Developer/Xcode/DerivedData/GomeStaff-eccvobvclqelmrgkhibvvrxbftdz/Build/Products/Debug-iphonesimulator/GomeStaff.app/Info.plist'</span></span><br><span class="line"><span class="number">2</span>) Target <span class="string">'GomeStaff'</span> (project <span class="string">'GomeStaff'</span>) <span class="keyword">has</span> process command <span class="keyword">with</span> output <span class="string">'/Users/lijian/Library/Developer/Xcode/DerivedData/GomeStaff-eccvobvclqelmrgkhibvvrxbftdz/Build/Products/Debug-iphonesimulator/GomeStaff.app/Info.plist'</span></span><br></pre></td></tr></table></figure>
+<p>原因分析：Xcode自动会将Info.plist复制到GomeStaff.app中，但是在Build Phases-&gt; Copy Bundle Resources中也包含复制Info.plist的功能，这样就两次复制，第二次复制失败。</p>
+<p>解决方法：</p>
+<p>将Build Phases-&gt; Copy Bundle Resources  中的info.plist 去掉。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
 <li><a href="https://juejin.im/post/5b1634f0f265da6e61788998" rel="external nofollow noopener noreferrer" target="_blank">Xcode10和iOS12踩坑</a></li>
 <li><a href="http://www.cocoachina.com/ios/20180611/23749.html" rel="external nofollow noopener noreferrer" target="_blank">libstdc++适配Xcode10与iOS12</a></li>
