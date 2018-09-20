@@ -9,18 +9,18 @@
         <meta name="keywords" content="拷贝控制">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
+    <meta name="description" content="拷贝、赋值、销毁 拷贝控制和资源管理 交换操作 拷贝控制示例 动态内存管理 对象移动  我们将学到：拷贝、赋值、移动、销毁做什么？下面是拷贝操作的几个函数：  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类–初始化：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类—赋值：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什">
 <meta name="keywords" content="拷贝控制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="拷贝控制">
 <meta property="og:url" content="http://yoursite.com/wiki/C++语言/C++Primer/第十三章/拷贝控制/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
+<meta property="og:description" content="拷贝、赋值、销毁 拷贝控制和资源管理 交换操作 拷贝控制示例 动态内存管理 对象移动  我们将学到：拷贝、赋值、移动、销毁做什么？下面是拷贝操作的几个函数：  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类–初始化：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类—赋值：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-13T11:17:53.000Z">
+<meta property="og:updated_time" content="2018-09-18T03:57:30.256Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="拷贝控制">
-<meta name="twitter:description" content="我们将学到：拷贝、赋值、移动、销毁做什么？  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。 如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。">
+<meta name="twitter:description" content="拷贝、赋值、销毁 拷贝控制和资源管理 交换操作 拷贝控制示例 动态内存管理 对象移动  我们将学到：拷贝、赋值、移动、销毁做什么？下面是拷贝操作的几个函数：  拷贝构造函数   拷贝赋值运算符 移动构造函数 移动赋值运算符 析构函数  函数类–初始化：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么运算符类—赋值：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什">
     
 
     
@@ -273,6 +273,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             第十章 泛型算法
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
@@ -285,6 +294,15 @@
                             第四章 表达式
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -813,12 +831,20 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝、赋值、销毁"><span class="toc-number">1.</span> <span class="toc-text">拷贝、赋值、销毁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">1.1.</span> <span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#合成拷贝构造函数"><span class="toc-number">1.1.1.</span> <span class="toc-text">合成拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝初始化"><span class="toc-number">1.1.2.</span> <span class="toc-text">拷贝初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数和返回值"><span class="toc-number">1.1.3.</span> <span class="toc-text">参数和返回值</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝赋值运算符"><span class="toc-number">1.2.</span> <span class="toc-text">拷贝赋值运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#析构函数"><span class="toc-number">1.3.</span> <span class="toc-text">析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三五法则"><span class="toc-number">1.4.</span> <span class="toc-text">三五法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-default"><span class="toc-number">1.5.</span> <span class="toc-text">使用=default</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阻止拷贝"><span class="toc-number">1.6.</span> <span class="toc-text">阻止拷贝</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝控制和资源管理"><span class="toc-number">2.</span> <span class="toc-text">拷贝控制和资源管理</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝、赋值、销毁"><span class="toc-number">1.</span> <span class="toc-text">拷贝、赋值、销毁</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝构造函数"><span class="toc-number">1.1.</span> <span class="toc-text">拷贝构造函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#合成拷贝构造函数"><span class="toc-number">1.1.1.</span> <span class="toc-text">合成拷贝构造函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝初始化"><span class="toc-number">1.1.2.</span> <span class="toc-text">拷贝初始化</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#参数和返回值"><span class="toc-number">1.1.3.</span> <span class="toc-text">参数和返回值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#拷贝初始化的限制"><span class="toc-number">1.1.4.</span> <span class="toc-text">拷贝初始化的限制</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝赋值运算符"><span class="toc-number">1.2.</span> <span class="toc-text">拷贝赋值运算符</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#析构函数"><span class="toc-number">1.3.</span> <span class="toc-text">析构函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三五法则"><span class="toc-number">1.4.</span> <span class="toc-text">三五法则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用-default"><span class="toc-number">1.5.</span> <span class="toc-text">使用=default</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#阻止拷贝"><span class="toc-number">1.6.</span> <span class="toc-text">阻止拷贝</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#定义删除的函数"><span class="toc-number">1.6.1.</span> <span class="toc-text">定义删除的函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#析构函数不能是删除的"><span class="toc-number">1.6.2.</span> <span class="toc-text">析构函数不能是删除的</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合成的拷贝成员可能是删除的："><span class="toc-number">1.6.3.</span> <span class="toc-text">合成的拷贝成员可能是删除的：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#private控制"><span class="toc-number">1.6.4.</span> <span class="toc-text">private控制</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝控制和资源管理"><span class="toc-number">2.</span> <span class="toc-text">拷贝控制和资源管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#行为像值的类"><span class="toc-number">2.1.</span> <span class="toc-text">行为像值的类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义行为像指针的类"><span class="toc-number">2.2.</span> <span class="toc-text">定义行为像指针的类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#交换操作"><span class="toc-number">3.</span> <span class="toc-text">交换操作</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#swap函数应该调用swap，而不是std-swap"><span class="toc-number">3.1.</span> <span class="toc-text">swap函数应该调用swap，而不是std::swap</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#在赋值运算符中使用swap"><span class="toc-number">3.2.</span> <span class="toc-text">在赋值运算符中使用swap</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拷贝控制示例"><span class="toc-number">4.</span> <span class="toc-text">拷贝控制示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态内存管理类"><span class="toc-number">5.</span> <span class="toc-text">动态内存管理类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#对象移动"><span class="toc-number">6.</span> <span class="toc-text">对象移动</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#右值引用"><span class="toc-number">6.1.</span> <span class="toc-text">右值引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#标准库move函数"><span class="toc-number">6.2.</span> <span class="toc-text">标准库move函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#移动构造函数和移动赋值运算符"><span class="toc-number">6.3.</span> <span class="toc-text">移动构造函数和移动赋值运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#移动操作、标准容器和异常"><span class="toc-number">6.3.1.</span> <span class="toc-text">移动操作、标准容器和异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动赋值运算符"><span class="toc-number">6.3.2.</span> <span class="toc-text">移动赋值运算符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动对象必须可析构"><span class="toc-number">6.3.3.</span> <span class="toc-text">移动对象必须可析构</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#合成的移动操作"><span class="toc-number">6.3.4.</span> <span class="toc-text">合成的移动操作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动右值，拷贝左值"><span class="toc-number">6.3.5.</span> <span class="toc-text">移动右值，拷贝左值</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如果没有移动构造函数，右值也被拷贝"><span class="toc-number">6.3.6.</span> <span class="toc-text">如果没有移动构造函数，右值也被拷贝</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#移动迭代器"><span class="toc-number">6.3.7.</span> <span class="toc-text">移动迭代器</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#右值引用和成员函数"><span class="toc-number">6.4.</span> <span class="toc-text">右值引用和成员函数</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#重载和引用函数"><span class="toc-number">6.4.1.</span> <span class="toc-text">重载和引用函数</span></a></li></ol></li></ol></li></ol>
                 </div>
             
         
         
-            <p>我们将学到：拷贝、赋值、移动、销毁做什么？</p>
+            <ol>
+<li>拷贝、赋值、销毁</li>
+<li>拷贝控制和资源管理</li>
+<li>交换操作</li>
+<li>拷贝控制示例</li>
+<li>动态内存管理</li>
+<li>对象移动</li>
+</ol>
+<p>我们将学到：拷贝、赋值、移动、销毁做什么？下面是拷贝操作的几个函数：</p>
 <ol>
 <li>拷贝构造函数  </li>
 <li>拷贝赋值运算符</li>
@@ -826,7 +852,7 @@
 <li>移动赋值运算符</li>
 <li>析构函数</li>
 </ol>
-<p>函数类：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么<br>运算符类：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。</p>
+<p>函数类–初始化：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么<br>运算符类—赋值：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。</p>
 <p>如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。</p>
 <a id="more"></a>
 <h2 id="拷贝、赋值、销毁"><a href="#拷贝、赋值、销毁" class="headerlink" title="拷贝、赋值、销毁"></a>拷贝、赋值、销毁</h2><h3 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h3><p>如果一个函数的第一个参数是自身类型的引用，且任何额为的参数都有默认值，则，此构造函数是拷贝构造函数。</p>
@@ -840,25 +866,34 @@
 </ol>
 <p>例子：</p>
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Sales_data::Sales_data(const Sales_data&amp; orig):</span><br><span class="line"><span class="function"><span class="title">bookNO</span><span class="params">(orig.bookNO)</span></span>,</span><br><span class="line"><span class="function"><span class="title">units_sold</span><span class="params">(orig.units_sold)</span></span>,</span><br><span class="line"><span class="function"><span class="title">revenue</span><span class="params">(orig.revenue)</span></span></span><br><span class="line">&#123;&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="拷贝初始化"><a href="#拷贝初始化" class="headerlink" title="拷贝初始化"></a>拷贝初始化</h4><ol>
-<li>直接初始化：我们实际上要求编译器用普通的函数匹配类选择与我们提供的参数最匹配的构造函数</li>
+<h4 id="拷贝初始化"><a href="#拷贝初始化" class="headerlink" title="拷贝初始化"></a>拷贝初始化</h4><p>示例：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">dots</span><span class="params">(<span class="number">10</span>,<span class="string">'.'</span>)</span></span>;  <span class="comment">///直接初始化</span></span><br><span class="line"><span class="function"><span class="built_in">string</span> <span class="title">s</span><span class="params">(dots)</span></span>;       <span class="comment">///直接初始化</span></span><br><span class="line"><span class="built_in">string</span> s2 = dots;     <span class="comment">///拷贝初始化</span></span><br><span class="line"><span class="built_in">string</span> null_book = <span class="string">"999999-999"</span>  <span class="comment">///拷贝初始化</span></span><br><span class="line"><span class="built_in">string</span> nines = <span class="built_in">string</span>(<span class="number">100</span>,<span class="string">'9'</span>);  <span class="comment">///拷贝初始化</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>直接初始化：我们实际上要求编译器用普通的函数匹配，来选择与我们提供的参数最匹配的构造函数。</li>
 <li>拷贝初始化：要求编译器将右侧运算对象拷贝到正在创建的对象中，如果需要的话，还进行类型转换。</li>
 </ol>
-<p>拷贝初始化发生的场景：</p>
+<p>，拷贝初始化是通过拷贝构造函数或者移动构造函数完成的。拷贝初始化发生的场景：</p>
 <ol>
 <li>将一个对象作为实参传递给一个非引用类型的形参</li>
 <li>从一个返回类型为非引用类型的函数返回一个对象</li>
 <li>用花括号列表初始化一个数组中的元素或一个聚合类中的成员</li>
 <li>insert 、push（emplace 直接初始化）</li>
+<li>使用=定义变量</li>
 </ol>
-<h4 id="参数和返回值"><a href="#参数和返回值" class="headerlink" title="参数和返回值"></a>参数和返回值</h4><p>当一个函数具有非引用类型的返回值类型时，返回值会被用来初始化调用方的结果</p>
-<h3 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h3><p>赋值运算符就是一个名为opertor =的函数，类似于任何其他函数，运算符函数也有一个返回类型和一个参数列表。<br>如果一个运算符是一个成员函数，其左侧运算对象就绑定到隐式this参数。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo &amp;);</span><br></pre></td></tr></table></figure></p>
-<p>赋值运算符通常应该返回一个指向其左侧运算对象的引用。<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Sales_data&amp; Sales_data::<span class="keyword">operator</span>=(<span class="keyword">const</span> Sales_data &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	booNO = rhs.bookNO;</span><br><span class="line">	units_sold = rhs.units_sold;</span><br><span class="line">	revenue = rhs.revenue;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="参数和返回值"><a href="#参数和返回值" class="headerlink" title="参数和返回值"></a>参数和返回值</h4><p>当一个函数具有非引用的返回值类型时，返回值会被用来初始化调用方的结果。为什么拷贝构造函数的参数必须是引用： 如果参数不是引用类型，则调用永远不能成功—为了调用拷贝构造函数，我们必须拷贝它的实参，但为了拷贝实参，我们又需要调用拷贝构造函数。如此无限循环。</p>
+<h4 id="拷贝初始化的限制"><a href="#拷贝初始化的限制" class="headerlink" title="拷贝初始化的限制"></a>拷贝初始化的限制</h4><p>如果我们的初始值要求通过一个explicit的构造函数来进行类型转换，那么使用拷贝初始化和拷贝初始化就有区别了</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v1(<span class="number">10</span>);  <span class="comment">///正确，直接初始化</span></span><br><span class="line"><span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; v2 = <span class="number">10</span>; 错误，接受大小数的构造函数是<span class="keyword">explicit</span>的。</span><br></pre></td></tr></table></figure>
+<h3 id="拷贝赋值运算符"><a href="#拷贝赋值运算符" class="headerlink" title="拷贝赋值运算符"></a>拷贝赋值运算符</h3><p>与类控制其对象如何初始化一样，类也可以控制其对象如何赋值。</p>
+<p>赋值运算符就是一个名为opertor =的函数，类似于任何其他函数，运算符函数也有一个返回类型和一个参数列表。<br>如果一个运算符是一个成员函数，其左侧运算对象就绑定到隐式this参数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo&amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo &amp;);</span><br></pre></td></tr></table></figure>
+<p>赋值运算符通常应该返回一个指向其左侧运算对象的引用。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Sales_data&amp; Sales_data::<span class="keyword">operator</span>=(<span class="keyword">const</span> Sales_data &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	booNO = rhs.bookNO;</span><br><span class="line">	units_sold = rhs.units_sold;</span><br><span class="line">	revenue = rhs.revenue;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h3><ol>
 <li>构造函数初始化对象的非static数据成员。</li>
 <li>析构函数释放对象使用的资源，并销毁对象的非静态成员。</li>
 </ol>
-<p>析构函数是类的一个成员函数，名字由波浪号接类名构成，没有返回值，不接受参数。<br><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">~Foo()</span>;</span><br></pre></td></tr></table></figure></p>
+<p>析构函数是类的一个成员函数，名字由波浪号接类名构成，没有返回值，不接受参数。，所以不能重载，对于给定的类，只会有唯一一个析构函数。</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">~Foo()</span>;</span><br></pre></td></tr></table></figure>
 <ol>
 <li>在构造函数中，成员的初始化是在函数体执行前完成的，且按照他们在类中出现的顺序进行初始化。</li>
 <li>在析构函数中，首先执行函数体，然后销毁成员，成员按初始化顺序的逆序销毁。</li>
@@ -872,35 +907,104 @@
 <li>动态分配的对象，delete 运算符时会被销毁</li>
 <li>对于临时对象，当创建他的完整表达式结束时被销毁</li>
 </ol>
-<p><font color="red">析构函数自身并不直接销毁成员，成员实在析构函数体之后隐含的析构阶段中被销毁的</font></p>
-<h3 id="三五法则"><a href="#三五法则" class="headerlink" title="三五法则"></a>三五法则</h3><p>需要析构函数的类也需要拷贝和赋值。<br>需要拷贝操作的类也需要赋值操作。</p>
+<font color="red">析构函数自身并不直接销毁成员，成员实在析构函数体之后隐含的析构阶段中被销毁的</font>
+
+<h3 id="三五法则"><a href="#三五法则" class="headerlink" title="三五法则"></a>三五法则</h3><ol>
+<li>需要析构函数的类也需要拷贝和赋值。</li>
+<li>需要拷贝操作的类也需要赋值操作。</li>
+</ol>
 <h3 id="使用-default"><a href="#使用-default" class="headerlink" title="使用=default"></a>使用=default</h3><p>可以通过将拷贝控制成员定义为=default来显示的要求编译器生产合成的版本。合成函数将隐式的声明为内联的，如果不希望合成的成员函数是内联函数，应该只对成员的类外定义使用=default。</p>
-<h3 id="阻止拷贝"><a href="#阻止拷贝" class="headerlink" title="阻止拷贝"></a>阻止拷贝</h3><p>应用场景：iostream类阻止了拷贝，以避免多个对象写入或读取相同的io缓存。<br>删除函数是这样一种函数：我们虽然声明了他们，单不能以任何方式使用他们。</p>
+<p>我们只能对具有合成版本的成员函数函数使用=default。</p>
+<h3 id="阻止拷贝"><a href="#阻止拷贝" class="headerlink" title="阻止拷贝"></a>阻止拷贝</h3><p>应用场景：iostream类阻止了拷贝，以避免多个对象写入或读取相同的io缓存。</p>
+<h4 id="定义删除的函数"><a href="#定义删除的函数" class="headerlink" title="定义删除的函数"></a>定义删除的函数</h4><p>我们可以将拷贝构造函数和拷贝赋值运算符定义为删除的函数，来阻止拷贝。删除函数是这样一种函数：我们虽然声明了他们，单不能以任何方式使用他们。在函数的参数列表后面加上=delete来指出我们希望将它定义为删除的函数。</p>
 <p>=default 、=delete区别：</p>
 <ol>
 <li>=delete必须在函数第一次声明的时候。=default直到编译器生产代码的时候才需要。</li>
 <li>可以对任何函数指定=delete，只能对编译器可以合成的默认构造函数或者拷贝控制成员使用=default。</li>
 </ol>
-<p>析构函数不能是删除的，如果析构函数被删除了，就无法消化此类型的对象了。对于一个删除了析构函数的类型，编译器将不允许定义该类型的变量或者创建该类的临时变量。如果一个类的某个成员的类型删除了析构函数，我们不能定义该类的变量或者临时对象。因为如果一个成员的析构函数是删除的，则改成员无法被销毁，而如果一个成员无法被销毁，则对象整体也就无法被销毁了。</p>
+<h4 id="析构函数不能是删除的"><a href="#析构函数不能是删除的" class="headerlink" title="析构函数不能是删除的"></a>析构函数不能是删除的</h4><p>析构函数不能是删除的，如果析构函数被删除了，就无法消化此类型的对象了。对于一个删除了析构函数的类型，编译器将不允许定义该类型的变量或者创建该类的临时变量。如果一个类的某个成员的类型删除了析构函数，我们不能定义该类的变量或者临时对象。因为如果一个成员的析构函数是删除的，则改成员无法被销毁，而如果一个成员无法被销毁，则对象整体也就无法被销毁了。</p>
+<p>对于析构函数已删除的类型，不能定义改类型的变量或释放指向改类型动态分配对象的指针。</p>
 <p>对于删除了析构函数的类型，虽然不能定义这种类型的变量或者成员，但可以动态分配这种类型的对象。但是不能释放这些对象。</p>
-<p>合成的拷贝成员可能是删除的：如果一个类有数据成员不能默认构造、拷贝、赋值、销毁。则对应的成员函数将被定义为删除的。</p>
+<h4 id="合成的拷贝成员可能是删除的："><a href="#合成的拷贝成员可能是删除的：" class="headerlink" title="合成的拷贝成员可能是删除的："></a>合成的拷贝成员可能是删除的：</h4><ol>
+<li>析构函数：如果类的某个成员的析构函数是删除的或不可访问的，则类的合成析构函数被定义为删除的</li>
+<li>拷贝构造函数：如果类的某个成员的拷贝构造函数是删除的或者不可访问的，则类的合成拷贝构造函数被定义为删除的，如果类的某个成员的析构函数是删除的或者不可访问的，则类合成的拷贝构造函数也被定义为删除的。</li>
+<li>拷贝赋值运算符：如果类的某个成员的拷贝赋值运算符是删除的，或者不可访问的，或类有一个const的或引用成员，则类的合成拷贝赋值运算符被定义为删除的。</li>
+<li>构造函数：如果类的某个成员的析构函数是删除的或者不可访问的，或类有一个引用成员，他没有类内初始化器，或是类有一个const成员，它没有类内初始化器且类未显示定义默认构造函数，则该类的默认构造函数被定义为删除的。</li>
+</ol>
+<p>如果一个类有数据成员不能默认构造、拷贝、赋值、销毁。则对应的成员函数将被定义为删除的。</p>
 <p>一个成员有删除的或不可访问的析构函数会导致合成的默认和拷贝构造函数被定义为删除的。原因是：如果没有这条规则，我们可能创建出无法销毁的对象。</p>
-<p>对于据用引用成员或者无法默认构造的const成员的类。编译器不会为其合成默认构造函数。如果一个类有const成员，则他不能使用合成的拷贝赋值运算符，毕竟，次运算符视图赋值所有成员，而将一个新值赋予一个const对象是不可能的。虽然我们可以将一个新值赋予一个引用成员，但这样做改变的是引用指向的对象的值，而不是引用本身。</p>
+<p>对于据用引用成员或者无法默认构造的const成员的类。编译器不会为其合成默认构造函数。如果一个类有const成员，则他不能使用合成的拷贝赋值运算符，毕竟，此运算符试图赋值所有成员，而将一个新值赋予一个const对象是不可能的。虽然我们可以将一个新值赋予一个引用成员，但这样做改变的是引用指向的对象的值，而不是引用本身。这种行为看起来不是我们期望的，因此对于有引用成员的类，合成拷贝赋值运算符被定义为删除的。</p>
+<h4 id="private控制"><a href="#private控制" class="headerlink" title="private控制"></a>private控制</h4><p>就版本使用private来阻止拷贝。</p>
 <h2 id="拷贝控制和资源管理"><a href="#拷贝控制和资源管理" class="headerlink" title="拷贝控制和资源管理"></a>拷贝控制和资源管理</h2><p>管理类外资源的类必须定义拷贝控制函数。</p>
 <ol>
-<li>类值拷贝</li>
-<li>类指针拷贝</li>
+<li>类值拷贝：意味着类有自己的状态。当我们拷贝一个像值的对象时，副本和原对象完全独立的，改变副本不会对原对象有任何印象。</li>
+<li>类指针拷贝：副本和原对象使用相同的底层数据，改变副本也会改变原对象。</li>
 </ol>
-<p>赋值运算符通常组合了析构函数和构造函数的操作。类型析构函数，赋值操作会销毁左侧运算对象的资源。类似拷贝构造函数，赋值操作会从右侧运算对象拷贝数据。</p>
+<h3 id="行为像值的类"><a href="#行为像值的类" class="headerlink" title="行为像值的类"></a>行为像值的类</h3><p>赋值运算符通常组合了析构函数和构造函数的操作：</p>
+<ol>
+<li>类型析构函数，赋值操作会销毁左侧运算对象的资源。</li>
+<li>类似拷贝构造函数，赋值操作会从右侧运算对象拷贝数据。</li>
+</ol>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">HasPtr&amp; HasPtr::<span class="keyword">operator</span>=(<span class="keyword">const</span> HasPtr &amp;rhs)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">auto</span> newp = <span class="keyword">new</span> <span class="built_in">string</span>(*rhs.ps); <span class="comment">//拷贝底层String</span></span><br><span class="line">	<span class="keyword">delete</span> ps; <span class="comment">//是否旧内存</span></span><br><span class="line">	ps = newp;</span><br><span class="line">	i=rhs.i;</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>; <span class="comment">//返回本对象</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于一个赋值运算符来说，正确工作非常重要的，即使将一个对象赋予它吱声，也要能正确工作。一个好的方法是在销毁左侧运算对象资源之前拷贝右侧运算对象。</p>
-<p>引用计数的工作方式：</p>
+<p>对于一个赋值运算符来说，正确工作非常重要的，即使将一个对象赋予它自身，也要能正确工作。一个好的方法是在销毁左侧运算对象资源之前拷贝右侧运算对象。</p>
+<h3 id="定义行为像指针的类"><a href="#定义行为像指针的类" class="headerlink" title="定义行为像指针的类"></a>定义行为像指针的类</h3><p>引用计数的工作方式：</p>
 <ul>
 <li>除了初始化对象外，每个构造函数（拷贝构造函数除外）还要创建一个引用计数，用来记录有多少对象与正在创建的对象共享状态。当我们创建一个对象时，只有一个对象共享状态，因此将计数器初始化为1。</li>
 <li>拷贝构造函数不分配新的计数器，而是拷贝给定对象的数据成员，包括计数器。拷贝析构函数递增共享的计数器。指出给定对象的状态又被一个新用户共享。</li>
 <li>析构函数递减计数器。指出共享状态的用户少了一个。如果计数器变为0，则析构函数释放状态。</li>
 <li>拷贝赋值运算符递增右侧运算对象的计算器。递减左侧运算对象的计数器。如果左侧运算对象的计数器变为0，意味着它的共享状态没有用户了，拷贝赋值运算符就必须销毁状态。</li>
 </ul>
+<p>简洁版：</p>
+<ol>
+<li>除了拷贝构造函数外，其他的构造函数创建引用计数器，为1</li>
+<li>拷贝构造函数–拷贝计数器，并递增引用计数器</li>
+<li>析构函数递减引用计数器，为0，释放</li>
+<li>拷贝赋值运算符– 递减左侧，递增右侧</li>
+</ol>
+<h2 id="交换操作"><a href="#交换操作" class="headerlink" title="交换操作"></a>交换操作</h2><p>如果一个类定义了自己的swap，那么算法将使用类自定义版本，否则算法将使用标准定义的swap。</p>
+<h3 id="swap函数应该调用swap，而不是std-swap"><a href="#swap函数应该调用swap，而不是std-swap" class="headerlink" title="swap函数应该调用swap，而不是std::swap"></a>swap函数应该调用swap，而不是std::swap</h3><h3 id="在赋值运算符中使用swap"><a href="#在赋值运算符中使用swap" class="headerlink" title="在赋值运算符中使用swap"></a>在赋值运算符中使用swap</h3><h2 id="拷贝控制示例"><a href="#拷贝控制示例" class="headerlink" title="拷贝控制示例"></a>拷贝控制示例</h2><p>虽然通常来说分配资源的类需要拷贝控制，但资源管理并不是一个类需要定义自己拷贝控制成员的唯一原因。一些类也需要拷贝控制成员的帮助来进行其他操作。</p>
+<h2 id="动态内存管理类"><a href="#动态内存管理类" class="headerlink" title="动态内存管理类"></a>动态内存管理类</h2><h2 id="对象移动"><a href="#对象移动" class="headerlink" title="对象移动"></a>对象移动</h2><p>标准容器、string、shared_ptr即支持移动，也支持拷贝；IO类和unique_ptr可以移动，不能拷贝。</p>
+<h3 id="右值引用"><a href="#右值引用" class="headerlink" title="右值引用"></a>右值引用</h3><p>右值引用：就是必须绑定到右值的引用，通过&amp;&amp;获取右值引用。右值引用有一个重要的特性—只能绑定到将要销毁的对象。因此，我们可以自由的将一个右值引用的资源移动到另一个对象。</p>
+<p>一个左值表达式表示一个对象的身份，一个右值表达式表示的是对象的值。</p>
+<p>左值持久；右值短暂</p>
+<ol>
+<li>所引用的对象将要销毁</li>
+<li>该对象没有其他用户</li>
+</ol>
+<p>上面的特性意味着：使用右值引用可以自由的接管所引用的对象的资源。</p>
+<p>右值引用指向将要销毁的对象，因此，我们可以从绑定到右值引用的对象窃取状态。</p>
+<p>###变量是左值</p>
+<p>变量表达式是左值，带来的结果是，我们不能将右值引用绑定一个右值引用类型的变量上</p>
+<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">int <span class="meta">&amp;&amp; rr1 = 42;</span></span><br><span class="line">int <span class="meta">&amp;&amp;rr2 = rr1; <span class="comment">//错误，表达式rr1是左值</span></span></span><br></pre></td></tr></table></figure>
+<p>变量时左值，因为变量时持久的，知道离开作用域才被销毁。</p>
+<p>变量时左值，因此，我们不能将一个右值引用绑定到一个变量上，即使这个变量时右值引用类型也不行。</p>
+<h3 id="标准库move函数"><a href="#标准库move函数" class="headerlink" title="标准库move函数"></a>标准库move函数</h3><p>虽然不能将一个右值引用绑定到左值上，但我们可以显示的将一个左值转化为对应的右值引用类型。我们可以通过调用一个名为move的新标准函数来获得绑定到左值上的右值引用。</p>
+<p>调用move意味着承诺：除了对rr1赋值或销毁外，我们不再使用它。在调用move后，我们不能对移后源对象的值做任何的假设。</p>
+<p>我们可以销毁一个移后源对象，也可以赋予它新值，但不能使用一个移后源对象的值。</p>
+<h3 id="移动构造函数和移动赋值运算符"><a href="#移动构造函数和移动赋值运算符" class="headerlink" title="移动构造函数和移动赋值运算符"></a>移动构造函数和移动赋值运算符</h3><p>移动构造函数和移动赋值运算符类似拷贝操作，但他们从给定对象窃取资源，而不是拷贝资源。</p>
+<p>类似拷贝构造函数，移动构造函数的第一个参数是该类型的一个引用，不同于拷贝构造函数，这个引用参数在移动构造函数中是一个右值引用，与拷贝构造函数一样，任何额为的参数必须有默认实参。</p>
+<p>除了完成资源移动，移动构造函数还必须确保移后源对象处于这样一种状态—销毁它是无害的。一旦资源完成移动，对象就不再指向被移动的资源。—-这些资源的所有权已经归属新创建的对象。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">StrVec::StrVec(StrVec &amp;&amp;s)<span class="keyword">noexcept</span> :elments(s.elements),first_free(s.first_free),cpa(s.cap)</span><br><span class="line">&#123;</span><br><span class="line">	s.elements=s.first_free=s.cap=<span class="literal">nullptr</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="移动操作、标准容器和异常"><a href="#移动操作、标准容器和异常" class="headerlink" title="移动操作、标准容器和异常"></a>移动操作、标准容器和异常</h4><p>我们必须在头文件的声明和定义中都指定noexcept。</p>
+<h4 id="移动赋值运算符"><a href="#移动赋值运算符" class="headerlink" title="移动赋值运算符"></a>移动赋值运算符</h4><p>移动赋值运算符执行与析构函数和移动构造函数相同的工作。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">StrVec::StrVec::<span class="keyword">operator</span>=(StrVec &amp;&amp; rhs) <span class="keyword">noexcept</span></span><br><span class="line">&#123;	</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">this</span> != rhs)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">free</span>();</span><br><span class="line">		elements = rhs.elements;</span><br><span class="line">		first_free = rhs.first_free;</span><br><span class="line">		cap = rhs.cap;</span><br><span class="line">		rhs.elements = rhs.first_free = rhs.cap = <span class="literal">nullptr</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> *<span class="keyword">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>处理了自赋值的情况。判断是否是this，我们不能再使用右侧对象的资源之前就释放左侧运算对象的资源。</p>
+<h4 id="移动对象必须可析构"><a href="#移动对象必须可析构" class="headerlink" title="移动对象必须可析构"></a>移动对象必须可析构</h4><p>除了将移后源对象置位析构安全的状态之外，移动操作还必须保证对象任然是有效状态。一般来说，对象有效是指可以安全的为其赋值，或者可以安全的使用，而不依赖其当前值。另一方面，移动操作对移后源对象中留下的值没有任何要求。</p>
+<p>在移动操作之后，移后源对象必须保持有效的，可析构的状态，但是用户不能对其值进行任何期望。</p>
+<h4 id="合成的移动操作"><a href="#合成的移动操作" class="headerlink" title="合成的移动操作"></a>合成的移动操作</h4><p>如果一个类定义了自己的拷贝构造函数、拷贝赋值运算符、析构函数，编译器就不会为他们合成移动构造函数和移动赋值运算符。</p>
+<p>只有一个类没有定义任何版本的拷贝控制成员，且类的每个非static数据成员都可以移动时，编译器才为它合成移动构造函数和移动拷贝赋值运算符。与拷贝操作不同，移动操作永远不会隐式的定义为删除函数，但是如果我们现实的要求编译器生产=default的移动操作，且编译器不能移动所有成员，则编译器会将移动操作定义为删除函数。</p>
+<ol>
+<li>与拷贝构造函数不同，移动构造函数被定义为删除函数的条件是：有类成员定义了自己的拷贝构造函数且未定义移动构造函数或者是有类成员未定义自己的拷贝构造函数，且编译器不能为其合成移动构造函数。移动赋值运算符的情况类似。</li>
+<li>如果类成员的移动构造函数或移动赋值运算符被定义为删除的或者不可访问的，则类的移动构造函数或者移动赋值运算符被定义为删除的</li>
+<li>类似拷贝构造函数，如果了类的析构函数定义为删除的或不可访问的，则类的移动构造函数被定义为删除的</li>
+<li>类似拷贝赋值运算符，如果类成员是const或引用，则类的移动赋值运算符被定义为删除的。</li>
+</ol>
+<p>如果一个类定义了移动构造函数和移动赋值运算符，则类的合成拷贝构造函数和拷贝赋值运算符被定义为删除的。</p>
+<h4 id="移动右值，拷贝左值"><a href="#移动右值，拷贝左值" class="headerlink" title="移动右值，拷贝左值"></a>移动右值，拷贝左值</h4><h4 id="如果没有移动构造函数，右值也被拷贝"><a href="#如果没有移动构造函数，右值也被拷贝" class="headerlink" title="如果没有移动构造函数，右值也被拷贝"></a>如果没有移动构造函数，右值也被拷贝</h4><h4 id="移动迭代器"><a href="#移动迭代器" class="headerlink" title="移动迭代器"></a>移动迭代器</h4><p>移动迭代器解引用生成右值引用，我么通过标准库的make_move_iterator函数将普通迭代器转换为移动迭代器。次函数接受一个迭代器参数，返回一个移动迭代器。</p>
+<h3 id="右值引用和成员函数"><a href="#右值引用和成员函数" class="headerlink" title="右值引用和成员函数"></a>右值引用和成员函数</h3><p>我们指出this的左值、右值属性的方式与定义const成员函数相同，即，在参数表后面防止一个引用限定符</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Foo &amp; <span class="keyword">operator</span>=(<span class="keyword">const</span> Foo&amp;) &amp;;</span><br></pre></td></tr></table></figure>
+<p>引用限定符必须同时出现在函数的声明和定义中。</p>
+<h4 id="重载和引用函数"><a href="#重载和引用函数" class="headerlink" title="重载和引用函数"></a>重载和引用函数</h4><p>就像一个成员函数可以根据是否是const来区分其重载版本，引用限定符也可以区分重载版本。</p>
 
             </div>
         
@@ -913,19 +1017,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/C++语言/C++Primer/第六章函数/函数/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    函数
+                    重载运算与类型转换
                 
             </div>
         </a>
     
     
-        <a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/C++语言/C++Primer/第六章函数/函数/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">面向对象程序设计</div>
+            <div class="article-nav-title">函数</div>
         </a>
     
 </nav>

@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="主要内容：  定义抽象数据类型 访问控制与封装 类的其他特性 类的作用域 构造函数再探 类的静态成员  数据抽象能帮助我们将对象的具体实现和对象所能执行的操作分离开来。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-08-27T07:46:20.108Z">
+<meta property="og:updated_time" content="2018-09-19T10:52:28.140Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="类">
 <meta name="twitter:description" content="主要内容：  定义抽象数据类型 访问控制与封装 类的其他特性 类的作用域 构造函数再探 类的静态成员  数据抽象能帮助我们将对象的具体实现和对象所能执行的操作分离开来。">
@@ -273,6 +273,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             第十章 泛型算法
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
@@ -285,6 +294,15 @@
                             第四章 表达式
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -813,7 +831,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义抽象数据类型"><span class="toc-number">1.</span> <span class="toc-text">定义抽象数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、设计Sales-data类"><span class="toc-number">1.1.</span> <span class="toc-text">一、设计Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、定义改进的Sales-data类"><span class="toc-number">1.2.</span> <span class="toc-text">二、定义改进的Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、定义类相关的非成员函数"><span class="toc-number">1.3.</span> <span class="toc-text">三、定义类相关的非成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、构造函数"><span class="toc-number">1.4.</span> <span class="toc-text">四、构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝、赋值、析构"><span class="toc-number">1.5.</span> <span class="toc-text">拷贝、赋值、析构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问控制与封装"><span class="toc-number">2.</span> <span class="toc-text">访问控制与封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#友元"><span class="toc-number">2.1.</span> <span class="toc-text">友元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的其他特性"><span class="toc-number">3.</span> <span class="toc-text">类的其他特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类成员再探"><span class="toc-number">3.1.</span> <span class="toc-text">类成员再探</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#返回-this的成员函数"><span class="toc-number">3.2.</span> <span class="toc-text">返回*this的成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类类型"><span class="toc-number">3.3.</span> <span class="toc-text">类类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友元再探"><span class="toc-number">3.4.</span> <span class="toc-text">友元再探</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的作用域"><span class="toc-number">4.</span> <span class="toc-text">类的作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#名字查找和类的作用域"><span class="toc-number">4.1.</span> <span class="toc-text">名字查找和类的作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数再探"><span class="toc-number">5.</span> <span class="toc-text">构造函数再探</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数初始值列表"><span class="toc-number">5.1.</span> <span class="toc-text">构造函数初始值列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#委托构造函数"><span class="toc-number">5.2.</span> <span class="toc-text">委托构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认构造函数的作用"><span class="toc-number">5.3.</span> <span class="toc-text">默认构造函数的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式的类类型转化"><span class="toc-number">5.4.</span> <span class="toc-text">隐式的类类型转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合类"><span class="toc-number">5.5.</span> <span class="toc-text">聚合类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字面值常量类"><span class="toc-number">5.6.</span> <span class="toc-text">字面值常量类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的静态成员"><span class="toc-number">6.</span> <span class="toc-text">类的静态成员</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义抽象数据类型"><span class="toc-number">1.</span> <span class="toc-text">定义抽象数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#一、设计Sales-data类"><span class="toc-number">1.1.</span> <span class="toc-text">一、设计Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#二、定义改进的Sales-data类"><span class="toc-number">1.2.</span> <span class="toc-text">二、定义改进的Sales_data类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#三、定义类相关的非成员函数"><span class="toc-number">1.3.</span> <span class="toc-text">三、定义类相关的非成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#四、构造函数"><span class="toc-number">1.4.</span> <span class="toc-text">四、构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拷贝、赋值、析构"><span class="toc-number">1.5.</span> <span class="toc-text">拷贝、赋值、析构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问控制与封装"><span class="toc-number">2.</span> <span class="toc-text">访问控制与封装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#友元"><span class="toc-number">2.1.</span> <span class="toc-text">友元</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的其他特性"><span class="toc-number">3.</span> <span class="toc-text">类的其他特性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#类成员再探"><span class="toc-number">3.1.</span> <span class="toc-text">类成员再探</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#返回-this的成员函数"><span class="toc-number">3.2.</span> <span class="toc-text">返回*this的成员函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类类型"><span class="toc-number">3.3.</span> <span class="toc-text">类类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#友元再探"><span class="toc-number">3.4.</span> <span class="toc-text">友元再探</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的作用域"><span class="toc-number">4.</span> <span class="toc-text">类的作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#名字查找和类的作用域"><span class="toc-number">4.1.</span> <span class="toc-text">名字查找和类的作用域</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造函数再探"><span class="toc-number">5.</span> <span class="toc-text">构造函数再探</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#构造函数初始值列表"><span class="toc-number">5.1.</span> <span class="toc-text">构造函数初始值列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#委托构造函数"><span class="toc-number">5.2.</span> <span class="toc-text">委托构造函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#默认构造函数的作用"><span class="toc-number">5.3.</span> <span class="toc-text">默认构造函数的作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#隐式的类类型转化"><span class="toc-number">5.4.</span> <span class="toc-text">隐式的类类型转化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#聚合类"><span class="toc-number">5.5.</span> <span class="toc-text">聚合类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#字面值常量类"><span class="toc-number">5.6.</span> <span class="toc-text">字面值常量类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的静态成员"><span class="toc-number">6.</span> <span class="toc-text">类的静态成员</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#声明静态成员"><span class="toc-number">6.1.</span> <span class="toc-text">声明静态成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用类的静态成员"><span class="toc-number">6.2.</span> <span class="toc-text">使用类的静态成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定义静态成员"><span class="toc-number">6.3.</span> <span class="toc-text">定义静态成员</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态成员类内初始值"><span class="toc-number">6.4.</span> <span class="toc-text">静态成员类内初始值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#静态数据成员的特殊功能"><span class="toc-number">6.5.</span> <span class="toc-text">静态数据成员的特殊功能</span></a></li></ol></li></ol>
                 </div>
             
         
@@ -981,14 +999,18 @@
 <li>没有基类、virturl函数。</li>
 </ol>
 <p>可以提供一个花括号括起来的成员初始值列表。列表中成员的顺序和聚合类的成员的顺序一直， 如果初始值列表的元素的个数少于成员数量，后面的被值初始化。</p>
-<h3 id="字面值常量类"><a href="#字面值常量类" class="headerlink" title="字面值常量类"></a>字面值常量类</h3><h2 id="类的静态成员"><a href="#类的静态成员" class="headerlink" title="类的静态成员"></a>类的静态成员</h2><p>类的静态成员和类本身直接相关。静态函数没有this，不能是const，通过作用域访问静态成员，也可以通过对象访问静态成员，成员函数可以不通过作用域直接访问静态成员。</p>
-<p>定义静态成员：我们可以在类的内部、外部定义静态成员函数。在类的外部定义静态成员时，不能重复static关键字，改关键字只能在类的内部声明语句中。静态成语不属于任何一个对象，他们不是在类创建的时候定义的，这意味着不能又类的构造函数初始化。</p>
-<p>静态成员的类内初始化：通常情况下，静态成员不应该在类的内部初始化，然而，我们可以为静态成员提供const整数类型的类内初始值。</p>
-<p>即使一个常量金泰数据成员在类内部被初始化了，通常情况下，他们也应该在类外部定义下该成员。</p>
-<p>静态成员的功能：</p>
-<ol>
+<h3 id="字面值常量类"><a href="#字面值常量类" class="headerlink" title="字面值常量类"></a>字面值常量类</h3><h2 id="类的静态成员"><a href="#类的静态成员" class="headerlink" title="类的静态成员"></a>类的静态成员</h2><h3 id="声明静态成员"><a href="#声明静态成员" class="headerlink" title="声明静态成员"></a>声明静态成员</h3><p>类的静态成员和类本身直接相关。静态函数没有this，静态成员函数不能声明成const的。而且我们也不能再static函数体内使用this指针</p>
+<h3 id="使用类的静态成员"><a href="#使用类的静态成员" class="headerlink" title="使用类的静态成员"></a>使用类的静态成员</h3><ol>
+<li>使用作用域访问静态成员</li>
+<li>通过对象访问静态成员</li>
+<li>成员函数可以不通过作用域直接访问静态成员。</li>
+</ol>
+<h3 id="定义静态成员"><a href="#定义静态成员" class="headerlink" title="定义静态成员"></a>定义静态成员</h3><p>我们可以在类的内部、外部定义静态成员函数。在类的外部定义静态成员时，不能重复static关键字，该关键字只能在类的内部声明语句中。静态成员不属于任何一个对象，他们不是在类创建的时候定义的，这意味着不能由类的构造函数初始化。</p>
+<h3 id="静态成员类内初始值"><a href="#静态成员类内初始值" class="headerlink" title="静态成员类内初始值"></a>静态成员类内初始值</h3><p>通常情况下，静态成员不应该在类的内部初始化，然而，我们可以为静态成员提供const整数类型的类内初始值。</p>
+<p>即使一个常量静态数据成员在类内部被初始化了，通常情况下，他们也应该在类外部定义下该成员。</p>
+<h3 id="静态数据成员的特殊功能"><a href="#静态数据成员的特殊功能" class="headerlink" title="静态数据成员的特殊功能"></a>静态数据成员的特殊功能</h3><ol>
 <li>可以是不完全类型</li>
-<li>可以作为默认参数。</li>
+<li>可以作为默认实参。</li>
 </ol>
 
             </div>
