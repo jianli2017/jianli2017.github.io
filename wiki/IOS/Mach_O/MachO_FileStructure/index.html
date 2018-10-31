@@ -6,11 +6,10 @@
     <title>Mach-O文件结构理解 | LJ小窝</title>
     
     
-        <meta name="keywords" content="Mach-O">
+        <meta name="keywords" content="Mach-O文件结构理解">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
-<meta name="keywords" content="Mach-O">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mach-O文件结构理解">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/index.html">
@@ -420,9 +419,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -454,13 +453,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
-                            Mach_O
+                            MachO
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Mach_O/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -589,15 +588,6 @@
                             linux命令
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/export命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/$0,$?,$!等的特殊用法/">set命令</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
-                            macho
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Mach_O/machoviewer/">mach-o Viewer 源码学习</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -734,7 +724,7 @@
                     </li> 
                      </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file active"><a href="/wiki/IOS/Mach_O/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -813,17 +803,7 @@
                 
                     <div class="article-meta">
                         
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Mach-O/">Mach_O</a>
-    </div>
-
                         
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Mach-O/">Mach-O</a>
-    </div>
-
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
@@ -1187,9 +1167,9 @@
         </a>
     
     
-        <a href="/wiki/Hybird/weex/Weex_six_events/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/MachO/MachO_FileStructure/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">weex系列抄之一---事件处理</div>
+            <div class="article-nav-title">Mach-O文件结构理解</div>
         </a>
     
 </nav>
