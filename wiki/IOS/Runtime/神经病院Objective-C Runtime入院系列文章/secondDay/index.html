@@ -13,17 +13,17 @@
 <meta name="keywords" content="消息发送 消息转发">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/index.html">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime13.gif">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay1.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime14.png">
-<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta property="og:updated_time" content="2018-10-31T10:54:52.561Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)">
 <meta name="twitter:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC">
-<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/runtime13.gif">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay1.png">
     
 
     
@@ -467,7 +467,7 @@
                             &nbsp;
                             神经病院Objective-C Runtime入院系列文章
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  </ul> 
                     </li> 
@@ -796,7 +796,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -818,7 +818,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">
+        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">
             <time datetime="2016-11-22T02:38:11.000Z" itemprop="datePublished">2016-11-22</time>
         </a>
     </div>
@@ -850,22 +850,42 @@
         
             <p>现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替换任何类的实现以及新增任意类。今天就来详细解析一下OC中runtime最为吸引人的地方。<br><a id="more"></a></p>
 <h1 id="消息发送阶段—objc-msgSend函数简介"><a href="#消息发送阶段—objc-msgSend函数简介" class="headerlink" title="消息发送阶段—objc_msgSend函数简介"></a>消息发送阶段—objc_msgSend函数简介</h1><p>最初接触到OC Runtime，一定是从[receiver message]这里开始的。[receiver message]会被编译器转化为：</p>
-<pre><code>id objc_msgSend ( id self, SEL op, ... );
-</code></pre><p>这是一个可变参数函数。第二个参数类型是SEL。SEL在OC中是selector方法选择器。</p>
-<pre><code>typedef struct objc_selector *SEL;
-</code></pre><p>objc_selector是一个映射到方法的C字符串。需要注意的是@selector()选择子只与函数名有关。不同类中相同名字的方法所对应的方法选择器是相同的，即使方法名字相同而变量类型不同也会导致它们具有相同的方法选择器。由于这点特性，也导致了OC不支持函数重载。</p>
-<p><font color="red" size="4" face="黑体">在receiver拿到对应的selector之后，如果自己无法执行这个方法，那么该条消息要被转发。或者临时动态的添加方法实现。如果转发到最后依旧没法处理，程序就会崩溃。</font><br>所以编译期仅仅是确定了要发送消息，而消息如何处理是要运行期需要解决的事情。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> objc_msgSend ( <span class="keyword">id</span> <span class="keyword">self</span>, SEL op, ... );</span><br></pre></td></tr></table></figure>
+<p>这是一个可变参数函数。第二个参数类型是SEL。SEL在OC中是selector方法选择器。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_selector</span> *<span class="title">SEL</span>;</span></span><br></pre></td></tr></table></figure>
+<p>objc_selector是一个映射到方法的C字符串。需要注意的是@selector()选择子只与函数名有关。不同类中相同名字的方法所对应的方法选择器是相同的，即使方法名字相同而变量类型不同也会导致它们具有相同的方法选择器。由于这点特性，也导致了OC不支持函数重载。</p>
+<font color="red" size="4" face="黑体">在receiver拿到对应的selector之后，如果自己无法执行这个方法，那么该条消息要被转发。或者临时动态的添加方法实现。如果转发到最后依旧没法处理，程序就会崩溃。</font>
+
+<p>所以编译期仅仅是确定了要发送消息，而消息如何处理是要运行期需要解决的事情。</p>
 <p>objc_msgSend函数究竟会干什么事情呢？从这篇<a href="http://www.friday.com/bbum/2009/12/18/objc_msgsend-part-1-the-road-map/" rel="external nofollow noopener noreferrer" target="_blank">objc_msgSend() Tour</a>文章里面可以得到一个比较详细的结论。</p>
 <ol>
 <li>Check for ignored selectors (GC) and short-circuit.</li>
-<li>Check for nil target.<br> If nil &amp; nil receiver handler configured, jump to handler<br> If nil &amp; no handler (default), cleanup and return.</li>
-<li>Search the class’s method cache for the method IMP(use hash to find&amp;store method in cache)<br>If found, jump to it. Not found: lookup the method IMP in the class itself corresponding its hierarchy chain. If found, load it into cache and jump to it. If not found, jump to forwarding mechanism.<br>总结一下objc_msgSend会做一下几件事情： </li>
+<li><p>Check for nil target. </p>
+<ol>
+<li>If nil &amp; nil receiver handler configured, jump to handler </li>
+<li>If nil &amp; no handler (default), cleanup and return.</li>
+</ol>
+</li>
+<li><p>Search the class’s method cache for the method IMP(use hash to find&amp;store method in cache) </p>
+<ol>
+<li>If found, jump to it. Not found: lookup the method IMP in the class itself corresponding its hierarchy chain. </li>
+<li>If found, load it into cache and jump to it. If not found, jump to forwarding mechanism.<br>总结一下objc_msgSend会做一下几件事情： </li>
+</ol>
+</li>
 </ol>
 <ol>
 <li>检测这个 selector是不是要忽略的。 </li>
-<li>检查target是不是为nil。<br>如果这里有相应的nil的处理函数，就跳转到相应的函数中。 如果没有处理nil的函数，就自动清理现场并返回。这一点就是为何在OC中给nil发送消息不会崩溃的原因。</li>
-<li>确定不是给nil发消息之后，在该class的缓存中查找方法对应的IMP实现。<br>如果找到，就跳转进去执行。 如果没有找到，就在方法分发表里面继续查找，一直找到NSObject为止。<br><img src="http://of685p9vy.bkt.clouddn.com/runtime13.gif" alt="runtime13"></li>
+<li><p>检查target是不是为nil。</p>
+<ol>
+<li>如果这里有相应的nil的处理函数，就跳转到相应的函数中。 </li>
+<li>如果没有处理nil的函数，就自动清理现场并返回。这一点就是为何在OC中给nil发送消息不会崩溃的原因。</li>
+</ol>
+</li>
+<li>确定不是给nil发消息之后，在该class的缓存中查找方法对应的IMP实现。</li>
+<li>如果找到，就跳转进去执行。 如果没有找到，就在方法分发表里面继续查找，一直找到NSObject为止。<br> <img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/secondDay1.png" alt="runtime13"><ol>
 <li>如果还没有找到，那就需要开始消息转发阶段了。至此，发送消息Messaging阶段完成。这一阶段主要完成的是通过select()快速查找IMP的过程。</li>
+</ol>
+</li>
 </ol>
 <h1 id="消息发送阶段—objc-msgSend源码解析"><a href="#消息发送阶段—objc-msgSend源码解析" class="headerlink" title="消息发送阶段—objc_msgSend源码解析"></a>消息发送阶段—objc_msgSend源码解析</h1><p>在这篇文章<a href="http://www.mulle-kybernetik.com/artikel/Optimization/opti-9.html" rel="external nofollow noopener noreferrer" target="_blank">Obj-C Optimization: The faster objc_msgSend</a>中看到了这样一段C版本的objc_msgSend的源码。</p>
 <p>#include <objc objc-runtime.h=""></objc></p>
@@ -1797,7 +1817,7 @@ GETSECT(_getObjc2CategoryList,        category_t *,    &quot;__objc_catlist&quot
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/" data-title="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/" data-title="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
