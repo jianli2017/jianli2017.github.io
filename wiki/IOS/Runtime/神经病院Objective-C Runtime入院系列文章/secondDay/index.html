@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay1.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay2.png">
-<meta property="og:updated_time" content="2018-10-31T11:29:43.400Z">
+<meta property="og:updated_time" content="2018-10-31T12:00:30.453Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)">
 <meta name="twitter:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC">
@@ -843,8 +843,8 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#消息发送阶段—objc-msgSend函数简介"><span class="toc-number">1.</span> <span class="toc-text">消息发送阶段—objc_msgSend函数简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息发送阶段—objc-msgSend源码解析"><span class="toc-number">2.</span> <span class="toc-text">消息发送阶段—objc_msgSend源码解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息转发Message-Forwarding阶段"><span class="toc-number">3.</span> <span class="toc-text">消息转发Message Forwarding阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#forwardInvocation的例子"><span class="toc-number">4.</span> <span class="toc-text">forwardInvocation的例子</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#入院考试"><span class="toc-number"></span> <span class="toc-text">入院考试</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Runtime中的优化"><span class="toc-number"></span> <span class="toc-text">Runtime中的优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#方法列表的缓存"><span class="toc-number">1.</span> <span class="toc-text">方法列表的缓存</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚函数表"><span class="toc-number">2.</span> <span class="toc-text">虚函数表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#dyld共享缓存"><span class="toc-number">3.</span> <span class="toc-text">dyld共享缓存</span></a></li></ol>
-                </li></div>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#消息发送阶段—objc-msgSend函数简介"><span class="toc-number">1.</span> <span class="toc-text">消息发送阶段—objc_msgSend函数简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息发送阶段—objc-msgSend源码解析"><span class="toc-number">2.</span> <span class="toc-text">消息发送阶段—objc_msgSend源码解析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息转发Message-Forwarding阶段"><span class="toc-number">3.</span> <span class="toc-text">消息转发Message Forwarding阶段</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#forwardInvocation的例子"><span class="toc-number">4.</span> <span class="toc-text">forwardInvocation的例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#入院考试"><span class="toc-number">5.</span> <span class="toc-text">入院考试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Runtime中的优化"><span class="toc-number">6.</span> <span class="toc-text">Runtime中的优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#方法列表的缓存"><span class="toc-number">6.1.</span> <span class="toc-text">方法列表的缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#虚函数表"><span class="toc-number">6.2.</span> <span class="toc-text">虚函数表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dyld共享缓存"><span class="toc-number">6.3.</span> <span class="toc-text">dyld共享缓存</span></a></li></ol></li></ol>
+                </div>
             
         
         
@@ -999,351 +999,42 @@
 <p>至此，消息发送和转发的过程都清楚明白了。</p>
 <p><img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/secondDay2.png" alt="消息转发流程图"></p>
 <h2 id="forwardInvocation的例子"><a href="#forwardInvocation的例子" class="headerlink" title="forwardInvocation的例子"></a>forwardInvocation的例子</h2><p>这里我想举一个好玩的例子，来说明一下forwardInvocation的使用方法。<br>这个例子中我们会利用runtime消息转发机制创建一个动态代理。利用这个动态代理来转发消息。这里我们会用到两个基类的另外一个神秘的类，NSProxy。<br>NSProxy类和NSObject同为OC里面的基类，但是NSProxy类是一种抽象的基类，无法直接实例化，可用于实现代理模式。它通过实现一组经过简化的方法，代替目标对象捕捉和处理所有的消息。NSProxy类也同样实现了NSObject的协议声明的方法，而且它有两个必须实现的方法。</p>
-<pre><code>- (void)forwardInvocation:(NSInvocation *)invocation;
-- (nullable NSMethodSignature *)methodSignatureForSelector:(SEL)sel NS_SWIFT_UNAVAILABLE(&quot;NSInvocation and related APIs not available&quot;);
-</code></pre><p>另外还需要说明的是，NSProxy类的子类必须声明并实现至少一个init方法，这样才能符合OC中创建和初始化对象的惯例。Foundation框架里面也含有多个NSProxy类的具体实现类。</p>
+<figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- <span class="params">(void)</span>forwardInvocation:<span class="params">(NSInvocation *)</span>invocation;</span><br><span class="line">- <span class="params">(nullable NSMethodSignature *)</span>methodSignatureForSelector:<span class="params">(SEL)</span>sel NS_SWIFT_UNAVAILABLE<span class="params">(<span class="string">"NSInvocation and related APIs not available"</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>另外还需要说明的是，NSProxy类的子类必须声明并实现至少一个init方法，这样才能符合OC中创建和初始化对象的惯例。Foundation框架里面也含有多个NSProxy类的具体实现类。</p>
 <ol>
 <li>NSDistantObject类：定义其他应用程序或线程中对象的代理类。</li>
 <li>NSProtocolChecker类：定义对象，使用这话对象可以限定哪些消息能够发送给另外一个对象。<br>接下来就来看看下面这个好玩的例子。</li>
 </ol>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@interface Student : NSObject
--(void)study:(NSString *)subject andRead:(NSString *)bookName;
--(void)study:(NSString *)subject :(NSString *)bookName;
-@end
-</code></pre><p>定义一个student类，里面随便给两个方法。</p>
-<pre><code>#import &quot;Student.h&quot;
-#import &lt;objc/runtime.h&gt;
-
-@implementation Student
-
--(void)study:(NSString *)subject :(NSString *)bookName
-{
-    NSLog(@&quot;Invorking method on %@ object with selector %@&quot;,[self class],NSStringFromSelector(_cmd));
-}
-
--(void)study:(NSString *)subject andRead:(NSString *)bookName
-{
-    NSLog(@&quot;Invorking method on %@ object with selector %@&quot;,[self class],NSStringFromSelector(_cmd));
-}
-@end
-</code></pre><p>在两个方法实现里面增加log信息，这是为了一会打印的时候方便知道调用了哪个方法。</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-#import &quot;Invoker.h&quot;
-
-@interface AspectProxy : NSProxy
-
-/** 通过NSProxy实例转发消息的真正对象 */
-@property(strong) id proxyTarget;
-/** 能够实现横切功能的类（遵守Invoker协议）的实例 */
-@property(strong) id&lt;Invoker&gt; invoker;
-/** 定义了哪些消息会调用横切功能 */
-@property(readonly) NSMutableArray *selectors;
-
-// AspectProxy类实例的初始化方法
-- (id)initWithObject:(id)object andInvoker:(id&lt;Invoker&gt;)invoker;
-- (id)initWithObject:(id)object selectors:(NSArray *)selectors andInvoker:(id&lt;Invoker&gt;)invoker;
-// 向当前的选择器列表中添加选择器
-- (void)registerSelector:(SEL)selector;
-
-@end
-</code></pre><p>定义一个AspectProxy类，这个类专门用来转发消息的。</p>
-<pre><code>#import &quot;AspectProxy.h&quot;
-
-@implementation AspectProxy
-
-- (id)initWithObject:(id)object 
-                      selectors:(NSArray *)selectors 
-                        andInvoker:(id&lt;Invoker&gt;)invoker
-{
-    _proxyTarget = object;
-    _invoker = invoker;
-    _selectors = [selectors mutableCopy];
-
-    return self;
-}
-
-- (id)initWithObject:(id)object 
-          andInvoker:(id&lt;Invoker&gt;)invoker
-{
-    return [self initWithObject:object selectors:nil andInvoker:invoker];
-}
-
-// 添加另外一个选择器
-- (void)registerSelector:(SEL)selector{
-    NSValue *selValue = [NSValue valueWithPointer:selector];
-    [self.selectors addObject:selValue];
-}
-
-// 为目标对象中被调用的方法返回一个NSMethodSignature实例
-// 运行时系统要求在执行标准转发时实现这个方法
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)sel{
-    return [self.proxyTarget methodSignatureForSelector:sel];
-}
-
-/**
- *  当调用目标方法的选择器与在AspectProxy对象中注册的选择器匹配时，forwardInvocation:会
- *  调用目标对象中的方法，并根据条件语句的判断结果调用AOP（面向切面编程）功能
- */
-- (void)forwardInvocation:(NSInvocation *)invocation{
-    // 在调用目标方法前执行横切功能
-    if ([self.invoker respondsToSelector:@selector(preInvoke:withTarget:)]) {
-        if (self.selectors != nil) {
-            SEL methodSel = [invocation selector];
-            for (NSValue *selValue in self.selectors) {
-                if (methodSel == [selValue pointerValue]) {
-                    [[self invoker] preInvoke:invocation withTarget:self.proxyTarget];
-                    break;
-                }
-            }
-        }else{
-            [[self invoker] preInvoke:invocation withTarget:self.proxyTarget];
-        }
-    }
-
-    // 调用目标方法
-    [invocation invokeWithTarget:self.proxyTarget];
-
-    // 在调用目标方法后执行横切功能
-    if ([self.invoker respondsToSelector:@selector(postInvoke:withTarget:)]) {
-        if (self.selectors != nil) {
-            SEL methodSel = [invocation selector];
-            for (NSValue *selValue in self.selectors) {
-                if (methodSel == [selValue pointerValue]) {
-                    [[self invoker] postInvoke:invocation withTarget:self.proxyTarget];
-                    break;
-                }
-            }
-        }else{
-            [[self invoker] postInvoke:invocation withTarget:self.proxyTarget];
-        }
-    }
-}
-</code></pre><p>接着我们定义一个代理协议</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-
-@protocol Invoker &lt;NSObject&gt;
-
-@required
-// 在调用对象中的方法前执行对功能的横切
-- (void)preInvoke:(NSInvocation *)inv withTarget:(id)target;
-@optional
-// 在调用对象中的方法后执行对功能的横切
-- (void)postInvoke:(NSInvocation *)inv withTarget:(id)target;
-
-@end
-</code></pre><p>最后还需要一个遵守协议的类</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-#import &quot;Invoker.h&quot;
-
-@interface AuditingInvoker : NSObject&lt;Invoker&gt;//遵守Invoker协议
-@end
-
-
-#import &quot;AuditingInvoker.h&quot;
-
-@implementation AuditingInvoker
-
-- (void)preInvoke:(NSInvocation *)inv withTarget:(id)target{
-    NSLog(@&quot;before sending message with selector %@ to %@ object&quot;, NSStringFromSelector([inv selector]),[target className]);
-}
-- (void)postInvoke:(NSInvocation *)inv withTarget:(id)target{
-    NSLog(@&quot;after sending message with selector %@ to %@ object&quot;, NSStringFromSelector([inv selector]),[target className]);
-
-}
-@end
-</code></pre><p>在这个遵循代理类里面我们只实现协议里面的两个方法。<br>写出测试代码</p>
-<pre><code>#import &lt;Foundation/Foundation.h&gt;
-#import &quot;AspectProxy.h&quot;
-#import &quot;AuditingInvoker.h&quot;
-#import &quot;Student.h&quot;
-
-int main(int argc, const char * argv[]) {  
-    @autoreleasepool {
-
-        id student = [[Student alloc] init];
-
-        // 设置代理中注册的选择器数组
-        NSValue *selValue1 = [NSValue valueWithPointer:@selector(study:andRead:)];
-        NSArray *selValues = @[selValue1];
-        // 创建AuditingInvoker
-        AuditingInvoker *invoker = [[AuditingInvoker alloc] init];
-        // 创建Student对象的代理studentProxy
-        id studentProxy = [[AspectProxy alloc] initWithObject:student selectors:selValues andInvoker:invoker];
-
-        // 使用指定的选择器向该代理发送消息---例子1
-        [studentProxy study:@&quot;Computer&quot; andRead:@&quot;Algorithm&quot;];
-
-        // 使用还未注册到代理中的其他选择器，向这个代理发送消息！---例子2
-        [studentProxy study:@&quot;mathematics&quot; :@&quot;higher mathematics&quot;];
-
-        // 为这个代理注册一个选择器并再次向其发送消息---例子3
-        [studentProxy registerSelector:@selector(study::)];
-        [studentProxy study:@&quot;mathematics&quot; :@&quot;higher mathematics&quot;];
-    }
-    return 0;
-}
-</code></pre><p>这里有3个例子。里面会分别输出什么呢？</p>
-<pre><code>before sending message with selector study:andRead: to Student object  
-Invorking method on Student object with selector study:andRead:  
-after sending message with selector study:andRead: to Student object
-
-Invorking method on Student object with selector study::
-
-before sending message with selector study:: to Student object  
-Invorking method on Student object with selector study::  
-after sending message with selector study:: to Student object
-</code></pre><p>例子1中会输出3句话。调用Student对象的代理中的study:andRead:方法，会使该代理调用AuditingInvoker对象中的preInvoker:方法、真正目标（Student对象）中的study:andRead:方法，以及AuditingInvoker对象中的postInvoker:方法。一个方法的调用，调用起了3个方法。原因是study:andRead:方法是通过Student对象的代理注册的；</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">NSObject</span></span></span><br><span class="line">-(<span class="keyword">void</span>)study:(<span class="built_in">NSString</span> *)subject andRead:(<span class="built_in">NSString</span> *)bookName;</span><br><span class="line">-(<span class="keyword">void</span>)study:(<span class="built_in">NSString</span> *)subject :(<span class="built_in">NSString</span> *)bookName;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>定义一个student类，里面随便给两个方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"Student.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></span><br><span class="line">	</span><br><span class="line">-(<span class="keyword">void</span>)study:(<span class="built_in">NSString</span> *)subject :(<span class="built_in">NSString</span> *)bookName</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Invorking method on %@ object with selector %@"</span>,[<span class="keyword">self</span> <span class="keyword">class</span>],<span class="built_in">NSStringFromSelector</span>(_cmd));</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">-(<span class="keyword">void</span>)study:(<span class="built_in">NSString</span> *)subject andRead:(<span class="built_in">NSString</span> *)bookName</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Invorking method on %@ object with selector %@"</span>,[<span class="keyword">self</span> <span class="keyword">class</span>],<span class="built_in">NSStringFromSelector</span>(_cmd));</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在两个方法实现里面增加log信息，这是为了一会打印的时候方便知道调用了哪个方法。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Invoker.h"</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AspectProxy</span> : <span class="title">NSProxy</span></span></span><br><span class="line">	</span><br><span class="line"><span class="comment">/** 通过NSProxy实例转发消息的真正对象 */</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>) <span class="keyword">id</span> proxyTarget;</span><br><span class="line"><span class="comment">/** 能够实现横切功能的类（遵守Invoker协议）的实例 */</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">strong</span>) <span class="keyword">id</span>&lt;Invoker&gt; invoker;</span><br><span class="line"><span class="comment">/** 定义了哪些消息会调用横切功能 */</span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">readonly</span>) <span class="built_in">NSMutableArray</span> *selectors;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// AspectProxy类实例的初始化方法</span></span><br><span class="line">- (<span class="keyword">id</span>)initWithObject:(<span class="keyword">id</span>)object andInvoker:(<span class="keyword">id</span>&lt;Invoker&gt;)invoker;</span><br><span class="line">- (<span class="keyword">id</span>)initWithObject:(<span class="keyword">id</span>)object selectors:(<span class="built_in">NSArray</span> *)selectors andInvoker:(<span class="keyword">id</span>&lt;Invoker&gt;)invoker;</span><br><span class="line"><span class="comment">// 向当前的选择器列表中添加选择器</span></span><br><span class="line">- (<span class="keyword">void</span>)registerSelector:(SEL)selector;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>定义一个AspectProxy类，这个类专门用来转发消息的。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"AspectProxy.h"</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AspectProxy</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)initWithObject:(<span class="keyword">id</span>)object </span><br><span class="line">					  selectors:(<span class="built_in">NSArray</span> *)selectors </span><br><span class="line">						andInvoker:(<span class="keyword">id</span>&lt;Invoker&gt;)invoker</span><br><span class="line">&#123;</span><br><span class="line">    _proxyTarget = object;</span><br><span class="line">    _invoker = invoker;</span><br><span class="line">    _selectors = [selectors mutableCopy];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)initWithObject:(<span class="keyword">id</span>)object </span><br><span class="line">          andInvoker:(<span class="keyword">id</span>&lt;Invoker&gt;)invoker</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithObject:object selectors:<span class="literal">nil</span> andInvoker:invoker];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 添加另外一个选择器</span></span><br><span class="line">- (<span class="keyword">void</span>)registerSelector:(SEL)selector&#123;</span><br><span class="line">    <span class="built_in">NSValue</span> *selValue = [<span class="built_in">NSValue</span> valueWithPointer:selector];</span><br><span class="line">    [<span class="keyword">self</span>.selectors addObject:selValue];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">// 为目标对象中被调用的方法返回一个NSMethodSignature实例</span></span><br><span class="line"><span class="comment">// 运行时系统要求在执行标准转发时实现这个方法</span></span><br><span class="line">- (<span class="built_in">NSMethodSignature</span> *)methodSignatureForSelector:(SEL)sel&#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">self</span>.proxyTarget methodSignatureForSelector:sel];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  当调用目标方法的选择器与在AspectProxy对象中注册的选择器匹配时，forwardInvocation:会</span></span><br><span class="line"><span class="comment"> *  调用目标对象中的方法，并根据条件语句的判断结果调用AOP（面向切面编程）功能</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">- (<span class="keyword">void</span>)forwardInvocation:(<span class="built_in">NSInvocation</span> *)invocation&#123;</span><br><span class="line">    <span class="comment">// 在调用目标方法前执行横切功能</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.invoker respondsToSelector:<span class="keyword">@selector</span>(preInvoke:withTarget:)]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.selectors != <span class="literal">nil</span>) &#123;</span><br><span class="line">            SEL methodSel = [invocation selector];</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">NSValue</span> *selValue <span class="keyword">in</span> <span class="keyword">self</span>.selectors) &#123;</span><br><span class="line">                <span class="keyword">if</span> (methodSel == [selValue pointerValue]) &#123;</span><br><span class="line">                    [[<span class="keyword">self</span> invoker] preInvoke:invocation withTarget:<span class="keyword">self</span>.proxyTarget];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            [[<span class="keyword">self</span> invoker] preInvoke:invocation withTarget:<span class="keyword">self</span>.proxyTarget];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 调用目标方法</span></span><br><span class="line">    [invocation invokeWithTarget:<span class="keyword">self</span>.proxyTarget];</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在调用目标方法后执行横切功能</span></span><br><span class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.invoker respondsToSelector:<span class="keyword">@selector</span>(postInvoke:withTarget:)]) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.selectors != <span class="literal">nil</span>) &#123;</span><br><span class="line">            SEL methodSel = [invocation selector];</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">NSValue</span> *selValue <span class="keyword">in</span> <span class="keyword">self</span>.selectors) &#123;</span><br><span class="line">                <span class="keyword">if</span> (methodSel == [selValue pointerValue]) &#123;</span><br><span class="line">                    [[<span class="keyword">self</span> invoker] postInvoke:invocation withTarget:<span class="keyword">self</span>.proxyTarget];</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            [[<span class="keyword">self</span> invoker] postInvoke:invocation withTarget:<span class="keyword">self</span>.proxyTarget];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接着我们定义一个代理协议</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">Invoker</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">@required</span></span><br><span class="line"><span class="comment">// 在调用对象中的方法前执行对功能的横切</span></span><br><span class="line">- (<span class="keyword">void</span>)preInvoke:(<span class="built_in">NSInvocation</span> *)inv withTarget:(<span class="keyword">id</span>)target;</span><br><span class="line"><span class="keyword">@optional</span></span><br><span class="line"><span class="comment">// 在调用对象中的方法后执行对功能的横切</span></span><br><span class="line">- (<span class="keyword">void</span>)postInvoke:(<span class="built_in">NSInvocation</span> *)inv withTarget:(<span class="keyword">id</span>)target;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>最后还需要一个遵守协议的类</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Invoker.h"</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">AuditingInvoker</span> : <span class="title">NSObject</span>&lt;<span class="title">Invoker</span>&gt;//遵守<span class="title">Invoker</span>协议</span></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line"><span class="meta">#import <span class="meta-string">"AuditingInvoker.h"</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">AuditingInvoker</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">void</span>)preInvoke:(<span class="built_in">NSInvocation</span> *)inv withTarget:(<span class="keyword">id</span>)target&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"before sending message with selector %@ to %@ object"</span>, <span class="built_in">NSStringFromSelector</span>([inv selector]),[target className]);</span><br><span class="line">&#125;</span><br><span class="line">- (<span class="keyword">void</span>)postInvoke:(<span class="built_in">NSInvocation</span> *)inv withTarget:(<span class="keyword">id</span>)target&#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"after sending message with selector %@ to %@ object"</span>, <span class="built_in">NSStringFromSelector</span>([inv selector]),[target className]);</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>在这个遵循代理类里面我们只实现协议里面的两个方法。<br>写出测试代码</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"AspectProxy.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"AuditingInvoker.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"Student.h"</span></span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;  </span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">id</span> student = [[Student alloc] init];</span><br><span class="line">	</span><br><span class="line">        <span class="comment">// 设置代理中注册的选择器数组</span></span><br><span class="line">        <span class="built_in">NSValue</span> *selValue1 = [<span class="built_in">NSValue</span> valueWithPointer:<span class="keyword">@selector</span>(study:andRead:)];</span><br><span class="line">        <span class="built_in">NSArray</span> *selValues = @[selValue1];</span><br><span class="line">        <span class="comment">// 创建AuditingInvoker</span></span><br><span class="line">        AuditingInvoker *invoker = [[AuditingInvoker alloc] init];</span><br><span class="line">        <span class="comment">// 创建Student对象的代理studentProxy</span></span><br><span class="line">        <span class="keyword">id</span> studentProxy = [[AspectProxy alloc] initWithObject:student selectors:selValues andInvoker:invoker];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 使用指定的选择器向该代理发送消息---例子1</span></span><br><span class="line">        [studentProxy study:<span class="string">@"Computer"</span> andRead:<span class="string">@"Algorithm"</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 使用还未注册到代理中的其他选择器，向这个代理发送消息！---例子2</span></span><br><span class="line">        [studentProxy study:<span class="string">@"mathematics"</span> :<span class="string">@"higher mathematics"</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 为这个代理注册一个选择器并再次向其发送消息---例子3</span></span><br><span class="line">        [studentProxy registerSelector:<span class="keyword">@selector</span>(study::)];</span><br><span class="line">        [studentProxy study:<span class="string">@"mathematics"</span> :<span class="string">@"higher mathematics"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有3个例子。里面会分别输出什么呢？</p>
+<figure class="highlight scala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">before sending message <span class="keyword">with</span> selector study:andRead: to <span class="type">Student</span> <span class="class"><span class="keyword">object</span>  </span></span><br><span class="line"><span class="class"><span class="title">Invorking</span> <span class="title">method</span> <span class="title">on</span> <span class="title">Student</span> <span class="title">object</span> <span class="keyword">with</span> <span class="title">selector</span> <span class="title">study</span></span>:andRead:  </span><br><span class="line">after sending message <span class="keyword">with</span> selector study:andRead: to <span class="type">Student</span> <span class="class"><span class="keyword">object</span></span></span><br><span class="line"><span class="class">	</span></span><br><span class="line"><span class="class"><span class="title">Invorking</span> <span class="title">method</span> <span class="title">on</span> <span class="title">Student</span> <span class="title">object</span> <span class="keyword">with</span> <span class="title">selector</span> <span class="title">study</span></span>::</span><br><span class="line">	</span><br><span class="line">before sending message <span class="keyword">with</span> selector study:: to <span class="type">Student</span> <span class="class"><span class="keyword">object</span>  </span></span><br><span class="line"><span class="class"><span class="title">Invorking</span> <span class="title">method</span> <span class="title">on</span> <span class="title">Student</span> <span class="title">object</span> <span class="keyword">with</span> <span class="title">selector</span> <span class="title">study</span></span>::  </span><br><span class="line">after sending message <span class="keyword">with</span> selector study:: to <span class="type">Student</span> <span class="class"><span class="keyword">object</span></span></span><br></pre></td></tr></table></figure>
+<p>例子1中会输出3句话。调用Student对象的代理中的study:andRead:方法，会使该代理调用AuditingInvoker对象中的preInvoker:方法、真正目标（Student对象）中的study:andRead:方法，以及AuditingInvoker对象中的postInvoker:方法。一个方法的调用，调用起了3个方法。原因是study:andRead:方法是通过Student对象的代理注册的；</p>
 <p>例子2就只会输出1句话。调用Student对象代理中的study::方法，因为该方法还未通过这个代理注册，所以程序仅会将调用该方法的消息转发给Student对象，而不会调用AuditorInvoker方法。</p>
 <p>例子3又会输出3句话了。因为study::通过这个代理进行了注册，然后程序再次调用它，在这次调用过程中，程序会调用AuditingInvoker对象中的AOP方法和真正目标（Student对象）中的study::方法。</p>
 <p>这个例子就实现了一个简单的AOP(Aspect Oriented Programming)面向切面编程。我们把一切功能”切”出去，与其他部分分开，这样可以提高程序的模块化程度。AOP能解耦也能动态组装，可以通过预编译方式和运行期动态代理实现在不修改源代码的情况下给程序动态统一添加功能。比如上面的例子三，我们通过把方法注册到动态代理类中，于是就实现了该类也能处理方法的功能。</p>
-<h1 id="入院考试"><a href="#入院考试" class="headerlink" title="入院考试"></a>入院考试</h1><p>下面的代码会？Compile Error / Runtime Crash / NSLog…?</p>
-<pre><code>@interface NSObject (Sark)
-+ (void)foo;
-- (void)foo;
-@end
-
-@implementation NSObject (Sark)
-- (void)foo
-{
-   NSLog(@&quot;IMP: -[NSObject(Sark) foo]&quot;);
-}
-
-@end
-
-int main(int argc, const char * argv[]) 
-{
-         @autoreleasepool 
-         {
-             [NSObject foo];
-             [[NSObject new] foo];
-     }
-            return 0;
-}
-</code></pre><p>这道有两处难点，难点一是给NSObject增加了一个分类，分类声明的是一个加号的类方法，而实现中是一个减号的实例方法。在main中去NSObject去调用了这个foo方法，会编译错误，还是会Crash呢？</p>
+<h2 id="入院考试"><a href="#入院考试" class="headerlink" title="入院考试"></a>入院考试</h2><p>下面的代码会？Compile Error / Runtime Crash / NSLog…?</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">Sark</span>)</span></span><br><span class="line">+ (<span class="keyword">void</span>)foo;</span><br><span class="line">- (<span class="keyword">void</span>)foo;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">Sark</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)foo</span><br><span class="line">&#123;</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"IMP: -[NSObject(Sark) foo]"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) </span><br><span class="line">&#123;</span><br><span class="line"> 		<span class="keyword">@autoreleasepool</span> </span><br><span class="line"> 		&#123;</span><br><span class="line">     		[<span class="built_in">NSObject</span> foo];</span><br><span class="line">     		[[<span class="built_in">NSObject</span> new] foo];</span><br><span class="line">     &#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这道有两处难点，难点一是给NSObject增加了一个分类，分类声明的是一个加号的类方法，而实现中是一个减号的实例方法。在main中去NSObject去调用了这个foo方法，会编译错误，还是会Crash呢？</p>
 <p>难点二是会输出什么内容呢？</p>
 <p>先来看难点一，这里会牵扯到Category的知识。推荐文章还是美团的这篇经典的<a href="http://tech.meituan.com/DiveIntoCategory.html" rel="external nofollow noopener noreferrer" target="_blank">深入理解Objective-C：Category</a></p>
-<pre><code>// 这个函数算是整个 objc4 库的入口函数，被 libSystem 库调用
-
-#if !__OBJC2__
-static __attribute__((constructor))
-#endif
-void _objc_init(void)
-{
-    static bool initialized = false;
-    if (initialized) return;
-    initialized = true;
-
-    // fixme defer initialization until an objc-using image is found?
-    environ_init();
-    tls_init();
-    static_init();
-    lock_init();
-    exception_init();
-
-    // Register for unmap first, in case some +load unmaps something
-    // 首先第一步，注册 unmap 函数，万一有的类的 +load 方法需要 unmap 一些东西
-    // unmap，即 un-memory-mapped，这里应该就是取消内存映射，移除镜像的意思
-    _dyld_register_func_for_remove_image(&amp;unmap_image);
-
-    // 注册镜像状态改变时的回调函数
-    dyld_register_image_state_change_handler(dyld_image_state_bound,
-                                             1/*batch 是否批处理*/, &amp;map_2_images);
-
-    // 注册镜像状态改变时的回调函数，镜像加载完成后，需要调用 +load 时会回调 load_images 函数
-    // 不进行批处理，所以 load_images 会被调用多次，每次有新的镜像进来时，都会被调用
-    dyld_register_image_state_change_handler(dyld_image_state_dependents_initialized, 0/*not batch*/, &amp;load_images);
-}
-</code></pre><p>OC在初始化的时候，会去加载map_images，map_images最终会调用objc-runtime-new.mm里面的_read_images方法。_read_images方法里面会去初始化内存中的map, 这个时候将会load所有的类，协议还有Category。NSOBject的+load方法就是这个时候调用的。</p>
-<pre><code>    // Discover categories.
-for (EACH_HEADER) 
-{ // 遍历 hList
-    // 取得 hi 镜像中的所有分类
-    category_t **catlist = _getObjc2CategoryList(hi, &amp;count);
-    for (i = 0; i &lt; count; i++) 
-    { // 遍历所有分类
-        category_t *cat = catlist[i];
-        Class cls = remapClass(cat-&gt;cls); // 得到分类所属的类的 live class
-
-        if (!cls) 
-        { // 如果 cls 为空
-            // Category&apos;s target class is missing (probably weak-linked).
-            // Disavow any knowledge of this category.
-
-            // 分类所属的类丢了，很多可能是 weak-linked 了
-            // 这个分类就是不可信的，完全没有什么鸟用了
-
-            catlist[i] = nil; // 将这个分类从列表中删除
-
-            if (PrintConnecting) 
-            {
-                _objc_inform(&quot;CLASS: IGNORING category \?\?\?(%s) %p with &quot;
-                             &quot;missing weak-linked target class&quot;, 
-                             cat-&gt;name, cat);
-            }
-            continue;
-        }
-
-        // Process this category. 
-        // First, register the category with its target class. 
-        // Then, rebuild the class&apos;s method lists (etc) if 
-        // the class is realized.
-
-        // 处理这个分类
-        // 首先，注册注册这个分类
-        // 然后，如果这个类已经是 realized 的话，就重新建立这个类的方法列表（把分类的方法添加进去）
-
-        bool classExists = NO;
-
-        if (cat-&gt;instanceMethods ||  cat-&gt;protocols  
-            ||  cat-&gt;instanceProperties) // 如果分类中存在实例方法 or 协议 or 实例属性
-        {
-            // 添加分类到所属的 cls 类上，即把这个分类添加到 cls 对应的所有 unattached 的分类的列表中
-            addUnattachedCategoryForClass(cat, cls, hi);
-
-            // 如果 cls 类已经被 realized
-            if (cls-&gt;isRealized()) {
-                // 就重新 methodize 一下 cls 类，里面会重新 attachCategories 一下所有未被 attach 的分类
-                // 即把这些分类中的方法、协议、属性添加到 cls 类中
-                remethodizeClass(cls);
-                classExists = YES; // 标记类存在
-            }
-            if (PrintConnecting) {
-                _objc_inform(&quot;CLASS: found category -%s(%s) %s&quot;, 
-                             cls-&gt;nameForLogging(), cat-&gt;name, 
-                             classExists ? &quot;on existing class&quot; : &quot;&quot;);
-            }
-        }
-
-        // 如果分类中存在类方法 or 协议
-        if (cat-&gt;classMethods  ||  cat-&gt;protocols  
-            /* ||  cat-&gt;classProperties */) 
-        {
-            // 添加分类到所属类 cls 的元类中
-            addUnattachedCategoryForClass(cat, cls-&gt;ISA(), hi);
-            // 如果 cls 的元类已经 realized 过了
-            if (cls-&gt;ISA()-&gt;isRealized()) {
-                // 就重新 methodize 一下 cls 类的元类
-                remethodizeClass(cls-&gt;ISA());
-            }
-            if (PrintConnecting) {
-                _objc_inform(&quot;CLASS: found category +%s(%s)&quot;, 
-                             cls-&gt;nameForLogging(), cat-&gt;name);
-            }
-        }
-    }
-}
-</code></pre><p>在这个加载中，for循环中会反复调用_getObjc2CategoryList 方法，这个方法的具体实现是</p>
-<pre><code>//      function name                 content type     section name
-GETSECT(_getObjc2CategoryList,        category_t *,    &quot;__objc_catlist&quot;);
-</code></pre><p>最后一个参数__objc_catlist就是编译器刚刚生成的category数组。<br>加载完所有的category之后，就开始处理这些类别。大体思路还是分为2类来分开处理。</p>
-<pre><code>if (cat-&gt;instanceMethods || cat-&gt;protocols || cat-&gt;instanceProperties){  
-}
-</code></pre><p>第一类是实例方法</p>
-<pre><code>if (cat-&gt;classMethods || cat-&gt;protocols /* || cat-&gt;classProperties */) {  
-}
-</code></pre><p>第二类是类方法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个函数算是整个 objc4 库的入口函数，被 libSystem 库调用</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> !__OBJC2__</span></span><br><span class="line"><span class="keyword">static</span> __attribute__((constructor))</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="keyword">void</span> _objc_init(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">bool</span> initialized = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">if</span> (initialized) <span class="keyword">return</span>;</span><br><span class="line">    initialized = <span class="literal">true</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// fixme defer initialization until an objc-using image is found?</span></span><br><span class="line">    environ_init();</span><br><span class="line">    tls_init();</span><br><span class="line">    static_init();</span><br><span class="line">    lock_init();</span><br><span class="line">    exception_init();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// Register for unmap first, in case some +load unmaps something</span></span><br><span class="line">    <span class="comment">// 首先第一步，注册 unmap 函数，万一有的类的 +load 方法需要 unmap 一些东西</span></span><br><span class="line">    <span class="comment">// unmap，即 un-memory-mapped，这里应该就是取消内存映射，移除镜像的意思</span></span><br><span class="line">    _dyld_register_func_for_remove_image(&amp;unmap_image);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注册镜像状态改变时的回调函数</span></span><br><span class="line">    dyld_register_image_state_change_handler(dyld_image_state_bound,</span><br><span class="line">                                             <span class="number">1</span><span class="comment">/*batch 是否批处理*/</span>, &amp;map_2_images);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注册镜像状态改变时的回调函数，镜像加载完成后，需要调用 +load 时会回调 load_images 函数</span></span><br><span class="line">    <span class="comment">// 不进行批处理，所以 load_images 会被调用多次，每次有新的镜像进来时，都会被调用</span></span><br><span class="line">    dyld_register_image_state_change_handler(dyld_image_state_dependents_initialized, <span class="number">0</span><span class="comment">/*not batch*/</span>, &amp;load_images);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>OC在初始化的时候，会去加载map_images，map_images最终会调用objc-runtime-new.mm里面的_read_images方法。_read_images方法里面会去初始化内存中的map, 这个时候将会load所有的类，协议还有Category。NSOBject的+load方法就是这个时候调用的。</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">// Discover categories.</span></span><br><span class="line"><span class="keyword">for</span> (EACH_HEADER) </span><br><span class="line">&#123; <span class="comment">// 遍历 hList</span></span><br><span class="line">    <span class="comment">// 取得 hi 镜像中的所有分类</span></span><br><span class="line">    category_t **catlist = _getObjc2CategoryList(hi, &amp;count);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) </span><br><span class="line">    &#123; <span class="comment">// 遍历所有分类</span></span><br><span class="line">        category_t *cat = catlist[i];</span><br><span class="line">        C<span class="function"><span class="title">lass</span> cls = remapClass(cat-&gt;</span>cls); <span class="comment">// 得到分类所属的类的 live class</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!cls) </span><br><span class="line">        &#123; <span class="comment">// 如果 cls 为空</span></span><br><span class="line">            <span class="comment">// Category's target class is missing (probably weak-linked).</span></span><br><span class="line">            <span class="comment">// Disavow any knowledge of this category.</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 分类所属的类丢了，很多可能是 weak-linked 了</span></span><br><span class="line">            <span class="comment">// 这个分类就是不可信的，完全没有什么鸟用了</span></span><br><span class="line">            </span><br><span class="line">            catlist[i] = <span class="literal">nil</span>; <span class="comment">// 将这个分类从列表中删除</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (PrintConnecting) </span><br><span class="line">            &#123;</span><br><span class="line">                _objc_inform(<span class="string">"CLASS: IGNORING category \?\?\?(%s) %p with "</span></span><br><span class="line">                             <span class="string">"missing weak-linked target class"</span>, </span><br><span class="line">                             <span class="function"><span class="title">cat</span>-&gt;</span><span class="keyword">name</span>, cat);</span><br><span class="line">            &#125;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Process this category. </span></span><br><span class="line">        <span class="comment">// First, register the category with its target class. </span></span><br><span class="line">        <span class="comment">// Then, rebuild the class's method lists (etc) if </span></span><br><span class="line">        <span class="comment">// the class is realized.</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 处理这个分类</span></span><br><span class="line">        <span class="comment">// 首先，注册注册这个分类</span></span><br><span class="line">        <span class="comment">// 然后，如果这个类已经是 realized 的话，就重新建立这个类的方法列表（把分类的方法添加进去）</span></span><br><span class="line">        </span><br><span class="line">        bool classExists = NO;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="title">if</span> (cat-&gt;</span><span class="function"><span class="title">instanceMethods</span> ||  cat-&gt;</span>protocols  </span><br><span class="line">            ||  <span class="function"><span class="title">cat</span>-&gt;</span>instanceProperties) <span class="comment">// 如果分类中存在实例方法 or 协议 or 实例属性</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 添加分类到所属的 cls 类上，即把这个分类添加到 cls 对应的所有 unattached 的分类的列表中</span></span><br><span class="line">            addUnattachedCategoryForClass(cat, cls, hi);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 如果 cls 类已经被 realized</span></span><br><span class="line">            <span class="function"><span class="title">if</span> (cls-&gt;</span>isRealized()) &#123;</span><br><span class="line">                <span class="comment">// 就重新 methodize 一下 cls 类，里面会重新 attachCategories 一下所有未被 attach 的分类</span></span><br><span class="line">                <span class="comment">// 即把这些分类中的方法、协议、属性添加到 cls 类中</span></span><br><span class="line">                remethodizeClass(cls);</span><br><span class="line">                classExists = YES; <span class="comment">// 标记类存在</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"CLASS: found category -%s(%s) %s"</span>, </span><br><span class="line">                             <span class="function"><span class="title">cls</span>-&gt;</span><span class="function"><span class="title">nameForLogging</span>(), cat-&gt;</span><span class="keyword">name</span>, </span><br><span class="line">                             classExists ? <span class="string">"on existing class"</span> : <span class="string">""</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果分类中存在类方法 or 协议</span></span><br><span class="line">        <span class="function"><span class="title">if</span> (cat-&gt;</span><span class="function"><span class="title">classMethods</span>  ||  cat-&gt;</span>protocols  </span><br><span class="line">            <span class="comment">/* ||  cat-&gt;classProperties */</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 添加分类到所属类 cls 的元类中</span></span><br><span class="line">            <span class="function"><span class="title">addUnattachedCategoryForClass</span>(cat, cls-&gt;</span>ISA(), hi);</span><br><span class="line">            <span class="comment">// 如果 cls 的元类已经 realized 过了</span></span><br><span class="line">            <span class="function"><span class="title">if</span> (cls-&gt;</span>ISA()-&gt;isRealized()) &#123;</span><br><span class="line">                <span class="comment">// 就重新 methodize 一下 cls 类的元类</span></span><br><span class="line">                <span class="function"><span class="title">remethodizeClass</span>(cls-&gt;</span>ISA());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"CLASS: found category +%s(%s)"</span>, </span><br><span class="line">                             <span class="function"><span class="title">cls</span>-&gt;</span><span class="function"><span class="title">nameForLogging</span>(), cat-&gt;</span><span class="keyword">name</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个加载中，for循环中会反复调用_getObjc2CategoryList 方法，这个方法的具体实现是</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">//      function name                 content type     section name</span></span><br><span class="line">	GETSECT(_getObjc2CategoryList,        category_t *,    <span class="string">"__objc_catlist"</span>);</span><br><span class="line">	</span><br><span class="line">最后一个参数__objc_catlist就是编译器刚刚生成的category数组。</span><br><span class="line">加载完所有的category之后，就开始处理这些类别。大体思路还是分为<span class="number">2</span>类来分开处理。</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">if</span> (cat-&gt;</span><span class="function"><span class="title">instanceMethods</span> || cat-&gt;</span><span class="function"><span class="title">protocols</span> || cat-&gt;</span>instanceProperties)&#123;  </span><br><span class="line">	&#125;</span><br><span class="line">第一类是实例方法</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="title">if</span> (cat-&gt;</span><span class="function"><span class="title">classMethods</span> || cat-&gt;</span><span class="function"><span class="title">protocols</span> /* || cat-&gt;</span>classProperties */) &#123;  </span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>第二类是类方法。</p>
 <p>处理完之后的结果 </p>
 <ol>
 <li>把category的实例方法、协议以及属性添加到类上 </li>
@@ -1352,19 +1043,19 @@ GETSECT(_getObjc2CategoryList,        category_t *,    &quot;__objc_catlist&quot
 <p>这两种情况里面的处理方式都差不多，先去调用addUnattachedCategoryForClass函数，申请内存，分配空间。remethodizeClass这个方法里面会调用attachCategories方法。<br>attachCategories方法代码就不贴了，有兴趣的可以自己去看看。这个方法里面会用头插法，把新加的方法从头插入方法链表中。并且最后还会flushCaches。<br>这也就是为什么我们可以在Category里面覆盖原有的方法的原因，因为头插法，新的方法在链表的前面，会优先被遍历到。<br>以上就是Category加载时候的流程。</p>
 <p>再回到这道题目上面来，在加载NSObject的Category中，在编译期会提示我们没有实现+(void)foo的方法，因为在.m文件中并没有找到+的方法，而是一个-号的方法，所以会提示。<br>但是在实际加载Category的时候，会把-(void)foo加载进去，由于是实例方法，所以会放在NSObject的实例方法链表里面。<br>根据第二章分析的objc_msgSend源码实现，我们可以知道：</p>
 <p>在调用[NSObject foo]的时候，会先在NSObject的meta-class中去查找foo方法的IMP，未找到，继续在superClass中去查找，NSObject的meta-class的superClass就是本身NSObject，于是又回到NSObject的类方法中查找foo方法，于是乎找到了，执行foo方法，输出</p>
-<pre><code>IMP: -[NSObject(Sark) foo]
-</code></pre><p>在调用[[NSObject new] foo]的时候，会先生成一个NSObject的对象，用这个NSObject实例对象再去调用foo方法的时候，会去NSObject的类方法里面去查找，找到，于是也会输出</p>
-<pre><code>IMP: -[NSObject(Sark) foo]
-</code></pre><p>所以上面这题，不会Compile Error ，更不会 Runtime Crash ，会输出两个相同的结果。</p>
-<h1 id="Runtime中的优化"><a href="#Runtime中的优化" class="headerlink" title="Runtime中的优化"></a>Runtime中的优化</h1><p>关于Runtime系统中，有3种地方进行了优化。</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IMP: -<span class="string">[NSObject(Sark) foo]</span></span><br></pre></td></tr></table></figure>
+<p>在调用[[NSObject new] foo]的时候，会先生成一个NSObject的对象，用这个NSObject实例对象再去调用foo方法的时候，会去NSObject的类方法里面去查找，找到，于是也会输出</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">IMP: -<span class="string">[NSObject(Sark) foo]</span></span><br></pre></td></tr></table></figure>
+<p>所以上面这题，不会Compile Error ，更不会 Runtime Crash ，会输出两个相同的结果。</p>
+<h2 id="Runtime中的优化"><a href="#Runtime中的优化" class="headerlink" title="Runtime中的优化"></a>Runtime中的优化</h2><p>关于Runtime系统中，有3种地方进行了优化。</p>
 <ol>
 <li>方法列表的缓存</li>
 <li>虚函数表vTable</li>
 <li>dyld共享缓存</li>
 </ol>
-<h2 id="方法列表的缓存"><a href="#方法列表的缓存" class="headerlink" title="方法列表的缓存"></a>方法列表的缓存</h2><p>在消息发送过程中，查找IMP的过程，会优先查找缓存。这个缓存会存储最近使用过的方法都缓存起来。这个cache和CPU里面的cache的工作方式有点类似。原理是调用的方法有可能经常会被调用。如果没有这个缓存，直接去类方法的方法链表里面去查找，查询效率实在太低。所以查找IMP会优先搜索饭方法缓存，如果没有找到，接着会在虚函数表中寻找IMP。如果找到了，就会把这个IMP存储到缓存中备用。<br>基于这个设计，使Runtime系统能能够执行快速高效的方法查询操作。</p>
-<h2 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h2><p>虚函数表也称为分派表，是编程语言中常用的动态绑定支持机制。在OC的Runtime运行时系统库实现了一种自定义的虚函数表分派机制。这个表是专门用来提高性能和灵活性的。这个虚函数表是用来存储IMP类型的数组。每个object-class都有这样一个指向虚函数表的指针。</p>
-<h2 id="dyld共享缓存"><a href="#dyld共享缓存" class="headerlink" title="dyld共享缓存"></a>dyld共享缓存</h2><p>在我们的程序中，一定会有很多自定义类，而这些类中，很多SEL是重名的，比如alloc，init等等。Runtime系统需要为每一个方法给定一个SEL指针，然后为每次调用个各个方法更新元数据，以获取唯一值。这个过程是在应用程序启动的时候完成。为了提高这一部分的执行效率，Runtime会通过dyld共享缓存实现选择器的唯一性。</p>
+<h3 id="方法列表的缓存"><a href="#方法列表的缓存" class="headerlink" title="方法列表的缓存"></a>方法列表的缓存</h3><p>在消息发送过程中，查找IMP的过程，会优先查找缓存。这个缓存会存储最近使用过的方法都缓存起来。这个cache和CPU里面的cache的工作方式有点类似。原理是调用的方法有可能经常会被调用。如果没有这个缓存，直接去类方法的方法链表里面去查找，查询效率实在太低。所以查找IMP会优先搜索饭方法缓存，如果没有找到，接着会在虚函数表中寻找IMP。如果找到了，就会把这个IMP存储到缓存中备用。<br>基于这个设计，使Runtime系统能能够执行快速高效的方法查询操作。</p>
+<h3 id="虚函数表"><a href="#虚函数表" class="headerlink" title="虚函数表"></a>虚函数表</h3><p>虚函数表也称为分派表，是编程语言中常用的动态绑定支持机制。在OC的Runtime运行时系统库实现了一种自定义的虚函数表分派机制。这个表是专门用来提高性能和灵活性的。这个虚函数表是用来存储IMP类型的数组。每个object-class都有这样一个指向虚函数表的指针。</p>
+<h3 id="dyld共享缓存"><a href="#dyld共享缓存" class="headerlink" title="dyld共享缓存"></a>dyld共享缓存</h3><p>在我们的程序中，一定会有很多自定义类，而这些类中，很多SEL是重名的，比如alloc，init等等。Runtime系统需要为每一个方法给定一个SEL指针，然后为每次调用个各个方法更新元数据，以获取唯一值。这个过程是在应用程序启动的时候完成。为了提高这一部分的执行效率，Runtime会通过dyld共享缓存实现选择器的唯一性。</p>
 <p>dyld是一种系统服务，用于定位和加载动态库。它含有共享缓存，能够使多个进程共用这些动态库。dyld共享缓存中含有一个选择器表，从而能使运行时系统能够通过使用缓存访问共享库和自定义类的选择器。</p>
 <p>关于dyld的知识可以看看这篇文章<a href="https://www.mikeash.com/pyblog/friday-qa-2012-11-09-dyld-dynamic-linking-on-os-x.html" rel="external nofollow noopener noreferrer" target="_blank">dyld: Dynamic Linking On OS X</a></p>
 
