@@ -6,32 +6,33 @@
     <title>Mach-O文件结构理解 | LJ小窝</title>
     
     
-        <meta name="keywords" content="Mach-O文件结构理解">
+        <meta name="keywords" content="Mach-O">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
+<meta name="keywords" content="Mach-O">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Mach-O文件结构理解">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/mach-o-overall_small.jpg">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/mach_O_new_overall_small.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/machview-header.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/DATA_Segment.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/sections.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/nl_symbol_ptr_section.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/segment_types.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/systab.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/uuid.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/system_detail.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/stringtable.png">
-<meta property="og:updated_time" content="2018-10-31T04:02:26.836Z">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach-o-overall_small.jpg">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach_O_new_overall_small.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/machview-header.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/DATA_Segment.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/sections.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/nl_symbol_ptr_section.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/segment_types.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/systab.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/uuid.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/system_detail.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/stringtable.png">
+<meta property="og:updated_time" content="2018-10-31T04:11:21.805Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mach-O文件结构理解">
 <meta name="twitter:description" content="Mach-O是mac系统中文件的存储格式。熟悉Mach-O 文件结构可以：  有助于理解崩溃日志解析的原理。理解KSCrash源码； 有助于理解开源代码fishhook的原理； 有助于理解腾讯OOMDetector开源库源码； 好处应该不止这些。">
-<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/mach-o-overall_small.jpg">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Mach_O/MachO_FileStructure/mach-o-overall_small.jpg">
     
 
     
@@ -419,9 +420,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -451,6 +452,15 @@
                             IOS12
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Mach_O
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Mach_O/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -724,7 +734,7 @@
                     </li> 
                      </ul> 
                     </li> 
-                     <li class="file active"><a href="/wiki/IOS/Mach_O/MachO_FileStructure/">Mach-O文件结构理解</a></li>  <li class="file"><a href="/wiki/IOS/Mach-O/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                     </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -803,7 +813,17 @@
                 
                     <div class="article-meta">
                         
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Mach-O/">Mach_O</a>
+    </div>
+
                         
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Mach-O/">Mach-O</a>
+    </div>
+
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
@@ -846,7 +866,7 @@
 </ol>
 <a id="more"></a>
 <h2 id="总体结构"><a href="#总体结构" class="headerlink" title="总体结构"></a>总体结构</h2><p>它的组成结构如下图所示，包括了Header、Load commands、Data（包含Segement的具体数据）。</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/mach-o-overall_small.jpg" alt="mach-o 文件结构"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach-o-overall_small.jpg" alt="mach-o 文件结构"></p>
 <p>这张图片说明了几点：</p>
 <ol>
 <li>mach-o由三部分构成，header、Load Commands、Data区域。</li>
@@ -854,7 +874,7 @@
 <li>每个segment下面可以有一个或多个section。 可以理解为一级目录下的子二级目录~~。</li>
 </ol>
 <p>也可以从另外角度认识Mach-O结构，如图所示。</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/mach_O_new_overall_small.png" alt="mach-o 内部详细结构"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach_O_new_overall_small.png" alt="mach-o 内部详细结构"></p>
 <p>这张图表达了更多的细节信息：</p>
 <ol>
 <li>segment 的类型有__TEXT(程序的代码区域，只读) 、__DATA(程序的数据区域，可读写)</li>
@@ -887,7 +907,7 @@
 </ul>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_DYLDLINK	0x4		<span class="comment">/* the object file is input for the</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   dynamic linker and can't be staticly</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   link edited again */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_PREBOUND	0x10		<span class="comment">/* the file has its dynamic undefined</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   references prebound. */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_SPLIT_SEGS	0x20		<span class="comment">/* the file has its read-only and</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   read-write segments split */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_TWOLEVEL	0x80		<span class="comment">/* the image is using two-level name</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   space bindings */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_NOMULTIDEFS	0x200		<span class="comment">/* this umbrella guarantees no multiple</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   defintions of symbols in its</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   sub-images so the two-level namespace</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   hints can always be used. */</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_CANONICAL    0x4000		<span class="comment">/* the binary has been canonicalized</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   via the unprebind operation */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_WEAK_DEFINES	0x8000		<span class="comment">/* the final linked image contains</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   external weak symbols */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MH_BINDS_TO_WEAK 0x10000	<span class="comment">/* the final linked image uses</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   weak symbols */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	MH_PIE 0x200000			<span class="comment">/* When this bit is set, the OS will</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   load the main executable at a</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   random address.  Only used in</span></span></span><br><span class="line"><span class="meta"><span class="comment">					   MH_EXECUTE filetypes. */</span></span></span><br><span class="line">....</span><br></pre></td></tr></table></figure>
 <p>下图是借用machoview查看header的结构：</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/machview-header.png" alt="header 结构"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/machview-header.png" alt="header 结构"></p>
 <p>可以看出：</p>
 <ol>
 <li>该文件是可执行文件</li>
@@ -907,7 +927,7 @@
 <h3 id="LC-SEGMENT"><a href="#LC-SEGMENT" class="headerlink" title="LC_SEGMENT"></a>LC_SEGMENT</h3><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line"> * The segment load command indicates <span class="keyword">that</span> a part <span class="keyword">of</span> this <span class="built_in">file</span> <span class="keyword">is</span> <span class="keyword">to</span> be</span><br><span class="line"> * mapped <span class="keyword">into</span> <span class="keyword">the</span> task's address <span class="literal">space</span>.  The size <span class="keyword">of</span> this segment <span class="keyword">in</span> memory,</span><br><span class="line"> * vmsize, maybe <span class="keyword">equal</span> <span class="keyword">to</span> <span class="keyword">or</span> larger than <span class="keyword">the</span> amount <span class="keyword">to</span> map <span class="keyword">from</span> this <span class="built_in">file</span>,</span><br><span class="line"> * filesize.  The <span class="built_in">file</span> <span class="keyword">is</span> mapped starting <span class="keyword">at</span> fileoff <span class="keyword">to</span> <span class="keyword">the</span> <span class="keyword">beginning</span> <span class="keyword">of</span></span><br><span class="line"> * <span class="keyword">the</span> segment <span class="keyword">in</span> memory, vmaddr.  The <span class="built_in">rest</span> <span class="keyword">of</span> <span class="keyword">the</span> memory <span class="keyword">of</span> <span class="keyword">the</span> segment,</span><br><span class="line"> * <span class="keyword">if</span> any, <span class="keyword">is</span> allocated zero fill <span class="keyword">on</span> demand.  The segment's maximum virtual</span><br><span class="line"> * memory protection <span class="keyword">and</span> initial virtual memory protection are specified</span><br><span class="line"> * <span class="keyword">by</span> <span class="keyword">the</span> maxprot <span class="keyword">and</span> initprot fields.  If <span class="keyword">the</span> segment has sections <span class="keyword">then</span> <span class="keyword">the</span></span><br><span class="line"> * section structures directly follow <span class="keyword">the</span> segment command <span class="keyword">and</span> their size <span class="keyword">is</span></span><br><span class="line"> * reflected <span class="keyword">in</span> cmdsize.</span><br><span class="line">段加载命令指定了：文件需要映射到程序地址空间的某个部分。 </span><br><span class="line">段在内存中的大小用vmsize指定。内存中段的大小可能等于或大于文件大小（filesize），文件大小使用filesize指定。</span><br><span class="line">映射的源起始文件地址是fileoff，目的起始地址是vmaddr。内存中剩余的段内存用<span class="number">0</span>填充。</span><br><span class="line">段的最大内存权限和初始内存权限用maxprot、initprot字段指定。</span><br><span class="line">如果段有section，那么section的结构紧跟着段。section的大小包括在cmdsize字段中。</span><br><span class="line"> */</span><br><span class="line">struct segment_command &#123; /* <span class="keyword">for</span> <span class="number">32</span>-bit architectures */</span><br><span class="line">	uint32_t	cmd;		/* LC_SEGMENT */</span><br><span class="line">	uint32_t	cmdsize;	/* includes sizeof section structs */</span><br><span class="line">	char		segname[<span class="number">16</span>];	/* segment <span class="built_in">name</span> */</span><br><span class="line">	uint32_t	vmaddr;		/* memory address <span class="keyword">of</span> this segment */</span><br><span class="line">	uint32_t	vmsize;		/* memory size <span class="keyword">of</span> this segment */</span><br><span class="line">	uint32_t	fileoff;	/* <span class="built_in">file</span> <span class="built_in">offset</span> <span class="keyword">of</span> this segment */</span><br><span class="line">	uint32_t	filesize;	/* amount <span class="keyword">to</span> map <span class="keyword">from</span> <span class="keyword">the</span> <span class="built_in">file</span> */</span><br><span class="line">	vm_prot_t	maxprot;	/* maximum VM protection */</span><br><span class="line">	vm_prot_t	initprot;	/* initial VM protection */</span><br><span class="line">	uint32_t	nsects;		/* <span class="built_in">number</span> <span class="keyword">of</span> sections <span class="keyword">in</span> segment */</span><br><span class="line">	uint32_t	flags;		/* flags */</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>可以看出segment_command包含了命令必须的属性cmd、cmdsize。剩下的属性是segment_command特有的属性。</p>
 <p>下面是名称为_DATA的segment commond的截图：</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/DATA_Segment.png" alt="segement"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/DATA_Segment.png" alt="segement"></p>
 <p>可以看出：</p>
 <ol>
 <li>命令类型是LC_SEGMENT_64</li>
@@ -923,11 +943,11 @@
 <li>看的方法：offset代表文件的便宜量、Data表示内存地址中存储的值、description表示这段内存地址的名称的描述、value表示存储的值的可视描述。</li>
 </ol>
 <p>下面看看22个section的示意图：</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/sections.png" alt="22sections"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/sections.png" alt="22sections"></p>
 <p>下面讲解section的结构,section 的定义如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">section_64</span> &#123;</span> <span class="comment">/* for 64-bit architectures */</span></span><br><span class="line">	<span class="keyword">char</span>		sectname[<span class="number">16</span>];	<span class="comment">/* name of this section */</span></span><br><span class="line">	<span class="keyword">char</span>		segname[<span class="number">16</span>];	<span class="comment">/* segment this section goes in */</span></span><br><span class="line">	<span class="keyword">uint64_t</span>	addr;		<span class="comment">/* memory address of this section */</span></span><br><span class="line">	<span class="keyword">uint64_t</span>	size;		<span class="comment">/* size in bytes of this section */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	offset;		<span class="comment">/* file offset of this section */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	align;		<span class="comment">/* section alignment (power of 2) */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	reloff;		<span class="comment">/* file offset of relocation entries */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	nreloc;		<span class="comment">/* number of relocation entries */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* flags (section type and attributes)*/</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	reserved1;	<span class="comment">/* reserved (for offset or index) */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	reserved2;	<span class="comment">/* reserved (for count or sizeof) */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	reserved3;	<span class="comment">/* reserved */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>下图是__nl_symbol_ptr section 的示意图：</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/nl_symbol_ptr_section.png" alt="nl_symbol_ptr_section"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/nl_symbol_ptr_section.png" alt="nl_symbol_ptr_section"></p>
 <p>可以看出：</p>
 <ol>
 <li>section的名称是__nl_symbol_ptr</li>
@@ -939,7 +959,7 @@
 <li>间接符号索引是1198 （这里不太懂什么意思）</li>
 </ol>
 <p>segment 常用的有四种，如图所示：</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/segment_types.png" alt="segment_types"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/segment_types.png" alt="segment_types"></p>
 <p>可以看出有<strong>PAGEZERO、</strong>TEXT、<strong>DATA、</strong>LINKEDIT。下面是这四个segement的基本介绍。</p>
 <ol>
 <li>The static linker creates a __PAGEZERO segment as the first segment of an executable file. This segment is located at virtual memory location 0 and has no protection rights assigned, the combination of which causes accesses to NULL, a common C programming error, to immediately crash. The __PAGEZERO segment is the size of one full VM page for the current architecture (for Intel-based and PowerPC-based Macintosh computers, this is 4096 bytes or 0x1000 in hexadecimal). Because there is no data in the __PAGEZERO segment, it occupies no space in the file (the file size in the segment command is 0).</li>
@@ -949,7 +969,7 @@
 </ol>
 <h3 id="LC-SYMTAB"><a href="#LC-SYMTAB" class="headerlink" title="LC_SYMTAB"></a>LC_SYMTAB</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * The symtab_command contains the offsets and sizes of the link-edit 4.3BSD</span></span><br><span class="line"><span class="comment"> * "stab" style symbol table information as described in the header files</span></span><br><span class="line"><span class="comment"> * &lt;nlist.h&gt; and &lt;stab.h&gt;.</span></span><br><span class="line"><span class="comment"> * symtab_command 包含了符号表、字符串索引表 的偏移量和大小 。</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">symtab_command</span> &#123;</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_SYMTAB */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* sizeof(struct symtab_command) */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	symoff;		<span class="comment">/* symbol table offset */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	nsyms;		<span class="comment">/* number of symbol table entries */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	stroff;		<span class="comment">/* string table offset */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	strsize;	<span class="comment">/* string table size in bytes */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>下面是LC_SYMTAB command示意图：</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/systab.png" alt="symbol table"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/systab.png" alt="symbol table"></p>
 <p>由表中可以看出</p>
 <ol>
 <li>命令的大小是24 （十进制）</li>
@@ -961,7 +981,7 @@
 <p>这个commond同时指定了两个表(符号表、String表)的位置信息。</p>
 <h3 id="LC-UUID"><a href="#LC-UUID" class="headerlink" title="LC_UUID"></a>LC_UUID</h3><p>LC_UUID 用来标识唯一APP，命令的定义如下:</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">uuid_command</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmd;		<span class="comment">/* LC_UUID */</span></span><br><span class="line">    <span class="keyword">uint32_t</span>	cmdsize;	<span class="comment">/* sizeof(struct uuid_command) */</span></span><br><span class="line">    <span class="keyword">uint8_t</span>	uuid[<span class="number">16</span>];	<span class="comment">/* the 128-bit uuid */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/uuid.png" alt="uuid"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/uuid.png" alt="uuid"></p>
 <p>每个可执行程序都有一个uuid，这样根据不同的uuid能确定包。比如崩溃日志中就会包含uuid字段。表示是哪个包崩溃了。</p>
 <h3 id="LC-DYSYMTAB（动态符号表）"><a href="#LC-DYSYMTAB（动态符号表）" class="headerlink" title="LC_DYSYMTAB（动态符号表）"></a>LC_DYSYMTAB（动态符号表）</h3><p>下面的描述摘至<code>&lt;mach-o/loader.h&gt;</code> 的459行。</p>
 <p>  This is the second set of the symbolic information which is used to support  the data structures for the dynamically link editor.<br>LC_DYSYMTAB 是第二种类型符号集，这个符号集被动态连接器的数据结构使用。</p>
@@ -1128,7 +1148,7 @@
 </ul>
 <h3 id="符号表"><a href="#符号表" class="headerlink" title="符号表"></a>符号表</h3><p>符号表的数据结构如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nlist_64</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">uint32_t</span>  n_strx; <span class="comment">/* index into the string table */</span></span><br><span class="line">    &#125; n_un;</span><br><span class="line">    <span class="keyword">uint8_t</span> n_type;        <span class="comment">/* type flag, see below */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> n_sect;        <span class="comment">/* section number or NO_SECT */</span></span><br><span class="line">    <span class="keyword">uint16_t</span> n_desc;       <span class="comment">/* see &lt;mach-o/stab.h&gt; */</span></span><br><span class="line">    <span class="keyword">uint64_t</span> n_value;      <span class="comment">/* value of this symbol (or stab offset) */</span></span><br><span class="line">&#125;;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Symbols with a index into the string table of zero (n_un.n_strx == 0) are</span></span><br><span class="line"><span class="comment"> * defined to have a null, "", name.  Therefore all string indexes to non null</span></span><br><span class="line"><span class="comment"> * names must not have a zero string index.  This is bit historical information</span></span><br><span class="line"><span class="comment"> * that has never been well documented.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * The n_type field really contains four fields:</span></span><br><span class="line"><span class="comment"> *	unsigned char N_STAB:3,</span></span><br><span class="line"><span class="comment"> *		      N_PEXT:1,</span></span><br><span class="line"><span class="comment"> *		      N_TYPE:3,</span></span><br><span class="line"><span class="comment"> *		      N_EXT:1;</span></span><br><span class="line"><span class="comment"> * which are used via the following masks.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_STAB	0xe0  <span class="comment">/* if any of these bits set, a symbolic debugging entry */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_PEXT	0x10  <span class="comment">/* private external symbol bit */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_TYPE	0x0e  <span class="comment">/* mask for the type bits */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	N_EXT	0x01  <span class="comment">/* external symbol bit, set for external symbols */</span></span></span><br></pre></td></tr></table></figure>
-<p>示意图如下：<br><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/system_detail.png" alt="symbol"></p>
+<p>示意图如下：<br><img src="/wiki/IOS/Mach_O/MachO_FileStructure/system_detail.png" alt="symbol"></p>
 <p>可以看出：</p>
 <ol>
 <li>String表的偏移量是0xbbff8, 翻译后是[GMRYouHaoHuoReq getRequestURL]</li>
@@ -1136,7 +1156,7 @@
 </ol>
 <h3 id="string表"><a href="#string表" class="headerlink" title="string表"></a>string表</h3><p>String表顺序列出了二进制mach-O文件的中的所有可见字符串。串之间通过0x00分隔。可以通过相对String表起始位置的偏移量随机访问String表中的字符串。符号表结构中的n_strx指定的就是String表中的偏移量。通过这个偏移量可以访问到符号对应的具体字符串。</p>
 <p>例如： String表的0xbbf8处是不是[GMRYouHaoHuoReq getRequestURL]，string表的地址是0x049C6D40 加上偏移量0x000BBFB1 ，等于0x54d633d。</p>
-<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/mach0-viewer_image/stringtable.png" alt="string table"></p>
+<p><img src="/wiki/IOS/Mach_O/MachO_FileStructure/stringtable.png" alt="string table"></p>
 <p>可以看出string表的0x54d633d地址出就是：[GMRYouHaoHuoReq getRequestURL]。  </p>
 <h3 id="动态符号表。"><a href="#动态符号表。" class="headerlink" title="动态符号表。"></a>动态符号表。</h3><p>动态符号表中存储着动态连接器使用的相关符号。 每个符号一般占用32bit的存储空间。存储的内容是符号表中的索引。</p>
 <h2 id="注意啦"><a href="#注意啦" class="headerlink" title="注意啦"></a>注意啦</h2><p>网上直接下载的MachOView经常崩溃，是由于有段代码没有做非空判断，所以为了有效使用MachOView，请从<a href="https://github.com/gdbinit/MachOView" rel="external nofollow noopener noreferrer" target="_blank">官网</a>下载代码，然后在崩溃的地方添加非空判断。就OK拉。</p>
@@ -1157,11 +1177,11 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/Mach-O/MachO_FileStructure/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/虚拟内存/虚拟内存/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    Mach-O文件结构理解
+                    虚拟内存之一----关于
                 
             </div>
         </a>
