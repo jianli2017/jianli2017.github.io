@@ -456,6 +456,39 @@
   </entry>
   
   <entry>
+    <title>模板和泛型编程</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
+    <published>2018-07-25T04:07:12.000Z</published>
+    <updated>2018-09-25T07:36:16.526Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>名义模板</li><li>模板实参推断</li><li>重载与模板</li><li>可变参数模板</li><li>模板的特例化</li></ol><p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br><a id="more"></a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;名义模板&lt;/li&gt;
+&lt;li&gt;模板实参推断&lt;/li&gt;
+&lt;li&gt;重载与模板&lt;/li&gt;
+&lt;li&gt;可变参数模板&lt;/li&gt;
+&lt;li&gt;模板的特例化&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>变量和基本类型</title>
     <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
     <id>http://yoursite.com/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/</id>
@@ -491,39 +524,6 @@
   </entry>
   
   <entry>
-    <title>模板和泛型编程</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
-    <published>2018-07-25T04:07:12.000Z</published>
-    <updated>2018-09-25T07:36:16.526Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>名义模板</li><li>模板实参推断</li><li>重载与模板</li><li>可变参数模板</li><li>模板的特例化</li></ol><p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br><a id="more"></a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;名义模板&lt;/li&gt;
-&lt;li&gt;模板实参推断&lt;/li&gt;
-&lt;li&gt;重载与模板&lt;/li&gt;
-&lt;li&gt;可变参数模板&lt;/li&gt;
-&lt;li&gt;模板的特例化&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
-    
-      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
     <title>set命令</title>
     <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/export%E5%91%BD%E4%BB%A4/"/>
     <id>http://yoursite.com/wiki/linux命令/export命令/</id>
@@ -535,6 +535,28 @@
     <summary type="html">
     
       &lt;p&gt;export命令设置或显示环境变量。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
+    
+    
+      <category term="set" scheme="http://yoursite.com/tags/set/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>set命令</title>
+    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/$0,$?,$!%E7%AD%89%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/"/>
+    <id>http://yoursite.com/wiki/linux命令/$0,$?,$!等的特殊用法/</id>
+    <published>2018-07-20T04:07:12.000Z</published>
+    <updated>2018-07-20T11:15:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录下linux shell下的特殊用法及参数的说明.</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">变量说明:</span><br><span class="line"></span><br><span class="line">$$ </span><br><span class="line">Shell本身的PID（ProcessID） </span><br><span class="line">$! </span><br><span class="line">Shell最后运行的后台Process的PID </span><br><span class="line">$? </span><br><span class="line">最后运行的命令的结束代码（返回值） </span><br><span class="line">$- </span><br><span class="line">使用Set命令设定的Flag一览 </span><br><span class="line">$* </span><br><span class="line">所有参数列表。如<span class="string">"$*"</span>用「<span class="string">"」括起来的情况、以"</span><span class="variable">$1</span> <span class="variable">$2</span> … <span class="variable">$n</span><span class="string">"的形式输出所有参数。 </span></span><br><span class="line"><span class="string"><span class="variable">$@</span> </span></span><br><span class="line"><span class="string">所有参数列表。如"</span><span class="variable">$@</span><span class="string">"用「"</span>」括起来的情况、以<span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span> … <span class="string">"<span class="variable">$n</span>"</span> 的形式输出所有参数。 </span><br><span class="line"><span class="variable">$#</span> </span><br><span class="line">添加到Shell的参数个数 </span><br><span class="line"><span class="variable">$0</span> </span><br><span class="line">Shell本身的文件名 </span><br><span class="line"><span class="variable">$1</span>～<span class="variable">$n</span> </span><br><span class="line">添加到Shell的各参数值。<span class="variable">$1</span>是第1参数、<span class="variable">$2</span>是第2参数…。</span><br><span class="line"></span><br><span class="line">我们先写一个简单的脚本，执行以后再解释各个变量的意义 </span><br><span class="line"><span class="comment"># touch variable </span></span><br><span class="line"><span class="comment"># vi variable </span></span><br><span class="line">脚本内容如下： </span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"number:<span class="variable">$#</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scname:<span class="variable">$0</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"first :<span class="variable">$1</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"second:<span class="variable">$2</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"argume:<span class="variable">$@</span>"</span> </span><br><span class="line">保存退出 </span><br><span class="line">赋予脚本执行权限 </span><br><span class="line"><span class="comment"># chmod +x variable </span></span><br><span class="line">执行脚本 </span><br><span class="line"><span class="comment"># ./variable aa bb </span></span><br><span class="line">number:2 </span><br><span class="line">scname:./variable </span><br><span class="line">first: aa </span><br><span class="line">second:bb </span><br><span class="line">argume:aa bb </span><br><span class="line">通过显示结果可以看到： </span><br><span class="line"><span class="variable">$#</span> 是传给脚本的参数个数 </span><br><span class="line"><span class="variable">$0</span> 是脚本本身的名字 </span><br><span class="line"><span class="variable">$1</span>是传递给该shell脚本的第一个参数 </span><br><span class="line"><span class="variable">$2</span>是传递给该shell脚本的第二个参数 </span><br><span class="line"><span class="variable">$@</span> 是传给脚本的所有参数的列表</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录下linux shell下的特殊用法及参数的说明.&lt;/p&gt;
     
     </summary>
     
@@ -569,28 +591,6 @@
     
     
       <category term="组件化" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>set命令</title>
-    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/$0,$?,$!%E7%AD%89%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/"/>
-    <id>http://yoursite.com/wiki/linux命令/$0,$?,$!等的特殊用法/</id>
-    <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T11:15:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录下linux shell下的特殊用法及参数的说明.</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">变量说明:</span><br><span class="line"></span><br><span class="line">$$ </span><br><span class="line">Shell本身的PID（ProcessID） </span><br><span class="line">$! </span><br><span class="line">Shell最后运行的后台Process的PID </span><br><span class="line">$? </span><br><span class="line">最后运行的命令的结束代码（返回值） </span><br><span class="line">$- </span><br><span class="line">使用Set命令设定的Flag一览 </span><br><span class="line">$* </span><br><span class="line">所有参数列表。如<span class="string">"$*"</span>用「<span class="string">"」括起来的情况、以"</span><span class="variable">$1</span> <span class="variable">$2</span> … <span class="variable">$n</span><span class="string">"的形式输出所有参数。 </span></span><br><span class="line"><span class="string"><span class="variable">$@</span> </span></span><br><span class="line"><span class="string">所有参数列表。如"</span><span class="variable">$@</span><span class="string">"用「"</span>」括起来的情况、以<span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span> … <span class="string">"<span class="variable">$n</span>"</span> 的形式输出所有参数。 </span><br><span class="line"><span class="variable">$#</span> </span><br><span class="line">添加到Shell的参数个数 </span><br><span class="line"><span class="variable">$0</span> </span><br><span class="line">Shell本身的文件名 </span><br><span class="line"><span class="variable">$1</span>～<span class="variable">$n</span> </span><br><span class="line">添加到Shell的各参数值。<span class="variable">$1</span>是第1参数、<span class="variable">$2</span>是第2参数…。</span><br><span class="line"></span><br><span class="line">我们先写一个简单的脚本，执行以后再解释各个变量的意义 </span><br><span class="line"><span class="comment"># touch variable </span></span><br><span class="line"><span class="comment"># vi variable </span></span><br><span class="line">脚本内容如下： </span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"number:<span class="variable">$#</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scname:<span class="variable">$0</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"first :<span class="variable">$1</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"second:<span class="variable">$2</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"argume:<span class="variable">$@</span>"</span> </span><br><span class="line">保存退出 </span><br><span class="line">赋予脚本执行权限 </span><br><span class="line"><span class="comment"># chmod +x variable </span></span><br><span class="line">执行脚本 </span><br><span class="line"><span class="comment"># ./variable aa bb </span></span><br><span class="line">number:2 </span><br><span class="line">scname:./variable </span><br><span class="line">first: aa </span><br><span class="line">second:bb </span><br><span class="line">argume:aa bb </span><br><span class="line">通过显示结果可以看到： </span><br><span class="line"><span class="variable">$#</span> 是传给脚本的参数个数 </span><br><span class="line"><span class="variable">$0</span> 是脚本本身的名字 </span><br><span class="line"><span class="variable">$1</span>是传递给该shell脚本的第一个参数 </span><br><span class="line"><span class="variable">$2</span>是传递给该shell脚本的第二个参数 </span><br><span class="line"><span class="variable">$@</span> 是传给脚本的所有参数的列表</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录下linux shell下的特殊用法及参数的说明.&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
-    
-    
-      <category term="set" scheme="http://yoursite.com/tags/set/"/>
     
   </entry>
   
