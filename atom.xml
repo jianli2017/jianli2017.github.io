@@ -456,39 +456,6 @@
   </entry>
   
   <entry>
-    <title>模板和泛型编程</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
-    <published>2018-07-25T04:07:12.000Z</published>
-    <updated>2018-09-25T07:36:16.526Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>名义模板</li><li>模板实参推断</li><li>重载与模板</li><li>可变参数模板</li><li>模板的特例化</li></ol><p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br><a id="more"></a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;名义模板&lt;/li&gt;
-&lt;li&gt;模板实参推断&lt;/li&gt;
-&lt;li&gt;重载与模板&lt;/li&gt;
-&lt;li&gt;可变参数模板&lt;/li&gt;
-&lt;li&gt;模板的特例化&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
-    
-      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
     <title>变量和基本类型</title>
     <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
     <id>http://yoursite.com/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/</id>
@@ -524,46 +491,35 @@
   </entry>
   
   <entry>
-    <title>set命令</title>
-    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/export%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/wiki/linux命令/export命令/</id>
-    <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T11:00:24.000Z</updated>
+    <title>模板和泛型编程</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
+    <published>2018-07-25T04:07:12.000Z</published>
+    <updated>2018-09-25T07:36:16.526Z</updated>
     
-    <content type="html"><![CDATA[<p>export命令设置或显示环境变量。</p><a id="more"></a><h2 id="Linux-export-命令"><a href="#Linux-export-命令" class="headerlink" title="Linux export 命令"></a>Linux export 命令</h2><p>功能说明：设置或显示环境变量。（比如我们要用一个命令，但这个命令的执行文件不在当前目录，这样我们每次用的时候必须指定执行文件的目录，麻烦，在代码中先执行export，这个相当于告诉程序，执行某某东西时，需要的文件或什么东东在这些目录里）</p><p>语　　法：export [-fnp][变量名称]=[变量设置值]</p><p>补充说明：在shell中执行程序时，shell会提供一组环境变量。 export可新增，修改或删除环境变量，供后续执行的程序使用。export的效力仅及于该此登陆操作。</p><p>参　　数：</p><p>-f 　代表[变量名称]中为函数名称。</p><p>　-n 　删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。<br>　<br>　-p 　列出所有的shell赋予程序的环境变量。<br>　<br>　一个变量创建时，它不会自动地为在它之后创建的shell进程所知。而命令export可以向后面的shell传递变量的值。当一个shell脚本调用并执行时，它不会自动得到原为脚本（调用者）里定义的变量的访问权，除非这些变量已经被显式地设置为可用。export命令可以用于传递一个或多个变量的值到任何后继脚本。     —-《UNIX教程》<br>　<br>　<br>　<br>　在 linux 里设置环境变量的方法 （ export PATH ）<br>　<br>　一般来说，配置交叉编译工具链的时候需要指定编译工具的路径，此时就需要设置环境变量。例如我的mips-linux-gcc编译器在“/opt/au1200_rm /build_tools/bin”目录下，build_tools就是我的编译工具，则有如下三种方法来设置环境变量：<br>　<br>　1、直接用export命令：<br>　#export PATH=$PATH:/opt/au1200_rm/build_tools/bin<br>　查看是否已经设好，可用命令export查看：<br>　<br>　<br>　<br>　[root@localhost bin]#export<br>　declare -x BASH_ENV=”/root/.bashrc”<br>　declare -x G_BROKEN_FILENAMES=”1”<br>　declare -x HISTSIZE=”1000”<br>　declare -x HOME=”/root”<br>　declare -x HOSTNAME=”localhost.localdomain”<br>　declare -x INPUTRC=”/etc/inputrc”<br>　declare -x LANG=”zh_CN.GB18030”<br>　declare -x LANGUAGE=”zh_CN.GB18030:zh_CN.GB2312:zh_CN”<br>　declare -x LESSOPEN=”|/usr/bin/lesspipe.sh %s”<br>　declare -x LOGNAME=”root”<br>　declare -x LS_COLORS=”no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:<em>.cmd=01;32:</em>.exe=01;32:<em>.com=01;32:</em>.btm=01;32:<em>.bat=01;32:</em>.sh=01;32:<em>.csh=01;32:</em>.tar=01;31:<em>.tgz=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lzh=01;31:<em>.zip=01;31:</em>.z=01;31:<em>.Z=01;31:</em>.gz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tz=01;31:</em>.rpm=01;31:<em>.cpio=01;31:</em>.jpg=01;35:<em>.gif=01;35:</em>.bmp=01;35:<em>.xbm=01;35:</em>.xpm=01;35:<em>.png=01;35:</em>.tif=01;35:”<br>　declare -x MAIL=”/var/spool/mail/root”<br>　declare -x OLDPWD=”/opt/au1200_rm/build_tools”<br>　declare -x PATH=”/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/root/bin:/opt/au1200_rm/build_tools/bin”<br>　declare -x PWD=”/opt/au1200_rm/build_tools/bin”<br>　declare -x SHELL=”/bin/bash”<br>　declare -x SHLVL=”1”<br>　declare -x SSH_ASKPASS=”/usr/libexec/openssh/gnome-ssh-askpass”<br>　declare -x SSH_AUTH_SOCK=”/tmp/ssh-XX3LKWhz/agent.4242”<br>　declare -x SSH_CLIENT=”10.3.37.152 2236 22”<br>　declare -x SSH_CONNECTION=”10.3.37.152 2236 10.3.37.186 22”<br>　declare -x SSH_TTY=”/dev/pts/2”<br>　declare -x TERM=”linux”<br>　declare -x USER=”root”<br>　declare -x USERNAME=”root”<br>　<br>　可以看到灰色部分有设置的路径，说明环境变量已经设好，PATH里面已经有了我要加的编译器的路径。<br>　<br>　2、修改profile文件：<br>　#vi /etc/profile<br>　在里面加入:<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　3. 修改.bashrc文件：<br>　# vi /root/.bashrc<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　后两种方法一般需要重新注销系统才能生效，最后可以通过echo命令测试一下：<br>　# echo $PATH<br>　看看输出里面是不是已经有了 /my_new_path这个路径了。<br>　<br>　另有：4. 修改/etc/re.local文件：<br>　# vi /etc/re.local<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　<br>　———————————————————————————————————————–<br>　<br>　“/bin”、“/sbin”、“ /usr/bin”、“/usr/sbin”、“/usr/local/bin”等路径已经在系统环境变量中了，如果可执行文件在这几个标准位置，在终端命令行输入该软件可执行文件的文件名和参数(如果需要参数)，回车即可。<br>　<br>　　　如果不在标准位置，文件名前面需要加上完整的路径。不过每次都这样跑就太麻烦了，一个“一劳永逸”的办法是把这个路径加入环境变量。命令 export $PATH=”路径”(或“PATH=$PATH:路径”) ($PATH为环境变量名，如DVSDK；调用时用$DVSDK)可以把这个路径加入环境变量，但是退出这个命令行就失效了。要想永久生效，需要把这行添加到环境变量文件里。有两个文件可选：“/etc/profile”和用户主目录下的“.bash_profile”，“/etc/profile”对系统里所有用户都有效，用户主目录下的“.bash_profile”只对这个用户有效。<br>　　　<br>　　　　　export $PATH=”$PATH:路径1:路径2:…:路径n” （或“PATH=$PATH:路径1:路径2:…:路径n”　），意思是可执行文件的路径包括原先设定的路径，也包括从“路径1”到“路径n”的所有路径。当用户输入一个一串字符并按回车后，shell会依次在这些路径里找对应的可执行文件并交给系统核心执行。那个“$PATH”表示原先设定的路径仍然有效，注意不要漏掉。某些软件可能还有“PATH”以外类型的环境变量需要添加，但方法与此相同，并且也需要注意“$”。<br>　　　　　<br>　　　　　　　注意，与DOS/Window不同，UNIX类系统环境变量中路径名用冒号分隔，不是分号。另外，软件越装越多，环境变量越添越多，为了避免造成混乱，建议所有语句都添加在文件结尾，按软件的安装顺序添加。<br>　　　　　　　<br>　　　　　　　　　格式如下()：<br>　　　　　　　　　<br>　　　　　　　　　　　# 软件名-版本号<br>　　　　　　　　　　　<br>　　　　　　　　　　　　　PATH=$PATH:路径1:路径 2:…:路径n<br>　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　其他环境变量=$其他环境变量:…<br>　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　在“profile”和“.bash_profile”中，“#”是注释符号，写在这里除了视觉分隔外没有任何效果。<br>　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　设置完毕，注销并重新登录，设置就生效了。如果不注销，直接在shell里执行这些语句，也能生效，但是作用范围只限于执行了这些语句的shell。<br>　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　相关的环境变量生效后，就不必老跑到软件的可执行文件目录里去操作了。<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　———————————————————————————————————————–<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　 执行一个脚本时，会先开启一个子shell环境（不知道执行其它程序是不是这样），然后将父shell中的所有系统环境变量复制过来，这个脚本中的语句就在子shell中执行。（也就是说父shell的环境变量在子shell中可以调用，但反过来就不行，如果在子shell中定义了环境变量，则只对该shell或者它的子shell有效，当该子shell结束时，也可以理解为脚本执行完时，变量消失。）为了证明这一点，请看脚本内容：<br>　　　　　　　　　　　　　　　　　　　　　　 　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　这样的脚本执行完后，test实际上是不存在的。接着看下面的：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　bash<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　这里在脚本最后一行再开一个子shell，该shell应该是脚本文件所在shell的子shell，这个脚本执行完后，是可以看到test这个变量的，因为现在是处于它的子shell中，当用exit退出子shell后，test变量消失。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　如果用source对脚本进行执行时，如果不加export，就不会在子shell中看到这个变量，因为它还不是一个系统环境变量呀，如脚本内容是：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　用source执行后，在shell下是能看到这个变量，但再执行bash开一个子shell时，test是不会被复制到子shell中的，因为执行脚本文件其实也是在一个子shell中运行，所以我再建另一个脚本文件执行时，是不会输入任何东西的，内容如：echo $test。所以这点特别注意了，明明在提示符下可以用echo $test输出变量值，为什么把它放进脚本文件就不行了呢？<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　所以得出的结论是：1、执行脚本时是在一个子shell环境运行的，脚本执行完后该子shell自动退出；2、一个shell中的系统环境变量才会被复制到子shell中（用export定义的变量）；3、一个shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。3、不用export定义的变量只对该shell有效，对子shell也是无效的。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　　　后来根据版主的提示，整理了一下贴子：为什么一个脚本直接执行和用source执行不一行呢？这也是我自己碰到的一个问题。manual原文是这样的：Read and execute commands from filename in the current shell environment and return the exit status of the last command executed from filename.明白了为什么不一样了吧？直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;export命令设置或显示环境变量。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
-    
-    
-      <category term="set" scheme="http://yoursite.com/tags/set/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>set命令</title>
-    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/$0,$?,$!%E7%AD%89%E7%9A%84%E7%89%B9%E6%AE%8A%E7%94%A8%E6%B3%95/"/>
-    <id>http://yoursite.com/wiki/linux命令/$0,$?,$!等的特殊用法/</id>
-    <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T11:15:33.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录下linux shell下的特殊用法及参数的说明.</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">变量说明:</span><br><span class="line"></span><br><span class="line">$$ </span><br><span class="line">Shell本身的PID（ProcessID） </span><br><span class="line">$! </span><br><span class="line">Shell最后运行的后台Process的PID </span><br><span class="line">$? </span><br><span class="line">最后运行的命令的结束代码（返回值） </span><br><span class="line">$- </span><br><span class="line">使用Set命令设定的Flag一览 </span><br><span class="line">$* </span><br><span class="line">所有参数列表。如<span class="string">"$*"</span>用「<span class="string">"」括起来的情况、以"</span><span class="variable">$1</span> <span class="variable">$2</span> … <span class="variable">$n</span><span class="string">"的形式输出所有参数。 </span></span><br><span class="line"><span class="string"><span class="variable">$@</span> </span></span><br><span class="line"><span class="string">所有参数列表。如"</span><span class="variable">$@</span><span class="string">"用「"</span>」括起来的情况、以<span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span> … <span class="string">"<span class="variable">$n</span>"</span> 的形式输出所有参数。 </span><br><span class="line"><span class="variable">$#</span> </span><br><span class="line">添加到Shell的参数个数 </span><br><span class="line"><span class="variable">$0</span> </span><br><span class="line">Shell本身的文件名 </span><br><span class="line"><span class="variable">$1</span>～<span class="variable">$n</span> </span><br><span class="line">添加到Shell的各参数值。<span class="variable">$1</span>是第1参数、<span class="variable">$2</span>是第2参数…。</span><br><span class="line"></span><br><span class="line">我们先写一个简单的脚本，执行以后再解释各个变量的意义 </span><br><span class="line"><span class="comment"># touch variable </span></span><br><span class="line"><span class="comment"># vi variable </span></span><br><span class="line">脚本内容如下： </span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"number:<span class="variable">$#</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scname:<span class="variable">$0</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"first :<span class="variable">$1</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"second:<span class="variable">$2</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"argume:<span class="variable">$@</span>"</span> </span><br><span class="line">保存退出 </span><br><span class="line">赋予脚本执行权限 </span><br><span class="line"><span class="comment"># chmod +x variable </span></span><br><span class="line">执行脚本 </span><br><span class="line"><span class="comment"># ./variable aa bb </span></span><br><span class="line">number:2 </span><br><span class="line">scname:./variable </span><br><span class="line">first: aa </span><br><span class="line">second:bb </span><br><span class="line">argume:aa bb </span><br><span class="line">通过显示结果可以看到： </span><br><span class="line"><span class="variable">$#</span> 是传给脚本的参数个数 </span><br><span class="line"><span class="variable">$0</span> 是脚本本身的名字 </span><br><span class="line"><span class="variable">$1</span>是传递给该shell脚本的第一个参数 </span><br><span class="line"><span class="variable">$2</span>是传递给该shell脚本的第二个参数 </span><br><span class="line"><span class="variable">$@</span> 是传给脚本的所有参数的列表</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<ol><li>名义模板</li><li>模板实参推断</li><li>重载与模板</li><li>可变参数模板</li><li>模板的特例化</li></ol><p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br><a id="more"></a></p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;记录下linux shell下的特殊用法及参数的说明.&lt;/p&gt;
+      &lt;ol&gt;
+&lt;li&gt;名义模板&lt;/li&gt;
+&lt;li&gt;模板实参推断&lt;/li&gt;
+&lt;li&gt;重载与模板&lt;/li&gt;
+&lt;li&gt;可变参数模板&lt;/li&gt;
+&lt;li&gt;模板的特例化&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。&lt;br&gt;&lt;/p&gt;
     
     </summary>
     
-      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
     
     
-      <category term="set" scheme="http://yoursite.com/tags/set/"/>
+      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
     
   </entry>
   
@@ -591,6 +547,50 @@
     
     
       <category term="组件化" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>set命令</title>
+    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/%E7%89%B9%E6%AE%8A%E5%8F%82%E6%95%B0/"/>
+    <id>http://yoursite.com/wiki/linux命令/特殊参数/</id>
+    <published>2018-07-20T04:07:12.000Z</published>
+    <updated>2018-07-20T11:15:33.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录下linux shell下的特殊用法及参数的说明.</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">变量说明:</span><br><span class="line"></span><br><span class="line">$$ </span><br><span class="line">Shell本身的PID（ProcessID） </span><br><span class="line">$! </span><br><span class="line">Shell最后运行的后台Process的PID </span><br><span class="line">$? </span><br><span class="line">最后运行的命令的结束代码（返回值） </span><br><span class="line">$- </span><br><span class="line">使用Set命令设定的Flag一览 </span><br><span class="line">$* </span><br><span class="line">所有参数列表。如<span class="string">"$*"</span>用「<span class="string">"」括起来的情况、以"</span><span class="variable">$1</span> <span class="variable">$2</span> … <span class="variable">$n</span><span class="string">"的形式输出所有参数。 </span></span><br><span class="line"><span class="string"><span class="variable">$@</span> </span></span><br><span class="line"><span class="string">所有参数列表。如"</span><span class="variable">$@</span><span class="string">"用「"</span>」括起来的情况、以<span class="string">"<span class="variable">$1</span>"</span> <span class="string">"<span class="variable">$2</span>"</span> … <span class="string">"<span class="variable">$n</span>"</span> 的形式输出所有参数。 </span><br><span class="line"><span class="variable">$#</span> </span><br><span class="line">添加到Shell的参数个数 </span><br><span class="line"><span class="variable">$0</span> </span><br><span class="line">Shell本身的文件名 </span><br><span class="line"><span class="variable">$1</span>～<span class="variable">$n</span> </span><br><span class="line">添加到Shell的各参数值。<span class="variable">$1</span>是第1参数、<span class="variable">$2</span>是第2参数…。</span><br><span class="line"></span><br><span class="line">我们先写一个简单的脚本，执行以后再解释各个变量的意义 </span><br><span class="line"><span class="comment"># touch variable </span></span><br><span class="line"><span class="comment"># vi variable </span></span><br><span class="line">脚本内容如下： </span><br><span class="line"><span class="meta">#!/bin/sh </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"number:<span class="variable">$#</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"scname:<span class="variable">$0</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"first :<span class="variable">$1</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"second:<span class="variable">$2</span>"</span> </span><br><span class="line"><span class="built_in">echo</span> <span class="string">"argume:<span class="variable">$@</span>"</span> </span><br><span class="line">保存退出 </span><br><span class="line">赋予脚本执行权限 </span><br><span class="line"><span class="comment"># chmod +x variable </span></span><br><span class="line">执行脚本 </span><br><span class="line"><span class="comment"># ./variable aa bb </span></span><br><span class="line">number:2 </span><br><span class="line">scname:./variable </span><br><span class="line">first: aa </span><br><span class="line">second:bb </span><br><span class="line">argume:aa bb </span><br><span class="line">通过显示结果可以看到： </span><br><span class="line"><span class="variable">$#</span> 是传给脚本的参数个数 </span><br><span class="line"><span class="variable">$0</span> 是脚本本身的名字 </span><br><span class="line"><span class="variable">$1</span>是传递给该shell脚本的第一个参数 </span><br><span class="line"><span class="variable">$2</span>是传递给该shell脚本的第二个参数 </span><br><span class="line"><span class="variable">$@</span> 是传给脚本的所有参数的列表</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录下linux shell下的特殊用法及参数的说明.&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
+    
+    
+      <category term="set" scheme="http://yoursite.com/tags/set/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>export命令</title>
+    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/export%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/wiki/linux命令/export命令/</id>
+    <published>2018-07-20T04:07:12.000Z</published>
+    <updated>2018-10-31T05:59:56.254Z</updated>
+    
+    <content type="html"><![CDATA[<p>export命令设置或显示环境变量。</p><a id="more"></a><h2 id="Linux-export-命令"><a href="#Linux-export-命令" class="headerlink" title="Linux export 命令"></a>Linux export 命令</h2><p>功能说明：设置或显示环境变量。（比如我们要用一个命令，但这个命令的执行文件不在当前目录，这样我们每次用的时候必须指定执行文件的目录，麻烦，在代码中先执行export，这个相当于告诉程序，执行某某东西时，需要的文件或什么东东在这些目录里）</p><p>语　　法：export [-fnp][变量名称]=[变量设置值]</p><p>补充说明：在shell中执行程序时，shell会提供一组环境变量。 export可新增，修改或删除环境变量，供后续执行的程序使用。export的效力仅及于该此登陆操作。</p><p>参　　数：</p><p>-f 　代表[变量名称]中为函数名称。</p><p>　-n 　删除指定的变量。变量实际上并未删除，只是不会输出到后续指令的执行环境中。<br>　<br>　-p 　列出所有的shell赋予程序的环境变量。<br>　<br>　一个变量创建时，它不会自动地为在它之后创建的shell进程所知。而命令export可以向后面的shell传递变量的值。当一个shell脚本调用并执行时，它不会自动得到原为脚本（调用者）里定义的变量的访问权，除非这些变量已经被显式地设置为可用。export命令可以用于传递一个或多个变量的值到任何后继脚本。     —-《UNIX教程》<br>　<br>　<br>　<br>　在 linux 里设置环境变量的方法 （ export PATH ）<br>　<br>　一般来说，配置交叉编译工具链的时候需要指定编译工具的路径，此时就需要设置环境变量。例如我的mips-linux-gcc编译器在“/opt/au1200_rm /build_tools/bin”目录下，build_tools就是我的编译工具，则有如下三种方法来设置环境变量：<br>　<br>　1、直接用export命令：<br>　#export PATH=$PATH:/opt/au1200_rm/build_tools/bin<br>　查看是否已经设好，可用命令export查看：<br>　<br>　<br>　<br>　[root@localhost bin]#export<br>　declare -x BASH_ENV=”/root/.bashrc”<br>　declare -x G_BROKEN_FILENAMES=”1”<br>　declare -x HISTSIZE=”1000”<br>　declare -x HOME=”/root”<br>　declare -x HOSTNAME=”localhost.localdomain”<br>　declare -x INPUTRC=”/etc/inputrc”<br>　declare -x LANG=”zh_CN.GB18030”<br>　declare -x LANGUAGE=”zh_CN.GB18030:zh_CN.GB2312:zh_CN”<br>　declare -x LESSOPEN=”|/usr/bin/lesspipe.sh %s”<br>　declare -x LOGNAME=”root”<br>　declare -x LS_COLORS=”no=00:fi=00:di=01;34:ln=01;36:pi=40;33:so=01;35:bd=40;33;01:cd=40;33;01:or=01;05;37;41:mi=01;05;37;41:ex=01;32:<em>.cmd=01;32:</em>.exe=01;32:<em>.com=01;32:</em>.btm=01;32:<em>.bat=01;32:</em>.sh=01;32:<em>.csh=01;32:</em>.tar=01;31:<em>.tgz=01;31:</em>.arj=01;31:<em>.taz=01;31:</em>.lzh=01;31:<em>.zip=01;31:</em>.z=01;31:<em>.Z=01;31:</em>.gz=01;31:<em>.bz2=01;31:</em>.bz=01;31:<em>.tz=01;31:</em>.rpm=01;31:<em>.cpio=01;31:</em>.jpg=01;35:<em>.gif=01;35:</em>.bmp=01;35:<em>.xbm=01;35:</em>.xpm=01;35:<em>.png=01;35:</em>.tif=01;35:”<br>　declare -x MAIL=”/var/spool/mail/root”<br>　declare -x OLDPWD=”/opt/au1200_rm/build_tools”<br>　declare -x PATH=”/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin:/usr/X11R6/bin:/root/bin:/opt/au1200_rm/build_tools/bin”<br>　declare -x PWD=”/opt/au1200_rm/build_tools/bin”<br>　declare -x SHELL=”/bin/bash”<br>　declare -x SHLVL=”1”<br>　declare -x SSH_ASKPASS=”/usr/libexec/openssh/gnome-ssh-askpass”<br>　declare -x SSH_AUTH_SOCK=”/tmp/ssh-XX3LKWhz/agent.4242”<br>　declare -x SSH_CLIENT=”10.3.37.152 2236 22”<br>　declare -x SSH_CONNECTION=”10.3.37.152 2236 10.3.37.186 22”<br>　declare -x SSH_TTY=”/dev/pts/2”<br>　declare -x TERM=”linux”<br>　declare -x USER=”root”<br>　declare -x USERNAME=”root”<br>　<br>　可以看到灰色部分有设置的路径，说明环境变量已经设好，PATH里面已经有了我要加的编译器的路径。<br>　<br>　2、修改profile文件：<br>　#vi /etc/profile<br>　在里面加入:<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　3. 修改.bashrc文件：<br>　# vi /root/.bashrc<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　后两种方法一般需要重新注销系统才能生效，最后可以通过echo命令测试一下：<br>　# echo $PATH<br>　看看输出里面是不是已经有了 /my_new_path这个路径了。<br>　<br>　另有：4. 修改/etc/re.local文件：<br>　# vi /etc/re.local<br>　在里面加入：<br>　export PATH=”$PATH:/opt/au1200_rm/build_tools/bin”<br>　<br>　<br>　———————————————————————————————————————–<br>　<br>　“/bin”、“/sbin”、“ /usr/bin”、“/usr/sbin”、“/usr/local/bin”等路径已经在系统环境变量中了，如果可执行文件在这几个标准位置，在终端命令行输入该软件可执行文件的文件名和参数(如果需要参数)，回车即可。<br>　<br>　　　如果不在标准位置，文件名前面需要加上完整的路径。不过每次都这样跑就太麻烦了，一个“一劳永逸”的办法是把这个路径加入环境变量。命令 export $PATH=”路径”(或“PATH=$PATH:路径”) ($PATH为环境变量名，如DVSDK；调用时用$DVSDK)可以把这个路径加入环境变量，但是退出这个命令行就失效了。要想永久生效，需要把这行添加到环境变量文件里。有两个文件可选：“/etc/profile”和用户主目录下的“.bash_profile”，“/etc/profile”对系统里所有用户都有效，用户主目录下的“.bash_profile”只对这个用户有效。<br>　　　<br>　　　　　export $PATH=”$PATH:路径1:路径2:…:路径n” （或“PATH=$PATH:路径1:路径2:…:路径n”　），意思是可执行文件的路径包括原先设定的路径，也包括从“路径1”到“路径n”的所有路径。当用户输入一个一串字符并按回车后，shell会依次在这些路径里找对应的可执行文件并交给系统核心执行。那个“$PATH”表示原先设定的路径仍然有效，注意不要漏掉。某些软件可能还有“PATH”以外类型的环境变量需要添加，但方法与此相同，并且也需要注意“$”。<br>　　　　　<br>　　　　　　　注意，与DOS/Window不同，UNIX类系统环境变量中路径名用冒号分隔，不是分号。另外，软件越装越多，环境变量越添越多，为了避免造成混乱，建议所有语句都添加在文件结尾，按软件的安装顺序添加。<br>　　　　　　　<br>　　　　　　　　　格式如下()：<br>　　　　　　　　　<br>　　　　　　　　　　　# 软件名-版本号<br>　　　　　　　　　　　<br>　　　　　　　　　　　　　PATH=$PATH:路径1:路径 2:…:路径n<br>　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　其他环境变量=$其他环境变量:…<br>　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　在“profile”和“.bash_profile”中，“#”是注释符号，写在这里除了视觉分隔外没有任何效果。<br>　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　设置完毕，注销并重新登录，设置就生效了。如果不注销，直接在shell里执行这些语句，也能生效，但是作用范围只限于执行了这些语句的shell。<br>　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　相关的环境变量生效后，就不必老跑到软件的可执行文件目录里去操作了。<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　———————————————————————————————————————–<br>　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　<br>　　　　　　　　　　　　　　　　　　　　　　 执行一个脚本时，会先开启一个子shell环境（不知道执行其它程序是不是这样），然后将父shell中的所有系统环境变量复制过来，这个脚本中的语句就在子shell中执行。（也就是说父shell的环境变量在子shell中可以调用，但反过来就不行，如果在子shell中定义了环境变量，则只对该shell或者它的子shell有效，当该子shell结束时，也可以理解为脚本执行完时，变量消失。）为了证明这一点，请看脚本内容：<br>　　　　　　　　　　　　　　　　　　　　　　 　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　这样的脚本执行完后，test实际上是不存在的。接着看下面的：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　export test<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　bash<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　这里在脚本最后一行再开一个子shell，该shell应该是脚本文件所在shell的子shell，这个脚本执行完后，是可以看到test这个变量的，因为现在是处于它的子shell中，当用exit退出子shell后，test变量消失。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　如果用source对脚本进行执行时，如果不加export，就不会在子shell中看到这个变量，因为它还不是一个系统环境变量呀，如脚本内容是：<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　test=’value’<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　用source执行后，在shell下是能看到这个变量，但再执行bash开一个子shell时，test是不会被复制到子shell中的，因为执行脚本文件其实也是在一个子shell中运行，所以我再建另一个脚本文件执行时，是不会输入任何东西的，内容如：echo $test。所以这点特别注意了，明明在提示符下可以用echo $test输出变量值，为什么把它放进脚本文件就不行了呢？<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　所以得出的结论是：1、执行脚本时是在一个子shell环境运行的，脚本执行完后该子shell自动退出；2、一个shell中的系统环境变量才会被复制到子shell中（用export定义的变量）；3、一个shell中的系统环境变量只对该shell或者它的子shell有效，该shell结束时变量消失（并不能返回到父shell中）。3、不用export定义的变量只对该shell有效，对子shell也是无效的。<br>　　　　　　　　　　　　　　　　　　　　　　 　　　　　　　　　　　　　　　　　　　　　　　　后来根据版主的提示，整理了一下贴子：为什么一个脚本直接执行和用source执行不一行呢？这也是我自己碰到的一个问题。manual原文是这样的：Read and execute commands from filename in the current shell environment and return the exit status of the last command executed from filename.明白了为什么不一样了吧？直接执行一个脚本文件是在一个子shell中运行的，而source则是在当前shell环境中运行的。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;export命令设置或显示环境变量。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
+    
+    
+      <category term="export" scheme="http://yoursite.com/tags/export/"/>
     
   </entry>
   

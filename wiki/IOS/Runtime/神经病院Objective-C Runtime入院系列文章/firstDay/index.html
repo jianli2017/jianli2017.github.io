@@ -9,15 +9,15 @@
         <meta name="keywords" content="runtime">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="本文转载自神经病院Objective-C Runtime入院第一天——isa和Class。Runtime又叫运行时，是一套底层的C语言API，是iOS系统的核心之一。开发者在编码过程中，可以给任意一个对象发送消息，在编译阶段只是确定了要向接收者发送这条消息，而接受者将要如何响应和处理这条消息，那就要看运行时来决定了。">
+    <meta name="description" content="本文转载自神经病院Objective-C Runtime入院第一天——isa和Class。">
 <meta name="keywords" content="runtime">
 <meta property="og:type" content="article">
 <meta property="og:title" content="神经病院Objective-C Runtime入院第一天——isa和Class(转载)">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/index.html">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="本文转载自神经病院Objective-C Runtime入院第一天——isa和Class。Runtime又叫运行时，是一套底层的C语言API，是iOS系统的核心之一。开发者在编码过程中，可以给任意一个对象发送消息，在编译阶段只是确定了要向接收者发送这条消息，而接受者将要如何响应和处理这条消息，那就要看运行时来决定了。">
+<meta property="og:description" content="本文转载自神经病院Objective-C Runtime入院第一天——isa和Class。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime1.jpg">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/firstDay/firstDay1.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime2.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime3.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/meta-class1.png">
@@ -30,11 +30,11 @@
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime10.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime11.png">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/runtime12.png">
-<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta property="og:updated_time" content="2018-10-31T06:19:59.188Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经病院Objective-C Runtime入院第一天——isa和Class(转载)">
-<meta name="twitter:description" content="本文转载自神经病院Objective-C Runtime入院第一天——isa和Class。Runtime又叫运行时，是一套底层的C语言API，是iOS系统的核心之一。开发者在编码过程中，可以给任意一个对象发送消息，在编译阶段只是确定了要向接收者发送这条消息，而接受者将要如何响应和处理这条消息，那就要看运行时来决定了。">
-<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/runtime1.jpg">
+<meta name="twitter:description" content="本文转载自神经病院Objective-C Runtime入院第一天——isa和Class。">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/firstDay/firstDay1.jpg">
     
 
     
@@ -471,7 +471,16 @@
                             &nbsp;
                             Runtime
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">神经病院Objective-C Runtime入院第一天——isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime住院第二天——消息发送与转发（转载/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -590,7 +599,7 @@
                             &nbsp;
                             linux命令
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/$0,$?,$!等的特殊用法/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -798,7 +807,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -808,7 +817,7 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/神经病院Objective-C-Runtime入院系列文章/">神经病院Objective-C Runtime入院系列文章</a>
     </div>
 
                         
@@ -820,7 +829,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/">
+        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">
             <time datetime="2016-11-18T01:50:28.000Z" itemprop="datePublished">2016-11-18</time>
         </a>
     </div>
@@ -845,15 +854,23 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Runtime简介"><span class="toc-number">1.</span> <span class="toc-text">Runtime简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-Objective-C-源代码"><span class="toc-number">1.1.</span> <span class="toc-text">通过 Objective-C 源代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过-Foundation-框架的-NSObject-类定义的方法"><span class="toc-number">1.2.</span> <span class="toc-text">通过 Foundation 框架的 NSObject 类定义的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过对-Runtime-库函数的直接调用"><span class="toc-number">1.3.</span> <span class="toc-text">通过对 Runtime 库函数的直接调用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#NSObject起源"><span class="toc-number">2.</span> <span class="toc-text">NSObject起源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-t结构体的具体实现"><span class="toc-number">2.1.</span> <span class="toc-text">isa_t结构体的具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cache-t的具体实现"><span class="toc-number">2.2.</span> <span class="toc-text">cache_t的具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#class-data-bits-t的具体实现"><span class="toc-number">2.3.</span> <span class="toc-text">class_data_bits_t的具体实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#入院考试"><span class="toc-number">3.</span> <span class="toc-text">入院考试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#self-class-与-super-class"><span class="toc-number">3.1.</span> <span class="toc-text">[self class] 与 [super class]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#isKindOfClass-与-isMemberOfClass"><span class="toc-number">3.2.</span> <span class="toc-text">isKindOfClass 与 isMemberOfClass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class与内存地址"><span class="toc-number">3.3.</span> <span class="toc-text">Class与内存地址</span></a></li></ol></li></ol>
-                </div>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Runtime简介"><span class="toc-number">1.</span> <span class="toc-text">Runtime简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#通过对-Runtime-库函数的直接调用"><span class="toc-number">2.</span> <span class="toc-text">通过对 Runtime 库函数的直接调用</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#NSObject起源"><span class="toc-number"></span> <span class="toc-text">NSObject起源</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-t结构体的具体实现"><span class="toc-number">1.</span> <span class="toc-text">isa_t结构体的具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cache-t的具体实现"><span class="toc-number">2.</span> <span class="toc-text">cache_t的具体实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#class-data-bits-t的具体实现"><span class="toc-number">3.</span> <span class="toc-text">class_data_bits_t的具体实现</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#入院考试"><span class="toc-number"></span> <span class="toc-text">入院考试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#self-class-与-super-class"><span class="toc-number">1.</span> <span class="toc-text">[self class] 与 [super class]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#isKindOfClass-与-isMemberOfClass"><span class="toc-number">2.</span> <span class="toc-text">isKindOfClass 与 isMemberOfClass</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Class与内存地址"><span class="toc-number">3.</span> <span class="toc-text">Class与内存地址</span></a></li></ol>
+                </li></div>
             
         
         
-            <p>本文转载自<a href="https://halfrost.com/objc_runtime_isa_class/" rel="external nofollow noopener noreferrer" target="_blank">神经病院Objective-C Runtime入院第一天——isa和Class</a>。Runtime又叫运行时，是一套底层的C语言API，是iOS系统的核心之一。<font color="red" size="4" face="黑体">开发者在编码过程中，可以给任意一个对象发送消息，在编译阶段只是确定了要向接收者发送这条消息，而接受者将要如何响应和处理这条消息，那就要看运行时来决定了</font>。<br><a id="more"></a></p>
-<h1 id="Runtime简介"><a href="#Runtime简介" class="headerlink" title="Runtime简介"></a>Runtime简介</h1><p>C语言中，在编译期，函数的调用就会决定调用哪个函数。而OC的函数，属于动态调用过程，在编译期并不能决定真正调用哪个函数，只有在真正运行时才会根据函数的名称找到对应的函数来调用。<font color="red" size="4" face="黑体">编译时向接受者发送消息，运行时找到函数调用</font><br>Objective-C 是一个动态语言，这意味着它不仅需要一个编译器，也需要一个运行时系统来动态得创建类和对象、进行消息传递和转发。<br>Objc 在三种层面上与 Runtime 系统进行交互：<br><img src="http://of685p9vy.bkt.clouddn.com/runtime1.jpg" alt="runtime1"></p>
-<h2 id="通过-Objective-C-源代码"><a href="#通过-Objective-C-源代码" class="headerlink" title="通过 Objective-C 源代码"></a>通过 Objective-C 源代码</h2><p>一般情况开发者只需要编写 OC 代码即可，Runtime<font color="red" size="4" face="黑体">系统自动在幕后把我们写的源代码在编译阶段转换成运行时代码</font> ，在运行时确定对应的数据结构和调用具体哪个方法。</p>
-<h2 id="通过-Foundation-框架的-NSObject-类定义的方法"><a href="#通过-Foundation-框架的-NSObject-类定义的方法" class="headerlink" title="通过 Foundation 框架的 NSObject 类定义的方法"></a>通过 Foundation 框架的 NSObject 类定义的方法</h2><p>在OC的世界中，除了NSProxy类以外，所有的类都是NSObject的子类。在Foundation框架下，NSObject和NSProxy两个基类，定义了类层次结构中该类下方所有类的公共接口和行为。NSProxy是专门用于实现代理对象的类，这个类暂时本篇文章不提。这两个类都遵循了NSObject协议。在NSObject协议中，声明了所有OC对象的公共方法。</p>
+            <p>本文转载自<a href="https://halfrost.com/objc_runtime_isa_class/" rel="external nofollow noopener noreferrer" target="_blank">神经病院Objective-C Runtime入院第一天——isa和Class</a>。<br><a id="more"></a></p>
+<h2 id="Runtime简介"><a href="#Runtime简介" class="headerlink" title="Runtime简介"></a>Runtime简介</h2><p>Runtime又叫运行时，是一套底层的C语言API，是iOS系统的核心之一。<font color="red" size="4" face="黑体">开发者在编码过程中，可以给任意一个对象发送消息，在编译阶段只是确定了要向接收者发送这条消息，而接受者将要如何响应和处理这条消息，那就要看运行时来决定了</font>。</p>
+<p>C语言中，在编译期，函数的调用就会决定调用哪个函数。而OC的函数，属于动态调用过程，在编译期并不能决定真正调用哪个函数，只有在真正运行时才会根据函数的名称找到对应的函数来调用。<font color="red" size="4" face="黑体">编译时向接受者发送消息，运行时找到函数调用</font></p>
+<p>Objective-C 是一个动态语言，这意味着它不仅需要一个编译器，也需要一个运行时系统来动态得创建类和对象、进行消息传递和转发。<br>Objc 在三种层面上与 Runtime 系统进行交互：<br><img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/firstDay1.jpg" alt="runtime1"></p>
+<ol>
+<li><p>通过 Objective-C 源代码</p>
+<p>一般情况开发者只需要编写 OC 代码即可，Runtime<font color="red" size="4" face="黑体">系统自动在幕后把我们写的源代码在编译阶段转换成运行时代码</font> ，在运行时确定对应的数据结构和调用具体哪个方法。</p>
+</li>
+<li><p>通过 Foundation 框架的 NSObject 类定义的方法</p>
+<p> 在OC的世界中，除了NSProxy类以外，所有的类都是NSObject的子类。在Foundation框架下，NSObject和NSProxy两个基类，定义了类层次结构中该类下方所有类的公共接口和行为。NSProxy是专门用于实现代理对象的类，这个类暂时本篇文章不提。这两个类都遵循了NSObject协议。在NSObject协议中，声明了所有OC对象的公共方法。</p>
+</li>
+</ol>
 <p>在NSObject协议中，有以下5个方法，是可以从Runtime中获取信息，让对象进行自我检查。</p>
 <pre><code>- (Class)class OBJC_SWIFT_UNAVAILABLE(&quot;use &apos;anObject.dynamicType&apos; instead&quot;);
 - (BOOL)isKindOfClass:(Class)aClass;
@@ -1438,7 +1455,7 @@ my name is (null)
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/" data-title="神经病院Objective-C Runtime入院第一天——isa和Class(转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C-Runtime入院第一天——isa和Class/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/" data-title="神经病院Objective-C Runtime入院第一天——isa和Class(转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
