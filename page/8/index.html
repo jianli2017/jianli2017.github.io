@@ -462,9 +462,9 @@
                             &nbsp;
                             神经病院Objective-C Runtime入院系列文章
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">消息发送与转发（转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
-                     <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  </ul> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -924,7 +924,7 @@
 
 
     
-        <article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -946,7 +946,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">
+        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">
             <time datetime="2016-11-29T06:25:09.000Z" itemprop="datePublished">2016-11-29</time>
         </a>
     </div>
@@ -958,7 +958,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a>
+            <a class="article-title" href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a>
         </h1>
     
 
@@ -976,7 +976,7 @@
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/#more">查看更多</a>
+                <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1323,72 +1323,6 @@
 
 
     
-        <article id="post-IOS/Runtime/runtime1" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/runtime/">runtime</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/runtime1/">
-            <time datetime="2016-11-03T09:27:29.000Z" itemprop="datePublished">2016-11-03</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/runtime1/">runtime1</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C是动态语言，OC上所有<strong>方法的调用/类的生成</strong>都通过Objective-C Runtime在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替换任何类的实现以及新增任意类。今天就来详细解析一下OC中runtime最为吸引人的地方。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/runtime1/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-C语言语法/CC_pointer_memry" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1442,6 +1376,72 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/C语言语法/CC_pointer_memry/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/IOS模拟器安装app/IOS_simulator_install_app" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/IOS模拟器安装app/">IOS模拟器安装app</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/IOS-工具/">IOS 工具</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">
+            <time datetime="2016-10-27T01:15:55.000Z" itemprop="datePublished">2016-10-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>这里介绍了给IOS模拟器安装APP的方法。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

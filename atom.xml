@@ -456,6 +456,39 @@
   </entry>
   
   <entry>
+    <title>模板和泛型编程</title>
+    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
+    <published>2018-07-25T04:07:12.000Z</published>
+    <updated>2018-09-25T07:36:16.526Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>名义模板</li><li>模板实参推断</li><li>重载与模板</li><li>可变参数模板</li><li>模板的特例化</li></ol><p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br><a id="more"></a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;名义模板&lt;/li&gt;
+&lt;li&gt;模板实参推断&lt;/li&gt;
+&lt;li&gt;重载与模板&lt;/li&gt;
+&lt;li&gt;可变参数模板&lt;/li&gt;
+&lt;li&gt;模板的特例化&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。&lt;br&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
+    
+      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+    
+      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title>变量和基本类型</title>
     <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E4%BA%8C%E7%AB%A0%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/%E5%8F%98%E9%87%8F%E5%92%8C%E5%9F%BA%E6%9C%AC%E7%B1%BB%E5%9E%8B/"/>
     <id>http://yoursite.com/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/</id>
@@ -491,57 +524,29 @@
   </entry>
   
   <entry>
-    <title>模板和泛型编程</title>
-    <link href="http://yoursite.com/wiki/C++%E8%AF%AD%E8%A8%80/C++Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0%20%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/</id>
-    <published>2018-07-25T04:07:12.000Z</published>
-    <updated>2018-09-25T07:36:16.526Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>名义模板</li><li>模板实参推断</li><li>重载与模板</li><li>可变参数模板</li><li>模板的特例化</li></ol><p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br><a id="more"></a></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;名义模板&lt;/li&gt;
-&lt;li&gt;模板实参推断&lt;/li&gt;
-&lt;li&gt;重载与模板&lt;/li&gt;
-&lt;li&gt;可变参数模板&lt;/li&gt;
-&lt;li&gt;模板的特例化&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。&lt;br&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="C++语言" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="C++Primer" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/"/>
-    
-      <category term="第十六章 模板和泛型编程" scheme="http://yoursite.com/categories/C-%E8%AF%AD%E8%A8%80/C-Primer/%E7%AC%AC%E5%8D%81%E5%85%AD%E7%AB%A0-%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-    
-      <category term="模板和泛型编程" scheme="http://yoursite.com/tags/%E6%A8%A1%E6%9D%BF%E5%92%8C%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>set命令</title>
-    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/set%E5%91%BD%E4%BB%A4/"/>
-    <id>http://yoursite.com/wiki/linux命令/set命令/</id>
+    <title>组件化-库</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%BA%93/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%BA%93/"/>
+    <id>http://yoursite.com/wiki/IOS/库/组件化-库/</id>
     <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T10:29:05.000Z</updated>
+    <updated>2018-07-20T10:31:32.000Z</updated>
     
-    <content type="html"><![CDATA[<p>set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="built_in">command</span> 1</span><br><span class="line"><span class="built_in">command</span> 2</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure><p>Every script you write should include set -e at the top. This tells bash that it should exit the script if any statement returns a non-true return value. The benefit of using -e is that it prevents errors snowballing into serious issues when they could have been caught earlier. Again, for readability you may want to use set -o errexit.</p><p>你写的每个脚本都应该在文件开头加上set -e,这句语句告诉bash如果任何语句的执行结果不是true则应该退出。这样的好处是防止错误像滚雪球般变大导致一个致命的错误，而这些错误本应该在之前就被处理掉。如果要增加可读性，可以使用set -o errexit，它的作用与set -e相同。</p><p>Using -e gives you error checking for free. If you forget to check something, bash will do it for you. Unfortunately it means you can’t check $? as bash will never get to the checking code if it isn’t zero. There are other constructs you could use:</p><p>使用-e帮助你检查错误。如果你忘记检查（执行语句的结果），bash会帮你执行。不幸的是，你将无法检查$?，因为如果执行的语句不是返回0，bash将无法执行到检查的代码。你可以使用其他的结构：</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">command</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"$?"</span>-ne <span class="number">0</span>]; then </span><br><span class="line">echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi </span><br><span class="line">could be replaced with</span><br></pre></td></tr></table></figure><p>能够被代替为</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">command || &#123; echo <span class="string">"command failed"</span>; <span class="keyword">exit</span> <span class="number">1</span>; &#125; </span><br><span class="line">or</span><br><span class="line">或者</span><br><span class="line"><span class="keyword">if</span> ! command; then</span><br><span class="line"> echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>What if you have a command that returns non-zero or you are not interested in its return value? You can use command || true, or if you have a longer section of code, you can turn off the error checking, but I recommend you use this sparingly.</p><p>如果你有一个命令返回非0或者你对语句执行的结果不关心，那你可以使用command || true，或者你有一段很长的代码，你可以关闭错误检查（不使用set -e），但是我还是建议你保守地使用这个语句。</p>]]></content>
+    <content type="html"><![CDATA[<p><a href="http://www.cocoachina.com/ios/20170427/19136.html" rel="external nofollow noopener noreferrer" target="_blank">组件化-动态库实战</a>    </p><p><a href="https://blog.csdn.net/u013604612/article/details/43197465" rel="external nofollow noopener noreferrer" target="_blank">iOS开发——创建你自己的Framework</a>  </p><p><a href="http://blog.startry.com/2015/08/25/Renaming-umbrella-header-for-iOS-framework/" rel="external nofollow noopener noreferrer" target="_blank">iOS - Umbrella Header在framework中的应用</a></p><p><a href="https://www.jianshu.com/p/48aff237e8ff" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发中的『库』(一)</a></p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出&lt;/p&gt;
+      
+      
+        &lt;p&gt;&lt;a href=&quot;http://www.cocoachina.com/ios/20170427/19136.html&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;组件化-动态库实战&lt;/a&gt;    
+      
     
     </summary>
     
-      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="库" scheme="http://yoursite.com/categories/IOS/%E5%BA%93/"/>
     
     
-      <category term="set" scheme="http://yoursite.com/tags/set/"/>
+      <category term="组件化" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
     
   </entry>
   
@@ -590,29 +595,24 @@
   </entry>
   
   <entry>
-    <title>组件化-库</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%BA%93/%E7%BB%84%E4%BB%B6%E5%8C%96-%E5%BA%93/"/>
-    <id>http://yoursite.com/wiki/IOS/库/组件化-库/</id>
+    <title>set命令</title>
+    <link href="http://yoursite.com/wiki/linux%E5%91%BD%E4%BB%A4/set%E5%91%BD%E4%BB%A4/"/>
+    <id>http://yoursite.com/wiki/linux命令/set命令/</id>
     <published>2018-07-20T04:07:12.000Z</published>
-    <updated>2018-07-20T10:31:32.000Z</updated>
+    <updated>2018-07-20T10:29:05.000Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="http://www.cocoachina.com/ios/20170427/19136.html" rel="external nofollow noopener noreferrer" target="_blank">组件化-动态库实战</a>    </p><p><a href="https://blog.csdn.net/u013604612/article/details/43197465" rel="external nofollow noopener noreferrer" target="_blank">iOS开发——创建你自己的Framework</a>  </p><p><a href="http://blog.startry.com/2015/08/25/Renaming-umbrella-header-for-iOS-framework/" rel="external nofollow noopener noreferrer" target="_blank">iOS - Umbrella Header在framework中的应用</a></p><p><a href="https://www.jianshu.com/p/48aff237e8ff" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发中的『库』(一)</a></p>]]></content>
+    <content type="html"><![CDATA[<p>set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出</p><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">set</span> -e</span><br><span class="line"></span><br><span class="line"><span class="built_in">command</span> 1</span><br><span class="line"><span class="built_in">command</span> 2</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="built_in">exit</span> 0</span><br></pre></td></tr></table></figure><p>Every script you write should include set -e at the top. This tells bash that it should exit the script if any statement returns a non-true return value. The benefit of using -e is that it prevents errors snowballing into serious issues when they could have been caught earlier. Again, for readability you may want to use set -o errexit.</p><p>你写的每个脚本都应该在文件开头加上set -e,这句语句告诉bash如果任何语句的执行结果不是true则应该退出。这样的好处是防止错误像滚雪球般变大导致一个致命的错误，而这些错误本应该在之前就被处理掉。如果要增加可读性，可以使用set -o errexit，它的作用与set -e相同。</p><p>Using -e gives you error checking for free. If you forget to check something, bash will do it for you. Unfortunately it means you can’t check $? as bash will never get to the checking code if it isn’t zero. There are other constructs you could use:</p><p>使用-e帮助你检查错误。如果你忘记检查（执行语句的结果），bash会帮你执行。不幸的是，你将无法检查$?，因为如果执行的语句不是返回0，bash将无法执行到检查的代码。你可以使用其他的结构：</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">command</span><br><span class="line"><span class="keyword">if</span> [ <span class="string">"$?"</span>-ne <span class="number">0</span>]; then </span><br><span class="line">echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi </span><br><span class="line">could be replaced with</span><br></pre></td></tr></table></figure><p>能够被代替为</p><figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">command || &#123; echo <span class="string">"command failed"</span>; <span class="keyword">exit</span> <span class="number">1</span>; &#125; </span><br><span class="line">or</span><br><span class="line">或者</span><br><span class="line"><span class="keyword">if</span> ! command; then</span><br><span class="line"> echo <span class="string">"command failed"</span>; </span><br><span class="line"><span class="keyword">exit</span> <span class="number">1</span>; </span><br><span class="line">fi</span><br></pre></td></tr></table></figure><p>What if you have a command that returns non-zero or you are not interested in its return value? You can use command || true, or if you have a longer section of code, you can turn off the error checking, but I recommend you use this sparingly.</p><p>如果你有一个命令返回非0或者你对语句执行的结果不关心，那你可以使用command || true，或者你有一段很长的代码，你可以关闭错误检查（不使用set -e），但是我还是建议你保守地使用这个语句。</p>]]></content>
     
     <summary type="html">
     
-      
-      
-        &lt;p&gt;&lt;a href=&quot;http://www.cocoachina.com/ios/20170427/19136.html&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;组件化-动态库实战&lt;/a&gt;    
-      
+      &lt;p&gt;set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出&lt;/p&gt;
     
     </summary>
     
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="库" scheme="http://yoursite.com/categories/IOS/%E5%BA%93/"/>
+      <category term="linux命令" scheme="http://yoursite.com/categories/linux%E5%91%BD%E4%BB%A4/"/>
     
     
-      <category term="组件化" scheme="http://yoursite.com/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/"/>
+      <category term="set" scheme="http://yoursite.com/tags/set/"/>
     
   </entry>
   
