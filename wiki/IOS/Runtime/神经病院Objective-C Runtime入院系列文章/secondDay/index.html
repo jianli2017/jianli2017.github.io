@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>神经病院Objective-C Runtime住院第二天——消息发送与转发（转载) | LJ小窝</title>
+    <title>消息发送与转发（转载) | LJ小窝</title>
     
     
         <meta name="keywords" content="消息发送 消息转发">
@@ -12,16 +12,17 @@
     <meta name="description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC">
 <meta name="keywords" content="消息发送 消息转发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)">
+<meta property="og:title" content="消息发送与转发（转载)">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay1.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay3.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay2.png">
-<meta property="og:updated_time" content="2018-10-31T12:00:30.453Z">
+<meta property="og:updated_time" content="2018-11-01T02:39:20.386Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)">
+<meta name="twitter:title" content="消息发送与转发（转载)">
 <meta name="twitter:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC">
 <meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay1.png">
     
@@ -467,7 +468,7 @@
                             &nbsp;
                             神经病院Objective-C Runtime入院系列文章
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/神经病院Objective-C-Runtime出院第三天——如何正确使用Runtime-转载/">神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">消息发送与转发（转载)</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/IOS/Runtime/Objective-C-消息发送与转发机制原理/">Objective-C 消息发送与转发机制原理</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/runtime1/">runtime1</a></li>  </ul> 
                     </li> 
@@ -830,7 +831,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)
+            消息发送与转发（转载)
         </h1>
     
 
@@ -856,7 +857,8 @@
 <p>objc_selector是一个映射到方法的C字符串。需要注意的是@selector()选择子只与函数名有关。不同类中相同名字的方法所对应的方法选择器是相同的，即使方法名字相同而变量类型不同也会导致它们具有相同的方法选择器。由于这点特性，也导致了OC不支持函数重载。</p>
 <font color="red" size="4" face="黑体">在receiver拿到对应的selector之后，如果自己无法执行这个方法，那么该条消息要被转发。或者临时动态的添加方法实现。如果转发到最后依旧没法处理，程序就会崩溃。</font>
 
-<p>所以编译期仅仅是确定了要发送消息，而消息如何处理是要运行期需要解决的事情。</p>
+<font color="blue">所以编译期仅仅是确定了要发送消息，而消息如何处理是要运行期需要解决的事情。</font>
+
 <p>objc_msgSend函数究竟会干什么事情呢？从这篇<a href="http://www.friday.com/bbum/2009/12/18/objc_msgsend-part-1-the-road-map/" rel="external nofollow noopener noreferrer" target="_blank">objc_msgSend() Tour</a>文章里面可以得到一个比较详细的结论。</p>
 <ol>
 <li>Check for ignored selectors (GC) and short-circuit.</li>
@@ -975,6 +977,7 @@
 <p>再回到_class_resolveMethod的实现中，如果lookUpImpOrNil返回nil，就代表在父类中的缓存中找到，于是需要再调用一次_class_resolveInstanceMethod方法。保证给sel添加上了对应的IMP。</p>
 <figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// No implementation found, and method resolver didn't help. </span></span><br><span class="line"><span class="comment">// Use forwarding.</span></span><br><span class="line"></span><br><span class="line">imp = <span class="comment">(IMP)</span>_objc_msgForward_impcache;</span><br><span class="line">cache_fill<span class="comment">(cls, sel, imp, inst)</span>;</span><br></pre></td></tr></table></figure>
 <p>回到lookUpImpOrForward方法中，如果也没有找到IMP的实现，那么method resolver也没用了，只能进入消息转发阶段。进入这个阶段之前，imp变成_objc_msgForward_impcache。最后再加入缓存中。_objc_msgForward_impcache 第二个作用就是作为方法实现的 imp ，调用转发流程。</p>
+<p><img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/secondDay3.png" alt="消息发送的流程"></p>
 <h2 id="消息转发Message-Forwarding阶段"><a href="#消息转发Message-Forwarding阶段" class="headerlink" title="消息转发Message Forwarding阶段"></a>消息转发Message Forwarding阶段</h2><p>到了转发阶段，会调用id _objc_msgForward(id self, SEL _cmd,…)方法。在objc-msg-x86_64.s中有其汇编的实现。</p>
 <figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">STATIC_ENTRY <span class="variable">__objc_msgForward_impcache</span></span><br><span class="line"><span class="comment">// Method cache version</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// THIS IS NOT A CALLABLE C FUNCTION</span></span><br><span class="line"><span class="comment">// Out-of-band condition register is NE for stret, EQ otherwise.</span></span><br><span class="line"></span><br><span class="line">MESSENGER_START</span><br><span class="line">nop</span><br><span class="line">MESSENGER_END_SLOW</span><br><span class="line"></span><br><span class="line">jne <span class="variable">__objc_msgForward_stret</span></span><br><span class="line">jmp <span class="variable">__objc_msgForward</span></span><br><span class="line"></span><br><span class="line">END_ENTRY <span class="variable">__objc_msgForward_impcache</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">ENTRY <span class="variable">__objc_msgForward</span></span><br><span class="line"><span class="comment">// Non-stret version</span></span><br><span class="line"></span><br><span class="line">movq <span class="variable">__objc_forward_handler</span>(%rip), %r11</span><br><span class="line">jmp *%r11</span><br><span class="line"></span><br><span class="line">END_ENTRY <span class="variable">__objc_msgForward</span></span><br></pre></td></tr></table></figure>
 <p>在执行_objc_msgForward之后会调用__objc_forward_handler函数。</p>
@@ -1094,7 +1097,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/" data-title="神经病院Objective-C Runtime住院第二天——消息发送与转发（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/" data-title="消息发送与转发（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
