@@ -24,7 +24,8 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/thirdDay/runtime_thirdDay5.jpg">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/thirdDay/runtime_thirdDay6.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/thirdDay/runtime_thirdDay7.png">
-<meta property="og:updated_time" content="2018-11-01T08:21:04.625Z">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/thirdDay/runtime_thirdDay8.png">
+<meta property="og:updated_time" content="2018-11-01T09:00:43.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="神经病院Objective-C Runtime出院第三天——如何正确使用Runtime(转载)">
 <meta name="twitter:description" content="到了今天终于要”出院”了，要总结一下住院几天的收获，谈谈Runtime到底能为我们开发带来些什么好处。当然它也是把双刃剑，使用不当的话，也会成为开发路上的一个大坑。">
@@ -848,8 +849,8 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现多继承Multiple-Inheritance"><span class="toc-number">1.</span> <span class="toc-text">实现多继承Multiple Inheritance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-Swizzling"><span class="toc-number">2.</span> <span class="toc-text">Method Swizzling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling原理"><span class="toc-number">2.1.</span> <span class="toc-text">Method Swizzling原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling使用"><span class="toc-number">2.2.</span> <span class="toc-text">Method Swizzling使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling注意点"><span class="toc-number">2.3.</span> <span class="toc-text">Method Swizzling注意点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Swizzling应该总在-load中执行"><span class="toc-number">2.3.1.</span> <span class="toc-text">Swizzling应该总在+load中执行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swizzling应该总是在dispatch-once中执行"><span class="toc-number">2.4.</span> <span class="toc-text">Swizzling应该总是在dispatch_once中执行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Swizzling在-load中执行时，不要调用-super-load"><span class="toc-number">2.4.1.</span> <span class="toc-text">Swizzling在+load中执行时，不要调用[super load]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上述模板中没有错误"><span class="toc-number">2.4.2.</span> <span class="toc-text">上述模板中没有错误</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling使用场景"><span class="toc-number">2.5.</span> <span class="toc-text">Method Swizzling使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现AOP"><span class="toc-number">2.5.1.</span> <span class="toc-text">实现AOP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现埋点统计"><span class="toc-number">2.5.2.</span> <span class="toc-text">实现埋点统计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现异常保护"><span class="toc-number">2.5.3.</span> <span class="toc-text">实现异常保护</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aspect-Oriented-Programming"><span class="toc-number">3.</span> <span class="toc-text">Aspect Oriented Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Intercepter注册"><span class="toc-number">3.1.</span> <span class="toc-text">Intercepter注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intercepter执行"><span class="toc-number">3.2.</span> <span class="toc-text">Intercepter执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Isa-Swizzling"><span class="toc-number">4.</span> <span class="toc-text">Isa Swizzling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重写class方法"><span class="toc-number">4.1.</span> <span class="toc-text">重写class方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写setter方法"><span class="toc-number">4.2.</span> <span class="toc-text">重写setter方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写dealloc方法"><span class="toc-number">4.3.</span> <span class="toc-text">重写dealloc方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写-isKVOA方法"><span class="toc-number">4.4.</span> <span class="toc-text">重写_isKVOA方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Associated-Object-关联对象"><span class="toc-number">5.</span> <span class="toc-text">Associated Object 关联对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用法"><span class="toc-number">5.1.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码分析"><span class="toc-number">5.2.</span> <span class="toc-text">源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#objc-setAssociatedObject方法"><span class="toc-number">5.2.1.</span> <span class="toc-text">objc_setAssociatedObject方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#objc-getAssociatedObject方法"><span class="toc-number">5.2.2.</span> <span class="toc-text">objc_getAssociatedObject方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#objc-removeAssociatedObjects方法"><span class="toc-number">5.2.3.</span> <span class="toc-text">objc_removeAssociatedObjects方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态的增加方法"><span class="toc-number">6.</span> <span class="toc-text">动态的增加方法</span></a></li></ol><li class="toc-item toc-level-1"><a class="toc-link" href="#NSCoding的自动归档和自动解档"><span class="toc-number"></span> <span class="toc-text">NSCoding的自动归档和自动解档</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#字典和模型互相转换"><span class="toc-number"></span> <span class="toc-text">字典和模型互相转换</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#字典转模型"><span class="toc-number">1.</span> <span class="toc-text">字典转模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#模型转字典"><span class="toc-number">2.</span> <span class="toc-text">模型转字典</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Runtime缺点"><span class="toc-number"></span> <span class="toc-text">Runtime缺点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#涉及的资料"><span class="toc-number"></span> <span class="toc-text">涉及的资料</span></a>
-                </li></div>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#实现多继承Multiple-Inheritance"><span class="toc-number">1.</span> <span class="toc-text">实现多继承Multiple Inheritance</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Method-Swizzling"><span class="toc-number">2.</span> <span class="toc-text">Method Swizzling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling原理"><span class="toc-number">2.1.</span> <span class="toc-text">Method Swizzling原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling使用"><span class="toc-number">2.2.</span> <span class="toc-text">Method Swizzling使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling注意点"><span class="toc-number">2.3.</span> <span class="toc-text">Method Swizzling注意点</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Swizzling应该总在-load中执行"><span class="toc-number">2.3.1.</span> <span class="toc-text">Swizzling应该总在+load中执行</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Swizzling应该总是在dispatch-once中执行"><span class="toc-number">2.4.</span> <span class="toc-text">Swizzling应该总是在dispatch_once中执行</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Swizzling在-load中执行时，不要调用-super-load"><span class="toc-number">2.4.1.</span> <span class="toc-text">Swizzling在+load中执行时，不要调用[super load]</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#上述模板中没有错误"><span class="toc-number">2.4.2.</span> <span class="toc-text">上述模板中没有错误</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Method-Swizzling使用场景"><span class="toc-number">2.5.</span> <span class="toc-text">Method Swizzling使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#实现AOP"><span class="toc-number">2.5.1.</span> <span class="toc-text">实现AOP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现埋点统计"><span class="toc-number">2.5.2.</span> <span class="toc-text">实现埋点统计</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#实现异常保护"><span class="toc-number">2.5.3.</span> <span class="toc-text">实现异常保护</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Aspect-Oriented-Programming"><span class="toc-number">3.</span> <span class="toc-text">Aspect Oriented Programming</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Intercepter注册"><span class="toc-number">3.1.</span> <span class="toc-text">Intercepter注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Intercepter执行"><span class="toc-number">3.2.</span> <span class="toc-text">Intercepter执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Isa-Swizzling"><span class="toc-number">4.</span> <span class="toc-text">Isa Swizzling</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重写class方法"><span class="toc-number">4.1.</span> <span class="toc-text">重写class方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写setter方法"><span class="toc-number">4.2.</span> <span class="toc-text">重写setter方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写dealloc方法"><span class="toc-number">4.3.</span> <span class="toc-text">重写dealloc方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写-isKVOA方法"><span class="toc-number">4.4.</span> <span class="toc-text">重写_isKVOA方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Associated-Object-关联对象"><span class="toc-number">5.</span> <span class="toc-text">Associated Object 关联对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用法"><span class="toc-number">5.1.</span> <span class="toc-text">用法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#源码分析"><span class="toc-number">5.2.</span> <span class="toc-text">源码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#objc-setAssociatedObject方法"><span class="toc-number">5.2.1.</span> <span class="toc-text">objc_setAssociatedObject方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#objc-getAssociatedObject方法"><span class="toc-number">5.2.2.</span> <span class="toc-text">objc_getAssociatedObject方法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#objc-removeAssociatedObjects方法"><span class="toc-number">5.2.3.</span> <span class="toc-text">objc_removeAssociatedObjects方法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#动态的增加方法"><span class="toc-number">6.</span> <span class="toc-text">动态的增加方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSCoding的自动归档和自动解档"><span class="toc-number">7.</span> <span class="toc-text">NSCoding的自动归档和自动解档</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#字典和模型互相转换"><span class="toc-number">8.</span> <span class="toc-text">字典和模型互相转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#字典转模型"><span class="toc-number">8.1.</span> <span class="toc-text">字典转模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#模型转字典"><span class="toc-number">8.2.</span> <span class="toc-text">模型转字典</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Runtime缺点"><span class="toc-number">9.</span> <span class="toc-text">Runtime缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最后"><span class="toc-number">10.</span> <span class="toc-text">最后</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#涉及的资料"><span class="toc-number">11.</span> <span class="toc-text">涉及的资料</span></a></li></ol>
+                </div>
             
         
         
@@ -1033,298 +1034,84 @@
 <p>_object_remove_assocations方法的目的是删除第二张ObjcAssociationMap表，即删除所有的关联对象。删除第二张表，就需要在第一张AssociationsHashMap表中遍历查找。这里会把第二张ObjcAssociationMap表中所有的ObjcAssociation对象都存到一个数组elements里面，然后调用associations.erase( )删除第二张表。最后再遍历elements数组，把ObjcAssociation对象依次释放。</p>
 <p>以上就是Associated Object关联对象3个函数的源码分析。</p>
 <h2 id="动态的增加方法"><a href="#动态的增加方法" class="headerlink" title="动态的增加方法"></a>动态的增加方法</h2><p>在消息发送阶段，如果在父类中也没有找到相应的IMP，就会执行resolveInstanceMethod方法。在这个方法里面，我们可以动态的给类对象或者实例对象动态的增加方法。</p>
-<pre><code>+ (BOOL)resolveInstanceMethod:(SEL)sel {
-
-    NSString *selectorString = NSStringFromSelector(sel);
-    if ([selectorString isEqualToString:@&quot;method1&quot;]) {
-        class_addMethod(self.class, @selector(method1), (IMP)functionForMethod1, &quot;@:&quot;);
-    }
-
-    return [super resolveInstanceMethod:sel];
-}
-</code></pre><p>关于方法操作方面的函数还有以下这些</p>
-<pre><code>// 调用指定方法的实现
-id method_invoke ( id receiver, Method m, ... );  
-// 调用返回一个数据结构的方法的实现
-void method_invoke_stret ( id receiver, Method m, ... );  
-// 获取方法名
-SEL method_getName ( Method m );  
-// 返回方法的实现
-IMP method_getImplementation ( Method m );  
-// 获取描述方法参数和返回值类型的字符串
-const char * method_getTypeEncoding ( Method m );  
-// 获取方法的返回值类型的字符串
-char * method_copyReturnType ( Method m );  
-// 获取方法的指定位置参数的类型字符串
-char * method_copyArgumentType ( Method m, unsigned int index );  
-// 通过引用返回方法的返回值类型字符串
-void method_getReturnType ( Method m, char *dst, size_t dst_len );  
-// 返回方法的参数的个数
-unsigned int method_getNumberOfArguments ( Method m );  
-// 通过引用返回方法指定位置参数的类型字符串
-void method_getArgumentType ( Method m, unsigned int index, char *dst, size_t dst_len );  
-// 返回指定方法的方法描述结构体
-struct objc_method_description * method_getDescription ( Method m );  
-// 设置方法的实现
-IMP method_setImplementation ( Method m, IMP imp );  
-// 交换两个方法的实现
-void method_exchangeImplementations ( Method m1, Method m2 );
-</code></pre><p>这些方法其实平时不需要死记硬背，使用的时候只要先打出method开头，后面就会有补全信息，找到相应的方法，传入对应的方法即可。</p>
-<h1 id="NSCoding的自动归档和自动解档"><a href="#NSCoding的自动归档和自动解档" class="headerlink" title="NSCoding的自动归档和自动解档"></a>NSCoding的自动归档和自动解档</h1><p>现在虽然手写归档和解档的时候不多了，但是自动操作还是用Runtime来实现的。</p>
-<pre><code>- (void)encodeWithCoder:(NSCoder *)aCoder{
-    [aCoder encodeObject:self.name forKey:@&quot;name&quot;];
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder{
-    if (self = [super init]) {
-        self.name = [aDecoder decodeObjectForKey:@&quot;name&quot;];
-    }
-    return self;
-}
-</code></pre><p>手动的有一个缺陷，如果属性多起来，要写好多行相似的代码，虽然功能是可以完美实现，但是看上去不是很优雅。<br>用runtime实现的思路就比较简单，我们循环依次找到每个成员变量的名称，然后利用KVC读取和赋值就可以完成encodeWithCoder和initWithCoder了。</p>
-<pre><code>#import &quot;Student.h&quot;
-#import &lt;objc/runtime.h&gt;
-#import &lt;objc/message.h&gt;
-
-@implementation Student
-
-- (void)encodeWithCoder:(NSCoder *)aCoder{
-    unsigned int outCount = 0;
-    Ivar *vars = class_copyIvarList([self class], &amp;outCount);
-    for (int i = 0; i &lt; outCount; i ++) {
-        Ivar var = vars[i];
-        const char *name = ivar_getName(var);
-        NSString *key = [NSString stringWithUTF8String:name];
-
-        id value = [self valueForKey:key];
-        [aCoder encodeObject:value forKey:key];
-    }
-}
-
-- (nullable __kindof)initWithCoder:(NSCoder *)aDecoder{
-    if (self = [super init]) {
-        unsigned int outCount = 0;
-        Ivar *vars = class_copyIvarList([self class], &amp;outCount);
-        for (int i = 0; i &lt; outCount; i ++) {
-            Ivar var = vars[i];
-            const char *name = ivar_getName(var);
-            NSString *key = [NSString stringWithUTF8String:name];
-            id value = [aDecoder decodeObjectForKey:key];
-            [self setValue:value forKey:key];
-        }
-    }
-    return self;
-}
-@end
-</code></pre><p>class_copyIvarList方法用来获取当前 Model 的所有成员变量，ivar_getName方法用来获取每个成员变量的名称。</p>
-<h1 id="字典和模型互相转换"><a href="#字典和模型互相转换" class="headerlink" title="字典和模型互相转换"></a>字典和模型互相转换</h1><h2 id="字典转模型"><a href="#字典转模型" class="headerlink" title="字典转模型"></a>字典转模型</h2><p>1 调用 class_getProperty 方法获取当前 Model 的所有属性。<br>2 调用 property_copyAttributeList 获取属性列表。<br>3 根据属性名称生成 setter 方法。<br>4 使用 objc_msgSend 调用 setter 方法为 Model 的属性赋值（或者 KVC）</p>
-<pre><code>+(id)objectWithKeyValues:(NSDictionary *)aDictionary{
-    id objc = [[self alloc] init];
-    for (NSString *key in aDictionary.allKeys) {
-        id value = aDictionary[key];
-
-        /*判断当前属性是不是Model*/
-        objc_property_t property = class_getProperty(self, key.UTF8String);
-        unsigned int outCount = 0;
-        objc_property_attribute_t *attributeList = property_copyAttributeList(property, &amp;outCount);
-        objc_property_attribute_t attribute = attributeList[0];
-        NSString *typeString = [NSString stringWithUTF8String:attribute.value];
-
-        if ([typeString isEqualToString:@&quot;@\&quot;Student\&quot;&quot;]) {
-            value = [self objectWithKeyValues:value];
-        }
-
-        //生成setter方法，并用objc_msgSend调用
-        NSString *methodName = [NSString stringWithFormat:@&quot;set%@%@:&quot;,[key substringToIndex:1].uppercaseString,[key substringFromIndex:1]];
-        SEL setter = sel_registerName(methodName.UTF8String);
-        if ([objc respondsToSelector:setter]) {
-            ((void (*) (id,SEL,id)) objc_msgSend) (objc,setter,value);
-        }
-        free(attributeList);
-    }
-    return objc;
-}
-</code></pre><p>这段代码里面有一处判断typeString的，这里判断是防止model嵌套，比如说Student里面还有一层Student，那么这里就需要再次转换一次，当然这里有几层就需要转换几次。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">+ (BOOL)<span class="string">resolveInstanceMethod:</span>(SEL)sel &#123;</span><br><span class="line">    </span><br><span class="line">    NSString *selectorString = NSStringFromSelector(sel);</span><br><span class="line">    <span class="keyword">if</span> ([selectorString <span class="string">isEqualToString:</span>@<span class="string">"method1"</span>]) &#123;</span><br><span class="line">        class_addMethod(self.<span class="keyword">class</span>, <span class="meta">@selector</span>(method1), (IMP)functionForMethod1, <span class="string">"@:"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> [<span class="keyword">super</span> <span class="string">resolveInstanceMethod:</span>sel];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于方法操作方面的函数还有以下这些</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 调用指定方法的实现</span></span><br><span class="line">id method_invoke ( id receiver, <span class="function"><span class="keyword">Method</span> <span class="title">m</span>, ... );</span>  </span><br><span class="line"><span class="comment">// 调用返回一个数据结构的方法的实现</span></span><br><span class="line">void method_invoke_stret ( id receiver, <span class="function"><span class="keyword">Method</span> <span class="title">m</span>, ... );</span>  </span><br><span class="line"><span class="comment">// 获取方法名</span></span><br><span class="line">SEL method_getName ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span> );</span>  </span><br><span class="line"><span class="comment">// 返回方法的实现</span></span><br><span class="line">IMP method_getImplementation ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span> );</span>  </span><br><span class="line"><span class="comment">// 获取描述方法参数和返回值类型的字符串</span></span><br><span class="line"><span class="keyword">const</span> char * method_getTypeEncoding ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span> );</span>  </span><br><span class="line"><span class="comment">// 获取方法的返回值类型的字符串</span></span><br><span class="line">char * method_copyReturnType ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span> );</span>  </span><br><span class="line"><span class="comment">// 获取方法的指定位置参数的类型字符串</span></span><br><span class="line">char * method_copyArgumentType ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span>, <span class="title">unsigned</span> <span class="title">int</span> <span class="title">index</span> );</span>  </span><br><span class="line"><span class="comment">// 通过引用返回方法的返回值类型字符串</span></span><br><span class="line">void method_getReturnType ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span>, <span class="title">char</span> *<span class="title">dst</span>, <span class="title">size_t</span> <span class="title">dst_len</span> );</span>  </span><br><span class="line"><span class="comment">// 返回方法的参数的个数</span></span><br><span class="line">unsigned int method_getNumberOfArguments ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span> );</span>  </span><br><span class="line"><span class="comment">// 通过引用返回方法指定位置参数的类型字符串</span></span><br><span class="line">void method_getArgumentType ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span>, <span class="title">unsigned</span> <span class="title">int</span> <span class="title">index</span>, <span class="title">char</span> *<span class="title">dst</span>, <span class="title">size_t</span> <span class="title">dst_len</span> );</span>  </span><br><span class="line"><span class="comment">// 返回指定方法的方法描述结构体</span></span><br><span class="line">struct objc_method_description * method_getDescription ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span> );</span>  </span><br><span class="line"><span class="comment">// 设置方法的实现</span></span><br><span class="line">IMP method_setImplementation ( <span class="function"><span class="keyword">Method</span> <span class="title">m</span>, <span class="title">IMP</span> <span class="title">imp</span> );</span>  </span><br><span class="line"><span class="comment">// 交换两个方法的实现</span></span><br><span class="line">void method_exchangeImplementations ( <span class="function"><span class="keyword">Method</span> <span class="title">m1</span>, <span class="title">Method</span> <span class="title">m2</span> );</span></span><br></pre></td></tr></table></figure>
+<p>这些方法其实平时不需要死记硬背，使用的时候只要先打出method开头，后面就会有补全信息，找到相应的方法，传入对应的方法即可。</p>
+<h2 id="NSCoding的自动归档和自动解档"><a href="#NSCoding的自动归档和自动解档" class="headerlink" title="NSCoding的自动归档和自动解档"></a>NSCoding的自动归档和自动解档</h2><p>现在虽然手写归档和解档的时候不多了，但是自动操作还是用Runtime来实现的。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder&#123;</span><br><span class="line">    [aCoder encodeObject:<span class="keyword">self</span>.name forKey:<span class="string">@"name"</span>];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">id</span>)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = [aDecoder decodeObjectForKey:<span class="string">@"name"</span>];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>手动的有一个缺陷，如果属性多起来，要写好多行相似的代码，虽然功能是可以完美实现，但是看上去不是很优雅。<br>用runtime实现的思路就比较简单，我们循环依次找到每个成员变量的名称，然后利用KVC读取和赋值就可以完成encodeWithCoder和initWithCoder了。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"Student.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/message.h&gt;</span></span></span><br><span class="line">	</span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">void</span>)encodeWithCoder:(<span class="built_in">NSCoder</span> *)aCoder&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">    Ivar *vars = class_copyIvarList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">        Ivar var = vars[i];</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *name = ivar_getName(var);</span><br><span class="line">        <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">id</span> value = [<span class="keyword">self</span> valueForKey:key];</span><br><span class="line">        [aCoder encodeObject:value forKey:key];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">- (<span class="keyword">nullable</span> __kindof)initWithCoder:(<span class="built_in">NSCoder</span> *)aDecoder&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">        Ivar *vars = class_copyIvarList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">            Ivar var = vars[i];</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">char</span> *name = ivar_getName(var);</span><br><span class="line">            <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:name];</span><br><span class="line">            <span class="keyword">id</span> value = [aDecoder decodeObjectForKey:key];</span><br><span class="line">            [<span class="keyword">self</span> setValue:value forKey:key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>class_copyIvarList方法用来获取当前 Model 的所有成员变量，ivar_getName方法用来获取每个成员变量的名称。</p>
+<h2 id="字典和模型互相转换"><a href="#字典和模型互相转换" class="headerlink" title="字典和模型互相转换"></a>字典和模型互相转换</h2><h3 id="字典转模型"><a href="#字典转模型" class="headerlink" title="字典转模型"></a>字典转模型</h3><ol>
+<li>调用 class_getProperty 方法获取当前 Model 的所有属性。 </li>
+<li>调用 property_copyAttributeList 获取属性列表。 </li>
+<li>根据属性名称生成 setter 方法。 </li>
+<li>使用 objc_msgSend 调用 setter 方法为 Model 的属性赋值（或者 KVC）</li>
+</ol>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">+(<span class="keyword">id</span>)objectWithKeyValues:(<span class="built_in">NSDictionary</span> *)aDictionary&#123;</span><br><span class="line">    <span class="keyword">id</span> objc = [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">NSString</span> *key <span class="keyword">in</span> aDictionary.allKeys) &#123;</span><br><span class="line">        <span class="keyword">id</span> value = aDictionary[key];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">/*判断当前属性是不是Model*/</span></span><br><span class="line">        objc_property_t property = class_getProperty(<span class="keyword">self</span>, key.UTF8String);</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">        objc_property_attribute_t *attributeList = property_copyAttributeList(property, &amp;outCount);</span><br><span class="line">        objc_property_attribute_t attribute = attributeList[<span class="number">0</span>];</span><br><span class="line">        </span><br><span class="line">        <span class="built_in">NSString</span> *typeString = [<span class="built_in">NSString</span> stringWithUTF8String:attribute.value];</span><br><span class="line">	</span><br><span class="line">        <span class="keyword">if</span> ([typeString isEqualToString:<span class="string">@"@\"Student\""</span>]) &#123;</span><br><span class="line">            value = [<span class="keyword">self</span> objectWithKeyValues:value];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//生成setter方法，并用objc_msgSend调用</span></span><br><span class="line">        <span class="built_in">NSString</span> *methodName = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"set%@%@:"</span>,[key substringToIndex:<span class="number">1</span>].uppercaseString,[key substringFromIndex:<span class="number">1</span>]];</span><br><span class="line">        SEL <span class="keyword">setter</span> = sel_registerName(methodName.UTF8String);</span><br><span class="line">        <span class="keyword">if</span> ([objc respondsToSelector:<span class="keyword">setter</span>]) &#123;</span><br><span class="line">            ((<span class="keyword">void</span> (*) (<span class="keyword">id</span>,SEL,<span class="keyword">id</span>)) objc_msgSend) (objc,<span class="keyword">setter</span>,value);</span><br><span class="line">        &#125;</span><br><span class="line">        free(attributeList);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> objc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码里面有一处判断typeString的，这里判断是防止model嵌套，比如说Student里面还有一层Student，那么这里就需要再次转换一次，当然这里有几层就需要转换几次。</p>
 <p>几个出名的开源库JSONModel、MJExtension等都是通过这种方式实现的(利用runtime的class_copyIvarList获取属性数组，遍历模型对象的所有成员属性，根据属性名找到字典中key值进行赋值，当然这种方法只能解决NSString、NSNumber等，如果含有NSArray或NSDictionary，还要进行第二步转换，如果是字典数组，需要遍历数组中的字典，利用objectWithDict方法将字典转化为模型，在将模型放到数组中，最后把这个模型数组赋值给之前的字典数组)</p>
-<h2 id="模型转字典"><a href="#模型转字典" class="headerlink" title="模型转字典"></a>模型转字典</h2><p>这里是上一部分字典转模型的逆步骤：<br>1 调用 class_copyPropertyList 方法获取当前 Model 的所有属性。<br>2 调用 property_getName 获取属性名称。<br>3 根据属性名称生成 getter 方法。<br>4 使用 objc_msgSend 调用 getter 方法获取属性值（或者 KVC）</p>
-<pre><code>//模型转字典
--(NSDictionary *)keyValuesWithObject{
-    unsigned int outCount = 0;
-    objc_property_t *propertyList = class_copyPropertyList([self class], &amp;outCount);
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    for (int i = 0; i &lt; outCount; i ++) {
-        objc_property_t property = propertyList[i];
-
-        //生成getter方法，并用objc_msgSend调用
-        const char *propertyName = property_getName(property);
-        SEL getter = sel_registerName(propertyName);
-        if ([self respondsToSelector:getter]) {
-            id value = ((id (*) (id,SEL)) objc_msgSend) (self,getter);
-
-            /*判断当前属性是不是Model*/
-            if ([value isKindOfClass:[self class]] &amp;&amp; value) {
-                value = [value keyValuesWithObject];
-            }
-
-            if (value) {
-                NSString *key = [NSString stringWithUTF8String:propertyName];
-                [dict setObject:value forKey:key];
-            }
-        }
-
-    }
-    free(propertyList);
-    return dict;
-}
-</code></pre><p>中间注释那里的判断也是防止model嵌套，如果model里面还有一层model，那么model转字典的时候还需要再次转换，同样，有几层就需要转换几次。<br>不过上述的做法是假设字典里面不再包含二级字典，如果还包含数组，数组里面再包含字典，那还需要多级转换。这里有一个关于字典里面包含数组的demo.</p>
-<h1 id="Runtime缺点"><a href="#Runtime缺点" class="headerlink" title="Runtime缺点"></a>Runtime缺点</h1><p>看了上面八大点之后，是不是感觉Runtime很神奇，可以迅速解决很多问题，然而，Runtime就像一把瑞士小刀，如果使用得当，它会有效地解决问题。但使用不当，将带来很多麻烦。在stackoverflow上有人已经提出这样一个问题：<a href="http://stackoverflow.com/questions/5339276/what-are-the-dangers-of-method-swizzling-in-objective-c" rel="external nofollow noopener noreferrer" target="_blank">What are the Dangers of Method Swizzling in Objective C?</a>，它的危险性主要体现以下几个方面：</p>
-<p>Method swizzling is not atomic<br>Method swizzling不是原子性操作。如果在+load方法里面写，是没有问题的，但是如果写在+initialize方法中就会出现一些奇怪的问题。</p>
-<p>Changes behavior of un-owned code<br>如果你在一个类中重写一个方法，并且不调用super方法，你可能会导致一些问题出现。在大多数情况下，super方法是期望被调用的（除非有特殊说明）。如果你使用同样的思想来进行Swizzling，可能就会引起很多问题。如果你不调用原始的方法实现，那么你Swizzling改变的太多了，而导致整个程序变得不安全。</p>
-<p>Possible naming conflicts<br>命名冲突是程序开发中经常遇到的一个问题。我们经常在类别中的前缀类名称和方法名称。不幸的是，命名冲突是在我们程序中的像一种瘟疫。一般我们会这样写Method Swizzling</p>
-<pre><code>@interface NSView : NSObject
-- (void)setFrame:(NSRect)frame;
-@end
-
-@implementation NSView (MyViewAdditions)
-
-- (void)my_setFrame:(NSRect)frame {
-    // do custom work
-    [self my_setFrame:frame];
-}
-
-+ (void)load {
-    [self swizzle:@selector(setFrame:) with:@selector(my_setFrame:)];
-}
-
-@end
-</code></pre><p>这样写看上去是没有问题的。但是如果在整个大型程序中还有另外一处定义了my_setFrame:方法呢？那又会造成命名冲突的问题。我们应该把上面的Swizzling改成以下这种样子：</p>
-<pre><code>@implementation NSView (MyViewAdditions)
-
-static void MySetFrame(id self, SEL _cmd, NSRect frame);  
-static void (*SetFrameIMP)(id self, SEL _cmd, NSRect frame);
-
-static void MySetFrame(id self, SEL _cmd, NSRect frame) {  
-    // do custom work
-    SetFrameIMP(self, _cmd, frame);
-}
-
-+ (void)load {
-    [self swizzle:@selector(setFrame:) with:(IMP)MySetFrame store:(IMP *)&amp;SetFrameIMP];
-}
-
-@end
-</code></pre><p>虽然上面的代码看上去不是OC(因为使用了函数指针)，但是这种做法确实有效的防止了命名冲突的问题。原则上来说，其实上述做法更加符合标准化的Swizzling。这种做法可能和人们使用方法不同，但是这种做法更好。Swizzling Method 标准定义应该是如下的样子：</p>
-<pre><code>typedef IMP *IMPPointer;
-
-BOOL class_swizzleMethodAndStore(Class class, SEL original, IMP replacement, IMPPointer store) {  
-    IMP imp = NULL;
-    Method method = class_getInstanceMethod(class, original);
-    if (method) {
-        const char *type = method_getTypeEncoding(method);
-        imp = class_replaceMethod(class, original, replacement, type);
-        if (!imp) {
-            imp = method_getImplementation(method);
-        }
-    }
-    if (imp &amp;&amp; store) { *store = imp; }
-    return (imp != NULL);
-}
-
-@implementation NSObject (FRRuntimeAdditions)
-+ (BOOL)swizzle:(SEL)original with:(IMP)replacement store:(IMPPointer)store {
-    return class_swizzleMethodAndStore(self, original, replacement, store);
-}
-@end
-</code></pre><p>Swizzling changes the method’s arguments<br>这一点是这些问题中最大的一个。标准的Method Swizzling是不会改变方法参数的。使用Swizzling中，会改变传递给原来的一个函数实现的参数，例如</p>
-<pre><code>[self my_setFrame:frame];
-</code></pre><p>会变转换成</p>
-<pre><code>objc_msgSend(self, @selector(my_setFrame:), frame);
-</code></pre><p>objcmsgSend会去查找mysetFrame对应的IMP。一旦IMP找到，会把相同的参数传递进去。这里会找到最原始的setFrame:方法，调用执行它。但是这里的cmd参数并不是setFrame:，现在是mysetFrame:。原始的方法就被一个它不期待的接收参数调用了。这样并不好。</p>
+<p><img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/runtime_thirdDay8.png" alt="字典转model示意图"></p>
+<h3 id="模型转字典"><a href="#模型转字典" class="headerlink" title="模型转字典"></a>模型转字典</h3><p>这里是上一部分字典转模型的逆步骤：</p>
+<ol>
+<li>调用 class_copyPropertyList 方法获取当前 Model 的所有属性。 </li>
+<li>调用 property_getName 获取属性名称。 </li>
+<li>根据属性名称生成 getter 方法。 </li>
+<li>使用 objc_msgSend 调用 getter 方法获取属性值（或者 KVC）</li>
+</ol>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//模型转字典</span></span><br><span class="line">-(<span class="built_in">NSDictionary</span> *)keyValuesWithObject&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount = <span class="number">0</span>;</span><br><span class="line">    objc_property_t *propertyList = class_copyPropertyList([<span class="keyword">self</span> <span class="keyword">class</span>], &amp;outCount);</span><br><span class="line">    <span class="built_in">NSMutableDictionary</span> *dict = [<span class="built_in">NSMutableDictionary</span> dictionary];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; i ++) &#123;</span><br><span class="line">        objc_property_t property = propertyList[i];</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//生成getter方法，并用objc_msgSend调用</span></span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *propertyName = property_getName(property);</span><br><span class="line">        SEL <span class="keyword">getter</span> = sel_registerName(propertyName);</span><br><span class="line">        <span class="keyword">if</span> ([<span class="keyword">self</span> respondsToSelector:<span class="keyword">getter</span>]) &#123;</span><br><span class="line">            <span class="keyword">id</span> value = ((<span class="keyword">id</span> (*) (<span class="keyword">id</span>,SEL)) objc_msgSend) (<span class="keyword">self</span>,<span class="keyword">getter</span>);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">/*判断当前属性是不是Model*/</span></span><br><span class="line">            <span class="keyword">if</span> ([value isKindOfClass:[<span class="keyword">self</span> <span class="keyword">class</span>]] &amp;&amp; value) &#123;</span><br><span class="line">                value = [value keyValuesWithObject];</span><br><span class="line">            &#125;</span><br><span class="line">	</span><br><span class="line">            <span class="keyword">if</span> (value) &#123;</span><br><span class="line">                <span class="built_in">NSString</span> *key = [<span class="built_in">NSString</span> stringWithUTF8String:propertyName];</span><br><span class="line">                [dict setObject:value forKey:key];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    free(propertyList);</span><br><span class="line">    <span class="keyword">return</span> dict;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>中间注释那里的判断也是防止model嵌套，如果model里面还有一层model，那么model转字典的时候还需要再次转换，同样，有几层就需要转换几次。<br>不过上述的做法是假设字典里面不再包含二级字典，如果还包含数组，数组里面再包含字典，那还需要多级转换。这里有一个关于字典里面包含数组的demo.</p>
+<h2 id="Runtime缺点"><a href="#Runtime缺点" class="headerlink" title="Runtime缺点"></a>Runtime缺点</h2><p>看了上面八大点之后，是不是感觉Runtime很神奇，可以迅速解决很多问题，然而，Runtime就像一把瑞士小刀，如果使用得当，它会有效地解决问题。但使用不当，将带来很多麻烦。在stackoverflow上有人已经提出这样一个问题：<a href="http://stackoverflow.com/questions/5339276/what-are-the-dangers-of-method-swizzling-in-objective-c" rel="external nofollow noopener noreferrer" target="_blank">What are the Dangers of Method Swizzling in Objective C?</a>，它的危险性主要体现以下几个方面：</p>
+<p>Method swizzling is not atomic</p>
+<p>Method swizzling不是原子性操作。如果在+load方法里面写，是没有问题的，但是如果写在+initialize方法中就会出现一些奇怪的问题。</p>
+<p>Changes behavior of un-owned code</p>
+<p>如果你在一个类中重写一个方法，并且不调用super方法，你可能会导致一些问题出现。在大多数情况下，super方法是期望被调用的（除非有特殊说明）。如果你使用同样的思想来进行Swizzling，可能就会引起很多问题。如果你不调用原始的方法实现，那么你Swizzling改变的太多了，而导致整个程序变得不安全。</p>
+<p>Possible naming conflicts</p>
+<p>命名冲突是程序开发中经常遇到的一个问题。我们经常在类别中的前缀类名称和方法名称。不幸的是，命名冲突是在我们程序中的像一种瘟疫。一般我们会这样写Method Swizzling</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">NSView </span>: NSObject</span><br><span class="line">- (void)<span class="attribute">setFrame</span>:(NSRect)frame;</span><br><span class="line"><span class="variable">@end</span></span><br><span class="line">	</span><br><span class="line"><span class="variable">@implementation</span> NSView (MyViewAdditions)</span><br><span class="line">	</span><br><span class="line">- (void)<span class="attribute">my_setFrame</span>:(NSRect)frame &#123;</span><br><span class="line">    <span class="comment">// do custom work</span></span><br><span class="line">    <span class="selector-attr">[self my_setFrame:frame]</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">+ (void)load &#123;</span><br><span class="line">    <span class="selector-attr">[self swizzle:@selector(setFrame:) with:@selector(my_setFrame:)]</span>;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>这样写看上去是没有问题的。但是如果在整个大型程序中还有另外一处定义了my_setFrame:方法呢？那又会造成命名冲突的问题。我们应该把上面的Swizzling改成以下这种样子：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSView</span> (<span class="title">MyViewAdditions</span>)</span></span><br><span class="line">	</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> MySetFrame(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="built_in">NSRect</span> frame);  </span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> (*SetFrameIMP)(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="built_in">NSRect</span> frame);</span><br><span class="line">	</span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> MySetFrame(<span class="keyword">id</span> <span class="keyword">self</span>, SEL _cmd, <span class="built_in">NSRect</span> frame) &#123;  </span><br><span class="line">    <span class="comment">// do custom work</span></span><br><span class="line">    SetFrameIMP(<span class="keyword">self</span>, _cmd, frame);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">+ (<span class="keyword">void</span>)load &#123;</span><br><span class="line">    [<span class="keyword">self</span> swizzle:<span class="keyword">@selector</span>(setFrame:) with:(IMP)MySetFrame store:(IMP *)&amp;SetFrameIMP];</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p>虽然上面的代码看上去不是OC(因为使用了函数指针)，但是这种做法确实有效的防止了命名冲突的问题。原则上来说，其实上述做法更加符合标准化的Swizzling。这种做法可能和人们使用方法不同，但是这种做法更好。Swizzling Method 标准定义应该是如下的样子：</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">typedef IMP *IMPPointer;</span><br><span class="line">	</span><br><span class="line">BOOL class_swizzleMethodAndStore(<span class="class"><span class="keyword">Class</span> <span class="title">class</span>, <span class="title">SEL</span> <span class="title">original</span>, <span class="title">IMP</span> <span class="title">replacement</span>, <span class="title">IMPPointer</span> <span class="title">store</span>) &#123;  </span></span><br><span class="line">    IMP imp = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="function"><span class="keyword">Method</span> <span class="title">method</span> =</span> class_getInstanceMethod(<span class="class"><span class="keyword">class</span>, <span class="title">original</span>);</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="function"><span class="keyword">method</span>) &#123;</span></span><br><span class="line">        <span class="keyword">const</span> char *type = method_getTypeEncoding(<span class="function"><span class="keyword">method</span>);</span></span><br><span class="line">        imp = class_replaceMethod(<span class="class"><span class="keyword">class</span>, <span class="title">original</span>, <span class="title">replacement</span>, <span class="title">type</span>);</span></span><br><span class="line">        <span class="keyword">if</span> (!imp) &#123;</span><br><span class="line">            imp = method_getImplementation(<span class="function"><span class="keyword">method</span>);</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (imp &amp;&amp; store) &#123; *store = imp; &#125;</span><br><span class="line">    <span class="keyword">return</span> (imp != <span class="literal">NULL</span>);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">@implementation NSObject (FRRuntimeAdditions)</span><br><span class="line">+ (BOOL)swizzle:(SEL)original with:(IMP)replacement store:(IMPPointer)store &#123;</span><br><span class="line">    <span class="keyword">return</span> class_swizzleMethodAndStore(<span class="built_in">self</span>, original, replacement, store);</span><br><span class="line">&#125;</span><br><span class="line">@<span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>Swizzling changes the method’s arguments</p>
+<p>这一点是这些问题中最大的一个。标准的Method Swizzling是不会改变方法参数的。使用Swizzling中，会改变传递给原来的一个函数实现的参数，例如</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[self my_setFrame:frame]</span><span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>会变转换成</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">objc_msgSend</span>(self, <span class="variable">@selector</span>(<span class="attribute">my_setFrame</span>:), frame);</span><br></pre></td></tr></table></figure>
+<p>objcmsgSend会去查找mysetFrame对应的IMP。一旦IMP找到，会把相同的参数传递进去。这里会找到最原始的setFrame:方法，调用执行它。但是这里的cmd参数并不是setFrame:，现在是mysetFrame:。原始的方法就被一个它不期待的接收参数调用了。这样并不好。</p>
 <p>这里有一个简单的解决办法，上一条里面所说的，用函数指针去实现。参数就不会变了。</p>
 <p>The order of swizzles matters<br>调用顺序对于Swizzling来说，很重要。假设setFrame:方法仅仅被定义在NSView类里面。</p>
-<pre><code>[NSButton swizzle:@selector(setFrame:) with:@selector(my_buttonSetFrame:)];
-[NSControl swizzle:@selector(setFrame:) with:@selector(my_controlSetFrame:)];
-[NSView swizzle:@selector(setFrame:) with:@selector(my_viewSetFrame:)];
-</code></pre><p>当NSButton被swizzled之后会发生什么呢？大多数的swizzling应该保证不会替换setFrame:方法。因为一旦改了这个方法，会影响下面所有的View。所以它会去拉取实例方法。NSButton会使用已经存在的方法去重新定义setFrame:方法。以至于改变了IMP实现不会影响所有的View。相同的事情也会发生在对NSControl进行swizzling的时候，同样，IMP也是定义在NSView类里面，把NSControl 和 NSButton这上下两行swizzle顺序替换，结果也是相同的。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[NSButton <span class="string">swizzle:</span><span class="meta">@selector</span>(<span class="string">setFrame:</span>) <span class="string">with:</span><span class="meta">@selector</span>(<span class="string">my_buttonSetFrame:</span>)];</span><br><span class="line">[NSControl <span class="string">swizzle:</span><span class="meta">@selector</span>(<span class="string">setFrame:</span>) <span class="string">with:</span><span class="meta">@selector</span>(<span class="string">my_controlSetFrame:</span>)];</span><br><span class="line">[NSView <span class="string">swizzle:</span><span class="meta">@selector</span>(<span class="string">setFrame:</span>) <span class="string">with:</span><span class="meta">@selector</span>(<span class="string">my_viewSetFrame:</span>)];</span><br></pre></td></tr></table></figure>
+<p>当NSButton被swizzled之后会发生什么呢？大多数的swizzling应该保证不会替换setFrame:方法。因为一旦改了这个方法，会影响下面所有的View。所以它会去拉取实例方法。NSButton会使用已经存在的方法去重新定义setFrame:方法。以至于改变了IMP实现不会影响所有的View。相同的事情也会发生在对NSControl进行swizzling的时候，同样，IMP也是定义在NSView类里面，把NSControl 和 NSButton这上下两行swizzle顺序替换，结果也是相同的。</p>
 <p>当调用NSButton的setFrame:方法，会去调用swizzled method，然后会跳入NSView类里面定义的setFrame:方法。NSControl 和 NSView对应的swizzled method不会被调用。</p>
 <p>NSButton 和 NSControl各自调用各自的 swizzling方法，相互不会影响。</p>
 <p>但是我们改变一下调用顺序，把NSView放在第一位调用。</p>
-<pre><code>[NSView swizzle:@selector(setFrame:) with:@selector(my_viewSetFrame:)];
-[NSControl swizzle:@selector(setFrame:) with:@selector(my_controlSetFrame:)];
-[NSButton swizzle:@selector(setFrame:) with:@selector(my_buttonSetFrame:)];
-</code></pre><p>一旦这里的NSView先进行了swizzling了以后，情况就和上面大不相同了。NSControl的swizzling会去拉取NSView替换后的方法。相应的，NSControl在NSButton前面，NSButton也会去拉取到NSControl替换后的方法。这样就十分混乱了。但是顺序就是这样排列的。我们开发中如何能保证不出现这种混乱呢？</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[NSView <span class="string">swizzle:</span><span class="meta">@selector</span>(<span class="string">setFrame:</span>) <span class="string">with:</span><span class="meta">@selector</span>(<span class="string">my_viewSetFrame:</span>)];</span><br><span class="line">[NSControl <span class="string">swizzle:</span><span class="meta">@selector</span>(<span class="string">setFrame:</span>) <span class="string">with:</span><span class="meta">@selector</span>(<span class="string">my_controlSetFrame:</span>)];</span><br><span class="line">[NSButton <span class="string">swizzle:</span><span class="meta">@selector</span>(<span class="string">setFrame:</span>) <span class="string">with:</span><span class="meta">@selector</span>(<span class="string">my_buttonSetFrame:</span>)];</span><br></pre></td></tr></table></figure>
+<p>一旦这里的NSView先进行了swizzling了以后，情况就和上面大不相同了。NSControl的swizzling会去拉取NSView替换后的方法。相应的，NSControl在NSButton前面，NSButton也会去拉取到NSControl替换后的方法。这样就十分混乱了。但是顺序就是这样排列的。我们开发中如何能保证不出现这种混乱呢？</p>
 <p>再者，在load方法中加载swizzle。如果仅仅是在已经加载完成的class中做了swizzle，那么这样做是安全的。load方法能保证父类会在其任何子类加载方法之前，加载相应的方法。这就保证了我们调用顺序的正确性。</p>
-<p>Difficult to understand (looks recursive)<br>看着传统定义的swizzled method，我认为很难去预测会发生什么。但是对比上面标准的swizzling，还是很容易明白。这一点已经被解决了。</p>
-<p>Difficult to debug<br>在调试中，会出现奇怪的堆栈调用信息，尤其是swizzled的命名很混乱，一切方法调用都是混乱的。对比标准的swizzled方式，你会在堆栈中看到清晰的命名方法。swizzling还有一个比较难调试的一点， 在于你很难记住当前确切的哪个方法已经被swizzling了。</p>
+<p>Difficult to understand (looks recursive)</p>
+<p>看着传统定义的swizzled method，我认为很难去预测会发生什么。但是对比上面标准的swizzling，还是很容易明白。这一点已经被解决了。</p>
+<p>Difficult to debug</p>
+<p>在调试中，会出现奇怪的堆栈调用信息，尤其是swizzled的命名很混乱，一切方法调用都是混乱的。对比标准的swizzled方式，你会在堆栈中看到清晰的命名方法。swizzling还有一个比较难调试的一点， 在于你很难记住当前确切的哪个方法已经被swizzling了。</p>
 <p>在代码里面写好文档注释，即使你认为这段代码只有你一个人会看。遵循这个方式去实践，你的代码都会没问题。它的调试也没有多线程的调试困难。</p>
-<p>#最后</p>
-<p>经过在“神经病院”3天的修炼之后，对OC 的Runtime理解更深了。</p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>经过在“神经病院”3天的修炼之后，对OC 的Runtime理解更深了。</p>
 <p>关于黑魔法Method swizzling，我个人觉得如果使用得当，还是很安全的。一个简单而安全的措施是你仅仅只在load方法中去swizzle。和编程中很多事情一样，不了解它的时候会很危险可怕，但是一旦明白了它的原理之后，使用它又会变得非常正确高效。</p>
 <p>对于多人开发，尤其是改动过Runtime的地方，文档记录一定要完整。如果某人不知道某个方法被Swizzling了，出现问题调试起来，十分蛋疼。</p>
 <p>如果是SDK开发，某些Swizzling会改变全局的一些方法的时候，一定要在文档里面标注清楚，否则使用SDK的人不知道，出现各种奇怪的问题，又要被坑好久。</p>
 <p>在合理使用 + 文档完整齐全 的情况下，解决特定问题，使用Runtime还是非常简洁安全的。</p>
 <p>日常可能用的比较多的Runtime函数可能就是下面这些</p>
-<pre><code>//获取cls类对象所有成员ivar结构体
-Ivar *class_copyIvarList(Class cls, unsigned int *outCount)  
-//获取cls类对象name对应的实例方法结构体
-Method class_getInstanceMethod(Class cls, SEL name)  
-//获取cls类对象name对应类方法结构体
-Method class_getClassMethod(Class cls, SEL name)  
-//获取cls类对象name对应方法imp实现
-IMP class_getMethodImplementation(Class cls, SEL name)  
-//测试cls对应的实例是否响应sel对应的方法
-BOOL class_respondsToSelector(Class cls, SEL sel)  
-//获取cls对应方法列表
-Method *class_copyMethodList(Class cls, unsigned int *outCount)  
-//测试cls是否遵守protocol协议
-BOOL class_conformsToProtocol(Class cls, Protocol *protocol)  
-//为cls类对象添加新方法
-BOOL class_addMethod(Class cls, SEL name, IMP imp, const char *types)  
-//替换cls类对象中name对应方法的实现
-IMP class_replaceMethod(Class cls, SEL name, IMP imp, const char *types)  
-//为cls添加新成员
-BOOL class_addIvar(Class cls, const char *name, size_t size, uint8_t alignment, const char *types)  
-//为cls添加新属性
-BOOL class_addProperty(Class cls, const char *name, const objc_property_attribute_t *attributes, unsigned int attributeCount)  
-//获取m对应的选择器
-SEL method_getName(Method m)  
-//获取m对应的方法实现的imp指针
-IMP method_getImplementation(Method m)  
-//获取m方法的对应编码
-const char *method_getTypeEncoding(Method m)  
-//获取m方法参数的个数
-unsigned int method_getNumberOfArguments(Method m)  
-//copy方法返回值类型
-char *method_copyReturnType(Method m)  
-//获取m方法index索引参数的类型
-char *method_copyArgumentType(Method m, unsigned int index)  
-//获取m方法返回值类型
-void method_getReturnType(Method m, char *dst, size_t dst_len)  
-//获取方法的参数类型
-void method_getArgumentType(Method m, unsigned int index, char *dst, size_t dst_len)  
-//设置m方法的具体实现指针
-IMP method_setImplementation(Method m, IMP imp)  
-//交换m1，m2方法对应具体实现的函数指针
-void method_exchangeImplementations(Method m1, Method m2)  
-//获取v的名称
-const char *ivar_getName(Ivar v)  
-//获取v的类型编码
-const char *ivar_getTypeEncoding(Ivar v)  
-//设置object对象关联的对象
-void objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy)  
-//获取object关联的对象
-id objc_getAssociatedObject(id object, const void *key)  
-//移除object关联的对象
-void objc_removeAssociatedObjects(id object)
-</code></pre><p>这些API看上去不好记，其实使用的时候不难，关于方法操作的，一般都是method开头，关于类的，一般都是class开头的，其他的基本都是objc开头的，剩下的就看代码补全的提示，看方法名基本就能找到想要的方法了。当然很熟悉的话，可以直接打出指定方法，也不会依赖代码补全。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取cls类对象所有成员ivar结构体</span></span><br><span class="line">Ivar *class_copyIvarList(Class cls, <span class="keyword">unsigned</span> <span class="keyword">int</span> *outCount)  </span><br><span class="line"><span class="comment">//获取cls类对象name对应的实例方法结构体</span></span><br><span class="line">Method class_getInstanceMethod(Class cls, SEL name)  </span><br><span class="line"><span class="comment">//获取cls类对象name对应类方法结构体</span></span><br><span class="line">Method class_getClassMethod(Class cls, SEL name)  </span><br><span class="line"><span class="comment">//获取cls类对象name对应方法imp实现</span></span><br><span class="line">IMP class_getMethodImplementation(Class cls, SEL name)  </span><br><span class="line"><span class="comment">//测试cls对应的实例是否响应sel对应的方法</span></span><br><span class="line"><span class="built_in">BOOL</span> class_respondsToSelector(Class cls, SEL sel)  </span><br><span class="line"><span class="comment">//获取cls对应方法列表</span></span><br><span class="line">Method *class_copyMethodList(Class cls, <span class="keyword">unsigned</span> <span class="keyword">int</span> *outCount)  </span><br><span class="line"><span class="comment">//测试cls是否遵守protocol协议</span></span><br><span class="line"><span class="built_in">BOOL</span> class_conformsToProtocol(Class cls, Protocol *protocol)  </span><br><span class="line"><span class="comment">//为cls类对象添加新方法</span></span><br><span class="line"><span class="built_in">BOOL</span> class_addMethod(Class cls, SEL name, IMP imp, <span class="keyword">const</span> <span class="keyword">char</span> *types)  </span><br><span class="line"><span class="comment">//替换cls类对象中name对应方法的实现</span></span><br><span class="line">IMP class_replaceMethod(Class cls, SEL name, IMP imp, <span class="keyword">const</span> <span class="keyword">char</span> *types)  </span><br><span class="line"><span class="comment">//为cls添加新成员</span></span><br><span class="line"><span class="built_in">BOOL</span> class_addIvar(Class cls, <span class="keyword">const</span> <span class="keyword">char</span> *name, size_t size, uint8_t alignment, <span class="keyword">const</span> <span class="keyword">char</span> *types)  </span><br><span class="line"><span class="comment">//为cls添加新属性</span></span><br><span class="line"><span class="built_in">BOOL</span> class_addProperty(Class cls, <span class="keyword">const</span> <span class="keyword">char</span> *name, <span class="keyword">const</span> objc_property_attribute_t *attributes, <span class="keyword">unsigned</span> <span class="keyword">int</span> attributeCount)  </span><br><span class="line"><span class="comment">//获取m对应的选择器</span></span><br><span class="line">SEL method_getName(Method m)  </span><br><span class="line"><span class="comment">//获取m对应的方法实现的imp指针</span></span><br><span class="line">IMP method_getImplementation(Method m)  </span><br><span class="line"><span class="comment">//获取m方法的对应编码</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *method_getTypeEncoding(Method m)  </span><br><span class="line"><span class="comment">//获取m方法参数的个数</span></span><br><span class="line"><span class="keyword">unsigned</span> <span class="keyword">int</span> method_getNumberOfArguments(Method m)  </span><br><span class="line"><span class="comment">//copy方法返回值类型</span></span><br><span class="line"><span class="keyword">char</span> *method_copyReturnType(Method m)  </span><br><span class="line"><span class="comment">//获取m方法index索引参数的类型</span></span><br><span class="line"><span class="keyword">char</span> *method_copyArgumentType(Method m, <span class="keyword">unsigned</span> <span class="keyword">int</span> index)  </span><br><span class="line"><span class="comment">//获取m方法返回值类型</span></span><br><span class="line"><span class="keyword">void</span> method_getReturnType(Method m, <span class="keyword">char</span> *dst, size_t dst_len)  </span><br><span class="line"><span class="comment">//获取方法的参数类型</span></span><br><span class="line"><span class="keyword">void</span> method_getArgumentType(Method m, <span class="keyword">unsigned</span> <span class="keyword">int</span> index, <span class="keyword">char</span> *dst, size_t dst_len)  </span><br><span class="line"><span class="comment">//设置m方法的具体实现指针</span></span><br><span class="line">IMP method_setImplementation(Method m, IMP imp)  </span><br><span class="line"><span class="comment">//交换m1，m2方法对应具体实现的函数指针</span></span><br><span class="line"><span class="keyword">void</span> method_exchangeImplementations(Method m1, Method m2)  </span><br><span class="line"><span class="comment">//获取v的名称</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *ivar_getName(Ivar v)  </span><br><span class="line"><span class="comment">//获取v的类型编码</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *ivar_getTypeEncoding(Ivar v)  </span><br><span class="line"><span class="comment">//设置object对象关联的对象</span></span><br><span class="line"><span class="keyword">void</span> objc_setAssociatedObject(<span class="keyword">id</span> object, <span class="keyword">const</span> <span class="keyword">void</span> *key, <span class="keyword">id</span> value, objc_AssociationPolicy policy)  </span><br><span class="line"><span class="comment">//获取object关联的对象</span></span><br><span class="line"><span class="keyword">id</span> objc_getAssociatedObject(<span class="keyword">id</span> object, <span class="keyword">const</span> <span class="keyword">void</span> *key)  </span><br><span class="line"><span class="comment">//移除object关联的对象</span></span><br><span class="line"><span class="keyword">void</span> objc_removeAssociatedObjects(<span class="keyword">id</span> object)</span><br></pre></td></tr></table></figure>
+<p>这些API看上去不好记，其实使用的时候不难，关于方法操作的，一般都是method开头，关于类的，一般都是class开头的，其他的基本都是objc开头的，剩下的就看代码补全的提示，看方法名基本就能找到想要的方法了。当然很熟悉的话，可以直接打出指定方法，也不会依赖代码补全。</p>
 <p>还有一些关于协议相关的API以及其他一些不常用，但是也可能用到的，就需要查看Objective-C Runtime官方API文档，这个官方文档里面详细说明，平时不懂的多看看文档。</p>
-<p>最后请大家多多指教。</p>
-<h1 id="涉及的资料"><a href="#涉及的资料" class="headerlink" title="涉及的资料"></a>涉及的资料</h1><p><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtForwarding.html#//apple_ref/doc/uid/TP40008048-CH105-SW11" rel="external nofollow noopener noreferrer" target="_blank">Objective-C Runtime Programming Guide</a></p>
-<p><a href="http://blog.leichunfeng.com/blog/2015/05/02/objective-c-plus-load-vs-plus-initialize/" rel="external nofollow noopener noreferrer" target="_blank">《Objective-C +load vs +initialize》</a></p>
-<p><a href="http://www.jianshu.com/p/0497afdad36d" rel="external nofollow noopener noreferrer" target="_blank">iOS动态性(二)可复用而且高度解耦的用户统计埋点实现</a></p>
-<p><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOImplementation.html" rel="external nofollow noopener noreferrer" target="_blank">Key-Value Observing Programming Guide</a></p>
-<p><a href="https://www.mikeash.com/pyblog/key-value-observing-done-right.html" rel="external nofollow noopener noreferrer" target="_blank">KVO中的缺陷</a></p>
-<p><a href="http://stackoverflow.com/questions/5339276/what-are-the-dangers-of-method-swizzling-in-objective-c" rel="external nofollow noopener noreferrer" target="_blank">What are the Dangers of Method Swizzling in Objective C?</a></p>
+<h2 id="涉及的资料"><a href="#涉及的资料" class="headerlink" title="涉及的资料"></a>涉及的资料</h2><ol>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtForwarding.html#//apple_ref/doc/uid/TP40008048-CH105-SW11" rel="external nofollow noopener noreferrer" target="_blank">Objective-C Runtime Programming Guide</a></li>
+<li><a href="http://blog.leichunfeng.com/blog/2015/05/02/objective-c-plus-load-vs-plus-initialize/" rel="external nofollow noopener noreferrer" target="_blank">《Objective-C +load vs +initialize》</a></li>
+<li><a href="http://www.jianshu.com/p/0497afdad36d" rel="external nofollow noopener noreferrer" target="_blank">iOS动态性(二)可复用而且高度解耦的用户统计埋点实现</a></li>
+<li><a href="https://developer.apple.com/library/content/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOImplementation.html" rel="external nofollow noopener noreferrer" target="_blank">Key-Value Observing Programming Guide</a></li>
+<li><a href="https://www.mikeash.com/pyblog/key-value-observing-done-right.html" rel="external nofollow noopener noreferrer" target="_blank">KVO中的缺陷</a></li>
+<li><a href="http://stackoverflow.com/questions/5339276/what-are-the-dangers-of-method-swizzling-in-objective-c" rel="external nofollow noopener noreferrer" target="_blank">What are the Dangers of Method Swizzling in Objective C?</a></li>
+</ol>
 
             </div>
         
