@@ -20,7 +20,8 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay1.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay3.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay2.png">
-<meta property="og:updated_time" content="2018-11-01T02:39:20.386Z">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/神经病院Objective-C%20Runtime入院系列文章/secondDay/secondDay4.png">
+<meta property="og:updated_time" content="2018-11-01T06:12:35.059Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息发送与转发（转载)">
 <meta name="twitter:description" content="现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC">
@@ -884,7 +885,7 @@
 </ol>
 </li>
 <li>确定不是给nil发消息之后，在该class的缓存中查找方法对应的IMP实现。<ol>
-<li>如果找到，就跳转进去执行。 如果没有找到，就在方法分发表里面继续查找，一直找到NSObject为止。<br><img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/secondDay1.png" alt="runtime13"></li>
+<li>如果找到，就跳转进去执行。 如果没有找到，就在方法分发表里面继续查找，一直找到NSObject为止。<br><img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/secondDay1.png" alt="查找父类消息"></li>
 <li>如果还没有找到，那就需要开始消息转发阶段了。至此，发送消息Messaging阶段完成。这一阶段主要完成的是通过select()快速查找IMP的过程。</li>
 </ol>
 </li>
@@ -1027,6 +1028,7 @@
 <p>例子2就只会输出1句话。调用Student对象代理中的study::方法，因为该方法还未通过这个代理注册，所以程序仅会将调用该方法的消息转发给Student对象，而不会调用AuditorInvoker方法。</p>
 <p>例子3又会输出3句话了。因为study::通过这个代理进行了注册，然后程序再次调用它，在这次调用过程中，程序会调用AuditingInvoker对象中的AOP方法和真正目标（Student对象）中的study::方法。</p>
 <p>这个例子就实现了一个简单的AOP(Aspect Oriented Programming)面向切面编程。我们把一切功能”切”出去，与其他部分分开，这样可以提高程序的模块化程度。AOP能解耦也能动态组装，可以通过预编译方式和运行期动态代理实现在不修改源代码的情况下给程序动态统一添加功能。比如上面的例子三，我们通过把方法注册到动态代理类中，于是就实现了该类也能处理方法的功能。</p>
+<p><img src="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/secondDay4.png" alt="AOP原理--添加中间层"></p>
 <h2 id="入院考试"><a href="#入院考试" class="headerlink" title="入院考试"></a>入院考试</h2><p>下面的代码会？Compile Error / Runtime Crash / NSLog…?</p>
 <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> (<span class="title">Sark</span>)</span></span><br><span class="line">+ (<span class="keyword">void</span>)foo;</span><br><span class="line">- (<span class="keyword">void</span>)foo;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">NSObject</span> (<span class="title">Sark</span>)</span></span><br><span class="line">- (<span class="keyword">void</span>)foo</span><br><span class="line">&#123;</span><br><span class="line">   <span class="built_in">NSLog</span>(<span class="string">@"IMP: -[NSObject(Sark) foo]"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) </span><br><span class="line">&#123;</span><br><span class="line"> 		<span class="keyword">@autoreleasepool</span> </span><br><span class="line"> 		&#123;</span><br><span class="line">     		[<span class="built_in">NSObject</span> foo];</span><br><span class="line">     		[[<span class="built_in">NSObject</span> new] foo];</span><br><span class="line">     &#125;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>这道有两处难点，难点一是给NSObject增加了一个分类，分类声明的是一个加号的类方法，而实现中是一个减号的实例方法。在main中去NSObject去调用了这个foo方法，会编译错误，还是会Crash呢？</p>
