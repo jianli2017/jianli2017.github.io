@@ -9,13 +9,13 @@
         <meta name="keywords" content="isa">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="本文讲解Runtime中的isa指针">
+    <meta name="description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
 <meta name="keywords" content="isa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 NSObject 的初始化了解 isa（转载)">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="本文讲解Runtime中的isa指针">
+<meta property="og:description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-pointer.png">
@@ -28,10 +28,10 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-print-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-print-class-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-isat-class-highlight-bits.png">
-<meta property="og:updated_time" content="2018-11-01T09:54:23.943Z">
+<meta property="og:updated_time" content="2018-11-02T03:10:00.355Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 NSObject 的初始化了解 isa（转载)">
-<meta name="twitter:description" content="本文讲解Runtime中的isa指针">
+<meta name="twitter:description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
 <meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-object.png">
     
 
@@ -476,7 +476,7 @@
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2.深入解析 ObjC 中方法的结构</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -866,7 +866,7 @@
             
         
         
-            <p>本文讲解Runtime中的isa指针</p>
+            <p>本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件</p>
 <a id="more"></a>
 <blockquote>
 <p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
@@ -899,7 +899,7 @@
 <li>类方法调用时，通过类的 <code>isa</code> 在元类中获取方法的实现</li>
 </ul>
 <p>下面这张图介绍了对象，类与元类之间的关系，笔者认为已经觉得足够清晰了，所以不在赘述。</p>
-<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-diagram.png" alt=""></p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-diagram.png" alt="元类"></p>
 <blockquote>
 <p>图片来自 <a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">objc_explain_Classes_and_metaclasses</a></p>
 </blockquote>
@@ -912,7 +912,7 @@
 <p><strong>在本篇文章中, 我们会以 <code>__x86_64__</code> 为例进行分析，而不会对两种架构下由于不同的内存布局方式导致的差异进行分析</strong>。在我看来，这个细节不会影响对 <code>isa</code> 指针的理解，不过还是要知道的。</p>
 <p>笔者对这个 <code>isa_t</code> 的实现声明顺序有一些更改，更方便分析和理解。</p>
 <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">isa_t</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p><code>isa_t</code> 是一个 <code>union</code> 类型的结构体，对 <code>union</code> 不熟悉的读者可以看这个 stackoverflow 上的<a href="http://stackoverflow.com/questions/252552/why-do-we-need-c-unions" rel="external nofollow noopener noreferrer" target="_blank">回答</a>. 也就是说其中的 <code>isa_t</code>、<code>cls</code>、 <code>bits</code> 还有结构体共用同一块地址空间。而 <code>isa</code> 总共会占据 64 位的内存空间（决定于其中的结构体）</p>
+<p><code>isa_t</code> 是一个 <code>union</code> 类型的结构体，对 <code>union</code> 不熟悉的读者可以看这个 stackoverflow 上的<a href="http://stackoverflow.com/questions/252552/why-do-we-need-c-unions" rel="external nofollow noopener noreferrer" target="_blank">回答</a>. 也就是说其中的 <code>cls</code>、 <code>bits</code> 还有结构体共用同一块地址空间。而 <code>isa</code> 总共会占据 64 位的内存空间（决定于其中的结构体）</p>
 <p><img src="/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-isat.png" alt="objc-isa-isat"></p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct &#123;</span><br><span class="line">   uintptr_t indexed           : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_assoc         : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_cxx_dtor      : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t <span class="keyword">shiftcls </span>         : <span class="number">44</span><span class="comment">;</span></span><br><span class="line">   uintptr_t magic             : <span class="number">6</span><span class="comment">;</span></span><br><span class="line">   uintptr_t weakly_referenced : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t deallocating      : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_sidetable_rc  : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t <span class="keyword">extra_rc </span>         : <span class="number">8</span><span class="comment">;</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
 <h2 id="isa-的初始化"><a href="#isa-的初始化" class="headerlink" title="isa 的初始化"></a><code>isa</code> 的初始化</h2><p>我们可以通过 <code>isa</code> 初始化的方法 <code>initIsa</code> 来初步了解这 64 位的 bits 的作用：</p>
@@ -1017,6 +1017,15 @@
 
     
 <nav id="article-nav">
+    
+        <a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    2.深入解析 ObjC 中方法的结构
+                
+            </div>
+        </a>
     
     
         <a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/" id="article-nav-older" class="article-nav-link-wrap">
