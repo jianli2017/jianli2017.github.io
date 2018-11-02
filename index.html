@@ -849,13 +849,12 @@
         
         
             <a id="more"></a>
-<p># </p>
 <blockquote>
 <p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
 </blockquote>
 <p>在上一篇分析 <code>isa</code> 的文章<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/从%20NSObject%20的初始化了解%20isa.md" rel="external nofollow noopener noreferrer" target="_blank">从 NSObject 的初始化了解 isa</a> 中曾经说到过实例方法被调用时，会通过其持有 <code>isa</code> 指针寻找对应的类，然后在其中的 <code>class_data_bits_t</code> 中查找对应的方法，在这一篇文章中会介绍方法在 ObjC 中是如何存储方法的。</p>
 <p>这篇文章的首先会根据 ObjC 源代码来分析方法在内存中的存储结构，然后在 lldb 调试器中一步一步验证分析的正确性。</p>
-<h2 id="方法在内存中的位置"><a href="#方法在内存中的位置" class="headerlink" title="方法在内存中的位置"></a>方法在内存中的位置</h2><p>先来了解一下 ObjC 中类的结构图：<br>NSObject_objc_object<br><img src="/wiki/IOS/Runtime/objc/NSObject_objc_object/NSObject_objc_objectNSObject_objc_object/objc-method-class.png" alt="objc-method-class"></p>
+<h2 id="方法在内存中的位置"><a href="#方法在内存中的位置" class="headerlink" title="方法在内存中的位置"></a>方法在内存中的位置</h2><p>先来了解一下 ObjC 中类的结构图：<br>NSObject_objc_object<br><img src="/wiki/IOS/Runtime/objc/NSObject_objc_object/objc-method-class.png" alt="objc-method-class"></p>
 <ul>
 <li><code>isa</code> 是指向元类的指针，不了解元类的可以看 <a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
 <li><code>super_class</code> 指向当前类的父类</li>
