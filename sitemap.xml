@@ -2,16 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/</loc>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_objc_object/</loc>
     
-    <lastmod>2018-11-07T08:13:16.993Z</lastmod>
+    <lastmod>2018-11-07T09:43:34.822Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_objc_object/</loc>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/</loc>
     
-    <lastmod>2018-11-02T03:25:26.951Z</lastmod>
+    <lastmod>2018-11-07T08:13:16.993Z</lastmod>
     
   </url>
   
