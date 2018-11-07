@@ -33,7 +33,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_objc_object/objc-method-print-class-struct-after-realize.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_objc_object/objc-method-after-methodizeClass.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_objc_object/obj-method-struct.png">
-<meta property="og:updated_time" content="2018-11-02T03:23:18.466Z">
+<meta property="og:updated_time" content="2018-11-02T03:25:26.951Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2.深入解析 ObjC 中方法的结构">
 <meta name="twitter:description" content="因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 x86_64 架构下运行的，对于在 arm64 中运行的代码会特别说明。  在上一篇分析 isa 的文章从 NSObject 的初始化了解 isa 中曾经说到过实例方法被调用时，会通过其持有 isa 指针寻找对应的类，然后在其中的 class_data_bits_t 中查找对应的">
@@ -481,7 +481,7 @@
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2.深入解析 ObjC 中方法的结构</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2.深入解析 ObjC 中方法的结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa的副本/">从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -877,7 +877,7 @@
 </blockquote>
 <p>在上一篇分析 <code>isa</code> 的文章<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/从%20NSObject%20的初始化了解%20isa.md" rel="external nofollow noopener noreferrer" target="_blank">从 NSObject 的初始化了解 isa</a> 中曾经说到过实例方法被调用时，会通过其持有 <code>isa</code> 指针寻找对应的类，然后在其中的 <code>class_data_bits_t</code> 中查找对应的方法，在这一篇文章中会介绍方法在 ObjC 中是如何存储方法的。</p>
 <p>这篇文章的首先会根据 ObjC 源代码来分析方法在内存中的存储结构，然后在 lldb 调试器中一步一步验证分析的正确性。</p>
-<h2 id="方法在内存中的位置"><a href="#方法在内存中的位置" class="headerlink" title="方法在内存中的位置"></a>方法在内存中的位置</h2><p>先来了解一下 ObjC 中类的结构图：<br>NSObject_objc_object<br><img src="/wiki/IOS/Runtime/objc/NSObject_objc_object/objc-method-class.png" alt="objc-method-class"></p>
+<h2 id="方法在内存中的位置"><a href="#方法在内存中的位置" class="headerlink" title="方法在内存中的位置"></a>方法在内存中的位置</h2><p>先来了解一下 ObjC 中类的结构图：<br><img src="/wiki/IOS/Runtime/objc/NSObject_objc_object/objc-method-class.png" alt="objc-method-class"></p>
 <ul>
 <li><code>isa</code> 是指向元类的指针，不了解元类的可以看 <a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
 <li><code>super_class</code> 指向当前类的父类</li>
@@ -1018,6 +1018,15 @@
 
     
 <nav id="article-nav">
+    
+        <a href="/wiki/IOS/Runtime/objc/NSObject_isa的副本/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    从 NSObject 的初始化了解 isa（转载)
+                
+            </div>
+        </a>
     
     
         <a href="/wiki/IOS/Runtime/objc/NSObject_isa/" id="article-nav-older" class="article-nav-link-wrap">

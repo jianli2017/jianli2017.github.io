@@ -17,7 +17,6 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-pointer.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-meta-class.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-diagram.png">
@@ -28,11 +27,11 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-print-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-print-class-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-isat-class-highlight-bits.png">
-<meta property="og:updated_time" content="2018-11-02T03:10:00.355Z">
+<meta property="og:updated_time" content="2018-11-07T06:00:29.554Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 NSObject 的初始化了解 isa（转载)">
 <meta name="twitter:description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
-<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-object.png">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-pointer.png">
     
 
     
@@ -476,7 +475,7 @@
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2.深入解析 ObjC 中方法的结构</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2.深入解析 ObjC 中方法的结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa的副本/">从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -861,7 +860,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-指针的作用与元类"><span class="toc-number">1.</span> <span class="toc-text">isa 指针的作用与元类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构体-isa-t"><span class="toc-number">2.</span> <span class="toc-text">结构体 isa_t</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-的初始化"><span class="toc-number">3.</span> <span class="toc-text">isa 的初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#indexed-和-magic"><span class="toc-number">3.1.</span> <span class="toc-text">indexed 和 magic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#has-cxx-dtor"><span class="toc-number">3.2.</span> <span class="toc-text">has_cxx_dtor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shiftcls"><span class="toc-number">3.3.</span> <span class="toc-text">shiftcls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISA-方法"><span class="toc-number">3.4.</span> <span class="toc-text">ISA() 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它-bits"><span class="toc-number">3.5.</span> <span class="toc-text">其它 bits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#arm64-架构中的-isa-t-结构体"><span class="toc-number">3.6.</span> <span class="toc-text">arm64 架构中的 isa_t 结构体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#OC的类是一个结构体"><span class="toc-number">1.</span> <span class="toc-text">OC的类是一个结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-指针的作用与元类"><span class="toc-number">2.</span> <span class="toc-text">isa 指针的作用与元类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构体-isa-t"><span class="toc-number">3.</span> <span class="toc-text">结构体 isa_t</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-的初始化"><span class="toc-number">4.</span> <span class="toc-text">isa 的初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#indexed-和-magic"><span class="toc-number">4.1.</span> <span class="toc-text">indexed 和 magic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#has-cxx-dtor"><span class="toc-number">4.2.</span> <span class="toc-text">has_cxx_dtor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shiftcls"><span class="toc-number">4.3.</span> <span class="toc-text">shiftcls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISA-方法"><span class="toc-number">4.4.</span> <span class="toc-text">ISA() 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它-bits"><span class="toc-number">4.5.</span> <span class="toc-text">其它 bits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#arm64-架构中的-isa-t-结构体"><span class="toc-number">4.6.</span> <span class="toc-text">arm64 架构中的 isa_t 结构体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">5.</span> <span class="toc-text">参考资料</span></a></li></ol>
                 </div>
             
         
@@ -871,20 +870,24 @@
 <blockquote>
 <p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
 </blockquote>
-<p>如果你曾经对 ObjC 底层的实现有一定的了解，你应该会知道 <strong>Objective-C 对象都是 C 语言结构体</strong>，所有的对象都包含一个类型为  <code>isa</code> 的指针，那么你可能确实对 ObjC 的底层有所知，不过现在的 ObjC 对象的结构已经不是这样了。代替 <code>isa</code> 指针的是结构体 <code>isa_t</code>, 这个结构体中”包含”了当前对象指向的类的信息，这篇文章中会介绍一些关于这个变化的知识。</p>
+<h2 id="OC的类是一个结构体"><a href="#OC的类是一个结构体" class="headerlink" title="OC的类是一个结构体"></a>OC的类是一个结构体</h2><p>所有的OC类其实都是一个c语言的结构体，我们可以通过clang -rewrite-objc 命令重写OC类为C++类。来理解OC的类就是一个C语言的结构体。下面是重写的实例，类的定义如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">LJObjc</span>:NSObject</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span>(nonatomic, strong) NSString *strName;</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span>(nonatomic, strong)NSString *strVale;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span>(NSString *) <span class="selector-tag">funcName</span><span class="selector-pseudo">:(NSString</span> *) <span class="selector-tag">strName</span>;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span>(NSString *) <span class="selector-tag">funcValue</span><span class="selector-pseudo">:(NSString</span> *)<span class="selector-tag">strValue</span>;</span><br><span class="line"></span><br><span class="line">+(NSString*) <span class="selector-tag">printDefaultName</span><span class="selector-pseudo">:(NSString</span> *) <span class="selector-tag">strName</span>;</span><br><span class="line"></span><br><span class="line">+(NSString *)<span class="selector-tag">printDefaultValue</span><span class="selector-pseudo">:(NSString</span> *)<span class="selector-tag">strValue</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@<span class="selector-tag">end</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">@<span class="selector-tag">implementation</span> <span class="selector-tag">LJObjc</span></span><br><span class="line"></span><br><span class="line">@<span class="selector-tag">end</span></span><br></pre></td></tr></table></figure>
+<p>在从重写后的输出文件中，我们找到LJObjc的定义，定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">objc_object</span> <span class="title">LJObjc</span>;</span></span><br></pre></td></tr></table></figure>
+<p>可以看出，OC类就是一个C的结构体。</p>
+<p>既然所有的OC对都是一个结构体，这个结构体就是struct objc_object。定义如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_object</span> &#123;</span></span><br><span class="line">    <span class="keyword">isa_t</span> isa;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>当 ObjC 为一个对象分配内存，初始化实例变量后，在这些对象的实例变量的结构体中的第一个就是 <code>isa</code>。</p>
-<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-object.png" alt="objc-isa-class-object"></p>
+<p>objc_object结构中只有一个 <code>isa_t</code>类型成员。所以我们可以说含有isa的结构体都是一个对象。</p>
 <blockquote>
 <p>所有继承自 <code>NSObject</code> 的类实例化后的对象都会包含一个类型为 <code>isa_t</code> 的结构体。</p>
 </blockquote>
-<p>从上图中可以看出，不只是<strong>实例</strong>会包含一个 <code>isa</code> 结构体，所有的<strong>类</strong>也有这么一个 <code>isa</code>。在 ObjC 中 Class 的定义也是一个名为 <code>objc_class</code> 的结构体，如下：</p>
+<p>虽然上面重写LJObjc后的C语言结构体是一个objc_object对象，但实际上他是一个objc_class结构体，由于objc_class继承与objc_object，  所以本质上objc_class 也是一个objc_object结构。<br>objc_class定义如下：</p>
 <figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class : objc_object &#123;</span><br><span class="line">    isa_t isa<span class="comment">;</span></span><br><span class="line">    Class superclass<span class="comment">;</span></span><br><span class="line">    <span class="keyword">cache_t </span><span class="keyword">cache;</span></span><br><span class="line"><span class="keyword"> </span>   class_data_bits_t <span class="keyword">bits;</span></span><br><span class="line"><span class="keyword">&#125;;</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>由于 <code>objc_class</code> 结构体是继承自 <code>objc_object</code> 的，所以在这里显式地写出了 <code>isa_t isa</code> 这个成员变量。</p>
 </blockquote>
-<h2 id="isa-指针的作用与元类"><a href="#isa-指针的作用与元类" class="headerlink" title="isa 指针的作用与元类"></a><code>isa</code> 指针的作用与元类</h2><p>到这里，我们就明白了：<strong>Objective-C 中类也是一个对象</strong>。</p>
-<p>这个 <code>isa</code> 包含了什么呢？回答这个问题之前，要引入了另一个概念 <em>元类(meta class)</em>，我们先了解一些关于元类的信息。</p>
+<p>到这里，我们就明白了：<strong>Objective-C 中类也是一个对象</strong>。</p>
+<h2 id="isa-指针的作用与元类"><a href="#isa-指针的作用与元类" class="headerlink" title="isa 指针的作用与元类"></a><code>isa</code> 指针的作用与元类</h2><p> <code>isa</code> 包含了什么呢？回答这个问题之前，要引入了另一个概念 <em>元类(meta class)</em>，我们先了解一些关于元类的信息。</p>
 <p>因为在 Objective-C 中，对象的方法并<strong>没有存储于对象的结构体中</strong>（如果每一个对象都保存了自己能执行的方法，那么对内存的占用有极大的影响）。</p>
 <p>当<strong>实例方法</strong>被调用时，它要通过自己持有的 <code>isa</code> 来查找对应的类，然后在这里的 <code>class_data_bits_t</code> 结构体中查找对应方法的实现。同时，每一个 <code>objc_class</code> 也有一个<strong>指向自己的父类的指针</strong> <code>super_class</code> 用来查找继承的方法。</p>
 <blockquote>

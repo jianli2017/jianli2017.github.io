@@ -3,24 +3,36 @@
 <head>
     <meta charset="utf-8">
     
-    <title>hexo使用指南 | LJ小窝</title>
+    <title>从 NSObject 的初始化了解 isa（转载) | LJ小窝</title>
     
     
-        <meta name="keywords" content="hexo">
+        <meta name="keywords" content="isa">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）">
-<meta name="keywords" content="hexo">
+    <meta name="description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
+<meta name="keywords" content="isa">
 <meta property="og:type" content="article">
-<meta property="og:title" content="hexo使用指南">
-<meta property="og:url" content="http://yoursite.com/wiki/工具/hexo/hexo-use/index.html">
+<meta property="og:title" content="从 NSObject 的初始化了解 isa（转载)">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）">
+<meta property="og:description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-class-object.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-class-pointer.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-meta-class.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-class-diagram.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat-bits.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat-bits-has-css-dtor.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-print-cls.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-print-object.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-print-class-object.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat-class-highlight-bits.png">
+<meta property="og:updated_time" content="2018-11-02T03:10:00.355Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hexo使用指南">
-<meta name="twitter:description" content="使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）">
+<meta name="twitter:title" content="从 NSObject 的初始化了解 isa（转载)">
+<meta name="twitter:description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-class-object.png">
     
 
     
@@ -408,9 +420,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -451,20 +463,20 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             Runtime
                         </a>
                          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2.深入解析 ObjC 中方法的结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa的副本/">从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2.深入解析 ObjC 中方法的结构</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/NSObject_isa的副本/">从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -597,9 +609,9 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             工具
                         </a>
@@ -667,13 +679,13 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             hexo
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file active"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -802,7 +814,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-工具/hexo/hexo-use" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/Runtime/objc/NSObject_isa的副本" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -812,20 +824,20 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/hexo/">hexo</a>
+        <a class="tag-link" href="/tags/isa/">isa</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/hexo/hexo-use/">
-            <time datetime="2018-02-07T07:57:29.000Z" itemprop="datePublished">2018-02-07</time>
+        <a href="/wiki/IOS/Runtime/objc/NSObject_isa的副本/">
+            <time datetime="2018-11-01T02:38:11.000Z" itemprop="datePublished">2018-11-01</time>
         </a>
     </div>
 
@@ -836,7 +848,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            hexo使用指南
+            从 NSObject 的初始化了解 isa（转载)
         </h1>
     
 
@@ -849,75 +861,151 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常用命令"><span class="toc-number">1.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#环境搭建"><span class="toc-number">2.</span> <span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#GitHub"><span class="toc-number">3.</span> <span class="toc-text">GitHub</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#初始化"><span class="toc-number">4.</span> <span class="toc-text">初始化</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#生成静态页面"><span class="toc-number">5.</span> <span class="toc-text">生成静态页面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#本地启动"><span class="toc-number">6.</span> <span class="toc-text">本地启动</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#写文章"><span class="toc-number">7.</span> <span class="toc-text">写文章</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#fancybox"><span class="toc-number">8.</span> <span class="toc-text">fancybox</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#description"><span class="toc-number">8.1.</span> <span class="toc-text">description</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文章摘要"><span class="toc-number">9.</span> <span class="toc-text">文章摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#主题安装"><span class="toc-number">10.</span> <span class="toc-text">主题安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-number">11.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-指针的作用与元类"><span class="toc-number">1.</span> <span class="toc-text">isa 指针的作用与元类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构体-isa-t"><span class="toc-number">2.</span> <span class="toc-text">结构体 isa_t</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#isa-的初始化"><span class="toc-number">3.</span> <span class="toc-text">isa 的初始化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#indexed-和-magic"><span class="toc-number">3.1.</span> <span class="toc-text">indexed 和 magic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#has-cxx-dtor"><span class="toc-number">3.2.</span> <span class="toc-text">has_cxx_dtor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shiftcls"><span class="toc-number">3.3.</span> <span class="toc-text">shiftcls</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ISA-方法"><span class="toc-number">3.4.</span> <span class="toc-text">ISA() 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其它-bits"><span class="toc-number">3.5.</span> <span class="toc-text">其它 bits</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#arm64-架构中的-isa-t-结构体"><span class="toc-number">3.6.</span> <span class="toc-text">arm64 架构中的 isa_t 结构体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">4.</span> <span class="toc-text">参考资料</span></a></li></ol>
                 </div>
             
         
         
-            <p>使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）</p>
+            <p>本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件</p>
 <a id="more"></a>
-<h1 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h1><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo n #写文章</span><br><span class="line">hexo g #生成</span><br><span class="line">hexo d #部署 # 可与hexo g合并为 hexo d -g</span><br></pre></td></tr></table></figure>
-<h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><ul>
-<li>安装Node.js</li>
-<li>安装git（Xcode自带）</li>
-<li>安装hexo</li>
+<blockquote>
+<p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
+</blockquote>
+<p>如果你曾经对 ObjC 底层的实现有一定的了解，你应该会知道 <strong>Objective-C 对象都是 C 语言结构体</strong>，所有的对象都包含一个类型为  <code>isa</code> 的指针，那么你可能确实对 ObjC 的底层有所知，不过现在的 ObjC 对象的结构已经不是这样了。代替 <code>isa</code> 指针的是结构体 <code>isa_t</code>, 这个结构体中”包含”了当前对象指向的类的信息，这篇文章中会介绍一些关于这个变化的知识。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_object</span> &#123;</span></span><br><span class="line">    <span class="keyword">isa_t</span> isa;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当 ObjC 为一个对象分配内存，初始化实例变量后，在这些对象的实例变量的结构体中的第一个就是 <code>isa</code>。</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-class-object.png" alt="objc-isa-class-object"></p>
+<blockquote>
+<p>所有继承自 <code>NSObject</code> 的类实例化后的对象都会包含一个类型为 <code>isa_t</code> 的结构体。</p>
+</blockquote>
+<p>从上图中可以看出，不只是<strong>实例</strong>会包含一个 <code>isa</code> 结构体，所有的<strong>类</strong>也有这么一个 <code>isa</code>。在 ObjC 中 Class 的定义也是一个名为 <code>objc_class</code> 的结构体，如下：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">struct objc_class : objc_object &#123;</span><br><span class="line">    isa_t isa<span class="comment">;</span></span><br><span class="line">    Class superclass<span class="comment">;</span></span><br><span class="line">    <span class="keyword">cache_t </span><span class="keyword">cache;</span></span><br><span class="line"><span class="keyword"> </span>   class_data_bits_t <span class="keyword">bits;</span></span><br><span class="line"><span class="keyword">&#125;;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>由于 <code>objc_class</code> 结构体是继承自 <code>objc_object</code> 的，所以在这里显式地写出了 <code>isa_t isa</code> 这个成员变量。</p>
+</blockquote>
+<h2 id="isa-指针的作用与元类"><a href="#isa-指针的作用与元类" class="headerlink" title="isa 指针的作用与元类"></a><code>isa</code> 指针的作用与元类</h2><p>到这里，我们就明白了：<strong>Objective-C 中类也是一个对象</strong>。</p>
+<p>这个 <code>isa</code> 包含了什么呢？回答这个问题之前，要引入了另一个概念 <em>元类(meta class)</em>，我们先了解一些关于元类的信息。</p>
+<p>因为在 Objective-C 中，对象的方法并<strong>没有存储于对象的结构体中</strong>（如果每一个对象都保存了自己能执行的方法，那么对内存的占用有极大的影响）。</p>
+<p>当<strong>实例方法</strong>被调用时，它要通过自己持有的 <code>isa</code> 来查找对应的类，然后在这里的 <code>class_data_bits_t</code> 结构体中查找对应方法的实现。同时，每一个 <code>objc_class</code> 也有一个<strong>指向自己的父类的指针</strong> <code>super_class</code> 用来查找继承的方法。</p>
+<blockquote>
+<p>关于如何在 <code>class_data_bits_t</code> 中查找对应方法会在之后的文章中讲到。这里只需要知道，它会在这个结构体中查找到对应方法的实现就可以了。<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/深入解析%20ObjC%20中方法的结构.md" rel="external nofollow noopener noreferrer" target="_blank">深入解析 ObjC 中方法的结构</a></p>
+</blockquote>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-class-pointer.png" alt="objc-isa-class-pointer"></p>
+<p>但是，这样就有一个问题，类方法的实现又是如何查找并且调用的呢？这时，就需要引入<em>元类</em>来保证无论是类还是对象都能<strong>通过相同的机制查找方法的实现</strong>。</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-meta-class.png" alt="objc-isa-meta-class"></p>
+<p>让每一个类的 <code>isa</code> 指向对应的元类，这样就达到了使类方法和实例方法的调用机制相同的目的：</p>
+<ul>
+<li>实例方法调用时，通过对象的 <code>isa</code> 在类中获取方法的实现</li>
+<li>类方法调用时，通过类的 <code>isa</code> 在元类中获取方法的实现</li>
 </ul>
-<p>hexo 是基于Node.js的静态博客程序，使用npm 安装：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g hexo</span><br></pre></td></tr></table></figure>
-<h1 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h1><ul>
-<li>首先注册一个『GitHub』帐号</li>
-<li>建立与你用户名对应的仓库，仓库名必须为『your_user_name.github.com』</li>
-<li>添加SSH公钥到『Account settings -&gt; SSH Keys -&gt; Add SSH Key』</li>
+<p>下面这张图介绍了对象，类与元类之间的关系，笔者认为已经觉得足够清晰了，所以不在赘述。</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-class-diagram.png" alt="元类"></p>
+<blockquote>
+<p>图片来自 <a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">objc_explain_Classes_and_metaclasses</a></p>
+</blockquote>
+<p>有关与介绍类与元类之间的关系的文章实在是太多了，因为这篇文章主要介绍 <code>isa</code>，在这一小节只是对其作用以及元类的概念进行介绍。如果想要了解更多关于类与元类的信息，可以看 <a href="http://www.cocoawithlove.com/2010/01/what-is-meta-class-in-objective-c.html" rel="external nofollow noopener noreferrer" target="_blank">What is a meta-class in Objective-C?</a></p>
+<h2 id="结构体-isa-t"><a href="#结构体-isa-t" class="headerlink" title="结构体 isa_t"></a>结构体 <code>isa_t</code></h2><p>其实 <code>isa_t</code> 是一个定义得非常”奇怪”的结构体，在 ObjC 源代码中可以看到这样的定义：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISA_MASK        0x00007ffffffffff8ULL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISA_MAGIC_MASK  0x001f800000000001ULL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISA_MAGIC_VALUE 0x001d800000000001ULL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RC_ONE   (1ULL&lt;&lt;56)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RC_HALF  (1ULL&lt;&lt;7)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">union</span> <span class="keyword">isa_t</span> &#123;</span><br><span class="line">    <span class="keyword">isa_t</span>() &#123; &#125;</span><br><span class="line">    <span class="keyword">isa_t</span>(<span class="keyword">uintptr_t</span> value) : bits(value) &#123; &#125;</span><br><span class="line"></span><br><span class="line">    Class cls;</span><br><span class="line">    <span class="keyword">uintptr_t</span> bits;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="keyword">uintptr_t</span> indexed           : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> has_assoc         : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> has_cxx_dtor      : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> shiftcls          : <span class="number">44</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> magic             : <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> weakly_referenced : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> deallocating      : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> has_sidetable_rc  : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> extra_rc          : <span class="number">8</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这是在 <code>__x86_64__</code> 上的实现，对于 iPhone5s 等架构为 <code>__arm64__</code> 的设备上，具体结构体的实现和位数可能有些差别，不过这些字段都是存在的，可以看这里的 <a href="#arm64">arm64 上结构体的实现</a></p>
+</blockquote>
+<p><strong>在本篇文章中, 我们会以 <code>__x86_64__</code> 为例进行分析，而不会对两种架构下由于不同的内存布局方式导致的差异进行分析</strong>。在我看来，这个细节不会影响对 <code>isa</code> 指针的理解，不过还是要知道的。</p>
+<p>笔者对这个 <code>isa_t</code> 的实现声明顺序有一些更改，更方便分析和理解。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">isa_t</span> &#123;</span></span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>isa_t</code> 是一个 <code>union</code> 类型的结构体，对 <code>union</code> 不熟悉的读者可以看这个 stackoverflow 上的<a href="http://stackoverflow.com/questions/252552/why-do-we-need-c-unions" rel="external nofollow noopener noreferrer" target="_blank">回答</a>. 也就是说其中的 <code>cls</code>、 <code>bits</code> 还有结构体共用同一块地址空间。而 <code>isa</code> 总共会占据 64 位的内存空间（决定于其中的结构体）</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat.png" alt="objc-isa-isat"></p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct &#123;</span><br><span class="line">   uintptr_t indexed           : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_assoc         : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_cxx_dtor      : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t <span class="keyword">shiftcls </span>         : <span class="number">44</span><span class="comment">;</span></span><br><span class="line">   uintptr_t magic             : <span class="number">6</span><span class="comment">;</span></span><br><span class="line">   uintptr_t weakly_referenced : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t deallocating      : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_sidetable_rc  : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t <span class="keyword">extra_rc </span>         : <span class="number">8</span><span class="comment">;</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h2 id="isa-的初始化"><a href="#isa-的初始化" class="headerlink" title="isa 的初始化"></a><code>isa</code> 的初始化</h2><p>我们可以通过 <code>isa</code> 初始化的方法 <code>initIsa</code> 来初步了解这 64 位的 bits 的作用：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> </span><br><span class="line">objc_object::initInstanceIsa(Class cls, <span class="keyword">bool</span> hasCxxDtor)</span><br><span class="line">&#123;</span><br><span class="line">    initIsa(cls, <span class="literal">true</span>, hasCxxDtor);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">void</span> </span><br><span class="line">objc_object::initIsa(Class cls, <span class="keyword">bool</span> indexed, <span class="keyword">bool</span> hasCxxDtor) </span><br><span class="line">&#123; </span><br><span class="line">    <span class="keyword">if</span> (!indexed) &#123;</span><br><span class="line">        isa.cls = cls;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        isa.bits = ISA_MAGIC_VALUE;</span><br><span class="line">        isa.has_cxx_dtor = hasCxxDtor;</span><br><span class="line">        isa.shiftcls = (<span class="keyword">uintptr_t</span>)cls &gt;&gt; <span class="number">3</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="indexed-和-magic"><a href="#indexed-和-magic" class="headerlink" title="indexed 和 magic"></a><code>indexed</code> 和 <code>magic</code></h3><p>当我们对一个 ObjC 对象分配内存时，其方法调用栈中包含了上述的两个方法，这里关注的重点是 <code>initIsa</code> 方法，由于在 <code>initInstanceIsa</code> 方法中传入了 <code>indexed = true</code>，所以，我们简化一下这个方法的实现：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">inline void objc_object::initIsa(Class cls, <span class="keyword">bool </span>indexed, <span class="keyword">bool </span>hasCxxDtor) </span><br><span class="line">&#123; </span><br><span class="line">    isa.<span class="keyword">bits </span>= ISA_MAGIC_VALUE<span class="comment">;</span></span><br><span class="line">    isa.has_cxx_dtor = hasCxxDtor<span class="comment">;</span></span><br><span class="line">    isa.<span class="keyword">shiftcls </span>= (uintptr_t)cls &gt;&gt; <span class="number">3</span><span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对整个 <code>isa</code> 的值 <code>bits</code> 进行设置，传入 <code>ISA_MAGIC_VALUE</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISA_MAGIC_VALUE 0x001d800000000001ULL</span></span><br></pre></td></tr></table></figure>
+<p>我们可以把它转换成二进制的数据，然后看一下哪些属性对应的位被这行代码初始化了（标记为红色）：</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat-bits.png" alt="objc-isa-isat-bits"></p>
+<p>从图中了解到，在使用 <code>ISA_MAGIC_VALUE</code> 设置 <code>isa_t</code> 结构体之后，实际上只是设置了 <code>indexed</code> 以及 <code>magic</code> 这两部分的值。</p>
+<ul>
+<li><p>其中 <code>indexed</code> 表示 <code>isa_t</code> 的类型</p>
+<ul>
+<li><p>0 表示 <code>raw isa</code>，也就是没有结构体的部分，访问对象的 <code>isa</code> 会直接返回一个指向 <code>cls</code> 的指针，也就是在 iPhone 迁移到 64 位系统之前时 isa 的类型。</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">union</span> <span class="title">isa_t</span> &#123;</span></span><br><span class="line">    isa_t() &#123; &#125;</span><br><span class="line">    isa_t(uintptr_t value) : bits(value) &#123; &#125;</span><br><span class="line"></span><br><span class="line">    Class cls;</span><br><span class="line">    uintptr_t bits;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>1 表示当前 <code>isa</code> 不是指针，但是其中也有 <code>cls</code> 的信息，只是其中<strong>关于类的指针都是保存在 <code>shiftcls</code> 中</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">union</span> <span class="keyword">isa_t</span> &#123;</span><br><span class="line">    <span class="keyword">isa_t</span>() &#123; &#125;</span><br><span class="line">    <span class="keyword">isa_t</span>(<span class="keyword">uintptr_t</span> value) : bits(value) &#123; &#125;</span><br><span class="line"></span><br><span class="line">    Class cls;</span><br><span class="line">    <span class="keyword">uintptr_t</span> bits;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">        <span class="keyword">uintptr_t</span> indexed           : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> has_assoc         : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> has_cxx_dtor      : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> shiftcls          : <span class="number">44</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> magic             : <span class="number">6</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> weakly_referenced : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> deallocating      : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> has_sidetable_rc  : <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">uintptr_t</span> extra_rc          : <span class="number">8</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+</li>
 </ul>
-<p>说明 git使用两种协议传输：https、git，如我的blog 的两种协议git地址如下：</p>
-<p>git@github.com:jianli2017/jianli2017.github.io.git<br><a href="https://github.com/jianli2017/jianli2017.github.io.git" rel="external nofollow noopener noreferrer" target="_blank">https://github.com/jianli2017/jianli2017.github.io.git</a></p>
-<p>SSH 作用于git协议，使用SSH 后，git协议的push、pull操作不需要输入密码。</p>
-<h1 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h1><p>使用hexo init 命令在当前目录下初始化一个hexo项目</p>
-<h1 id="生成静态页面"><a href="#生成静态页面" class="headerlink" title="生成静态页面"></a>生成静态页面</h1><p>cd 到你的init目录，执行如下命令，生成静态页面到 ./public/目录。</p>
-<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">generate</span></span><br></pre></td></tr></table></figure>
-<h1 id="本地启动"><a href="#本地启动" class="headerlink" title="本地启动"></a>本地启动</h1><p>执行如下命令，启动本地服务，进行文章预览调试。</p>
-<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
-<h1 id="写文章"><a href="#写文章" class="headerlink" title="写文章"></a>写文章</h1><p>执行new命令，生成指定名称的文章至hexo/source/_posts/postName.md。</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> [lay“<span class="keyword">out</span>] <span class="string">"postName"</span> <span class="meta">#新建文章</span></span><br></pre></td></tr></table></figure>
-<p>其中layout是可选参数，默认值为post。有哪些layout呢，请到scaffolds目录下查看，这些文件名称就是layout名称。当然你可以添加自己的layout，方法就是添加一个文件即可，同时你也可以编辑现有的layout，比如post的layout默认是hexo\scaffolds\post.md</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line"><span class="keyword">tags:</span></span><br></pre></td></tr></table></figure>
-<p>请注意，大括号与大括号之间我多加了个空格，否则会被转义，不能正常显示。</p>
-<p>我想添加categories，以免每次手工输入，只需要修改这个文件添加一行，如下：</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line">categories: </span><br><span class="line"><span class="keyword">tags:</span></span><br></pre></td></tr></table></figure>
-<p>postName是md文件的名字，同时也出现在你文章的URL中，postName如果包含空格，必须用”将其包围，postName可以为中文。</p>
-<p>注意，所有文件：后面都必须有个空格，不然会报错。</p>
-<p>看一下刚才生成的文件hexo/source/_posts/postName.md，内容如下：</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">title: postName #文章页面上的显示名称，可以任意修改，不会出现在URL中</span><br><span class="line">date: 2013<span class="string">-12</span><span class="string">-02</span> 15:30:16 #文章生成时间，一般不改，当然也可以任意修改</span><br><span class="line">categories: #文章分类目录，可以为空，注意:后面有个空格</span><br><span class="line"><span class="keyword">tags:</span> #文章标签，可空，多标签请用格式[tag1,tag2,tag3]，注意:后面有个空格</span><br></pre></td></tr></table></figure>
-<h1 id="fancybox"><a href="#fancybox" class="headerlink" title="fancybox"></a>fancybox</h1><p>可能有人对这个Reading页面中图片的fancybox效果感兴趣，这个是怎么做的呢。<br>很简单，只需要在你的文章*.md文件的头上添加photos项即可，然后一行行添加你要展示的照片：</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">layout: photo</span><br><span class="line">title: 我的阅历</span><br><span class="line">date: 2085<span class="string">-01</span><span class="string">-16</span> 07:33:44</span><br><span class="line"><span class="keyword">tags:</span> [hexo]</span><br><span class="line">photos:</span><br><span class="line">- http://bruce.u.qiniudn.com/2013/11/27/reading/photos<span class="string">-0</span>.jpg</span><br><span class="line">- http://bruce.u.qiniudn.com/2013/11/27/reading/photos<span class="string">-1</span>.jpg</span><br></pre></td></tr></table></figure>
-<p>经过测试，文件头上的layout: photo可以省略。</p>
-<p>不想每次都手动添加怎么办？同样的，打开您的hexo\scaffolds\photo.md</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">layout: &#123; &#123; layout &#125; &#125;</span><br><span class="line">title: &#123; &#123; title &#125; &#125;</span><br><span class="line">date: &#123; &#123; date &#125; &#125;</span><br><span class="line"><span class="keyword">tags:</span> </span><br><span class="line">photos:</span><br></pre></td></tr></table></figure>
-<p>然后每次可以执行带layout的new命令生成照片文章：</p>
-<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">new</span> <span class="type">photo</span> <span class="string">"photoPostName"</span> <span class="meta">#新建照片文章</span></span><br></pre></td></tr></table></figure>
-<h2 id="description"><a href="#description" class="headerlink" title="description"></a>description</h2><p>markdown文件头中也可以添加description，以覆盖全局配置文件中的description内容，请参考下文_config.yml的介绍。</p>
-<figure class="highlight subunit"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">title: hexo你的博客</span><br><span class="line">date: 2013<span class="string">-11</span><span class="string">-22</span> 17:11:54</span><br><span class="line">categories: default</span><br><span class="line"><span class="keyword">tags:</span> [hexo]</span><br><span class="line">description: 你对本页的描述</span><br></pre></td></tr></table></figure>
-<p>hexo默认会处理全部markdown和html文件，如果不想让hexo处理你的文件，可以在文件头中加入layout: false。</p>
-<h1 id="文章摘要"><a href="#文章摘要" class="headerlink" title="文章摘要"></a>文章摘要</h1><p>在需要显示摘要的地方添加如下代码即可：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">以上是摘要</span><br><span class="line"><span class="comment">&lt;!--more--&gt;</span></span><br><span class="line">以下是余下全文</span><br></pre></td></tr></table></figure>
-<p>more以上内容即是文章摘要，在主页显示，more以下内容点击『&gt; Read More』链接打开全文才显示。</p>
-<p>hexo中所有文件的编码格式均是UTF-8。</p>
-<h1 id="主题安装"><a href="#主题安装" class="headerlink" title="主题安装"></a>主题安装</h1><p>安装主题的方法就是一句git命令：</p>
-<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">clone</span> <span class="title">https</span>://github.com/heroicyang/hexo-theme-modernist.git themes/modernist</span><br></pre></td></tr></table></figure>
-<p>目录是否是modernist无所谓，只要与_config.yml文件一致即可。</p>
-<p>安装完成后，打开hexo/_config.yml，修改主题为modernist</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">theme:</span> modernist</span><br></pre></td></tr></table></figure>
-<p>打开hexo/themes/modernist目录，编辑主题配置文件_config.yml：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">menu:</span> <span class="comment">#配置页头显示哪些菜单</span></span><br><span class="line"><span class="comment">#  Home: /</span></span><br><span class="line"><span class="attr">  Archives:</span> <span class="string">/archives</span></span><br><span class="line"><span class="attr">  Reading:</span> <span class="string">/reading</span></span><br><span class="line"><span class="attr">  About:</span> <span class="string">/about</span></span><br><span class="line"><span class="comment">#  Guestbook: /about</span></span><br><span class="line"><span class="attr">excerpt_link:</span> <span class="string">Read</span> <span class="string">More</span> <span class="comment">#摘要链接文字</span></span><br><span class="line"><span class="attr">archive_yearly:</span> <span class="literal">false</span> <span class="comment">#按年存档</span></span><br><span class="line"><span class="attr">widgets:</span> <span class="comment">#配置页脚显示哪些小挂件</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">category</span></span><br><span class="line"><span class="comment">#  - tag</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">tagcloud</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">recent_posts</span></span><br><span class="line"><span class="comment">#  - blogroll</span></span><br><span class="line"><span class="attr">blogrolls:</span> <span class="comment">#友情链接</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">bruce</span> <span class="string">sha's</span> <span class="string">duapp</span> <span class="attr">wordpress:</span> <span class="attr">http://ibruce.duapp.com</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">bruce</span> <span class="string">sha's</span> <span class="attr">javaeye:</span> <span class="attr">http://buru.iteye.com</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">bruce</span> <span class="string">sha's</span> <span class="string">oschina</span> <span class="attr">blog:</span> <span class="attr">http://my.oschina.net/buru</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">bruce</span> <span class="string">sha's</span> <span class="string">baidu</span> <span class="attr">space:</span> <span class="attr">http://hi.baidu.com/iburu</span></span><br><span class="line"><span class="attr">fancybox:</span> <span class="literal">true</span> <span class="comment">#是否开启fancybox效果</span></span><br><span class="line"><span class="attr">duoshuo_shortname:</span> <span class="string">buru</span> <span class="comment">#多说账号</span></span><br><span class="line"><span class="attr">google_analytics:</span></span><br><span class="line"><span class="attr">rss:</span></span><br></pre></td></tr></table></figure>
-<p>#更新</p>
-<p>更新hexo：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">npm</span> update -g hexo</span><br></pre></td></tr></table></figure>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
-<li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/?utm_source=tuicool" rel="external nofollow noopener noreferrer" target="_blank">hexo你的博客</a></li>
-<li><a href="http://blog.csdn.net/lemonxq/article/details/72676005" rel="external nofollow noopener noreferrer" target="_blank">Hexo静态博客搭建+个人定制</a></li>
-<li><a href="https://www.jianshu.com/p/cea41e5c9b2a?open_source=weibo_search" rel="external nofollow noopener noreferrer" target="_blank">hexo搭建的Github博客绑定域名</a></li>
-<li><a href="https://www.cnblogs.com/superGG1990/p/6844952.html" rel="external nofollow noopener noreferrer" target="_blank">初次安装git配置用户名和邮箱</a></li>
+</li>
+<li><p><code>magic</code> 的值为 <code>0x3b</code> 用于调试器判断当前对象是真的对象还是没有初始化的空间</p>
+</li>
 </ul>
+<h3 id="has-cxx-dtor"><a href="#has-cxx-dtor" class="headerlink" title="has_cxx_dtor"></a><code>has_cxx_dtor</code></h3><p>在设置 <code>indexed</code> 和 <code>magic</code> 值之后，会设置 <code>isa</code> 的 <code>has_cxx_dtor</code>，这一位表示当前对象有 C++ 或者 ObjC 的析构器(destructor)，如果没有析构器就会快速释放内存。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isa.has_cxx_dtor = hasCxxDtor<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat-bits-has-css-dtor.png" alt="objc-isa-isat-bits-has-css-dto"></p>
+<h3 id="shiftcls"><a href="#shiftcls" class="headerlink" title="shiftcls"></a><code>shiftcls</code></h3><p>在为 <code>indexed</code>、 <code>magic</code> 和 <code>has_cxx_dtor</code> 设置之后，我们就要将当前对象对应的类指针存入 <code>isa</code> 结构体中了。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isa.shiftcls = (uintptr_t)cls <span class="meta">&gt;&gt; </span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>将当前地址右移三位的主要原因是用于将 Class 指针中无用的后三位清除减小内存的消耗，因为类的指针要按照字节（8 bits）对齐内存，其指针后三位都是没有意义的 0</strong>。</p>
+<p>绝大多数机器的架构都是 <a href="https://en.wikipedia.org/wiki/Byte_addressing" rel="external nofollow noopener noreferrer" target="_blank">byte-addressable</a> 的，但是对象的内存地址必须对齐到字节的倍数，这样可以提高代码运行的性能，在 iPhone5s 中虚拟地址为 33 位，所以用于对齐的最后三位比特为 <code>000</code>，我们只会用其中的 30 位来表示对象的地址。 </p>
+</blockquote>
+<p>而 ObjC 中的类指针的地址后三位也为 0，在 <code>_class_createInstanceFromZone</code> 方法中打印了调用这个方法传入的类指针：</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-print-cls.png" alt="objc-isa-print-cls"></p>
+<p>可以看到，这里打印出来的<strong>所有类指针十六进制地址的最后一位都为 8 或者 0</strong>。也就是说，类指针的后三位都为 0，所以，我们在上面存储 <code>Class</code> 指针时右移三位是没有问题的。</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">isa.shiftcls = (uintptr_t)cls <span class="meta">&gt;&gt; </span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<p>如果再尝试打印对象指针的话，会发现所有对象内存地址的<strong>后四位</strong>都是 0，说明 ObjC 在初始化内存时是以 16 个字节对齐的, 分配的内存地址后四位都是 0。 </p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-print-object.png" alt="objc-isa-print-object"></p>
+<blockquote>
+<p>使用整个指针大小的内存来存储 <code>isa</code> 指针有些浪费，尤其在 64 位的 CPU 上。在 <code>ARM64</code> 运行的 iOS 只使用了 33 位作为指针(与结构体中的 33 位无关，Mac OS 上为 47 位)，而剩下的 31 位用于其它目的。类的指针也同样根据字节对齐了，每一个类指针的地址都能够被 8 整除，也就是使最后 3 bits 为 0，为 <code>isa</code> 留下 34 位用于性能的优化。</p>
+<p>Using an entire pointer-sized piece of memory for the isa pointer is a bit wasteful, especially on 64-bit CPUs which don’t use all 64 bits of a pointer. ARM64 running iOS currently uses only 33 bits of a pointer, leaving 31 bits for other purposes. Class pointers are also aligned, meaning that a class pointer is guaranteed to be divisible by 8, which frees up another three bits, leaving 34 bits of the isa available for other uses. Apple’s ARM64 runtime takes advantage of this for some great performance improvements.<br>from <a href="https://www.mikeash.com/pyblog/friday-qa-2013-09-27-arm64-and-you.html" rel="external nofollow noopener noreferrer" target="_blank">ARM64 and You</a></p>
+</blockquote>
+<p>我尝试运行了下面的代码将 <code>NSObject</code> 的类指针和对象的 <code>isa</code> 打印出来，具体分析一下</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-print-class-object.png" alt="objc-isa-print-class-object"></p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">object</span><span class="number">_p</span>ointer: <span class="number">0000000001011101100000000000000100000000001110101110000011111001</span> <span class="comment">// 补全至 64 位</span></span><br><span class="line"><span class="keyword">class</span><span class="number">_p</span>ointer:                                 <span class="number">100000000001110101110000011111000</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>编译器对直接访问 <code>isa</code> 的操作会有警告，因为直接访问 <code>isa</code> 已经不会返回类指针了，这种行为已经被弃用了，取而代之的是使用 <a href="#ISA(">ISA()</a>) 方法来获取类指针。</p>
+</blockquote>
+<p>代码中的 <code>object</code> 对象的 <code>isa</code> 结构体中的内容是这样的：</p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa的副本/NSObject_isa/objc-isa-isat-class-highlight-bits.png" alt="objc-isa-isat-class-highlight-bits"></p>
+<p>其中红色的为<strong>类指针</strong>，与上面打印出的 <code>[NSObject class]</code> 指针右移三位的结果完全相同。这也就验证了我们之前对于初始化 <code>isa</code> 时对 <code>initIsa</code> 方法的分析是正确的。它设置了 <code>indexed</code>、<code>magic</code> 以及 <code>shiftcls</code>。</p>
+<h3 id="ISA-方法"><a href="#ISA-方法" class="headerlink" title="ISA() 方法"></a><a id="ISA()"></a>ISA() 方法</h3><p>因为我们使用结构体取代了原有的 isa 指针，所以要提供一个方法 <code>ISA()</code> 来返回类指针。</p>
+<p>其中 <code>ISA_MASK</code> 是宏定义，这里通过掩码的方式获取类指针：</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define ISA_MASK 0x00007ffffffffff8ULL</span></span><br><span class="line"><span class="keyword">inline</span> <span class="class"><span class="keyword">Class</span> </span></span><br><span class="line">objc_object::ISA() </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> (<span class="class"><span class="keyword">Class</span>)(<span class="title">isa</span>.<span class="title">bits</span> &amp; <span class="title">ISA_MASK</span>);</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="其它-bits"><a href="#其它-bits" class="headerlink" title="其它 bits"></a>其它 bits</h3><p>在 <code>isa_t</code> 中，我们还有一些没有介绍的其它 bits，在这个小结就简单介绍下这些 bits 的作用</p>
+<ul>
+<li><code>has_assoc</code><ul>
+<li>对象含有或者曾经含有关联引用，没有关联引用的可以更快地释放内存</li>
+</ul>
+</li>
+<li><code>weakly_referenced</code><ul>
+<li>对象被指向或者曾经指向一个 ARC 的弱变量，没有弱引用的对象可以更快释放</li>
+</ul>
+</li>
+<li><code>deallocating</code><ul>
+<li>对象正在释放内存</li>
+</ul>
+</li>
+<li><code>has_sidetable_rc</code><ul>
+<li>对象的引用计数太大了，存不下</li>
+</ul>
+</li>
+<li><code>extra_rc</code><ul>
+<li>对象的引用计数超过 1，会存在这个这个里面，如果引用计数为 10，<code>extra_rc</code> 的值就为 9</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct &#123;</span><br><span class="line">   uintptr_t indexed           : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_assoc         : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_cxx_dtor      : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t <span class="keyword">shiftcls </span>         : <span class="number">44</span><span class="comment">;</span></span><br><span class="line">   uintptr_t magic             : <span class="number">6</span><span class="comment">;</span></span><br><span class="line">   uintptr_t weakly_referenced : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t deallocating      : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t has_sidetable_rc  : <span class="number">1</span><span class="comment">;</span></span><br><span class="line">   uintptr_t <span class="keyword">extra_rc </span>         : <span class="number">8</span><span class="comment">;</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h3 id="arm64-架构中的-isa-t-结构体"><a href="#arm64-架构中的-isa-t-结构体" class="headerlink" title="arm64 架构中的 isa_t 结构体"></a><a id="arm64"></a>arm64 架构中的 <code>isa_t</code> 结构体</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISA_MASK        0x0000000ffffffff8ULL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISA_MAGIC_MASK  0x000003f000000001ULL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> ISA_MAGIC_VALUE 0x000001a000000001ULL</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RC_ONE   (1ULL&lt;&lt;45)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RC_HALF  (1ULL&lt;&lt;18)</span></span><br><span class="line"><span class="keyword">union</span> <span class="keyword">isa_t</span> &#123;</span><br><span class="line">    <span class="keyword">isa_t</span>() &#123; &#125;</span><br><span class="line">    <span class="keyword">isa_t</span>(<span class="keyword">uintptr_t</span> value) : bits(value) &#123; &#125;</span><br><span class="line"></span><br><span class="line">    Class cls;</span><br><span class="line">    <span class="keyword">uintptr_t</span> bits;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">       <span class="keyword">uintptr_t</span> indexed           : <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> has_assoc         : <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> has_cxx_dtor      : <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> shiftcls          : <span class="number">33</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> magic             : <span class="number">6</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> weakly_referenced : <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> deallocating      : <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> has_sidetable_rc  : <span class="number">1</span>;</span><br><span class="line">       <span class="keyword">uintptr_t</span> extra_rc          : <span class="number">19</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtHowMessagingWorks.html" rel="external nofollow noopener noreferrer" target="_blank">Objective-C Runtime Programming Guide</a></li>
+<li><a href="http://www.cocoawithlove.com/2010/01/what-is-meta-class-in-objective-c.html" rel="external nofollow noopener noreferrer" target="_blank">What is a meta-class in Objective-C?</a></li>
+<li><a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">objc_explain_Classes_and_metaclasses</a></li>
+<li><a href="http://stackoverflow.com/questions/18997362/storing-things-in-isa" rel="external nofollow noopener noreferrer" target="_blank">Storing things in isa</a></li>
+<li><a href="http://stackoverflow.com/questions/252552/why-do-we-need-c-unions" rel="external nofollow noopener noreferrer" target="_blank">Why do we need C Unions?</a></li>
+<li><a href="http://www.sealiesoftware.com/blog/archive/2013/09/24/objc_explain_Non-pointer_isa.html" rel="external nofollow noopener noreferrer" target="_blank">objc_explain_Non-pointer_isa</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tagged_pointer" rel="external nofollow noopener noreferrer" target="_blank">Tagged Pointer</a></li>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2013-09-27-arm64-and-you.html" rel="external nofollow noopener noreferrer" target="_blank">ARM64 and You</a></li>
+<li><a href="http://blog.xcodev.com/posts/tagged-pointer-and-64-bit/" rel="external nofollow noopener noreferrer" target="_blank">64位与Tagged Pointer</a></li>
+</ul>
+<p>Follow: <a href="https://github.com/Draveness" rel="external nofollow noopener noreferrer" target="_blank">@Draveness</a></p>
 
             </div>
         
@@ -930,19 +1018,10 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/工具/git/git详细记录/git工作区/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    git时光穿梭(转载)
-                
-            </div>
-        </a>
     
-    
-        <a href="/wiki/Hybird/webview/gome-Webview/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">通用webview开发记录</div>
+            <div class="article-nav-title">2.深入解析 ObjC 中方法的结构</div>
         </a>
     
 </nav>
@@ -954,7 +1033,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/工具/hexo/hexo-use/" data-title="hexo使用指南" data-url="http://yoursite.com/wiki/工具/hexo/hexo-use/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/NSObject_isa的副本/" data-title="从 NSObject 的初始化了解 isa（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa的副本/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
