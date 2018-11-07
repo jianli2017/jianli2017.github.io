@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-print-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-print-class-object.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-isat-class-highlight-bits.png">
-<meta property="og:updated_time" content="2018-11-07T06:00:29.554Z">
+<meta property="og:updated_time" content="2018-11-07T07:19:09.144Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 NSObject 的初始化了解 isa（转载)">
 <meta name="twitter:description" content="本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件">
@@ -893,7 +893,7 @@
 <blockquote>
 <p>关于如何在 <code>class_data_bits_t</code> 中查找对应方法会在之后的文章中讲到。这里只需要知道，它会在这个结构体中查找到对应方法的实现就可以了。<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/深入解析%20ObjC%20中方法的结构.md" rel="external nofollow noopener noreferrer" target="_blank">深入解析 ObjC 中方法的结构</a></p>
 </blockquote>
-<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-pointer.png" alt="objc-isa-class-pointer"></p>
+<p><img src="/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-class-pointer.png" alt="isa 指针-- 实例找到类"></p>
 <p>但是，这样就有一个问题，类方法的实现又是如何查找并且调用的呢？这时，就需要引入<em>元类</em>来保证无论是类还是对象都能<strong>通过相同的机制查找方法的实现</strong>。</p>
 <p><img src="/wiki/IOS/Runtime/objc/NSObject_isa/objc-isa-meta-class.png" alt="objc-isa-meta-class"></p>
 <p>让每一个类的 <code>isa</code> 指向对应的元类，这样就达到了使类方法和实例方法的调用机制相同的目的：</p>
