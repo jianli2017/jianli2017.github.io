@@ -18,7 +18,7 @@
 <meta property="og:description" content="本文保存了NSObject的基本完整类图。方便以后理解。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/3NSObject/NSObject_picture.png">
-<meta property="og:updated_time" content="2018-11-08T05:50:53.724Z">
+<meta property="og:updated_time" content="2018-11-08T05:56:09.735Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NSObject 基本完整类图">
 <meta name="twitter:description" content="本文保存了NSObject的基本完整类图。方便以后理解。">
@@ -859,7 +859,7 @@
             <p>本文保存了NSObject的基本完整类图。方便以后理解。</p>
 <a id="more"></a>
 <h2 id="NSObject-基本完整类图"><a href="#NSObject-基本完整类图" class="headerlink" title="NSObject 基本完整类图"></a>NSObject 基本完整类图</h2><p>NSObject 基本完整类图如下：</p>
-<p><img src="/wiki/IOS/Runtime/objc/3NSObject/NSObject_picture.png" alt="isa 指针-- 实例找到类"></p>
+<p><img src="/wiki/IOS/Runtime/objc/3NSObject/NSObject_picture.png" alt="NSObject 基本完整类图"></p>
 <p>objc_class 有四个成员，本图说明两个非常重要的成员- isa、bits。 isa指向对象的类（或者类的原理）；bits定义了类的数据 。 类的数据的类型是-class_data_bits_t，其中1~3位表示一个属性，3~47位表示一个指针，如果class还没有实现，这个指针指向class_ro_t类型。表示类编译完后的只读属性。当类实现后，这个指针指向了class_rw_t类型，表示runtime实现完class后类的数据，数据里面已经包括了分类的方法。</p>
 
             </div>
