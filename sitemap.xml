@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/5list_array_tt/</loc>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/</loc>
     
-    <lastmod>2018-11-21T11:17:50.320Z</lastmod>
+    <lastmod>2018-11-22T09:42:23.102Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/NSObject_objc_object/</loc>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/2_NSObject_objc_object/</loc>
     
-    <lastmod>2018-11-21T07:08:50.419Z</lastmod>
+    <lastmod>2018-11-22T09:31:13.847Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/1_NSObject_isa/</loc>
+    
+    <lastmod>2018-11-22T09:30:02.116Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/5list_array_tt/</loc>
+    
+    <lastmod>2018-11-21T11:17:50.320Z</lastmod>
     
   </url>
   
@@ -464,35 +478,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS/crash/Analize_Crash/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/NSInvocation%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS/Category/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Objective-C%EF%BC%9ACategory/</loc>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -569,6 +555,13 @@
   </url>
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/crash/Analize_Crash/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/struct_Analize/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -597,14 +590,35 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/%E8%87%AA%E5%B7%B1%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E7%BB%8F%E5%8E%86/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/%E8%87%AA%E5%B7%B1%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E7%9A%84%E7%BB%8F%E5%8E%86/</loc>
+    <loc>http://yoursite.com/wiki/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/NSInvocation%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/IOS/Category/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3Objective-C%EF%BC%9ACategory/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     

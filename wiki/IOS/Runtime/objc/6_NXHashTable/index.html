@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>6. 上古时代 Objective-C 中哈希表的实现(转载) | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="list_array_tt">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 x86_64 架构下运行的，对于在 arm64 中运行的代码会特别说明。  文章会介绍上古时代 Objective-C 哈希表，也就是 NXHashTable ：  NXHashTable 的实现 NXHashTable 的性能分析 NXHashTable 的作用  NXHashT">
+<meta name="keywords" content="list_array_tt">
+<meta property="og:type" content="article">
+<meta property="og:title" content="6. 上古时代 Objective-C 中哈希表的实现(转载)">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 x86_64 架构下运行的，对于在 arm64 中运行的代码会特别说明。  文章会介绍上古时代 Objective-C 哈希表，也就是 NXHashTable ：  NXHashTable 的实现 NXHashTable 的性能分析 NXHashTable 的作用  NXHashT">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-insert-empty.gif">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-insert-one.gif.gif">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-insert-many.gif.gif">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-hash-state-init.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-hashstate-next.gif">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-instrument.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-nsarray-instrument.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-copy-class-list.png">
+<meta property="og:updated_time" content="2018-11-22T09:42:23.102Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="6. 上古时代 Objective-C 中哈希表的实现(转载)">
+<meta name="twitter:description" content="因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 x86_64 架构下运行的，对于在 arm64 中运行的代码会特别说明。  文章会介绍上古时代 Objective-C 哈希表，也就是 NXHashTable ：  NXHashTable 的实现 NXHashTable 的性能分析 NXHashTable 的作用  NXHashT">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-insert-empty.gif">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十二章 动态内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十二章 动态内存/动态内存/">动态内存</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            MachO
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            objc
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WWDC
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/Runtime/objc/6_NXHashTable" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/list-array-tt/">list_array_tt</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">
+            <time datetime="2018-11-22T02:38:11.000Z" itemprop="datePublished">2018-11-22</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            6. 上古时代 Objective-C 中哈希表的实现(转载)
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NXHashTable"><span class="toc-number">1.</span> <span class="toc-text">NXHashTable</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#NXCreateHashTableFromZone"><span class="toc-number">1.1.</span> <span class="toc-text">NXCreateHashTableFromZone</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NXHashTablePrototype"><span class="toc-number">1.1.1.</span> <span class="toc-text">NXHashTablePrototype</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#HashBucket"><span class="toc-number">1.1.2.</span> <span class="toc-text">HashBucket</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NXCountHashTable"><span class="toc-number">1.2.</span> <span class="toc-text">NXCountHashTable</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NXHashMember"><span class="toc-number">1.3.</span> <span class="toc-text">NXHashMember</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NXHashGet"><span class="toc-number">1.4.</span> <span class="toc-text">NXHashGet</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NXHashInsert"><span class="toc-number">1.5.</span> <span class="toc-text">NXHashInsert</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#NXHashRehash"><span class="toc-number">1.5.1.</span> <span class="toc-text">_NXHashRehash</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NXHashState"><span class="toc-number">1.5.2.</span> <span class="toc-text">NXHashState</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NXHashRemove"><span class="toc-number">1.6.</span> <span class="toc-text">NXHashRemove</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NXHashTable-的性能"><span class="toc-number">2.</span> <span class="toc-text">NXHashTable 的性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NSMutableArray-性能"><span class="toc-number">3.</span> <span class="toc-text">NSMutableArray 性能</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NXHashTable-的应用"><span class="toc-number">4.</span> <span class="toc-text">NXHashTable 的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            
+        
+        
+            <blockquote>
+<p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
+</blockquote>
+<p>文章会介绍上古时代 Objective-C 哈希表，也就是 <code>NXHashTable</code> ：</p>
+<ul>
+<li><code>NXHashTable</code> 的实现</li>
+<li><code>NXHashTable</code> 的性能分析</li>
+<li><code>NXHashTable</code> 的作用</li>
+</ul>
+<p><code>NXHashTable</code> 的实现有着将近 30 年的历史，不过仍然作为重要的底层数据结构存储整个应用中的类。</p>
+<blockquote>
+<p>文中会涉及一些数据结构方面的简单知识，例如<a href="https://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists" rel="external nofollow noopener noreferrer" target="_blank">拉链法</a>。</p>
+<p>注意：<strong>文章中分析的不是 <code>NSHashTable</code> 而是 <code>NXHashTable</code>。</strong></p>
+</blockquote>
+<a id="more"></a>
+<h2 id="NXHashTable"><a href="#NXHashTable" class="headerlink" title="NXHashTable"></a>NXHashTable</h2><p><code>NXHashTable</code> 的实现位于 <code>hashtable2.mm</code> 文件，我们先来看一下 <code>NXHashTable</code> 的结构以及重要的接口：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">const</span> NXHashTablePrototype *prototype;</span><br><span class="line">    <span class="keyword">unsigned</span> count;</span><br><span class="line">    <span class="keyword">unsigned</span> nbBuckets;</span><br><span class="line">    <span class="keyword">void</span> *buckets;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span> *info;</span><br><span class="line">&#125; NXHashTable;</span><br></pre></td></tr></table></figure>
+<p>对于结构体中的 <code>NXHashTablePrototype</code> 属性暂且不说，其中的 <code>buckets</code> 是真正用来<strong>存储数据的数组</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NXHashTable *<span class="title">NXCreateHashTableFromZone</span> <span class="params">(NXHashTablePrototype prototype, <span class="keyword">unsigned</span> capacity, <span class="keyword">const</span> <span class="keyword">void</span> *info, <span class="keyword">void</span> *z)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="title">NXCountHashTable</span> <span class="params">(NXHashTable *table)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">NXHashMember</span> <span class="params">(NXHashTable *table, <span class="keyword">const</span> <span class="keyword">void</span> *data)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">NXHashGet</span> <span class="params">(NXHashTable *table, <span class="keyword">const</span> <span class="keyword">void</span> *data)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">NXHashInsert</span> <span class="params">(NXHashTable *table, <span class="keyword">const</span> <span class="keyword">void</span> *data)</span></span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">NXHashRemove</span> <span class="params">(NXHashTable *table, <span class="keyword">const</span> <span class="keyword">void</span> *data)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>我们会以上面的这些方法作为切入点，分析 <code>NXHashTable</code> 的实现。</p>
+<h3 id="NXCreateHashTableFromZone"><a href="#NXCreateHashTableFromZone" class="headerlink" title="NXCreateHashTableFromZone"></a>NXCreateHashTableFromZone</h3><p><code>NXHashTable</code> 使用 <code>NXCreateHashTableFromZone</code> 方法初始化：</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">NXHashTable *NXCreateHashTableFromZone (NXHashTablePrototype prototype, unsigned capacity, const void *info, void *z) &#123;</span><br><span class="line">    NXHashTable			*<span class="keyword">table</span>;</span><br><span class="line">    NXHashTablePrototype	 *proto;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">table</span> = ALLOCTABLE(z);</span><br><span class="line">    if (! prototypes) bootstrap ();</span><br><span class="line">    <span class="keyword">if</span> (! prototype.hash) prototype.hash = NXPtrHash;</span><br><span class="line">    <span class="keyword">if</span> (! prototype.isEqual) prototype.isEqual = NXPtrIsEqual;</span><br><span class="line">    <span class="keyword">if</span> (! prototype.<span class="keyword">free</span>) prototype.<span class="keyword">free</span> = NXNoEffectFree;</span><br><span class="line"></span><br><span class="line">    proto = (NXHashTablePrototype *)NXHashGet (prototypes, &amp;prototype);</span><br><span class="line">    <span class="keyword">if</span> (! proto) &#123;</span><br><span class="line">        proto = (NXHashTablePrototype *) malloc(sizeof (NXHashTablePrototype));</span><br><span class="line">        bcopy ((const char*)&amp;prototype, (char*)proto, sizeof (NXHashTablePrototype));</span><br><span class="line">        (void) NXHashInsert (prototypes, proto);</span><br><span class="line">        proto = (NXHashTablePrototype *)NXHashGet (prototypes, &amp;prototype);</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">table</span>-&gt;prototype <span class="comment">= proto</span>;</span><br><span class="line">    <span class="keyword">table</span>-&gt;count <span class="comment">= 0</span>;</span><br><span class="line">    <span class="keyword">table</span>-&gt;info <span class="comment">= info</span>;</span><br><span class="line">    <span class="keyword">table</span>-&gt;nbBuckets <span class="comment">= GOOD_CAPACITY(capacity)</span>;</span><br><span class="line">    <span class="keyword">table</span>-&gt;buckets <span class="comment">= ALLOCBUCKETS(z, table-&gt;nbBuckets)</span>;</span><br><span class="line">    return <span class="keyword">table</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个方法中，绝大多数代码都是用来初始化 <code>table-&gt;prototype</code> 的，我们先把这部分全部忽略，分析一下简略版本的实现。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">NXHashTable *NXCreateHashTableFromZone (NXHashTablePrototype prototype, unsigned capacity, const void *info, void *z) &#123;</span><br><span class="line">    NXHashTable			*<span class="keyword">table</span>;</span><br><span class="line">    NXHashTablePrototype	 *proto;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">table</span> = ALLOCTABLE(z);</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">table</span>-&gt;count <span class="comment">= 0</span>;</span><br><span class="line">    <span class="keyword">table</span>-&gt;info <span class="comment">= info</span>;</span><br><span class="line">    <span class="keyword">table</span>-&gt;nbBuckets <span class="comment">= GOOD_CAPACITY(capacity)</span>;</span><br><span class="line">    <span class="keyword">table</span>-&gt;buckets <span class="comment">= ALLOCBUCKETS(z, table-&gt;nbBuckets)</span>;</span><br><span class="line">    return <span class="keyword">table</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中 <code>ALLOCTABLE</code>、<code>GOOD_CAPACITY</code> 以及 <code>ALLOCBUCKETS</code> 都是用来辅助初始化的宏：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#define</span>	 <span class="selector-tag">ALLOCTABLE</span>(z) ((NXHashTable *) malloc_zone_malloc ((malloc_zone_t *)z,sizeof (NXHashTable)))</span><br><span class="line"><span class="selector-id">#define</span> <span class="selector-tag">GOOD_CAPACITY</span>(c) (exp2m1u (log2u (c)+<span class="number">1</span>))</span><br><span class="line"><span class="selector-id">#define</span> <span class="selector-tag">ALLOCBUCKETS</span>(z,nb) ((HashBucket *) malloc_zone_calloc ((malloc_zone_t *)z, nb, sizeof (HashBucket)))</span><br></pre></td></tr></table></figure>
+<p><code>ALLOCTABLE</code> 和 <code>ALLOCBUCKETS</code> 只是调用了 <code>malloc_zone_calloc</code> 来初始化相应的结构体，而 <code>GOOD_CAPACITY</code> 有一些特殊，我们来举个例子说明：</p>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">c   binary  result</span><br><span class="line"><span class="number">1</span>   <span class="number">1</span>       <span class="number">1</span> </span><br><span class="line"><span class="number">2</span>   <span class="number">10</span>      <span class="number">3</span>(<span class="number">0b11</span>)</span><br><span class="line"><span class="number">6</span>   <span class="number">110</span>     <span class="number">7</span>(<span class="number">0b111</span>)</span><br><span class="line"><span class="number">100</span> <span class="number">1100100</span> <span class="number">127</span>(<span class="number">0b111</span> <span class="number">1111</span>)</span><br></pre></td></tr></table></figure>
+<p><code>c</code> 表示传入参数，<code>binary</code> 表示二进制下的参数，而 <code>result</code> 就是 <code>GOOD_CAPACITY</code> 返回的结果。</p>
+<blockquote>
+<p>每次返回当前位数下的二进制最大值。</p>
+</blockquote>
+<p>获得 <code>table-&gt;nbBuckets</code> 之后，再初始化 <code>table-&gt;nbBuckets * sizeof (HashBucket)</code> 大小的内存空间。</p>
+<h4 id="NXHashTablePrototype"><a href="#NXHashTablePrototype" class="headerlink" title="NXHashTablePrototype"></a>NXHashTablePrototype</h4><p>在继续分析其它方法之前，我们需要先知道 <code>NXHashTablePrototype</code> 是什么：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> (*hash)(<span class="keyword">const</span> <span class="keyword">void</span> *info, <span class="keyword">const</span> <span class="keyword">void</span> *data);</span><br><span class="line">    <span class="keyword">int</span> (*isEqual)(<span class="keyword">const</span> <span class="keyword">void</span> *info, <span class="keyword">const</span> <span class="keyword">void</span> *data1, <span class="keyword">const</span> <span class="keyword">void</span> *data2);</span><br><span class="line">    <span class="keyword">void</span> (*<span class="built_in">free</span>)(<span class="keyword">const</span> <span class="keyword">void</span> *info, <span class="keyword">void</span> *data);</span><br><span class="line">    <span class="keyword">int</span> style; <span class="comment">/* reserved for future expansion; currently 0 */</span></span><br><span class="line">&#125; NXHashTablePrototype;</span><br></pre></td></tr></table></figure>
+<p><code>NXHashTablePrototype</code> 中存储了 <code>hash</code>、<code>isEqual</code> 和 <code>free</code> 的函数指针（用于获取数据的哈希、判断两个数据是否相等以及释放数据）。</p>
+<p>在 <code>hashtable2.mm</code> 文件中有一个宏 <code>ISEQUAL</code> 就是用了 <code>NXHashTablePrototype</code> 中的 <code>isEqual</code> 来判断两个数据是否相等：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#define ISEQUAL(<span class="name">table</span>, data1, data2) ((<span class="name">data1</span> == data2) || (<span class="name">*table-&gt;prototype-&gt;isEqual</span>)(<span class="name">table-&gt;info</span>, data1, data2))</span><br></pre></td></tr></table></figure>
+<p>可以说，<code>NXHashTablePrototype</code> 中存储了一些<strong>构建哈希表必要的函数指针</strong>。</p>
+<blockquote>
+<p>因为 <code>NXHashTable</code> 使用<a href="https://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists" rel="external nofollow noopener noreferrer" target="_blank">拉链法</a>来实现哈希表，在存入表前对数据执行 hash，然后找到对应的 buckets，如果与 buckets 中的数据相同（使用 isEqual 判断），就替换原数据，否则将数据添加到链表中。</p>
+</blockquote>
+<h4 id="HashBucket"><a href="#HashBucket" class="headerlink" title="HashBucket"></a>HashBucket</h4><p>在这里另一个需要注意的数据结构就是 <code>HashBucket</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>	&#123;</span></span><br><span class="line">    <span class="keyword">unsigned</span> count;</span><br><span class="line">    oneOrMany elements;</span><br><span class="line">&#125; HashBucket;</span><br></pre></td></tr></table></figure>
+<p><code>oneOrMany</code> 是一个 <code>union</code> 结构体：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">union</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span> *one;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span> **many;</span><br><span class="line">&#125; oneOrMany;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这么设计的主要原因是<strong>提升性能</strong>。</p>
+</blockquote>
+<p>如果 <code>HashBucket</code> 中只有一个元素，那么就直接访问 <code>one</code>，否则访问 <code>many</code>，遍历这个 <code>many</code> 列表。</p>
+<h3 id="NXCountHashTable"><a href="#NXCountHashTable" class="headerlink" title="NXCountHashTable"></a>NXCountHashTable</h3><p><code>NXCountHashTable</code> 方法应该是我们要介绍的方法中的最简单的一个，它会直接返回 <code>NXHashTable</code> 结构体中的 <code>count</code>。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">unsigned NXCountHashTable (NXHashTable *<span class="keyword">table</span>) &#123;</span><br><span class="line">    return <span class="keyword">table</span>-&gt;count;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="NXHashMember"><a href="#NXHashMember" class="headerlink" title="NXHashMember"></a>NXHashMember</h3><p><code>NXHashMember</code> 的函数签名虽然会返回 <code>int</code>，其实它是一个布尔值，会判断当前的 <code>NXHashTable</code> 中是否包含传入的数据：</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> NXHashMember (NXHashTable *<span class="keyword">table</span>, <span class="keyword">const</span> <span class="keyword">void</span> *data) &#123;</span><br><span class="line">    HashBucket	*bucket = BUCKETOF(<span class="keyword">table</span>, data);</span><br><span class="line">    <span class="keyword">unsigned</span>	j = bucket-&gt;count;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span>	**pairs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (! j) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> ISEQUAL(<span class="keyword">table</span>, data, bucket-&gt;elements<span class="variable">.one</span>);</span><br><span class="line">    &#125;;</span><br><span class="line">    pairs = bucket-&gt;elements<span class="variable">.many</span>;</span><br><span class="line">    <span class="keyword">while</span> (j--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ISEQUAL(<span class="keyword">table</span>, data, *pairs)) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">        pairs ++;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>BUCKETOF</code> 对 <code>data</code> 进行 hash，将结果与哈希表的 <code>buckets</code> 数取模，返回 <code>buckets</code> 数组中对应的 <code>NXHashBucket</code>。</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#<span class="function"><span class="title">define</span> BUCKETOF(table, <span class="keyword">data</span>) (((HashBucket *)table-&gt;</span><span class="function"><span class="title">buckets</span>)+((*table-&gt;</span><span class="function"><span class="title">prototype</span>-&gt;</span><span class="function"><span class="title">hash</span>)(table-&gt;</span><span class="function"><span class="title">info</span>, <span class="keyword">data</span>) % table-&gt;</span>nbBuckets))</span><br></pre></td></tr></table></figure>
+<p>在获取了 <code>bucket</code> 之后，根据其中元素个数的不同，选择不同的分支：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (! j) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (j == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> ISEQUAL(<span class="built_in">table</span>, data, bucket-&gt;elements.one);</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">pairs</span> = bucket-&gt;elements.many;</span><br><span class="line"><span class="keyword">while</span> (j<span class="comment">--) &#123;</span></span><br><span class="line">    <span class="keyword">if</span> (ISEQUAL(<span class="built_in">table</span>, data, *<span class="built_in">pairs</span>)) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">pairs</span> ++;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>count == 0</code>，直接返回</li>
+<li><code>count == 1</code>，使用 <code>ISEQUAL</code> 比较查找的数据与 <code>bucket-&gt;elements.one</code> </li>
+<li><p><code>count &gt; 1</code>，依次与 <code>bucket-&gt;elements.many</code> 中的值进行比较</p>
+<blockquote>
+<p>你可能觉得到这里的时间复杂度比较糟糕，然而这个列表并不会很长，具体会在 <a href="#nxhashinsert">NXHashInsert</a> 中解释。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="NXHashGet"><a href="#NXHashGet" class="headerlink" title="NXHashGet"></a>NXHashGet</h3><blockquote>
+<p>其实我一直觉得这个方法可能用处不是很大，尤其是在使用默认的 <code>NXHashTablePrototype</code> 时，因为默认的 <code>NXHashTablePrototype</code> 中的 <code>isEqual</code> 函数指针只是比较两个数据的指针是否相同。</p>
+<p>其最大作用就是查看当前 <code>data</code> 是不是在表中。</p>
+<p>如果当前数据在表中，那么这个方法只会返回一个相同的指针，没有太多的意义。</p>
+</blockquote>
+<p>它的实现跟上面的 <code>NXHashMember</code> 区别并不大，这里就不过多介绍了：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> *<span class="title">NXHashGet</span> <span class="params">(NXHashTable *table, <span class="keyword">const</span> <span class="keyword">void</span> *data)</span> </span>&#123;</span><br><span class="line">    HashBucket	*bucket = BUCKETOF(table, data);</span><br><span class="line">    <span class="keyword">unsigned</span>	j = bucket-&gt;count;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">void</span>	**pairs;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (! j) <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> ISEQUAL(table, data, bucket-&gt;elements.one)</span><br><span class="line">        ? (<span class="keyword">void</span> *) bucket-&gt;elements.one : <span class="literal">NULL</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    pairs = bucket-&gt;elements.many;</span><br><span class="line">    <span class="keyword">while</span> (j--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ISEQUAL(table, data, *pairs)) <span class="keyword">return</span> (<span class="keyword">void</span> *) *pairs;</span><br><span class="line">        pairs ++;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="NXHashInsert"><a href="#NXHashInsert" class="headerlink" title="NXHashInsert"></a>NXHashInsert</h3><p><code>NXHashInsert</code> 是 <code>NXHashTable</code> 中比较重要的方法，其作用就是向表中插入数据：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">void *NXHashInsert (NXHashTable *table, const void *<span class="keyword">data</span>) &#123;</span><br><span class="line">    HashBucket *bucket = BUCKETOF(table, <span class="keyword">data</span>);</span><br><span class="line">    <span class="function"><span class="title">unsigned</span> j = bucket-&gt;</span>count;</span><br><span class="line">    const void **pairs;</span><br><span class="line">    const void **newt;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (! j) &#123;</span><br><span class="line">        <span class="function"><span class="title">bucket</span>-&gt;</span>count++;</span><br><span class="line">        <span class="function"><span class="title">bucket</span>-&gt;</span>elements.one = <span class="keyword">data</span>;</span><br><span class="line">        <span class="function"><span class="title">table</span>-&gt;</span>count++;</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="function"><span class="title">if</span> (ISEQUAL(table, <span class="keyword">data</span>, bucket-&gt;</span>elements.one)) &#123;</span><br><span class="line">            <span class="function"><span class="title">const</span> void *old = bucket-&gt;</span>elements.one;</span><br><span class="line">            <span class="function"><span class="title">bucket</span>-&gt;</span>elements.one = <span class="keyword">data</span>;</span><br><span class="line">            return (void *) old;</span><br><span class="line">        &#125;;</span><br><span class="line">        newt = ALLOCPAIRS(z, <span class="number">2</span>);</span><br><span class="line">        <span class="function"><span class="title">newt</span>[1] = bucket-&gt;</span>elements.one;</span><br><span class="line">        *newt = <span class="keyword">data</span>;</span><br><span class="line">        <span class="function"><span class="title">bucket</span>-&gt;</span>count++;</span><br><span class="line">        <span class="function"><span class="title">bucket</span>-&gt;</span>elements.many = newt;</span><br><span class="line">        <span class="function"><span class="title">table</span>-&gt;</span>count++;</span><br><span class="line">        <span class="function"><span class="title">if</span> (table-&gt;</span><span class="function"><span class="title">count</span> &gt; table-&gt;</span>nbBuckets) _NXHashRehash (table);</span><br><span class="line">        return NULL;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function"><span class="title">pairs</span> = bucket-&gt;</span>elements.many;</span><br><span class="line">    <span class="keyword">while</span> (j--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ISEQUAL(table, <span class="keyword">data</span>, *pairs)) &#123;</span><br><span class="line">            const void	*old = *pairs;</span><br><span class="line">            *pairs = <span class="keyword">data</span>;</span><br><span class="line">            return (void *) old;</span><br><span class="line">        &#125;;</span><br><span class="line">        pairs ++;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function"><span class="title">newt</span> = ALLOCPAIRS(z, bucket-&gt;</span>count+<span class="number">1</span>);</span><br><span class="line">    <span class="function"><span class="title">if</span> (bucket-&gt;</span><span class="function"><span class="title">count</span>) bcopy ((const char*)bucket-&gt;</span><span class="function"><span class="title">elements</span>.many, (char*)(newt+1), bucket-&gt;</span>count * PTRSIZE);</span><br><span class="line">    *newt = <span class="keyword">data</span>;</span><br><span class="line">    FREEPAIRS (<span class="function"><span class="title">bucket</span>-&gt;</span>elements.many);</span><br><span class="line">    <span class="function"><span class="title">bucket</span>-&gt;</span>count++; </span><br><span class="line">    <span class="function"><span class="title">bucket</span>-&gt;</span>elements.many = newt;</span><br><span class="line">    <span class="function"><span class="title">table</span>-&gt;</span>count++;</span><br><span class="line">    <span class="function"><span class="title">if</span> (table-&gt;</span><span class="function"><span class="title">count</span> &gt; table-&gt;</span>nbBuckets) _NXHashRehash (table);</span><br><span class="line">    return NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>虽然这里的实现比上面的两个方法复杂得多，但是脉络仍然很清晰，我们将插入的过程分为三种情况：</p>
+<ul>
+<li><code>bucket-&gt;count == 0</code></li>
+<li><code>bucket-&gt;count == 1</code></li>
+<li><code>bucket-&gt;count &gt; 1</code></li>
+</ul>
+<p>如果对应的 <code>bucket</code> 为空：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">if (! <span class="keyword">j) </span>&#123;</span><br><span class="line">    <span class="keyword">bucket-&gt;count++; </span></span><br><span class="line">    <span class="keyword">bucket-&gt;elements.one </span>= data<span class="comment">;</span></span><br><span class="line">    table-&gt;<span class="built_in">count</span>++<span class="comment">;</span></span><br><span class="line">    return NULL<span class="comment">;</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>将数据直接填入 <code>bucket</code>，增加 <code>bucket</code> 中元素的数目，以及 <code>table</code> 中存储的元素的数目：<br>6_NXHashTable/<br><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-insert-empty.gif" alt="objc-hashtable-insert-empty"></p>
+<p>如果原来的 <code>buckets</code> 中有一个元素，它会替换或者使用 <code>many</code> 替换原来的 <code>one</code>：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (j == <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="function"><span class="title">if</span> (ISEQUAL(table, <span class="keyword">data</span>, bucket-&gt;</span>elements.one)) &#123;</span><br><span class="line">        <span class="function"><span class="title">const</span> void	*old = bucket-&gt;</span>elements.one;</span><br><span class="line">        <span class="function"><span class="title">bucket</span>-&gt;</span>elements.one = <span class="keyword">data</span>;</span><br><span class="line">        return (void *) old;</span><br><span class="line">    &#125;;</span><br><span class="line">    newt = ALLOCPAIRS(z, <span class="number">2</span>);</span><br><span class="line">    <span class="function"><span class="title">newt</span>[1] = bucket-&gt;</span>elements.one;</span><br><span class="line">    *newt = <span class="keyword">data</span>;</span><br><span class="line">    <span class="function"><span class="title">bucket</span>-&gt;</span>count++;</span><br><span class="line">    <span class="function"><span class="title">bucket</span>-&gt;</span>elements.many = newt;</span><br><span class="line">    <span class="function"><span class="title">table</span>-&gt;</span>count++;</span><br><span class="line">    </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    return NULL;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>当前数据 <code>data</code> 如果与 <code>bucket</code> 中存储的数据相同，就会更新这个数据，否则就会使用 <code>ALLOCPAIRS</code> 初始化一个新的数组，然后将 <code>data</code> 和原来的数据传入。</p>
+<p><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-insert-one.gif.gif" alt="objc-hashtable-insert-one.gif"></p>
+<p>但是如果原来的 <code>bucket</code> 中存储的元素大于 1，那么会在链表的头部追加一个新的元素：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> (j--) &#123;</span><br><span class="line">    <span class="keyword">if</span> (ISEQUAL(table, <span class="keyword">data</span>, *pairs)) &#123;</span><br><span class="line">        const void	*old = *pairs;</span><br><span class="line">        *pairs = <span class="keyword">data</span>;</span><br><span class="line">        return (void *) old;</span><br><span class="line">    &#125;;</span><br><span class="line">    pairs ++;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="function"><span class="title">newt</span> = ALLOCPAIRS(z, bucket-&gt;</span>count+<span class="number">1</span>);</span><br><span class="line"><span class="function"><span class="title">if</span> (bucket-&gt;</span><span class="function"><span class="title">count</span>) bcopy ((const char*)bucket-&gt;</span><span class="function"><span class="title">elements</span>.many, (char*)(newt+1), bucket-&gt;</span>count * PTRSIZE);</span><br><span class="line">*newt = <span class="keyword">data</span>;</span><br><span class="line">FREEPAIRS (<span class="function"><span class="title">bucket</span>-&gt;</span>elements.many);</span><br><span class="line"><span class="function"><span class="title">bucket</span>-&gt;</span>count++;</span><br><span class="line"><span class="function"><span class="title">bucket</span>-&gt;</span>elements.many = newt;</span><br><span class="line"><span class="function"><span class="title">table</span>-&gt;</span>count++;</span><br></pre></td></tr></table></figure>
+<p>上面的代码使用 <code>bcopy</code> 将原链表中元素拷贝到新的数组 <code>newt</code> 中。</p>
+<p><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-insert-many.gif.gif" alt="objc-hashtable-insert-many.gif"></p>
+<p>在每次添加完一个元素之后，都会进行下面的判断：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">table</span>-&gt;<span class="keyword">count</span> &gt; <span class="keyword">table</span>-&gt;nbBuckets) _NXHashRehash (<span class="keyword">table</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的这行代码会保证<strong>哈希表中的元素数据小于等于表中的 bucket 数量</strong>。</p>
+</blockquote>
+<p>这就是 <code>buckets</code> 后面的列表非常短的原因，在理想情况下，<strong>每一个 <code>buckets</code> 中都只存储一个或零个元素</strong>。</p>
+<h4 id="NXHashRehash"><a href="#NXHashRehash" class="headerlink" title="_NXHashRehash"></a>_NXHashRehash</h4><p>如果哈希表在添加元素后，其中的数据多于 <code>buckets</code> 数量，就会对 <code>NXHashTable</code> 进行 <code>_NXHashRehash</code> 操作。</p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">static void _NXHashRehash (NXHashTable *<span class="keyword">table</span>) &#123;</span><br><span class="line">    _NXHashRehashToCapacity (<span class="keyword">table</span>, MORE_CAPACITY(<span class="keyword">table</span>-&gt;nbBuckets));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它调用 <code>_NXHashRehashToCapacity</code> 方法来扩大 <code>NXHashTable</code> 的容量（<code>HashBucket</code> 的个数）。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MORE_CAPACITY(b) (b*2+1)</span></span><br></pre></td></tr></table></figure>
+<p>而 <code>MORE_CAPACITY</code> 会将当前哈希表的容量翻倍，并将新的容量传入 <code>_NXHashRehashToCapacity</code> 中：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">void _NXHashRehashToCapacity (NXHashTable *table, unsigned newCapacity) &#123;</span><br><span class="line">    NXHashTable	*old;</span><br><span class="line">    NXHashState	state;</span><br><span class="line">    void	*aux;</span><br><span class="line">    __unused void *z = ZONE_FROM_PTR(table);</span><br><span class="line"></span><br><span class="line">    old = ALLOCTABLE(z);</span><br><span class="line">    <span class="function"><span class="title">old</span>-&gt;</span><span class="function"><span class="title">prototype</span> = table-&gt;</span><span class="function"><span class="title">prototype</span>; old-&gt;</span><span class="function"><span class="title">count</span> = table-&gt;</span>count;</span><br><span class="line">    <span class="function"><span class="title">old</span>-&gt;</span><span class="function"><span class="title">nbBuckets</span> = table-&gt;</span><span class="function"><span class="title">nbBuckets</span>; old-&gt;</span><span class="function"><span class="title">buckets</span> = table-&gt;</span>buckets;</span><br><span class="line">    <span class="function"><span class="title">table</span>-&gt;</span>nbBuckets = newCapacity;</span><br><span class="line">    <span class="function"><span class="title">table</span>-&gt;</span><span class="function"><span class="title">count</span> = 0; table-&gt;</span><span class="function"><span class="title">buckets</span> = ALLOCBUCKETS(z, table-&gt;</span>nbBuckets);</span><br><span class="line">    state = NXInitHashState (old);</span><br><span class="line">    <span class="keyword">while</span> (NXNextHashState (old, &amp;state, &amp;aux))</span><br><span class="line">        (void) NXHashInsert (table, aux);</span><br><span class="line">    freeBuckets (old, NO);</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="title">free</span> (old-&gt;</span>buckets);</span><br><span class="line">    free (old);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>创建一个 <code>NXHashTable</code> 的指针指向原哈希表</li>
+<li>改变哈希表的 <code>nbBuckets</code>，并重新初始化哈希表的 <code>buckets</code> 数组</li>
+<li>重新将元素插入到哈希表中</li>
+<li>释放原哈希表 <code>old</code> 以及 <code>buckets</code></li>
+</ol>
+<h4 id="NXHashState"><a href="#NXHashState" class="headerlink" title="NXHashState"></a>NXHashState</h4><p>在将元素重新插入到哈希表中涉及了一个非常奇怪的结构体 <code>NXHashState</code>，这个结构体主要作用是遍历 <code>NXHashTable</code> 中的元素。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">&#125; NXHashState;</span><br></pre></td></tr></table></figure>
+<p>我们可以使用如下的代码对哈希表中的元素进行遍历：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">unsigned count = <span class="number">0</span>;</span><br><span class="line">MyData	 *data;</span><br><span class="line">NXHashState <span class="keyword">state</span> = NXInitHashState(<span class="built_in">table</span>);</span><br><span class="line">while (NXNextHashState(<span class="built_in">table</span>, &amp;<span class="keyword">state</span>, &amp;data)) &#123;</span><br><span class="line">   count++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码片段中调用了两个方法，分别是 <code>NXInitHashState</code> 以及 <code>NXNextHashState</code>：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">NXHashState NXInitHashState (NXHashTable *<span class="built_in">table</span>) &#123;</span><br><span class="line">    NXHashState	<span class="keyword">state</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">state</span>.i = table-&gt;nbBuckets;</span><br><span class="line">    <span class="keyword">state</span>.j = <span class="number">0</span>;</span><br><span class="line">    return <span class="keyword">state</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><code>NXInitHashState</code> 会将 <code>NXHashState</code> 指向哈希表的最末端：</p>
+<p><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-hash-state-init.png" alt="objc-hashtable-hash-state-init"></p>
+<blockquote>
+<p>这个位置其实并不属于 <code>NXHashTable</code>，它一定会为空。</p>
+</blockquote>
+<p>而每次调用 <code>NXNextHashState</code> 都会向『前』移动一次：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">int NXNextHashState (NXHashTable *table, NXHashState *state, void **<span class="keyword">data</span>) &#123;</span><br><span class="line">    H<span class="function"><span class="title">ashBucket</span>		*buckets = (HashBucket *) table-&gt;</span>buckets;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">while</span> (state-&gt;</span>j == <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="function"><span class="title">if</span> (state-&gt;</span>i == <span class="number">0</span>) return NO;</span><br><span class="line">        <span class="function"><span class="title">state</span>-&gt;</span><span class="function"><span class="title">i</span>--; state-&gt;</span><span class="function"><span class="title">j</span> = buckets[state-&gt;</span>i].count;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">state</span>-&gt;</span>j--;</span><br><span class="line">    <span class="function"><span class="title">buckets</span> += state-&gt;</span>i;</span><br><span class="line">    *<span class="function"><span class="title">data</span> = (void *) ((buckets-&gt;</span>count == <span class="number">1</span>)</span><br><span class="line">                      ? <span class="function"><span class="title">buckets</span>-&gt;</span><span class="function"><span class="title">elements</span>.one : buckets-&gt;</span><span class="function"><span class="title">elements</span>.many[state-&gt;</span>j]);</span><br><span class="line">    return YES;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>下面的 gif 为我们展示了每一次调用 <code>NXNextHashState</code> 方法之后当前的 <code>NXHashState</code>：</p>
+<p><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-hashstate-next.gif" alt="objc-hashtable-hashstate-next"></p>
+<h3 id="NXHashRemove"><a href="#NXHashRemove" class="headerlink" title="NXHashRemove"></a>NXHashRemove</h3><p>这里的 <code>NXHashRemove</code>在某种意义上是 <code>NXHashInsert</code> 的逆操作：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">void *NXHashRemove (NXHashTable *table, const void *<span class="keyword">data</span>) &#123;</span><br><span class="line">    HashBucket	*bucket = BUCKETOF(table, <span class="keyword">data</span>);</span><br><span class="line">    <span class="function"><span class="title">unsigned</span>	j = bucket-&gt;</span>count;</span><br><span class="line">    const void	**pairs;</span><br><span class="line">    const void	**newt;</span><br><span class="line">    __unused void *z = ZONE_FROM_PTR(table);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (! j) return NULL;</span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="function"><span class="title">if</span> (! ISEQUAL(table, <span class="keyword">data</span>, bucket-&gt;</span>elements.one)) return NULL;</span><br><span class="line">        <span class="function"><span class="title">data</span> = bucket-&gt;</span>elements.one;</span><br><span class="line">        <span class="function"><span class="title">table</span>-&gt;</span><span class="function"><span class="title">count</span>--; bucket-&gt;</span><span class="function"><span class="title">count</span>--; bucket-&gt;</span>elements.one = NULL;</span><br><span class="line">        return (void *) <span class="keyword">data</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="function"><span class="title">pairs</span> = bucket-&gt;</span>elements.many;</span><br><span class="line">    <span class="keyword">if</span> (j == <span class="number">2</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ISEQUAL(table, <span class="keyword">data</span>, pairs[<span class="number">0</span>])) &#123;</span><br><span class="line">            <span class="function"><span class="title">bucket</span>-&gt;</span>elements.one = pairs[<span class="number">1</span>]; <span class="keyword">data</span> = pairs[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (ISEQUAL(table, <span class="keyword">data</span>, pairs[<span class="number">1</span>])) &#123;</span><br><span class="line">            <span class="function"><span class="title">bucket</span>-&gt;</span>elements.one = pairs[<span class="number">0</span>]; <span class="keyword">data</span> = pairs[<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> return NULL;</span><br><span class="line">        FREEPAIRS (pairs);</span><br><span class="line">        <span class="function"><span class="title">table</span>-&gt;</span><span class="function"><span class="title">count</span>--; bucket-&gt;</span>count--;</span><br><span class="line">        return (void *) <span class="keyword">data</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    <span class="keyword">while</span> (j--) &#123;</span><br><span class="line">        <span class="keyword">if</span> (ISEQUAL(table, <span class="keyword">data</span>, *pairs)) &#123;</span><br><span class="line">            <span class="keyword">data</span> = *pairs;</span><br><span class="line">            <span class="comment">/* we shrink this bucket */</span></span><br><span class="line">            <span class="function"><span class="title">newt</span> = (bucket-&gt;</span>count-<span class="number">1</span>)</span><br><span class="line">            ? ALLOCPAIRS(<span class="function"><span class="title">z</span>, bucket-&gt;</span>count-<span class="number">1</span>) : NULL;</span><br><span class="line">            <span class="function"><span class="title">if</span> (bucket-&gt;</span>count-<span class="number">1</span> != j)</span><br><span class="line">                <span class="function"><span class="title">bcopy</span> ((const char*)bucket-&gt;</span><span class="function"><span class="title">elements</span>.many, (char*)newt, PTRSIZE*(bucket-&gt;</span>count-j-<span class="number">1</span>));</span><br><span class="line">            <span class="keyword">if</span> (j)</span><br><span class="line">                <span class="function"><span class="title">bcopy</span> ((const char*)(bucket-&gt;</span><span class="function"><span class="title">elements</span>.many + bucket-&gt;</span><span class="function"><span class="title">count</span>-j), (char*)(newt+bucket-&gt;</span>count-j-<span class="number">1</span>), PTRSIZE*j);</span><br><span class="line">            FREEPAIRS (<span class="function"><span class="title">bucket</span>-&gt;</span>elements.many);</span><br><span class="line">            <span class="function"><span class="title">table</span>-&gt;</span><span class="function"><span class="title">count</span>--; bucket-&gt;</span><span class="function"><span class="title">count</span>--; bucket-&gt;</span>elements.many = newt;</span><br><span class="line">            return (void *) <span class="keyword">data</span>;</span><br><span class="line">        &#125;;</span><br><span class="line">        pairs ++;</span><br><span class="line">    &#125;;</span><br><span class="line">    return NULL;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它的实现也分为三种情况，不过在这里就不多说了。</p>
+<h2 id="NXHashTable-的性能"><a href="#NXHashTable-的性能" class="headerlink" title="NXHashTable 的性能"></a>NXHashTable 的性能</h2><p>在已经熟悉了 <code>NXHashTable</code> 的具体实现之后，我们要分析插入<strong>不同数据量级</strong>的情况下，所需要的时间，这里是主程序的代码，分别测试了在 <code>100, 1000, 10000, 100000, 1000000, 2000000, 3000000, 5000000, 10000000</code> 数据下 <code>NXHashTable</code> 的性能表现：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">"hashtable2.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="built_in">NSArray</span>&lt;<span class="built_in">NSNumber</span> *&gt; *capacities = @[</span><br><span class="line">            @<span class="number">100</span>,</span><br><span class="line">            @<span class="number">1000</span>,</span><br><span class="line">            @<span class="number">10000</span>,</span><br><span class="line">            @<span class="number">100000</span>,</span><br><span class="line">            @<span class="number">1000000</span>,</span><br><span class="line">            @<span class="number">2000000</span>,</span><br><span class="line">            @<span class="number">3000000</span>,</span><br><span class="line">            @<span class="number">5000000</span>,</span><br><span class="line">            @<span class="number">10000000</span></span><br><span class="line">        ];</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">NSNumber</span> *capacity <span class="keyword">in</span> capacities) &#123;</span><br><span class="line">            NXHashTable *hashTable = NXCreateHashTable(NXPtrPrototype, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line">            <span class="built_in">NSDate</span> *methodStart = [<span class="built_in">NSDate</span> date];</span><br><span class="line">            <span class="keyword">for</span> (<span class="built_in">NSInteger</span> i = <span class="number">0</span>; i &lt; capacity.integerValue; i++) &#123;</span><br><span class="line">                <span class="built_in">NSString</span> *value = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@"%ld"</span>, (<span class="keyword">long</span>)i];</span><br><span class="line">                NXHashInsert(hashTable, (__bridge <span class="keyword">void</span> *)value);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">NSDate</span> *methodFinish = [<span class="built_in">NSDate</span> date];</span><br><span class="line">            <span class="built_in">NSTimeInterval</span> executionTime = [methodFinish timeIntervalSinceDate:methodStart];</span><br><span class="line">            <span class="built_in">NSLog</span>(<span class="string">@"Capacities: %@, executionTime = %f, meanTime = %.10f"</span>, capacity, executionTime, executionTime / capacity.integerValue);</span><br><span class="line"></span><br><span class="line">            free(hashTable);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中初始化了一个 <code>capacities</code> 存储需要测量的数据量级，然后调用 <code>NXHashInsert</code> 方法将相当数量级的数据添加到哈希表中：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Capacities</th>
+<th style="text-align:right">Execution Time</th>
+<th style="text-align:right">Mean Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">100</td>
+<td style="text-align:right">0.000334</td>
+<td style="text-align:right">0.0000033402</td>
+</tr>
+<tr>
+<td style="text-align:right">1000</td>
+<td style="text-align:right">0.001962</td>
+<td style="text-align:right">0.0000019619</td>
+</tr>
+<tr>
+<td style="text-align:right">10000</td>
+<td style="text-align:right">0.022001</td>
+<td style="text-align:right">0.0000022001</td>
+</tr>
+<tr>
+<td style="text-align:right">100000</td>
+<td style="text-align:right">0.349998</td>
+<td style="text-align:right">0.0000035000</td>
+</tr>
+<tr>
+<td style="text-align:right">1000000</td>
+<td style="text-align:right">2.622551</td>
+<td style="text-align:right">0.0000026226</td>
+</tr>
+<tr>
+<td style="text-align:right">2000000</td>
+<td style="text-align:right">4.165023</td>
+<td style="text-align:right">0.0000020825</td>
+</tr>
+<tr>
+<td style="text-align:right">3000000</td>
+<td style="text-align:right">6.973098</td>
+<td style="text-align:right">0.0000023244</td>
+</tr>
+<tr>
+<td style="text-align:right">5000000</td>
+<td style="text-align:right">13.179743</td>
+<td style="text-align:right">0.0000026359</td>
+</tr>
+<tr>
+<td style="text-align:right"><strong>10000000</strong></td>
+<td style="text-align:right"><strong>53.387356</strong></td>
+<td style="text-align:right"><strong>0.0000053387</strong></td>
+</tr>
+</tbody>
+</table>
+<p>在对 <code>NXHashTable</code> 的性能测试中，当数据量小于 5000000 时，执行时间的增长还是线性的，平均时间也基本稳定，但是一旦数据量达到了千万级，执行时间就会出现显著的增长。</p>
+<p>如果仅仅在哈希表中插入数据，相信其时间增长应该都是线性的，这里出现问题的原因推测是<strong>在对哈希表进行 Rehash 的时候，迁移原数据至新的数组所造成的</strong>。</p>
+<p>如何避免哈希表的 Rehash 呢，重新回顾一下创建哈希表的函数：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">NXHashTable *<span class="title">NXCreateHashTable</span> <span class="params">(NXHashTablePrototype prototype, <span class="keyword">unsigned</span> capacity, <span class="keyword">const</span> <span class="keyword">void</span> *info)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>这个函数的签名中包含一个 <code>capacity</code> 的参数，我们在上面的代码中传入了 0，也就是最开始的 <code>buckets</code> 数为 0，但是它的数目并不是固定的，它会随着哈希表中数据的增多，逐渐变大。</p>
+<blockquote>
+<p><code>capacity</code> 只是一个提示，帮助 NXHashTable 了解其中会存储多少数据。</p>
+</blockquote>
+<p>如果在创建 <code>NXHashTable</code> 时传入 <code>capacity.integerValue</code>：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">NXHashTable</span> <span class="meta">*hashTable</span> <span class="string">=</span> <span class="string">NXCreateHashTable(NXPtrPrototype,</span> <span class="string">capacity.integerValue,</span> <span class="literal">NULL</span><span class="string">);</span></span><br></pre></td></tr></table></figure>
+<p>重新运行代码，测量性能：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Capacities</th>
+<th style="text-align:right">Execution Time</th>
+<th style="text-align:right">Mean Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">100</td>
+<td style="text-align:right">0.000740</td>
+<td style="text-align:right">0.0000073999</td>
+</tr>
+<tr>
+<td style="text-align:right">1000</td>
+<td style="text-align:right">0.003442</td>
+<td style="text-align:right">0.0000034420</td>
+</tr>
+<tr>
+<td style="text-align:right">10000</td>
+<td style="text-align:right">0.023341</td>
+<td style="text-align:right">0.0000023341</td>
+</tr>
+<tr>
+<td style="text-align:right">100000</td>
+<td style="text-align:right">0.215209</td>
+<td style="text-align:right">0.0000021521</td>
+</tr>
+<tr>
+<td style="text-align:right">1000000</td>
+<td style="text-align:right">1.836802</td>
+<td style="text-align:right">0.0000018368</td>
+</tr>
+<tr>
+<td style="text-align:right">2000000</td>
+<td style="text-align:right">3.683246</td>
+<td style="text-align:right">0.0000018416</td>
+</tr>
+<tr>
+<td style="text-align:right">3000000</td>
+<td style="text-align:right">5.474610</td>
+<td style="text-align:right">0.0000018249</td>
+</tr>
+<tr>
+<td style="text-align:right">5000000</td>
+<td style="text-align:right">10.576254</td>
+<td style="text-align:right">0.0000021153</td>
+</tr>
+<tr>
+<td style="text-align:right">10000000</td>
+<td style="text-align:right">46.725459</td>
+<td style="text-align:right">0.0000046725</td>
+</tr>
+</tbody>
+</table>
+<p>虽然在测试 <code>10,000,000</code> 数据时其平均时间依然是 <code>5,000,000</code> 时的二倍，不过整体的性能都有所提升，然而这部分性能的损耗暂时还不是很清楚原因。</p>
+<p>如果我们使用 Instrument 对有无 <code>capacity</code> 的情况进行比较（这是在使用 <code>2,000,000</code> 数据时进行的测试）：</p>
+<p><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-instrument.png" alt="objc-hashtable-instrument"></p>
+<p>没有传入 <code>capacity</code> 的哈希表会在多次插入之后出现一个峰值（由于 Rehash 引起的，其宽度就是 Rehash 使用的时间），而传入 <code>capacity</code> 的哈希表会在代码刚运行时就初始化足够大的数组。</p>
+<h2 id="NSMutableArray-性能"><a href="#NSMutableArray-性能" class="headerlink" title="NSMutableArray 性能"></a>NSMutableArray 性能</h2><blockquote>
+<p>这部分只算是一个小插曲，你可以选择跳过这一小节的内容。</p>
+</blockquote>
+<p><code>NSMutableArray</code> 的构造器 <code>- (instancetype)initWithCapacity:(NSUInteger)numItems</code> 也有一个参数 <code>capacity</code>，虽然数组和哈希表是两种数据结构。</p>
+<blockquote>
+<p>不过我们这里主要研究的是：<strong>传入 <code>capacity</code> 是否会对性能造成影响</strong>。</p>
+</blockquote>
+<p>首先是使用 <code>init</code> 创建的 <code>NSMutableArray</code> 数组，也就是没有传入 <code>capacity</code>：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Capacities</th>
+<th style="text-align:right">Execution Time</th>
+<th style="text-align:right">Mean Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">100</td>
+<td style="text-align:right">0.000539</td>
+<td style="text-align:right">0.0000053900</td>
+</tr>
+<tr>
+<td style="text-align:right">1000</td>
+<td style="text-align:right">0.003185</td>
+<td style="text-align:right">0.0000031850</td>
+</tr>
+<tr>
+<td style="text-align:right">10000</td>
+<td style="text-align:right">0.074033</td>
+<td style="text-align:right">0.0000074033</td>
+</tr>
+<tr>
+<td style="text-align:right">100000</td>
+<td style="text-align:right">0.370899</td>
+<td style="text-align:right">0.0000037090</td>
+</tr>
+<tr>
+<td style="text-align:right">1000000</td>
+<td style="text-align:right">1.504855</td>
+<td style="text-align:right">0.0000015049</td>
+</tr>
+<tr>
+<td style="text-align:right">2000000</td>
+<td style="text-align:right">2.852519</td>
+<td style="text-align:right">0.0000014263</td>
+</tr>
+<tr>
+<td style="text-align:right">3000000</td>
+<td style="text-align:right">3.995536</td>
+<td style="text-align:right">0.0000013318</td>
+</tr>
+<tr>
+<td style="text-align:right">5000000</td>
+<td style="text-align:right">6.833879</td>
+<td style="text-align:right">0.0000013668</td>
+</tr>
+<tr>
+<td style="text-align:right">10000000</td>
+<td style="text-align:right">14.444605</td>
+<td style="text-align:right">0.0000014445</td>
+</tr>
+</tbody>
+</table>
+<p>下面是使用 <code>initWithCapacity:</code> 创建的数组：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">Capacities</th>
+<th style="text-align:right">Execution Time</th>
+<th style="text-align:right">Mean Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">100</td>
+<td style="text-align:right">0.000256</td>
+<td style="text-align:right">0.0000025600</td>
+</tr>
+<tr>
+<td style="text-align:right">1000</td>
+<td style="text-align:right">0.001775</td>
+<td style="text-align:right">0.0000017750</td>
+</tr>
+<tr>
+<td style="text-align:right">10000</td>
+<td style="text-align:right">0.015906</td>
+<td style="text-align:right">0.0000015906</td>
+</tr>
+<tr>
+<td style="text-align:right">100000</td>
+<td style="text-align:right">0.174376</td>
+<td style="text-align:right">0.0000017438</td>
+</tr>
+<tr>
+<td style="text-align:right">1000000</td>
+<td style="text-align:right">1.650481</td>
+<td style="text-align:right">0.0000016505</td>
+</tr>
+<tr>
+<td style="text-align:right">2000000</td>
+<td style="text-align:right">2.802310</td>
+<td style="text-align:right">0.0000014012</td>
+</tr>
+<tr>
+<td style="text-align:right">3000000</td>
+<td style="text-align:right">4.451261</td>
+<td style="text-align:right">0.0000014838</td>
+</tr>
+<tr>
+<td style="text-align:right">5000000</td>
+<td style="text-align:right">7.093753</td>
+<td style="text-align:right">0.0000014188</td>
+</tr>
+<tr>
+<td style="text-align:right">10000000</td>
+<td style="text-align:right">14.598415</td>
+<td style="text-align:right">0.0000014598</td>
+</tr>
+</tbody>
+</table>
+<p>你可以在表格中看到，两者在执行效率上并没有显著的差异或者区别。</p>
+<p>但是如果使用 instrument 来查看两者的内存分配，可以很明显的看到，没有传入 <code>capacity</code> 的 <code>NSMutableArray</code> 会在可变数组内存占用增加前出现一个<strong>短暂的内存分配峰值</strong>。</p>
+<p><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-nsarray-instrument.png" alt="objc-hashtable-nsarray-instrument"></p>
+<p>导致这一现象的原始可能是：在将原数组中的内容移入新数组时，<strong>临时变量申请了大量的内存空间</strong>。</p>
+<blockquote>
+<p>在之后关于 CoreFoundation 源代码分析的文中会介绍它们是怎么实现的。</p>
+</blockquote>
+<h2 id="NXHashTable-的应用"><a href="#NXHashTable-的应用" class="headerlink" title="NXHashTable 的应用"></a>NXHashTable 的应用</h2><p>在整个 objc/runtime 中，作为<strong>私有</strong>的数据结构 <code>NXHashTable</code>，直接使用了它的就是<strong>存储所有类或者元类</strong>的哈希表（在这里会忽略对元类的存储，因为实现几乎完全相同）：</p>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> NXHashTable *realized_class_hash = <span class="keyword">nil</span>;</span><br></pre></td></tr></table></figure>
+<p>我们可以使用 <code>objc_copyClassList</code> 获取类的数组：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">Class *</span><br><span class="line">objc_copyClassList(unsigned int *outCount)</span><br><span class="line">&#123;</span><br><span class="line">    rwlock_writer_t lock(runtimeLock)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    realizeAllClasses()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    Class *result = nil<span class="comment">;</span></span><br><span class="line">    NXHashTable *classes = realizedClasses()<span class="comment">;</span></span><br><span class="line">    unsigned int <span class="built_in">count</span> = NXCountHashTable(classes)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    if (<span class="built_in">count</span> &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        Class cls<span class="comment">;</span></span><br><span class="line">        NXHashState state = NXInitHashState(classes)<span class="comment">;</span></span><br><span class="line">        result = (Class *)malloc((<span class="number">1</span>+<span class="built_in">count</span>) * sizeof(Class))<span class="comment">;</span></span><br><span class="line">        <span class="built_in">count</span> = <span class="number">0</span><span class="comment">;</span></span><br><span class="line">        while (NXNextHashState(classes, &amp;state, (void **)&amp;cls)) &#123;</span><br><span class="line">            result[<span class="built_in">count</span>++] = cls<span class="comment">;</span></span><br><span class="line">        &#125;</span><br><span class="line">        result[<span class="built_in">count</span>] = nil<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    if (outCount) *outCount = <span class="built_in">count</span><span class="comment">;</span></span><br><span class="line">    return result<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>调用 <code>realizedClasses</code> 返回 <code>realized_class_hash</code> 哈希表</li>
+<li>使用 <code>NSHashState</code> 遍历 <code>realized_class_hash</code> 中的类，并将所有的类存入 <code>result</code></li>
+</ol>
+<p>接下来使用上面的方法，打印出 <code>realized_class_hash</code> 中存储的所有类：</p>
+<p><img src="/wiki/IOS/Runtime/objc/6_NXHashTable/objc-hashtable-copy-class-list.png" alt="objc-hashtable-copy-class-list"></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><blockquote>
+<p><code>NXHashTable</code> 在 OS X 10.1 中就已经标记为弃用了，但是依旧支持着 runtime 底层的工作。</p>
+</blockquote>
+<p><code>NXHashTable</code> 可以说有着<strong>非常非常</strong>久远的历史了，最早可以追溯到将近 30 多年前 NeXT 时代：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// hashtable2.mm 文件中</span></span><br><span class="line"></span><br><span class="line">hashtable2.m</span><br><span class="line">Copyright <span class="number">1989</span><span class="number">-1996</span> NeXT Software, Inc.</span><br><span class="line">Created by Bertrand Serlet, Feb <span class="number">89</span></span><br></pre></td></tr></table></figure>
+<p><code>NSHashTable</code> 对哈希表的实现还是非常优雅的，可以说非常标准的使用了<a href="https://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists" rel="external nofollow noopener noreferrer" target="_blank">拉链法</a>实现哈希表。</p>
+<p>不过现在，我们会使用 <code>NSHashTable</code> 来取代这个上古时代的产物。</p>
+<blockquote>
+<p>Follow: <a href="https://github.com/Draveness" rel="external nofollow noopener noreferrer" target="_blank">Draveness · Github</a></p>
+</blockquote>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://github.com/Draveness/analyze" rel="external nofollow noopener noreferrer" target="_blank">Draveness git地址</a></li>
+<li><a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
+<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" rel="external nofollow noopener noreferrer" target="_blank">类型编码</a></li>
+<li><a href="http://nshipster.cn/type-encodings/" rel="external nofollow noopener noreferrer" target="_blank">Type Encodings</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tagged_pointer" rel="external nofollow noopener noreferrer" target="_blank">Tagged Pointer</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/IOS/Runtime/objc/5list_array_tt/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">5. list_array_tt 结构详解</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/6_NXHashTable/" data-title="6. 上古时代 Objective-C 中哈希表的实现(转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/6_NXHashTable/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>

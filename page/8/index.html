@@ -462,7 +462,7 @@
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -729,7 +729,7 @@
                     </li> 
                      </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/objc/NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -801,6 +801,270 @@
 </aside>
             
             <section id="main">
+        <article id="post-Hybird/weex/weex-debug" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex断点调试/">weex断点调试</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/weex-debug/">
+            <time datetime="2016-12-28T01:48:40.000Z" itemprop="datePublished">2016-12-28</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>Weex Devtools是为 Weex开发者服务的一款调试工具，可对 .we 代码及 JavaScript 代码断点调试，并能够审查 Weex app 运行时属性，支持 iOS 和 Android 两个平台。本文是基于IOS平台。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/Hybird/weex/weex-debug/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-Hybird/weex/event-analize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/event-analize/">
+            <time datetime="2016-12-16T09:46:54.000Z" itemprop="datePublished">2016-12-16</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>weex内置多种事件，包括视图的滑动事件：appear、disappear事件；手势事件：click、swipe、longpress、panstart、panmove、panend、touchstart、touchmove、touchend、touchcancel。本文主要分析这些事件的传递原理。<br></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/Hybird/weex/event-analize/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/内存管理/内存学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/内存管理/">内存管理</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/git/">git</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/内存管理/内存学习/">
+            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/内存管理/内存学习/">内存学习</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文记录内存学习的关键内容</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/内存管理/内存学习/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-Hybird/weex/weex-conmunication" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/weex-conmunication/">
+            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。<br></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/Hybird/weex/weex-conmunication/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-工具/git/git简略版/git简略版" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -920,138 +1184,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/编程基础/正则表达式/正则表达式学习/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-Hybird/weex/weex-conmunication" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/weex-conmunication/">
-            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/Hybird/weex/weex-conmunication/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/内存管理/内存学习" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/内存管理/">内存管理</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/git/">git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/内存管理/内存学习/">
-            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/内存管理/内存学习/">内存学习</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文记录内存学习的关键内容</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/内存管理/内存学习/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1319,138 +1451,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/神经病院Objective-C-Runtime入院系列文章/">神经病院Objective-C Runtime入院系列文章</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/消息发送-消息转发/">消息发送 消息转发</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">
-            <time datetime="2016-11-22T02:38:11.000Z" itemprop="datePublished">2016-11-22</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>现在越来越多的app都使用了JSPatch实现app热修复，而JSPatch 能做到通过 JS 调用和改写 OC 方法最根本的原因是 Objective-C 是动态语言，OC 上所有方法的调用/类的生成都通过 Objective-C Runtime 在运行时进行，我们可以通过类名/方法名反射得到相应的类和方法，也可以替换某个类的方法为新的实现，理论上你可以在运行时通过类名/方法名调用到任何 OC 方法，替换任何类的实现以及新增任意类。今天就来详细解析一下OC中runtime最为吸引人的地方。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-C语言语法/union定义" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C语言语法/">C语言语法</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/C-语言语法/">C 语言语法</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/C语言语法/union定义/">
-            <time datetime="2016-11-21T04:07:12.000Z" itemprop="datePublished">2016-11-21</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/C语言语法/union定义/">union定义(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><h2 id="union定义"><a href="#union定义" class="headerlink" title="union定义"></a>union定义</h2><p>union 维护足够的空间来置放多个数据成员中的“一种”，而不是为每一个数据成员配置空间，在union 中所有的数据成员共用一个空间，<font color="red" size="4" face="黑体">同一时间只能储存其中一个数据成员，所有的数据成员具有相同的起始地址。</font><br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/C语言语法/union定义/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
