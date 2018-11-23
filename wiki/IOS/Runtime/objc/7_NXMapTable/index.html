@@ -20,8 +20,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_class.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_1.gif">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_2.gif">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_3.gif">
-<meta property="og:updated_time" content="2018-11-23T07:47:14.745Z">
+<meta property="og:updated_time" content="2018-11-23T08:55:03.084Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="0. NXMapTable数据结构">
 <meta name="twitter:description" content="NXMapTable 数据结构1234567typedef struct _NXMapTable &amp;#123;    /* private data structure; may change */    const struct _NXMapTablePrototype	*prototype;    unsigned	count;    unsigned	nbBucketsMinusOne;">
@@ -904,9 +903,8 @@
 <li>添加分为三种情况： 索引位置空、索引位置的key相同、索引位置key不相同（保存其他的值）</li>
 </ol>
 <p>下面用三种图分别说明三种情况 。</p>
-<p><img src="/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_1.gif" alt="插入位置为空"></p>
+<p><img src="/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_1.gif" alt="插入位置为空  or 插入位置不为空，单key相同"></p>
 <p><img src="/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_2.gif" alt="插入位置不空，key相同"></p>
-<p><img src="/wiki/IOS/Runtime/objc/7_NXMapTable/NXHashTable_3.gif" alt="插入位置不空，key不同"></p>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
 <li><a href="https://github.com/Draveness/analyze" rel="external nofollow noopener noreferrer" target="_blank">Draveness git地址</a></li>
 <li><a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
