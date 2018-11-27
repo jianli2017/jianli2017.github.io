@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>8. objc4入口函数 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="__objc_init">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dy">
+<meta name="keywords" content="__objc_init">
+<meta property="og:type" content="article">
+<meta property="og:title" content="8. objc4入口函数">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/8__objc_init/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dy">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/8__objc_init/headerInfo.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/8__objc_init/firstHeader.png">
+<meta property="og:updated_time" content="2018-11-27T03:01:14.694Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="8. objc4入口函数">
+<meta name="twitter:description" content="__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dy">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/8__objc_init/headerInfo.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十二章 动态内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十二章 动态内存/动态内存/">动态内存</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            MachO
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            objc
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WWDC
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/Runtime/objc/8__objc_init" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/objc-init/">__objc_init</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/8__objc_init/">
+            <time datetime="2018-11-26T03:38:11.000Z" itemprop="datePublished">2018-11-26</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            8. objc4入口函数
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#objc-init"><span class="toc-number">1.</span> <span class="toc-text">_objc_init</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p>
+<a id="more"></a>
+<h2 id="objc-init"><a href="#objc-init" class="headerlink" title="_objc_init"></a>_objc_init</h2><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">void</span> <span class="selector-tag">_objc_init</span>(void)</span><br><span class="line">&#123;</span><br><span class="line">	....</span><br><span class="line">    <span class="comment">// Register for unmap first, in case some +load unmaps something</span></span><br><span class="line">    <span class="comment">// 首先第一步，注册 unmap 函数，万一有的类的 +load 方法需要 unmap 一些东西</span></span><br><span class="line">    <span class="comment">// unmap，即 un-memory-mapped，这里应该就是取消内存映射，移除镜像的意思</span></span><br><span class="line">    <span class="selector-tag">_dyld_register_func_for_remove_image</span>(&amp;unmap_image);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注册镜像状态改变时的回调函数</span></span><br><span class="line">    <span class="selector-tag">dyld_register_image_state_change_handler</span>(dyld_image_state_bound,</span><br><span class="line">                                             <span class="number">1</span><span class="comment">/*batch 是否批处理*/</span>, &amp;map_2_images);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 注册镜像状态改变时的回调函数，镜像加载完成后，需要调用 +load 时会回调 load_images 函数</span></span><br><span class="line">    <span class="comment">// 不进行批处理，所以 load_images 会被调用多次，每次有新的镜像进来时，都会被调用</span></span><br><span class="line">    <span class="selector-tag">dyld_register_image_state_change_handler</span>(dyld_image_state_dependents_initialized, <span class="number">0</span><span class="comment">/*not batch*/</span>, &amp;load_images);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先看map_2_images函数，load_images后面一遍介绍。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 处理给定的镜像，这些镜像被 dyld库 映射</span></span><br><span class="line"><span class="comment">// 这个函数其实是一个回调函数，被 dyld 库调用，参数中的镜像信息也是 dyld 库传进来的，详情见 _objc_init()</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *</span><br><span class="line">map_2_images(<span class="keyword">enum</span> dyld_image_states state,</span><br><span class="line">             <span class="keyword">uint32_t</span> infoCount,</span><br><span class="line">             <span class="keyword">const</span> struct dyld_image_info infoList[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">rwlock_writer_t</span> lock(runtimeLock); <span class="comment">// runtimeLock 加写锁</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 在 map_images_nolock 函数中，完成所有 class 的注册、fixup等工作，</span></span><br><span class="line">    <span class="comment">// 还包括初始化自动释放池、初始化 side table 等等工作</span></span><br><span class="line">    <span class="keyword">return</span> map_images_nolock(state, infoCount, infoList);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>map_2_images内部调用了map_images_nolock函数。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 映射镜像，在这个函数中，完成所有 class 的注册、fixup等工作，</span></span><br><span class="line"><span class="comment">// 还包括初始化自动释放池、初始化 side table 等工作</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">char</span> *</span><br><span class="line">map_images_nolock(<span class="keyword">enum</span> dyld_image_states state,</span><br><span class="line">                  <span class="keyword">uint32_t</span> infoCount,</span><br><span class="line">                  <span class="keyword">const</span> struct dyld_image_info infoList[])</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">bool</span> firstTime = YES;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">bool</span> wantsGC = NO;</span><br><span class="line">    <span class="keyword">uint32_t</span> i;</span><br><span class="line">    header_info *hi;</span><br><span class="line">    header_info *hList[infoCount];</span><br><span class="line">    <span class="keyword">uint32_t</span> hCount;</span><br><span class="line">    <span class="keyword">size_t</span> selrefCount = <span class="number">0</span>;</span><br><span class="line">   ....</span><br><span class="line">    <span class="comment">// Find all images with Objective-C metadata.</span></span><br><span class="line">    hCount = <span class="number">0</span>;</span><br><span class="line">    i = infoCount;</span><br><span class="line">    <span class="keyword">while</span> (i--) &#123;</span><br><span class="line">        <span class="keyword">const</span> headerType *mhdr = (headerType *)infoList[i].imageLoadAddress;</span><br><span class="line"></span><br><span class="line">        hi = addHeader(mhdr);</span><br><span class="line">        <span class="keyword">if</span> (!hi) &#123;</span><br><span class="line">            <span class="comment">// no objc data in this entry</span></span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (mhdr-&gt;filetype == MH_EXECUTE) &#123;</span><br><span class="line">            <span class="comment">// Size some data structures based on main executable's size</span></span><br><span class="line">            _getObjcSelectorRefs(hi, &amp;selrefCount);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        hList[hCount++] = hi</span><br><span class="line">    &#125;</span><br><span class="line">   ....</span><br><span class="line">    _read_images(hList, hCount);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>map_images_nolock对所有的镜像列表执行addHeader，主要过滤重复的镜像。</p>
+<p>接着调用_read_images函数。_read_images比较复杂，后面文章分析。下面看看addHeader的具体实现：</p>
+<figure class="highlight zephir"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> header_info * addHeader(<span class="keyword">const</span> headerType *mhdr)</span><br><span class="line">&#123;</span><br><span class="line">    header_info *hi;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (bad_magic(mhdr)) <span class="keyword">return</span> <span class="keyword">NULL</span>;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// Didn't find an hinfo in the dyld shared cache.</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// Weed out duplicates</span></span><br><span class="line">        <span class="keyword">for</span> (hi = FirstHeader; hi; hi = hi-&gt;next) &#123;</span><br><span class="line">            <span class="keyword">if</span> (mhdr == hi-&gt;mhdr) <span class="keyword">return</span> <span class="keyword">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Locate the __OBJC segment</span></span><br><span class="line">        size_t info_size = <span class="number">0</span>;</span><br><span class="line">        unsigned <span class="keyword">long</span> seg_size;</span><br><span class="line">        <span class="keyword">const</span> objc_image_info *image_info = _getObjcImageInfo(mhdr,&amp;info_size);</span><br><span class="line">        <span class="keyword">const</span> uint8_t *objc_segment = getsegmentdata(mhdr,SEG_OBJC,&amp;seg_size);</span><br><span class="line">        <span class="keyword">if</span> (!objc_segment  &amp;&amp;  !image_info) <span class="keyword">return</span> <span class="keyword">NULL</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Allocate a header_info entry.</span></span><br><span class="line">        hi = (header_info *)calloc(sizeof(header_info), <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Set up the new header_info entry.</span></span><br><span class="line">        hi-&gt;mhdr = mhdr;</span><br><span class="line">        hi-&gt;info = image_info;</span><br><span class="line">        hi-&gt;fname = dyld_image_path_containing_address(hi-&gt;mhdr);</span><br><span class="line">        hi-&gt;loaded = <span class="keyword">true</span>;</span><br><span class="line">        hi-&gt;inSharedCache = <span class="keyword">false</span>;</span><br><span class="line">        hi-&gt;allClassesRealized = NO;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// dylibs are not allowed to unload</span></span><br><span class="line">    <span class="comment">// ...except those with image_info and nothing else (5359412)</span></span><br><span class="line">    <span class="keyword">if</span> (hi-&gt;mhdr-&gt;filetype == MH_DYLIB  &amp;&amp;  _hasObjcContents(hi)) &#123;</span><br><span class="line">        dlopen(hi-&gt;fname, RTLD_NOLOAD);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    appendHeader(hi);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> hi;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>addHeader将传入的headerType参数mhdr 构造出header_info类型，最后调用appendHeader函数：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void appendHeader(header_info *hi)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Add the header to the header list. </span></span><br><span class="line">    <span class="comment">// The header is appended to the list, to preserve the bottom-up order.</span></span><br><span class="line">    HeaderCount++;</span><br><span class="line">    <span class="function"><span class="title">hi</span>-&gt;</span>next = NULL;</span><br><span class="line">    <span class="keyword">if</span> (!FirstHeader) &#123;</span><br><span class="line">        <span class="comment">// list is empty</span></span><br><span class="line">        FirstHeader = LastHeader = hi;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!LastHeader) &#123;</span><br><span class="line">            <span class="comment">// list is not empty, but LastHeader is invalid - recompute it</span></span><br><span class="line">            LastHeader = FirstHeader;</span><br><span class="line">            <span class="function"><span class="title">while</span> (LastHeader-&gt;</span><span class="function"><span class="title">next</span>) LastHeader = LastHeader-&gt;</span>next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// LastHeader is now valid</span></span><br><span class="line">        L<span class="function"><span class="title">astHeader</span>-&gt;</span>next = hi;</span><br><span class="line">        LastHeader = hi;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>appendHeader 将hi放入FirstHeader的列表中。<br>其中FirstHeader、LastHeader的定义如下。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">header_info</span> <span class="meta">*FirstHeader</span> <span class="string">=</span> <span class="number">0</span><span class="string">;</span>  <span class="string">//</span> <span class="literal">NULL</span> <span class="string">means</span> <span class="string">empty</span> <span class="string">list</span> <span class="string">第一个</span> <span class="string">image(镜像)</span></span><br><span class="line"><span class="string">header_info</span> <span class="meta">*LastHeader</span>  <span class="string">=</span> <span class="number">0</span><span class="string">;</span>  <span class="string">//</span> <span class="literal">NULL</span> <span class="string">means</span> <span class="string">invalid;</span> <span class="string">recompute</span> <span class="string">it</span></span><br><span class="line"><span class="string">int</span> <span class="string">HeaderCount</span> <span class="string">=</span> <span class="number">0</span><span class="string">;</span></span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>map_2_images  主要完成的工作如下：</p>
+<ol>
+<li>镜像去重复</li>
+<li>对于每个镜像，从dyld_image_info 构造出header_info结构</li>
+<li>将header_info结构添加到列表FirstHeader中，LastHeader 指向列表的最后一个元素。</li>
+<li>执行_read_images，后续讲解。</li>
+</ol>
+<p>转化的header_info结构如下：</p>
+<p><img src="/wiki/IOS/Runtime/objc/8__objc_init/headerInfo.png" alt="dyld_image_info转化为header_info结构"></p>
+<p>FirstHeader 的链表结构如下图所示,这里记录了objc库加载的所有的镜像。</p>
+<p><img src="/wiki/IOS/Runtime/objc/8__objc_init/firstHeader.png" alt="FirstHeader 的链表"></p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://github.com/Draveness/analyze" rel="external nofollow noopener noreferrer" target="_blank">Draveness git地址</a></li>
+<li><a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
+<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" rel="external nofollow noopener noreferrer" target="_blank">类型编码</a></li>
+<li><a href="http://nshipster.cn/type-encodings/" rel="external nofollow noopener noreferrer" target="_blank">Type Encodings</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tagged_pointer" rel="external nofollow noopener noreferrer" target="_blank">Tagged Pointer</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/IOS/Runtime/objc/7_NXMapTable/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">7. NXMapTable数据结构</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/8__objc_init/" data-title="8. objc4入口函数" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/8__objc_init/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
