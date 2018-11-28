@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>9. _read_images 从二进制文件中读取类信息 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="_read_images">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="_read_images从镜像文件中读取所有类信息、方法信息、分类信息。这篇文章就介绍具体读取了什么信息。">
+<meta name="keywords" content="_read_images">
+<meta property="og:type" content="article">
+<meta property="og:title" content="9. _read_images 从二进制文件中读取类信息">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="_read_images从镜像文件中读取所有类信息、方法信息、分类信息。这篇文章就介绍具体读取了什么信息。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/三种全局数据结构.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_section.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_LJPersion.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_readImage_data.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_readImage_data.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/namedSelectors.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/relizeClass.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/addClass.png">
+<meta property="og:updated_time" content="2018-11-28T07:40:47.119Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="9. _read_images 从二进制文件中读取类信息">
+<meta name="twitter:description" content="_read_images从镜像文件中读取所有类信息、方法信息、分类信息。这篇文章就介绍具体读取了什么信息。">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/三种全局数据结构.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十二章 动态内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十二章 动态内存/动态内存/">动态内存</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            MachO
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            objc
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WWDC
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/Runtime/objc/9__read_images" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/read-images/">_read_images</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/9__read_images/">
+            <time datetime="2018-11-27T02:38:11.000Z" itemprop="datePublished">2018-11-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            9. _read_images 从二进制文件中读取类信息
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#read-images-代码分析"><span class="toc-number">1.</span> <span class="toc-text">_read_images 代码分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#第一次进入，申请存放类的表"><span class="toc-number">1.1.</span> <span class="toc-text">第一次进入，申请存放类的表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#readClass-读取class"><span class="toc-number">1.2.</span> <span class="toc-text">readClass 读取class</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#objc-classlist-理解"><span class="toc-number">1.2.1.</span> <span class="toc-text">__objc_classlist 理解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#readClass代码"><span class="toc-number">1.2.2.</span> <span class="toc-text">readClass代码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#readClass内部调用的几个函数"><span class="toc-number">1.2.3.</span> <span class="toc-text">readClass内部调用的几个函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#取得引用的类、父类-，添加到remapped-class-map表中"><span class="toc-number">1.3.</span> <span class="toc-text">取得引用的类、父类 ，添加到remapped_class_map表中</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取所有的方法"><span class="toc-number">1.4.</span> <span class="toc-text">读取所有的方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#读取OBJC的消息-objc-msgrefs"><span class="toc-number">1.5.</span> <span class="toc-text">读取OBJC的消息 __objc_msgrefs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#发现所有的协议-objc-protolist并读取"><span class="toc-number">1.6.</span> <span class="toc-text">发现所有的协议__objc_protolist并读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-nlclslist"><span class="toc-number">1.7.</span> <span class="toc-text">__objc_nlclslist</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分类的处理"><span class="toc-number">1.8.</span> <span class="toc-text">分类的处理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-number">2.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">3.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>_read_images从镜像文件中读取所有类信息、方法信息、分类信息。这篇文章就介绍具体读取了什么信息。</p>
+<a id="more"></a>
+<h2 id="read-images-代码分析"><a href="#read-images-代码分析" class="headerlink" title="_read_images 代码分析"></a>_read_images 代码分析</h2><h3 id="第一次进入，申请存放类的表"><a href="#第一次进入，申请存放类的表" class="headerlink" title="第一次进入，申请存放类的表"></a>第一次进入，申请存放类的表</h3><p>_read_images 定义如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">void _read_images(<span class="name">header_info</span> **hList, uint32_t hCount)</span><br></pre></td></tr></table></figure>
+<p>入参是map_images_nolock函数处理过的非重复的镜像列表和个数。下面介绍部分重要的代码，详细代码请看源码</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!doneOnce) &#123; <span class="comment">// 这个块里的代码只会执行一次</span></span><br><span class="line">       doneOnce = YES;</span><br><span class="line">       ....</span><br><span class="line">       <span class="comment">// Count classes. Size various table based on the total.</span></span><br><span class="line">       <span class="comment">// 计算类的总数</span></span><br><span class="line">       int <span class="keyword">total</span> = 0; <span class="comment">// 总数</span></span><br><span class="line">       int unoptimizedTotal = 0; <span class="comment">// 未优化的类的总数，不包括处于 shared cache 中的类</span></span><br><span class="line">       <span class="keyword">for</span> (EACH_HEADER) &#123; <span class="comment">// 遍历 hList</span></span><br><span class="line">           <span class="keyword">if</span> (_getObjc2ClassList(hi, &amp;<span class="keyword">count</span>)) &#123; <span class="comment">// 获得 header 中所有 objective-2.0 类的列表</span></span><br><span class="line">               <span class="keyword">total</span> += (int)<span class="keyword">count</span>; <span class="comment">// 总数加 1</span></span><br><span class="line">               <span class="keyword">if</span> (!hi-&gt;inSharedCache) &#123; <span class="comment">// 如果 header 不在 shared cache 的话，未优化的类的总数加 1</span></span><br><span class="line">                   unoptimizedTotal += <span class="keyword">count</span>;</span><br><span class="line">               &#125;</span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="comment">// namedClasses (NOT realizedClasses)</span></span><br><span class="line">       <span class="comment">// Preoptimized classes don't go in this table.</span></span><br><span class="line">       <span class="comment">// 4/3 is NXMapTable's load factor</span></span><br><span class="line">       </span><br><span class="line">       <span class="comment">// gdb_objc_realized_classes 中装的是不在 shared cache 中的类，所以如果经过了预优化，</span></span><br><span class="line">       <span class="comment">// 那么就只考虑未优化的那些类，即 unoptimizedTotal，否则考虑全部类 total</span></span><br><span class="line">       int namedClassesSize = </span><br><span class="line">           (isPreoptimized() ? unoptimizedTotal : <span class="keyword">total</span>) * 4 / 3;</span><br><span class="line">       gdb_objc_realized_classes =</span><br><span class="line">           NXCreateMapTable(NXStrValueMapPrototype, namedClassesSize);</span><br><span class="line">       </span><br><span class="line">       <span class="comment">// realizedClasses and realizedMetaclasses - less than the full total</span></span><br><span class="line">       realized_class_hash = </span><br><span class="line">           NXCreateHashTable(NXPtrPrototype, <span class="keyword">total</span> / 8, nil);</span><br><span class="line">       realized_metaclass_hash = </span><br><span class="line">           NXCreateHashTable(NXPtrPrototype, <span class="keyword">total</span> / 8, nil);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>如果是第一次执行，创建gdb_objc_realized_classes、realized_class_hash、realized_metaclass_hash三个hash表。三个表的介绍如下：</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/三种全局数据结构.png" alt="FirstHeader 的链表"></p>
+<h3 id="readClass-读取class"><a href="#readClass-读取class" class="headerlink" title="readClass 读取class"></a>readClass 读取class</h3><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///代码位于objc-runtime-new文件中</span></span><br><span class="line"><span class="keyword">for</span> (EACH_HEADER) &#123; <span class="comment">// 遍历 hList</span></span><br><span class="line">    bool headerIsBundle = hi-&gt;isBundle(); <span class="comment">// header 是否是 bundle 类型</span></span><br><span class="line">    bool headerIsPreoptimized = hi-&gt;isPreoptimized(); <span class="comment">// header 是否经过预优化</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 取出 header 中的所有的 objective-c 2.0 的类</span></span><br><span class="line">    classref_t *classlist = _getObjc2ClassList(hi, &amp;count);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) &#123; <span class="comment">// 遍历类列表</span></span><br><span class="line">        Class cls = (Class)classlist[i];</span><br><span class="line">        <span class="comment">// 读取该类，会做一些处理，取得新类(逻辑很复杂，完全懵圈)</span></span><br><span class="line">        Class <span class="keyword">new</span><span class="type">Cls</span> = readClass(cls, headerIsBundle, headerIsPreoptimized);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果获得的是一个非空的新类</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">new</span><span class="type">Cls</span> != cls  &amp;&amp;  <span class="keyword">new</span><span class="type">Cls</span>) &#123;</span><br><span class="line">            <span class="comment">// Class was moved but not deleted. Currently this occurs </span></span><br><span class="line">            <span class="comment">// only when the new class resolved a future class.</span></span><br><span class="line">            <span class="comment">// Non-lazily realize the class below.</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 类被移动了，但是没有被删除，</span></span><br><span class="line">            <span class="comment">// 这只会发生在新类 resolve 了一个 future 类的情况下</span></span><br><span class="line">            <span class="comment">// 下面以非惰性的方法 realize 了 newCls</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 为 resolvedFutureClasses 数组重新开辟一块更大的空间，并将原来的数据拷贝进来</span></span><br><span class="line">            resolvedFutureClasses = (Class *)</span><br><span class="line">                realloc(resolvedFutureClasses, </span><br><span class="line">                                  (resolvedFutureClassCount+<span class="number">1</span>) </span><br><span class="line">                                  * sizeof(Class));</span><br><span class="line">            <span class="comment">// 将 newCls 添加到数组的末尾，resolvedFutureClassCount 加 1</span></span><br><span class="line">            resolvedFutureClasses[resolvedFutureClassCount++] = <span class="keyword">new</span><span class="type">Cls</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>_getObjc2ClassList 是从镜像中读取__objc_classlist section的内容</p>
+<h4 id="objc-classlist-理解"><a href="#objc-classlist-理解" class="headerlink" title="__objc_classlist 理解"></a>__objc_classlist 理解</h4><p>首先创建一个命令行程序，添加如下代码：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">LJPersion </span>: NSObject</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br><span class="line"></span><br><span class="line"><span class="variable">@implementation</span> LJPersion</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">+ (NSString*) classMethod</span><br><span class="line">&#123;</span><br><span class="line">    <span class="selector-tag">return</span> <span class="selector-tag">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span> (NSString *) <span class="selector-tag">instanceMethod</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="selector-tag">return</span> <span class="selector-tag">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@<span class="selector-tag">end</span></span><br></pre></td></tr></table></figure>
+<p>编译完成后，使用mashOView 查看__objc_classlist内容：</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_section.png" alt="__objc_classlist section "></p>
+<p>__objc_classlist 就是这个镜像中所有的类的列表，我新将的程序只有一个类LJPersion，根据图所示，LJPersion 应该存储在0x0000000100001150中， 然后用hopper 查看0x0000000100001150处的内容，验证是否存储的是LJPersion类</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_LJPersion.png" alt="__objc_classlist section "></p>
+<p>可以确定0x0000000100001150存储的就是LJPersion类，可以看出类的数据中保存着instanceMethod方法，元类中保存着classMethod方法。</p>
+<h4 id="readClass代码"><a href="#readClass代码" class="headerlink" title="readClass代码"></a>readClass代码</h4><p>接着，我们将读取出来的所有方法，依次调用readClass函数：</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> 读取一个编译器写的 类 或 元类，</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> 返回新类的指针，有可能是：</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">    - cls</span></span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">    - nil (cls 有一个 missing weak-linked 的父类)</span></span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">    - 同名的 future 类，该 future 类填充了 cls 类的信息</span></span></span></span><br><span class="line"><span class="comment"><span class="markdown"> 调用者：<span class="emphasis">_read_</span>images() / objc_readClassPair()</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></span><br><span class="line">Class readClass(Class cls,</span><br><span class="line">                <span class="built_in">bool</span> headerIsBundle<span class="comment">/*是否是 bundle*/</span>,</span><br><span class="line">                <span class="built_in">bool</span> headerIsPreoptimized<span class="comment">/*是否被预优化过，即是否来自 shared cache*/</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">const</span> char *mangledName = cls-&gt;mangledName(); <span class="comment">// 取得 cls 的重整后的名字</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (missingWeakSuperclass(cls)) &#123; <span class="comment">// 查看 cls 类的祖宗类中是否有类是 weak-linked 的，并且已经 missing</span></span><br><span class="line">        <span class="comment">// 祖宗类里有 missing weak-linked 的</span></span><br><span class="line">        <span class="comment">// 则 cls 的所有信息也是不可信的，所以将其添加到重映射表里，映射为nil，即 cls -&gt; nil</span></span><br><span class="line">        </span><br><span class="line">        addRemappedClass(cls, nil); <span class="comment">// 将其添加到重映射表里，映射为nil</span></span><br><span class="line">        cls-&gt;superclass = nil; <span class="comment">// 父类指针指向 nil</span></span><br><span class="line">        <span class="keyword">return</span> nil;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    Class replacing = nil; <span class="comment">// 记录被代替的类</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 尝试将 mangledName 对应的 future 的类从 future_named_class_map 中弹出</span></span><br><span class="line">    <span class="comment">// 如果返回的 newCls 有值，则 newcls 类是以前开辟的一个同名的 future 类，</span></span><br><span class="line">    <span class="comment">// 这个 future 类现在得到了兑现，因为有一个同名的新类 cls 进来了，</span></span><br><span class="line">    <span class="comment">// future 类里的信息会由 cls 中的信息填充（原来 future 类只开辟了内存，里面其实是啥都没的）</span></span><br><span class="line">    <span class="comment">// 并将 cls 代替</span></span><br><span class="line">    <span class="keyword">if</span> (Class newCls = popFutureNamedClass(mangledName)) &#123;</span><br><span class="line">        <span class="comment">// This name was previously allocated as a future class.</span></span><br><span class="line">        <span class="comment">// Copy objc_class to future class's struct.</span></span><br><span class="line">        <span class="comment">// Preserve future's rw data block.</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 但是 newcls 不能是 swift 类，因为太大了？啥意思？swift类能有多大</span></span><br><span class="line">        <span class="keyword">if</span> (newCls-&gt;isSwift()) &#123;</span><br><span class="line">            _objc_fatal(<span class="string">"Can't complete future class request for '%s' "</span></span><br><span class="line">                        <span class="string">"because the real class is too big."</span>, </span><br><span class="line">                        cls-&gt;nameForLogging());</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        class_rw_t *rw = newCls-&gt;data();     <span class="comment">// 取得 newCls 中的 rw，rw 中除了 ro 外的其他数据是需要保留的</span></span><br><span class="line">        <span class="keyword">const</span> class_ro_t *old_ro = rw-&gt;ro;   <span class="comment">// 旧的 ro</span></span><br><span class="line">        memcpy(newCls, cls, sizeof(objc_class)); <span class="comment">// 将 cls 中的数据完整得拷贝到 newCls 中</span></span><br><span class="line">        rw-&gt;ro = (class_ro_t *)newCls-&gt;data();   <span class="comment">// rw 中使用新的 ro</span></span><br><span class="line">        newCls-&gt;setData(rw);        <span class="comment">// 将 rw 赋给 newCls，那么 newCls 中使用的还是原来的 rw，只是其中的 ro 变了</span></span><br><span class="line">        free((<span class="keyword">void</span> *)old_ro-&gt;name); <span class="comment">// 旧 ro 中的 name 是在堆上分配的，所以需要释放</span></span><br><span class="line">        free((<span class="keyword">void</span> *)old_ro);       <span class="comment">// 将旧 ro 释放</span></span><br><span class="line">        </span><br><span class="line">        addRemappedClass(cls, newCls); <span class="comment">// 将 cls -&gt; newCls 的重映射添加到映射表中</span></span><br><span class="line">        </span><br><span class="line">        replacing = cls; <span class="comment">// 记录下 cls 类被代替</span></span><br><span class="line">        cls = newCls;   <span class="comment">// 新类 newCls 赋给 cls</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (headerIsPreoptimized  &amp;&amp;  !replacing) &#123; <span class="comment">// 预优化过，且没有被代替</span></span><br><span class="line">        <span class="keyword">assert</span>(getClass(mangledName));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 否则将 mangledName -&gt; cls 的映射添加到 gdb_objc_realized_classes 表中</span></span><br><span class="line">        <span class="comment">// 如果上 cls 被 newCls 代替了，那么 replacing 就是老的 cls，即在 gdb_objc_realized_classes 中</span></span><br><span class="line">        <span class="comment">// 也会将老的 cls 代替</span></span><br><span class="line">        addNamedClass(cls, mangledName, replacing);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// for future reference: shared cache never contains MH_BUNDLEs</span></span><br><span class="line">    <span class="keyword">if</span> (headerIsBundle) &#123;</span><br><span class="line">        cls-&gt;data()-&gt;flags |= RO_FROM_BUNDLE;</span><br><span class="line">        cls-&gt;ISA()-&gt;data()-&gt;flags |= RO_FROM_BUNDLE;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> cls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>readClass 做了下面三件事：</p>
+<ol>
+<li>如果class的父类丢失，将类添加到NXMapTable *remapped_class_map表中，key是cls，value是nil。 最后直接返回 nil</li>
+<li>从future_named_class_map中查找cls是否是future类，如果是使用cls实现future类，然后将结果添加到remapped_class_map中，key是cls，value是实现完成的future类newCls。 同时调用addNamedClass函数，将newCls添加到gdb_objc_realized_classes或 nonmeta_class_map表中。</li>
+<li>其他情况，直接调用addNamedClass函数，将类添加到gdb_objc_realized_classes或nonmeta_class_map表中。 返回cls。</li>
+</ol>
+<p>下面是这段代码使用的几个新表:</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_readImage_data.png" alt="__objc_classlist section "></p>
+<h4 id="readClass内部调用的几个函数"><a href="#readClass内部调用的几个函数" class="headerlink" title="readClass内部调用的几个函数"></a>readClass内部调用的几个函数</h4><p>readClass 里面有几个函数，分别列出来：</p>
+<figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 判断 cls 类的祖宗类中是否有类是 weak-linked 的，并且已经 missing(丢失)</span></span><br><span class="line"><span class="comment">// 这是一个递归函数</span></span><br><span class="line">static <span class="keyword">bool</span> </span><br><span class="line">missingWeakSuperclass(Class <span class="keyword">cls</span>)</span><br><span class="line">&#123;</span><br><span class="line">    assert(!<span class="keyword">cls</span>-&gt;isRealized()); <span class="comment">// cls 不能是已经 realized 的类，因为 realized 的类一定是正常的</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">cls</span>-&gt;superclass) &#123; <span class="comment">// 如果没有父类，则看它是否是根类，若是根类，那么就是正常的，否则它的父类就是丢了</span></span><br><span class="line">                            <span class="comment">// 结束递归</span></span><br><span class="line">        <span class="comment">// superclass nil. This is normal for root classes only.</span></span><br><span class="line">        <span class="keyword">return</span> (!(<span class="keyword">cls</span>-&gt;data()-&gt;flags &amp; RO_ROOT));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// superclass not nil. Check if a higher superclass is missing.</span></span><br><span class="line">        <span class="comment">// 如果有父类，则递归调用一直向上查找祖宗类，看是否有丢的了</span></span><br><span class="line">        Class supercls = remapClass(<span class="keyword">cls</span>-&gt;superclass); <span class="comment">// 取得重映射的父类，如果父类是 weak-link 的，</span></span><br><span class="line">                                                      <span class="comment">// 则 remapClass 会返回 nil</span></span><br><span class="line">        assert(<span class="keyword">cls</span> != <span class="keyword">cls</span>-&gt;superclass); <span class="comment">// 这两个断言很奇怪，完全想不到什么奇葩情况下这两个断言会不成立</span></span><br><span class="line">        assert(<span class="keyword">cls</span> != supercls);</span><br><span class="line">        <span class="keyword">if</span> (!supercls) <span class="keyword">return</span> YES; <span class="comment">// 如果父类是 weak-link 的，则 supercls 为 nil，返回 YES，结束递归</span></span><br><span class="line">        <span class="keyword">if</span> (supercls-&gt;isRealized()) <span class="keyword">return</span> NO; <span class="comment">// 如果父类已经被 realized，则直接返回 NO，因为 realized 的类一定是正常的</span></span><br><span class="line">                                               <span class="comment">// 结束递归</span></span><br><span class="line">        <span class="keyword">return</span> missingWeakSuperclass(supercls); <span class="comment">// 否则递归寻找祖宗类们</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>missingWeakSuperclass 就是确定祖宗类中是否有父类是missingWeak的。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回 cls 类的 live class（活动的类）指针，这个指针可能指向一个已经被 reallocated 的结构体（#疑问：什么意思？？）</span></span><br><span class="line"><span class="comment">// 若 cls 是 weak linking（弱连接），则 cls 会被忽略，而返回 nil</span></span><br><span class="line"><span class="comment">// 调用者 ：_class_remap() / missingWeakSuperclass() / realizeClass() /</span></span><br><span class="line"><span class="comment">//         remapClass() / remapClassRef()</span></span><br><span class="line"><span class="function"><span class="keyword">static</span> Class <span class="title">remapClass</span><span class="params">(Class cls)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    runtimeLock.assertLocked();</span><br><span class="line"></span><br><span class="line">    Class c2; <span class="comment">// 这里没有初始化为 nil，有没有可能指向一块垃圾内存？？</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!cls) <span class="keyword">return</span> nil; <span class="comment">// 如果 cls 是 nil，则直接返回 nil</span></span><br><span class="line"></span><br><span class="line">    NXMapTable *<span class="built_in">map</span> = remappedClasses(NO); <span class="comment">// 取得 remapped_class_map 映射表，若为空，不创建</span></span><br><span class="line">    <span class="comment">// 如果 map 非空，或者 cls 不是一个 key，NX_MAPNOTAKEY(not a key)，即 cls 压根儿不在 remapped_class_map 映射表里</span></span><br><span class="line">    <span class="comment">// 则将 cls 返回</span></span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">map</span>  ||  NXMapMember(<span class="built_in">map</span>, cls, (<span class="keyword">void</span>**)&amp;c2) == NX_MAPNOTAKEY) &#123;</span><br><span class="line">        <span class="keyword">return</span> cls;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> c2;  <span class="comment">// 1. 如果 map 是空，则返回的 c2 == nil（#疑问：有没有可能是垃圾内存？？），因为 || 的断路特点，后面的代码不会执行</span></span><br><span class="line">                    <span class="comment">// 2. 如果 map 不为空，并且 cls 确实是 remapped_class_map 中的 key，则 c2 就是取得的 value</span></span><br><span class="line">                    <span class="comment">//      但是其中 key 如果是 ignored weak-linked class 的话，c2 就是 nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>remapClass 就是在表中取key为cls的内容。如果有返回， 如果父类是弱引用或者不在表中，返回nil。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加一个 remapped 的类到 remapped_class_map 映射表中</span></span><br><span class="line"><span class="comment">// newcls 是一个已经被 realized 的 future 类，oldcls 是老的 future 类</span></span><br><span class="line"><span class="comment">// 或者 newcls 是 nil，oldcls 是 ignored weak-linked 类</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> addRemappedClass(Class oldcls, Class newcls)</span><br><span class="line">&#123;</span><br><span class="line">    runtimeLock.assertWriting(); <span class="comment">// runtimeLock 必须事先被加上写锁</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (PrintFuture) &#123;</span><br><span class="line">        _objc_inform(<span class="string">"FUTURE: using %p instead of %p for %s"</span>, </span><br><span class="line">                     (<span class="keyword">void</span>*)newcls, (<span class="keyword">void</span>*)oldcls, oldcls-&gt;nameForLogging());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> *old;</span><br><span class="line">    <span class="comment">// 将 oldcls 为 key，newcls 为 value 插入到 remapped_class_map 映射表 中，</span></span><br><span class="line">    <span class="comment">// remappedClasses(YES) 中 YES 是指定如果 remapped_class_map 为空的话，就创建一个</span></span><br><span class="line">    old = NXMapInsert(remappedClasses(YES), oldcls, newcls);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">assert</span>(!old); <span class="comment">// old 不能为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将oldcls：newcls 添加到remapped_class_map表中</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将指定 name 对应的 future 类从 future_named_class_map 中移除</span></span><br><span class="line"><span class="comment">// 因为 这个类 已经被 realized 过了，它已经不再处于 future 状态</span></span><br><span class="line"><span class="comment">// 返回 name 对应的 future class，如果没有对应的 future class，就返回 nil</span></span><br><span class="line"><span class="comment">// caller : readClass()</span></span><br><span class="line">static Class popFutureNamedClass(const char *name)</span><br><span class="line">&#123;</span><br><span class="line">    runtimeLock.assertWriting();</span><br><span class="line"></span><br><span class="line">    Class cls = nil;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (future<span class="number">_n</span>amed<span class="number">_</span><span class="keyword">class</span><span class="number">_m</span>ap) &#123; <span class="comment">// 如果 future_named_class_map 非空</span></span><br><span class="line">        <span class="comment">// 利用 key name 将 future class 从 future_named_class_map 移除</span></span><br><span class="line">        <span class="comment">// NXMapKeyFreeingRemove 与 NXMapRemove 功能一样，但是会释放 key，因为 key 是在堆中分配的，原因见 NXMapKeyCopyingInsert()</span></span><br><span class="line">        cls = (Class)NXMapKeyFreeingRemove(future<span class="number">_n</span>amed<span class="number">_</span><span class="keyword">class</span><span class="number">_m</span>ap, name);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 如果 name 确实有对应的 future class，并且当前 future_named_class_map 已经空了</span></span><br><span class="line">        <span class="comment">// 就将 future_named_class_map 释放</span></span><br><span class="line">        <span class="keyword">if</span> (cls &amp;&amp; NXCountMapTable(future<span class="number">_n</span>amed<span class="number">_</span><span class="keyword">class</span><span class="number">_m</span>ap) == <span class="number">0</span>) &#123;</span><br><span class="line">            NXFreeMapTable(future<span class="number">_n</span>amed<span class="number">_</span><span class="keyword">class</span><span class="number">_m</span>ap);</span><br><span class="line">            future<span class="number">_n</span>amed<span class="number">_</span><span class="keyword">class</span><span class="number">_m</span>ap = nil; <span class="comment">// 防止野指针</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> cls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>addNamedClass</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>Adds name =&gt; cls to </span>the<span class="markdown"> named non-meta class map.</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>Warns about duplicate class names and keeps </span>the<span class="markdown"> old mapping.</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>Locking: runtimeLock must be held by </span>the<span class="markdown"> caller</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> </span></span></span><br><span class="line"><span class="comment"><span class="markdown"> 添加 name -&gt; cls 对到 named non-meta class map（gdb<span class="emphasis">_objc_</span>realized_classes）中</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> 警告有副本，但是会保持老的映射，即会有多份，</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> 新的映射被存在了 secondary metaclass map(二级元类映射表) 表中，见 addNonMetaClass()，</span></span></span><br><span class="line"><span class="comment"><span class="markdown"> replacing : 被代替的老的 cls (见 readClass()) 如果有旧映射，但是与 replacing 不符合，还是会保留旧映射，</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="code">             否则新值会将 gdb_objc_realized_classes 中的旧映射覆盖</span></span></span></span><br><span class="line"><span class="comment"><span class="markdown"> 调用者：objc<span class="emphasis">_duplicateClass() / objc_</span>registerClassPair() / readClass()</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> addNamedClass(Class cls, <span class="keyword">const</span> char *name, Class replacing = nil)</span><br><span class="line">&#123;</span><br><span class="line">    runtimeLock.assertWriting();</span><br><span class="line">    </span><br><span class="line">    Class old;</span><br><span class="line">    <span class="comment">// 先根据 name 查找是否有对应的旧类，如果有，并且 old 与 replacing 不同</span></span><br><span class="line">    <span class="comment">// 则报警告，但是会保持老的映射，插入新的映射</span></span><br><span class="line">    <span class="keyword">if</span> ((old = getClass(name))  &amp;&amp;  old != replacing) &#123;</span><br><span class="line">        </span><br><span class="line">        inform_duplicate(name, old, cls); <span class="comment">// 给出警告：名字为 name 的类有两份实现，但只有一份会被使用</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// getNonMetaClass uses name lookups. Classes not found by name </span></span><br><span class="line">        <span class="comment">// lookup must be in the secondary meta-&gt;nonmeta table.</span></span><br><span class="line">        addNonMetaClass(cls); <span class="comment">// 将 cls 存入 matacls-&gt;cls 的二级映射表中</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 如果没有旧值，或者指定要覆盖旧值（replacing == old），就将新的 name-&gt;cls 对插入 gdb_objc_realized_classes</span></span><br><span class="line">        NXMapInsert(gdb_objc_realized_classes, name, cls);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">assert</span>(!(cls-&gt;data()-&gt;flags &amp; RO_META)); <span class="comment">// cls 不能是元类</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// wrong: constructed classes are already realized when they get here</span></span><br><span class="line">    <span class="comment">// assert(!cls-&gt;isRealized());</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将类添加到一级或者二级缓存中。</p>
+<h3 id="取得引用的类、父类-，添加到remapped-class-map表中"><a href="#取得引用的类、父类-，添加到remapped-class-map表中" class="headerlink" title="取得引用的类、父类 ，添加到remapped_class_map表中"></a>取得引用的类、父类 ，添加到remapped_class_map表中</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Fix up remapped classes</span></span><br><span class="line"><span class="comment">// Class list and nonlazy class list remain unremapped.</span></span><br><span class="line"><span class="comment">// Class refs and super refs are remapped for message dispatching.</span></span><br><span class="line">   </span><br><span class="line"><span class="comment">// 如果 remapped_class_map 不是空的</span></span><br><span class="line"><span class="keyword">if</span> (!noClassesRemapped()) &#123;</span><br><span class="line">    <span class="keyword">for</span> (EACH_HEADER) &#123; <span class="comment">// 遍历 hList</span></span><br><span class="line">        <span class="comment">// 取得 header 中所有的类引用</span></span><br><span class="line">        Class *classrefs = <span class="variable">_getObjc2ClassRefs</span>(hi, &amp;<span class="built_in">count</span>);</span><br><span class="line">        <span class="comment">// 遍历这些类引用，fix-up 类引用，从重映射类表中取出新类，如果旧类新类不一致，就将新类赋给这个类引用</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="built_in">count</span>; i++) &#123;</span><br><span class="line">            remapClassRef(&amp;classrefs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// fixme why doesn't test future1 catch the absence of this?</span></span><br><span class="line">        <span class="comment">// 取得镜像中所有类的父类引用</span></span><br><span class="line">        classrefs = <span class="variable">_getObjc2SuperRefs</span>(hi, &amp;<span class="built_in">count</span>);</span><br><span class="line">        <span class="comment">// 遍历父类引用，将其 fix-up 了</span></span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="built_in">count</span>; i++) &#123;</span><br><span class="line">            remapClassRef(&amp;classrefs[i]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"><span class="markdown">/<span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>*</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>remapClassRef</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>Fix up </span>a<span class="markdown"> class ref, in case </span>the<span class="markdown"> class referenced has been reallocated </span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>or is </span>an<span class="markdown"> ignored weak-linked class.</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="bullet">* </span>Locking: runtimeLock must be read- or write-locked by </span>the<span class="markdown"> caller</span></span></span><br><span class="line"><span class="comment"><span class="markdown"><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span><span class="strong">*****</span>/</span></span></span><br><span class="line"><span class="comment">// fix-up 一个类引用，万一这个类引用指向的类已经被 reallocated(重新分配？) 或者它是一个 ignored weak-linked 类</span></span><br><span class="line"><span class="comment">// 从重映射类表中用 *clsref 为 key 取出新类，如果 *clsref 不等于新类，则将新类赋给 *clsref</span></span><br><span class="line"><span class="comment">// clsref 是一个二级指针，它指向一个类的指针</span></span><br><span class="line"><span class="comment">// 调用者 ：_read_images()</span></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">void</span> remapClassRef(Class *clsref)</span><br><span class="line">&#123;</span><br><span class="line">    runtimeLock.assertLocked();</span><br><span class="line"></span><br><span class="line">    Class newcls = remapClass(*clsref); <span class="comment">// 用 *clsref 为 key 从重映射类表中取出新类</span></span><br><span class="line">    <span class="keyword">if</span> (*clsref != newcls) &#123; <span class="comment">// 如果 *clsref 不等于新类，则将新类赋给 *clsref</span></span><br><span class="line">        *clsref = newcls;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这部分代码读取<strong>objc_classrefs、</strong>objc_superrefs，然后修正重映射表。__objc_classrefs在Mach-O的结构如下。</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/__objc_classlist_readImage_data.png" alt="__objc_classlist section "></p>
+<h3 id="读取所有的方法"><a href="#读取所有的方法" class="headerlink" title="读取所有的方法"></a>读取所有的方法</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Fix up @selector references fixup @selector 引用</span></span><br><span class="line"><span class="keyword">static</span> size_t UnfixedSelectors; <span class="comment">// 记录 hList 中所有镜像中一共有多少 unfixed 的 selector</span></span><br><span class="line">sel_lock(); <span class="comment">// selLock 上写锁</span></span><br><span class="line"><span class="keyword">for</span> (EACH_HEADER) &#123; <span class="comment">// 遍历 hList</span></span><br><span class="line">    <span class="comment">// 只处理没有预优化的，被预优化过的就跳过</span></span><br><span class="line">    <span class="keyword">if</span> (hi-&gt;isPreoptimized()) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">bool</span> isBundle = hi-&gt;isBundle(); <span class="comment">// 是否是 bundle</span></span><br><span class="line">    <span class="comment">// 取得镜像中所有的 selector 引用</span></span><br><span class="line">    SEL *sels = _getObjc2SelectorRefs(hi, &amp;count);</span><br><span class="line">    UnfixedSelectors += count; <span class="comment">// 累加</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) &#123; <span class="comment">// 遍历刚才取出的 selector</span></span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">char</span> *name = sel_cname(sels[i]); <span class="comment">// 转为char * 字符串</span></span><br><span class="line">        sels[i] = sel_registerNameNoLock(name, isBundle); <span class="comment">// 注册这个 selector 的名字</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册 SEL 的名字，不加锁</span></span><br><span class="line">SEL sel_registerNameNoLock(<span class="keyword">const</span> <span class="keyword">char</span> *name, <span class="keyword">bool</span> <span class="keyword">copy</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> __sel_registerName(name, <span class="number">0</span>, <span class="keyword">copy</span>);  <span class="comment">// NO lock, maybe copy</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/ 注册 SEL 的名字，能决定是否加锁和拷贝，拷贝即是否深拷贝 name，见 sel_alloc()</span><br><span class="line"><span class="comment">// 调用者：sel_getUid() / sel_registerName() / sel_registerNameNoLock()</span></span><br><span class="line"><span class="keyword">static</span> SEL __sel_registerName(<span class="keyword">const</span> <span class="keyword">char</span> *name, <span class="keyword">int</span> lock, <span class="keyword">int</span> <span class="keyword">copy</span>) </span><br><span class="line">&#123;</span><br><span class="line">    SEL result = <span class="number">0</span>;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!namedSelectors) &#123;</span><br><span class="line">        namedSelectors = NXCreateMapTable(NXStrValueMapPrototype, </span><br><span class="line">                                          (<span class="keyword">unsigned</span>)SelrefCount);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (lock) &#123;</span><br><span class="line">        <span class="comment">// Rescan in case it was added while we dropped the lock</span></span><br><span class="line">        result = (SEL)NXMapGet(namedSelectors, name);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!result) &#123;</span><br><span class="line">        result = sel_alloc(name, <span class="keyword">copy</span>);</span><br><span class="line">        <span class="comment">// fixme choose a better container (hash not map for starters)</span></span><br><span class="line">        NXMapInsert(namedSelectors, sel_getName(result), result);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (lock) selLock.unlockWrite();</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读取Mach-O中的__objc_selrefs section，调用sel_registerNameNoLock方法注册。 为啥注册，下面有一段说明</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">* @note You must register a method name with the Objective-C runtime<span class="built_in"> system </span><span class="keyword">to</span> obtain the</span><br><span class="line">*  method’s selector before you can <span class="builtin-name">add</span> the method <span class="keyword">to</span> a class definition. <span class="keyword">If</span> the method name</span><br><span class="line">*  has already been registered, this function simply returns the selector.</span><br><span class="line">*</span><br></pre></td></tr></table></figure>
+<p>这里有一个新的表，结构如下：</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/namedSelectors.png" alt="__objc_classlist section "></p>
+<p> 读取的Mach-O 中<strong>objc_selrefs 的内容如下：<br>![</strong>objc_classlist section ](9__read_images/objc_selref.png)</p>
+<h3 id="读取OBJC的消息-objc-msgrefs"><a href="#读取OBJC的消息-objc-msgrefs" class="headerlink" title="读取OBJC的消息 __objc_msgrefs"></a>读取OBJC的消息 __objc_msgrefs</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (EACH_HEADER) &#123;</span><br><span class="line">       message_ref_t *refs = <span class="variable">_getObjc2MessageRefs</span>(hi, &amp;<span class="built_in">count</span>);</span><br><span class="line">       <span class="keyword">if</span> (<span class="built_in">count</span> == <span class="number">0</span>) continue;</span><br><span class="line"></span><br><span class="line">       <span class="keyword">if</span> (PrintVtables) &#123;</span><br><span class="line">           <span class="variable">_objc_inform</span>(<span class="string">"VTABLES: repairing %zu unsupported vtable dispatch "</span></span><br><span class="line">                        <span class="string">"call sites in %s"</span>, <span class="built_in">count</span>, hi-&gt;fname);</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="built_in">count</span>; i++) &#123;</span><br><span class="line">           fixupMessageRef(refs+i);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 修复一个老的 vtable 调度</span></span><br><span class="line"><span class="comment">// 调用者：_read_images()</span></span><br><span class="line">static void </span><br><span class="line">fixupMessageRef(message_ref_t *msg)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 注册消息的 sel</span></span><br><span class="line">    <span class="function"><span class="title">msg</span>-&gt;</span><span class="function"><span class="title">sel</span> = sel_registerName((const char *)msg-&gt;</span>sel);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">if</span> (ignoreSelector(msg-&gt;</span>sel)) &#123; <span class="comment">// 如果 sel 是需要被忽略的，就将其 imp 设为 _objc_ignored_method</span></span><br><span class="line">        <span class="comment">// ignored selector - bypass dispatcher</span></span><br><span class="line">        <span class="function"><span class="title">msg</span>-&gt;</span>imp = (IMP)&amp;_objc_ignored_method;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>imp == &amp;objc_msgSend_fixup) &#123; <span class="comment">// 如果消息的 imp 是 objc_msgSend_fixup，即指定了需要将 imp fixup</span></span><br><span class="line">        <span class="function"><span class="title">if</span> (msg-&gt;</span>sel == SEL_alloc) &#123;</span><br><span class="line">            <span class="function"><span class="title">msg</span>-&gt;</span>imp = (IMP)&amp;objc_alloc;</span><br><span class="line">        &#125; <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>sel == SEL_allocWithZone) &#123;</span><br><span class="line">            <span class="function"><span class="title">msg</span>-&gt;</span>imp = (IMP)&amp;objc_allocWithZone;</span><br><span class="line">        &#125; <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>sel == SEL_retain) &#123;</span><br><span class="line">            <span class="function"><span class="title">msg</span>-&gt;</span>imp = (IMP)&amp;objc_retain;</span><br><span class="line">        &#125; <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>sel == SEL_release) &#123;</span><br><span class="line">            <span class="function"><span class="title">msg</span>-&gt;</span>imp = (IMP)&amp;objc_release;</span><br><span class="line">        &#125; <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>sel == SEL_autorelease) &#123;</span><br><span class="line">            <span class="function"><span class="title">msg</span>-&gt;</span>imp = (IMP)&amp;objc_autorelease;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="function"><span class="title">msg</span>-&gt;</span>imp = &amp;objc_msgSend_fixedup; <span class="comment">// 如果上面都不符合，就将它设置为已经 fixed-up 了</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>imp == &amp;objc_msgSendSuper2_fixup) &#123; </span><br><span class="line">        <span class="function"><span class="title">msg</span>-&gt;</span>imp = &amp;objc_msgSendSuper2_fixedup;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>imp == &amp;objc_msgSend_stret_fixup) &#123; </span><br><span class="line">        <span class="function"><span class="title">msg</span>-&gt;</span>imp = &amp;objc_msgSend_stret_fixedup;</span><br><span class="line">    &#125; </span><br><span class="line">    <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>imp == &amp;objc_msgSendSuper2_stret_fixup) &#123; </span><br><span class="line">        <span class="function"><span class="title">msg</span>-&gt;</span>imp = &amp;objc_msgSendSuper2_stret_fixedup;</span><br><span class="line">    &#125; </span><br><span class="line">#<span class="keyword">if</span> defined(__i386__)  ||  defined(__x86_64__)</span><br><span class="line">    <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>imp == &amp;objc_msgSend_fpret_fixup) &#123; </span><br><span class="line">        <span class="function"><span class="title">msg</span>-&gt;</span>imp = &amp;objc_msgSend_fpret_fixedup;</span><br><span class="line">    &#125; </span><br><span class="line">#endif</span><br><span class="line">#<span class="keyword">if</span> defined(__x86_64__)</span><br><span class="line">    <span class="function"><span class="title">else</span> <span class="keyword">if</span> (msg-&gt;</span>imp == &amp;objc_msgSend_fp2ret_fixup) &#123; </span><br><span class="line">        <span class="function"><span class="title">msg</span>-&gt;</span>imp = &amp;objc_msgSend_fp2ret_fixedup;</span><br><span class="line">    &#125; </span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这一部分主要修复一些旧的IMP，指向新的IMP</p>
+<h3 id="发现所有的协议-objc-protolist并读取"><a href="#发现所有的协议-objc-protolist并读取" class="headerlink" title="发现所有的协议__objc_protolist并读取"></a>发现所有的协议__objc_protolist并读取</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Discover protocols. Fix up protocol refs. 取得镜像中的协议，读出协议</span></span><br><span class="line"><span class="keyword">for</span> (EACH_HEADER) &#123;</span><br><span class="line">    extern objc_class OBJC_CLASS_<span class="variable">$_Protocol</span>;</span><br><span class="line">    <span class="keyword">Class</span> cls = (<span class="keyword">Class</span>)&amp;OBJC_CLASS_<span class="variable">$_Protocol</span>;</span><br><span class="line">    <span class="keyword">assert</span>(cls);</span><br><span class="line">    NXMapTable *protocol_map = protocols();</span><br><span class="line">    bool isPreoptimized = hi-&gt;isPreoptimized();</span><br><span class="line">    bool isBundle = hi-&gt;isBundle();</span><br><span class="line"></span><br><span class="line">    protocol_t **protolist = _getObjc2ProtocolList(hi, &amp;<span class="keyword">count</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = 0; i &lt; <span class="keyword">count</span>; i++) &#123;</span><br><span class="line">        readProtocol(protolist[i], cls, protocol_map, </span><br><span class="line">                     isPreoptimized, isBundle);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 读取一个编译器写的协议</span></span><br><span class="line"><span class="comment">// 调用者：_read_images()</span></span><br><span class="line">static void</span><br><span class="line">readProtocol(protocol_t *newproto,</span><br><span class="line">             Class protocol_class,</span><br><span class="line">             NXMapTable *protocol_map, </span><br><span class="line">             bool headerIsPreoptimized,</span><br><span class="line">             bool headerIsBundle)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// This is not enough to make protocols in unloaded bundles safe, </span></span><br><span class="line">    <span class="comment">// but it does prevent crashes when looking up unrelated protocols.</span></span><br><span class="line">    <span class="comment">// 如果镜像是 bundle，就使用 NXMapKeyCopyingInsert 函数，否则使用 NXMapInsert</span></span><br><span class="line">    <span class="comment">// NXMapKeyCopyingInsert 会在堆中拷贝 key</span></span><br><span class="line">    auto insertFn = headerIsBundle ? NXMapKeyCopyingInsert : NXMapInsert;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 根据新协议的重整名称，去 protocol_map 映射表中查找老的协议</span></span><br><span class="line">    <span class="function"><span class="title">protocol_t</span> *oldproto = (protocol_t *)getProtocol(newproto-&gt;</span>mangledName);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (oldproto) &#123; <span class="comment">// 如果存在老的协议，就只报个警告，因为不允许有重名的协议</span></span><br><span class="line">        <span class="comment">// Some other definition already won.</span></span><br><span class="line">        <span class="keyword">if</span> (PrintProtocols) &#123;</span><br><span class="line">            _objc_inform(<span class="string">"PROTOCOLS: protocol at %p is %s  "</span></span><br><span class="line">                         <span class="string">"(duplicate of %p)"</span>,</span><br><span class="line">                         <span class="function"><span class="title">newproto</span>, oldproto-&gt;</span>nameForLogging(), oldproto);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (headerIsPreoptimized) &#123; <span class="comment">// 如果不存在老的协议，但是镜像是经过预优化的</span></span><br><span class="line">        <span class="comment">// Shared cache initialized the protocol object itself, </span></span><br><span class="line">        <span class="comment">// but in order to allow out-of-cache replacement we need </span></span><br><span class="line">        <span class="comment">// to add it to the protocol table now.</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 根据新协议的重整名称 查找 预优化的缓存协议</span></span><br><span class="line">        <span class="comment">// 但是 getPreoptimizedProtocol 现在一直返回 nil</span></span><br><span class="line">        protocol_t *cacheproto = (protocol_t *)</span><br><span class="line">            <span class="function"><span class="title">getPreoptimizedProtocol</span>(newproto-&gt;</span>mangledName);</span><br><span class="line">        </span><br><span class="line">        protocol_t *installedproto;</span><br><span class="line">        <span class="keyword">if</span> (cacheproto  &amp;&amp;  cacheproto != newproto) &#123;</span><br><span class="line">            <span class="comment">// Another definition in the shared cache wins (because </span></span><br><span class="line">            <span class="comment">// everything in the cache was fixed up to point to it).</span></span><br><span class="line">            installedproto = cacheproto;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="comment">// 因为 cacheproto 永远是 nil，所以一直走 else 分支</span></span><br><span class="line">            <span class="comment">// This definition wins.</span></span><br><span class="line">            installedproto = newproto;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="title">assert</span>(installedproto-&gt;</span>getIsa() == protocol_class);</span><br><span class="line">        <span class="function"><span class="title">assert</span>(installedproto-&gt;</span>size &gt;= sizeof(protocol_t));</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将 新协议的重整名称 -&gt; 新协议 的映射插入 protocol_map 映射表中</span></span><br><span class="line">        <span class="function"><span class="title">insertFn</span>(protocol_map, installedproto-&gt;</span>mangledName, </span><br><span class="line">                 installedproto);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (PrintProtocols) &#123;</span><br><span class="line">            _objc_inform(<span class="string">"PROTOCOLS: protocol at %p is %s"</span>, </span><br><span class="line">                         <span class="function"><span class="title">installedproto</span>, installedproto-&gt;</span>nameForLogging());</span><br><span class="line">            <span class="keyword">if</span> (newproto != installedproto) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"PROTOCOLS: protocol at %p is %s  "</span></span><br><span class="line">                             <span class="string">"(duplicate of %p)"</span>, </span><br><span class="line">                             <span class="function"><span class="title">newproto</span>, installedproto-&gt;</span>nameForLogging(), </span><br><span class="line">                             installedproto);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">else</span> <span class="keyword">if</span> (newproto-&gt;</span>size &gt;= sizeof(protocol_t)) &#123; <span class="comment">// 如果不存在老的协议，且没有经过预优化，且新协议的大小</span></span><br><span class="line">                                                     <span class="comment">// 比 protocol_t 的标准尺寸要大</span></span><br><span class="line">        <span class="comment">// New protocol from an un-preoptimized image</span></span><br><span class="line">        <span class="comment">// with sufficient storage. Fix it up in place.</span></span><br><span class="line">        <span class="comment">// fixme duplicate protocols from unloadable bundle</span></span><br><span class="line">        <span class="function"><span class="title">newproto</span>-&gt;</span>initIsa(protocol_class);  <span class="comment">// fixme pinned</span></span><br><span class="line">        <span class="function"><span class="title">insertFn</span>(protocol_map, newproto-&gt;</span><span class="function"><span class="title">mangledName</span>, newproto); // 就将 新协议的重整名称 -&gt;</span> 新协议 的映射插入</span><br><span class="line">                                                                 <span class="comment">// protocol_map 映射表中</span></span><br><span class="line">        <span class="keyword">if</span> (PrintProtocols) &#123;</span><br><span class="line">            _objc_inform(<span class="string">"PROTOCOLS: protocol at %p is %s"</span>,</span><br><span class="line">                         <span class="function"><span class="title">newproto</span>, newproto-&gt;</span>nameForLogging());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123; <span class="comment">// 如果不存在老的协议，且没有经过预优化，且新协议的大小比 protocol_t 的标准尺寸要小</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// New protocol from an un-preoptimized image</span></span><br><span class="line">        <span class="comment">// with insufficient storage. Reallocate it.</span></span><br><span class="line">        <span class="comment">// fixme duplicate protocols from unloadable bundle</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 取大的 size，这里按照上面的逻辑，应该是 sizeof(protocol_t)</span></span><br><span class="line">        <span class="function"><span class="title">size_t</span> size = max(sizeof(protocol_t), (size_t)newproto-&gt;</span>size);</span><br><span class="line">        <span class="comment">// 新建一个 installedproto 协议，在堆中分配内存，并清零</span></span><br><span class="line">        protocol_t *installedproto = (protocol_t *)calloc(size, <span class="number">1</span>);</span><br><span class="line">        <span class="comment">// 将 newproto 内存上的内容 拷贝到 installedproto 中</span></span><br><span class="line">        <span class="function"><span class="title">memcpy</span>(installedproto, newproto, newproto-&gt;</span>size);</span><br><span class="line">        <span class="comment">// 将 installedproto-&gt;size 设为新的 size</span></span><br><span class="line">        <span class="function"><span class="title">installedproto</span>-&gt;</span><span class="function"><span class="title">size</span> = (__typeof__(installedproto-&gt;</span>size))size;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="title">installedproto</span>-&gt;</span>initIsa(protocol_class); <span class="comment">// 设置 isa  // fixme pinned</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 将 installedproto 插入 protocol_map 映射表中</span></span><br><span class="line">        <span class="function"><span class="title">insertFn</span>(protocol_map, installedproto-&gt;</span>mangledName, installedproto);</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> (PrintProtocols) &#123;</span><br><span class="line">            _objc_inform(<span class="string">"PROTOCOLS: protocol at %p is %s  "</span>, </span><br><span class="line">                         <span class="function"><span class="title">installedproto</span>, installedproto-&gt;</span>nameForLogging());</span><br><span class="line">            _objc_inform(<span class="string">"PROTOCOLS: protocol at %p is %s  "</span></span><br><span class="line">                         <span class="string">"(reallocated to %p)"</span>, </span><br><span class="line">                         <span class="function"><span class="title">newproto</span>, installedproto-&gt;</span>nameForLogging(), </span><br><span class="line">                         installedproto);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这部分不做理解，我在代码中添加了协议，但是编译出的二进制文件没有这个section，不知道为什么。</p>
+<h3 id="objc-nlclslist"><a href="#objc-nlclslist" class="headerlink" title="__objc_nlclslist"></a>__objc_nlclslist</h3><figure class="highlight gauss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Realize non-lazy classes (for +load methods and static instances)</span></span><br><span class="line"><span class="keyword">for</span> (EACH_HEADER) &#123;</span><br><span class="line">    classref_t *classlist = </span><br><span class="line">        _getObjc2NonlazyClassList(hi, &amp;count);</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) </span><br><span class="line">        &#123;</span><br><span class="line">	        Class <span class="keyword">cls</span> = remapClass(classlist[i]);</span><br><span class="line">	        <span class="keyword">if</span> (!<span class="keyword">cls</span>) <span class="keyword">continue</span>;</span><br><span class="line">	</span><br><span class="line">	        realizeClass(<span class="keyword">cls</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当类中有+load方法、或者类有静态实例，编译器会将类添加到__objc_nlclslist section中。将读出的类调用realizeClass函数实现类</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line">static Class realizeClass(Class cls)</span><br><span class="line">&#123;</span><br><span class="line">    runtimeLock.assertWriting(); <span class="comment">// 看 runtimeLock 是否正确得加了写锁</span></span><br><span class="line"></span><br><span class="line">    const class_ro_t *ro;</span><br><span class="line">    class_rw_t *rw;</span><br><span class="line">    Class supercls;</span><br><span class="line">    Class metacls;</span><br><span class="line">    bool isMeta;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!cls) return <span class="literal">nil</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 如果类已经被 realize 过，就不用 realize 了</span></span><br><span class="line">    <span class="function"><span class="title">if</span> (cls-&gt;</span>isRealized()) &#123;</span><br><span class="line">        return cls;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    assert(cls == remapClass(cls)); <span class="comment">// remapClass(cls) 得到的是 cls 对应的重映射类，</span></span><br><span class="line">                                    <span class="comment">// 如果 cls 不存在于 remapped_class_map 映射表，得到的才是 cls 本身，</span></span><br><span class="line">                                    <span class="comment">// 所以这里断言 cls == remapClass(cls) 就是看 cls 是否存在于 remapped_class_map 映射表</span></span><br><span class="line">                                    <span class="comment">// 不存在，就是正确；存在，就是错误</span></span><br><span class="line">                                    <span class="comment">// 不存在，则 cls 既不是 realized future class，也不是 ignored weak-linked class</span></span><br><span class="line">                                    <span class="comment">// 见 remappedClasses()</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// fixme verify class is not in an un-dlopened part of the shared cache?</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//    从 class_data_bits_t 调用 data 方法，将结果从 class_rw_t 强制转换为 class_ro_t 指针</span></span><br><span class="line"><span class="comment">//    初始化一个 class_rw_t 结构体</span></span><br><span class="line"><span class="comment">//    设置结构体中 ro 的值以及 flag</span></span><br><span class="line"><span class="comment">//    最后设置正确的 data。</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="title">ro</span> = (const class_ro_t *)cls-&gt;</span><span class="keyword">data</span>(); <span class="comment">// 因为在 realized 之前，objc_class 中的 class_data_bits_t bits 里</span></span><br><span class="line">                                          <span class="comment">// 本质上存的是 class_ro_t，所以这里只需要转成 class_ro_t 类型就可以了</span></span><br><span class="line">                                          <span class="comment">// 但 future 的类是例外!!!</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="title">if</span> (ro-&gt;</span>flags &amp; RO_FUTURE) &#123;</span><br><span class="line">        <span class="comment">// 如果 ro 的 flag 里记录了这是一个 future 的类，那么 objc_class 中的 class_data_bits_t bits 里存的是 class_rw_t</span></span><br><span class="line">        <span class="comment">// rw 数据已经被分配好内存了，现在要做的就是填充信息</span></span><br><span class="line">        <span class="comment">// This was a future class. rw data is already allocated.</span></span><br><span class="line">        <span class="function"><span class="title">rw</span> = cls-&gt;</span><span class="keyword">data</span>();  <span class="comment">// 取出 rw</span></span><br><span class="line">        <span class="function"><span class="title">ro</span> = cls-&gt;</span><span class="function"><span class="title">data</span>()-&gt;</span>ro; <span class="comment">// 取出 ro</span></span><br><span class="line">        <span class="function"><span class="title">cls</span>-&gt;</span>changeInfo(RW_REALIZED|RW_REALIZING, RW_FUTURE); <span class="comment">// 清除 future 状态，RW_FUTURE 位的值置为 0</span></span><br><span class="line">                                                              <span class="comment">// 设置为 realized + realizing 状态</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;                                                  <span class="comment">// RW_REALIZED 和 RW_REALIZING 位的值置为 1</span></span><br><span class="line">        <span class="comment">// Normal class. Allocate writeable class data.</span></span><br><span class="line">        <span class="comment">// 正常的类的话，就需要开辟内存</span></span><br><span class="line">        rw = (class_rw_t *)calloc(sizeof(class_rw_t), <span class="number">1</span>);</span><br><span class="line">        <span class="function"><span class="title">rw</span>-&gt;</span>ro = ro; <span class="comment">// 将原来的 ro 赋给新 rw 中的 ro 字段</span></span><br><span class="line">        <span class="function"><span class="title">rw</span>-&gt;</span>flags = RW_REALIZED|RW_REALIZING; <span class="comment">// 设置为 realized + realizing 状态</span></span><br><span class="line">        <span class="function"><span class="title">cls</span>-&gt;</span>setData(rw); <span class="comment">// 将新的 rw 替换老的 rw</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">isMeta</span> = ro-&gt;</span>flags &amp; RO_META; <span class="comment">// cls 类是否是元类</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">rw</span>-&gt;</span>version = isMeta ? <span class="number">7</span> : <span class="number">0</span>;  <span class="comment">// old runtime went up to 6</span></span><br><span class="line">                            <span class="comment">// 版本，元类是 7，普通类是 0</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Realize superclass and metaclass, if they aren't already.</span></span><br><span class="line">    <span class="comment">// This needs to be done after RW_REALIZED is set above, for root classes.</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// remapClass() 函数是如果参数是一个已经 realized 的 future 类，则返回的是新类，否则返回的是自己</span></span><br><span class="line">    <span class="comment">// 查看 cls 的父类对应的重映射的类，将其 realize 了</span></span><br><span class="line">    <span class="function"><span class="title">supercls</span> = realizeClass(remapClass(cls-&gt;</span>superclass));</span><br><span class="line">    <span class="comment">// 查看 cls 的元类对应的重映射的类，将其 realize 了</span></span><br><span class="line">    <span class="function"><span class="title">metacls</span> = realizeClass(remapClass(cls-&gt;</span>ISA()));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Update superclass and metaclass in case of remapping</span></span><br><span class="line">    <span class="function"><span class="title">cls</span>-&gt;</span>superclass = supercls; <span class="comment">// 更新 cls 的父类</span></span><br><span class="line">    <span class="function"><span class="title">cls</span>-&gt;</span>initClassIsa(metacls); <span class="comment">// 和元类</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Reconcile instance variable offsets / layout.</span></span><br><span class="line">    <span class="comment">// This may reallocate class_ro_t, updating our ro variable.</span></span><br><span class="line">    <span class="keyword">if</span> (supercls  &amp;&amp;  !isMeta) &#123; <span class="comment">// 根据父类，调整 cls 类 ro 中实例变量的偏移量和布局</span></span><br><span class="line">                                 <span class="comment">// 可能重新分配 class_ro_t，更新 ro</span></span><br><span class="line">        reconcileInstanceVariables(cls, supercls, ro);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Set fastInstanceSize if it wasn't set already.</span></span><br><span class="line">    <span class="function"><span class="title">cls</span>-&gt;</span><span class="function"><span class="title">setInstanceSize</span>(ro-&gt;</span>instanceSize); <span class="comment">// 设置成员变量的新的大小</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Copy some flags from ro to rw</span></span><br><span class="line">    <span class="comment">// 从 ro 拷贝一些 flag 到 rw 中，可能是为了加快查找速度</span></span><br><span class="line">    <span class="function"><span class="title">if</span> (ro-&gt;</span>flags &amp; RO_HAS_CXX_STRUCTORS) &#123; <span class="comment">// 是否有 C++ 构造器/析构器</span></span><br><span class="line">        <span class="function"><span class="title">cls</span>-&gt;</span>setHasCxxDtor(); <span class="comment">// 设置有 C++ 析构器</span></span><br><span class="line">        <span class="function"><span class="title">if</span> (! (ro-&gt;</span>flags &amp; RO_HAS_CXX_DTOR_ONLY)) &#123; <span class="comment">// 不只有 C++ 析构器，那么就是也有 C++ 构造器，真绕啊</span></span><br><span class="line">            <span class="function"><span class="title">cls</span>-&gt;</span>setHasCxxCtor();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    .....</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Connect this class to its superclass's subclass lists</span></span><br><span class="line">    <span class="keyword">if</span> (supercls) &#123;</span><br><span class="line">        addSubclass(supercls, cls);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 调用 methodizeClass 函数来将分类中的方法列表、属性列表、协议列表加载到 methods、 properties 和 protocols 列表数组中</span></span><br><span class="line">    <span class="comment">// Attach categories</span></span><br><span class="line">    methodizeClass(cls);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!isMeta) &#123; <span class="comment">// 如果不是元类</span></span><br><span class="line">        addRealizedClass(cls); <span class="comment">// 就把它添加到 realized_class_hash 哈希表中</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        addRealizedMetaclass(cls); <span class="comment">// 否则是元类，就把它添加到 realized_metaclass_hash 哈希表中</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return cls;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> realize 指定的 cls 类，<br> 包括开辟它的 read-write data，也就是 rw，见 class_rw_t 结构体，<br> 返回类的 real class structure，可能意思是 cls 在这个函数中被填充所有必要的信息，<br> 从编译期的只有 RO，变成一个真正的可以用的类，<br> 函数中会将它的父类和元类也 realize 了，<br> 当然这会造成递归，会把 cls 往上所有没 realize 的祖宗类和 cls 的元类往上所有没有被 realize 的元类都 realize 了<br> 这个函数还会调用 methodizeClass 函数将分类中的方法列表、属性列表、协议列表加载到 methods、 properties 和 protocols 列表数组中</p>
+<p>realizeClass 的总体流程如下图：</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/relizeClass.png" alt="realizeClass 的总体流程"></p>
+<p>总要有4个关键步骤：</p>
+<ol>
+<li>新建rw</li>
+<li>reconcileInstanceVariables（暂时没有看懂）</li>
+<li>addSubclass 构建类继承链表</li>
+<li>methodizeClass</li>
+</ol>
+<p>构建出的链表如下：</p>
+<p><img src="/wiki/IOS/Runtime/objc/9__read_images/addClass.png" alt="addSubclass 构成链表的示意图 "></p>
+<p>methodizeClass代码如下：</p>
+<figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. fix-up cls 类的方法列表、协议列表、属性列表（但是看代码，被 fix-up 的只有方法列表啊）</span></span><br><span class="line"><span class="comment">//    将 cls 类的所有没有被 attach 的分类 attach 到 cls 上</span></span><br><span class="line"><span class="comment">// 2. 即将分类中的方法、属性、协议添加到 methods、 properties 和 protocols 中</span></span><br><span class="line"><span class="comment">//    runtimeLock 读写锁必须被调用者上写锁，保证线程安全</span></span><br><span class="line">static void methodizeClass(Class cls)</span><br><span class="line">&#123;</span><br><span class="line">    runtimeLock.assertWriting(); <span class="comment">// 看调用者是否已经正确地将 runtimeLock 上了写锁</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">bool</span> isMeta = cls-&gt;</span>isMetaClass(); <span class="comment">// 记录 cls 类是否是元类</span></span><br><span class="line">    <span class="function"><span class="title">auto</span> rw = cls-&gt;</span><span class="function"><span class="title">data</span>(); // 取得 cls 中的 rw，因为在 realizeClass() 中已经处理好了 cls-&gt;</span><span class="keyword">data</span>()，</span><br><span class="line">                           <span class="comment">// 所以里面现在存的确定是 rw，而不是 ro</span></span><br><span class="line">    <span class="function"><span class="title">auto</span> ro = rw-&gt;</span><span class="function"><span class="title">ro</span>; // 取得 rw-&gt;</span>ro</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Methodizing for the first time</span></span><br><span class="line">    <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">        _objc_inform(<span class="string">"CLASS: methodizing class '%s' %s"</span>, </span><br><span class="line">                     <span class="function"><span class="title">cls</span>-&gt;</span>nameForLogging(), isMeta ? <span class="string">"(meta)"</span> : <span class="string">""</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Install methods and properties that the class implements itself.</span></span><br><span class="line">    <span class="comment">// 取得 ro 中的 baseMethodList，在将其 prepare 后，插入 rw 的方法列表数组中</span></span><br><span class="line">    <span class="function"><span class="title">method_list_t</span> *list = ro-&gt;</span>baseMethods();</span><br><span class="line">    <span class="keyword">if</span> (list) &#123;</span><br><span class="line">        prepareMethodLists(cls, &amp;list, <span class="number">1</span>, YES, isBundleClass(cls));</span><br><span class="line">        <span class="function"><span class="title">rw</span>-&gt;</span>methods.attachLists(&amp;list, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 ro 中的 baseProperties 插入 rw 中的属性列表数组中</span></span><br><span class="line">    <span class="function"><span class="title">property_list_t</span> *proplist = ro-&gt;</span>baseProperties;</span><br><span class="line">    <span class="keyword">if</span> (proplist) &#123;</span><br><span class="line">        <span class="function"><span class="title">rw</span>-&gt;</span>properties.attachLists(&amp;proplist, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 将 ro 中的 baseProtocols 插入 rw 中的协议列表数组中</span></span><br><span class="line">    <span class="function"><span class="title">protocol_list_t</span> *protolist = ro-&gt;</span>baseProtocols;</span><br><span class="line">    <span class="keyword">if</span> (protolist) &#123;</span><br><span class="line">        <span class="function"><span class="title">rw</span>-&gt;</span>protocols.attachLists(&amp;protolist, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Root classes get bonus method implementations if they don't have </span></span><br><span class="line">    <span class="comment">// them already. These apply before category replacements.</span></span><br><span class="line">    <span class="function"><span class="title">if</span> (cls-&gt;</span>isRootMetaclass()) &#123; <span class="comment">// 如果是根元类</span></span><br><span class="line">        <span class="comment">// root metaclass</span></span><br><span class="line">        <span class="comment">// 给根元类的 SEL_initialize 指定了对应的 IMP - objc_noop_imp</span></span><br><span class="line">        <span class="comment">// 即给根元类发送 SEL_initialize 消息，不会走到它的 +initialize，而是走 objc_noop_imp，里面啥也不干</span></span><br><span class="line">        addMethod(cls, SEL_initialize, (IMP)&amp;objc_noop_imp, <span class="string">""</span>, NO);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Attach categories.</span></span><br><span class="line">    <span class="comment">// 给 cls 类附加分类，unattachedCategoriesForClass 会返回 cls 类的没有被附加的类</span></span><br><span class="line">    category_list *cats = unattachedCategoriesForClass(cls, <span class="literal">true</span> <span class="comment">/*realizing 其实这个参数压根没用*/</span>);</span><br><span class="line">    <span class="comment">// 从分类列表中添加方法列表、属性和协议到 cls 类中</span></span><br><span class="line">    <span class="comment">// attachCategories 要求分类列表中是排好序的，老的分类排前面，新的排后面，那么排序是在哪里做的呢？？？？</span></span><br><span class="line">    <span class="comment">// 自问自答：见 addUnattachedCategoryForClass() 函数，新的 unattached 的分类本来就是插入到列表末尾的</span></span><br><span class="line">    <span class="comment">//         所以压根儿不用再另外排序</span></span><br><span class="line">    attachCategories(cls, cats, <span class="literal">false</span> <span class="comment">/*不清空缓存 因为这时候压根连缓存都没有 don't flush caches*/</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cats) &#123;</span><br><span class="line">            <span class="function"><span class="title">for</span> (uint32_t i = 0; i &lt; cats-&gt;</span>count; i++) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"CLASS: attached category %c%s(%s)"</span>, </span><br><span class="line">                             isMeta ? <span class="string">'+'</span> : <span class="string">'-'</span>, </span><br><span class="line">                             <span class="function"><span class="title">cls</span>-&gt;</span><span class="function"><span class="title">nameForLogging</span>(), cats-&gt;</span><span class="function"><span class="title">list</span>[i].cat-&gt;</span><span class="keyword">name</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (cats) &#123;</span><br><span class="line">        free(cats); <span class="comment">// 将分类列表释放，见 unattachedCategoriesForClass，</span></span><br><span class="line">                    <span class="comment">// 里面着重强调了调用方需要负责释放分类列表</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">#<span class="keyword">if</span> DEBUG</span><br><span class="line">    <span class="comment">// Debug: sanity-check all SELs; log method list contents</span></span><br><span class="line">    <span class="function"><span class="title">for</span> (const auto&amp; meth : rw-&gt;</span>methods) &#123;</span><br><span class="line">        <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">            _objc_inform(<span class="string">"METHOD %c[%s %s]"</span>, isMeta ? <span class="string">'+'</span> : <span class="string">'-'</span>, </span><br><span class="line">                         <span class="function"><span class="title">cls</span>-&gt;</span>nameForLogging(), sel_getName(meth.<span class="keyword">name</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        assert(ignoreSelector(meth.<span class="keyword">name</span>)  ||  </span><br><span class="line">               sel_registerName(sel_getName(meth.<span class="keyword">name</span>)) == meth.<span class="keyword">name</span>); </span><br><span class="line">    &#125;</span><br><span class="line">#endif</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="分类的处理"><a href="#分类的处理" class="headerlink" title="分类的处理"></a>分类的处理</h3><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Discover categories.</span></span><br><span class="line"><span class="keyword">for</span> (EACH_HEADER) &#123; <span class="comment">// 遍历 hList</span></span><br><span class="line">    <span class="comment">// 取得 hi 镜像中的所有分类</span></span><br><span class="line">    category_t **catlist = _getObjc2CategoryList(hi, &amp;count);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; count; i++) &#123; <span class="comment">// 遍历所有分类</span></span><br><span class="line">        category_t *cat = catlist[i];</span><br><span class="line">        C<span class="function"><span class="title">lass</span> cls = remapClass(cat-&gt;</span>cls); <span class="comment">// 得到分类所属的类的 live class</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (!cls) &#123; <span class="comment">// 如果 cls 为空</span></span><br><span class="line">            <span class="comment">// Category's target class is missing (probably weak-linked).</span></span><br><span class="line">            <span class="comment">// Disavow any knowledge of this category.</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 分类所属的类丢了，很多可能是 weak-linked 了</span></span><br><span class="line">            <span class="comment">// 这个分类就是不可信的，完全没有什么鸟用了</span></span><br><span class="line">            </span><br><span class="line">            catlist[i] = <span class="literal">nil</span>; <span class="comment">// 将这个分类从列表中删除</span></span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"CLASS: IGNORING category \?\?\?(%s) %p with "</span></span><br><span class="line">                             <span class="string">"missing weak-linked target class"</span>, </span><br><span class="line">                             <span class="function"><span class="title">cat</span>-&gt;</span><span class="keyword">name</span>, cat);</span><br><span class="line">            &#125;</span><br><span class="line">            continue;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Process this category. </span></span><br><span class="line">        <span class="comment">// First, register the category with its target class. </span></span><br><span class="line">        <span class="comment">// Then, rebuild the class's method lists (etc) if </span></span><br><span class="line">        <span class="comment">// the class is realized.</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">// 处理这个分类</span></span><br><span class="line">        <span class="comment">// 首先，注册注册这个分类</span></span><br><span class="line">        <span class="comment">// 然后，如果这个类已经是 realized 的话，就重新建立这个类的方法列表（把分类的方法添加进去）</span></span><br><span class="line">        </span><br><span class="line">        bool classExists = NO;</span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="title">if</span> (cat-&gt;</span><span class="function"><span class="title">instanceMethods</span> ||  cat-&gt;</span>protocols  </span><br><span class="line">            ||  <span class="function"><span class="title">cat</span>-&gt;</span>instanceProperties) <span class="comment">// 如果分类中存在实例方法 or 协议 or 实例属性</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 添加分类到所属的 cls 类上，即把这个分类添加到 cls 对应的所有 unattached 的分类的列表中</span></span><br><span class="line">            addUnattachedCategoryForClass(cat, cls, hi);</span><br><span class="line">            </span><br><span class="line">            <span class="comment">// 如果 cls 类已经被 realized</span></span><br><span class="line">            <span class="function"><span class="title">if</span> (cls-&gt;</span>isRealized()) &#123;</span><br><span class="line">                <span class="comment">// 就重新 methodize 一下 cls 类，里面会重新 attachCategories 一下所有未被 attach 的分类</span></span><br><span class="line">                <span class="comment">// 即把这些分类中的方法、协议、属性添加到 cls 类中</span></span><br><span class="line">                remethodizeClass(cls);</span><br><span class="line">                classExists = YES; <span class="comment">// 标记类存在</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"CLASS: found category -%s(%s) %s"</span>, </span><br><span class="line">                             <span class="function"><span class="title">cls</span>-&gt;</span><span class="function"><span class="title">nameForLogging</span>(), cat-&gt;</span><span class="keyword">name</span>, </span><br><span class="line">                             classExists ? <span class="string">"on existing class"</span> : <span class="string">""</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 如果分类中存在类方法 or 协议</span></span><br><span class="line">        <span class="function"><span class="title">if</span> (cat-&gt;</span><span class="function"><span class="title">classMethods</span>  ||  cat-&gt;</span>protocols  </span><br><span class="line">            <span class="comment">/* ||  cat-&gt;classProperties */</span>) </span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 添加分类到所属类 cls 的元类中</span></span><br><span class="line">            <span class="function"><span class="title">addUnattachedCategoryForClass</span>(cat, cls-&gt;</span>ISA(), hi);</span><br><span class="line">            <span class="comment">// 如果 cls 的元类已经 realized 过了</span></span><br><span class="line">            <span class="function"><span class="title">if</span> (cls-&gt;</span>ISA()-&gt;isRealized()) &#123;</span><br><span class="line">                <span class="comment">// 就重新 methodize 一下 cls 类的元类</span></span><br><span class="line">                <span class="function"><span class="title">remethodizeClass</span>(cls-&gt;</span>ISA());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (PrintConnecting) &#123;</span><br><span class="line">                _objc_inform(<span class="string">"CLASS: found category +%s(%s)"</span>, </span><br><span class="line">                             <span class="function"><span class="title">cls</span>-&gt;</span><span class="function"><span class="title">nameForLogging</span>(), cat-&gt;</span><span class="keyword">name</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>_read_images 主要是读取Mach-O中下面的section ，存储到内存中</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">GETSECT(<span class="name">_getObjc2SelectorRefs</span>,        SEL,             <span class="string">"__objc_selrefs"</span>)<span class="comment">; </span></span><br><span class="line">GETSECT(<span class="name">_getObjc2MessageRefs</span>,         message_ref_t,   <span class="string">"__objc_msgrefs"</span>)<span class="comment">; </span></span><br><span class="line">GETSECT(<span class="name">_getObjc2ClassRefs</span>,           Class,           <span class="string">"__objc_classrefs"</span>)<span class="comment">;</span></span><br><span class="line">GETSECT(<span class="name">_getObjc2SuperRefs</span>,           Class,           <span class="string">"__objc_superrefs"</span>)<span class="comment">;</span></span><br><span class="line">GETSECT(<span class="name">_getObjc2ClassList</span>,           classref_t,      <span class="string">"__objc_classlist"</span>)<span class="comment">;</span></span><br><span class="line">GETSECT(<span class="name">_getObjc2NonlazyClassList</span>,    classref_t,      <span class="string">"__objc_nlclslist"</span>)<span class="comment">;</span></span><br><span class="line">GETSECT(<span class="name">_getObjc2CategoryList</span>,        category_t *,    "__objc_catlist");</span><br><span class="line">GETSECT(_getObjc2NonlazyCategoryList, category_t *,    <span class="string">"__objc_nlcatlist"</span>)<span class="comment">;</span></span><br><span class="line">GETSECT(<span class="name">_getObjc2ProtocolList</span>,        protocol_t *,    "__objc_protolist");</span><br><span class="line">GETSECT(_getObjc2ProtocolRefs,        protocol_t *,    <span class="string">"__objc_protorefs"</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ol>
+<li><a href="https://github.com/Draveness/analyze" rel="external nofollow noopener noreferrer" target="_blank">Draveness git地址</a></li>
+<li><a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
+<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" rel="external nofollow noopener noreferrer" target="_blank">类型编码</a></li>
+<li><a href="http://nshipster.cn/type-encodings/" rel="external nofollow noopener noreferrer" target="_blank">Type Encodings</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tagged_pointer" rel="external nofollow noopener noreferrer" target="_blank">Tagged Pointer</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/IOS/Runtime/objc/8__objc_init/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">8. objc4入口函数</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/9__read_images/" data-title="9. _read_images 从二进制文件中读取类信息" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/9__read_images/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
