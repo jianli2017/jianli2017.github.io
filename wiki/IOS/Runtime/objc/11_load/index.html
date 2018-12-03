@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>11. 你真的了解 load 方法么？ | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="load">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dy">
+<meta name="keywords" content="load">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11. 你真的了解 load 方法么？">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dy">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/11_loadprint-load.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/objc-load-symbolic-breakpoint.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/objc-load-break-after-add-breakpoint.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/objc-load-print-image-info.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/objc-load-image-binary.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/objc-load-diagram.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/objc-load-producer-consumer-diagram.png">
+<meta property="og:updated_time" content="2018-12-03T07:49:46.425Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11. 你真的了解 load 方法么？">
+<meta name="twitter:description" content="__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dy">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/11_loadprint-load.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十二章 动态内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十二章 动态内存/动态内存/">动态内存</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            MachO
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            objc
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/懒惰的 initialize 方法/">第二天--消息发送与转发（转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WWDC
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/load/">load</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/11_load/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            11. 你真的了解 load 方法么？
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-方法的调用栈"><span class="toc-number">2.</span> <span class="toc-text">load 方法的调用栈</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#使用符号断点"><span class="toc-number">2.1.</span> <span class="toc-text">使用符号断点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#什么是镜像"><span class="toc-number">2.2.</span> <span class="toc-text">什么是镜像</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#准备-load-方法"><span class="toc-number">2.3.</span> <span class="toc-text">准备 + load 方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用-load-方法"><span class="toc-number">2.4.</span> <span class="toc-text">调用 + load 方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加载的管理"><span class="toc-number">3.</span> <span class="toc-text">加载的管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#“生产”-loadable-class"><span class="toc-number">3.1.</span> <span class="toc-text">“生产” loadable_class</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#“消费”-loadable-class"><span class="toc-number">3.2.</span> <span class="toc-text">“消费” loadable_class</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#调用的顺序"><span class="toc-number">4.</span> <span class="toc-text">调用的顺序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#load-的应用"><span class="toc-number">5.</span> <span class="toc-text">load 的应用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            
+        
+        
+            <p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p>
+<a id="more"></a>
+<blockquote>
+<p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
+</blockquote>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><blockquote>
+<p>文章的标题与其说是问各位读者，不如说是问笔者自己：<strong>我</strong>真的了解 <code>+ load</code> 方法么？</p>
+</blockquote>
+<p><code>+ load</code> 作为 Objective-C 中的一个方法，与其它方法有很大的不同。它只是一个<strong>在整个文件被加载到运行时，在 <code>main</code> 函数调用之前被 ObjC 运行时调用的钩子方法</strong>。其中关键字有这么几个：</p>
+<ul>
+<li>文件刚加载</li>
+<li><code>main</code> 函数之前</li>
+<li>钩子方法</li>
+</ul>
+<p>我在阅读 ObjC 源代码之前，曾经一度感觉自己对 <code>+ load</code> 方法的作用非常了解，直到看了源代码中的实现，才知道以前的以为，只是自己的以为罢了。</p>
+<p>这篇文章会假设你知道：</p>
+<ul>
+<li>使用过 <code>+ load</code> 方法</li>
+<li>知道 <code>+ load</code> 方法的调用顺序（文章中会简单介绍）</li>
+</ul>
+<p>在这篇文章中并不会用大篇幅介绍 <code>+ load</code> 方法的作用<del>其实也没几个作用</del>，关注点主要在以下两个问题上：</p>
+<ul>
+<li><code>+ load</code> 方法是如何被调用的</li>
+<li><code>+ load</code> 方法为什么会有这种调用顺序</li>
+</ul>
+<h2 id="load-方法的调用栈"><a href="#load-方法的调用栈" class="headerlink" title="load 方法的调用栈"></a>load 方法的调用栈</h2><p>首先来通过 <code>load</code> 方法的调用栈，分析一下它到底是如何被调用的。</p>
+<p>下面是程序的全部代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// main.m</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XXObject</span> : <span class="title">NSObject</span> @<span class="title">end</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XXObject</span></span></span><br><span class="line"></span><br><span class="line">+ (<span class="keyword">void</span>)load &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"XXObject load"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123; &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码总共只实现了一个 <code>XXObject</code> 的 <code>+ load</code> 方法，主函数中也没有任何的东西：</p>
+<p><img src="/wiki/IOS/Runtime/objc/11_load/11_loadprint-load.png" alt="objc-load-print-load"></p>
+<p>虽然在主函数中什么方法都没有调用，但是运行之后，依然打印了 <code>XXObject load</code> 字符串，也就是说调用了 <code>+ load</code> 方法。</p>
+<h3 id="使用符号断点"><a href="#使用符号断点" class="headerlink" title="使用符号断点"></a>使用符号断点</h3><p>使用 Xcode 添加一个符号断点 <code>+[XXObject load]</code>：</p>
+<blockquote>
+<p>注意这里 <code>+</code> 和 <code>[</code> 之间没有空格</p>
+</blockquote>
+<p><img src="/wiki/IOS/Runtime/objc/11_load/objc-load-symbolic-breakpoint.png" alt="objc-load-symbolic-breakpoint"></p>
+<blockquote>
+<p>为什么要加一个符号断点呢？因为这样看起来比较高级。</p>
+</blockquote>
+<p>重新运行程序。这时，代码会停在 <code>NSLog(@&quot;XXObject load&quot;);</code> 这一行的实现上：</p>
+<p><img src="/wiki/IOS/Runtime/objc/11_load/objc-load-break-after-add-breakpoint.png" alt="objc-load-break-after-add-breakpoint"></p>
+<p>左侧的调用栈很清楚的告诉我们，哪些方法被调用了：</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">0 </span> +[XXObject <span class="keyword">load</span>]</span><br><span class="line"><span class="symbol">1 </span> call_class_loads()</span><br><span class="line"><span class="symbol">2 </span> call_load_methods</span><br><span class="line"><span class="symbol">3 </span> load_images</span><br><span class="line"><span class="symbol">4 </span> dyld::notifySingle(dyld_image_states, ImageLoader const*)</span><br><span class="line"><span class="symbol">11 </span>_dyld_start</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="https://developer.apple.com/library/ios/documentation/System/Conceptual/ManPages_iPhoneOS/man3/dyld.3.html" rel="external nofollow noopener noreferrer" target="_blank">dyld</a> 是 the dynamic link editor 的缩写，它是苹果的<em>动态链接器</em>。</p>
+<p>在系统内核做好程序准备工作之后，交由 dyld 负责余下的工作。本文不会对其进行解释</p>
+</blockquote>
+<p>每当有新的镜像加载之后，都会执行 <code>3 load_images</code> 方法进行回调，这里的回调是在整个运行时初始化时 <code>_objc_init</code> 注册的（会在之后的文章中具体介绍）：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dyld_register_image_state_change_handler(<span class="name">dyld_image_state_dependents_initialized</span>, <span class="number">0</span>/*not batch*/, <span class="symbol">&amp;load_images</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>有新的镜像被加载到 runtime 时，调用 <code>load_images</code> 方法，并传入最新镜像的信息列表 <code>infoList</code>：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">const char *</span><br><span class="line">load_images(<span class="class"><span class="keyword">enum</span> <span class="title">dyld_image_states</span> <span class="title">state</span>, <span class="title">uint32_t</span> <span class="title">infoCount</span>,</span></span><br><span class="line">            const <span class="class"><span class="keyword">struct</span> <span class="title">dyld_image_info</span> <span class="title">infoList</span>[])</span></span><br><span class="line">&#123;</span><br><span class="line">    bool found;</span><br><span class="line"></span><br><span class="line">    found = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (uint32_t i = <span class="number">0</span>; i &lt; infoCount; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (hasLoadMethods((const headerType *)infoList[i].imageLoadAddress)) &#123;</span><br><span class="line">            found = <span class="literal">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (!found) <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">    recursive_mutex_locker_t lock(loadMethodLock);</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">        rwlock_writer_t lock2(runtimeLock);</span><br><span class="line">        found = load_images_nolock(state, infoCount, infoList);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (found) &#123;</span><br><span class="line">        call_load_methods();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="什么是镜像"><a href="#什么是镜像" class="headerlink" title="什么是镜像"></a>什么是镜像</h3><p>这里就会遇到一个问题：镜像到底是什么，我们用一个断点打印出所有加载的镜像：</p>
+<p><img src="/wiki/IOS/Runtime/objc/11_load/objc-load-print-image-info.png" alt="objc-load-print-image-info"></p>
+<p>从控制台输出的结果大概就是这样的，我们可以看到镜像并不是一个 Objective-C 的代码文件，它应该是一个 target 的编译产物。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line">(const dyld_image_info) $<span class="number">52</span> = &#123;</span><br><span class="line">  imageLoadAddress = <span class="number">0x00007fff8a144000</span></span><br><span class="line">  imageFilePath = <span class="number">0x00007fff8a144168</span> <span class="string">"/System/Library/Frameworks/CoreServices.framework/Versions/A/CoreServices"</span></span><br><span class="line">  imageFileModDate = <span class="number">1452737802</span></span><br><span class="line">&#125;</span><br><span class="line">(const dyld_image_info) $<span class="number">53</span> = &#123;</span><br><span class="line">  imageLoadAddress = <span class="number">0x00007fff946d9000</span></span><br><span class="line">  imageFilePath = <span class="number">0x00007fff946d9480</span> <span class="string">"/usr/lib/liblangid.dylib"</span></span><br><span class="line">  imageFileModDate = <span class="number">1452737618</span></span><br><span class="line">&#125;</span><br><span class="line">(const dyld_image_info) $<span class="number">54</span> = &#123;</span><br><span class="line">  imageLoadAddress = <span class="number">0x00007fff88016000</span></span><br><span class="line">  imageFilePath = <span class="number">0x00007fff88016d40</span> <span class="string">"/System/Library/Frameworks/Foundation.framework/Versions/C/Foundation"</span></span><br><span class="line">  imageFileModDate = <span class="number">1452737917</span></span><br><span class="line">&#125;</span><br><span class="line">(const dyld_image_info) $<span class="number">55</span> = &#123;</span><br><span class="line">  imageLoadAddress = <span class="number">0x0000000100000000</span></span><br><span class="line">  imageFilePath = <span class="number">0x00007fff5fbff8f0</span> <span class="string">"/Users/apple/Library/Developer/Xcode/DerivedData/objc-dibgivkseuawonexgbqssmdszazo/Build/Products/Debug/debug-objc"</span></span><br><span class="line">  imageFileModDate = <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里面有很多的动态链接库，还有一些苹果为我们提供的框架，比如 Foundation、 CoreServices 等等，都是在这个 <code>load_images</code> 中加载进来的，而这些 <code>imageFilePath</code> 都是对应的<strong>二进制文件</strong>的地址。</p>
+<p>但是如果进入最下面的这个目录，会发现它是一个<strong>可执行文件</strong>，它的运行结果与 Xcode 中的运行结果相同：</p>
+<p><img src="/wiki/IOS/Runtime/objc/11_load/objc-load-image-binary.png" alt="objc-load-image-binary"></p>
+<h3 id="准备-load-方法"><a href="#准备-load-方法" class="headerlink" title="准备 + load 方法"></a>准备 + load 方法</h3><p>我们重新回到 <code>load_images</code> 方法，如果在扫描镜像的过程中发现了 <code>+ load</code> 符号：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">uint32_t</span> i = <span class="number">0</span>; i &lt; infoCount; i++) &#123;</span><br><span class="line">    <span class="keyword">if</span> (hasLoadMethods((<span class="keyword">const</span> headerType *)infoList[i].imageLoadAddress)) &#123;</span><br><span class="line">        found = <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>就会进入 <code>load_images_nolock</code> 来查找 <code>load</code> 方法：</p>
+<figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">bool load_images_nolock(<span class="class"><span class="keyword">enum</span> <span class="title">dyld_image_states</span> <span class="title">state</span>,<span class="title">uint32_t</span> <span class="title">infoCount</span>,</span></span><br><span class="line">                   const <span class="class"><span class="keyword">struct</span> <span class="title">dyld_image_info</span> <span class="title">infoList</span>[])</span></span><br><span class="line">&#123;</span><br><span class="line">    bool found = NO;</span><br><span class="line">    uint32_t i;</span><br><span class="line"></span><br><span class="line">    i = infoCount;</span><br><span class="line">    <span class="keyword">while</span> (i--) &#123;</span><br><span class="line">        const headerType *mhdr = (headerType*)infoList[i].imageLoadAddress;</span><br><span class="line">        <span class="keyword">if</span> (!hasLoadMethods(mhdr)) continue;</span><br><span class="line"></span><br><span class="line">        prepare_load_methods(mhdr);</span><br><span class="line">        found = YES;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> found;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用 <code>prepare_load_methods</code> 对 <code>load</code> 方法的调用进行准备（将需要调用 <code>load</code> 方法的类添加到一个列表中，后面的小节中会介绍）：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void prepare_load_methods(const headerType *mhdr)</span><br><span class="line">&#123;</span><br><span class="line">    size_t <span class="built_in">count</span>, i<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    runtimeLock.assertWriting()<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    classref_t *classlist = </span><br><span class="line">        _getObjc2NonlazyClassList(mhdr, &amp;<span class="built_in">count</span>)<span class="comment">;</span></span><br><span class="line">    for (i = <span class="number">0</span><span class="comment">; i &lt; count; i++) &#123;</span></span><br><span class="line">        <span class="keyword">schedule_class_load(remapClass(classlist[i]));</span></span><br><span class="line"><span class="keyword"> </span>   &#125;</span><br><span class="line"></span><br><span class="line">    category_t **categorylist = _getObjc2NonlazyCategoryList(mhdr, &amp;<span class="built_in">count</span>)<span class="comment">;</span></span><br><span class="line">    for (i = <span class="number">0</span><span class="comment">; i &lt; count; i++) &#123;</span></span><br><span class="line">        category_t *cat = categorylist[i]<span class="comment">;</span></span><br><span class="line">        Class cls = remapClass(cat-&gt;cls)<span class="comment">;</span></span><br><span class="line">        if (!cls) continue<span class="comment">;  // category for ignored weak-linked class</span></span><br><span class="line">        realizeClass(cls)<span class="comment">;</span></span><br><span class="line">        assert(cls-&gt;ISA()-&gt;isRealized())<span class="comment">;</span></span><br><span class="line">        <span class="keyword">add_category_to_loadable_list(cat);</span></span><br><span class="line"><span class="keyword"> </span>   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过 <code>_getObjc2NonlazyClassList</code> 获取所有的类的列表之后，会通过 <code>remapClass</code> 获取类对应的指针，然后调用 <code>schedule_class_load</code> <strong>递归地安排当前类和没有调用 <code>+ load</code> 父类</strong>进入列表。</p>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">static void schedule_class_load(Class <span class="keyword">cls</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">cls</span>) <span class="keyword">return</span><span class="comment">;</span></span><br><span class="line">    <span class="keyword">assert</span>(<span class="keyword">cls</span>-&gt;isRealized())<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">cls</span>-&gt;data()-&gt;flags &amp; RW_LOADED) <span class="keyword">return</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    schedule_class_load(<span class="keyword">cls</span>-&gt;superclass)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    add_class_to_loadable_list(<span class="keyword">cls</span>)<span class="comment">;</span></span><br><span class="line">    <span class="keyword">cls</span>-&gt;setInfo(RW_LOADED)<span class="comment">; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在执行 <code>add_class_to_loadable_list(cls)</code> 将当前类加入加载列表之前，会<strong>先把父类加入待加载的列表</strong>，保证父类在子类前调用 <code>load</code> 方法。</p>
+<h3 id="调用-load-方法"><a href="#调用-load-方法" class="headerlink" title="调用 + load 方法"></a>调用 + load 方法</h3><p>在将镜像加载到运行时、对 <code>load</code> 方法的准备就绪之后，执行 <code>call_load_methods</code>，开始调用 <code>load</code> 方法：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">void call_load_methods<span class="comment">(void)</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> <span class="comment">(loadable_classes_used &gt; 0)</span> &#123;</span><br><span class="line">            call_class_loads<span class="comment">()</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        more_categories = call_category_loads<span class="comment">()</span>;</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">while</span> <span class="comment">(loadable_classes_used &gt; 0  ||  more_categories)</span>;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法的调用流程大概是这样的：</p>
+<p><img src="/wiki/IOS/Runtime/objc/11_load/objc-load-diagram.png" alt="objc-load-diagra"></p>
+<p>其中 <code>call_class_loads</code> 会从一个待加载的类列表 <code>loadable_classes</code> 中寻找对应的类，然后找到 <code>@selector(load)</code> 的实现并执行。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">call_class_loads</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">loadable_class</span> *<span class="title">classes</span> = <span class="title">loadable_classes</span>;</span></span><br><span class="line">    <span class="keyword">int</span> used = loadable_classes_used;</span><br><span class="line">    loadable_classes = nil;</span><br><span class="line">    loadable_classes_allocated = <span class="number">0</span>;</span><br><span class="line">    loadable_classes_used = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; used; i++) &#123;</span><br><span class="line">        Class cls = classes[i].cls;</span><br><span class="line">        <span class="keyword">load_method_t</span> load_method = (<span class="keyword">load_method_t</span>)classes[i].method;</span><br><span class="line">        <span class="keyword">if</span> (!cls) <span class="keyword">continue</span>;</span><br><span class="line"></span><br><span class="line">        (*load_method)(cls, SEL_load);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (classes) <span class="built_in">free</span>(classes);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这行 <code>(*load_method)(cls, SEL_load)</code> 代码就会调用 <code>+[XXObject load]</code> 方法。</p>
+<blockquote>
+<p>我们会在下面介绍 <code>loadable_classes</code> 列表是如何管理的。</p>
+</blockquote>
+<p>到现在，我们回答了第一个问题：</p>
+<p>Q：<strong><code>load</code> 方法是如何被调用的？</strong></p>
+<p>A：当 Objective-C 运行时初始化的时候，会通过 <code>dyld_register_image_state_change_handler</code> 在每次有新的镜像加入<em>运行时</em>的时候，进行回调。执行 <code>load_images</code> 将所有包含 <code>load</code> 方法的文件加入列表 <code>loadable_classes</code> ，然后从这个列表中找到对应的 <code>load</code> 方法的实现，调用 <code>load</code> 方法。</p>
+<h2 id="加载的管理"><a href="#加载的管理" class="headerlink" title="加载的管理"></a>加载的管理</h2><p>ObjC 对于加载的管理，主要使用了两个列表，分别是 <code>loadable_classes</code> 和 <code>loadable_categories</code>。</p>
+<p>方法的调用过程也分为两个部分，准备 <code>load</code> 方法和调用 <code>load</code> 方法，我更觉得这两个部分比较像生产者与消费者：</p>
+<p><img src="/wiki/IOS/Runtime/objc/11_load/objc-load-producer-consumer-diagram.png" alt="objc-load-producer-consumer-diagra"></p>
+<p><code>add_class_to_loadable_list</code> 方法负责将类加入 <code>loadable_classes</code> 集合，而 <code>call_class_loads</code> 负责消费集合中的元素。</p>
+<p>而对于分类来说，其模型也是类似的，只不过使用了另一个列表 <code>loadable_categories</code>。</p>
+<h3 id="“生产”-loadable-class"><a href="#“生产”-loadable-class" class="headerlink" title="“生产” loadable_class"></a>“生产” loadable_class</h3><p>在调用 <code>load_images -&gt; load_images_nolock -&gt; prepare_load_methods -&gt; schedule_class_load -&gt; add_class_to_loadable_list</code> 的时候会将未加载的类添加到 <code>loadable_classes</code> 数组中：</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">void add_class_to_loadable_list(<span class="class"><span class="keyword">Class</span> <span class="title">cls</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    IMP <span class="function"><span class="keyword">method</span>;</span></span><br><span class="line"></span><br><span class="line">    loadMethodLock.assertLocked();</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">method</span> =</span> cls-&gt;getLoadMethod();</span><br><span class="line">    <span class="keyword">if</span> (!<span class="function"><span class="keyword">method</span>) <span class="title">return</span>;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (loadable_classes_used == loadable_classes_allocated) &#123;</span><br><span class="line">        loadable_classes_allocated = loadable_classes_allocated*<span class="number">2</span> + <span class="number">16</span>;</span><br><span class="line">        loadable_classes = (struct loadable_class *)</span><br><span class="line">            realloc(loadable_classes,</span><br><span class="line">                              loadable_classes_allocated *</span><br><span class="line">                              sizeof(struct loadable_class));</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    loadable_classes[loadable_classes_used].cls = cls;</span><br><span class="line">    loadable_classes[loadable_classes_used].method = <span class="function"><span class="keyword">method</span>;</span></span><br><span class="line">    loadable_classes_used++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法刚被调用时：</p>
+<ol>
+<li>会从 <code>class</code> 中获取 <code>load</code> 方法： <code>method = cls-&gt;getLoadMethod();</code></li>
+<li>判断当前 <code>loadable_classes</code> 这个数组是否已经被全部占用了：<code>loadable_classes_used == loadable_classes_allocated</code></li>
+<li>在当前数组的基础上扩大数组的大小：<code>realloc</code></li>
+<li>把传入的 <code>class</code> 以及对应的方法的实现加到列表中</li>
+</ol>
+<p>另外一个用于保存分类的列表 <code>loadable_categories</code> 也有一个类似的方法 <code>add_category_to_loadable_list</code>。</p>
+<figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">void add_category_to_loadable_list(Category cat)</span><br><span class="line"><span class="comment">&#123;</span></span><br><span class="line"><span class="comment">    IMP method;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    loadMethodLock.assertLocked();</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    method = _category_getLoadMethod(cat);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    if (!method) return;</span></span><br><span class="line"><span class="comment">    </span></span><br><span class="line"><span class="comment">    if (loadable_categories_used == loadable_categories_allocated) &#123;</span></span><br><span class="line"><span class="comment">        loadable_categories_allocated = loadable_categories_allocated*2 + 16;</span></span><br><span class="line"><span class="comment">        loadable_categories = (struct loadable_category *)</span></span><br><span class="line"><span class="comment">            realloc(loadable_categories,</span></span><br><span class="line"><span class="comment">                              loadable_categories_allocated *</span></span><br><span class="line"><span class="comment">                              sizeof(struct loadable_category));</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"></span><br><span class="line">    loadable_categories[loadable_categories_used].cat = cat;</span><br><span class="line">    loadable_categories[loadable_categories_used].method = <span class="function"><span class="keyword">method</span>;</span></span><br><span class="line">    loadable_categories_used++;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>实现几乎与 <code>add_class_to_loadable_list</code> 完全相同。</p>
+<p>到这里我们完成了对 <code>loadable_classes</code> 以及 <code>loadable_categories</code> 的提供，下面会开始消耗列表中的元素。</p>
+<h3 id="“消费”-loadable-class"><a href="#“消费”-loadable-class" class="headerlink" title="“消费” loadable_class"></a>“消费” loadable_class</h3><p>调用 <code>load</code> 方法的过程就是“消费” <code>loadable_classes</code> 的过程，<code>load_images -&gt; call_load_methods -&gt; call_class_loads</code> 会从 <code>loadable_classes</code> 中取出对应类和方法，执行 <code>load</code>。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> call_load_methods(<span class="keyword">void</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">bool</span> loading = <span class="literal">NO</span>;</span><br><span class="line">    <span class="keyword">bool</span> more_categories;</span><br><span class="line"></span><br><span class="line">    loadMethodLock.assertLocked();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (loading) <span class="keyword">return</span>;</span><br><span class="line">    loading = <span class="literal">YES</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">void</span> *pool = objc_autoreleasePoolPush();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">while</span> (loadable_classes_used &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            call_class_loads();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        more_categories = call_category_loads();</span><br><span class="line"></span><br><span class="line">    &#125; <span class="keyword">while</span> (loadable_classes_used &gt; <span class="number">0</span>  ||  more_categories);</span><br><span class="line"></span><br><span class="line">    objc_autoreleasePoolPop(pool);</span><br><span class="line"></span><br><span class="line">    loading = <span class="literal">NO</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述方法对所有在 <code>loadable_classes</code> 以及 <code>loadable_categories</code> 中的类以及分类执行 <code>load</code> 方法。</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> <span class="comment">(loadable_classes_used &gt; 0)</span> &#123;</span><br><span class="line">        call_class_loads<span class="comment">()</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    more_categories = call_category_loads<span class="comment">()</span>;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">while</span> <span class="comment">(loadable_classes_used &gt; 0  ||  more_categories)</span>;</span><br></pre></td></tr></table></figure>
+<p>调用顺序如下：</p>
+<ol>
+<li>不停调用类的 <code>+ load</code> 方法，直到 <code>loadable_classes</code> 为空</li>
+<li>调用<strong>一次</strong> <code>call_category_loads</code> 加载分类</li>
+<li>如果有 <code>loadable_classes</code> 或者更多的分类，继续调用 <code>load</code> 方法</li>
+</ol>
+<p>相比于类 <code>load</code> 方法的调用，分类中 <code>load</code> 方法的调用就有些复杂了：</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">static bool call_category_loads(void)</span><br><span class="line">&#123;</span><br><span class="line">    int i, shift;</span><br><span class="line">    bool <span class="attr">new_categories_added</span> = NO;</span><br><span class="line">    // <span class="number">1</span>. 获取当前可以加载的分类列表</span><br><span class="line">    struct loadable_category *<span class="attr">cats</span> = loadable_categories;</span><br><span class="line">    int <span class="attr">used</span> = loadable_categories_used;</span><br><span class="line">    int <span class="attr">allocated</span> = loadable_categories_allocated;</span><br><span class="line">    <span class="attr">loadable_categories</span> = nil;</span><br><span class="line">    <span class="attr">loadable_categories_allocated</span> = <span class="number">0</span>;</span><br><span class="line">    <span class="attr">loadable_categories_used</span> = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">    for (<span class="attr">i</span> = <span class="number">0</span>; i &lt; used; i++) &#123;</span><br><span class="line">        Category <span class="attr">cat</span> = cats[i].cat;</span><br><span class="line">        load_method_t <span class="attr">load_method</span> = (load_method_t)cats[i].method;</span><br><span class="line">        Class cls;</span><br><span class="line">        <span class="keyword">if</span> (!cat) continue;</span><br><span class="line"></span><br><span class="line">        <span class="attr">cls</span> = _category_getClass(cat);</span><br><span class="line">        <span class="keyword">if</span> (cls  &amp;&amp;  cls-&gt;isLoadable()) &#123;</span><br><span class="line">            // <span class="number">2</span>. 如果当前类是可加载的 `cls  &amp;&amp;  cls-&gt;isLoadable()` 就会调用分类的 load 方法</span><br><span class="line">            (*load_method)(cls, SEL_load);</span><br><span class="line">            cats[i].<span class="attr">cat</span> = nil;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // <span class="number">3</span>. 将所有加载过的分类移除 `loadable_categories` 列表</span><br><span class="line">    <span class="attr">shift</span> = <span class="number">0</span>;</span><br><span class="line">    for (<span class="attr">i</span> = <span class="number">0</span>; i &lt; used; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (cats[i].cat) &#123;</span><br><span class="line">            cats[i-shift] = cats[i];</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            shift++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    used <span class="attr">-=</span> shift;</span><br><span class="line"></span><br><span class="line">    // <span class="number">4</span>. 为 `loadable_categories` 重新分配内存，并重新设置它的值</span><br><span class="line">    <span class="attr">new_categories_added</span> = (loadable_categories_used &gt; <span class="number">0</span>);</span><br><span class="line">    for (<span class="attr">i</span> = <span class="number">0</span>; i &lt; loadable_categories_used; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="attr">used</span> == allocated) &#123;</span><br><span class="line">            <span class="attr">allocated</span> = allocated*<span class="number">2</span> + <span class="number">16</span>;</span><br><span class="line">            <span class="attr">cats</span> = (struct loadable_category *)</span><br><span class="line">                realloc(cats, allocated *</span><br><span class="line">                                  sizeof(struct loadable_category));</span><br><span class="line">        &#125;</span><br><span class="line">        cats[used++] = loadable_categories[i];</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (loadable_categories) free(loadable_categories);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (used) &#123;</span><br><span class="line">        <span class="attr">loadable_categories</span> = cats;</span><br><span class="line">        <span class="attr">loadable_categories_used</span> = used;</span><br><span class="line">        <span class="attr">loadable_categories_allocated</span> = allocated;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (cats) free(cats);</span><br><span class="line">        <span class="attr">loadable_categories</span> = nil;</span><br><span class="line">        <span class="attr">loadable_categories_used</span> = <span class="number">0</span>;</span><br><span class="line">        <span class="attr">loadable_categories_allocated</span> = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return new_categories_added;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法有些长，我们来分步解释方法的作用：</p>
+<ol>
+<li>获取当前可以加载的分类列表</li>
+<li>如果当前类是可加载的 <code>cls  &amp;&amp;  cls-&gt;isLoadable()</code> 就会调用分类的 <code>load</code> 方法</li>
+<li>将所有加载过的分类移除 <code>loadable_categories</code> 列表</li>
+<li>为 <code>loadable_categories</code> 重新分配内存，并重新设置它的值</li>
+</ol>
+<h2 id="调用的顺序"><a href="#调用的顺序" class="headerlink" title="调用的顺序"></a>调用的顺序</h2><p>你过去可能会听说过，对于 <code>load</code> 方法的调用顺序有两条规则：</p>
+<ol>
+<li>父类先于子类调用</li>
+<li>类先于分类调用</li>
+</ol>
+<p>这种现象是非常符合我们的直觉的，我们来分析一下这种现象出现的原因。</p>
+<p>第一条规则是由于 <code>schedule_class_load</code> 有如下的实现：</p>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">static void schedule_class_load(Class <span class="keyword">cls</span>)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">cls</span>) <span class="keyword">return</span><span class="comment">;</span></span><br><span class="line">    <span class="keyword">assert</span>(<span class="keyword">cls</span>-&gt;isRealized())<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">cls</span>-&gt;data()-&gt;flags &amp; RW_LOADED) <span class="keyword">return</span><span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    schedule_class_load(<span class="keyword">cls</span>-&gt;superclass)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    add_class_to_loadable_list(<span class="keyword">cls</span>)<span class="comment">;</span></span><br><span class="line">    <span class="keyword">cls</span>-&gt;setInfo(RW_LOADED)<span class="comment">; </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里通过这行代码 <code>schedule_class_load(cls-&gt;superclass)</code> 总是能够保证没有调用 <code>load</code> 方法的父类先于子类加入 <code>loadable_classes</code> 数组，从而确保其调用顺序的正确性。</p>
+<p>类与分类中 <code>load</code> 方法的调用顺序主要在 <code>call_load_methods</code> 中实现：</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> <span class="comment">(loadable_classes_used &gt; 0)</span> &#123;</span><br><span class="line">        call_class_loads<span class="comment">()</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    more_categories = call_category_loads<span class="comment">()</span>;</span><br><span class="line"></span><br><span class="line">&#125; <span class="keyword">while</span> <span class="comment">(loadable_classes_used &gt; 0  ||  more_categories)</span>;</span><br></pre></td></tr></table></figure>
+<p>上面的 <code>do while</code> 语句能够在一定程度上确保，类的 <code>load</code> 方法会先于分类调用。但是这里不能完全保证调用顺序的正确。</p>
+<p>如果<strong>分类的镜像在类的镜像之前加载到运行时</strong>，上面的代码就没法保证顺序的正确了，所以，我们还需要在 <code>call_category_loads</code> 中判断类是否已经加载到内存中（调用 <code>load</code> 方法）：</p>
+<figure class="highlight dos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="built_in">cls</span>  &amp;&amp;  <span class="built_in">cls</span>-&gt;isLoadable()) &#123;</span><br><span class="line">    (*load_method)(<span class="built_in">cls</span>, SEL_load);</span><br><span class="line">    cats[i].cat = nil;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里，检查了类是否存在并且是否可以加载，如果都为真，那么就可以调用分类的 load 方法了。</p>
+<h2 id="load-的应用"><a href="#load-的应用" class="headerlink" title="load 的应用"></a>load 的应用</h2><p><code>load</code> 可以说我们在日常开发中可以接触到的调用时间<strong>最靠前的方法</strong>，在主函数运行之前，<code>load</code> 方法就会调用。</p>
+<p>由于它的调用不是<em>惰性</em>的，且其只会在程序调用期间调用一次，最最重要的是，如果在类与分类中都实现了 <code>load</code> 方法，它们都会被调用，不像其它的在分类中实现的方法会被覆盖，这就使 <code>load</code> 方法成为了<a href="http://nshipster.com/method-swizzling/" rel="external nofollow noopener noreferrer" target="_blank">方法调剂</a>的绝佳时机。</p>
+<p>但是由于 <code>load</code> 方法的运行时间过早，所以这里可能不是一个理想的环境，因为<strong>某些类可能需要在在其它类之前加载</strong>，但是这是我们无法保证的。不过在这个时间点，所有的 framework 都已经加载到了运行时中，所以调用 framework 中的方法都是安全的。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://stackoverflow.com/questions/13326435/nsobject-load-and-initialize-what-do-they-do" rel="external nofollow noopener noreferrer" target="_blank">NSObject +load and +initialize - What do they do?</a></li>
+<li><a href="http://nshipster.com/method-swizzling/" rel="external nofollow noopener noreferrer" target="_blank">Method Swizzling</a></li>
+<li><a href="https://www.mikeash.com/pyblog/friday-qa-2009-05-22-objective-c-class-loading-and-initialization.html" rel="external nofollow noopener noreferrer" target="_blank">Objective-C Class Loading and Initialization</a></li>
+</ul>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/IOS/Runtime/objc/12_initialize/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">12. 懒惰的 initialize 方法</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/11_load/" data-title="11. 你真的了解 load 方法么？" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/11_load/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>

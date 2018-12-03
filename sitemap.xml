@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/11_load/</loc>
+    
+    <lastmod>2018-12-03T07:49:46.425Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/12_initialize/</loc>
+    
+    <lastmod>2018-12-03T07:49:39.498Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/Runtime/objc/10_load_images/</loc>
     
     <lastmod>2018-11-30T09:44:52.583Z</lastmod>
@@ -82,6 +96,13 @@
     <loc>http://yoursite.com/wiki/IOS/Runtime/objc/3NSObject/</loc>
     
     <lastmod>2018-11-21T07:07:48.250Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/%E6%87%92%E6%83%B0%E7%9A%84%20initialize%20%E6%96%B9%E6%B3%95/</loc>
+    
+    <lastmod>2018-11-01T09:43:09.775Z</lastmod>
     
   </url>
   
@@ -506,27 +527,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/JS/flexBox/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/union%E5%AE%9A%E4%B9%89/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS/Runtime/meta_class/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/Cocoapods/cocoapod-learn-install/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -611,14 +611,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/struct_Analize/</loc>
+    <loc>http://yoursite.com/wiki/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/NSInvocation%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/NSInvocation%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF/</loc>
+    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/struct_Analize/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -647,6 +647,27 @@
   
   <url>
     <loc>http://yoursite.com/wiki/Hybird/weex/weex-debug/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/JS/flexBox/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/union%E5%AE%9A%E4%B9%89/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/meta_class/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
