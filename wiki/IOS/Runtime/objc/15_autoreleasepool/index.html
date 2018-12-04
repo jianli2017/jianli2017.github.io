@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>15. 自动释放池的前世今生（转载) | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="autorelease">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="由于 Objective-C 中的内存管理是一个比较大的话题，所以会分为两篇文章来对内存管理中的一些机制进行剖析，一部分分析自动释放池以及 autorelease 方法，另一部分分析 retain、release 方法的实现以及自动引用计数。">
+<meta name="keywords" content="autorelease">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15. 自动释放池的前世今生（转载)">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="由于 Objective-C 中的内存管理是一个比较大的话题，所以会分为两篇文章来对内存管理中的一些机制进行剖析，一部分分析自动释放池以及 autorelease 方法，另一部分分析 retain、release 方法的实现以及自动引用计数。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-main.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-main-cpp.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-main-cpp-struct.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-AutoreleasePoolPage.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-AutoreleasePoolPage-linked-list.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-page-in-memory.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-after-insert-to-page.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-pop-stack.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-pop-stack.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-breakpoint-main.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-print-pool-content.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-pop-string.png">
+<meta property="og:updated_time" content="2018-12-04T04:01:24.072Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="15. 自动释放池的前世今生（转载)">
+<meta name="twitter:description" content="由于 Objective-C 中的内存管理是一个比较大的话题，所以会分为两篇文章来对内存管理中的一些机制进行剖析，一部分分析自动释放池以及 autorelease 方法，另一部分分析 retain、release 方法的实现以及自动引用计数。">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-main.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十二章 动态内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十二章 动态内存/动态内存/">动态内存</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            MachO
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            objc
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WWDC
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/Runtime/objc/15_autoreleasepool" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/autorelease/">autorelease</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">
+            <time datetime="2018-11-01T02:38:11.000Z" itemprop="datePublished">2018-11-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            15. 自动释放池的前世今生（转载)
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#写在前面"><span class="toc-number">1.</span> <span class="toc-text">写在前面</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#从-main-函数开始"><span class="toc-number">2.</span> <span class="toc-text">从 main 函数开始</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#autoreleasepool"><span class="toc-number">3.</span> <span class="toc-text">@autoreleasepool</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#AutoreleasePool-是什么"><span class="toc-number">4.</span> <span class="toc-text">AutoreleasePool 是什么</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#AutoreleasePoolPage-的结构"><span class="toc-number">4.1.</span> <span class="toc-text">AutoreleasePoolPage 的结构</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#双向链表"><span class="toc-number">4.1.1.</span> <span class="toc-text">双向链表</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#自动释放池中的栈"><span class="toc-number">4.1.2.</span> <span class="toc-text">自动释放池中的栈</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#POOL-SENTINEL（哨兵对象）"><span class="toc-number">4.1.3.</span> <span class="toc-text">POOL_SENTINEL（哨兵对象）</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-autoreleasePoolPush-方法"><span class="toc-number">4.2.</span> <span class="toc-text">objc_autoreleasePoolPush 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#page-gt-add-添加对象"><span class="toc-number">4.2.1.</span> <span class="toc-text">page-&gt;add 添加对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#autoreleaseFullPage（当前-hotPage-已满）"><span class="toc-number">4.2.2.</span> <span class="toc-text">autoreleaseFullPage（当前 hotPage 已满）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#autoreleaseNoPage（没有-hotPage"><span class="toc-number">4.2.3.</span> <span class="toc-text">autoreleaseNoPage（没有 hotPage)</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-autoreleasePoolPop-方法"><span class="toc-number">4.3.</span> <span class="toc-text">objc_autoreleasePoolPop 方法</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#对-objc-autoreleasePoolPop-行为的测试"><span class="toc-number">4.3.1.</span> <span class="toc-text">对 objc_autoreleasePoolPop 行为的测试</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#pageForPointer-获取-AutoreleasePoolPage"><span class="toc-number">4.3.2.</span> <span class="toc-text">pageForPointer 获取 AutoreleasePoolPage</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#releaseUntil-释放对象"><span class="toc-number">4.3.3.</span> <span class="toc-text">releaseUntil 释放对象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#kill-方法"><span class="toc-number">4.3.4.</span> <span class="toc-text">kill() 方法</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#autorelease-方法"><span class="toc-number">4.4.</span> <span class="toc-text">autorelease 方法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">5.</span> <span class="toc-text">小结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+                </div>
+            
+        
+        
+            <blockquote>
+<p>由于 Objective-C 中的内存管理是一个比较大的话题，所以会分为两篇文章来对内存管理中的一些机制进行剖析，一部分分析自动释放池以及 <code>autorelease</code> 方法，另一部分分析 <code>retain</code>、<code>release</code> 方法的实现以及自动引用计数。</p>
+</blockquote>
+<a id="more"></a>
+<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>这篇文章会在源代码层面介绍 Objective-C 中自动释放池，以及方法的 <code>autorelease</code> 的具体实现。</p>
+<h2 id="从-main-函数开始"><a href="#从-main-函数开始" class="headerlink" title="从 main 函数开始"></a>从 main 函数开始</h2><p><code>main</code> 函数可以说是在整个 iOS 开发中非常不起眼的一个函数，它很好地隐藏在 <code>Supporting Files</code> 文件夹中，却是整个 iOS 应用的入口。<br><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-main.png" alt="objc-autorelease-main"></p>
+<p><code>main.m</code> 文件中的内容是这样的：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">UIApplicationMain</span>(argc, argv, <span class="literal">nil</span>, <span class="built_in">NSStringFromClass</span>([AppDelegate <span class="keyword">class</span>]));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个 <code>@autoreleasepool</code> block 中只包含了一行代码，这行代码将所有的事件、消息全部交给了 <code>UIApplication</code> 来处理，但是这不是本文关注的重点。</p>
+<p>需要注意的是：<strong>整个 iOS 的应用都是包含在一个自动释放池 block 中的</strong>。</p>
+<h2 id="autoreleasepool"><a href="#autoreleasepool" class="headerlink" title="@autoreleasepool"></a>@autoreleasepool</h2><p><code>@autoreleasepool</code> 到底是什么？我们在命令行中使用 <code>clang -rewrite-objc main.m</code> 让编译器重新改写这个文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> clang -rewrite-objc main.m</span></span><br></pre></td></tr></table></figure>
+<p>在生成了一大堆警告之后，当前目录下多了一个 <code>main.cpp</code> 文件</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-main-cpp.png" alt="objc-autorelease-main-cpp"></p>
+<blockquote>
+<p>这里删除了 <code>main</code> 函数中其他无用的代码。</p>
+</blockquote>
+<p>在这个文件中，有一个非常奇怪的 <code>__AtAutoreleasePool</code> 的结构体，前面的注释写到 <code>/* @autoreleasepool */</code>。也就是说 <code>@autoreleasepool {}</code> 被转换为一个 <code>__AtAutoreleasePool</code> 结构体：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    __AtAutoreleasePool __autoreleasepool;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>想要弄清楚这行代码的意义，我们要在 <code>main.cpp</code> 中查找名为 <code>__AtAutoreleasePool</code> 的结构体：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-main-cpp-struct.png" alt="objc-autorelease-main-cpp-struct"></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> __AtAutoreleasePool &#123;</span><br><span class="line">  __AtAutoreleasePool() &#123;atautoreleasepoolobj = objc_autoreleasePoolPush();&#125;</span><br><span class="line">  ~__AtAutoreleasePool() &#123;objc_autoreleasePoolPop(atautoreleasepoolobj);&#125;</span><br><span class="line">  <span class="keyword">void</span> * atautoreleasepoolobj;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个结构体会在初始化时调用 <code>objc_autoreleasePoolPush()</code> 方法，会在析构时调用 <code>objc_autoreleasePoolPop</code> 方法。</p>
+<p>这表明，我们的 <code>main</code> 函数在实际工作时其实是这样的：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">void</span> * atautoreleasepoolobj = objc_autoreleasePoolPush();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// do whatever you want</span></span><br><span class="line">        </span><br><span class="line">        objc_autoreleasePoolPop(atautoreleasepoolobj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>@autoreleasepool</code> 只是帮助我们少写了这两行代码而已，让代码看起来更美观，然后要根据上述两个方法来分析自动释放池的实现。</p>
+<h2 id="AutoreleasePool-是什么"><a href="#AutoreleasePool-是什么" class="headerlink" title="AutoreleasePool 是什么"></a>AutoreleasePool 是什么</h2><p>这一节开始分析方法 <code>objc_autoreleasePoolPush</code> 和 <code>objc_autoreleasePoolPop</code> 的实现：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> *objc_autoreleasePoolPush(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> AutoreleasePoolPage::push();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> objc_autoreleasePoolPop(<span class="keyword">void</span> *ctxt) &#123;</span><br><span class="line">    AutoreleasePoolPage::pop(ctxt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方法看上去是对 <code>AutoreleasePoolPage</code> 对应<strong>静态方法</strong> <code>push</code> 和 <code>pop</code> 的封装。</p>
+<p>这一小节会按照下面的顺序逐步解析代码中的内容：</p>
+<ul>
+<li><a href="#AutoreleasePoolPage">AutoreleasePoolPage 的结构</a></li>
+<li><a href="#objc_autoreleasePoolPush">objc_autoreleasePoolPush 方法</a></li>
+<li><a href="#objc_autoreleasePoolPop">objc_autoreleasePoolPop 方法</a></li>
+</ul>
+<h3 id="AutoreleasePoolPage-的结构"><a href="#AutoreleasePoolPage-的结构" class="headerlink" title="AutoreleasePoolPage 的结构"></a>AutoreleasePoolPage 的结构</h3><p><code>AutoreleasePoolPage</code> 是一个 C++ 中的类：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-AutoreleasePoolPage.png" alt="objc-autorelease-AutoreleasePoolPage"></p>
+<p>它在 <code>NSObject.mm</code> 中的定义是这样的：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> AutoreleasePoolPage &#123;</span><br><span class="line">    magic_t <span class="keyword">const</span> magic;</span><br><span class="line">    <span class="keyword">id</span> *next;</span><br><span class="line">    pthread_t <span class="keyword">const</span> thread;</span><br><span class="line">    AutoreleasePoolPage * <span class="keyword">const</span> parent;</span><br><span class="line">    AutoreleasePoolPage *child;</span><br><span class="line">    uint32_t <span class="keyword">const</span> depth;</span><br><span class="line">    uint32_t hiwat;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>magic</code> 用于对当前 <code>AutoreleasePoolPage</code> <strong>完整性</strong>的校验</li>
+<li><code>thread</code> 保存了当前页所在的线程</li>
+</ul>
+<p><strong>每一个自动释放池都是由一系列的 <code>AutoreleasePoolPage</code> 组成的，并且每一个 <code>AutoreleasePoolPage</code> 的大小都是 <code>4096</code> 字节（16 进制 0x1000）</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> I386_PGBYTES 4096</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> PAGE_SIZE I386_PGBYTES</span></span><br></pre></td></tr></table></figure>
+<h4 id="双向链表"><a href="#双向链表" class="headerlink" title="双向链表"></a>双向链表</h4><p>自动释放池中的 <code>AutoreleasePoolPage</code> 是以<strong>双向链表</strong>的形式连接起来的：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-AutoreleasePoolPage-linked-list.png" alt="objc-autorelease-AutoreleasePoolPage-linked-list"></p>
+<blockquote>
+<p><code>parent</code> 和 <code>child</code> 就是用来构造双向链表的指针。</p>
+</blockquote>
+<h4 id="自动释放池中的栈"><a href="#自动释放池中的栈" class="headerlink" title="自动释放池中的栈"></a>自动释放池中的栈</h4><p>如果我们的一个 <code>AutoreleasePoolPage</code> 被初始化在内存的 <code>0x100816000 ~ 0x100817000</code> 中，它在内存中的结构如下：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-page-in-memory.png" alt="objc-autorelease-page-in-memory"></p>
+<p>其中有 56 bit 用于存储 <code>AutoreleasePoolPage</code> 的成员变量，剩下的 <code>0x100816038 ~ 0x100817000</code> 都是用来存储<strong>加入到自动释放池中的对象</strong>。</p>
+<blockquote>
+<p><code>begin()</code> 和 <code>end()</code> 这两个类的实例方法帮助我们快速获取 <code>0x100816038 ~ 0x100817000</code> 这一范围的边界地址。</p>
+</blockquote>
+<p><code>next</code> 指向了下一个为空的内存地址，如果 <code>next</code> 指向的地址加入一个 <code>object</code>，它就会如下图所示<strong>移动到下一个为空的内存地址中</strong>：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-after-insert-to-page.png" alt="objc-autorelease-after-insert-to-page"></p>
+<blockquote>
+<p>关于 <code>hiwat</code> 和 <code>depth</code> 在文章中并不会进行介绍，因为它们并不影响整个自动释放池的实现，也不在关键方法的调用栈中。</p>
+</blockquote>
+<h4 id="POOL-SENTINEL（哨兵对象）"><a href="#POOL-SENTINEL（哨兵对象）" class="headerlink" title="POOL_SENTINEL（哨兵对象）"></a>POOL_SENTINEL（哨兵对象）</h4><p>到了这里，你可能想要知道 <code>POOL_SENTINEL</code> 到底是什么，还有它为什么在栈中。</p>
+<p>首先回答第一个问题： <code>POOL_SENTINEL</code> 只是 <code>nil</code> 的别名。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#define POOL_SENTINEL nil</span></span><br></pre></td></tr></table></figure>
+<p>在每个自动释放池初始化调用 <code>objc_autoreleasePoolPush</code> 的时候，都会把一个 <code>POOL_SENTINEL</code> push 到自动释放池的栈顶，并且返回这个 <code>POOL_SENTINEL</code> 哨兵对象。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">void</span> * atautoreleasepoolobj = objc_autoreleasePoolPush();</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// do whatever you want</span></span><br><span class="line">        </span><br><span class="line">        objc_autoreleasePoolPop(atautoreleasepoolobj);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>上面的 <code>atautoreleasepoolobj</code> 就是一个 <code>POOL_SENTINEL</code>。</p>
+</blockquote>
+<p>而当方法 <code>objc_autoreleasePoolPop</code> 调用时，就会向自动释放池中的对象发送 <code>release</code> 消息，直到第一个 <code>POOL_SENTINEL</code>：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-pop-stack.png" alt="objc-autorelease-pop-stack"></p>
+<h3 id="objc-autoreleasePoolPush-方法"><a href="#objc-autoreleasePoolPush-方法" class="headerlink" title="objc_autoreleasePoolPush 方法"></a><a id="objc_autoreleasePoolPush"></a>objc_autoreleasePoolPush 方法</h3><p>了解了 <code>POOL_SENTINEL</code>，我们来重新回顾一下 <code>objc_autoreleasePoolPush</code> 方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> *objc_autoreleasePoolPush(<span class="keyword">void</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> AutoreleasePoolPage::push();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它调用 <code>AutoreleasePoolPage</code> 的类方法 <code>push</code>，也非常简单：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> *push() &#123;</span><br><span class="line">   <span class="keyword">return</span> autoreleaseFast(POOL_SENTINEL);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a id="autoreleaseFast"></a>在这里会进入一个比较关键的方法 <code>autoreleaseFast</code>，并传入哨兵对象 <code>POOL_SENTINEL</code>：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">id</span> *autoreleaseFast(<span class="keyword">id</span> obj)</span><br><span class="line">&#123;</span><br><span class="line">   AutoreleasePoolPage *page = hotPage();</span><br><span class="line">   <span class="keyword">if</span> (page &amp;&amp; !page-&gt;full()) &#123;</span><br><span class="line">       <span class="keyword">return</span> page-&gt;add(obj);</span><br><span class="line">   &#125; <span class="keyword">else</span> <span class="keyword">if</span> (page) &#123;</span><br><span class="line">       <span class="keyword">return</span> autoreleaseFullPage(obj, page);</span><br><span class="line">   &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">       <span class="keyword">return</span> autoreleaseNoPage(obj);</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述方法分三种情况选择不同的代码执行：</p>
+<ul>
+<li>有 <code>hotPage</code> 并且当前 <code>page</code> 不满<ul>
+<li>调用 <code>page-&gt;add(obj)</code> 方法将对象添加至 <code>AutoreleasePoolPage</code> 的栈中</li>
+</ul>
+</li>
+<li>有 <code>hotPage</code> 并且当前 <code>page</code> 已满<ul>
+<li>调用 <code>autoreleaseFullPage</code> 初始化一个新的页</li>
+<li>调用 <code>page-&gt;add(obj)</code> 方法将对象添加至 <code>AutoreleasePoolPage</code> 的栈中</li>
+</ul>
+</li>
+<li>无 <code>hotPage</code><ul>
+<li>调用 <code>autoreleaseNoPage</code> 创建一个 <code>hotPage</code></li>
+<li>调用 <code>page-&gt;add(obj)</code> 方法将对象添加至 <code>AutoreleasePoolPage</code> 的栈中</li>
+</ul>
+</li>
+</ul>
+<p>最后的都会调用 <code>page-&gt;add(obj)</code> 将对象添加到自动释放池中。</p>
+<blockquote>
+<p><code>hotPage</code> 可以理解为当前正在使用的 <code>AutoreleasePoolPage</code>。</p>
+</blockquote>
+<h4 id="page-gt-add-添加对象"><a href="#page-gt-add-添加对象" class="headerlink" title="page-&gt;add 添加对象"></a>page-&gt;add 添加对象</h4><p><code>id *add(id obj)</code> 将对象添加到自动释放池页中：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> *add(<span class="keyword">id</span> obj) &#123;</span><br><span class="line">    <span class="keyword">id</span> *ret = next;</span><br><span class="line">    *next = obj;</span><br><span class="line">    next++;</span><br><span class="line">    <span class="keyword">return</span> ret;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>笔者对这个方法进行了处理，更方便理解。</p>
+</blockquote>
+<p>这个方法其实就是一个压栈的操作，将对象加入 <code>AutoreleasePoolPage</code> 然后移动栈顶的指针。</p>
+<h4 id="autoreleaseFullPage（当前-hotPage-已满）"><a href="#autoreleaseFullPage（当前-hotPage-已满）" class="headerlink" title="autoreleaseFullPage（当前 hotPage 已满）"></a>autoreleaseFullPage（当前 hotPage 已满）</h4><p><code>autoreleaseFullPage</code> 会在当前的 <code>hotPage</code> 已满的时候调用：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">id</span> *autoreleaseFullPage(<span class="keyword">id</span> obj, AutoreleasePoolPage *page) &#123;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (page-&gt;child) page = page-&gt;child;</span><br><span class="line">        <span class="keyword">else</span> page = new AutoreleasePoolPage(page);</span><br><span class="line">    &#125; <span class="keyword">while</span> (page-&gt;full());</span><br><span class="line"></span><br><span class="line">    setHotPage(page);</span><br><span class="line">    <span class="keyword">return</span> page-&gt;add(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它会从传入的 <code>page</code> 开始遍历整个双向链表，直到：</p>
+<ol>
+<li>查找到一个未满的 <code>AutoreleasePoolPage</code></li>
+<li>使用构造器传入 <code>parent</code> 创建一个新的 <code>AutoreleasePoolPage</code></li>
+</ol>
+<p>在查找到一个可以使用的 <code>AutoreleasePoolPage</code> 之后，会将该页面标记成 <code>hotPage</code>，然后调动上面分析过的 <code>page-&gt;add</code> 方法添加对象。</p>
+<h4 id="autoreleaseNoPage（没有-hotPage"><a href="#autoreleaseNoPage（没有-hotPage" class="headerlink" title="autoreleaseNoPage（没有 hotPage)"></a>autoreleaseNoPage（没有 hotPage)</h4><p>如果当前内存中不存在 <code>hotPage</code>，就会调用 <code>autoreleaseNoPage</code> 方法初始化一个 <code>AutoreleasePoolPage</code>：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">id</span> *autoreleaseNoPage(<span class="keyword">id</span> obj) &#123;</span><br><span class="line">    AutoreleasePoolPage *page = new AutoreleasePoolPage(<span class="literal">nil</span>);</span><br><span class="line">    setHotPage(page);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (obj != POOL_SENTINEL) &#123;</span><br><span class="line">        page-&gt;add(POOL_SENTINEL);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> page-&gt;add(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>既然当前内存中不存在 <code>AutoreleasePoolPage</code>，就要<strong>从头开始构建这个自动释放池的双向链表</strong>，也就是说，新的 <code>AutoreleasePoolPage</code> 是没有 <code>parent</code> 指针的。</p>
+<p>初始化之后，将当前页标记为 <code>hotPage</code>，然后会先向这个 <code>page</code> 中添加一个 <code>POOL_SENTINEL</code> 对象，来确保在 <code>pop</code> 调用的时候，不会出现异常。</p>
+<p>最后，将 <code>obj</code> 添加到自动释放池中。</p>
+<h3 id="objc-autoreleasePoolPop-方法"><a href="#objc-autoreleasePoolPop-方法" class="headerlink" title="objc_autoreleasePoolPop 方法"></a><a id="objc_autoreleasePoolPop"></a>objc_autoreleasePoolPop 方法</h3><p>同样，回顾一下上面提到的 <code>objc_autoreleasePoolPop</code> 方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> objc_autoreleasePoolPop(<span class="keyword">void</span> *ctxt) &#123;</span><br><span class="line">    AutoreleasePoolPage::pop(ctxt);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>看起来传入任何一个指针都是可以的，但是在整个工程并没有发现传入其他对象的例子。不过在这个方法中<strong>传入其它的指针也是可行的</strong>，会将自动释放池释放到相应的位置。</p>
+</blockquote>
+<p>我们一般都会在这个方法中传入一个哨兵对象 <code>POOL_SENTINEL</code>，如下图一样释放对象：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-pop-stack.png" alt="objc-autorelease-pop-stack"></p>
+<h4 id="对-objc-autoreleasePoolPop-行为的测试"><a href="#对-objc-autoreleasePoolPop-行为的测试" class="headerlink" title="对 objc_autoreleasePoolPop 行为的测试"></a>对 objc_autoreleasePoolPop 行为的测试</h4><p>在继续分析这个方法之前做一个小测试，在 <code>objc_autoreleasePoolPop</code> 传入非哨兵对象，测试一下这个方法的行为。</p>
+<p>下面是 <code>main.m</code> 文件中的源代码：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> main(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[]) &#123;</span><br><span class="line">    <span class="keyword">@autoreleasepool</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="built_in">NSString</span> *s = <span class="string">@"Draveness"</span>;</span><br><span class="line">        [s stringByAppendingString:<span class="string">@"-Suffix"</span>];</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在代码的这一行打一个断点，因为这里会调用 <code>autorelease</code> 方法，将字符串加入自动释放池：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-breakpoint-main.png" alt="objc-autorelease-breakpoint-main"></p>
+<p>当代码运行到这里时，通过 lldb 打印出当前 <code>hotPage</code> 中的栈内容：</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-print-pool-content.png" alt="objc-autorelease-print-pool-content"></p>
+<ol>
+<li>通过 <code>static</code> 方法获取当前 <code>hotPage</code></li>
+<li>打印 <code>AutoreleasePoolPage</code> 中的内容</li>
+<li>打印当前 <code>next</code> 指针指向的内容，以及之前的内容，<code>-2</code>时已经到了 <code>begin()</code> 位置</li>
+<li>使用 <code>print()</code>和 <code>printAll()</code>打印自动释放池中内容</li>
+</ol>
+<p>然后将字符串 <code>@&quot;Draveness-Suffix&quot;</code> 的指针传入 <code>pop</code> 方法，测试 <code>pop</code> 方法能否传入非哨兵参数。</p>
+<p><img src="/wiki/IOS/Runtime/objc/15_autoreleasepool/objc-autorelease-pop-string.png" alt="objc-autorelease-pop-string"></p>
+<p>再次打印当前 <code>AutoreleasePoolPage</code> 的内容时，字符串已经不存在了，这说明<strong>向 <code>pop</code> 方法传入非哨兵参数是可行的</strong>，只是我们一般不会传入非哨兵对象。</p>
+<hr>
+<p>让我们重新回到对 <code>objc_autoreleasePoolPop</code> 方法的分析，也就是 <code>AutoreleasePoolPage::pop</code> 方法的调用：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">void</span> pop(<span class="keyword">void</span> *token) &#123;</span><br><span class="line">    AutoreleasePoolPage *page = pageForPointer(token);</span><br><span class="line">    <span class="keyword">id</span> *stop = (<span class="keyword">id</span> *)token;</span><br><span class="line"></span><br><span class="line">    page-&gt;releaseUntil(stop);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (page-&gt;child) &#123;</span><br><span class="line">        <span class="keyword">if</span> (page-&gt;lessThanHalfFull()) &#123;</span><br><span class="line">            page-&gt;child-&gt;kill();</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (page-&gt;child-&gt;child) &#123;</span><br><span class="line">            page-&gt;child-&gt;child-&gt;kill();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这个方法中删除了大量无关的代码，以及对格式进行了调整。</p>
+</blockquote>
+<p>该静态方法总共做了三件事情：</p>
+<ol>
+<li>使用 <code>pageForPointer</code> 获取当前 <code>token</code> 所在的 <code>AutoreleasePoolPage</code></li>
+<li>调用 <code>releaseUntil</code> 方法释放<strong>栈中的</strong>对象，直到 <code>stop</code></li>
+<li>调用 <code>child</code> 的 <code>kill</code> 方法</li>
+</ol>
+<blockquote>
+<p>我到现在也不是很清楚为什么要根据当前页的不同状态 <code>kill</code> 掉不同 <code>child</code> 的页面。</p>
+</blockquote>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (page-&gt;lessThanHalfFull()) &#123;</span><br><span class="line">    page-&gt;child-&gt;kill();</span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> (page-&gt;child-&gt;child) &#123;</span><br><span class="line">    page-&gt;child-&gt;child-&gt;kill();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="pageForPointer-获取-AutoreleasePoolPage"><a href="#pageForPointer-获取-AutoreleasePoolPage" class="headerlink" title="pageForPointer 获取 AutoreleasePoolPage"></a>pageForPointer 获取 AutoreleasePoolPage</h4><p><code>pageForPointer</code> 方法主要是通过内存地址的操作，获取当前指针所在页的首地址：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> AutoreleasePoolPage *pageForPointer(<span class="keyword">const</span> <span class="keyword">void</span> *p) &#123;</span><br><span class="line">    <span class="keyword">return</span> pageForPointer((uintptr_t)p);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> AutoreleasePoolPage *pageForPointer(uintptr_t p) &#123;</span><br><span class="line">    AutoreleasePoolPage *result;</span><br><span class="line">    uintptr_t offset = p % SIZE;</span><br><span class="line"></span><br><span class="line">    assert(offset &gt;= <span class="keyword">sizeof</span>(AutoreleasePoolPage));</span><br><span class="line"></span><br><span class="line">    result = (AutoreleasePoolPage *)(p - offset);</span><br><span class="line">    result-&gt;fastcheck();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将指针与页面的大小，也就是 4096 取模，得到当前指针的偏移量，因为所有的 <code>AutoreleasePoolPage</code> 在内存中都是对齐的：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">p = 0x100816048</span><br><span class="line">p % SIZE = 0x48</span><br><span class="line">result = 0x100816000</span><br></pre></td></tr></table></figure>
+<p>而最后调用的方法 <code>fastCheck()</code> 用来检查当前的 <code>result</code> 是不是一个 <code>AutoreleasePoolPage</code>。</p>
+<blockquote>
+<p>通过检查 <code>magic_t</code> 结构体中的某个成员是否为 <code>0xA1A1A1A1</code>。</p>
+</blockquote>
+<h4 id="releaseUntil-释放对象"><a href="#releaseUntil-释放对象" class="headerlink" title="releaseUntil 释放对象"></a>releaseUntil 释放对象</h4><p><code>releaseUntil</code> 方法的实现如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> releaseUntil(<span class="keyword">id</span> *stop) &#123;</span><br><span class="line">    <span class="keyword">while</span> (<span class="keyword">this</span>-&gt;next != stop) &#123;</span><br><span class="line">        AutoreleasePoolPage *page = hotPage();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (page-&gt;empty()) &#123;</span><br><span class="line">            page = page-&gt;parent;</span><br><span class="line">            setHotPage(page);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        page-&gt;unprotect();</span><br><span class="line">        <span class="keyword">id</span> obj = *--page-&gt;next;</span><br><span class="line">        memset((<span class="keyword">void</span>*)page-&gt;next, SCRIBBLE, <span class="keyword">sizeof</span>(*page-&gt;next));</span><br><span class="line">        page-&gt;protect();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (obj != POOL_SENTINEL) &#123;</span><br><span class="line">            objc_release(obj);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    setHotPage(<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它的实现还是很容易的，用一个 <code>while</code> 循环持续释放 <code>AutoreleasePoolPage</code> 中的内容，直到 <code>next</code> 指向了 <code>stop</code> 。</p>
+<p>使用 <code>memset</code> 将内存的内容设置成 <code>SCRIBBLE</code>，然后使用 <code>objc_release</code> 释放对象。</p>
+<h4 id="kill-方法"><a href="#kill-方法" class="headerlink" title="kill() 方法"></a>kill() 方法</h4><p>到这里，没有分析的方法就只剩下 <code>kill</code> 了，而它会将当前页面以及子页面全部删除：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> kill() &#123;</span><br><span class="line">    AutoreleasePoolPage *page = <span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">while</span> (page-&gt;child) page = page-&gt;child;</span><br><span class="line"></span><br><span class="line">    AutoreleasePoolPage *deathptr;</span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        deathptr = page;</span><br><span class="line">        page = page-&gt;parent;</span><br><span class="line">        <span class="keyword">if</span> (page) &#123;</span><br><span class="line">            page-&gt;unprotect();</span><br><span class="line">            page-&gt;child = <span class="literal">nil</span>;</span><br><span class="line">            page-&gt;protect();</span><br><span class="line">        &#125;</span><br><span class="line">        delete deathptr;</span><br><span class="line">    &#125; <span class="keyword">while</span> (deathptr != <span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="autorelease-方法"><a href="#autorelease-方法" class="headerlink" title="autorelease 方法"></a>autorelease 方法</h3><p>我们已经对自动释放池生命周期有一个比较好的了解，最后需要了解的话题就是 <code>autorelease</code> 方法的实现，先来看一下方法的调用栈：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- [<span class="built_in">NSObject</span> autorelease]</span><br><span class="line">└── <span class="keyword">id</span> objc_object::rootAutorelease()</span><br><span class="line">    └── <span class="keyword">id</span> objc_object::rootAutorelease2()</span><br><span class="line">        └── <span class="keyword">static</span> <span class="keyword">id</span> AutoreleasePoolPage::autorelease(<span class="keyword">id</span> obj)</span><br><span class="line">            └── <span class="keyword">static</span> <span class="keyword">id</span> AutoreleasePoolPage::autoreleaseFast(<span class="keyword">id</span> obj)</span><br><span class="line">                ├── <span class="keyword">id</span> *add(<span class="keyword">id</span> obj)</span><br><span class="line">                ├── <span class="keyword">static</span> <span class="keyword">id</span> *autoreleaseFullPage(<span class="keyword">id</span> obj, AutoreleasePoolPage *page)</span><br><span class="line">                │   ├── AutoreleasePoolPage(AutoreleasePoolPage *newParent)</span><br><span class="line">                │   └── <span class="keyword">id</span> *add(<span class="keyword">id</span> obj)</span><br><span class="line">                └── <span class="keyword">static</span> <span class="keyword">id</span> *autoreleaseNoPage(<span class="keyword">id</span> obj)</span><br><span class="line">                    ├── AutoreleasePoolPage(AutoreleasePoolPage *newParent)</span><br><span class="line">                    └── <span class="keyword">id</span> *add(<span class="keyword">id</span> obj)</span><br></pre></td></tr></table></figure>
+<p>在 <code>autorelease</code> 方法的调用栈中，最终都会调用上面提到的 <a href="#autoreleaseFast">autoreleaseFast</a> 方法，将当前对象加到 <code>AutoreleasePoolPage</code> 中。</p>
+<p>这一小节中这些方法的实现都非常容易，只是进行了一些参数上的检查，最终还要调用 <a href="#autoreleaseFast">autoreleaseFast</a> 方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> <span class="keyword">id</span> objc_object::rootAutorelease() &#123;</span><br><span class="line">    <span class="keyword">if</span> (isTaggedPointer()) <span class="keyword">return</span> (<span class="keyword">id</span>)<span class="keyword">this</span>;</span><br><span class="line">    <span class="keyword">if</span> (prepareOptimizedReturn(ReturnAtPlus1)) <span class="keyword">return</span> (<span class="keyword">id</span>)<span class="keyword">this</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> rootAutorelease2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">__attribute__((noinline,used)) <span class="keyword">id</span> objc_object::rootAutorelease2() &#123;</span><br><span class="line">    <span class="keyword">return</span> AutoreleasePoolPage::autorelease((<span class="keyword">id</span>)<span class="keyword">this</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="keyword">inline</span> <span class="keyword">id</span> autorelease(<span class="keyword">id</span> obj) &#123;</span><br><span class="line">   <span class="keyword">id</span> *dest __unused = autoreleaseFast(obj);</span><br><span class="line">   <span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于在上面已经分析过 <code>autoreleaseFast</code> 方法的实现，这里就不会多说了。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>整个自动释放池 <code>AutoreleasePool</code> 的实现以及 <code>autorelease</code> 方法都已经分析完了，我们再来回顾一下文章中的一些内容：</p>
+<ul>
+<li>自动释放池是由 <code>AutoreleasePoolPage</code> 以双向链表的方式实现的</li>
+<li>当对象调用 <code>autorelease</code> 方法时，会将对象加入 <code>AutoreleasePoolPage</code> 的栈中</li>
+<li>调用 <code>AutoreleasePoolPage::pop</code> 方法会向栈中的对象发送 <code>release</code> 消息</li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://stackoverflow.com/questions/14677049/what-is-autoreleasepool-objective-c" rel="external nofollow noopener noreferrer" target="_blank">What is autoreleasepool? - Objective-C</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmAutoreleasePools.html" rel="external nofollow noopener noreferrer" target="_blank">Using Autorelease Pool Blocks</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSAutoreleasePool_Class/index.html#//apple_ref/occ/cl/NSAutoreleasePool" rel="external nofollow noopener noreferrer" target="_blank">NSAutoreleasePool</a></li>
+<li><a href="http://blog.sunnyxx.com/2014/10/15/behind-autorelease/" rel="external nofollow noopener noreferrer" target="_blank">黑幕背后的 Autorelease</a></li>
+</ul>
+<blockquote>
+<p>Follow: <a href="https://github.com/Draveness" rel="external nofollow noopener noreferrer" target="_blank">Draveness · Github</a></p>
+</blockquote>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    1. 从 NSObject 的初始化了解 isa（转载)
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/IOS/Runtime/objc/0_refer/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">0. 参考资料</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/15_autoreleasepool/" data-title="15. 自动释放池的前世今生（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>

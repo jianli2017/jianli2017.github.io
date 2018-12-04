@@ -462,7 +462,7 @@
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -801,6 +801,225 @@
 </aside>
             
             <section id="main">
+        <article id="post-C++语言/STL源码剖析/第二章/空间配置器" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/STL源码剖析/">STL源码剖析</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/STL源码剖析/第二章/">第二章</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/空间配置器/">空间配置器</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">
+            <time datetime="2018-08-29T04:07:12.000Z" itemprop="datePublished">2018-08-29</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>主要内容</p>
+<ol>
+<li>空间配置器的标准接口</li>
+<li>具备次配置能力的SGI 空间配置器</li>
+<li>内存基本处理工具</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/STL源码剖析/第四章/deque" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/STL源码剖析/">STL源码剖析</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/STL源码剖析/第四章/">第四章</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/deque/">deque</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/STL源码剖析/第四章/deque/">
+            <time datetime="2018-08-28T04:07:12.000Z" itemprop="datePublished">2018-08-28</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>主要内容</p>
+<ol>
+<li>deque 概述</li>
+<li>deque中控器</li>
+<li>deque的迭代器</li>
+<li>deque的数据结构</li>
+<li>deque的构造与内存管理</li>
+<li>deque的元素操作</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/STL源码剖析/第四章/deque/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/C++Primer/第九章顺序容器/顺序容器" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第九章顺序容器/">第九章顺序容器</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/顺序容器/">顺序容器</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">
+            <time datetime="2018-08-27T10:07:12.000Z" itemprop="datePublished">2018-08-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>主要内容</p>
+<ol>
+<li>顺序容器概述</li>
+<li>容器库概览</li>
+<li>顺序容器操作</li>
+<li>vector对象是如何生长的</li>
+<li>额外的string操作</li>
+<li>容器适配器</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-C++语言/C++Primer/第八章io库/IO库" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1402,220 +1621,6 @@
 <p>嵌套类是一个独立的类，与外层基本没有什么关系，特别是，外层类对象和嵌套类对象是相互独立的，嵌套类的对象不能包括任何外层类定义的成员；类似的，在外层类的对象也不能报考任何嵌套类定义的成员。嵌套类的名字在外层作用域内是可见的。之外不可见。 嵌套类对外层类的成员也没有特殊的访问权限。</p>
 <h2 id="union-一种节省空间的类"><a href="#union-一种节省空间的类" class="headerlink" title="union 一种节省空间的类"></a>union 一种节省空间的类</h2><p>union可以定义多个数据成员，但在任何时刻，只有一个数据成员可以有值。union可以定义包括构造函数和析构函数在内的成员函数。但union不能继承自其它类，也不能作为基类使用。 不能有虚函数。</p>
 
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第十六章-模板和泛型编程/">第十六章 模板和泛型编程</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/模板和泛型编程/">模板和泛型编程</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">
-            <time datetime="2018-07-25T04:07:12.000Z" itemprop="datePublished">2018-07-25</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p><ol>
-<li>名义模板</li>
-<li>模板实参推断</li>
-<li>重载与模板</li>
-<li>可变参数模板</li>
-<li>模板的特例化</li>
-</ol>
-</p><p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-C++语言/C++Primer/第二章变量和基本类型/变量和基本类型" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第二章变量和基本类型/">第二章变量和基本类型</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/变量和基本类型/">变量和基本类型</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">
-            <time datetime="2018-07-25T04:07:12.000Z" itemprop="datePublished">2018-07-25</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>C++ 是静态数据类型语言，类型检查发生在编译时。数据类型是程序的基础，他告诉我们数据的意义以及我们能在数据上执行的操作。</p>
-<p>主要内容 ：</p>
-<ol>
-<li>基本内置类型</li>
-<li>变量</li>
-<li>复合类型</li>
-<li>const限定符</li>
-<li>处理类型</li>
-<li>自定义数据类型</li>
-</ol><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-linux命令/set命令" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/linux命令/">linux命令</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/set/">set</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/linux命令/set命令/">
-            <time datetime="2018-07-20T04:07:12.000Z" itemprop="datePublished">2018-07-20</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/linux命令/set命令/">set命令</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>set -e 语句告诉bash如果任何语句的执行结果不是true则应该退出</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/linux命令/set命令/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

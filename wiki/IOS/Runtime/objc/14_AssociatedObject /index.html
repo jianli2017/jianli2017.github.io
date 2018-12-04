@@ -1,0 +1,1227 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>14. 关联对象 AssociatedObject 完全解析（转载) | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="AssociatedObject">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="我们在 iOS 开发中经常需要使用分类（Category），为已经存在的类添加属性的需求，但是使用 @property 并不能在分类中正确创建实例变量和存取方法。 不过，通过 Objective-C 运行时中的关联对象，也就是 Associated Object，我们可以实现上述需求。 这篇文章包含了两方面的内容：  使用关联对象为已经存在的类中添加属性 关联对象在底层 Objective-C 中">
+<meta name="keywords" content="AssociatedObject">
+<meta property="og:type" content="article">
+<meta property="og:title" content="14. 关联对象 AssociatedObject 完全解析（转载)">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/14_AssociatedObject /index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="我们在 iOS 开发中经常需要使用分类（Category），为已经存在的类添加属性的需求，但是使用 @property 并不能在分类中正确创建实例变量和存取方法。 不过，通过 Objective-C 运行时中的关联对象，也就是 Associated Object，我们可以实现上述需求。 这篇文章包含了两方面的内容：  使用关联对象为已经存在的类中添加属性 关联对象在底层 Objective-C 中">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/14_AssociatedObject%20/objc-ao-warning-category-property.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/14_AssociatedObject%20/objc-ao-associateobjcect.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/14_AssociatedObject%20/objc-ao-isa-struct.png">
+<meta property="og:updated_time" content="2018-12-04T04:04:54.786Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="14. 关联对象 AssociatedObject 完全解析（转载)">
+<meta name="twitter:description" content="我们在 iOS 开发中经常需要使用分类（Category），为已经存在的类添加属性的需求，但是使用 @property 并不能在分类中正确创建实例变量和存取方法。 不过，通过 Objective-C 运行时中的关联对象，也就是 Associated Object，我们可以实现上述需求。 这篇文章包含了两方面的内容：  使用关联对象为已经存在的类中添加属性 关联对象在底层 Objective-C 中">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/14_AssociatedObject%20/objc-ao-warning-category-property.png">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十二章 动态内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十二章 动态内存/动态内存/">动态内存</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Category
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            MachO
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            objc
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/Analize_Crash/">收集、符号化IOS崩溃日志</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            WWDC
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/WWDC/What’s New in User Notifications/">What’s New in User Notifications</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程基础
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程基础/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-IOS/Runtime/objc/14_AssociatedObject " class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/AssociatedObject/">AssociatedObject</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">
+            <time datetime="2018-11-01T02:38:11.000Z" itemprop="datePublished">2018-11-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            14. 关联对象 AssociatedObject 完全解析（转载)
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关联对象的应用"><span class="toc-number">1.</span> <span class="toc-text">关联对象的应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#分类中的-property"><span class="toc-number">1.1.</span> <span class="toc-text">分类中的 @property</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用关联对象"><span class="toc-number">1.2.</span> <span class="toc-text">使用关联对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#关联对象的实现"><span class="toc-number">2.</span> <span class="toc-text">关联对象的实现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-setAssociatedObject"><span class="toc-number">2.1.</span> <span class="toc-text">objc_setAssociatedObject</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#AssociationsManager"><span class="toc-number">2.1.1.</span> <span class="toc-text">AssociationsManager</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#如何存储-ObjcAssociation"><span class="toc-number">2.1.2.</span> <span class="toc-text">如何存储 ObjcAssociation</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#new-value-nil"><span class="toc-number">2.1.3.</span> <span class="toc-text">new_value != nil</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#new-value-nil-1"><span class="toc-number">2.1.4.</span> <span class="toc-text">new_value == nil</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#setHasAssociatedObjects"><span class="toc-number">2.1.5.</span> <span class="toc-text">setHasAssociatedObjects()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-getAssociatedObject"><span class="toc-number">2.2.</span> <span class="toc-text">objc_getAssociatedObject</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#objc-removeAssociatedObjects"><span class="toc-number">2.3.</span> <span class="toc-text">objc_removeAssociatedObjects</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">3.</span> <span class="toc-text">小结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#关于应用"><span class="toc-number">3.1.</span> <span class="toc-text">关于应用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关于实现"><span class="toc-number">3.2.</span> <span class="toc-text">关于实现</span></a></li></ol></li></ol>
+                </div>
+            
+        
+        
+            <p>我们在 iOS 开发中经常需要使用分类（Category），为已经存在的类添加属性的需求，但是使用 <code>@property</code> 并不能在分类中<strong>正确</strong>创建实例变量和存取方法。</p>
+<p>不过，通过 Objective-C 运行时中的关联对象，也就是 Associated Object，我们可以实现上述需求。</p>
+<p>这篇文章包含了两方面的内容：</p>
+<ul>
+<li><a href="#关联对象的应用">使用关联对象为已经存在的类中添加属性</a></li>
+<li><a href="#关联对象的实现">关联对象在底层 Objective-C 中的实现</a></li>
+</ul>
+<blockquote>
+<p>注：如果你刚刚入门 iOS 开发，笔者相信了解第一部分的内容会对你的日常开发中有所帮助，不过第二部分的内容可能有些难以理解。</p>
+<p>如果你对关联对象的使用非常熟悉，可以直接跳过第一部分的内容，从<a href="#关联对象的实现">这里</a>开始深入了解其底层实现。</p>
+</blockquote>
+<a id="more"></a> 
+<h2 id="关联对象的应用"><a href="#关联对象的应用" class="headerlink" title="关联对象的应用"></a>关联对象的应用</h2><p>关于关联对象的使用相信已经成为了一个老生常谈的问题了，不过为了保证这篇文章的完整性，笔者还是会在这里为各位介绍这部分的内容的。</p>
+<h3 id="分类中的-property"><a href="#分类中的-property" class="headerlink" title="分类中的 @property"></a>分类中的 @property</h3><p><code>@property</code> 可以说是一个 Objective-C 编程中的“宏”，它有<a href="https://zh.wikipedia.org/zh/元编程" rel="external nofollow noopener noreferrer" target="_blank">元编程</a>的思想。</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">DKObject </span>: NSObject</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span> (nonatomic, strong) NSString *property;</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>在使用上述代码时会做三件事：</p>
+<ul>
+<li>生成实例变量 <code>_property</code></li>
+<li>生成 <code>getter</code> 方法 <code>- property</code></li>
+<li>生成 <code>setter</code> 方法 <code>- setProperty:</code></li>
+</ul>
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@implementation DKObject &#123;</span><br><span class="line">    NSString *_property;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSString *)<span class="keyword">property</span><span class="title"> </span>&#123;</span><br><span class="line">    return _property;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)setProperty:(NSString *)<span class="keyword">property</span><span class="title"> </span>&#123;</span><br><span class="line">    _property = <span class="keyword">property</span><span class="title"></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br></pre></td></tr></table></figure>
+<p>这些代码都是编译器为我们生成的，虽然你看不到它，但是它确实在这里，我们既然可以在类中使用 <code>@property</code> 生成一个属性，那么为什么在分类中不可以呢？</p>
+<p>我们来做一个小实验：创建一个 <code>DKObject</code> 的分类 <code>Category</code>，并添加一个属性 <code>categoryProperty</code>：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> DKObject (Category)</span><br><span class="line"></span><br><span class="line"><span class="variable">@property</span> (nonatomic, strong) NSString *categoryProperty;</span><br><span class="line"></span><br><span class="line"><span class="variable">@end</span></span><br></pre></td></tr></table></figure>
+<p>看起来还是很不错的，不过 Build 一下这个 Demo，会发现有这么一个警告：</p>
+<p><img src="/wiki/IOS/Runtime/objc/14_AssociatedObject /objc-ao-warning-category-property.png" alt="objc-ao-warning-category-property"></p>
+<p>在这里的警告告诉我们 <code>categoryProperty</code> 属性的存取方法需要自己手动去实现，或者使用 <code>@dynamic</code> 在运行时实现这些方法。</p>
+<p>换句话说，分类中的 <code>@property</code> 并没有为我们生成实例变量以及存取方法，而需要我们手动实现。</p>
+<h3 id="使用关联对象"><a href="#使用关联对象" class="headerlink" title="使用关联对象"></a>使用关联对象</h3><p>Q：我们为什么要使用关联对象？</p>
+<p>A：因为在分类中 <code>@property</code> 并不会自动生成实例变量以及存取方法，所以<strong>一般使用关联对象为已经存在的类添加『属性』</strong>。</p>
+<p>上一小节的内容已经给了我们需要使用关联对象的理由。在这里，我们会介绍 ObjC 运行时为我们提供的与关联对象有关的 API，并在分类中实现一个<strong>伪属性</strong>：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#import <span class="meta-string">"DKObject+Category.h"</span></span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;objc/runtime.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">DKObject</span> (<span class="title">Category</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">NSString</span> *)categoryProperty &#123;</span><br><span class="line">    <span class="keyword">return</span> objc_getAssociatedObject(<span class="keyword">self</span>, _cmd);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)setCategoryProperty:(<span class="built_in">NSString</span> *)categoryProperty &#123;</span><br><span class="line">    objc_setAssociatedObject(<span class="keyword">self</span>, <span class="keyword">@selector</span>(categoryProperty), categoryProperty, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里的 <code>_cmd</code> 代指当前方法的选择子，也就是 <code>@selector(categoryProperty)</code>。</p>
+</blockquote>
+<p>我们使用了两个方法 <code>objc_getAssociatedObject</code> 以及 <code>objc_setAssociatedObject</code> 来模拟『属性』的存取方法，而使用关联对象模拟实例变量。</p>
+<p>在这里有必要解释两个问题：</p>
+<ol>
+<li>为什么向方法中传入 <code>@selector(categoryProperty)</code>？</li>
+<li><code>OBJC_ASSOCIATION_RETAIN_NONATOMIC</code> 是干什么的？</li>
+</ol>
+<p>关于第一个问题，我们需要看一下这两个方法的原型：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">id <span class="title">objc_getAssociatedObject</span>(<span class="params">id <span class="keyword">object</span>, <span class="keyword">const</span> <span class="keyword">void</span> *key</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_setAssociatedObject</span>(<span class="params">id <span class="keyword">object</span>, <span class="keyword">const</span> <span class="keyword">void</span> *key, id <span class="keyword">value</span>, objc_AssociationPolicy policy</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p><code>@selector(categoryProperty)</code> 也就是参数中的 <code>key</code>，其实可以使用静态指针 <code>static void *</code> 类型的参数来代替，不过在这里，笔者强烈推荐使用 <code>@selector(categoryProperty)</code> 作为 <code>key</code> 传入。因为这种方法省略了声明参数的代码，并且能很好地保证 <code>key</code> 的唯一性。</p>
+<p><code>OBJC_ASSOCIATION_RETAIN_NONATOMIC</code> 又是什么呢？如果我们使用 <code>Command</code> 加左键查看它的定义：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">typedef OBJC_ENUM(uintptr_t, objc_AssociationPolicy) &#123;</span><br><span class="line">    OBJC_ASSOCIATION_ASSIGN = <span class="number">0</span>,           <span class="comment">/**&lt; Specifies a weak reference to the associated object. */</span></span><br><span class="line">    OBJC_ASSOCIATION_RETAIN_NONATOMIC = <span class="number">1</span>, <span class="comment">/**&lt; Specifies a strong reference to the associated object. </span></span><br><span class="line"><span class="comment">                                            *   The association is not made atomically. */</span></span><br><span class="line">    OBJC_ASSOCIATION_COPY_NONATOMIC = <span class="number">3</span>,   <span class="comment">/**&lt; Specifies that the associated object is copied. </span></span><br><span class="line"><span class="comment">                                            *   The association is not made atomically. */</span></span><br><span class="line">    OBJC_ASSOCIATION_RETAIN = <span class="number">01401</span>,       <span class="comment">/**&lt; Specifies a strong reference to the associated object.</span></span><br><span class="line"><span class="comment">                                            *   The association is made atomically. */</span></span><br><span class="line">    OBJC_ASSOCIATION_COPY = <span class="number">01403</span>          <span class="comment">/**&lt; Specifies that the associated object is copied.</span></span><br><span class="line"><span class="comment">                                            *   The association is made atomically. */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>从这里的注释我们能看到很多东西，也就是说不同的 <code>objc_AssociationPolicy</code> 对应了不通的属性修饰符：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">objc_AssociationPolicy</th>
+<th style="text-align:center">modifier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">OBJC_ASSOCIATION_ASSIGN</td>
+<td style="text-align:center">assign</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJC_ASSOCIATION_RETAIN_NONATOMIC</td>
+<td style="text-align:center">nonatomic, strong</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJC_ASSOCIATION_COPY_NONATOMIC</td>
+<td style="text-align:center">nonatomic, copy</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJC_ASSOCIATION_RETAIN</td>
+<td style="text-align:center">atomic, strong</td>
+</tr>
+<tr>
+<td style="text-align:left">OBJC_ASSOCIATION_COPY</td>
+<td style="text-align:center">atomic, copy</td>
+</tr>
+</tbody>
+</table>
+<p>而我们在代码中实现的属性 <code>categoryProperty</code> 就相当于使用了 <code>nonatomic</code> 和 <code>strong</code> 修饰符。</p>
+<blockquote>
+<p>关于属性修饰符的区别，并不是这篇文章的主要内容，如果你需要了解它们的区别，<a href="https://google.com" rel="external nofollow noopener noreferrer" target="_blank">Google</a> 是一个很好的选择。</p>
+</blockquote>
+<p>到这里，我们已经完成了对关联对象应用的介绍，再来回顾一下小节的内容。</p>
+<p>@property` 其实有元编程的思想，它能够为我们自动生成<strong>实例变量以及存取方法</strong>，而这三者构成了属性这个类似于语法糖的概念，为我们提供了更便利的点语法来访问属性：</p>
+<figure class="highlight monkey"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">self</span>.<span class="keyword">property</span> &lt;=&gt; [<span class="built_in">self</span> <span class="keyword">property</span>]</span><br><span class="line"><span class="built_in">self</span>.<span class="keyword">property</span> = value &lt;=&gt; [<span class="built_in">self</span> setProperty:value]</span><br></pre></td></tr></table></figure>
+<p>在分类中，因为类的实例变量的布局已经固定，使用 <code>@property</code> 已经<strong>无法向固定的布局中添加新的实例变量（这样做可能会覆盖子类的实例变量）</strong>，所以我们需要<strong>使用关联对象以及两个方法来模拟构成属性的三个要素</strong>。</p>
+<blockquote>
+<p>如果你是一个 iOS 开发方面的新手，我相信这篇文章的前半部分对已经足够使用了，不过，如果你还对关联对象的实现非常感兴趣，也可以尝试阅读下面的内容。</p>
+</blockquote>
+<h2 id="关联对象的实现"><a href="#关联对象的实现" class="headerlink" title="关联对象的实现"></a>关联对象的实现</h2><blockquote>
+<p>探索关联对象的实现一直是我想要做的一件事情，直到最近，我才有足够的时间来完成这篇文章，希望能够对各位读者有所帮助。</p>
+</blockquote>
+<p>这一部分会从三个 objc 运行时的方法为入口来对关联对象的实现一探究竟，其中两个方法是上一部分使用到的方法：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_setAssociatedObject</span>(<span class="params">id <span class="keyword">object</span>, <span class="keyword">const</span> <span class="keyword">void</span> *key, id <span class="keyword">value</span>, objc_AssociationPolicy policy</span>)</span>;</span><br><span class="line"><span class="function">id <span class="title">objc_getAssociatedObject</span>(<span class="params">id <span class="keyword">object</span>, <span class="keyword">const</span> <span class="keyword">void</span> *key</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_removeAssociatedObjects</span>(<span class="params">id <span class="keyword">object</span></span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>三个方法的作用分别是：</p>
+<ul>
+<li>以键值对形式添加关联对象</li>
+<li>根据 <code>key</code> 获取关联对象</li>
+<li>移除所有关联对象</li>
+</ul>
+<p>而接下来的内容自然就是围绕这三个方法进行的，我们会对它们的实现进行分析。</p>
+<h3 id="objc-setAssociatedObject"><a href="#objc-setAssociatedObject" class="headerlink" title="objc_setAssociatedObject"></a>objc_setAssociatedObject</h3><p>首先是 <code>objc_setAssociatedObject</code> 方法，这个方法的调用栈并不复杂：</p>
+<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">objc_setAssociatedObject</span>(<span class="params">id <span class="keyword">object</span>, <span class="keyword">const</span> <span class="keyword">void</span> *key, id <span class="keyword">value</span>, objc_AssociationPolicy policy</span>) </span></span><br><span class="line"><span class="function">└── <span class="keyword">void</span> <span class="title">objc_setAssociatedObject_non_gc</span>(<span class="params">id <span class="keyword">object</span>, <span class="keyword">const</span> <span class="keyword">void</span> *key, id <span class="keyword">value</span>, objc_AssociationPolicy policy</span>)</span></span><br><span class="line"><span class="function">    └── <span class="keyword">void</span> _<span class="title">object_set_associative_reference</span>(<span class="params">id <span class="keyword">object</span>, <span class="keyword">void</span> *key, id <span class="keyword">value</span>, uintptr_t policy</span>)</span></span><br></pre></td></tr></table></figure>
+<p>调用栈中的 <code>_object_set_associative_reference</code> 方法实际完成了设置关联对象的任务：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="number">_</span><span class="keyword">object</span><span class="number">_</span>set<span class="number">_</span>associative<span class="number">_</span>reference(id <span class="keyword">object</span>, <span class="keyword">void</span> *key, id <span class="keyword">value</span>, uintptr<span class="number">_</span>t policy) &#123;</span><br><span class="line">    ObjcAssociation old<span class="number">_</span>association(<span class="number">0</span>, nil);</span><br><span class="line">    id <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span> = <span class="keyword">value</span> ? acquireValue(<span class="keyword">value</span>, policy) : nil;</span><br><span class="line">    &#123;</span><br><span class="line">        AssociationsManager manager;</span><br><span class="line">        AssociationsHashMap &amp;associations(manager.associations());</span><br><span class="line">        ObjectAssociationMap *refs = i-&gt;second;</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (old<span class="number">_</span>association.hasValue()) ReleaseValue()(old<span class="number">_</span>association);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里的实现省略了大多的实现代码，而且忽略了很多逻辑上的顺序，不过不要在意这里的代码能否执行。</p>
+</blockquote>
+<p>我们需要注意其中的几个类和数据结构，因为在具体分析这个方法的实现之前，我们需要了解其中它们的作用：</p>
+<ul>
+<li><code>AssociationsManager</code></li>
+<li><code>AssociationsHashMap</code></li>
+<li><code>ObjcAssociationMap</code></li>
+<li><code>ObjcAssociation</code></li>
+</ul>
+<h4 id="AssociationsManager"><a href="#AssociationsManager" class="headerlink" title="AssociationsManager"></a>AssociationsManager</h4><p><code>AssociationsManager</code> 在源代码中的定义是这样的：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AssociationsManager</span> &#123;</span></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">spinlock_t</span> _lock;</span><br><span class="line">    <span class="keyword">static</span> AssociationsHashMap *_map;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    AssociationsManager()   &#123; _lock.lock(); &#125;</span><br><span class="line">    ~AssociationsManager()  &#123; _lock.unlock(); &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function">AssociationsHashMap &amp;<span class="title">associations</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (_map == <span class="literal">NULL</span>)</span><br><span class="line">            _map = <span class="keyword">new</span> AssociationsHashMap();</span><br><span class="line">        <span class="keyword">return</span> *_map;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">spinlock_t</span> AssociationsManager::_lock;</span><br><span class="line">AssociationsHashMap *AssociationsManager::_map = <span class="literal">NULL</span>;</span><br></pre></td></tr></table></figure>
+<p>它维护了 <code>spinlock_t</code> 和 <code>AssociationsHashMap</code> 的单例，初始化它的时候会调用 <code>lock.lock()</code> 方法，在析构时会调用 <code>lock.unlock()</code>，而 <code>associations</code> 方法用于取得一个全局的 <code>AssociationsHashMap</code> 单例。</p>
+<p>也就是说 <code>AssociationsManager</code> 通过持有一个<a href="https://en.wikipedia.org/wiki/Spinlock" rel="external nofollow noopener noreferrer" target="_blank">自旋锁</a> <code>spinlock_t</code> 保证对 <code>AssociationsHashMap</code> 的操作是线程安全的，即<strong>每次只会有一个线程对 AssociationsHashMap 进行操作</strong>。</p>
+<h4 id="如何存储-ObjcAssociation"><a href="#如何存储-ObjcAssociation" class="headerlink" title="如何存储 ObjcAssociation"></a>如何存储 ObjcAssociation</h4><p><code>ObjcAssociation</code> 就是真正的关联对象的类，上面的所有数据结构只是为了更好的存储它。</p>
+<p>首先，<code>AssociationsHashMap</code> 用与保存从对象的 <code>disguised_ptr_t</code> 到 <code>ObjectAssociationMap</code> 的映射：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AssociationsHashMap</span> :</span> <span class="keyword">public</span> <span class="built_in">unordered_map</span>&lt;<span class="keyword">disguised_ptr_t</span>, ObjectAssociationMap *, DisguisedPointerHash, DisguisedPointerEqual, AssociationsHashMapAllocator&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">void</span> *<span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> n)</span> </span>&#123; <span class="keyword">return</span> ::<span class="built_in">malloc</span>(n); &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span> *ptr)</span> </span>&#123; ::<span class="built_in">free</span>(ptr); &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>而 <code>ObjectAssociationMap</code> 则保存了从 <code>key</code> 到关联对象 <code>ObjcAssociation</code> 的映射，<strong>这个数据结构保存了当前对象对应的所有关联对象</strong>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ObjectAssociationMap</span> :</span> <span class="keyword">public</span> <span class="built_in">std</span>::<span class="built_in">map</span>&lt;<span class="keyword">void</span> *, ObjcAssociation, ObjectPointerLess, ObjectAssociationMapAllocator&gt; &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">   <span class="function"><span class="keyword">void</span> *<span class="keyword">operator</span> <span class="title">new</span><span class="params">(<span class="keyword">size_t</span> n)</span> </span>&#123; <span class="keyword">return</span> ::<span class="built_in">malloc</span>(n); &#125;</span><br><span class="line">   <span class="function"><span class="keyword">void</span> <span class="keyword">operator</span> <span class="title">delete</span><span class="params">(<span class="keyword">void</span> *ptr)</span> </span>&#123; ::<span class="built_in">free</span>(ptr); &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>最关键的 <code>ObjcAssociation</code> 包含了 <code>policy</code> 以及 <code>value</code>：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ObjcAssociation</span> &#123;</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> _policy;</span><br><span class="line">    id _value;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    ObjcAssociation(<span class="keyword">uintptr_t</span> policy, id value) : _policy(policy), _value(value) &#123;&#125;</span><br><span class="line">    ObjcAssociation() : _policy(<span class="number">0</span>), _value(nil) &#123;&#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">uintptr_t</span> policy() <span class="keyword">const</span> &#123; <span class="keyword">return</span> _policy; &#125;</span><br><span class="line">    <span class="function">id <span class="title">value</span><span class="params">()</span> <span class="keyword">const</span> </span>&#123; <span class="keyword">return</span> _value; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">hasValue</span><span class="params">()</span> </span>&#123; <span class="keyword">return</span> _value != nil; &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>举一个简单的例子来说明关联对象在内存中以什么形式存储的，以下面的代码为例：</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> * argv[])</span> </span>&#123;</span><br><span class="line">    <span class="meta">@autoreleasepool</span> &#123;</span><br><span class="line"></span><br><span class="line">        NSObject *obj = [NSObject <span class="keyword">new</span>];</span><br><span class="line">        objc_setAssociatedObject(obj, <span class="meta">@selector</span>(hello), @<span class="string">"Hello"</span>, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里的关联对象 <code>ObjcAssociation(OBJC_ASSOCIATION_RETAIN_NONATOMIC, @&quot;Hello&quot;)</code> 在内存中是这么存储的：</p>
+<p><img src="/wiki/IOS/Runtime/objc/14_AssociatedObject /objc-ao-associateobjcect.png" alt="objc-ao-associateobjcect"></p>
+<hr>
+<p>接下来我们可以重新回到对 <code>objc_setAssociatedObject</code> 方法的分析了。</p>
+<p>在这里会将方法的执行分为两种情况：</p>
+<ul>
+<li><code>new_value != nil</code> 设置/更新关联对象的值</li>
+<li><code>new_value == nil</code> 删除一个关联对象</li>
+</ul>
+<h4 id="new-value-nil"><a href="#new-value-nil" class="headerlink" title="new_value != nil"></a>new_value != nil</h4><p>先来分析在 <code>new_value != nil</code> 的情况下，该方法的执行是什么样的：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> <span class="number">_</span><span class="keyword">object</span><span class="number">_</span>set<span class="number">_</span>associative<span class="number">_</span>reference(id <span class="keyword">object</span>, <span class="keyword">void</span> *key, id <span class="keyword">value</span>, uintptr<span class="number">_</span>t policy) &#123;</span><br><span class="line">    ObjcAssociation old<span class="number">_</span>association(<span class="number">0</span>, nil);</span><br><span class="line">    id <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span> = <span class="keyword">value</span> ? acquireValue(<span class="keyword">value</span>, policy) : nil;</span><br><span class="line">    &#123;</span><br><span class="line">        AssociationsManager manager;</span><br><span class="line">        AssociationsHashMap &amp;associations(manager.associations());</span><br><span class="line">        disguised<span class="number">_p</span>tr<span class="number">_</span>t disguised<span class="number">_</span><span class="keyword">object</span> = DISGUISE(<span class="keyword">object</span>);</span><br><span class="line"></span><br><span class="line">        AssociationsHashMap::iterator i = associations.find(disguised<span class="number">_</span><span class="keyword">object</span>);</span><br><span class="line">        <span class="keyword">if</span> (i != associations.end()) &#123;</span><br><span class="line">            ObjectAssociationMap *refs = i-&gt;second;</span><br><span class="line">            ObjectAssociationMap::iterator j = refs-&gt;find(key);</span><br><span class="line">            <span class="keyword">if</span> (j != refs-&gt;end()) &#123;</span><br><span class="line">                old<span class="number">_</span>association = j-&gt;second;</span><br><span class="line">                j-&gt;second = ObjcAssociation(policy, <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span>);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                (*refs)[key] = ObjcAssociation(policy, <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            ObjectAssociationMap *refs = <span class="keyword">new</span> ObjectAssociationMap;</span><br><span class="line">            associations[disguised<span class="number">_</span><span class="keyword">object</span>] = refs;</span><br><span class="line">            (*refs)[key] = ObjcAssociation(policy, <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span>);</span><br><span class="line">            <span class="keyword">object</span>-&gt;setHasAssociatedObjects();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (old<span class="number">_</span>association.hasValue()) ReleaseValue()(old<span class="number">_</span>association);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用 <code>old_association(0, nil)</code> 创建一个临时的 <code>ObjcAssociation</code> 对象（用于持有原有的关联对象，方便在方法调用的最后释放值）</li>
+<li><p>调用 <code>acquireValue</code> 对 <code>new_value</code> 进行 <code>retain</code> 或者 <code>copy</code></p>
+ <figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">id</span> acquireValue(<span class="keyword">id</span> value, uintptr_t policy) &#123;</span><br><span class="line">    <span class="keyword">switch</span> (policy &amp; <span class="number">0xFF</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> OBJC_ASSOCIATION_SETTER_RETAIN:</span><br><span class="line">        <span class="keyword">return</span> ((<span class="keyword">id</span>(*)(<span class="keyword">id</span>, SEL))objc_msgSend)(value, SEL_retain);</span><br><span class="line">    <span class="keyword">case</span> OBJC_ASSOCIATION_SETTER_COPY:</span><br><span class="line">        <span class="keyword">return</span> ((<span class="keyword">id</span>(*)(<span class="keyword">id</span>, SEL))objc_msgSend)(value, SEL_copy);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化一个 <code>AssociationsManager</code>，并获取唯一的保存关联对象的哈希表 <code>AssociationsHashMap</code></p>
+ <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">AssociationsManager manager<span class="comment">;</span></span><br><span class="line">AssociationsHashMap &amp;associations(<span class="name">manager</span>.associations())<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>先使用 <code>DISGUISE(object)</code> 作为 key 寻找对应的 <code>ObjectAssociationMap</code></p>
+</li>
+<li><p>如果没有找到，初始化一个 <code>ObjectAssociationMap</code>，再实例化 <code>ObjcAssociation</code> 对象添加到 Map 中，并调用 <code>setHasAssociatedObjects</code> 方法，表明当前对象含有关联对象</p>
+ <figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ObjectAssociationMap *refs = <span class="keyword">new</span> ObjectAssociationMap;</span><br><span class="line">associations[disguised<span class="number">_</span><span class="keyword">object</span>] = refs;</span><br><span class="line">(*refs)[key] = ObjcAssociation(policy, <span class="keyword">new</span><span class="number">_</span><span class="keyword">value</span>);</span><br><span class="line"><span class="keyword">object</span>-&gt;setHasAssociatedObjects();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果找到了对应的 <code>ObjectAssociationMap</code>，就要看 <code>key</code> 是否存在了，由此来决定是更新原有的关联对象，还是增加一个</p>
+ <figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">O<span class="function"><span class="title">bjectAssociationMap</span> *refs = i-&gt;</span>second;</span><br><span class="line">O<span class="function"><span class="title">bjectAssociationMap</span>::iterator j = refs-&gt;</span>find(key);</span><br><span class="line"><span class="function"><span class="title">if</span> (j != refs-&gt;</span>end()) &#123;</span><br><span class="line">    <span class="function"><span class="title">old_association</span> = j-&gt;</span>second;</span><br><span class="line">    <span class="function"><span class="title">j</span>-&gt;</span>second = ObjcAssociation(policy, new_value);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    (*refs)[key] = ObjcAssociation(policy, new_value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后的最后，如果原来的关联对象有值的话，会调用 <code>ReleaseValue()</code> 释放关联对象的值</p>
+ <figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">struct</span> ReleaseValue &#123;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">operator</span>(<span class="params"></span>) (<span class="params">ObjcAssociation &amp;association</span>) </span>&#123;</span><br><span class="line">        releaseValue(association.<span class="keyword">value</span>(), association.policy());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">releaseValue</span>(<span class="params">id <span class="keyword">value</span>, uintptr_t policy</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (policy &amp; OBJC_ASSOCIATION_SETTER_RETAIN) &#123;</span><br><span class="line">        ((id(*)(id, SEL))objc_msgSend)(<span class="keyword">value</span>, SEL_release);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>到这里，该条件下的方法实现就结束了。</p>
+<h4 id="new-value-nil-1"><a href="#new-value-nil-1" class="headerlink" title="new_value == nil"></a>new_value == nil</h4><p>如果 <code>new_value == nil</code>，就说明我们要删除对应 <code>key</code> 的关联对象，实现如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">void _object_set_associative_reference(<span class="name">id</span> object, void *key, id value, uintptr_t policy) &#123;</span><br><span class="line">    ObjcAssociation old_association(0, nil);</span><br><span class="line">    id new_value = value ? acquireValue(value, policy) : nil;</span><br><span class="line">    &#123;</span><br><span class="line">        AssociationsManager manager;</span><br><span class="line">        AssociationsHashMap &amp;associations(manager.associations());</span><br><span class="line">        disguised_ptr_t disguised_object = DISGUISE(object);</span><br><span class="line"></span><br><span class="line">        AssociationsHashMap::iterator i = associations.find(disguised_object);</span><br><span class="line">        if (i !=  associations.end()) &#123;</span><br><span class="line">            ObjectAssociationMap *refs = i-&gt;second<span class="comment">;</span></span><br><span class="line">            ObjectAssociationMap:<span class="symbol">:iterator</span> j = refs-&gt;find(<span class="name">key</span>)<span class="comment">;</span></span><br><span class="line">            if (<span class="name">j</span> != refs-&gt;end()) &#123;</span><br><span class="line">                old_association = j-&gt;second<span class="comment">;</span></span><br><span class="line">                refs-&gt;erase(<span class="name">j</span>)<span class="comment">;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (<span class="name">old_association</span>.hasValue()) ReleaseValue()(<span class="name">old_association</span>)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这种情况下方法的实现与前面的唯一区别就是，我们会调用 <code>erase</code> 方法，擦除 <code>ObjectAssociationMap</code> 中 <code>key</code> 对应的节点。</p>
+<h4 id="setHasAssociatedObjects"><a href="#setHasAssociatedObjects" class="headerlink" title="setHasAssociatedObjects()"></a>setHasAssociatedObjects()</h4><p>其实上面的两种情况已经将 <code>objc_setAssociatedObject</code> 方法的实现分析得很透彻了，不过，这里还有一个小问题来等待我们解决，<code>setHasAssociatedObjects()</code> 方法的作用是什么？</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> void objc_object:<span class="type"></span>:setHasAssociatedObjects() &#123;</span><br><span class="line">    <span class="keyword">if</span> (isTaggedPointer()) <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line"> retry:<span class="type"></span></span><br><span class="line"><span class="type">    isa_t oldisa </span>= LoadExclusive(&amp;isa.bits);</span><br><span class="line">    isa_t <span class="keyword">new</span><span class="type">isa</span> = oldisa;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="keyword">new</span><span class="type">isa</span>.indexed) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span><span class="type">isa</span>.has_assoc) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">new</span><span class="type">isa</span>.has_assoc = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">if</span> (!StoreExclusive(&amp;isa.bits, oldisa.bits, <span class="keyword">new</span><span class="type">isa</span>.bits)) goto retry;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它会将 <code>isa</code> 结构体中的标记位 <code>has_assoc</code> 标记为 <code>true</code>，也就是表示当前对象有关联对象，在这里我还想祭出这张图来介绍 <code>isa</code> 中的各个标记位都是干什么的。</p>
+<p><img src="/wiki/IOS/Runtime/objc/14_AssociatedObject /objc-ao-isa-struct.png" alt="objc-ao-isa-struct"></p>
+<blockquote>
+<p>如果想要了解关于 isa 的知识，可以阅读<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/从%20NSObject%20的初始化了解%20isa.md" rel="external nofollow noopener noreferrer" target="_blank">从 NSObject 的初始化了解 isa</a></p>
+</blockquote>
+<h3 id="objc-getAssociatedObject"><a href="#objc-getAssociatedObject" class="headerlink" title="objc_getAssociatedObject"></a>objc_getAssociatedObject</h3><p>我们既然已经对 <code>objc_setAssociatedObject</code> 的实现已经比较熟悉了，相信对于 <code>objc_getAssociatedObject</code> 的理解也会更加容易。</p>
+<p>方法的调用栈和 <code>objc_setAssociatedObject</code> 非常相似：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">id</span> objc_getAssociatedObject(<span class="keyword">id</span> object, <span class="keyword">const</span> <span class="keyword">void</span> *key)</span><br><span class="line">└── <span class="keyword">id</span> objc_getAssociatedObject_non_gc(<span class="keyword">id</span> object, <span class="keyword">const</span> <span class="keyword">void</span> *key);</span><br><span class="line">    └── <span class="keyword">id</span> _object_get_associative_reference(<span class="keyword">id</span> object, <span class="keyword">void</span> *key)</span><br></pre></td></tr></table></figure>
+<p>而 <code>_object_get_associative_reference</code> 相比于前面方法的实现更加简单。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">id _object_get_associative_reference(<span class="name">id</span> object, void *key) &#123;</span><br><span class="line">    id value = nil;</span><br><span class="line">    uintptr_t policy = OBJC_ASSOCIATION_ASSIGN;</span><br><span class="line">    &#123;</span><br><span class="line">        AssociationsManager manager;</span><br><span class="line">        AssociationsHashMap &amp;associations(manager.associations());</span><br><span class="line">        disguised_ptr_t disguised_object = DISGUISE(object);</span><br><span class="line">        AssociationsHashMap::iterator i = associations.find(disguised_object);</span><br><span class="line">        if (i != associations.end()) &#123;</span><br><span class="line">            ObjectAssociationMap *refs = i-&gt;second<span class="comment">;</span></span><br><span class="line">            ObjectAssociationMap:<span class="symbol">:iterator</span> j = refs-&gt;find(<span class="name">key</span>)<span class="comment">;</span></span><br><span class="line">            if (<span class="name">j</span> != refs-&gt;end()) &#123;</span><br><span class="line">                ObjcAssociation <span class="symbol">&amp;entry</span> = j-&gt;second<span class="comment">;</span></span><br><span class="line">                value = entry.value()<span class="comment">;</span></span><br><span class="line">                policy = entry.policy()<span class="comment">;</span></span><br><span class="line">                if (<span class="name">policy</span> &amp; OBJC_ASSOCIATION_GETTER_RETAIN) ((<span class="name">id</span>(<span class="name">*</span>)(<span class="name">id</span>, SEL))objc_msgSend)(<span class="name">value</span>, SEL_retain)<span class="comment">;</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (<span class="name">value</span> <span class="symbol">&amp;&amp;</span> (<span class="name">policy</span> &amp; OBJC_ASSOCIATION_GETTER_AUTORELEASE)) &#123;</span><br><span class="line">        ((<span class="name">id</span>(<span class="name">*</span>)(<span class="name">id</span>, SEL))objc_msgSend)(<span class="name">value</span>, SEL_autorelease)<span class="comment">;</span></span><br><span class="line">    &#125;</span><br><span class="line">    return value<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码中寻找关联对象的逻辑和 <code>objc_setAssociatedObject</code> 差不多：</p>
+<ol>
+<li>获取静态变量 <code>AssociationsHashMap</code></li>
+<li>以 <code>DISGUISE(object)</code> 为 key 查找 <code>AssociationsHashMap</code></li>
+<li>以 <code>void *key</code> 为 key 查找 <code>ObjcAssociation</code></li>
+<li><p>根据 <code>policy</code> 调用相应的方法</p>
+ <figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (policy &amp; OBJC_ASSOCIATION_GETTER_RETAIN) ((id<span class="comment">(*)(id, SEL))objc_msgSend)(value, SEL_retain);</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">if (value &amp;&amp; (policy &amp; OBJC_ASSOCIATION_GETTER_AUTORELEASE)) &#123;</span></span><br><span class="line"><span class="comment">    ((id(*)</span>(id, SEL))objc_msgSend)(value, SEL_autorelease);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>返回关联对象 <code>ObjcAssociation</code> 的值</p>
+</li>
+</ol>
+<h3 id="objc-removeAssociatedObjects"><a href="#objc-removeAssociatedObjects" class="headerlink" title="objc_removeAssociatedObjects"></a>objc_removeAssociatedObjects</h3><p>关于最后的 <code>objc_removeAssociatedObjects</code> 方法，其实现也相对简单，这是方法的调用栈：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> objc<span class="number">_</span>removeAssociatedObjects(id <span class="keyword">object</span>)</span><br><span class="line">└── <span class="keyword">void</span> <span class="number">_</span><span class="keyword">object</span><span class="number">_</span>remove<span class="number">_</span>assocations(id <span class="keyword">object</span>)</span><br></pre></td></tr></table></figure>
+<p>这是简化版本的 <code>objc_removeAssociatedObjects</code> 方法实现：</p>
+<figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> objc<span class="number">_</span>removeAssociatedObjects(id <span class="keyword">object</span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">object</span> &amp;&amp; <span class="keyword">object</span>-&gt;hasAssociatedObjects()) &#123;</span><br><span class="line">        <span class="number">_</span><span class="keyword">object</span><span class="number">_</span>remove<span class="number">_</span>assocations(<span class="keyword">object</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了加速移除对象的关联对象的速度，我们会通过标记位 <code>has_assoc</code> 来避免不必要的方法调用，在确认了对象和关联对象的存在之后，才会调用 <code>_object_remove_assocations</code> 方法移除对象上所有的关联对象：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">void _object_remove_assocations(id object) &#123;</span><br><span class="line">    vector&lt; ObjcAssociation,ObjcAllocator&lt;ObjcAssociation&gt; &gt; elements<span class="comment">;</span></span><br><span class="line">    &#123;</span><br><span class="line">        AssociationsManager manager<span class="comment">;</span></span><br><span class="line">        AssociationsHashMap &amp;associations(manager.associations())<span class="comment">;</span></span><br><span class="line">        if (associations.size() == <span class="number">0</span>) return<span class="comment">;</span></span><br><span class="line">        <span class="keyword">disguised_ptr_t </span><span class="keyword">disguised_object </span>= <span class="keyword">DISGUISE(object);</span></span><br><span class="line"><span class="keyword"> </span>       AssociationsHashMap::iterator i = associations.find(<span class="keyword">disguised_object);</span></span><br><span class="line"><span class="keyword"> </span>       if (i != associations<span class="meta">.end</span>()) &#123;</span><br><span class="line">            ObjectAssociationMap *refs = i-&gt;second<span class="comment">;</span></span><br><span class="line">            for (ObjectAssociationMap::iterator <span class="keyword">j </span>= refs-&gt;<span class="keyword">begin(), </span>end = refs-&gt;end()<span class="comment">; j != end; ++j) &#123;</span></span><br><span class="line">                elements.push_back(<span class="keyword">j-&gt;second);</span></span><br><span class="line"><span class="keyword"> </span>           &#125;</span><br><span class="line">            delete refs<span class="comment">;</span></span><br><span class="line">            associations.erase(i)<span class="comment">;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    for_each(elements.<span class="keyword">begin(), </span>elements<span class="meta">.end</span>(), ReleaseValue())<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法会将对象包含的所有关联对象加入到一个 <code>vector</code> 中，然后对所有的 <code>ObjcAssociation</code> 对象调用 <code>ReleaseValue()</code> 方法，释放不再被需要的值。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><h3 id="关于应用"><a href="#关于应用" class="headerlink" title="关于应用"></a>关于应用</h3><p>本来在这个系列的文章中并不会涉及关联对象这个话题，不过，有人问过我这么一个问题：在分类中到底能否实现属性？其实在回答这个问题之前，首先要知道到底属性是什么？而属性的概念决定了这个问题的答案。</p>
+<ul>
+<li>如果你把属性理解为<strong>通过方法访问的实例变量</strong>，我相信这个问题的答案是不能，<strong>因为分类不能为类增加额外的实例变量</strong>。</li>
+<li>不过如果属性只是一个<strong>存取方法以及存储值的容器的集合</strong>，那么分类是可以实现属性的。</li>
+</ul>
+<blockquote>
+<p><strong>分类中对属性的实现其实只是实现了一个看起来像属性的接口而已</strong>。</p>
+</blockquote>
+<h3 id="关于实现"><a href="#关于实现" class="headerlink" title="关于实现"></a>关于实现</h3><p>关联对象又是如何实现并且管理的呢：</p>
+<ul>
+<li>关联对象其实就是 <code>ObjcAssociation</code> 对象</li>
+<li>关联对象由 <code>AssociationsManager</code> 管理并在  <code>AssociationsHashMap</code> 存储</li>
+<li>对象的指针以及其对应 <code>ObjectAssociationMap</code> 以键值对的形式存储在 <code>AssociationsHashMap</code> 中</li>
+<li><code>ObjectAssociationMap</code> 则是用于存储关联对象的数据结构</li>
+<li>每一个对象都有一个标记位 <code>has_assoc</code> 指示对象是否含有关联对象</li>
+</ul>
+<blockquote>
+<p>Follow: <a href="https://github.com/Draveness" rel="external nofollow noopener noreferrer" target="_blank">Draveness · Github</a></p>
+</blockquote>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    2. class_data_bits_t 结构
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">1. 从 NSObject 的初始化了解 isa（转载)</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/14_AssociatedObject /" data-title="14. 关联对象 AssociatedObject 完全解析（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/14_AssociatedObject /"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2018 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
