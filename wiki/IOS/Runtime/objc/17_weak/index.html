@@ -3,24 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>运算符优先级表 | LJ小窝</title>
+    <title>16. retain 和 release（转载) | LJ小窝</title>
     
     
-        <meta name="keywords" content="运算符优先级">
+        <meta name="keywords" content="retain 和 release">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="C++ 运算符优先级   结合律 运算符 功能 用法     左 :: 全局作用域 ::name   左 :: 类作用域 class::name   左 :: 命名空间作用域 namespace::name               左 . 成员选择 object.member   左 -&amp;gt; 成员选择 pointer-&amp;gt;member   左 [] 下标 expr[expr]   左">
-<meta name="keywords" content="运算符优先级">
+    <meta name="description" content="在接口设计时，我们经常要考虑某些意义上的平衡。在内存管理中也是这样，Objective-C 同时为我们提供了增加引用计数的 retain 和减少引用计数的 release 方法。 这篇文章会在源代码层面介绍 Objective-C 中 retain 和 release 的实现，它们是如何达到平衡的。">
+<meta name="keywords" content="retain 和 release">
 <meta property="og:type" content="article">
-<meta property="og:title" content="运算符优先级表">
-<meta property="og:url" content="http://yoursite.com/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/index.html">
+<meta property="og:title" content="16. retain 和 release（转载)">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="C++ 运算符优先级   结合律 运算符 功能 用法     左 :: 全局作用域 ::name   左 :: 类作用域 class::name   左 :: 命名空间作用域 namespace::name               左 . 成员选择 object.member   左 -&amp;gt; 成员选择 pointer-&amp;gt;member   左 [] 下标 expr[expr]   左">
+<meta property="og:description" content="在接口设计时，我们经常要考虑某些意义上的平衡。在内存管理中也是这样，Objective-C 同时为我们提供了增加引用计数的 retain 和减少引用计数的 release 方法。 这篇文章会在源代码层面介绍 Objective-C 中 retain 和 release 的实现，它们是如何达到平衡的。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-07-05T11:09:40.000Z">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/16_retain_release/objc-rr-isa-struct.png">
+<meta property="og:updated_time" content="2018-12-04T08:27:10.984Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="运算符优先级表">
-<meta name="twitter:description" content="C++ 运算符优先级   结合律 运算符 功能 用法     左 :: 全局作用域 ::name   左 :: 类作用域 class::name   左 :: 命名空间作用域 namespace::name               左 . 成员选择 object.member   左 -&amp;gt; 成员选择 pointer-&amp;gt;member   左 [] 下标 expr[expr]   左">
+<meta name="twitter:title" content="16. retain 和 release（转载)">
+<meta name="twitter:description" content="在接口设计时，我们经常要考虑某些意义上的平衡。在内存管理中也是这样，Objective-C 同时为我们提供了增加引用计数的 retain 和减少引用计数的 release 方法。 这篇文章会在源代码层面介绍 Objective-C 中 retain 和 release 的实现，它们是如何达到平衡的。">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/16_retain_release/objc-rr-isa-struct.png">
     
 
     
@@ -156,16 +158,16 @@
         
         
          <ul class="unstyled" id="tree"> 
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             C++语言
                         </a>
                          <ul class="unstyled" id="tree"> 
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             C++Primer
                         </a>
@@ -287,13 +289,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             第四章 表达式
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -408,9 +410,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -451,20 +453,20 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             Runtime
                         </a>
                          <ul class="unstyled" id="tree"> 
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/17_weak/">16. retain 和 release（转载)</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  <li class="file active"><a href="/wiki/IOS/Runtime/objc/17_weak/">16. retain 和 release（转载)</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -802,7 +804,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-C++语言/C++Primer/第四章 表达式/运算符优先级表" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/Runtime/objc/17_weak" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -812,20 +814,20 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第四章-表达式/">第四章 表达式</a>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/运算符优先级/">运算符优先级</a>
+        <a class="tag-link" href="/tags/retain-和-release/">retain 和 release</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">
-            <time datetime="2018-06-23T04:07:12.000Z" itemprop="datePublished">2018-06-23</time>
+        <a href="/wiki/IOS/Runtime/objc/17_weak/">
+            <time datetime="2018-12-04T02:38:11.000Z" itemprop="datePublished">2018-12-04</time>
         </a>
     </div>
 
@@ -836,7 +838,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            运算符优先级表
+            16. retain 和 release（转载)
         </h1>
     
 
@@ -849,612 +851,102 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#C-运算符优先级"><span class="toc-number">1.</span> <span class="toc-text">C++ 运算符优先级</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#从-retain-开始"><span class="toc-number">1.</span> <span class="toc-text">从 retain 开始</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正常的-rootRetain"><span class="toc-number">1.1.</span> <span class="toc-text">正常的 rootRetain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有进位版本的-rootRetain"><span class="toc-number">1.2.</span> <span class="toc-text">有进位版本的 rootRetain</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#有进位版本的-rootRetain（处理溢出）"><span class="toc-number">1.3.</span> <span class="toc-text">有进位版本的 rootRetain（处理溢出）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#以-release-结束"><span class="toc-number">2.</span> <span class="toc-text">以 release 结束</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#正常的-release"><span class="toc-number">2.1.</span> <span class="toc-text">正常的 release</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#从-SideTable-借位"><span class="toc-number">2.2.</span> <span class="toc-text">从 SideTable 借位</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#release-中调用-dealloc"><span class="toc-number">2.3.</span> <span class="toc-text">release 中调用 dealloc</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#获取自动引用计数"><span class="toc-number">3.</span> <span class="toc-text">获取自动引用计数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#小结"><span class="toc-number">4.</span> <span class="toc-text">小结</span></a></li></ol>
                 </div>
             
         
         
-            <a id="more"></a>
-<h2 id="C-运算符优先级"><a href="#C-运算符优先级" class="headerlink" title="C++ 运算符优先级"></a>C++ 运算符优先级</h2><table>
-<thead>
-<tr>
-<th>结合律</th>
-<th>运算符</th>
-<th>功能</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>左</td>
-<td>::</td>
-<td>全局作用域</td>
-<td>::name</td>
-</tr>
-<tr>
-<td>左</td>
-<td>::</td>
-<td>类作用域</td>
-<td>class::name</td>
-</tr>
-<tr>
-<td>左</td>
-<td>::</td>
-<td>命名空间作用域</td>
-<td>namespace::name</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>.</td>
-<td>成员选择</td>
-<td>object.member</td>
-</tr>
-<tr>
-<td>左</td>
-<td>-&gt;</td>
-<td>成员选择</td>
-<td>pointer-&gt;member</td>
-</tr>
-<tr>
-<td>左</td>
-<td>[]</td>
-<td>下标</td>
-<td>expr[expr]</td>
-</tr>
-<tr>
-<td>左</td>
-<td>()</td>
-<td>函数调用</td>
-<td>name(expr_lit)</td>
-</tr>
-<tr>
-<td>左</td>
-<td>()</td>
-<td>类型构造</td>
-<td>type(expr_lit)</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>右</td>
-<td>++</td>
-<td>后置递增运算</td>
-<td>lvalue++</td>
-</tr>
-<tr>
-<td>右</td>
-<td>–</td>
-<td>后置递减运算</td>
-<td>lvalue–</td>
-</tr>
-<tr>
-<td>右</td>
-<td>typeid</td>
-<td>类型ID</td>
-<td>typeid(type)</td>
-</tr>
-<tr>
-<td>右</td>
-<td>typeid</td>
-<td>运行时类型ID</td>
-<td>typeid(expr)</td>
-</tr>
-<tr>
-<td>右</td>
-<td>explicit cast</td>
-<td>类型转换</td>
-<td>cast_name<type>(expr)</type></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>右</td>
-<td>++</td>
-<td>前置递增运算</td>
-<td>++lvalue</td>
-</tr>
-<tr>
-<td>右</td>
-<td>–</td>
-<td>前置递减运算</td>
-<td>–lvalue</td>
-</tr>
-<tr>
-<td>右</td>
-<td>~</td>
-<td>位求反</td>
-<td>~expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>!</td>
-<td>逻辑非</td>
-<td>!expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>-</td>
-<td>一元负号</td>
-<td>-expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>+</td>
-<td>一元正号</td>
-<td>+expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>*</td>
-<td>解引用</td>
-<td>*expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>&amp;</td>
-<td>取地址</td>
-<td>&amp;lvalue</td>
-</tr>
-<tr>
-<td>右</td>
-<td>()</td>
-<td>类型转换</td>
-<td>(type)expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>sizeof</td>
-<td>对象大小</td>
-<td>sizeof expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>sizeof</td>
-<td>类型大小</td>
-<td>sizeof(type)</td>
-</tr>
-<tr>
-<td>右</td>
-<td>Sizeof…</td>
-<td>参数包的大小</td>
-<td>sizeof…(name)</td>
-</tr>
-<tr>
-<td>右</td>
-<td>new</td>
-<td>创建对象</td>
-<td>new type</td>
-</tr>
-<tr>
-<td>右</td>
-<td>new []</td>
-<td>创建数组</td>
-<td>new type[size]</td>
-</tr>
-<tr>
-<td>右</td>
-<td>delete</td>
-<td>释放对象</td>
-<td>delete expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>delete []</td>
-<td>释放数组</td>
-<td>delete [] expr</td>
-</tr>
-<tr>
-<td>右</td>
-<td>noexcept</td>
-<td>能否抛出异常</td>
-<td>noexcept(expr)</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>-&gt;*</td>
-<td>指向成员选择的指针</td>
-<td>ptr-&gt;*prt_to_member</td>
-</tr>
-<tr>
-<td>左</td>
-<td>.*</td>
-<td>指向成员选择的指针</td>
-<td>obj.*prt_to_member</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>*</td>
-<td>乘法</td>
-<td>expr*expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>/</td>
-<td>除法</td>
-<td>expr/expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>%</td>
-<td>取模（取余）</td>
-<td>expr%expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>+</td>
-<td>加法</td>
-<td>expr + expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>-</td>
-<td>减法</td>
-<td>expr -expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>&lt;&lt;</td>
-<td>向左移位</td>
-<td>expr &lt;&lt; expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>&gt;&gt;</td>
-<td>向右移位</td>
-<td>expr &gt;&gt; expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>&lt;</td>
-<td>小于</td>
-<td>expr &lt; expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>&lt;=</td>
-<td>小于等于</td>
-<td>expr &lt;=expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>&gt;</td>
-<td>大于</td>
-<td>expr &gt; expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>&gt;=</td>
-<td>大于等于</td>
-<td>expr &gt;= expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>==</td>
-<td>相等</td>
-<td>expr == expr</td>
-</tr>
-<tr>
-<td>左</td>
-<td>!=</td>
-<td>不相等</td>
-<td>expr != expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>&amp;</td>
-<td>位与</td>
-<td>expr &amp; expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>^</td>
-<td>位异或</td>
-<td>expr ^ expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>`</td>
-<td>`</td>
-<td>位或</td>
-<td>`expr</td>
-<td>expr`</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>&amp;&amp;</td>
-<td>逻辑与</td>
-<td>expr &amp;&amp; expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>`</td>
-<td></td>
-<td>`</td>
-<td>逻辑或</td>
-<td>`expr</td>
-<td></td>
-<td>expr`</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>?:</td>
-<td>条件</td>
-<td>expr?expr:expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>=</td>
-<td>赋值</td>
-<td>lvalue = expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>*=,/-,%=</td>
-<td>符合赋值</td>
-<td>lvalue+=expr等</td>
-</tr>
-<tr>
-<td>左</td>
-<td>+=,-=</td>
-<td>符合赋值</td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>&lt;&lt;=,&gt;&gt;=</td>
-<td>符合赋值</td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>&amp;=,`</td>
-<td>=`,^=</td>
-<td>符合赋值</td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>右</td>
-<td>throw</td>
-<td>抛出异常</td>
-<td>throw expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>左</td>
-<td>,</td>
-<td>逗号</td>
-<td>expr,expr</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody>
-</table>
+            <p>在接口设计时，我们经常要考虑某些意义上的平衡。在内存管理中也是这样，Objective-C 同时为我们提供了增加引用计数的 <code>retain</code> 和减少引用计数的 <code>release</code> 方法。</p>
+<p>这篇文章会在源代码层面介绍 Objective-C 中 <code>retain</code> 和 <code>release</code> 的实现，它们是如何达到平衡的。</p>
+<a id="more"></a>
+<h2 id="从-retain-开始"><a href="#从-retain-开始" class="headerlink" title="从 retain 开始"></a>从 retain 开始</h2><p>如今我们已经进入了全面使用 ARC 的时代，几年前还经常使用的 <code>retain</code> 和 <code>release</code> 方法已经很难出现于我们的视野中了，绝大多数内存管理的实现细节都由编译器代劳。</p>
+<p>在这里，我们还要从 <code>retain</code> 方法开始，对内存管理的实现细节一探究竟。</p>
+<p>下面是 <code>retain</code> 方法的调用栈：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- [NSObject retain]</span><br><span class="line">└── id objc_object::rootRetain()</span><br><span class="line">    └── id objc_object::rootRetain(<span class="keyword">bool </span>tryRetain, <span class="keyword">bool </span>handleOverflow)</span><br><span class="line">        ├── uintptr_t LoadExclusive(uintptr_t *src)</span><br><span class="line">        ├── uintptr_t <span class="keyword">addc(uintptr_t </span><span class="keyword">lhs, </span>uintptr_t rhs, uintptr_t carryin, uintptr_t *carryout)</span><br><span class="line">        ├── uintptr_t <span class="keyword">bits</span></span><br><span class="line"><span class="keyword"> </span>       │   └── uintptr_t has_sidetable_rc  </span><br><span class="line">        ├── <span class="keyword">bool </span>StoreExclusive(uintptr_t *dst, uintptr_t oldvalue, uintptr_t value)</span><br><span class="line">        └── <span class="keyword">bool </span>objc_object::sidetable_addExtraRC_nolock(size_t delta_rc)                </span><br><span class="line">            └── uintptr_t <span class="keyword">addc(uintptr_t </span><span class="keyword">lhs, </span>uintptr_t rhs, uintptr_t carryin, uintptr_t *carryout)</span><br></pre></td></tr></table></figure>
+<p>调用栈中的前两个方法的实现直接调用了下一个方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">id</span>)<span class="keyword">retain</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> ((<span class="keyword">id</span>)<span class="keyword">self</span>)-&gt;rootRetain();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">id</span> objc_object::rootRetain() &#123;</span><br><span class="line">    <span class="keyword">return</span> rootRetain(<span class="literal">false</span>, <span class="literal">false</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而 <code>id objc_object::rootRetain(bool tryRetain, bool handleOverflow)</code> 方法是调用栈中最重要的方法，其原理就是将 <code>isa</code> 结构体中的 <code>extra_rc</code> 的值加一。</p>
+<p><code>extra_rc</code> 就是用于保存自动引用计数的标志位，下面就是 <code>isa</code> 结构体中的结构：</p>
+<p><img src="/wiki/IOS/Runtime/objc/17_weak/16_retain_release/objc-rr-isa-struct.png" alt="objc-rr-isa-struct"></p>
+<p>接下来我们会分三种情况对 <code>rootRetain</code> 进行分析。</p>
+<h3 id="正常的-rootRetain"><a href="#正常的-rootRetain" class="headerlink" title="正常的 rootRetain"></a>正常的 rootRetain</h3><p>这是简化后的 <code>rootRetain</code> 方法的实现，其中只有处理一般情况的代码：</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">id objc_object:<span class="type"></span>:rootRetain(bool tryRetain, bool handleOverflow) &#123;</span><br><span class="line">    isa_t oldisa;</span><br><span class="line">    isa_t <span class="keyword">new</span><span class="type">isa</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        oldisa = LoadExclusive(&amp;isa.bits);</span><br><span class="line">        <span class="keyword">new</span><span class="type">isa</span> = oldisa;</span><br><span class="line"></span><br><span class="line">        uintptr_t carry;</span><br><span class="line">        <span class="keyword">new</span><span class="type">isa</span>.bits = addc(<span class="keyword">new</span><span class="type">isa</span>.bits, RC_ONE, <span class="number">0</span>, &amp;carry);</span><br><span class="line">    &#125; <span class="keyword">while</span> (!StoreExclusive(&amp;isa.bits, oldisa.bits, <span class="keyword">new</span><span class="type">isa</span>.bits));</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (id)<span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在这里我们假设的条件是 <code>isa</code> 中的 <code>extra_rc</code> 的位数足以存储 <code>retainCount</code>。</p>
+</blockquote>
+<ol>
+<li>使用 <code>LoadExclusive</code> 加载 <code>isa</code> 的值</li>
+<li>调用 <code>addc(newisa.bits, RC_ONE, 0, &amp;carry)</code> 方法将 <code>isa</code> 的值加一</li>
+<li>调用 <code>StoreExclusive(&amp;isa.bits, oldisa.bits, newisa.bits)</code> 更新 <code>isa</code> 的值</li>
+<li>返回当前对象</li>
+</ol>
+<h3 id="有进位版本的-rootRetain"><a href="#有进位版本的-rootRetain" class="headerlink" title="有进位版本的 rootRetain"></a>有进位版本的 rootRetain</h3><p>在这里调用 <code>addc</code> 方法为 <code>extra_rc</code> 加一时，8 位的 <code>extra_rc</code> 可能不足以保存引用计数。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">id objc_object::rootRetain(<span class="keyword">bool </span>tryRetain, <span class="keyword">bool </span>handleOverflow) &#123;</span><br><span class="line">    transcribeToSideTable = false<span class="comment">;</span></span><br><span class="line">    isa_t oldisa = LoadExclusive(&amp;isa.<span class="keyword">bits);</span></span><br><span class="line"><span class="keyword"> </span>   isa_t newisa = oldisa<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    uintptr_t carry<span class="comment">;</span></span><br><span class="line">    newisa.<span class="keyword">bits </span>= <span class="keyword">addc(newisa.bits, </span>RC_ONE, <span class="number">0</span>, &amp;carry)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    if (carry &amp;&amp; !handleOverflow)</span><br><span class="line">        return rootRetain_overflow(tryRetain)<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>extra_rc</code> 不足以保存引用计数，并且 <code>handleOverflow = false</code>。</p>
+</blockquote>
+<p>当方法传入的 <code>handleOverflow = false</code> 时（这也是通常情况），我们会调用 <code>rootRetain_overflow</code> 方法：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id objc_object::rootRetain_overflow(<span class="keyword">bool</span> tryRetain) &#123;</span><br><span class="line">    <span class="keyword">return</span> rootRetain(tryRetain, <span class="literal">true</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个方法其实就是重新执行 <code>rootRetain</code> 方法，并传入 <code>handleOverflow = true</code>。</p>
+<h3 id="有进位版本的-rootRetain（处理溢出）"><a href="#有进位版本的-rootRetain（处理溢出）" class="headerlink" title="有进位版本的 rootRetain（处理溢出）"></a>有进位版本的 rootRetain（处理溢出）</h3><p>当传入的 <code>handleOverflow = true</code> 时，我们就会在 <code>rootRetain</code> 方法中处理引用计数的溢出。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">id objc_object:<span class="type"></span>:rootRetain(bool tryRetain, bool handleOverflow) &#123;</span><br><span class="line">    bool sideTableLocked = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    isa_t oldisa;</span><br><span class="line">    isa_t <span class="keyword">new</span><span class="type">isa</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">do</span> &#123;</span><br><span class="line">        oldisa = LoadExclusive(&amp;isa.bits);</span><br><span class="line">        <span class="keyword">new</span><span class="type">isa</span> = oldisa;</span><br><span class="line">        uintptr_t carry;</span><br><span class="line">        <span class="keyword">new</span><span class="type">isa</span>.bits = addc(<span class="keyword">new</span><span class="type">isa</span>.bits, RC_ONE, <span class="number">0</span>, &amp;carry);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (carry) &#123;</span><br><span class="line">            <span class="keyword">new</span><span class="type">isa</span>.extra_rc = RC_HALF;</span><br><span class="line">            <span class="keyword">new</span><span class="type">isa</span>.has_sidetable_rc = <span class="literal">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">while</span> (!StoreExclusive(&amp;isa.bits, oldisa.bits, <span class="keyword">new</span><span class="type">isa</span>.bits));</span><br><span class="line"></span><br><span class="line">    sidetable_addExtraRC_nolock(RC_HALF);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> (id)<span class="built_in">this</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当调用这个方法，并且 <code>handleOverflow = true</code> 时，我们就可以确定 <code>carry</code> 一定是存在的了，</p>
+<p>因为 <code>extra_rc</code> 已经溢出了，所以要更新它的值为 <code>RC_HALF</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> RC_HALF (1ULL&lt;&lt;7)</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>extra_rc</code> 总共为 8 位，<code>RC_HALF = 0b10000000</code>。</p>
+</blockquote>
+<p>然后设置 <code>has_sidetable_rc</code> 为真，存储新的 <code>isa</code> 的值之后，调用 <code>sidetable_addExtraRC_nolock</code> 方法。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool</span> objc_object::sidetable_addExtraRC_nolock(<span class="keyword">size_t</span> delta_rc) &#123;</span><br><span class="line">    SideTable&amp; table = SideTables()[<span class="keyword">this</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">size_t</span>&amp; refcntStorage = table.refcnts[<span class="keyword">this</span>];</span><br><span class="line">    <span class="keyword">size_t</span> oldRefcnt = refcntStorage;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (oldRefcnt &amp; SIDE_TABLE_RC_PINNED) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">uintptr_t</span> carry;</span><br><span class="line">    <span class="keyword">size_t</span> newRefcnt = </span><br><span class="line">        addc(oldRefcnt, delta_rc &lt;&lt; SIDE_TABLE_RC_SHIFT, <span class="number">0</span>, &amp;carry);</span><br><span class="line">    <span class="keyword">if</span> (carry) &#123;</span><br><span class="line">        refcntStorage = SIDE_TABLE_RC_PINNED | (oldRefcnt &amp; SIDE_TABLE_FLAG_MASK);</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        refcntStorage = newRefcnt;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里我们将溢出的一位 <code>RC_HALF</code> 添加到 <code>oldRefcnt</code> 中，其中的各种 <code>SIDE_TABLE</code> 宏定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIDE_TABLE_WEAKLY_REFERENCED (1UL&lt;&lt;0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIDE_TABLE_DEALLOCATING      (1UL&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIDE_TABLE_RC_ONE            (1UL&lt;&lt;2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIDE_TABLE_RC_PINNED         (1UL&lt;&lt;(WORD_BITS-1))</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIDE_TABLE_RC_SHIFT 2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SIDE_TABLE_FLAG_MASK (SIDE_TABLE_RC_ONE-1)</span></span><br></pre></td></tr></table></figure>
+<p>因为 <code>refcnts</code> 中的 64 为的最低两位是有意义的标志位，所以在使用 <code>addc</code> 时要将 <code>delta_rc</code> 左移两位，获得一个新的引用计数 <code>newRefcnt</code>。</p>
+<p>如果这时出现了溢出，那么就会撤销这次的行为。否则，会将新的引用计数存储到 <code>refcntStorage</code> 指针中。</p>
+<hr>
+<p>也就是说，在 iOS 的内存管理中，我们使用了 <code>isa</code> 结构体中的 <code>extra_rc</code> 和 <code>SideTable</code> 来存储某个对象的自动引用计数。</p>
+<p>更重要的是，<strong>如果自动引用计数为 1，<code>extra_rc</code> 实际上为 0</strong>，因为它保存的是额外的引用计数，我们通过这个行为能够减少很多不必要的函数调用。</p>
+<p>到目前为止，我们已经从头梳理了 <code>retain</code> 方法的调用栈及其实现。下面要介绍的是在内存管理中，我们是如何使用 <code>release</code> 方法平衡这个方法的。</p>
+<h2 id="以-release-结束"><a href="#以-release-结束" class="headerlink" title="以 release 结束"></a>以 release 结束</h2><p>与 release 方法相似，我们看一下这个方法简化后的调用栈：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- [<span class="built_in">NSObject</span> release]</span><br><span class="line">└── <span class="keyword">id</span> objc_object::rootRelease()</span><br><span class="line">    └── <span class="keyword">id</span> objc_object::rootRetain(<span class="keyword">bool</span> performDealloc, <span class="keyword">bool</span> handleUnderflow)</span><br></pre></td></tr></table></figure>
+<p>前面的两个方法的实现和 <code>retain</code> 中的相差无几，这里就直接跳过了。</p>
+<p>同样，在分析 <code>release</code> 方法时，我们也根据上下文的不同，将 <code>release</code> 方法的实现拆分为三部分，说明它到底是如何调用的。</p>
+<h3 id="正常的-release"><a href="#正常的-release" class="headerlink" title="正常的 release"></a>正常的 release</h3><p>这一个版本的方法调用可以说是最简版本的方法调用了：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool </span>objc_object::rootRelease(<span class="keyword">bool </span>performDealloc, <span class="keyword">bool </span>handleUnderflow) &#123;</span><br><span class="line">    isa_t oldisa<span class="comment">;</span></span><br><span class="line">    isa_t newisa<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    do &#123;</span><br><span class="line">        oldisa = LoadExclusive(&amp;isa.<span class="keyword">bits);</span></span><br><span class="line"><span class="keyword"> </span>       newisa = oldisa<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">        uintptr_t carry<span class="comment">;</span></span><br><span class="line">        newisa.<span class="keyword">bits </span>= <span class="keyword">subc(newisa.bits, </span>RC_ONE, <span class="number">0</span>, &amp;carry)<span class="comment">;</span></span><br><span class="line">    &#125; while (!StoreReleaseExclusive(&amp;isa.<span class="keyword">bits, </span>oldisa.<span class="keyword">bits, </span>newisa.<span class="keyword">bits));</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"> </span>   return false<span class="comment">;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>使用 <code>LoadExclusive</code> 获取 <code>isa</code> 内容</li>
+<li>将 <code>isa</code> 中的引用计数减一</li>
+<li>调用 <code>StoreReleaseExclusive</code> 方法保存新的 <code>isa</code></li>
+</ol>
+<h3 id="从-SideTable-借位"><a href="#从-SideTable-借位" class="headerlink" title="从 SideTable 借位"></a>从 SideTable 借位</h3><p>接下来，我们就要看两种相对比较复杂的情况了，首先是从 <code>SideTable</code> 借位的版本：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">bool </span>objc_object::rootRelease(<span class="keyword">bool </span>performDealloc, <span class="keyword">bool </span>handleUnderflow) &#123;</span><br><span class="line">    isa_t oldisa<span class="comment">;</span></span><br><span class="line">    isa_t newisa<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    do &#123;</span><br><span class="line">        oldisa = LoadExclusive(&amp;isa.<span class="keyword">bits);</span></span><br><span class="line"><span class="keyword"> </span>       newisa = oldisa<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">        uintptr_t carry<span class="comment">;</span></span><br><span class="line">        newisa.<span class="keyword">bits </span>= <span class="keyword">subc(newisa.bits, </span>RC_ONE, <span class="number">0</span>, &amp;carry)<span class="comment">;</span></span><br><span class="line">        if (carry) goto underflow<span class="comment">;</span></span><br><span class="line">    &#125; while (!StoreReleaseExclusive(&amp;isa.<span class="keyword">bits, </span>oldisa.<span class="keyword">bits, </span>newisa.<span class="keyword">bits));</span></span><br><span class="line"><span class="keyword"> </span>   </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"><span class="symbol"> underflow:</span></span><br><span class="line">    newisa = oldisa<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    if (newisa.has_sidetable_rc) &#123;</span><br><span class="line">        if (!handleUnderflow) &#123;</span><br><span class="line">            return rootRelease_underflow(performDealloc)<span class="comment">;</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        size_t <span class="keyword">borrowed </span>= sidetable_subExtraRC_nolock(RC_HALF)<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">        if (<span class="keyword">borrowed </span>&gt; <span class="number">0</span>) &#123;</span><br><span class="line">            newisa.<span class="keyword">extra_rc </span>= <span class="keyword">borrowed </span>- <span class="number">1</span><span class="comment">;</span></span><br><span class="line">            <span class="keyword">bool </span>stored = StoreExclusive(&amp;isa.<span class="keyword">bits, </span>oldisa.<span class="keyword">bits, </span>newisa.<span class="keyword">bits);</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"> </span>           return false<span class="comment">;</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这里省去了使用锁来<strong>防止竞争条件</strong>以及<strong>调用 <code>StoreExclusive</code> 失败后恢复现场</strong>的代码。<br>我们会默认这里存在 <code>SideTable</code>，也就是 <code>has_sidetable_rc = true</code>。</p>
+</blockquote>
+<p>你可以看到，这里也有一个 <code>handleUnderflow</code>，与 retain 中的相同，如果发生了 <code>underflow</code>，会重新调用该 <code>rootRelease</code> 方法，并传入 <code>handleUnderflow = true</code>。</p>
+<p>在调用 <code>sidetable_subExtraRC_nolock</code> 成功借位之后，我们会重新设置 <code>newisa</code> 的值 <code>newisa.extra_rc = borrowed - 1</code> 并更新 <code>isa</code>。</p>
+<h3 id="release-中调用-dealloc"><a href="#release-中调用-dealloc" class="headerlink" title="release 中调用 dealloc"></a>release 中调用 dealloc</h3><p>如果在 <code>SideTable</code> 中也没有获取到借位的话，就说明没有任何的变量引用了当前对象（即 <code>retainCount = 0</code>），就需要向它发送 <code>dealloc</code> 消息了。</p>
+<figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">bool objc_object:<span class="type"></span>:rootRelease(bool performDealloc, bool handleUnderflow) &#123;</span><br><span class="line">    isa_t oldisa;</span><br><span class="line">    isa_t <span class="keyword">new</span><span class="type">isa</span>;</span><br><span class="line"></span><br><span class="line"> retry:<span class="type"></span></span><br><span class="line"><span class="type">    do </span>&#123;</span><br><span class="line">        oldisa = LoadExclusive(&amp;isa.bits);</span><br><span class="line">        <span class="keyword">new</span><span class="type">isa</span> = oldisa;</span><br><span class="line"></span><br><span class="line">        uintptr_t carry;</span><br><span class="line">        <span class="keyword">new</span><span class="type">isa</span>.bits = subc(<span class="keyword">new</span><span class="type">isa</span>.bits, RC_ONE, <span class="number">0</span>, &amp;carry);</span><br><span class="line">        <span class="keyword">if</span> (carry) goto underflow;</span><br><span class="line">    &#125; <span class="keyword">while</span> (!StoreReleaseExclusive(&amp;isa.bits, oldisa.bits, <span class="keyword">new</span><span class="type">isa</span>.bits));</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line"> underflow:<span class="type"></span></span><br><span class="line"><span class="type">    newisa </span>= oldisa;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">new</span><span class="type">isa</span>.deallocating) &#123;</span><br><span class="line">        <span class="keyword">return</span> overrelease_error();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">new</span><span class="type">isa</span>.deallocating = <span class="literal">true</span>;</span><br><span class="line">    StoreExclusive(&amp;isa.bits, oldisa.bits, <span class="keyword">new</span><span class="type">isa</span>.bits);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (performDealloc) &#123;</span><br><span class="line">        ((void(*)(objc_object *, SEL))objc_msgSend)(<span class="built_in">this</span>, SEL_dealloc);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上述代码会直接调用 <code>objc_msgSend</code> 向当前对象发送 <code>dealloc</code> 消息。</p>
+<p>不过为了确保消息只会发送一次，我们使用 <code>deallocating</code> 标记位。</p>
+<h2 id="获取自动引用计数"><a href="#获取自动引用计数" class="headerlink" title="获取自动引用计数"></a>获取自动引用计数</h2><p>在文章的最结尾，笔者想要介绍一下 <code>retainCount</code> 的值是怎么计算的，我们直接来看 <code>retainCount</code> 方法的实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">- (NSUInteger)retainCount &#123;</span><br><span class="line">    <span class="keyword">return</span> ((id)self)-&gt;rootRetainCount();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">inline</span> <span class="keyword">uintptr_t</span> objc_object::rootRetainCount() &#123;</span><br><span class="line">    <span class="keyword">isa_t</span> bits = LoadExclusive(&amp;isa.bits);</span><br><span class="line">    <span class="keyword">uintptr_t</span> rc = <span class="number">1</span> + bits.extra_rc;</span><br><span class="line">    <span class="keyword">if</span> (bits.has_sidetable_rc) &#123;</span><br><span class="line">        rc += sidetable_getExtraRC_nolock();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> rc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> 根据方法的实现，retainCount 有三部分组成：</p>
+<ul>
+<li>1</li>
+<li><code>extra_rc</code> 中存储的值</li>
+<li><code>sidetable_getExtraRC_nolock</code> 返回的值</li>
+</ul>
+<p>这也就证明了我们之前得到的结论。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>我们在这篇文章中已经介绍了 <code>retain</code> 和 <code>release</code> 这一对用于内存管理的方法是如何实现的，这里总结一下文章一下比较重要的问题。</p>
+<ul>
+<li><code>extra_rc</code> 只会保存额外的自动引用计数，对象实际的引用计数会在这个基础上 +1</li>
+<li>Objective-C 使用 <code>isa</code> 中的 <code>extra_rc</code> 和 <code>SideTable</code> 来存储对象的引用计数</li>
+<li>在对象的引用计数归零时，会调用 <code>dealloc</code> 方法回收对象</li>
+</ul>
+<p>有关于自动释放池实现的介绍，可以看<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/自动释放池的前世今生.md" rel="external nofollow noopener noreferrer" target="_blank">自动释放池的前世今生</a>。</p>
+<blockquote>
+<p>Follow: <a href="https://github.com/Draveness" rel="external nofollow noopener noreferrer" target="_blank">Draveness · Github</a></p>
+</blockquote>
 
             </div>
         
@@ -1467,19 +959,10 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/数据知识/数学基础知识/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    数学知识一对数指数
-                
-            </div>
-        </a>
     
-    
-        <a href="/wiki/IOS/MachO/machoviewer/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/Runtime/objc/16_retain_release/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">mach-o Viewer 源码学习</div>
+            <div class="article-nav-title">16. retain 和 release（转载)</div>
         </a>
     
 </nav>
@@ -1491,7 +974,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/" data-title="运算符优先级表" data-url="http://yoursite.com/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/Runtime/objc/17_weak/" data-title="16. retain 和 release（转载)" data-url="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
