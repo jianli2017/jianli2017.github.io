@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/</loc>
+    
+    <lastmod>2018-12-05T06:32:28.785Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/Runtime/objc/14_AssociatedObject%20/</loc>
     
     <lastmod>2018-12-04T08:27:23.213Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/wiki/IOS/Runtime/objc/15_autoreleasepool/</loc>
     
     <lastmod>2018-12-04T08:27:17.678Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/</loc>
-    
-    <lastmod>2018-12-04T08:27:10.984Z</lastmod>
     
   </url>
   
