@@ -17,18 +17,18 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="weak相关源码分析">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak_sideTable.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak入口.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak_sideTable.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/stripmap_memory_struct.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/stripedMap.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak_entry_t.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak_data_overal.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak_table三级表.png">
-<meta property="og:updated_time" content="2018-12-05T11:38:52.644Z">
+<meta property="og:updated_time" content="2018-12-05T11:44:45.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="17. weak 相关源码分析">
 <meta name="twitter:description" content="weak相关源码分析">
-<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak_sideTable.png">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/Runtime/objc/17_weak/weak入口.png">
     
 
     
@@ -865,7 +865,7 @@
             <p>weak相关源码分析</p>
 <a id="more"></a>
 <h2 id="weak探究"><a href="#weak探究" class="headerlink" title="__weak探究"></a>__weak探究</h2><p>程序中添加了一个<code>__weak</code>变量，查看调用堆栈，看到下一个调用的是<code>objc_initWeak</code>函数。</p>
-<p><img src="/wiki/IOS/Runtime/objc/17_weak/weak_sideTable.png" alt="SideTable 类结构"></p>
+<p><img src="/wiki/IOS/Runtime/objc/17_weak/weak入口.png" alt="__weak调用的函数"></p>
 <p>所以我们就objc_initWeak函数作为入口，探究weak。</p>
 <h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>首先了解以下的变量，这些变量在这章的数据结构、函数形参中使用：</p>
 <figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">__weak id weakPtr = o</span><br><span class="line"><span class="keyword">location</span>            <span class="title">newObj</span></span><br><span class="line">refferer            reffenent</span><br><span class="line">引用着               被引用者</span><br></pre></td></tr></table></figure>
