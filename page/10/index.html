@@ -462,7 +462,7 @@
                             &nbsp;
                             objc
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/17_weak/">17. weak 相关源码分析</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/17_weak/">17. weak 相关源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/18_syncsize/">18. @synchronized</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -801,6 +801,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/神经病院Objective-C-Runtime入院系列文章/">神经病院Objective-C Runtime入院系列文章</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/runtime/">runtime</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">
+            <time datetime="2016-11-29T06:25:09.000Z" itemprop="datePublished">2016-11-29</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>到了今天终于要”出院”了，要总结一下住院几天的收获，谈谈Runtime到底能为我们开发带来些什么好处。当然它也是把双刃剑，使用不当的话，也会成为开发路上的一个大坑。<br></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/foundation使用记录/NSInvocation的基本使" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1398,74 +1464,8 @@
 
 
     
-        <article id="post-IOS/crash/KSCrash_Analize" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/crash/">crash</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Crash/">Crash</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/crash/KSCrash_Analize/">
-            <time datetime="2016-07-17T04:18:26.000Z" itemprop="datePublished">2016-07-17</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p><a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a> 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/crash/KSCrash_Analize/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/9/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span>
+        <a class="extend prev" rel="prev" href="/page/9/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/">下一页 &raquo;</a>
         </nav>
     
 </section>
