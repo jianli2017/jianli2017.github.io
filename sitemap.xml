@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/crash/KSCrash_Analize/</loc>
+    
+    <lastmod>2018-12-10T08:07:30.014Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/crash/Collection_Crash/</loc>
     
     <lastmod>2018-12-10T07:46:44.414Z</lastmod>
@@ -12,13 +19,6 @@
     <loc>http://yoursite.com/wiki/IOS/crash/system_Crash_Type/</loc>
     
     <lastmod>2018-12-10T07:33:15.439Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS/crash/KSCrash_Analize/</loc>
-    
-    <lastmod>2018-12-10T06:23:09.401Z</lastmod>
     
   </url>
   
