@@ -17,19 +17,15 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="KSCrash 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%901.png">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%904.jpg">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/KSCrash_Analize/KSCrash_Analize/KSCrash崩溃原理浅析1.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/KSCrash_Analize/KSCrash_Analize/KSCrash崩溃原理浅析4.jpg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%905.jpeg">
 <meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%906.jpeg">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%903.png">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_mach%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_sinal%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png">
-<meta property="og:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_%E7%AC%A6%E5%8F%B7%E8%BF%87%E7%A8%8B.png">
-<meta property="og:updated_time" content="2018-02-28T08:39:10.000Z">
+<meta property="og:updated_time" content="2018-12-10T06:16:07.727Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="KSCrash崩溃收集原理浅析">
 <meta name="twitter:description" content="KSCrash 是一个异常收集的开源框架。它可以捕获到Mach级内核异常、信号异常、C++异常、Objective-C异常、主线程死锁；当捕获到异常后，KSCrash可以在设备上完成符号化崩溃日志(前提是编译的时候将符号表编译到可执行程序中)；日志的格式你也可以定制，可以是JSON格式的，也可以是Apple crash日志风格。另外，还有僵尸对象查找、内存自省等特性。">
-<meta name="twitter:image" content="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%901.png">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/crash/KSCrash_Analize/KSCrash_Analize/KSCrash崩溃原理浅析1.png">
     
 
     
@@ -858,7 +854,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#推导异常收集、符号化的原理"><span class="toc-number">1.</span> <span class="toc-text">推导异常收集、符号化的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译生成可执行APP"><span class="toc-number">1.1.</span> <span class="toc-text">编译生成可执行APP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach-O文件存储格式"><span class="toc-number">1.2.</span> <span class="toc-text">Mach-O文件存储格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.3.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#header"><span class="toc-number">1.3.1.</span> <span class="toc-text">header</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#load-commend"><span class="toc-number">1.3.2.</span> <span class="toc-text">load commend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Data"><span class="toc-number">1.3.3.</span> <span class="toc-text">Data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看Mach-O实用工具"><span class="toc-number">1.3.4.</span> <span class="toc-text">查看Mach-O实用工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定和执行"><span class="toc-number">1.4.</span> <span class="toc-text">绑定和执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用堆栈"><span class="toc-number">1.5.</span> <span class="toc-text">调用堆栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寄存器"><span class="toc-number">1.6.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程状态"><span class="toc-number">1.7.</span> <span class="toc-text">获取线程状态</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#思路回溯"><span class="toc-number">1.8.</span> <span class="toc-text">思路回溯</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获崩溃方式"><span class="toc-number">1.9.</span> <span class="toc-text">捕获崩溃方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#KSCrash异常捕获原理"><span class="toc-number">2.</span> <span class="toc-text">KSCrash异常捕获原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获日志流程"><span class="toc-number">2.1.</span> <span class="toc-text">捕获日志流程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#捕获的异常种类"><span class="toc-number">2.2.</span> <span class="toc-text">捕获的异常种类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach异常注册原理"><span class="toc-number">2.3.</span> <span class="toc-text">Mach异常注册原理</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#signals异常注册"><span class="toc-number">2.4.</span> <span class="toc-text">signals异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#C-exceptions-异常注册"><span class="toc-number">2.5.</span> <span class="toc-text">C++ exceptions 异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Object-C-异常注册"><span class="toc-number">2.6.</span> <span class="toc-text">Object C 异常注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程的调用堆栈、符号化调用堆栈"><span class="toc-number">2.7.</span> <span class="toc-text">获取线程的调用堆栈、符号化调用堆栈</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#获取线程的调用堆栈、符号化调用堆栈原理"><span class="toc-number">2.7.1.</span> <span class="toc-text">获取线程的调用堆栈、符号化调用堆栈原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取线程状态-代码分析"><span class="toc-number">2.7.2.</span> <span class="toc-text">获取线程状态 代码分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#获取异常线程的回溯-代码分析"><span class="toc-number">2.7.3.</span> <span class="toc-text">获取异常线程的回溯 代码分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化的代码-代码分析"><span class="toc-number">2.7.4.</span> <span class="toc-text">符号化的代码 代码分析</span></a></li></ol></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#推导异常收集、符号化的原理"><span class="toc-number">1.</span> <span class="toc-text">推导异常收集、符号化的原理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#编译生成可执行APP"><span class="toc-number">1.1.</span> <span class="toc-text">编译生成可执行APP</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Mach-O文件存储格式"><span class="toc-number">1.2.</span> <span class="toc-text">Mach-O文件存储格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#概述"><span class="toc-number">1.3.</span> <span class="toc-text">概述</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#header"><span class="toc-number">1.3.1.</span> <span class="toc-text">header</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#load-commend"><span class="toc-number">1.3.2.</span> <span class="toc-text">load commend</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Data"><span class="toc-number">1.3.3.</span> <span class="toc-text">Data</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#查看Mach-O实用工具"><span class="toc-number">1.3.4.</span> <span class="toc-text">查看Mach-O实用工具</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#绑定和执行"><span class="toc-number">1.4.</span> <span class="toc-text">绑定和执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#调用堆栈"><span class="toc-number">1.5.</span> <span class="toc-text">调用堆栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#寄存器"><span class="toc-number">1.6.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取线程状态"><span class="toc-number">1.7.</span> <span class="toc-text">获取线程状态</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#符号化的代码-代码分析"><span class="toc-number">1.7.1.</span> <span class="toc-text">符号化的代码 代码分析</span></a></li></ol></li></ol></li></ol>
                 </div>
             
         
@@ -879,7 +875,7 @@
 <li>Load commands：加载命令，指定了文件的逻辑结构、在虚拟内存（virtual memory）中文件的布局。你可以理解为一片文章的目录。</li>
 <li>Raw segment data：数据部分。</li>
 </ol>
-<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%901.png" alt="KSCrash崩溃原理浅析1"><br>这个是官网上的结构示意图。</p>
+<p><img src="/wiki/IOS/crash/KSCrash_Analize/./KSCrash_Analize/KSCrash崩溃原理浅析1.png" alt="KSCrash崩溃原理浅析1"><br>这个是官网上的结构示意图。</p>
 <h4 id="header"><a href="#header" class="headerlink" title="header"></a>header</h4><p>Mach-O文件的开头部分是就是Header—文件头。Header的数据结构定义在XNU微内核的<a href="http://opensource.apple.com/source/xnu/xnu-792.13.8/osfmk/mach-o/loader.h" rel="external nofollow noopener noreferrer" target="_blank">loader.h</a>文件中。loader.h也可以在IOS SDK的/usr/include/mach-o目录下找到，header的数据结构定义如下：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mach_header</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	magic;		<span class="comment">/* mach magic number identifier */</span></span><br><span class="line">	<span class="keyword">cpu_type_t</span>	cputype;	<span class="comment">/* cpu specifier */</span></span><br><span class="line">	<span class="keyword">cpu_subtype_t</span>	cpusubtype;	<span class="comment">/* machine specifier */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	filetype;	<span class="comment">/* type of file */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	ncmds;		<span class="comment">/* number of load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	sizeofcmds;	<span class="comment">/* the size of all the load commands */</span></span><br><span class="line">	<span class="keyword">uint32_t</span>	flags;		<span class="comment">/* flags */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>可以看出包括了 ：魔数、cup的类型、子类型、文件的类型、load commend个数、load commend大小等数据。</p>
@@ -889,744 +885,267 @@
 <p>• The initial execution state of the main thread of the program 程序主线程的入口地址</p>
 <p>• The names of shared libraries that contain definitions for the main executable’s imported symbols 主执行文件依赖的分享库</p>
 <p>load commend 的种类非常多，loader.h 中的定义了各种所有的类型。我们仅以LC_SEGMENT、LC_SYMTAB（符号表）为例了解load commend。每种类型的load commend都有对应的数据结构，可以在loader.h文件中查看。下面是部分类型Load Commond：</p>
-<pre><code>#define    LC_SEGMENT    0x1    ///代码段
-#define    LC_SYMTAB    0x2      /// 符号表 
-#define    LC_SYMSEG    0x3    /* link-edit gdb symbol table info (obsolete) */
-#define    LC_THREAD    0x4    /* thread */
-#define    LC_UNIXTHREAD    0x5    /* unix thread (includes a stack) */
-#define    LC_LOADFVMLIB    0x6    /* load a specified fixed VM shared library */
-#define    LC_IDFVMLIB    0x7    /* fixed VM shared library identification */
-#define    LC_IDENT    0x8    /* object identification info (obsolete) */
-#define LC_FVMFILE    0x9    /* fixed VM file inclusion (internal use) */
-#define LC_PREPAGE      0xa     /* prepage command (internal use) */
-#define    LC_DYSYMTAB    0xb    /* dynamic link-edit symbol table info */
-#define    LC_LOAD_DYLIB    0xc    /* load a dynamically linked shared library */
-#define    LC_ID_DYLIB    0xd    /* dynamically linked shared lib ident */
-#define LC_LOAD_DYLINKER 0xe    /* load a dynamic linker */
-#define LC_ID_DYLINKER    0xf    /* dynamic linker identification */
-#define    LC_PREBOUND_DYLIB 0x10    /* modules prebound for a dynamically */
-...................
-</code></pre><h4 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h4><p>Data紧跟在Load Commond后面。load commend中定义的各种数据都存储在这部分中。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_SEGMENT	0x1	<span class="comment">///代码段</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_SYMTAB	0x2	  <span class="comment">/// 符号表 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_SYMSEG	0x3	<span class="comment">/* link-edit gdb symbol table info (obsolete) */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_THREAD	0x4	<span class="comment">/* thread */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_UNIXTHREAD	0x5	<span class="comment">/* unix thread (includes a stack) */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_LOADFVMLIB	0x6	<span class="comment">/* load a specified fixed VM shared library */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_IDFVMLIB	0x7	<span class="comment">/* fixed VM shared library identification */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_IDENT	0x8	<span class="comment">/* object identification info (obsolete) */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LC_FVMFILE	0x9	<span class="comment">/* fixed VM file inclusion (internal use) */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LC_PREPAGE      0xa     <span class="comment">/* prepage command (internal use) */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_DYSYMTAB	0xb	<span class="comment">/* dynamic link-edit symbol table info */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_LOAD_DYLIB	0xc	<span class="comment">/* load a dynamically linked shared library */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_ID_DYLIB	0xd	<span class="comment">/* dynamically linked shared lib ident */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LC_LOAD_DYLINKER 0xe	<span class="comment">/* load a dynamic linker */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LC_ID_DYLINKER	0xf	<span class="comment">/* dynamic linker identification */</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span>	LC_PREBOUND_DYLIB 0x10	<span class="comment">/* modules prebound for a dynamically */</span></span></span><br><span class="line">...................</span><br></pre></td></tr></table></figure>
+<h4 id="Data"><a href="#Data" class="headerlink" title="Data"></a>Data</h4><p>Data紧跟在Load Commond后面。load commend中定义的各种数据都存储在这部分中。</p>
 <h4 id="查看Mach-O实用工具"><a href="#查看Mach-O实用工具" class="headerlink" title="查看Mach-O实用工具"></a>查看Mach-O实用工具</h4><p>在终端中有几个工具是可以查看Mach-O文件内容的。另外位于usr/include/mach-o/dyld.h中的函数可以在程序中访问Mach-O文件内容。</p>
 <ol>
-<li><p>文件类型展示工具-file。The file-type displaying tool, 位于/usr/bin/file，显示文件的类型，对于多构架的文件，它显示每个构架下的镜像类型。在终端中输入：</p>
-<pre><code>~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive
-</code></pre><p> 输出：</p>
-<pre><code>/Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive: Mach-O universal binary with 2 architectures
-</code></pre><p> /Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive (for architecture armv7):    Mach-O executable arm<br> /Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive (for architecture arm64):    Mach-O 64-bit executable</p>
-</li>
-<li><p>对象文件展示工具otool。The object-file displaying tool，位于/usr/bin/otool，显示Mach-O文件的各种数据。查看Mach-O header内容，在终端中输入：</p>
-<pre><code>otool -hV ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive 
-</code></pre><p> 输出：</p>
-<pre><code> Mach header
-   magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-MH_MAGIC     ARM         V7  0x00     EXECUTE    23       2432   NOUNDEFS DYLDLINK TWOLEVEL PIE
-</code></pre><p> Mach header</p>
-<pre><code>magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-</code></pre><p> MH_MAGIC_64   ARM64        ALL  0x00     EXECUTE    23       2872   NOUNDEFS DYLDLINK TWOLEVEL PIE</p>
-<p> 可以使用otool 查看load commend。在终端中输入：</p>
-<pre><code>otool -lV ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive 
-</code></pre><p> 输出：</p>
-<pre><code>Mach header
-  magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags
-</code></pre><p>  0xfeedface      12          9  0x00           2    23       2432 0x00200085<br> Load command 0</p>
-<pre><code>cmd LC_SEGMENT
-</code></pre><p>   cmdsize 56<br>   segname __PAGEZERO</p>
-<pre><code>vmaddr 0x00000000
-vmsize 0x00004000
-</code></pre><p>   fileoff 0<br>  filesize 0<br>   maxprot 0x00000000<br>  initprot 0x00000000</p>
-<pre><code>nsects 0
- flags 0x0
-</code></pre><p>   ……….</p>
-</li>
-<li><p>符号展示工具-nm，The symbol table display tool,位于 /usr/bin/nm, allows you to view the contents of an object file’s symbol table。查看符号表，在终端中输入：</p>
-<pre><code>nm ~/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive 
-</code></pre><p> 输出：</p>
-<pre><code>/Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive (for architecture arm64):
-             U _NSGetUncaughtExceptionHandler
-             U _NSLog
-             U _NSSearchPathForDirectoriesInDomains
-             U _NSSetUncaughtExceptionHandler
-             U _NSStringFromClass
-             U _objc_msgSend
-             U _objc_msgSendSuper2
-             U _objc_release
-             U _objc_retain
-             U _objc_retainAutorelease
-             U _objc_retainAutoreleasedReturnValue
-             U _objc_setProperty_nonatomic_copy
-             U _objc_storeStrong
-             U _strstr
-             U dyld_stub_binder
-             ...........
-</code></pre></li>
+<li>文件类型展示工具-file。The file-type displaying tool, 位于/usr/bin/file，显示文件的类型，对于多构架的文件，它显示每个构架下的镜像类型。在终端中输入：</li>
 </ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">~<span class="regexp">/Desktop/</span>收集、解析IOS崩溃日式<span class="regexp">/Exception/</span>UncaughtException_archive</span><br></pre></td></tr></table></figure>
+<pre><code>输出：
+</code></pre><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="regexp">/Users/</span>lijian<span class="regexp">/Desktop/</span>收集、解析IOS崩溃日式<span class="regexp">/Exception/</span><span class="string">UncaughtException_archive:</span> Mach-O universal binary with <span class="number">2</span> architectures</span><br><span class="line"><span class="regexp">/Users/</span>lijian<span class="regexp">/Desktop/</span>收集、解析IOS崩溃日式<span class="regexp">/Exception/</span>UncaughtException_archive (<span class="keyword">for</span> architecture armv7):	Mach-O executable arm</span><br><span class="line"><span class="regexp">/Users/</span>lijian<span class="regexp">/Desktop/</span>收集、解析IOS崩溃日式<span class="regexp">/Exception/</span>UncaughtException_archive (<span class="keyword">for</span> architecture arm64):	Mach-O <span class="number">64</span>-bit executable</span><br></pre></td></tr></table></figure>
+<ol>
+<li>对象文件展示工具otool。The object-file displaying tool，位于/usr/bin/otool，显示Mach-O文件的各种数据。查看Mach-O header内容，在终端中输入：</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -hV ~<span class="regexp">/Desktop/</span>收集、解析IOS崩溃日式<span class="regexp">/Exception/</span>UncaughtException_archive</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Mach header</span><br><span class="line">  magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags</span><br><span class="line">MH_MAGIC     ARM         V7  <span class="number">0x00</span>     EXECUTE    <span class="number">23</span>       <span class="number">2432</span>   NOUNDEFS DYLDLINK TWOLEVEL PIE</span><br><span class="line">Mach header</span><br><span class="line">  magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags</span><br><span class="line">MH_MAGIC_64   ARM64        ALL  <span class="number">0x00</span>     EXECUTE    <span class="number">23</span>       <span class="number">2872</span>   NOUNDEFS DYLDLINK TWOLEVEL PIE</span><br></pre></td></tr></table></figure>
+<p>可以使用otool 查看load commend。在终端中输入：</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">otool -lV ~<span class="regexp">/Desktop/</span>收集、解析IOS崩溃日式<span class="regexp">/Exception/</span>UncaughtException_archive</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Mach header</span><br><span class="line">  magic cputype cpusubtype  caps    filetype ncmds sizeofcmds      flags</span><br><span class="line"><span class="number">0xfeedface</span>      <span class="number">12</span>          <span class="number">9</span>  <span class="number">0x00</span>           <span class="number">2</span>    <span class="number">23</span>       <span class="number">2432</span> <span class="number">0x00200085</span></span><br><span class="line">Load command <span class="number">0</span></span><br><span class="line">  cmd LC_SEGMENT</span><br><span class="line">cmdsize <span class="number">56</span></span><br><span class="line">segname __PAGEZERO</span><br><span class="line">vmaddr <span class="number">0x00000000</span></span><br><span class="line">vmsize <span class="number">0x00004000</span></span><br><span class="line">fileoff <span class="number">0</span></span><br><span class="line">filesize <span class="number">0</span></span><br><span class="line">maxprot <span class="number">0x00000000</span></span><br><span class="line">initprot <span class="number">0x00000000</span></span><br><span class="line">nsects <span class="number">0</span></span><br><span class="line">flags <span class="number">0x0</span></span><br><span class="line">..........</span><br></pre></td></tr></table></figure>
+<ol>
+<li>符号展示工具-nm，The symbol table display tool,位于 /usr/bin/nm, allows you to view the contents of an object file’s symbol table。查看符号表，在终端中输入：</li>
+</ol>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nm ~<span class="regexp">/Desktop/</span>收集、解析IOS崩溃日式<span class="regexp">/Exception/</span>UncaughtException_archive</span><br></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/Users/lijian/Desktop/收集、解析IOS崩溃日式/Exception/UncaughtException_archive (<span class="keyword">for</span> architecture arm64):</span><br><span class="line">             U <span class="variable">_NSGetUncaughtExceptionHandler</span></span><br><span class="line">             U <span class="variable">_NSLog</span></span><br><span class="line">             U <span class="variable">_NSSearchPathForDirectoriesInDomains</span></span><br><span class="line">             U <span class="variable">_NSSetUncaughtExceptionHandler</span></span><br><span class="line">             U <span class="variable">_NSStringFromClass</span></span><br><span class="line">             U <span class="variable">_objc_msgSend</span></span><br><span class="line">             U <span class="variable">_objc_msgSendSuper2</span></span><br><span class="line">             U <span class="variable">_objc_release</span></span><br><span class="line">             U <span class="variable">_objc_retain</span></span><br><span class="line">             U <span class="variable">_objc_retainAutorelease</span></span><br><span class="line">             U <span class="variable">_objc_retainAutoreleasedReturnValue</span></span><br><span class="line">             U <span class="variable">_objc_setProperty_nonatomic_copy</span></span><br><span class="line">             U <span class="variable">_objc_storeStrong</span></span><br><span class="line">             U <span class="variable">_strstr</span></span><br><span class="line">             U dyld_stub_binder</span><br><span class="line">             ...........</span><br></pre></td></tr></table></figure>
 <h3 id="绑定和执行"><a href="#绑定和执行" class="headerlink" title="绑定和执行"></a>绑定和执行</h3><p>根据上面分析的可执行文件的结构，我们可以看到，可执行文件中已经包含了符号表 ，这个符号表是可执行代码的虚拟地址和代码中符号的对应表。符号表是绑定过程中建立的，程序的绑定有很多种，可以参看下面的文档：<a href="https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/MachOTopics/1-Articles/executing_files.html#//apple_ref/doc/uid/TP40001829-97047-TPXREF111" rel="external nofollow noopener noreferrer" target="_blank">Mach-O Programming Topics - Binding Symbols</a>，里面详细介绍了绑定和查找符号的过程。</p>
 <p>看到符号表，那么我们可以做这样的设想：如果程序崩溃，只要我们获取到了崩溃调用堆栈的回溯地址，然后从这个符号表中查找对应的符号，就完成了调用堆栈的符号化工作？ 还有就是我们如何获取程序的调用堆栈呢？还有很多需要我们接着往下看。为了知道如何获取调用堆栈的回溯，我们了解下程序的执行过程：</p>
 <p>程序的执行过程：内核首先加载可执行文件，并且检测程序文件的起始部分的mach_header结构，内核验证是否合法的Macj-O文件，解析header中的load commands。加载Load Commond中指定依赖镜像到内存中，然后启动进程，执行程序的入口函数，进入正常的run loop。</p>
 <h3 id="调用堆栈"><a href="#调用堆栈" class="headerlink" title="调用堆栈"></a>调用堆栈</h3><p>首先介绍一下什么叫调用堆栈：假设我们为了完成一个任务1，任务1的完成需要完成任务2…. 分别定义为几个函数：function1,function2,function3,funtion4。即，function1调用function2，function2调用function3，function3调用function4。在function4运行过程中，我们可以从线程当前堆栈中了解到调用他的那几个函数分别是谁。function4、function3、function2、function1呈现出一种“堆栈”的特征，最后被调用的函数出现在最上方。因此称呼这种关系为调用堆栈(call stack)。 下面有一个图展示下：</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%904.jpg" alt="KSCrash崩溃原理浅析4"></p>
+<p><img src="/wiki/IOS/crash/KSCrash_Analize/./KSCrash_Analize/KSCrash崩溃原理浅析4.jpg" alt="KSCrash崩溃原理浅析4"></p>
 <p>函数调用经常是嵌套的，在同一时刻，堆栈中会有多个函数的信息。每个未完成运行的函数占用一个独立的连续区域，称作栈帧(Stack Frame)。栈帧是堆栈的逻辑片段，当调用函数时逻辑栈帧被压入堆栈, 当函数返回时逻辑栈帧被从堆栈中弹出。栈帧存放着函数参数，局部变量及恢复前一栈帧所需要的数据等。理解了入栈和出栈，基本能理解调用堆栈，下面两个图，一个是入栈，一个是出栈，图中描述的很清楚。</p>
 <p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%905.jpeg" alt="KSCrash崩溃原理浅析5"><br><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%906.jpeg" alt="KSCrash崩溃原理浅析6"></p>
 <p>所以获取到崩溃时线程的ebp和esp 就能回溯到上一个调用，依次类推，回溯出所有的调用堆栈。下面了解下寄存器。</p>
 <h3 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h3><p>为了线程获取BP和SP，我们需要了解一点点寄存器。因为他们保存在CPU的寄存器中。<br>arm64构架的寄存器在<a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0055b/IHI0055B_aapcs64.pdf" rel="external nofollow noopener noreferrer" target="_blank">Procedure Call Standard for the ARM 64-bit Architecture (AArch64)</a>有详细的说明。不过都是英文的，我没有看，我从代码中也找到了它的定义，位于IOS SDK的usr/include/arm目录下的_mcontext.h文件中。其中几个关键的定义的代码我摘录下来了，如下：</p>
-<pre><code>_STRUCT_MCONTEXT64
-{
-    _STRUCT_X86_EXCEPTION_STATE64  __es; ///异常寄存器
-    _STRUCT_X86_THREAD_STATE64  __ss;    ///线程状态寄存器
-    _STRUCT_X86_FLOAT_STATE64  __fs;     ///浮点寄存器
-};
-</code></pre><p>这个结构体<br>定义了所有的寄存器。其中_STRUCT_MCONTEXT64结构体定义了三大类寄存器，根据字面意思理解为：异常寄存器、线程状态寄存器、浮点寄存器。我们只关注线程状态寄存器。</p>
-<pre><code>_STRUCT_ARM_THREAD_STATE64
-{
-    __uint64_t    __x[29];   ///General purpose registers x0-x28
-    __uint64_t    __fp;         ///这里就是BP,x29
-    __uint64_t    __lr;         /// Link register x30 
-    __uint64_t    __sp;         ///这里就是SP   x31
-    __uint64_t    __pc;         Program counter
-    __uint32_t    __cpsr;    Current program status register
-    __uint32_t    __pad;    /* Same size for 32-bit or 64-bit clients */
-};
-</code></pre><p>不管你见或者不见我我就在那里，BP就在 _STRUCT_MCONTEXT64-&gt;<strong>ss.</strong>fp里，SP就在_STRUCT_MCONTEXT64-&gt;<strong>ss-&gt;</strong>sp里。不知不觉的问题已经转化了，转化为获取线程的_STRUCT_X86_THREAD_STATE64数据，即，获取线程的状态结构体。</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">_STRUCT_MCONTEXT64</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="variable">_STRUCT_X86_EXCEPTION_STATE64</span>  <span class="variable">__es</span>; <span class="comment">///异常寄存器</span></span><br><span class="line">	<span class="variable">_STRUCT_X86_THREAD_STATE64</span>  <span class="variable">__ss</span>;    <span class="comment">///线程状态寄存器</span></span><br><span class="line">	<span class="variable">_STRUCT_X86_FLOAT_STATE64</span>  <span class="variable">__fs</span>;     <span class="comment">///浮点寄存器</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这个结构体<br>定义了所有的寄存器。其中_STRUCT_MCONTEXT64结构体定义了三大类寄存器，根据字面意思理解为：异常寄存器、线程状态寄存器、浮点寄存器。我们只关注线程状态寄存器。</p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">_STRUCT_ARM_THREAD_STATE64</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="variable">__uint64_t</span>    <span class="variable">__x</span>[<span class="number">29</span>];   <span class="comment">///General purpose registers x0-x28</span></span><br><span class="line">	<span class="variable">__uint64_t</span>    <span class="variable">__fp</span>;	     <span class="comment">///这里就是BP,x29</span></span><br><span class="line">	<span class="variable">__uint64_t</span>    <span class="variable">__lr</span>;	     <span class="comment">/// Link register x30 </span></span><br><span class="line">	<span class="variable">__uint64_t</span>    <span class="variable">__sp</span>;	     <span class="comment">///这里就是SP   x31</span></span><br><span class="line">	<span class="variable">__uint64_t</span>    <span class="variable">__pc</span>;	     Program counter</span><br><span class="line">	<span class="variable">__uint32_t</span>    <span class="variable">__cpsr</span>;    Current program status register</span><br><span class="line">	<span class="variable">__uint32_t</span>    <span class="variable">__pad</span>;    <span class="comment">/* Same size for 32-bit or 64-bit clients */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>不管你见或者不见我我就在那里，BP就在 _STRUCT_MCONTEXT64-&gt;<strong>ss.</strong>fp里，SP就在_STRUCT_MCONTEXT64-&gt;<strong>ss-&gt;</strong>sp里。不知不觉的问题已经转化了，转化为获取线程的_STRUCT_X86_THREAD_STATE64数据，即，获取线程的状态结构体。</p>
 <p>XNU微内核的核心部分Mach，里面暴露了一些线程的接口函数，我们应该能获取到线程的状态结构体。了解这些函数的接口定义可以参考：<a href="http://web.mit.edu/darwin/src/modules/xnu/osfmk/man/" rel="external nofollow noopener noreferrer" target="_blank">Mach IPC Interface</a>、<a href="https://developer.apple.com/library/mac/documentation/Darwin/Conceptual/KernelProgramming/Mach/Mach.html" rel="external nofollow noopener noreferrer" target="_blank">IPC 原理讲解</a>。</p>
 <h3 id="获取线程状态"><a href="#获取线程状态" class="headerlink" title="获取线程状态"></a>获取线程状态</h3><p>IPC 接口文档的线程接口部分（Thread Interface）的 thread_get_state函数可以获取线程的状态。他的定义如下：</p>
-<pre><code>kern_return_t   thread_get_state
-                (thread_act_t                     target_thread,
-                 thread_state_flavor_t                   flavor,
-                 thread_state_t                       old_state,
-                 mach_msg_type_number_t         old_state_count);
-</code></pre><p>thread_get_state函数返回target_thread的执行状态，存储在flavor参数里。看着上面的定义，是不是一点感觉都没有，一头雾水，摸不着头脑？我也是，幸好KSCrash中有这部分代码，贴出来瞅瞅：</p>
-<pre><code>bool ksmach_threadState(const thread_t thread,
-                        STRUCT_MCONTEXT_L* const machineContext)
-{
-    return ksmach_fillState(thread,
-                            (thread_state_t)&amp;machineContext-&gt;__ss,
-                            ARM_THREAD_STATE,
-                            ARM_THREAD_STATE_COUNT);
-}
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">kern_return_t</span>   thread_get_state</span><br><span class="line">                (<span class="keyword">thread_act_t</span>                     target_thread,</span><br><span class="line">                 <span class="keyword">thread_state_flavor_t</span>                   flavor,</span><br><span class="line">                 <span class="keyword">thread_state_t</span>                       old_state,</span><br><span class="line">                 <span class="keyword">mach_msg_type_number_t</span>         old_state_count);</span><br></pre></td></tr></table></figure>
+<p>thread_get_state函数返回target_thread的执行状态，存储在flavor参数里。看着上面的定义，是不是一点感觉都没有，一头雾水，摸不着头脑？我也是，幸好KSCrash中有这部分代码，贴出来瞅瞅：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">bool ksmach_threadState(const thread_t thread,</span><br><span class="line">                        STRUCT_MCONTEXT_L* const machineContext)</span><br><span class="line">&#123;</span><br><span class="line">    return ksmach_fillState(thread,</span><br><span class="line">                            (thread_state_t)&amp;machineContext-&gt;__ss,</span><br><span class="line">                            ARM_THREAD_STATE,</span><br><span class="line">                            ARM_THREAD_STATE_COUNT);</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line">bool ksmach_fillState(const thread_t thread,</span><br><span class="line">                      const thread_state_t <span class="keyword">state</span>,</span><br><span class="line">                      const thread_state_flavor_t flavor,</span><br><span class="line">                      const mach_msg_type_number_t <span class="keyword">state</span>Count)</span><br><span class="line">&#123;</span><br><span class="line">    mach_msg_type_number_t <span class="keyword">state</span>CountBuff = <span class="keyword">state</span>Count;</span><br><span class="line">    kern_return_t kr;</span><br><span class="line">	</span><br><span class="line">    kr = thread_get_state(thread, flavor, <span class="keyword">state</span>, &amp;<span class="keyword">state</span>CountBuff);</span><br><span class="line">    if(kr != KERN_SUCCESS)</span><br><span class="line">    &#123;</span><br><span class="line">        KSLOG_ERROR(<span class="string">"thread_get_state: %s"</span>, mach_error_string(kr));</span><br><span class="line">        return false;</span><br><span class="line">    &#125;</span><br><span class="line">    return true;</span><br><span class="line">&#125;</span><br><span class="line">```	</span><br><span class="line"></span><br><span class="line">上面代码说明了thread_get_state函数可以根据线程ID（thread_t thread），获取到线程状态（_STRUCT_ARM_THREAD_STATE64），也就是通过线程ID，就能获取到线程当前执行状态的BP 和SP。</span><br><span class="line"></span><br><span class="line"><span class="comment">### 思路回溯</span></span><br><span class="line"></span><br><span class="line">上面讲了，那么多，目的只有一个，就是理出一个思路-----获取程序崩溃时线程的调用堆栈。现在大概是这样的：</span><br><span class="line"></span><br><span class="line"><span class="number">1</span>. 程序发生崩溃，我们获取到崩溃的线程，取出线程的threadID。</span><br><span class="line"></span><br><span class="line"><span class="number">2</span>. 通过thread_get_state函数， 获取线程ID为threadID的线程的 当前执行状态，目的是获取：帧指针BP、栈指针SP；</span><br><span class="line"></span><br><span class="line"><span class="number">3</span>. 依据《<span class="number">1.4</span> 调用堆栈》原理、BP、SP，循环取出线程的调用堆栈。</span><br><span class="line"></span><br><span class="line"><span class="number">4</span>. 依据《<span class="number">1.2</span> Mach-O文件存储格式》原理，将调用堆栈中的地址转换为代码中的符号。</span><br><span class="line"></span><br><span class="line">总体逻辑现在通了，但是，还有好多好多的细节，等待我们去完善，比如，一个关键的逻辑，我是怎么知道程序崩溃了呢？从而让程序执行到崩溃处理函数里，完成线程回溯功能。</span><br><span class="line"></span><br><span class="line">通过分析KS的代码，得知，可以在程序启动的时候注册崩溃的处理函数，程序崩溃发生时，会执行崩溃处理函数。</span><br><span class="line"></span><br><span class="line">其实，捕获异常的方式多种多样，不同捕获方式，捕获的原理不同。捕获原理请参看《二、KSCrash异常捕获原理》。这里只扫盲下经典的捕获方式。</span><br><span class="line"></span><br><span class="line"><span class="comment">### 捕获崩溃方式</span></span><br><span class="line"></span><br><span class="line">捕获崩溃的方式有：</span><br><span class="line"><span class="number">1</span>. 捕获Mach 异常</span><br><span class="line"><span class="number">2</span>. 捕获Unix 信号</span><br><span class="line">其实，这部分内容在[漫谈 iOS Crash 收集框架](http://www.wtoutiao.com/p/h27ist.html)中阐述的非常明白。为了表示写的好，这里再重复的阐述下。</span><br><span class="line"></span><br><span class="line">iOS 系统自带的Apple’s Crash Reporter 记录在设备中的 Crash 日志，Exception Type项通常会包含两个元素：Mach 异常 和 Unix 信号。</span><br></pre></td></tr></table></figure>
+<p>Exception Type:         EXC_BAD_ACCESS (SIGSEGV)<br>Exception Subtype:      KERN_INVALID_ADDRESS at 0x041a6f3<br><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Mach 异常是什么？它又是如何与 Unix 信号建立联系的？</span><br><span class="line">Mach 是一个 XNU 的微内核核心，Mach 异常是指最底层的内核级异常，被定义在 &lt;mach/exception_types.h&gt;下 。每个 thread，<span class="keyword">task</span>，host 都有一个异常端口数组，Mach 的部分 API 暴露给了用户态，用户态的开发者可以直接通过 Mach API 设置 thread，<span class="keyword">task</span>，host 的异常端口，来捕获 Mach 异常，抓取 Crash 事件。</span><br><span class="line"></span><br><span class="line">所有 Mach 异常都在 host 层被ux_exception转换为相应的 Unix 信号，并通过threadsignal将信号投递到出错的线程。iOS 中的 POSIX API 就是通过 Mach 之上的 BSD 层实现的。</span><br><span class="line"></span><br><span class="line">因此，EXC_BAD_ACCESS (SIGSEGV)表示的意思是：Mach 层的EXC_BAD_ACCESS异常，在 host 层被转换成 SIGSEGV 信号投递到出错的线程。既然最终以信号的方式投递到出错的线程，那么就可以通过注册 signalHandler 来捕获信号:</span><br></pre></td></tr></table></figure></p>
+<p>signal(SIGSEGV,signalHandler);<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">捕获 Mach 异常或者 Unix 信号都可以抓到 crash 事件，这两种方式哪个更好呢？优选 Mach 异常，因为 Mach 异常处理会先于 Unix 信号处理发生，如果 Mach 异常的 handler 让程序 exit 了，那么 Unix 信号就永远不会到达这个进程了。转换 Unix 信号是为了兼容更为流行的 POSIX 标准 (SUS 规范)，这样不必了解 Mach 内核也可以通过 Unix 信号的方式来兼容开发。</span><br><span class="line"></span><br><span class="line"><span class="section">## KSCrash异常捕获原理</span></span><br><span class="line"></span><br><span class="line">KSCrash是一个完备的异常捕获开源框架，它不仅可以捕获到各种异常，并可在设备上完成符号化工作。同时，还有很多高级的特性，例如查找僵尸对象（Zombie）、 内存自省（Introspection）、 主线程死锁检测。</span><br><span class="line"></span><br><span class="line"><span class="section">### 捕获日志流程</span></span><br><span class="line"></span><br><span class="line">这里只分析KSCrash获取崩溃日志的原理。下面是主要的流程：</span><br><span class="line"></span><br><span class="line">![<span class="string">KSCrash崩溃原理浅析3</span>](<span class="link">./KSCrash_Analize/KSCrash崩溃原理浅析3.png</span>)</span><br><span class="line"></span><br><span class="line">获取崩溃日志主要流程有：</span><br><span class="line"></span><br><span class="line"><span class="bullet">1. </span>注册异常处理函数</span><br><span class="line"><span class="bullet">2. </span>等待异常发生</span><br><span class="line"><span class="bullet">3. </span>异常发生</span><br><span class="line"><span class="bullet">4.  </span>回调到异常处理函数</span><br><span class="line"><span class="bullet">5. </span>在异常处理函数中获取异常发生时刻的所有线程</span><br><span class="line"><span class="bullet">6. </span>循环获取每个线程的调用堆栈</span><br><span class="line"><span class="bullet">7. </span>符号化调用堆栈</span><br><span class="line"><span class="bullet">8. </span>保存异常日志</span><br><span class="line"><span class="bullet">9. </span>程序结束</span><br><span class="line"><span class="bullet">10. </span>下次启动发送上次的崩溃日志</span><br><span class="line"></span><br><span class="line"><span class="section">### 捕获的异常种类</span></span><br><span class="line"></span><br><span class="line">根据[<span class="string">KSCrash</span>](<span class="link">https://github.com/kstenerud/KSCrash</span>)的官网介绍，它可以捕获多种异常,包括：</span><br><span class="line"></span><br><span class="line"><span class="bullet">* </span>Mach kernel exceptions  </span><br><span class="line"><span class="bullet">* </span>Fatal signals  </span><br><span class="line"><span class="bullet">* </span>C++ exceptions  </span><br><span class="line"><span class="bullet">* </span>Objective-C exceptions  </span><br><span class="line"><span class="bullet">* </span>Main thread deadlock (experimental)  </span><br><span class="line"><span class="bullet">* </span>Custom crashes (e.g. from scripting languages)  </span><br><span class="line"></span><br><span class="line">下面主要介绍下 Mach kernel exceptions、Fatal signals、C++ exceptions异常的注册异常处理函数原理。</span><br><span class="line"></span><br><span class="line"><span class="section">### Mach异常注册原理</span></span><br><span class="line"></span><br><span class="line">下面是mach exceptions 的注册流程图</span><br><span class="line"></span><br><span class="line">![<span class="string">KSCrash崩溃原理浅析_mach 异常安装</span>](<span class="link">http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_mach%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png</span>)   </span><br><span class="line"></span><br><span class="line">基本流程是：</span><br><span class="line"></span><br><span class="line"><span class="bullet">1. </span>首先调用task<span class="emphasis">_get_</span>exception_ports 保存先前的异常处理端口。</span><br><span class="line"><span class="bullet">2. </span>调用mach<span class="emphasis">_port_</span>allocate  创建异常处理端口g_exceptionPort。<span class="xml"><span class="comment">&lt;!--xnu的进程内通信可以通过端口进行。--&gt;</span></span></span><br><span class="line"><span class="bullet">3. </span>调用 mach<span class="emphasis">_port_</span>insert_right 获取端口的权限</span><br><span class="line"><span class="bullet">4. </span>设置异常处理端口  </span><br><span class="line"><span class="bullet">5. </span>创建线程，线程中不停的调用mach<span class="emphasis">_msg ，读取g_</span>exceptionPort端口上的数据，如果异常发生，mach_msg成功，进入异常处理流程。</span><br><span class="line"><span class="bullet">6. </span>恢复先前的异常处理端口</span><br><span class="line"><span class="bullet">7. </span>调用ksmachexc<span class="emphasis">_i_</span>fetchMachineState 获取线程状态。</span><br><span class="line"><span class="bullet">8. </span>保存状态并完成符号化功能。</span><br><span class="line"><span class="bullet">9. </span>卸载异常处理函数。</span><br><span class="line"></span><br><span class="line">千言万语，不如几行代码的说服力，所以后面的内容都使用代码+注释的形式表述。</span><br></pre></td></tr></table></figure></p>
+<p>bool kscrashsentry_installMachHandler(KSCrash_SentryContext* const context)<br>{<br>    bool attributes_created = false;<br>    pthread_attr_t attr;</p>
+<pre><code>kern_return_t kr;
+int error;
 
-bool ksmach_fillState(const thread_t thread,
-                      const thread_state_t state,
-                      const thread_state_flavor_t flavor,
-                      const mach_msg_type_number_t stateCount)
-{
-    mach_msg_type_number_t stateCountBuff = stateCount;
-    kern_return_t kr;
+const task_t thisTask = mach_task_self();
+exception_mask_t mask = EXC_MASK_BAD_ACCESS |
+EXC_MASK_BAD_INSTRUCTION |
+EXC_MASK_ARITHMETIC |
+EXC_MASK_SOFTWARE |
+EXC_MASK_BREAKPOINT;
 
-    kr = thread_get_state(thread, flavor, state, &amp;stateCountBuff);
-    if(kr != KERN_SUCCESS)
-    {
-        KSLOG_ERROR(&quot;thread_get_state: %s&quot;, mach_error_string(kr));
-        return false;
-    }
+if(g_installed)
+{
     return true;
 }
-</code></pre><p>上面代码说明了thread_get_state函数可以根据线程ID（thread_t thread），获取到线程状态（_STRUCT_ARM_THREAD_STATE64），也就是通过线程ID，就能获取到线程当前执行状态的BP 和SP。</p>
-<h3 id="思路回溯"><a href="#思路回溯" class="headerlink" title="思路回溯"></a>思路回溯</h3><p>上面讲了，那么多，目的只有一个，就是理出一个思路—–获取程序崩溃时线程的调用堆栈。现在大概是这样的：</p>
-<ol>
-<li><p>程序发生崩溃，我们获取到崩溃的线程，取出线程的threadID。</p>
-</li>
-<li><p>通过thread_get_state函数， 获取线程ID为threadID的线程的 当前执行状态，目的是获取：帧指针BP、栈指针SP；</p>
-</li>
-<li><p>依据《1.4 调用堆栈》原理、BP、SP，循环取出线程的调用堆栈。</p>
-</li>
-<li><p>依据《1.2 Mach-O文件存储格式》原理，将调用堆栈中的地址转换为代码中的符号。</p>
-</li>
-</ol>
-<p>总体逻辑现在通了，但是，还有好多好多的细节，等待我们去完善，比如，一个关键的逻辑，我是怎么知道程序崩溃了呢？从而让程序执行到崩溃处理函数里，完成线程回溯功能。</p>
-<p>通过分析KS的代码，得知，可以在程序启动的时候注册崩溃的处理函数，程序崩溃发生时，会执行崩溃处理函数。</p>
-<p>其实，捕获异常的方式多种多样，不同捕获方式，捕获的原理不同。捕获原理请参看《二、KSCrash异常捕获原理》。这里只扫盲下经典的捕获方式。</p>
-<h3 id="捕获崩溃方式"><a href="#捕获崩溃方式" class="headerlink" title="捕获崩溃方式"></a>捕获崩溃方式</h3><p>捕获崩溃的方式有：</p>
-<ol>
-<li>捕获Mach 异常</li>
-<li>捕获Unix 信号<br>其实，这部分内容在<a href="http://www.wtoutiao.com/p/h27ist.html" rel="external nofollow noopener noreferrer" target="_blank">漫谈 iOS Crash 收集框架</a>中阐述的非常明白。为了表示写的好，这里再重复的阐述下。</li>
-</ol>
-<p>iOS 系统自带的Apple’s Crash Reporter 记录在设备中的 Crash 日志，Exception Type项通常会包含两个元素：Mach 异常 和 Unix 信号。</p>
-<pre><code>Exception Type:         EXC_BAD_ACCESS (SIGSEGV)    
-Exception Subtype:      KERN_INVALID_ADDRESS at 0x041a6f3
-</code></pre><p>Mach 异常是什么？它又是如何与 Unix 信号建立联系的？<br>Mach 是一个 XNU 的微内核核心，Mach 异常是指最底层的内核级异常，被定义在 <mach exception_types.h="">下 。每个 thread，task，host 都有一个异常端口数组，Mach 的部分 API 暴露给了用户态，用户态的开发者可以直接通过 Mach API 设置 thread，task，host 的异常端口，来捕获 Mach 异常，抓取 Crash 事件。</mach></p>
-<p>所有 Mach 异常都在 host 层被ux_exception转换为相应的 Unix 信号，并通过threadsignal将信号投递到出错的线程。iOS 中的 POSIX API 就是通过 Mach 之上的 BSD 层实现的。</p>
-<p>因此，EXC_BAD_ACCESS (SIGSEGV)表示的意思是：Mach 层的EXC_BAD_ACCESS异常，在 host 层被转换成 SIGSEGV 信号投递到出错的线程。既然最终以信号的方式投递到出错的线程，那么就可以通过注册 signalHandler 来捕获信号:</p>
-<pre><code>signal(SIGSEGV,signalHandler);
-</code></pre><p>捕获 Mach 异常或者 Unix 信号都可以抓到 crash 事件，这两种方式哪个更好呢？优选 Mach 异常，因为 Mach 异常处理会先于 Unix 信号处理发生，如果 Mach 异常的 handler 让程序 exit 了，那么 Unix 信号就永远不会到达这个进程了。转换 Unix 信号是为了兼容更为流行的 POSIX 标准 (SUS 规范)，这样不必了解 Mach 内核也可以通过 Unix 信号的方式来兼容开发。</p>
-<h2 id="KSCrash异常捕获原理"><a href="#KSCrash异常捕获原理" class="headerlink" title="KSCrash异常捕获原理"></a>KSCrash异常捕获原理</h2><p>KSCrash是一个完备的异常捕获开源框架，它不仅可以捕获到各种异常，并可在设备上完成符号化工作。同时，还有很多高级的特性，例如查找僵尸对象（Zombie）、 内存自省（Introspection）、 主线程死锁检测。</p>
-<h3 id="捕获日志流程"><a href="#捕获日志流程" class="headerlink" title="捕获日志流程"></a>捕获日志流程</h3><p>这里只分析KSCrash获取崩溃日志的原理。下面是主要的流程：</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%903.png" alt="KSCrash崩溃原理浅析3"></p>
-<p>获取崩溃日志主要流程有：</p>
-<ol>
-<li>注册异常处理函数</li>
-<li>等待异常发生</li>
-<li>异常发生</li>
-<li>回调到异常处理函数</li>
-<li>在异常处理函数中获取异常发生时刻的所有线程</li>
-<li>循环获取每个线程的调用堆栈</li>
-<li>符号化调用堆栈</li>
-<li>保存异常日志</li>
-<li>程序结束</li>
-<li>下次启动发送上次的崩溃日志</li>
-</ol>
-<h3 id="捕获的异常种类"><a href="#捕获的异常种类" class="headerlink" title="捕获的异常种类"></a>捕获的异常种类</h3><p>根据<a href="https://github.com/kstenerud/KSCrash" rel="external nofollow noopener noreferrer" target="_blank">KSCrash</a>的官网介绍，它可以捕获多种异常,包括：</p>
-<ul>
-<li>Mach kernel exceptions  </li>
-<li>Fatal signals  </li>
-<li>C++ exceptions  </li>
-<li>Objective-C exceptions  </li>
-<li>Main thread deadlock (experimental)  </li>
-<li>Custom crashes (e.g. from scripting languages)  </li>
-</ul>
-<p>下面主要介绍下 Mach kernel exceptions、Fatal signals、C++ exceptions异常的注册异常处理函数原理。</p>
-<h3 id="Mach异常注册原理"><a href="#Mach异常注册原理" class="headerlink" title="Mach异常注册原理"></a>Mach异常注册原理</h3><p>下面是mach exceptions 的注册流程图</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_mach%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png" alt="KSCrash崩溃原理浅析_mach 异常安装">   </p>
-<p>基本流程是：</p>
-<ol>
-<li>首先调用task_get_exception_ports 保存先前的异常处理端口。</li>
-<li>调用mach_port_allocate  创建异常处理端口g_exceptionPort。<!--xnu的进程内通信可以通过端口进行。--></li>
-<li>调用 mach_port_insert_right 获取端口的权限</li>
-<li>设置异常处理端口  </li>
-<li>创建线程，线程中不停的调用mach_msg ，读取g_exceptionPort端口上的数据，如果异常发生，mach_msg成功，进入异常处理流程。</li>
-<li>恢复先前的异常处理端口</li>
-<li>调用ksmachexc_i_fetchMachineState 获取线程状态。</li>
-<li>保存状态并完成符号化功能。</li>
-<li>卸载异常处理函数。</li>
-</ol>
-<p>千言万语，不如几行代码的说服力，所以后面的内容都使用代码+注释的形式表述。</p>
-<pre><code>bool kscrashsentry_installMachHandler(KSCrash_SentryContext* const context)
+g_installed = 1;
+
+g_context = context;
+
+///获取先前异常捕获的端口
+kr = task_get_exception_ports(thisTask,
+                              mask,
+                              g_previousExceptionPorts.masks,
+                              &amp;g_previousExceptionPorts.count,
+                              g_previousExceptionPorts.ports,
+                              g_previousExceptionPorts.behaviors,
+                              g_previousExceptionPorts.flavors);
+
+if(g_exceptionPort == MACH_PORT_NULL)
 {
-    bool attributes_created = false;
-    pthread_attr_t attr;
-
-    kern_return_t kr;
-    int error;
-
-    const task_t thisTask = mach_task_self();
-    exception_mask_t mask = EXC_MASK_BAD_ACCESS |
-    EXC_MASK_BAD_INSTRUCTION |
-    EXC_MASK_ARITHMETIC |
-    EXC_MASK_SOFTWARE |
-    EXC_MASK_BREAKPOINT;
-
-    if(g_installed)
-    {
-        return true;
-    }
-    g_installed = 1;
-
-    g_context = context;
-
-    ///获取先前异常捕获的端口
-    kr = task_get_exception_ports(thisTask,
-                                  mask,
-                                  g_previousExceptionPorts.masks,
-                                  &amp;g_previousExceptionPorts.count,
-                                  g_previousExceptionPorts.ports,
-                                  g_previousExceptionPorts.behaviors,
-                                  g_previousExceptionPorts.flavors);
-
-    if(g_exceptionPort == MACH_PORT_NULL)
-    {
-            ///创建异常捕获端口
-        kr = mach_port_allocate(thisTask,
-                                MACH_PORT_RIGHT_RECEIVE,
-                                &amp;g_exceptionPort);
-        ///获取端口的权限
-        kr = mach_port_insert_right(thisTask,
-                                    g_exceptionPort,
-                                    g_exceptionPort,
-                                    MACH_MSG_TYPE_MAKE_SEND);
-    }
-        ///设置异常捕获端口
-    kr = task_set_exception_ports(thisTask,
-                                  mask,
-                                  g_exceptionPort,
-                                  EXCEPTION_DEFAULT,
-                                  THREAD_STATE_NONE);
-    ///启动读异常端口数据的线程
-    pthread_attr_init(&amp;attr);
-    attributes_created = true;
-    pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);
-    error = pthread_create(&amp;g_secondaryPThread,
-                           &amp;attr,
-                           &amp;ksmachexc_i_handleExceptions,
-                           kThreadSecondary);
-
-    g_secondaryMachThread = pthread_mach_thread_np(g_secondaryPThread);
-    context-&gt;reservedThreads[KSCrashReservedThreadTypeMachSecondary] = g_secondaryMachThread;
-
-    error = pthread_create(&amp;g_primaryPThread,
-                           &amp;attr,
-                           &amp;ksmachexc_i_handleExceptions,
-                           kThreadPrimary);
-
-    pthread_attr_destroy(&amp;attr);
-    g_primaryMachThread = pthread_mach_thread_np(g_primaryPThread);
-    context-&gt;reservedThreads[KSCrashReservedThreadTypeMachPrimary] = g_primaryMachThread;
-failed:
-    return false;
+        ///创建异常捕获端口
+    kr = mach_port_allocate(thisTask,
+                            MACH_PORT_RIGHT_RECEIVE,
+                            &amp;g_exceptionPort);
+    ///获取端口的权限
+    kr = mach_port_insert_right(thisTask,
+                                g_exceptionPort,
+                                g_exceptionPort,
+                                MACH_MSG_TYPE_MAKE_SEND);
 }
-</code></pre><p>这里完了展示主要逻辑，去掉了很多日志和错误判断的代码。下面是异常处理函数</p>
-<pre><code>void* ksmachexc_i_handleExceptions(void* const userData)
+    ///设置异常捕获端口
+kr = task_set_exception_ports(thisTask,
+                              mask,
+                              g_exceptionPort,
+                              EXCEPTION_DEFAULT,
+                              THREAD_STATE_NONE);
+///启动读异常端口数据的线程
+pthread_attr_init(&amp;attr);
+attributes_created = true;
+pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);
+error = pthread_create(&amp;g_secondaryPThread,
+                       &amp;attr,
+                       &amp;ksmachexc_i_handleExceptions,
+                       kThreadSecondary);
+
+g_secondaryMachThread = pthread_mach_thread_np(g_secondaryPThread);
+context-&gt;reservedThreads[KSCrashReservedThreadTypeMachSecondary] = g_secondaryMachThread;
+
+error = pthread_create(&amp;g_primaryPThread,
+                       &amp;attr,
+                       &amp;ksmachexc_i_handleExceptions,
+                       kThreadPrimary);
+
+pthread_attr_destroy(&amp;attr);
+g_primaryMachThread = pthread_mach_thread_np(g_primaryPThread);
+context-&gt;reservedThreads[KSCrashReservedThreadTypeMachPrimary] = g_primaryMachThread;
+</code></pre><p>failed:<br>    return false;<br>}<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">这里完了展示主要逻辑，去掉了很多日志和错误判断的代码。下面是异常处理函数</span><br></pre></td></tr></table></figure></p>
+<p>void<em> ksmachexc_i_handleExceptions(void</em> const userData)<br>{<br>    MachExceptionMessage exceptionMessage = 0;<br>    MachReplyMessage replyMessage = 0;</p>
+<pre><code>const char* threadName = (const char*) userData;
+pthread_setname_np(threadName);
+if(threadName == kThreadSecondary)
 {
-    MachExceptionMessage exceptionMessage = {{0}};
-    MachReplyMessage replyMessage = {{0}};
+    thread_suspend(ksmach_thread_self());
+}
 
-    const char* threadName = (const char*) userData;
-    pthread_setname_np(threadName);
-    if(threadName == kThreadSecondary)
+for(;;)
+{
+        ///读取异常端口
+    kern_return_t kr = mach_msg(&amp;exceptionMessage.header,
+                                MACH_RCV_MSG,
+                                0,
+                                sizeof(exceptionMessage),
+                                g_exceptionPort,
+                                MACH_MSG_TIMEOUT_NONE,
+                                MACH_PORT_NULL);
+    if(kr == KERN_SUCCESS)
     {
-        thread_suspend(ksmach_thread_self());
+        break;
     }
+}
+    ///读取到异常信息，证明崩溃发生
+if(g_installed)
+{
+    bool wasHandlingCrash = g_context-&gt;handlingCrash;
+    kscrashsentry_beginHandlingCrash(g_context);
 
-    for(;;)
+    ///挂起所有的线程
+    kscrashsentry_suspendThreads();
+
+    // Switch to the secondary thread if necessary, or uninstall the handler
+    // to avoid a death loop.
+    if(ksmach_thread_self() == g_primaryMachThread)
     {
-            ///读取异常端口
-        kern_return_t kr = mach_msg(&amp;exceptionMessage.header,
-                                    MACH_RCV_MSG,
-                                    0,
-                                    sizeof(exceptionMessage),
-                                    g_exceptionPort,
-                                    MACH_MSG_TIMEOUT_NONE,
-                                    MACH_PORT_NULL);
-        if(kr == KERN_SUCCESS)
+        KSLOG_DEBUG(&quot;This is the primary exception thread. Activating secondary thread.&quot;);
+        if(thread_resume(g_secondaryMachThread) != KERN_SUCCESS)
         {
-            break;
+            KSLOG_DEBUG(&quot;Could not activate secondary thread. Restoring original exception ports.&quot;);
+            ksmachexc_i_restoreExceptionPorts();
         }
     }
-        ///读取到异常信息，证明崩溃发生
-    if(g_installed)
+    else
     {
-        bool wasHandlingCrash = g_context-&gt;handlingCrash;
-        kscrashsentry_beginHandlingCrash(g_context);
+        KSLOG_DEBUG(&quot;This is the secondary exception thread. Restoring original exception ports.&quot;);
+        ksmachexc_i_restoreExceptionPorts();
+    }
+            ///是否正在处理异常 
+    if(wasHandlingCrash)
+    {
+        KSLOG_INFO(&quot;Detected crash in the crash reporter. Restoring original handlers.&quot;);
+        // The crash reporter itself crashed. Make a note of this and
+        // uninstall all handlers so that we don&apos;t get stuck in a loop.
+        g_context-&gt;crashedDuringCrashHandling = true;
+        kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
+    }
 
-        ///挂起所有的线程
-        kscrashsentry_suspendThreads();
-
-        // Switch to the secondary thread if necessary, or uninstall the handler
-        // to avoid a death loop.
-        if(ksmach_thread_self() == g_primaryMachThread)
+    /// 填充异常信息 
+    STRUCT_MCONTEXT_L machineContext;
+    if(ksmachexc_i_fetchMachineState(exceptionMessage.thread.name, &amp;machineContext))
+    {
+        if(exceptionMessage.exception == EXC_BAD_ACCESS)
         {
-            KSLOG_DEBUG(&quot;This is the primary exception thread. Activating secondary thread.&quot;);
-            if(thread_resume(g_secondaryMachThread) != KERN_SUCCESS)
-            {
-                KSLOG_DEBUG(&quot;Could not activate secondary thread. Restoring original exception ports.&quot;);
-                ksmachexc_i_restoreExceptionPorts();
-            }
+            g_context-&gt;faultAddress = ksmach_faultAddress(&amp;machineContext);
         }
         else
         {
-            KSLOG_DEBUG(&quot;This is the secondary exception thread. Restoring original exception ports.&quot;);
-            ksmachexc_i_restoreExceptionPorts();
-        }
-                ///是否正在处理异常 
-        if(wasHandlingCrash)
-        {
-            KSLOG_INFO(&quot;Detected crash in the crash reporter. Restoring original handlers.&quot;);
-            // The crash reporter itself crashed. Make a note of this and
-            // uninstall all handlers so that we don&apos;t get stuck in a loop.
-            g_context-&gt;crashedDuringCrashHandling = true;
-            kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
-        }
-
-        /// 填充异常信息 
-        STRUCT_MCONTEXT_L machineContext;
-        if(ksmachexc_i_fetchMachineState(exceptionMessage.thread.name, &amp;machineContext))
-        {
-            if(exceptionMessage.exception == EXC_BAD_ACCESS)
-            {
-                g_context-&gt;faultAddress = ksmach_faultAddress(&amp;machineContext);
-            }
-            else
-            {
-                g_context-&gt;faultAddress = ksmach_instructionAddress(&amp;machineContext);
-            }
-        }
-
-        g_context-&gt;crashType = KSCrashTypeMachException;
-        g_context-&gt;offendingThread = exceptionMessage.thread.name;
-        g_context-&gt;registersAreValid = true;
-        g_context-&gt;mach.type = exceptionMessage.exception;
-        g_context-&gt;mach.code = exceptionMessage.code[0];
-        g_context-&gt;mach.subcode = exceptionMessage.code[1];
-
-        g_context-&gt;onCrash();
-
-        kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
-        kscrashsentry_resumeThreads();
-    }
-
-    // Send a reply saying &quot;I didn&apos;t handle this exception&quot;.
-    replyMessage.header = exceptionMessage.header;
-    replyMessage.NDR = exceptionMessage.NDR;
-    replyMessage.returnCode = KERN_FAILURE;
-
-    mach_msg(&amp;replyMessage.header,
-             MACH_SEND_MSG,
-             sizeof(replyMessage),
-             0,
-             MACH_PORT_NULL,
-             MACH_MSG_TIMEOUT_NONE,
-             MACH_PORT_NULL);
-
-    return NULL;
-}
-</code></pre><h3 id="signals异常注册"><a href="#signals异常注册" class="headerlink" title="signals异常注册"></a>signals异常注册</h3><p>下图是signals exceptions 异常处理函数的注册过程：</p>
-<p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_sinal%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png" alt="KSCrash崩溃原理浅析_sinal 异常安装"></p>
-<p>替换信号处理函数栈 </p>
-<pre><code>int sigaltstack(const stack_t *ss, stack_t *oss);&lt;/signal.h&gt;
-
-int sigaction(int signo,const struct sigaction *restrict act,
-              struct sigaction *restrict oact);
-</code></pre><p>给信号signum设置新的信号处理函数act， 同时保留该信号原有的信号处理函数oldact  </p>
-<p>安装的信号句柄是g_signalStack，信号的种类包括如下：</p>
-<pre><code>SIGABRT,     /* abort() */
-SIGBUS,  /* bus error */
-SIGFPE,  /* floating point exception */
-SIGILL,  /* illegal instruction (not reset when caught) */
-SIGPIPE,  /* write on a pipe with no one to read it */
-SIGSEGV,  /* segmentation violation */
-SIGSYS,  /* bad argument to system call */
-SIGTRAP,  /* trace trap (not reset when caught) */
-</code></pre><h3 id="C-exceptions-异常注册"><a href="#C-exceptions-异常注册" class="headerlink" title="C++ exceptions 异常注册"></a>C++ exceptions 异常注册</h3><p>这个比较简单，直接调用了标注库的std::set_terminate(CPPExceptionTerminate)函数，设置CPPExceptionTerminate为C++ exceptions 的异常处理函数。</p>
-<h3 id="Object-C-异常注册"><a href="#Object-C-异常注册" class="headerlink" title="Object C 异常注册"></a>Object C 异常注册</h3><p>具体看代码Sentry 目录下的KSCrashSentry_NSException.m文件</p>
-<h3 id="获取线程的调用堆栈、符号化调用堆栈"><a href="#获取线程的调用堆栈、符号化调用堆栈" class="headerlink" title="获取线程的调用堆栈、符号化调用堆栈"></a>获取线程的调用堆栈、符号化调用堆栈</h3><h4 id="获取线程的调用堆栈、符号化调用堆栈原理"><a href="#获取线程的调用堆栈、符号化调用堆栈原理" class="headerlink" title="获取线程的调用堆栈、符号化调用堆栈原理"></a>获取线程的调用堆栈、符号化调用堆栈原理</h4><p><img src="http://of685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_%E7%AC%A6%E5%8F%B7%E8%BF%87%E7%A8%8B.png" alt="KSCrash崩溃原理浅析_符号过程"></p>
-<p>下面只用代码讲解，代码只保留主要逻辑，kscrash_i_onCrash符号化的入口函数：</p>
-<pre><code>void kscrash_i_onCrash(void)
-{
-        ...
-        ///根据崩溃上下文context，写崩溃日志
-    kscrashreport_writeMinimalReport(context, g_recrashReportFilePath);
-    ......
-}
-
-void kscrashreport_writeStandardReport(KSCrash_Context* const crashContext,
-                                       const char* const path)
-{
-        ......
-        /// 写崩溃时刻所有线程的  回溯
-    kscrw_i_writeAllThreads(writer,
-                                KSCrashField_Threads,
-                                &amp;crashContext-&gt;crash,
-                                crashContext-&gt;config.introspectionRules.enabled,
-                                crashContext-&gt;config.searchThreadNames,
-                                crashContext-&gt;config.searchQueueNames);
-    .....
-}
-
-
-void kscrw_i_writeAllThreads(const KSCrashReportWriter* const writer,
-                             const char* const key,
-                             const KSCrash_SentryContext* const crash,
-                             bool writeNotableAddresses,
-                             bool searchThreadNames,
-                             bool searchQueueNames)
-{
-    const task_t thisTask = mach_task_self();
-    thread_act_array_t threads;
-    mach_msg_type_number_t numThreads;
-    kern_return_t kr;
-    ///获取所有线程
-    if((kr = task_threads(thisTask, &amp;threads, &amp;numThreads)) != KERN_SUCCESS)
-    {
-        KSLOG_ERROR(&quot;task_threads: %s&quot;, mach_error_string(kr));
-        return;
-    }
-
-    // Fetch info for all threads.
-    writer-&gt;beginArray(writer, key);
-    {
-        for(mach_msg_type_number_t i = 0; i &lt; numThreads; i++)
-        {
-            kscrw_i_writeThread(writer, NULL, crash, threads[i], (int)i, writeNotableAddresses, searchThreadNames,
-                                searchQueueNames);
+            g_context-&gt;faultAddress = ksmach_instructionAddress(&amp;machineContext);
         }
     }
-    ....
-}
-void kscrw_i_writeThread(const KSCrashReportWriter* const writer,
-                         const char* const key,
-                         const KSCrash_SentryContext* const crash,
-                         const thread_t thread,
-                         const int index,
-                         const bool writeNotableAddresses,
-                         const bool searchThreadNames,
-                         const bool searchQueueNames)
-{
-    bool isCrashedThread = thread == crash-&gt;offendingThread;
-    char nameBuffer[128];
-    STRUCT_MCONTEXT_L machineContextBuffer;
-    uintptr_t backtraceBuffer[kMaxBacktraceDepth];
-    int backtraceLength = sizeof(backtraceBuffer) / sizeof(*backtraceBuffer);
-    int skippedEntries = 0;
-        /// 获取线程状态、 异常状态
-    STRUCT_MCONTEXT_L* machineContext = kscrw_i_getMachineContext(crash,
-                                                                 thread,
-                                                                 &amp;machineContextBuffer);
-    ///获取异常线程的回溯
-    uintptr_t* backtrace = kscrw_i_getBacktrace(crash,
-                                                thread,
-                                                machineContext,
-                                                backtraceBuffer,
-                                                &amp;backtraceLength,
-                                                &amp;skippedEntries);
 
-     if(backtrace != NULL)
-     {
-                 ///符号化线程回溯
-         kscrw_i_writeBacktrace(writer,
-                                KSCrashField_Backtrace,
-                                backtrace,
-                                backtraceLength,
-                                skippedEntries);
-     }
-    ......
+    g_context-&gt;crashType = KSCrashTypeMachException;
+    g_context-&gt;offendingThread = exceptionMessage.thread.name;
+    g_context-&gt;registersAreValid = true;
+    g_context-&gt;mach.type = exceptionMessage.exception;
+    g_context-&gt;mach.code = exceptionMessage.code[0];
+    g_context-&gt;mach.subcode = exceptionMessage.code[1];
+
+    g_context-&gt;onCrash();
+
+    kscrashsentry_uninstall(KSCrashTypeAsyncSafe);
+    kscrashsentry_resumeThreads();
 }
-</code></pre><p>代码分析到目前，关键的代码已经出现了，三部分：</p>
-<ol>
-<li>获取线程状态、 异常状态</li>
-<li>获取异常线程的回溯</li>
-<li>符号化线程回溯</li>
-</ol>
-<h4 id="获取线程状态-代码分析"><a href="#获取线程状态-代码分析" class="headerlink" title="获取线程状态 代码分析"></a>获取线程状态 代码分析</h4><pre><code>STRUCT_MCONTEXT_L* kscrw_i_getMachineContext(const KSCrash_SentryContext* const crash,
-                                            const thread_t thread,
-                                            STRUCT_MCONTEXT_L* const machineContextBuffer)
+
+// Send a reply saying &quot;I didn&apos;t handle this exception&quot;.
+replyMessage.header = exceptionMessage.header;
+replyMessage.NDR = exceptionMessage.NDR;
+replyMessage.returnCode = KERN_FAILURE;
+
+mach_msg(&amp;replyMessage.header,
+         MACH_SEND_MSG,
+         sizeof(replyMessage),
+         0,
+         MACH_PORT_NULL,
+         MACH_MSG_TIMEOUT_NONE,
+         MACH_PORT_NULL);
+
+return NULL;
+</code></pre><p>}<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">### signals异常注册</span></span><br><span class="line"></span><br><span class="line">下图是signals exceptions 异常处理函数的注册过程：</span><br><span class="line"></span><br><span class="line">![KSCrash崩溃原理浅析_sinal 异常安装](http:<span class="regexp">//of</span>685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_sinal%20%E5%BC%82%E5%B8%B8%E5%AE%89%E8%A3%85.png)</span><br><span class="line"></span><br><span class="line">替换信号处理函数栈</span><br></pre></td></tr></table></figure></p>
+<p>int sigaltstack(const stack_t <em>ss, stack_t </em>oss);</p>
+<p>int sigaction(int signo,const struct sigaction <em>restrict act,<br>              struct sigaction </em>restrict oact);<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">              </span><br><span class="line">给信号<span class="built_in">signum</span>设置新的信号处理函数act， 同时保留该信号原有的信号处理函数oldact  </span><br><span class="line"></span><br><span class="line">安装的信号句柄是g_signalStack，信号的种类包括如下：</span><br></pre></td></tr></table></figure></p>
+<p>SIGABRT,     /<em> abort() </em>/<br>SIGBUS,  /<em> bus error </em>/<br>SIGFPE,  /<em> floating point exception </em>/<br>SIGILL,  /<em> illegal instruction (not reset when caught) </em>/<br>SIGPIPE,  /<em> write on a pipe with no one to read it </em>/<br>SIGSEGV,  /<em> segmentation violation </em>/<br>SIGSYS,  /<em> bad argument to system call </em>/<br>SIGTRAP,  /<em> trace trap (not reset when caught) </em>/<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">### C++ exceptions 异常注册</span></span><br><span class="line"></span><br><span class="line">这个比较简单，直接调用了标注库的std::set_terminate(CPPExceptionTerminate)函数，设置CPPExceptionTerminate为C++ exceptions 的异常处理函数。</span><br><span class="line"></span><br><span class="line"><span class="comment">### Object C 异常注册</span></span><br><span class="line"></span><br><span class="line">具体看代码Sentry 目录下的KSCrashSentry_NSException.m文件</span><br><span class="line"></span><br><span class="line"><span class="comment">### 获取线程的调用堆栈、符号化调用堆栈</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#### 获取线程的调用堆栈、符号化调用堆栈原理</span></span><br><span class="line">![KSCrash崩溃原理浅析<span class="number">_</span>符号过程](http:<span class="regexp">//of</span>685p9vy.bkt.clouddn.com/KSCrash%E5%B4%A9%E6%BA%83%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90_%E7%AC%A6%E5%8F%B7%E8%BF%87%E7%A8%8B.png)</span><br><span class="line"></span><br><span class="line">下面只用代码讲解，代码只保留主要逻辑，kscrash_i_onCrash符号化的入口函数：</span><br></pre></td></tr></table></figure></p>
+<p>void kscrash_i_onCrash(void)<br>{<br>        …<br>        ///根据崩溃上下文context，写崩溃日志<br>    kscrashreport_writeMinimalReport(context, g_recrashReportFilePath);<br>    ……<br>}</p>
+<p>void kscrashreport_writeStandardReport(KSCrash_Context<em> const crashContext,<br>                                       const char</em> const path)<br>{<br>        ……<br>        /// 写崩溃时刻所有线程的  回溯<br>    kscrw_i_writeAllThreads(writer,<br>                                KSCrashField_Threads,<br>                                &amp;crashContext-&gt;crash,<br>                                crashContext-&gt;config.introspectionRules.enabled,<br>                                crashContext-&gt;config.searchThreadNames,<br>                                crashContext-&gt;config.searchQueueNames);<br>    …..<br>}</p>
+<p>void kscrw_i_writeAllThreads(const KSCrashReportWriter<em> const writer,<br>                             const char</em> const key,<br>                             const KSCrash_SentryContext* const crash,<br>                             bool writeNotableAddresses,<br>                             bool searchThreadNames,<br>                             bool searchQueueNames)<br>{<br>    const task_t thisTask = mach_task_self();<br>    thread_act_array_t threads;<br>    mach_msg_type_number_t numThreads;<br>    kern_return_t kr;<br>    ///获取所有线程<br>    if((kr = task_threads(thisTask, &amp;threads, &amp;numThreads)) != KERN_SUCCESS)<br>    {<br>        KSLOG_ERROR(“task_threads: %s”, mach_error_string(kr));<br>        return;<br>    }</p>
+<pre><code>// Fetch info for all threads.
+writer-&gt;beginArray(writer, key);
 {
-    if(!kscrw_i_fetchMachineState(thread, machineContextBuffer))
+    for(mach_msg_type_number_t i = 0; i &lt; numThreads; i++)
     {
-        return NULL;
-    }
-    return machineContextBuffer;
-}
-
-bool kscrw_i_fetchMachineState(const thread_t thread,
-                               STRUCT_MCONTEXT_L* const machineContextBuffer)
-{
-    if(!ksmach_threadState(thread, machineContextBuffer))
-    {
-        return false;
-    }
-
-    if(!ksmach_exceptionState(thread, machineContextBuffer))
-    {
-        return false;
-    }
-
-    return true;
-}
-
-bool ksmach_threadState(const thread_t thread,
-                        STRUCT_MCONTEXT_L* const machineContext)
-{
-    return ksmach_fillState(thread,
-                            (thread_state_t)&amp;machineContext-&gt;__ss,
-                            ARM_THREAD_STATE64,
-                            ARM_THREAD_STATE64_COUNT);
-}
-
-bool ksmach_fillState(const thread_t thread,
-                      const thread_state_t state,
-                      const thread_state_flavor_t flavor,
-                      const mach_msg_type_number_t stateCount)
-{
-    mach_msg_type_number_t stateCountBuff = stateCount;
-    kern_return_t kr;
-
-    kr = thread_get_state(thread, flavor, state, &amp;stateCountBuff);
-    if(kr != KERN_SUCCESS)
-    {
-        return false;
-    }
-    return true;
-}
-
-bool ksmach_exceptionState(const thread_t thread,
-                           STRUCT_MCONTEXT_L* const machineContext)
-{
-    return ksmach_fillState(thread,
-                            (thread_state_t)&amp;machineContext-&gt;__es,
-                            ARM_EXCEPTION_STATE64,
-                            ARM_EXCEPTION_STATE64_COUNT);
-}
-</code></pre><h4 id="获取异常线程的回溯-代码分析"><a href="#获取异常线程的回溯-代码分析" class="headerlink" title="获取异常线程的回溯 代码分析"></a>获取异常线程的回溯 代码分析</h4><pre><code>uintptr_t* kscrw_i_getBacktrace(const KSCrash_SentryContext* const crash,
-                                const thread_t thread,
-                                const STRUCT_MCONTEXT_L* const machineContext,
-                                uintptr_t* const backtraceBuffer,
-                                int* const backtraceLength,
-                                int* const skippedEntries)
-{
-    int actualSkippedEntries = 0;
-    int actualLength = ksbt_backtraceLength(machineContext);
-    *backtraceLength = ksbt_backtraceThreadState(machineContext,
-                                                 backtraceBuffer,
-                                                 actualSkippedEntries,
-                                                 *backtraceLength);
-    return backtraceBuffer;
-}
-
-int ksbt_backtraceThreadState(const STRUCT_MCONTEXT_L* const machineContext,
-                              uintptr_t*const backtraceBuffer,
-                              const int skipEntries,
-                              const int maxEntries)
-{
-    int i = 0;
-
-    if(skipEntries == 0)
-    {
-        const uintptr_t instructionAddress = ksmach_instructionAddress(machineContext);
-        backtraceBuffer[i] = instructionAddress;
-        i++;
-    }
-
-
-    KSFrameEntry frame = {0};
-
-    const uintptr_t framePtr = ksmach_framePointer(machineContext);
-    if(framePtr == 0 ||
-       ksmach_copyMem((void*)framePtr, &amp;frame, sizeof(frame)) != KERN_SUCCESS)
-    {
-        return 0;
-    }
-    for(; i &lt; maxEntries; i++)
-    {
-        backtraceBuffer[i] = frame.return_address;
-        if(backtraceBuffer[i] == 0 ||
-           frame.previous == 0 ||
-           ksmach_copyMem(frame.previous, &amp;frame, sizeof(frame)) != KERN_SUCCESS)
-        {
-            break;
-        }
-    }
-    return i;
-}
-
-uintptr_t ksmach_instructionAddress(const STRUCT_MCONTEXT_L* const machineContext)
-{
-    return machineContext-&gt;__ss.__pc;
-}
-</code></pre><h4 id="符号化的代码-代码分析"><a href="#符号化的代码-代码分析" class="headerlink" title="符号化的代码 代码分析"></a>符号化的代码 代码分析</h4><pre><code>struct nlist_64 {
-    union {
-        uint32_t  n_strx; /* index into the string table */
-    } n_un;
-    uint8_t n_type;        /* type flag, see below */
-    uint8_t n_sect;        /* section number or NO_SECT */
-    uint16_t n_desc;       /* see &lt;mach-o/stab.h&gt; */
-    uint64_t n_value;      /* value of this symbol (or stab offset) */
-};
-
-typedef struct dl_info 
-{
-    const char      *dli_fname;     /* Pathname of shared object */
-    void            *dli_fbase;     /* Base address of shared object */
-    const char      *dli_sname;     /* Name of nearest symbol */
-    void            *dli_saddr;     /* Address of nearest symbol */
-} Dl_info;
-
-void kscrw_i_writeBacktrace(const KSCrashReportWriter* const writer,
-                            const char* const key,
-                            const uintptr_t* const backtrace,
-                            const int backtraceLength,
-                            const int skippedEntries)
-{
-    Dl_info symbolicated[backtraceLength];
-    ksbt_symbolicate(backtrace, symbolicated, backtraceLength, skippedEntries);
-}
-
-#define CALL_INSTRUCTION_FROM_RETURN_ADDRESS(A) (DETAG_INSTRUCTION_ADDRESS((A)) - 1)
-
-void ksbt_symbolicate(const uintptr_t* const backtraceBuffer,
-                      Dl_info* const symbolsBuffer,
-                      const int numEntries,
-                      const int skippedEntries)
-{
-    int i = 0;
-    for(; i &lt; numEntries; i++)
-    {
-        ksdl_dladdr(CALL_INSTRUCTION_FROM_RETURN_ADDRESS(backtraceBuffer[i]), &amp;symbolsBuffer[i]);
+        kscrw_i_writeThread(writer, NULL, crash, threads[i], (int)i, writeNotableAddresses, searchThreadNames,
+                            searchQueueNames);
     }
 }
-
-bool ksdl_dladdr(const uintptr_t address, Dl_info* const info)
+....
+</code></pre><p>}<br>void kscrw_i_writeThread(const KSCrashReportWriter<em> const writer,<br>                         const char</em> const key,<br>                         const KSCrash_SentryContext<em> const crash,<br>                         const thread_t thread,<br>                         const int index,<br>                         const bool writeNotableAddresses,<br>                         const bool searchThreadNames,<br>                         const bool searchQueueNames)<br>{<br>    bool isCrashedThread = thread == crash-&gt;offendingThread;<br>    char nameBuffer[128];<br>    STRUCT_MCONTEXT_L machineContextBuffer;<br>    uintptr_t backtraceBuffer[kMaxBacktraceDepth];<br>    int backtraceLength = sizeof(backtraceBuffer) / sizeof(</em>backtraceBuffer);<br>    int skippedEntries = 0;<br>        /// 获取线程状态、 异常状态<br>    STRUCT_MCONTEXT_L<em> machineContext = kscrw_i_getMachineContext(crash,<br>                                                                 thread,<br>                                                                 &amp;machineContextBuffer);<br>    ///获取异常线程的回溯<br>    uintptr_t</em> backtrace = kscrw_i_getBacktrace(crash,<br>                                                thread,<br>                                                machineContext,<br>                                                backtraceBuffer,<br>                                                &amp;backtraceLength,<br>                                                &amp;skippedEntries);</p>
+<pre><code> if(backtrace != NULL)
+ {
+             ///符号化线程回溯
+     kscrw_i_writeBacktrace(writer,
+                            KSCrashField_Backtrace,
+                            backtrace,
+                            backtraceLength,
+                            skippedEntries);
+ }
+......
+</code></pre><p>}<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">代码分析到目前，关键的代码已经出现了，三部分：</span><br><span class="line"><span class="number">1.</span> 获取线程状态、 异常状态</span><br><span class="line"><span class="number">2.</span> 获取异常线程的回溯</span><br><span class="line"><span class="number">3.</span> 符号化线程回溯</span><br><span class="line"></span><br><span class="line">#### 获取线程状态 代码分析</span><br></pre></td></tr></table></figure></p>
+<p>STRUCT_MCONTEXT_L<em> kscrw_i_getMachineContext(const KSCrash_SentryContext</em> const crash,<br>                                            const thread_t thread,<br>                                            STRUCT_MCONTEXT_L* const machineContextBuffer)<br>{<br>    if(!kscrw_i_fetchMachineState(thread, machineContextBuffer))<br>    {<br>        return NULL;<br>    }<br>    return machineContextBuffer;<br>}</p>
+<p>bool kscrw_i_fetchMachineState(const thread_t thread,<br>                               STRUCT_MCONTEXT_L* const machineContextBuffer)<br>{<br>    if(!ksmach_threadState(thread, machineContextBuffer))<br>    {<br>        return false;<br>    }</p>
+<pre><code>if(!ksmach_exceptionState(thread, machineContextBuffer))
 {
-    info-&gt;dli_fname = NULL;
-    info-&gt;dli_fbase = NULL;
-    info-&gt;dli_sname = NULL;
-    info-&gt;dli_saddr = NULL;
-
-    const uint32_t idx = ksdl_imageIndexContainingAddress(address);
-    if(idx == UINT_MAX)
-    {
-        return false;
-    }
-    const struct mach_header* header = _dyld_get_image_header(idx);
-    const uintptr_t imageVMAddrSlide = (uintptr_t)_dyld_get_image_vmaddr_slide(idx);
-    /// 符号在镜像的偏移量 = 堆栈地址 - 镜像的加载地址
-    const uintptr_t addressWithSlide = address - imageVMAddrSlide;
-
-    const uintptr_t segmentBase = ksdl_segmentBaseOfImageIndex(idx) + imageVMAddrSlide;
-    if(segmentBase == 0)
-    {
-        return false;
-    }
-
-    info-&gt;dli_fname = _dyld_get_image_name(idx);
-    info-&gt;dli_fbase = (void*)header;
-
-    // Find symbol tables and get whichever symbol is closest to the address.
-    const STRUCT_NLIST* bestMatch = NULL;
-    uintptr_t bestDistance = ULONG_MAX;
-    uintptr_t cmdPtr = ksdl_firstCmdAfterHeader(header);
-    if(cmdPtr == 0)
-    {
-        return false;
-    }
-
-    for(uint32_t iCmd = 0; iCmd &lt; header-&gt;ncmds; iCmd++)
-    {
-        const struct load_command* loadCmd = (struct load_command*)cmdPtr;
-
-        ///查找LC_SYMTAB load command 
-        if(loadCmd-&gt;cmd == LC_SYMTAB)
-        {
-            const struct symtab_command* symtabCmd = (struct symtab_command*)cmdPtr;
-            const STRUCT_NLIST* symbolTable = (STRUCT_NLIST*)(segmentBase + symtabCmd-&gt;symoff);
-            const uintptr_t stringTable = segmentBase + symtabCmd-&gt;stroff;
-                        ///在符号表中循环查找，直到首次达到 镜像偏移量imageVMAddrSlide 
-            for(uint32_t iSym = 0; iSym &lt; symtabCmd-&gt;nsyms; iSym++)
-            {
-                // If n_value is 0, the symbol refers to an external object.
-                if(symbolTable[iSym].n_value != 0)
-                {
-                    uintptr_t symbolBase = symbolTable[iSym].n_value;
-                    uintptr_t currentDistance = addressWithSlide - symbolBase;
-                    if((addressWithSlide &gt;= symbolBase) &amp;&amp;
-                       (currentDistance &lt;= bestDistance))
-                    {
-                        bestMatch = symbolTable + iSym;
-                        bestDistance = currentDistance;
-                    }
-                }
-            }
-            ///取出符号信息，符号信息存储在 
-            if(bestMatch != NULL)
-            {
-                info-&gt;dli_saddr = (void*)(bestMatch-&gt;n_value + imageVMAddrSlide);
-                info-&gt;dli_sname = (char*)((intptr_t)stringTable + (intptr_t)bestMatch-&gt;n_un.n_strx);
-                if(*info-&gt;dli_sname == &apos;_&apos;)
-                {
-                    info-&gt;dli_sname++;
-                }
-                // This happens if all symbols have been stripped.
-                if(info-&gt;dli_saddr == info-&gt;dli_fbase &amp;&amp; bestMatch-&gt;n_type == 3)
-                {
-                    info-&gt;dli_sname = NULL;
-                }
-                break;
-            }
-        }
-        cmdPtr += loadCmd-&gt;cmdsize;
-    }
-
-    return true;
+    return false;
 }
-</code></pre><p>上面是所有的关键代码。用到了一些Mach 的API，单不是苹果私有API，放心用吧。</p>
+
+return true;
+</code></pre><p>}</p>
+<p>bool ksmach_threadState(const thread_t thread,<br>                        STRUCT_MCONTEXT_L* const machineContext)<br>{<br>    return ksmach_fillState(thread,<br>                            (thread_state_t)&amp;machineContext-&gt;__ss,<br>                            ARM_THREAD_STATE64,<br>                            ARM_THREAD_STATE64_COUNT);<br>}</p>
+<p>bool ksmach_fillState(const thread_t thread,<br>                      const thread_state_t state,<br>                      const thread_state_flavor_t flavor,<br>                      const mach_msg_type_number_t stateCount)<br>{<br>    mach_msg_type_number_t stateCountBuff = stateCount;<br>    kern_return_t kr;</p>
+<pre><code>kr = thread_get_state(thread, flavor, state, &amp;stateCountBuff);
+if(kr != KERN_SUCCESS)
+{
+    return false;
+}
+return true;
+</code></pre><p>}</p>
+<p>bool ksmach_exceptionState(const thread_t thread,<br>                           STRUCT_MCONTEXT_L* const machineContext)<br>{<br>    return ksmach_fillState(thread,<br>                            (thread_state_t)&amp;machineContext-&gt;__es,<br>                            ARM_EXCEPTION_STATE64,<br>                            ARM_EXCEPTION_STATE64_COUNT);<br>}<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#### 获取异常线程的回溯 代码分析</span><br><span class="line"></span><br><span class="line">```                               </span><br><span class="line"><span class="keyword">uintptr_t</span>* kscrw_i_getBacktrace(<span class="keyword">const</span> KSCrash_SentryContext* <span class="keyword">const</span> crash,</span><br><span class="line">                                <span class="keyword">const</span> <span class="keyword">thread_t</span> thread,</span><br><span class="line">                                <span class="keyword">const</span> STRUCT_MCONTEXT_L* <span class="keyword">const</span> machineContext,</span><br><span class="line">                                <span class="keyword">uintptr_t</span>* <span class="keyword">const</span> backtraceBuffer,</span><br><span class="line">                                <span class="keyword">int</span>* <span class="keyword">const</span> backtraceLength,</span><br><span class="line">                                <span class="keyword">int</span>* <span class="keyword">const</span> skippedEntries)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">int</span> actualSkippedEntries = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">int</span> actualLength = ksbt_backtraceLength(machineContext);</span><br><span class="line">    *backtraceLength = ksbt_backtraceThreadState(machineContext,</span><br><span class="line">                                                 backtraceBuffer,</span><br><span class="line">                                                 actualSkippedEntries,</span><br><span class="line">                                                 *backtraceLength);</span><br><span class="line">    <span class="keyword">return</span> backtraceBuffer;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">ksbt_backtraceThreadState</span><span class="params">(<span class="keyword">const</span> STRUCT_MCONTEXT_L* <span class="keyword">const</span> machineContext,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">uintptr_t</span>*<span class="keyword">const</span> backtraceBuffer,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">const</span> <span class="keyword">int</span> skipEntries,</span></span></span><br><span class="line"><span class="function"><span class="params">                              <span class="keyword">const</span> <span class="keyword">int</span> maxEntries)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">if</span>(skipEntries == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">uintptr_t</span> instructionAddress = ksmach_instructionAddress(machineContext);</span><br><span class="line">        backtraceBuffer[i] = instructionAddress;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">   </span><br><span class="line">    KSFrameEntry frame = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uintptr_t</span> framePtr = ksmach_framePointer(machineContext);</span><br><span class="line">    <span class="keyword">if</span>(framePtr == <span class="number">0</span> ||</span><br><span class="line">       ksmach_copyMem((<span class="keyword">void</span>*)framePtr, &amp;frame, <span class="keyword">sizeof</span>(frame)) != KERN_SUCCESS)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(; i &lt; maxEntries; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        backtraceBuffer[i] = frame.return_address;</span><br><span class="line">        <span class="keyword">if</span>(backtraceBuffer[i] == <span class="number">0</span> ||</span><br><span class="line">           frame.previous == <span class="number">0</span> ||</span><br><span class="line">           ksmach_copyMem(frame.previous, &amp;frame, <span class="keyword">sizeof</span>(frame)) != KERN_SUCCESS)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">uintptr_t</span> ksmach_instructionAddress(<span class="keyword">const</span> STRUCT_MCONTEXT_L* <span class="keyword">const</span> machineContext)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> machineContext-&gt;__ss.__pc;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="符号化的代码-代码分析"><a href="#符号化的代码-代码分析" class="headerlink" title="符号化的代码 代码分析"></a>符号化的代码 代码分析</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">nlist_64</span> &#123;</span></span><br><span class="line">    <span class="keyword">union</span> &#123;</span><br><span class="line">        <span class="keyword">uint32_t</span>  n_strx; <span class="comment">/* index into the string table */</span></span><br><span class="line">    &#125; n_un;</span><br><span class="line">    <span class="keyword">uint8_t</span> n_type;        <span class="comment">/* type flag, see below */</span></span><br><span class="line">    <span class="keyword">uint8_t</span> n_sect;        <span class="comment">/* section number or NO_SECT */</span></span><br><span class="line">    <span class="keyword">uint16_t</span> n_desc;       <span class="comment">/* see &lt;mach-o/stab.h&gt; */</span></span><br><span class="line">    <span class="keyword">uint64_t</span> n_value;      <span class="comment">/* value of this symbol (or stab offset) */</span></span><br><span class="line">&#125;;</span><br><span class="line">	</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dl_info</span> </span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>      *dli_fname;     <span class="comment">/* Pathname of shared object */</span></span><br><span class="line">    <span class="keyword">void</span>            *dli_fbase;     <span class="comment">/* Base address of shared object */</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span>      *dli_sname;     <span class="comment">/* Name of nearest symbol */</span></span><br><span class="line">    <span class="keyword">void</span>            *dli_saddr;     <span class="comment">/* Address of nearest symbol */</span></span><br><span class="line">&#125; Dl_info;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">kscrw_i_writeBacktrace</span><span class="params">(<span class="keyword">const</span> KSCrashReportWriter* <span class="keyword">const</span> writer,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">const</span> <span class="keyword">char</span>* <span class="keyword">const</span> key,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">const</span> <span class="keyword">uintptr_t</span>* <span class="keyword">const</span> backtrace,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">const</span> <span class="keyword">int</span> backtraceLength,</span></span></span><br><span class="line"><span class="function"><span class="params">                            <span class="keyword">const</span> <span class="keyword">int</span> skippedEntries)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    Dl_info symbolicated[backtraceLength];</span><br><span class="line">    ksbt_symbolicate(backtrace, symbolicated, backtraceLength, skippedEntries);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> CALL_INSTRUCTION_FROM_RETURN_ADDRESS(A) (DETAG_INSTRUCTION_ADDRESS((A)) - 1)</span></span><br><span class="line">                              </span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">ksbt_symbolicate</span><span class="params">(<span class="keyword">const</span> <span class="keyword">uintptr_t</span>* <span class="keyword">const</span> backtraceBuffer,</span></span></span><br><span class="line"><span class="function"><span class="params">                      Dl_info* <span class="keyword">const</span> symbolsBuffer,</span></span></span><br><span class="line"><span class="function"><span class="params">                      <span class="keyword">const</span> <span class="keyword">int</span> numEntries,</span></span></span><br><span class="line"><span class="function"><span class="params">                      <span class="keyword">const</span> <span class="keyword">int</span> skippedEntries)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(; i &lt; numEntries; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        ksdl_dladdr(CALL_INSTRUCTION_FROM_RETURN_ADDRESS(backtraceBuffer[i]), &amp;symbolsBuffer[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">ksdl_dladdr</span><span class="params">(<span class="keyword">const</span> <span class="keyword">uintptr_t</span> address, Dl_info* <span class="keyword">const</span> info)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    info-&gt;dli_fname = <span class="literal">NULL</span>;</span><br><span class="line">    info-&gt;dli_fbase = <span class="literal">NULL</span>;</span><br><span class="line">    info-&gt;dli_sname = <span class="literal">NULL</span>;</span><br><span class="line">    info-&gt;dli_saddr = <span class="literal">NULL</span>;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uint32_t</span> idx = ksdl_imageIndexContainingAddress(address);</span><br><span class="line">    <span class="keyword">if</span>(idx == UINT_MAX)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">mach_header</span>* <span class="title">header</span> = _<span class="title">dyld_get_image_header</span>(<span class="title">idx</span>);</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uintptr_t</span> imageVMAddrSlide = (<span class="keyword">uintptr_t</span>)_dyld_get_image_vmaddr_slide(idx);</span><br><span class="line">    <span class="comment">/// 符号在镜像的偏移量 = 堆栈地址 - 镜像的加载地址</span></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uintptr_t</span> addressWithSlide = address - imageVMAddrSlide;</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uintptr_t</span> segmentBase = ksdl_segmentBaseOfImageIndex(idx) + imageVMAddrSlide;</span><br><span class="line">    <span class="keyword">if</span>(segmentBase == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">	</span><br><span class="line">    info-&gt;dli_fname = _dyld_get_image_name(idx);</span><br><span class="line">    info-&gt;dli_fbase = (<span class="keyword">void</span>*)header;</span><br><span class="line">	</span><br><span class="line">    <span class="comment">// Find symbol tables and get whichever symbol is closest to the address.</span></span><br><span class="line">    <span class="keyword">const</span> STRUCT_NLIST* bestMatch = <span class="literal">NULL</span>;</span><br><span class="line">    <span class="keyword">uintptr_t</span> bestDistance = ULONG_MAX;</span><br><span class="line">    <span class="keyword">uintptr_t</span> cmdPtr = ksdl_firstCmdAfterHeader(header);</span><br><span class="line">    <span class="keyword">if</span>(cmdPtr == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">uint32_t</span> iCmd = <span class="number">0</span>; iCmd &lt; header-&gt;ncmds; iCmd++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">load_command</span>* <span class="title">loadCmd</span> = (<span class="title">struct</span> <span class="title">load_command</span>*)<span class="title">cmdPtr</span>;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">///查找LC_SYMTAB load command </span></span><br><span class="line">        <span class="keyword">if</span>(loadCmd-&gt;cmd == LC_SYMTAB)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">symtab_command</span>* <span class="title">symtabCmd</span> = (<span class="title">struct</span> <span class="title">symtab_command</span>*)<span class="title">cmdPtr</span>;</span></span><br><span class="line">            <span class="keyword">const</span> STRUCT_NLIST* symbolTable = (STRUCT_NLIST*)(segmentBase + symtabCmd-&gt;symoff);</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">uintptr_t</span> stringTable = segmentBase + symtabCmd-&gt;stroff;</span><br><span class="line">						<span class="comment">///在符号表中循环查找，直到首次达到 镜像偏移量imageVMAddrSlide </span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">uint32_t</span> iSym = <span class="number">0</span>; iSym &lt; symtabCmd-&gt;nsyms; iSym++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// If n_value is 0, the symbol refers to an external object.</span></span><br><span class="line">                <span class="keyword">if</span>(symbolTable[iSym].n_value != <span class="number">0</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">uintptr_t</span> symbolBase = symbolTable[iSym].n_value;</span><br><span class="line">                    <span class="keyword">uintptr_t</span> currentDistance = addressWithSlide - symbolBase;</span><br><span class="line">                    <span class="keyword">if</span>((addressWithSlide &gt;= symbolBase) &amp;&amp;</span><br><span class="line">                       (currentDistance &lt;= bestDistance))</span><br><span class="line">                    &#123;</span><br><span class="line">                        bestMatch = symbolTable + iSym;</span><br><span class="line">                        bestDistance = currentDistance;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">///取出符号信息，符号信息存储在 </span></span><br><span class="line">            <span class="keyword">if</span>(bestMatch != <span class="literal">NULL</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                info-&gt;dli_saddr = (<span class="keyword">void</span>*)(bestMatch-&gt;n_value + imageVMAddrSlide);</span><br><span class="line">                info-&gt;dli_sname = (<span class="keyword">char</span>*)((<span class="keyword">intptr_t</span>)stringTable + (<span class="keyword">intptr_t</span>)bestMatch-&gt;n_un.n_strx);</span><br><span class="line">                <span class="keyword">if</span>(*info-&gt;dli_sname == <span class="string">'_'</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    info-&gt;dli_sname++;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// This happens if all symbols have been stripped.</span></span><br><span class="line">                <span class="keyword">if</span>(info-&gt;dli_saddr == info-&gt;dli_fbase &amp;&amp; bestMatch-&gt;n_type == <span class="number">3</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    info-&gt;dli_sname = <span class="literal">NULL</span>;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        cmdPtr += loadCmd-&gt;cmdsize;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面是所有的关键代码。用到了一些Mach 的API，单不是苹果私有API，放心用吧。</p>
 <!--首先使用task_threads 获取崩溃时候所有的调用线程。
 
 然后获取通过kscrw_i_getBacktrace 获取每个线程的调用堆栈的回溯，kscrw_i_getBacktrace 函数获取调用堆栈的原理就是根据寄存器中指定的栈基址指针rbp、当前栈帧地址rsp两个指针，一次复制出调用堆栈。
