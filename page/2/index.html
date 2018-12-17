@@ -435,15 +435,6 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            Category
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Category/深入理解Objective-C：Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
                             GCD
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
@@ -491,7 +482,16 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  </ul> 
                     </li> 
-                     <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/经典文章/meta_class/">Objective-C 中的元类（meta class）是什么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/经典文章/Objective_C_Category/">深入理解Objective-C：Category(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -828,72 +828,6 @@
 </aside>
             
             <section id="main">
-        <article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/load/">load</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/11_load/">
-            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1018,6 +952,72 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/objc/13_class_initialize/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/load/">load</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/11_load/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
