@@ -500,7 +500,7 @@
                             &nbsp;
                             crash
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer4/">Scribble& NSZombieEnabled</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer4/">Scribble& NSZombieEnabled</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer3/">如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -828,6 +828,83 @@
 </aside>
             
             <section id="main">
+        <article id="post-工具/hexo/LaTex" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/hexo-LaTEX/">hexo_LaTEX</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/hexo/LaTex/">
+            <time datetime="2018-02-21T04:07:12.000Z" itemprop="datePublished">2018-02-21</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>本文主要解决hexo 博客部分数学公式不能正常显示的问题。</p>
+<h2 id="使Marked-js与MathJax共存"><a href="#使Marked-js与MathJax共存" class="headerlink" title="使Marked.js与MathJax共存"></a>使Marked.js与MathJax共存</h2><p>因此我提供一个修改marked.js源码的方式来避开这些问题 </p>
+<ul>
+<li>针对下划线的问题，我决定取消_作为斜体转义，因为marked.js中<em>也是斜体的意思，所以取消掉_的转义并不影响我们使用markdown，只要我们习惯用</em>作为斜体字标记就行了。 </li>
+<li>针对marked.js与Mathjax对于个别字符二次转义的问题，我们只要不让marked.js去转义\\,\{,\}在MathJax中有特殊用途的字符就行了。<br>具体修改方式，用编辑器打开marked.js（在./node_modules/marked/lib/中）</li>
+</ul>
+<p>Step 1:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">\\`*&#123;&#125;\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">`*\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<p>这一步是在原基础上取消了对\\,\{,\}的转义(escape)</p>
+<p>Step 2:</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em: /^<span class="symbol">\b</span>_((?:[^_]|__)+?)_<span class="symbol">\b</span>|^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em:/^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
+<p>这样一来MathJax就能与marked.js共存了。重启一下hexo看一下吧</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-工具/hexo/自己搭建博客的经历" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -876,72 +953,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/工具/hexo/自己搭建博客的经历/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/git/git详细记录/git工作区" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git详细记录/">git详细记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Git/">Git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/git/git详细记录/git工作区/">
-            <time datetime="2018-02-12T04:18:26.000Z" itemprop="datePublished">2018-02-12</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文全部复制<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" rel="external nofollow noopener noreferrer" target="_blank">Git教程</a>,自己理解的就简单复制，没有理解的就全部粘贴。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/git/git详细记录/git工作区/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1074,6 +1085,72 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/工具/git/git详细记录/git仓库/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/git/git详细记录/git工作区" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git详细记录/">git详细记录</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Git/">Git</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/git/git详细记录/git工作区/">
+            <time datetime="2018-02-12T04:18:26.000Z" itemprop="datePublished">2018-02-12</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文全部复制<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" rel="external nofollow noopener noreferrer" target="_blank">Git教程</a>,自己理解的就简单复制，没有理解的就全部粘贴。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/工具/git/git详细记录/git工作区/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1449,72 +1526,6 @@ weex -v //查看当前weex版本
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/Hybird/weex/weex-debug/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-Hybird/weex/event-analize" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/event-analize/">
-            <time datetime="2016-12-16T09:46:54.000Z" itemprop="datePublished">2016-12-16</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>weex内置多种事件，包括视图的滑动事件：appear、disappear事件；手势事件：click、swipe、longpress、panstart、panmove、panend、touchstart、touchmove、touchend、touchcancel。本文主要分析这些事件的传递原理。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/Hybird/weex/event-analize/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

@@ -3,22 +3,26 @@
 <head>
     <meta charset="utf-8">
     
-    <title>分类: MachO | LJ小窝</title>
+    <title>如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门 | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="Crash">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJ小窝">
-<meta property="og:url" content="http://yoursite.com/categories/IOS/MachO/index.html">
+    <meta name="description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
+<meta name="keywords" content="Crash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3/forward_crash.png">
+<meta property="og:updated_time" content="2018-12-17T08:18:34.282Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
+<meta name="twitter:title" content="如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门">
+<meta name="twitter:description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3/forward_crash.png">
     
 
     
@@ -424,9 +428,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -494,13 +498,13 @@
                      <li class="file"><a href="/wiki/IOS/Runtime/meta_class/">What is a meta-class in Objective-C(译文)</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             crash
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer4/">Scribble& NSZombieEnabled</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer3/">如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer4/">Scribble& NSZombieEnabled</a></li>  <li class="file active"><a href="/wiki/IOS/crash/increase_Wild_Pointer3/">如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -827,86 +831,185 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">MachO</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-IOS/crash/increase_Wild_Pointer3" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a>
-        </h1>
-    
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/crash/">crash</a>
+    </div>
 
-                <div class="article-meta">
-                    
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Crash/">Crash</a>
+    </div>
+
+                        
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/MachO/machoviewer/">
-            <time datetime="2018-06-22T04:07:12.000Z" itemprop="datePublished">2018-06-22</time>
+        <a href="/wiki/IOS/crash/increase_Wild_Pointer3/">
+            <time datetime="2018-12-13T04:18:26.000Z" itemprop="datePublished">2018-12-13</time>
         </a>
     </div>
 
 
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/MachO/">MachO</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/macho/">macho</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+                        
+                    </div>
+                
                 
     
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a>
+        <h1 class="article-title" itemprop="name">
+            如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门
         </h1>
     
 
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/MachO/MachO_FileStructure/">
-            <time datetime="2018-05-16T04:07:12.000Z" itemprop="datePublished">2018-05-16</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/MachO/">MachO</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Mach-O/">Mach-O</a>
-    </div>
-
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么错误地址是0x55555561？"><span class="toc-number">1.</span> <span class="toc-text">为什么错误地址是0x55555561？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#怎么获取野指针的更多异常数据？"><span class="toc-number">2.</span> <span class="toc-text">怎么获取野指针的更多异常数据？</span></a></li></ol>
                 </div>
+            
+        
+        
+            <p>本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash</p>
+<a id="more"></a>
+<h2 id="为什么错误地址是0x55555561？"><a href="#为什么错误地址是0x55555561？" class="headerlink" title="为什么错误地址是0x55555561？"></a>为什么错误地址是0x55555561？</h2><p>前文介绍了在内存释放后填充0x55使野指针出现后数据不能访问，从而使野指针变成了必现的方法，那这里会有一个比较奇怪的问题：我们在释放的内存上填上了0x55，但为什么大部分时候野指针Crash了，出错的地址却是0x55555561？</p>
+<p>为了解答这个问题，我们可以先看看Crash栈，就会发现这些Crash都是在objc_msgSend上。我们知道Obj-C的对象方法调用是通过objc_msgSend进行的，我们通过野指针访问一个对象的方法也一样，其实是通过objc_msgSend给已经释放的对象发了一条消息。</p>
+<p>而objc_msgSend的函数签名是这样：</p>
+<p>id objc_msgSend(id self, SEL op, …)<br>我们再来看看objc_msgSend的代码:</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">libobjc.A.dylib</span>`objc_msgSend:</span><br><span class="line"> <span class="number">0x2f879f40</span> &lt;+<span class="number">0</span>&gt;: <span class="keyword">cbz </span><span class="built_in">r0</span>, <span class="number">0x2f879f7e</span> <span class="comment">; &lt;+62&gt;</span></span><br><span class="line"> <span class="number">0x2f879f42</span> &lt;+<span class="number">2</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r9</span>, [<span class="built_in">r0</span>]</span><br><span class="line"> <span class="number">0x2f879f46</span> &lt;+<span class="number">6</span>&gt;: <span class="keyword">ldrh.w </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>, <span class="number">#0xc</span>]</span><br><span class="line"> <span class="number">0x2f879f4a</span> &lt;+<span class="number">10</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r9</span>, [<span class="built_in">r9</span>, <span class="number">#0x8</span>]</span><br><span class="line"> <span class="number">0x2f879f4e</span> &lt;+<span class="number">14</span>&gt;: <span class="keyword">and.w </span><span class="built_in">r12</span>, <span class="built_in">r12</span>, <span class="built_in">r1</span></span><br><span class="line"> <span class="number">0x2f879f52</span> &lt;+<span class="number">18</span>&gt;: <span class="keyword">add.w </span><span class="built_in">r9</span>, <span class="built_in">r9</span>, <span class="built_in">r12</span>, <span class="keyword">lsl </span><span class="number">#3</span></span><br><span class="line"> <span class="number">0x2f879f56</span> &lt;+<span class="number">22</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>]</span><br><span class="line"> <span class="number">0x2f879f5a</span> &lt;+<span class="number">26</span>&gt;: <span class="keyword">teq.w </span><span class="built_in">r12</span>, <span class="built_in">r1</span></span><br><span class="line"> <span class="number">0x2f879f5e</span> &lt;+<span class="number">30</span>&gt;: <span class="keyword">bne </span><span class="number">0x2f879f66</span> <span class="comment">; &lt;+38&gt;</span></span><br><span class="line"> <span class="number">0x2f879f60</span> &lt;+<span class="number">32</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>, <span class="number">#0x4</span>]</span><br><span class="line"> <span class="number">0x2f879f64</span> &lt;+<span class="number">36</span>&gt;: <span class="keyword">bx </span><span class="built_in">r12</span></span><br><span class="line"> <span class="number">0x2f879f66</span> &lt;+<span class="number">38</span>&gt;: <span class="keyword">cmp.w </span><span class="built_in">r12</span>, <span class="number">#0x1</span></span><br><span class="line"> <span class="number">0x2f879f6a</span> &lt;+<span class="number">42</span>&gt;: <span class="keyword">blo </span><span class="number">0x2f879f78</span> <span class="comment">; &lt;+56&gt;</span></span><br><span class="line"> <span class="number">0x2f879f6c</span> &lt;+<span class="number">44</span>&gt;: <span class="keyword">it </span>eq</span><br><span class="line"> <span class="number">0x2f879f6e</span> &lt;+<span class="number">46</span>&gt;: <span class="keyword">ldreq.w </span><span class="built_in">r9</span>, [<span class="built_in">r9</span>, <span class="number">#0x4</span>]</span><br><span class="line"> <span class="number">0x2f879f72</span> &lt;+<span class="number">50</span>&gt;: <span class="keyword">ldr </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>, <span class="number">#8</span>]!</span><br><span class="line"> <span class="number">0x2f879f76</span> &lt;+<span class="number">54</span>&gt;: <span class="keyword">b </span><span class="number">0x2f879f5a</span> <span class="comment">; &lt;+26&gt;</span></span><br><span class="line"> <span class="number">0x2f879f78</span> &lt;+<span class="number">56</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r9</span>, [<span class="built_in">r0</span>]</span><br><span class="line"> <span class="number">0x2f879f7c</span> &lt;+<span class="number">60</span>&gt;: <span class="keyword">b </span><span class="number">0x2f87a1c0</span> <span class="comment">; _objc_msgSend_uncached</span></span><br><span class="line"> <span class="number">0x2f879f7e</span> &lt;+<span class="number">62</span>&gt;: <span class="keyword">mov.w </span><span class="built_in">r1</span>, <span class="number">#0x0</span></span><br><span class="line"> <span class="number">0x2f879f82</span> &lt;+<span class="number">66</span>&gt;: <span class="keyword">bx </span><span class="built_in">lr</span></span><br></pre></td></tr></table></figure>
+<p>我们可以结合Obj-C类的内存布局再来解读一下上面的汇编代码（节选于Obj-C类的源代码）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span> :</span> objc_object &#123;</span><br><span class="line"> <span class="comment">// Class ISA;</span></span><br><span class="line"> Class superclass;</span><br><span class="line"> <span class="keyword">cache_t</span> cache;</span><br><span class="line"> <span class="keyword">uintptr_t</span> data_NEVER_USE; <span class="comment">// class_rw_t * plus custom rr/alloc flags</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">class_rw_t</span> *data() &#123;</span><br><span class="line"> <span class="keyword">return</span> (<span class="keyword">class_rw_t</span> *)(data_NEVER_USE &amp; ~CLASS_FAST_FLAG_MASK);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">class_rw_t</span> *newData)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">uintptr_t</span> flags = (<span class="keyword">uintptr_t</span>)data_NEVER_USE &amp; CLASS_FAST_FLAG_MASK;</span><br><span class="line"> data_NEVER_USE = (<span class="keyword">uintptr_t</span>)newData | flags;</span><br><span class="line"> &#125;</span><br><span class="line">……..</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cache_t</span> &#123;</span></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">bucket_t</span> *<span class="title">buckets</span>;</span></span><br><span class="line"> <span class="keyword">mask_t</span> shiftmask;</span><br><span class="line"> <span class="keyword">mask_t</span> occupied;</span><br><span class="line">……..</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bucket_t</span> &#123;</span></span><br><span class="line"> <span class="keyword">cache_key_t</span> key;</span><br><span class="line"> IMP imp;</span><br><span class="line">…...</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">uintptr_t</span> <span class="keyword">cache_key_t</span>;</span><br></pre></td></tr></table></figure>
+<p>根据苹果的函数调用约定，objc_msgSend被调用的时候，寄存器对应关系：r0是对象本身self，r1是sel，r2和r3是参数。根据objc_class的声明，我们可以知道：</p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x2f879f40</span> &lt;+<span class="number">0</span>&gt;: cbz <span class="built_in">r0</span>, <span class="number">0x2f879f7e</span> //如果self为<span class="number">0</span>就跳转到<span class="number">0x2f879f7e</span>。给nil发消息的话就什么都不做</span><br><span class="line"><span class="number">0x2f879f42</span> &lt;+<span class="number">2</span>&gt;: ldr.w <span class="built_in">r9</span>, [<span class="built_in">r0</span>] //取对象的类到<span class="built_in">r9</span></span><br><span class="line"><span class="number">0x2f879f46</span> &lt;+<span class="number">6</span>&gt;: ldrh.w <span class="built_in">r12</span>, [<span class="built_in">r9</span>, #<span class="number">0xc</span>] //取类的偏移#<span class="number">0xc</span>的数据到<span class="built_in">r12</span>，也就是shiftmask的值</span><br><span class="line"><span class="number">0x2f879f4a</span> &lt;+<span class="number">10</span>&gt;: ldr.w <span class="built_in">r9</span>, [<span class="built_in">r9</span>, #<span class="number">0x8</span>] //取类的偏移#<span class="number">0x8</span>的成员到<span class="built_in">r9</span>，也即是cache</span><br><span class="line"><span class="number">0x2f879f4e</span> &lt;+<span class="number">14</span>&gt;: <span class="keyword">and</span>.w <span class="built_in">r12</span>, <span class="built_in">r12</span>, <span class="built_in">r1</span> //<span class="built_in">r1</span>和shiftmask与，放到<span class="built_in">r12</span>,<span class="built_in">r1</span>是参数一，也就是sel，用来计算sel的index</span><br><span class="line"><span class="number">0x2f879f52</span> &lt;+<span class="number">18</span>&gt;: <span class="keyword">add</span>.w <span class="built_in">r9</span>, <span class="built_in">r9</span>, <span class="built_in">r12</span>, <span class="keyword">lsl</span> #<span class="number">3</span> //左移<span class="number">3</span>位就是乘<span class="number">8</span>，<span class="number">8</span>是索引项 bucket_t的宽度，<span class="built_in">r12</span>是cache索引，<span class="built_in">r9</span>就cache的位置，<span class="built_in">r9</span>+<span class="built_in">r12</span>*<span class="number">8</span>，就是当前sel对应的bucket_t缓存</span><br><span class="line"><span class="number">0x2f879f56</span> &lt;+<span class="number">22</span>&gt;: ldr.w <span class="built_in">r12</span>, [<span class="built_in">r9</span>] //取缓存bucket_t</span><br><span class="line"><span class="number">0x2f879f5a</span> &lt;+<span class="number">26</span>&gt;: teq.w <span class="built_in">r12</span>, <span class="built_in">r1</span> //判断缓存项是不是要找的sel key==sel？</span><br><span class="line"><span class="number">0x2f879f5e</span> &lt;+<span class="number">30</span>&gt;: bne <span class="number">0x2f879f66</span> //不是的话就要查找sel</span><br><span class="line"><span class="number">0x2f879f60</span> &lt;+<span class="number">32</span>&gt;: ldr.w <span class="built_in">r12</span>, [<span class="built_in">r9</span>, #<span class="number">0x4</span>] //是的话就取出imp</span><br><span class="line"><span class="number">0x2f879f64</span> &lt;+<span class="number">36</span>&gt;: <span class="built_in">bx</span> <span class="built_in">r12</span> //调sel的实现，跳到imp里面去执行</span><br></pre></td></tr></table></figure>
+<p>其实上面的代码就是从缓存中找sel的实现的过程，而错误地址之所以是0x55555561是因为ldrh.w r12, [r9, #0xc]这行指令。我们用0x55555555覆盖了对象的isa指针，当发生OC调用查找缓存0x55555555+0xc取shiftmask的时候，发现这个地址不可读，于是CPU抛出了异常。</p>
+<h2 id="怎么获取野指针的更多异常数据？"><a href="#怎么获取野指针的更多异常数据？" class="headerlink" title="怎么获取野指针的更多异常数据？"></a>怎么获取野指针的更多异常数据？</h2><p>弄清楚上述问题后，又有一个问题：既然0x55555555是被当成了类的指针使用，那假如我们用指定的类覆盖这个指针，是不是就可以执行我们指定类的方法呢？</p>
+<p>进一步说就是在发生野指针调用的时候，我们是不是可以控制CPU的行为？说起来有点像溢出攻击，利用shellcode覆盖函数返回值，一旦我们在出错的时候控制了CPU就可以获取更多异常信息，比如是哪个类，调了什么方法，对象的地址之类。</p>
+<p>先解决几个关键问题：</p>
+<ol>
+<li><p>覆盖成什么？<br>我们需要自己写一个类，用它的isa来替换已经释放的对象的isa。如果不出我们所料，我们用自己的类覆盖之后，之前调用的sel就换成了调用我们自己的类的某个sel。这样，只要我们指定的类也实现这个方法，就可以执行我们需要执行的代码，然后在里面获取我们需要的信息。当然，我们无法预料野指针对象会在调用哪个函数时发生Crash，好在我们可以利用runtime的重定向特性了转到我们自己的代码里面去。</p>
+</li>
+<li><p>怎么覆盖isa？<br>object_setClass可以替换一个类的isa，但是试了一下，发生死锁！根据Obj-C对象的内存布局，对象的第一个数据就是isa，这里我们可以直接用自己的类指针替换它，反正是已经释放的内存，随便我们怎么玩。<br>总之，还是很简单，这个类就是下面这样:</p>
+</li>
+</ol>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">DPCatcher </span>: NSObject</span><br><span class="line"><span class="variable">@property</span> (readwrite,assign,nonatomic) Class origClass;</span><br><span class="line"><span class="variable">@end</span></span><br><span class="line"></span><br><span class="line"><span class="variable">@implementation</span> DPCatcher</span><br><span class="line">- (id)<span class="attribute">forwardingTargetForSelector</span>:(SEL)aSelector&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,NSStringFromSelector(aSelector));</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line"> <span class="selector-tag">return</span> <span class="selector-tag">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">-</span>(void)<span class="selector-tag">dealloc</span>&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,@<span class="string">"dealloc"</span>);</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span>(oneway void)<span class="selector-tag">release</span>&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,@<span class="string">"release"</span>);</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">-</span> (instancetype)<span class="selector-tag">autorelease</span>&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,@<span class="string">"autorelease"</span>);</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line">&#125;</span><br><span class="line">@<span class="selector-tag">end</span></span><br></pre></td></tr></table></figure>
+<p>注意：对象的release、dealloc等函数要特殊处理一下，因为任何对象都有这些方法，不会执行重定向。</p>
+<p>然后，我们的free函数改成下面这样（去掉了一些多余代码）：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DPFree</span><span class="params">(<span class="keyword">void</span>* p)</span></span>&#123;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">size_t</span> memSiziee=malloc_size(p);</span><br><span class="line"> <span class="keyword">if</span> (memSiziee&gt;sDPCatchSize) &#123;<span class="comment">//有足够的空间才覆盖</span></span><br><span class="line"> id obj=(id)p;</span><br><span class="line"> Class origClass=object_getClass(obj); <span class="comment">//判断是不是objc对象 ，registeredClasses里面有所有的类，如果可以查到，说明是objc类</span></span><br><span class="line"> <span class="keyword">if</span> (origClass &amp;&amp; CFSetContainsValue(registeredClasses, origClass)) &#123;</span><br><span class="line"> <span class="built_in">memset</span>(obj, <span class="number">0x55</span>, memSiziee);</span><br><span class="line"> <span class="built_in">memcpy</span>(obj, &amp;sDPCatchIsa, <span class="keyword">sizeof</span>(<span class="keyword">void</span>*));<span class="comment">//把我们自己的类的isa复制过去</span></span><br><span class="line"> </span><br><span class="line"> DPCatcher* bug=(DPCatcher*)p;</span><br><span class="line"> bug.origClass=origClass;</span><br><span class="line"> &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"> <span class="built_in">memset</span>(p, <span class="number">0x55</span>, memSiziee);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"> <span class="built_in">memset</span>(p, <span class="number">0x55</span>, memSiziee);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>初始化的时候获取所有类信息，获取填充类的的大小:</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">registeredClasses = <span class="built_in">CFSetCreateMutable</span>(<span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"> Class *classes = objc_copyClassList(&amp;count);</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line"> <span class="built_in">CFSetAddValue</span>(registeredClasses, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(classes[i]));</span><br><span class="line"> &#125;</span><br><span class="line"> free(classes);</span><br><span class="line"> classes=<span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line"> sDPCatchIsa=objc_getClass(<span class="string">"DPCatcher"</span>);</span><br><span class="line"> </span><br><span class="line"> sDPCatchSize=class_getInstanceSize(sDPCatchIsa);</span><br></pre></td></tr></table></figure>
+<p>用下面简单的代码试一下：</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UIView* testObj=<span class="comment">[<span class="comment">[UIView alloc]</span> init]</span>;</span><br><span class="line"><span class="comment">[testObj release]</span>;</span><br><span class="line"><span class="comment">[testObj setNeedsLayout]</span>;</span><br></pre></td></tr></table></figure>
+<p>发生野指针的类、对象地址和访问的方法就这样可以被打印出来！</p>
+<p><img src="/wiki/IOS/crash/increase_Wild_Pointer3/forward_crash.png" alt="野指针自报信息"></p>
+<p>上面这两个Crash如果不能重现几乎是无解！但是，加上我们的野指针定位神器之后再看看，类名和地址都可以打出来了，解决起来就不是什么问题了。</p>
+<p>说明：</p>
+<ol>
+<li><p>我们打印出了野指针对象的名字和地址，当这个类的对象比较少时，对查找问题有很大的用处（如果是自定义的类出现野指针，一般还是比较容易找到问题），但是如果是一些经常出现的类，比如nsarray，定位起来还是比较麻烦。这个时候建议试一下xcode的malloc history工具，或者可以自己实现一个类似记录内存使用记录的工具，因为有内存申请和释放的记录，只要重现一次就可以精确定位野指针。</p>
+</li>
+<li><p>如果出现dealloc的使用错误，例如先[super dealloc]，然后release成员变量，那么就会出现崩溃的现象，且此时对象的地址为0x55555555。这是因为[super dealloc]只会释放对应的内存，但其成员的内存不会被release而变成了0x555555。 这种问题场景比较简单，一旦发生绝对是必现的，修复也比较容易。</p>
+</li>
+</ol>
+<p>后记</p>
+<p>写到这里，关于iOS野指针随机问题定位的三篇文章就写完了，特别说一下，文中提到的方法虽然可以提高野指针的曝光率和定位精度，但并不是万能，比如下面这几种情况，可能并不一定适用：</p>
+<ol>
+<li>未触发出现野指针的逻辑：比如说一个有问题的代码，只有在特殊的逻辑下才会有野指针问题，如果我们没有触发这个逻辑，肯定也是无法暴露出这个问题的。这种情况建议还是提高测试的场景覆盖。</li>
+<li>产生野指针和使用野指针的时间间隔太长：时间太长的话，很可能我们保留的指针已经被释放了。</li>
+<li>APP内存消耗大，会降低曝光率。因为内存消耗大的时候，我们保留的指针数量必然减少，而且保留的时间也会更短。</li>
+</ol>
+<ol>
+<li><p>free之前先填上 0x55 ，这个0x55有什么具体含义吗？<br>答：实际上填写数据的关键在于填写数据后其地址指向不可读的内存。而填写0x55，和前面提到的出现异常情况的对象地址0x555555连接起来被当成指针使用的话，就会被识别为0x55555555，而CPU访问这个地址就会抛出异常。<br>另外一点，就是方便区分野指针，例如在Xcode启用Enable Scribble时，指定alloc之后填写的地址为0xaa，防止内存初始化就使用，也是为了方便和free之后的内存做区分。</p>
+</li>
+<li><p>这个方法对于arc和非arc是否都可以用？<br>答：都可以，不过都是arc的话应该比较少出现野指针吧。</p>
+</li>
+</ol>
+
             </div>
-        </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
     
-</div>
+<nav id="article-nav">
+    
+    
+        <a href="/wiki/IOS/crash/increase_Wild_Pointer4/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">Scribble&amp; NSZombieEnabled</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/IOS/crash/increase_Wild_Pointer3/" data-title="如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门" data-url="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">
