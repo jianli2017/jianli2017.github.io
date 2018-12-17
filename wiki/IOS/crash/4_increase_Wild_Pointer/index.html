@@ -20,7 +20,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/4_increase_Wild_Pointer/wildPointer_random.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/4_increase_Wild_Pointer/ennable_scrible.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/4_increase_Wild_Pointer/wildPointerCrash.png">
-<meta property="og:updated_time" content="2018-12-17T08:55:17.022Z">
+<meta property="og:updated_time" content="2018-12-17T09:00:47.359Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4.如何定位Obj-C野指针随机Crash(一):先提高野指针Crash率(转载)">
 <meta name="twitter:description" content="本文主要内容如下： 欲让其灭亡先让其疯狂，我们当然不是人为制造Crash，准确地说，是使隐藏的随机性Crash暴露出来，提高测试时的Crash率，从而降低版本发布后的Crash率。 写C、C++代码的同学应该都清楚，Crash最多的原因通常有两种，一种是多线程，一种是野指针。这两种Crash都带随机性，而且这两种Crash有相当一部分都很难区分，甚至大量的Crash只有系统栈，如果不能根据日志重现">
@@ -946,10 +946,7 @@
 <li>如果释放后访问野指针的是系统代码，虽然提前发现了Crash，但是离解决问题还是很远。</li>
 <li>如果野指针指向的数据没有被当成指针使用，还是可能不立即Crash。</li>
 </ol>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>作者：腾讯Bugly </p>
-<p>来源：CSDN </p>
-<p>原文：<a href="https://blog.csdn.net/tencent_bugly/article/details/46277055" rel="external nofollow noopener noreferrer" target="_blank">https://blog.csdn.net/tencent_bugly/article/details/46277055</a> </p>
-<p>版权声明：本文为博主原创文章，转载请附上博文链接！</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/tencent_bugly/article/details/46277055" rel="external nofollow noopener noreferrer" target="_blank">如何定位Obj-C野指针随机Crash(一):先提高野指针Crash率</a></p>
 
             </div>
         

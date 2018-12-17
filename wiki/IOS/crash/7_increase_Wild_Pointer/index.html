@@ -9,22 +9,22 @@
         <meta name="keywords" content="Crash">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
+    <meta name="description" content="主要内容： 定位野指针的方法。">
 <meta name="keywords" content="Crash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="7. Scribble&amp; NSZombieEnabled">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/7_increase_Wild_Pointer/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
+<meta property="og:description" content="主要内容： 定位野指针的方法。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/7_increase_Wild_Pointer/10.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/7_increase_Wild_Pointer/11.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/7_increase_Wild_Pointer/14.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/7_increase_Wild_Pointer/13.png">
-<meta property="og:updated_time" content="2018-12-17T08:53:07.545Z">
+<meta property="og:updated_time" content="2018-12-17T08:57:29.885Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="7. Scribble&amp; NSZombieEnabled">
-<meta name="twitter:description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
+<meta name="twitter:description" content="主要内容： 定位野指针的方法。">
 <meta name="twitter:image" content="http://yoursite.com/wiki/IOS/crash/7_increase_Wild_Pointer/10.png">
     
 
@@ -886,7 +886,8 @@
             
         
         
-            <p>本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash</p>
+            <p>主要内容：</p>
+<p>定位野指针的方法。</p>
 <a id="more"></a>
 <h2 id="野指针分析方法-Enable-Malloc-Scribble"><a href="#野指针分析方法-Enable-Malloc-Scribble" class="headerlink" title="野指针分析方法(Enable Malloc Scribble)"></a>野指针分析方法(Enable Malloc Scribble)</h2><p>因为野指针的原因发生崩溃是常常出现的事，而且比较随机。所以我们要提高野指针的崩溃率,从而帮我们快速找到有问题的代码。</p>
 <p>对象释放后，只有出现被随机填入的数据是不可访问的时候才会必现Crash。</p>
