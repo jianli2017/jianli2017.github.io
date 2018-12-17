@@ -13,19 +13,19 @@
 <meta name="keywords" content="Crash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Scribble&amp; NSZombieEnabled">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3的副本/index.html">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer4/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/10.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/11.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/14.png">
-<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/13.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer4/10.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer4/11.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer4/14.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer4/13.png">
 <meta property="og:updated_time" content="2018-12-13T10:02:12.902Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Scribble&amp; NSZombieEnabled">
 <meta name="twitter:description" content="本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash">
-<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/10.png">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer4/10.png">
     
 
     
@@ -507,7 +507,7 @@
                             &nbsp;
                             crash
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file active"><a href="/wiki/IOS/crash/increase_Wild_Pointer3的副本/">Scribble& NSZombieEnabled</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  <li class="file active"><a href="/wiki/IOS/crash/increase_Wild_Pointer4/">Scribble& NSZombieEnabled</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -834,7 +834,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/crash/increase_Wild_Pointer3的副本" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/crash/increase_Wild_Pointer4" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -856,7 +856,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/crash/increase_Wild_Pointer3的副本/">
+        <a href="/wiki/IOS/crash/increase_Wild_Pointer4/">
             <time datetime="2018-12-13T04:18:26.000Z" itemprop="datePublished">2018-12-13</time>
         </a>
     </div>
@@ -891,7 +891,7 @@
 <h2 id="野指针分析方法-Enable-Malloc-Scribble"><a href="#野指针分析方法-Enable-Malloc-Scribble" class="headerlink" title="野指针分析方法(Enable Malloc Scribble)"></a>野指针分析方法(Enable Malloc Scribble)</h2><p>因为野指针的原因发生崩溃是常常出现的事，而且比较随机。所以我们要提高野指针的崩溃率,从而帮我们快速找到有问题的代码。</p>
 <p>对象释放后，只有出现被随机填入的数据是不可访问的时候才会必现Crash。</p>
 <p>这个地方我们可以做一下手脚，把这一随机的过程变成不随机的过程。对象释放后在内存上填上不可访问的数据，其实这种技术其实一直都有，xcode的Enable Scribble就是这个作用。</p>
-<p><img src="/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/10.png" alt="Enable Scribble"></p>
+<p><img src="/wiki/IOS/crash/increase_Wild_Pointer4/10.png" alt="Enable Scribble"></p>
 <h2 id="僵尸模式-NSZombieEnabled"><a href="#僵尸模式-NSZombieEnabled" class="headerlink" title="僵尸模式(NSZombieEnabled)"></a>僵尸模式(NSZombieEnabled)</h2><p>启用了NSZombieEnabled的话，它会用一个僵尸来替换默认的dealloc实现，也就是在引用计数降到0时，该僵尸实现会将该对象转换成僵尸对象。僵尸对象的作用是在你向它发送消息时，它会显示一段日志并自动跳入调试器。</p>
 <p>所以当启用NSZombieEnabled时，一个错误的内存访问就会变成一条无法识别的消息发送给僵尸对象。僵尸对象会显示接受到得信息，然后跳入调试器，这样你就可以查看到底是哪里出了问题。</p>
 <p>所以这时一般崩溃的原因是：调用了已经释放的内存空间，或者说重复释放了某个地址空间。</p>
@@ -899,7 +899,7 @@
 <h3 id="NSZombieEnabled"><a href="#NSZombieEnabled" class="headerlink" title="NSZombieEnabled"></a>NSZombieEnabled</h3><p>打开NSZombieEnabled之后，如果遇到对应的崩溃类型既调用了已经释放的内存空间，或者说重复释放了某个地址空间。那么就能在GDB中看到对应的输出信息。</p>
 <p>比如会出现如下这样的问题：<code>[__NSArrayM addObject:]: message sent to deallocated instance 0x7179910</code></p>
 <h3 id="MallocStackLoggingNoCompact"><a href="#MallocStackLoggingNoCompact" class="headerlink" title="MallocStackLoggingNoCompact"></a>MallocStackLoggingNoCompact</h3><p>如果崩溃是发生在当前调用栈，通过上面的做法，系统就会把崩溃原因定位到具体代码中。但是，如果崩溃不在当前调用栈，系统就仅仅只能把崩溃地址告诉我们，而没办法定位到具体代码，这样我们也没法去修改错误。这时就可以修改scheme，让xcode记录每个地址alloc的历史，这样我们就可以用命令把这个地址还原出来。如图：(跟设置<code>NSZombieEnabled</code>一样，添加<code>MallocStackLoggingNoCompact</code>，并且设置为YES)</p>
-<p><img src="/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/11.png" alt="Enable Scribble"></p>
+<p><img src="/wiki/IOS/crash/increase_Wild_Pointer4/11.png" alt="Enable Scribble"></p>
 <p>这样，当出现崩溃原因是message sent to deallocated instance 0x7179910，我们可以使用以下命令，把内存地址还原：</p>
 <p><code>(gdb) nfo malloc-history 0x7179910</code></p>
 <p>也可以使用下面的命令<code>(gdb) shell malloc_history {pid/partial-process-name} {address}</code></p>
@@ -911,11 +911,11 @@
 <p>Address Sanitizer会追踪受限内存，使用了一种简单但是很巧妙的方法：它在进程的内存空间上保存了一个固定的区域，叫做“影子内存区”。用内存消毒剂的术语来说，一个被标记为受限的内存被称作“中毒”内存。“影子内存区”会记录哪些内存字节是中毒的。通过一个简单的公式，可以将进程中的内存空间映射到“影子内存区”中，即：每8字节的正常内存块映射到一个字节的影子内存上。在影子内存上，会跟踪这8字节的“中毒状态”。</p>
 <h2 id="Static-Analyzer（静态分析）"><a href="#Static-Analyzer（静态分析）" class="headerlink" title="Static Analyzer（静态分析）"></a>Static Analyzer（静态分析）</h2><p>Static Analyzer是一个非常好的工具去发现编译器警告不会提示的问题和一些个人的内错泄露和死存储（不会用到的赋了值的变量）错误。这个方法可能大大的提高内存使用和性能，以及提升应用的整体稳定性和代码质量。</p>
 <p>打开方式：Xcode-&gt;Product-Analyze然后我们就能看到如下蓝色箭头所示的一些有问题的代码。</p>
-<p><img src="/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/14.png" alt="静态分析的问题"></p>
+<p><img src="/wiki/IOS/crash/increase_Wild_Pointer4/14.png" alt="静态分析的问题"></p>
 <h2 id="unrecognized-selector-send-to-instancd-快速定位"><a href="#unrecognized-selector-send-to-instancd-快速定位" class="headerlink" title="unrecognized selector send to instancd 快速定位"></a>unrecognized selector send to instancd 快速定位</h2><p>在debug navigator的断点栏里添加Create Symbolic Breakpoint。</p>
 <p>在Symbolic中填写如下方法签名：-[NSObject(NSObject) doesNotRecognizeSelector:] </p>
 <p>设置完成后再遇到类似的错误就会定位到具体的代码。</p>
-<p><img src="/wiki/IOS/crash/increase_Wild_Pointer3的副本/increase_Wild_Pointer4/13.png" alt="符号断点"></p>
+<p><img src="/wiki/IOS/crash/increase_Wild_Pointer4/13.png" alt="符号断点"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.jianshu.com/p/1b804426d212?hmsr=toutiao.io&amp;utm_medium=toutiao.io&amp;utm_source=toutiao.io" rel="external nofollow noopener noreferrer" target="_blank">iOS崩溃crash大解析</a></p>
 
             </div>
@@ -944,7 +944,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/crash/increase_Wild_Pointer3的副本/" data-title="Scribble&amp; NSZombieEnabled" data-url="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer3的副本/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/crash/increase_Wild_Pointer4/" data-title="Scribble&amp; NSZombieEnabled" data-url="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer4/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
