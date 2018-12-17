@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现 | LJ小窝</title>
+    <title>5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载) | LJ小窝</title>
     
     
         <meta name="keywords" content="Crash">
@@ -12,14 +12,14 @@
     <meta name="description" content="本文主要内容如下： 注：本文主要介绍一种延迟内在释放的技术，继续上一篇提到的如何提高野指针Crash的概率（可以文章底部点击“阅读原文”，查看上一篇文章）。另外，本文探讨的环境是在非arc情况下。">
 <meta name="keywords" content="Crash">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer2/index.html">
+<meta property="og:title" content="5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/5_increase_Wild_Pointer/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文主要内容如下： 注：本文主要介绍一种延迟内在释放的技术，继续上一篇提到的如何提高野指针Crash的概率（可以文章底部点击“阅读原文”，查看上一篇文章）。另外，本文探讨的环境是在非arc情况下。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-17T08:16:17.334Z">
+<meta property="og:updated_time" content="2018-12-17T08:48:26.830Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现">
+<meta name="twitter:title" content="5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)">
 <meta name="twitter:description" content="本文主要内容如下： 注：本文主要介绍一种延迟内在释放的技术，继续上一篇提到的如何提高野指针Crash的概率（可以文章底部点击“阅读原文”，查看上一篇文章）。另外，本文探讨的环境是在非arc情况下。">
     
 
@@ -502,7 +502,7 @@
                             &nbsp;
                             crash
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file active"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer4/">Scribble& NSZombieEnabled</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer3/">如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/1_system_Crash_Type/">1. 系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/2_Collection_Crash/">2. 收集崩溃日志方法</a></li>  <li class="file active"><a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/3_KSCrash_Analize/">3. KSCrash原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/6_increase_Wild_Pointer/">6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/7_increase_Wild_Pointer/">7. Scribble& NSZombieEnabled</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -758,7 +758,7 @@
                     </li> 
                      </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -829,7 +829,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/crash/increase_Wild_Pointer2" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/crash/5_increase_Wild_Pointer" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -851,7 +851,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/crash/increase_Wild_Pointer2/">
+        <a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">
             <time datetime="2018-12-13T02:18:26.000Z" itemprop="datePublished">2018-12-13</time>
         </a>
     </div>
@@ -863,7 +863,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现
+            5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)
         </h1>
     
 
@@ -931,19 +931,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/crash/increase_Wild_Pointer4/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/crash/6_increase_Wild_Pointer/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    Scribble&amp; NSZombieEnabled
+                    6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)
                 
             </div>
         </a>
     
     
-        <a href="/wiki/IOS/crash/crash_resolve/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/小码哥视频/ios_jalebroke/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">解决Crash的技能</div>
+            <div class="article-nav-title">NSInvocation的基本使</div>
         </a>
     
 </nav>
@@ -955,7 +955,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/crash/increase_Wild_Pointer2/" data-title="如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现" data-url="http://yoursite.com/wiki/IOS/crash/increase_Wild_Pointer2/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/crash/5_increase_Wild_Pointer/" data-title="5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)" data-url="http://yoursite.com/wiki/IOS/crash/5_increase_Wild_Pointer/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;

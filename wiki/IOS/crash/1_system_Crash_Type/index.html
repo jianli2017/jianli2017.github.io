@@ -3,24 +3,32 @@
 <head>
     <meta charset="utf-8">
     
-    <title>解决Crash的技能 | LJ小窝</title>
+    <title>1. 系统Crash日志结构介绍 | LJ小窝</title>
     
     
         <meta name="keywords" content="Crash">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="本文主要内容如下：">
+    <meta name="description" content="由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息,解决问题。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。">
 <meta name="keywords" content="Crash">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决Crash的技能">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/crash_resolve/index.html">
+<meta property="og:title" content="1. 系统Crash日志结构介绍">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="本文主要内容如下：">
+<meta property="og:description" content="由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息,解决问题。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-12-13T04:30:29.930Z">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/Crash_format.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/mac_unix.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/unSymb.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/symboled.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/收集、解析IOS崩溃日志7.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/image.png">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/uuid.png">
+<meta property="og:updated_time" content="2018-12-17T08:22:52.486Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决Crash的技能">
-<meta name="twitter:description" content="本文主要内容如下：">
+<meta name="twitter:title" content="1. 系统Crash日志结构介绍">
+<meta name="twitter:description" content="由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息,解决问题。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。">
+<meta name="twitter:image" content="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/Crash_format.png">
     
 
     
@@ -502,7 +510,7 @@
                             &nbsp;
                             crash
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  <li class="file"><a href="/wiki/IOS/crash/KSCrash_Analize/">KSCrash崩溃收集原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/system_Crash_Type/">系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer/"></a></li>  <li class="file active"><a href="/wiki/IOS/crash/crash_resolve/">解决Crash的技能</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer2/">如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer4/">Scribble& NSZombieEnabled</a></li>  <li class="file"><a href="/wiki/IOS/crash/increase_Wild_Pointer3/">如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/crash/1_system_Crash_Type/">1. 系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/2_Collection_Crash/">2. 收集崩溃日志方法</a></li>  <li class="file"><a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/3_KSCrash_Analize/">3. KSCrash原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/6_increase_Wild_Pointer/">6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/7_increase_Wild_Pointer/">7. Scribble& NSZombieEnabled</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -758,7 +766,7 @@
                     </li> 
                      </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/IOS/crash/Collection_Crash/">收集奔溃日志</a></li>  </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -829,7 +837,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/crash/crash_resolve" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/crash/1_system_Crash_Type" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -851,8 +859,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/crash/crash_resolve/">
-            <time datetime="2018-12-13T01:18:26.000Z" itemprop="datePublished">2018-12-13</time>
+        <a href="/wiki/IOS/crash/1_system_Crash_Type/">
+            <time datetime="2016-10-17T04:18:26.000Z" itemprop="datePublished">2016-10-17</time>
         </a>
     </div>
 
@@ -863,7 +871,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            解决Crash的技能
+            1. 系统Crash日志结构介绍
         </h1>
     
 
@@ -876,13 +884,78 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">1.</span> <span class="toc-text">小结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#基本信息模块"><span class="toc-number">1.</span> <span class="toc-text">基本信息模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统信息模块"><span class="toc-number">2.</span> <span class="toc-text">系统信息模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#异常信息模块"><span class="toc-number">3.</span> <span class="toc-text">异常信息模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程回溯"><span class="toc-number">4.</span> <span class="toc-text">线程回溯</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#符号化回溯线程"><span class="toc-number">4.1.</span> <span class="toc-text">符号化回溯线程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#符号化内幕"><span class="toc-number">4.2.</span> <span class="toc-text">符号化内幕</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小小结"><span class="toc-number">4.3.</span> <span class="toc-text">小小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线程的状态寄存器"><span class="toc-number">5.</span> <span class="toc-text">线程的状态寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binary-Images"><span class="toc-number">6.</span> <span class="toc-text">Binary Images</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#小结"><span class="toc-number">6.1.</span> <span class="toc-text">小结</span></a></li></ol></li></ol>
                 </div>
             
         
         
-            <p>本文主要内容如下：</p>
-<a id="more"></a>
+            <p>由于代码的缺陷，我们千辛万苦发布发布出去的APP，在用户手中，偶尔会出现Crash现象。为了及时查找到Crash的原因，我们需要收集这些Crash信息,解决问题。本文就是从分析系统Crash日志开始，一直到定制个性化的Crash日志收集系统，一步步的说明如何完成Crash日志收集系统。<br><a id="more"></a></p>
+<p>千里之行，始于足下，我们先从系统Crash日志开始。<br><!--合理的应用收集、解析崩溃日志的方法，有N种方式可以完美的消灭大部分的Crash。为了便于理解，我从CrashReporter捕获的标准Crash日志结构、系统Crash收集解析、 定制的Crash报告收集分析。
+若了解CrashReporter收集的崩溃日志的各个部分的含义，对消除Crash应该大有裨益。--></p>
+<p>系统的Crash日志相信大家都见过，但不一定都认真分析过，所以我想，有必要重新对它做个认识。先贴出一张Crash日志截图，方便大家认识我啊~~~。</p>
+<p><img src="/wiki/IOS/crash/1_system_Crash_Type/Crash_format.png" alt="崩溃日志样式"></p>
+<p>Crash日志内容非常，截图只能展示一部分内容，后续会依次贴出每个模块的内容，分别讲解。一个Crash日志由六部分组成：基本信息模块、系统信息模块、异常信息模块、线程回溯、CUP寄存器信息、镜像信息。</p>
+<h2 id="基本信息模块"><a href="#基本信息模块" class="headerlink" title="基本信息模块"></a>基本信息模块</h2><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///崩溃报告的唯一标识符，标识不同的Crash</span></span><br><span class="line">Incident <span class="string">Identifier:</span> <span class="number">2964</span>A813<span class="number">-5</span>C6B<span class="number">-4E43</span>-B7FD<span class="number">-40965E97</span>F720   </span><br><span class="line">CrashReporter <span class="string">Key:</span>   d280e6d8a2446a3c34436cf9d1c6e98448d0c5ca</span><br><span class="line"><span class="comment">///代表发生Crash的设备类型</span></span><br><span class="line">Hardware <span class="string">Model:</span>      iPhone7,<span class="number">1</span>    </span><br><span class="line"><span class="comment">///Crash的APP名称、APP进程id       </span></span><br><span class="line"><span class="string">Process:</span>             Simple-Example [<span class="number">2279</span>]  </span><br><span class="line"><span class="comment">///Crash的APP在设备上的存储路径 </span></span><br><span class="line"><span class="string">Path:</span>                <span class="regexp">/private/</span>var<span class="regexp">/containers/</span>Bundle<span class="regexp">/Application/</span>A86C469E<span class="number">-5</span>A97<span class="number">-4948</span><span class="number">-8</span>BBF<span class="number">-98</span>C0B814088E<span class="regexp">/Simple-Example.app/</span>Simple-Example    </span><br><span class="line"><span class="comment">///APP 的描述符       </span></span><br><span class="line"><span class="string">Identifier:</span>          com.gome.gomeEShop </span><br><span class="line"><span class="comment">///APP的版本   </span></span><br><span class="line"><span class="string">Version:</span>             <span class="number">1.0</span> (<span class="number">1.0</span>)   </span><br><span class="line"><span class="comment">///代码的构架，可以通过file命名查看代码的编译构架，</span></span><br><span class="line"><span class="comment">///了解更过的构架信息可以到IOS SDK路径下的/usr/include/mach/machine.h文件中查找  </span></span><br><span class="line">Code <span class="string">Type:</span>           ARM<span class="number">-64</span> (Native)     </span><br><span class="line"><span class="string">Role:</span>                Foreground</span><br><span class="line"><span class="comment">///父进程</span></span><br><span class="line">Parent <span class="string">Process:</span>      launchd [<span class="number">1</span>]     </span><br><span class="line"><span class="string">Coalition:</span>           com.gome.gomeEShop [<span class="number">1008</span>]</span><br></pre></td></tr></table></figure>
+<h2 id="系统信息模块"><a href="#系统信息模块" class="headerlink" title="系统信息模块"></a>系统信息模块</h2><p>系统信息模块包含Crash时间、 APP启动时间、OS 版本信息、Crash日志的格式 </p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///Crash发生的时间</span></span><br><span class="line"><span class="selector-tag">Date</span>/<span class="selector-tag">Time</span>:           <span class="selector-tag">2016-10-17</span> <span class="selector-tag">16</span><span class="selector-pseudo">:11</span><span class="selector-pseudo">:43.7670</span> +<span class="selector-tag">0800</span></span><br><span class="line"><span class="comment">///Crash的APP的启动时间   </span></span><br><span class="line"><span class="selector-tag">Launch</span> <span class="selector-tag">Time</span>:         <span class="selector-tag">2016-10-17</span> <span class="selector-tag">16</span><span class="selector-pseudo">:11</span><span class="selector-pseudo">:40.0612</span> +<span class="selector-tag">0800</span>  </span><br><span class="line"><span class="comment">///系统版本，（）内的数字代表的是Bulid号 </span></span><br><span class="line"><span class="selector-tag">OS</span> <span class="selector-tag">Version</span>:          <span class="selector-tag">iPhone</span> <span class="selector-tag">OS</span> <span class="selector-tag">10</span><span class="selector-class">.0</span><span class="selector-class">.2</span> (<span class="number">14</span>A456)  </span><br><span class="line"><span class="selector-tag">Crash</span>日志的格式，一般为<span class="selector-tag">104</span>  </span><br><span class="line"><span class="selector-tag">Report</span> <span class="selector-tag">Version</span>:      <span class="selector-tag">104</span></span><br></pre></td></tr></table></figure>
+<h2 id="异常信息模块"><a href="#异常信息模块" class="headerlink" title="异常信息模块"></a>异常信息模块</h2><p>异常信息模块包含异常类型（Mach异常、Unix信号异常）、异常子类型、异常原因、异常线程ID。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///异常类型</span></span><br><span class="line">Exception <span class="string">Type:</span>  EXC_BAD_ACCESS (SIGSEGV)  </span><br><span class="line"><span class="comment">///异常子类型、异常的地址</span></span><br><span class="line">Exception <span class="string">Subtype:</span> KERN_INVALID_ADDRESS at <span class="number">0xffffffffffffffff</span>   </span><br><span class="line">Termination <span class="string">Signal:</span> Segmentation <span class="string">fault:</span> <span class="number">11</span></span><br><span class="line"><span class="comment">///异常原因（非常重要）</span></span><br><span class="line">Termination <span class="string">Reason:</span> Namespace SIGNAL, Code <span class="number">0xb</span></span><br><span class="line">Terminating <span class="string">Process:</span> exc handler [<span class="number">0</span>]</span><br><span class="line"><span class="comment">///发生异常的线程ID</span></span><br><span class="line">Triggered by <span class="string">Thread:</span>  <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<p>异常类型(Exception Type)由两部分构成：Mach异常、Unix信号异常。 </p>
+<p>苹果系统有一个微内核，叫做<a href="http://opensource.apple.com/source/xnu/" rel="external nofollow noopener noreferrer" target="_blank">XNU</a>，它的源码可以在opensource上载到。Mach是XNU的核心，因而，Mach异常就指Mach内核异常。Mach包含三部分内容：thread，task，host。后续的章节中很多地方都会用到Mach。不妨移步到<a href="http://web.mit.edu/darwin/src/modules/xnu/osfmk/man/" rel="external nofollow noopener noreferrer" target="_blank">Mach IPC Interface</a>，了解下Mach暴露给用户的API。</p>
+<p>Mach暴露给了用户部分API，允许用户和内核交互。用户态的开发者可以通过Mach API设置thread、task、host的异常端口，来捕获Mach异常，抓取Crash事件。</p>
+<p>Mach异常包括：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_BAD_ACCESS		1	<span class="comment">/* Could not access memory */</span></span></span><br><span class="line">	<span class="comment">/* Code contains kern_return_t describing error. */</span></span><br><span class="line">	<span class="comment">/* Subcode contains bad memory address. */</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_BAD_INSTRUCTION	2	<span class="comment">/* Instruction failed */</span></span></span><br><span class="line">	<span class="comment">/* Illegal or undefined instruction or operand */</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_ARITHMETIC		3	<span class="comment">/* Arithmetic exception */</span></span></span><br><span class="line">	<span class="comment">/* Exact nature of exception is in code field */</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_EMULATION		4	<span class="comment">/* Emulation instruction */</span></span></span><br><span class="line">	<span class="comment">/* Emulation support instruction encountered */</span></span><br><span class="line">	<span class="comment">/* Details in code and subcode fields	*/</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_SOFTWARE		5	<span class="comment">/* Software generated exception */</span></span></span><br><span class="line">	<span class="comment">/* Exact exception is in code field. */</span></span><br><span class="line">	<span class="comment">/* Codes 0 - 0xFFFF reserved to hardware */</span></span><br><span class="line">	<span class="comment">/* Codes 0x10000 - 0x1FFFF reserved for OS emulation (Unix) */</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_BREAKPOINT		6	<span class="comment">/* Trace, breakpoint, etc. */</span></span></span><br><span class="line">	<span class="comment">/* Details in code field. */</span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_SYSCALL		7	<span class="comment">/* System calls. */</span></span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_MACH_SYSCALL	8	<span class="comment">/* Mach system calls. */</span></span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_RPC_ALERT		9	<span class="comment">/* RPC alert */</span></span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_CRASH		10	<span class="comment">/* Abnormal process exit */</span></span></span><br><span class="line">	</span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> EXC_RESOURCE		11	<span class="comment">/* Hit resource consumption limit */</span></span></span><br></pre></td></tr></table></figure>
+<p>Unix信号：信号是通知进程已发生某种情况的软中断技术。例如：某个进程执行了除法操作，其除数为0，则将名为SIGFPE（浮点异常）的信号发送给该进程。</p>
+<p>那么，怎么会有两种异常信息呢？</p>
+<p>念茜的<a href="http://www.cocoachina.com/cms/wap.php?action=article&amp;id=12301" rel="external nofollow noopener noreferrer" target="_blank">漫谈iOS Crash收集框架</a>阐述了两者的关系，我这里再重复下。</p>
+<p>苹果系统是基于Unix系统的，苹果的大牛们为了兼容Unix信号，将Mach异常转化为Unix信号，并投射到异常的线程，这样做的目的是：对于不懂Mach异常的人，也可以使用Unix信号捕获异常。所以，Crash日志有两种异常信息。</p>
+<p>Mach和Unix关系图：</p>
+<p><img src="/wiki/IOS/crash/1_system_Crash_Type/mac_unix.png" alt="Mach和Unix关系图"></p>
+<p>所有Mach异常都在host层被ux_exception转换为相应的Unix信号，并通过threadsignal将信号投递到出错的线程。<!--iOS系统中的 POSIX API 就是通过 Mach 之上的 BSD 层实现的。--></p>
+<p>捕获Mach异常或者Unix信号都可以抓到crash事件，这两种方式哪个更好呢？<br>优选Mach异常，因为Mach异常的处理会先于Unix信号处理，如果Mach异常的handler让程序exit了，那么Unix信号就永远不会到达这个进程了。<!--转换Unix信号是为了兼容更为流行的POSIX标准，这样不必了解Mach内核也可以通过Unix信号的方式来兼容开发。--></p>
+<p>所以，Crash日志中的EXC_BAD_ACCESS 是Mach异常信息，SIGSEGV是Unix信号异常信息。</p>
+<p>小贴士:<br>因为硬件产生的信号(通过CPU陷阱)被Mach层捕获，然后才转换为对应的Unix信号；苹果为了统一机制，于是操作系统和用户产生的信号(通过调用kill和pthread_kill)也首先沉下来被转换为Mach异常，再转换为Unix信号。</p>
+<h2 id="线程回溯"><a href="#线程回溯" class="headerlink" title="线程回溯"></a>线程回溯</h2><h3 id="符号化回溯线程"><a href="#符号化回溯线程" class="headerlink" title="符号化回溯线程"></a>符号化回溯线程</h3><p>线程的回溯是APP Crash瞬间，程序中所有线程的逆向调用堆栈。线程回溯对我们修复Crash非常非常的有用，根据线程回溯，可以分析、定位程序崩溃的原因。</p>
+<p>下面将崩溃的代码、未符号化崩溃日志、符号化崩溃日志贴出来，做个对比性的理解。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></span><br><span class="line">		</span><br><span class="line">- (<span class="keyword">IBAction</span>) onCrash:(__unused <span class="keyword">id</span>) sender</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">char</span>* ptr = (<span class="keyword">char</span>*)<span class="number">-1</span>;</span><br><span class="line">    *ptr = <span class="number">10</span>;  <span class="comment">///这里程序崩溃了 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<p><img src="/wiki/IOS/crash/1_system_Crash_Type/unSymb.png" alt="未符号化的崩溃日志（图5）"></p>
+<p><img src="/wiki/IOS/crash/1_system_Crash_Type/symboled.png" alt="符号化的崩溃日志（图6)"></p>
+<p>图5中红色文字展示了几个名词：镜像文件、加载地址、堆栈地址。还有没有展示出来的一个名词：符号在二进制中的偏移量。他们的含义分别为：</p>
+<p>镜像文件：是可执行二进制文件和二进制文件依赖的动态库的总称。<br>堆栈地址：是代码在内存中执行的内存地址。<br>镜像的加载地址：程序执行时，内核会将包含程序代码的镜像加载到内存中，镜像在内存中的基地址就是加载地址。程序每次启动时，镜像的加载地址是随机的。所以，同一代码在不同的设备中执行时，堆栈地址是不一样的。<br>符号在二进制中的偏移量：按照字面意思理解吧。它以通过下面的公式得到：</p>
+<figure class="highlight fix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">符号在二进制中的偏移量 </span>=<span class="string"> 堆栈地址 - 镜像的加载地址</span></span><br></pre></td></tr></table></figure>
+<p>符号在二进制中的偏移量非常有用，我们就是根据它，从符号文件中查找出地址对应的代码符号。这里的符号文件指的是：带有符号表的可执行二进制文件、dSYM文件，这两种文件在后续章节中都统称为符号文件。</p>
+<p>那么怎么将图5中的Crash日志符号化为图6中的形式呢？</p>
+<p>苹果自带的atos命令行工具可以查找地址对应的符号，在终端中输入：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/usr/bin/atos -o [符号文件] -arch arm64 -l <span class="number">0x100030000</span> <span class="number">0x000000010003522c</span></span><br></pre></td></tr></table></figure>
+<p>输出结果如下：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">-</span><span class="selector-attr">[ViewController onCrash:]</span>  (in Simple-Example) (ViewController.<span class="attribute">m</span>:<span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+<p>是不是很简单的就将地址转换为符号？是的，只需将符号文件（-o指定）、代码构架（-arch指定）、加载地址（-l指定）、堆栈地址 传入atos命令，就能解析出符号。 atos命令解析出了堆栈地址为0x000000010003522c、加载地址为0x100030000对应的符号。符号为[ViewController onCrash:]，也验证了崩溃发生在onCrash函数中，也验证了崩溃日志中的地址是可以符号化的。</p>
+<p>符号化是简单，但是原理是什么？怎么就通过地址找到了Crash代码的符号，要听详细信息，请看《符号化内幕》。</p>
+<h3 id="符号化内幕"><a href="#符号化内幕" class="headerlink" title="符号化内幕"></a>符号化内幕</h3><p>符号化的内幕就是：在符号文件中，通过偏移量查找符号。下面，一步步的来分析，首先计算Crash地址在符号文件中的偏移量，为000000010000522c。</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">符号在二进制中的偏移量 = 堆栈地址 - 镜像的加载地址 = <span class="number">0x000000010003522c</span> -  <span class="number">0x100030000</span> = <span class="number">000000010000522</span>c</span><br></pre></td></tr></table></figure>
+<p>在符号文件中直接找地址000000010000522c，应该是找不到，在后续你可以理解。我们使用逆向方法，根据符号-[ViewController onCrash:]，找对应的地址，比较是不是000000010000522c，如果是，就充分说明了，通过偏移量是可以查找到内存地址对应的符号的。在终端中输入下面的命令：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">nm</span> [符号文件] | <span class="keyword">grep</span> <span class="string">"ViewController onCrash:"</span></span><br></pre></td></tr></table></figure>
+<p>输出如下 </p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">00008320 </span>t -[ViewController onCrash:]</span><br><span class="line"><span class="symbol">0000000100005224 </span>t -[ViewController onCrash:]</span><br></pre></td></tr></table></figure>
+<p>输出的第一行是armv7s构架的符号，第二行是arm64构架的符号，Crash日志显示的代码构架是arm64，使用第二行，符号-[ViewController onCrash:]对应的偏移量是0000000100005224，而不是 000000010000522c，是我给你埋了个坑吗？专门来坑你的？不是的，不是的，这个问题也困扰了我N久、折磨了我N久。这个公式是在stack overflow上找到的，我也怀疑他们骗了我，但是，仔细看两个地址，又那么的相似、那么的相近—就相差8！！！ 虽说相差8，但毕竟不一样。差之毫厘谬以千里啊。感觉就要成功，但就是不对。就永远差了那么一点点，试了好多崩溃日志，都是差那么一点点，相信你也体会过这种感觉，只差一点点，真的只差一点点。就差那么该死的一点点，问题就能解决。百思不得其姐的困扰、抓狂的困扰 。。好久好久我都没想明白，那一点点是怎么差的。这不，今天写日志组织测试用例的时候，忽然明白了为什么差那一点点，踏破铁鞋无觅处，得来全不费功夫！！。<br>原来，我们通过nm命令查找出的符号地址对，是函数入口地址和对应的函数调用的符号对，仅仅是函数调用的符号，没有函数内部代码的符号，而程序是崩溃到函数内部，崩溃到<em>ptr = 10这句话，内部代码的地址怎么可能和入口地址一样呢！相差一点点！<br>下面根据偏移量000000010000522c和代码推算函数的入口地址吧，看看是什么。崩溃代码</em>ptr = 10前面只有一个语句—定义初始化指针“char<em> ptr = (char</em>)-1”，在64位系统上指针的地址占8个字节，000000010000522c - 8= 0000000100005224， 果然是0000000100005224。这个不就是函数的入口地址嘛，对，就是。原来那一点点的原因在这里。 那么偏移量0000000100005224 对应的符号正是-[ViewController onCrash:]。<!--这就是通过偏移量查找符号的原理。--> </p>
+<p>上面通过nm 命令查找符号可能不直观，可以通过可视化工具<a href="http://of685p9vy.bkt.clouddn.com/MachOView-2.4.9200.dmg" rel="external nofollow noopener noreferrer" target="_blank">MachOView</a>查看。验证下吧，选择 Debug Symbols（ARM64_ALL）-&gt;Symbol Table-&gt;Symbols,然后在右上角的搜索框中输入符号：-[ViewController onCrash:]，结果如下，<br><img src="/wiki/IOS/crash/1_system_Crash_Type/收集、解析IOS崩溃日志7.png" alt="收集、解析IOS崩溃日志7"><br>通过这个工具可以直观的查看到符号和地址的对应关系。</p>
+<h3 id="小小结"><a href="#小小结" class="headerlink" title="小小结"></a>小小结</h3><p>ok，终于可以歇一歇了，我们终于把符号化和符号化原理阐述完了。简单的回顾下：</p>
+<ol>
+<li>可以通过系统的atos符号化崩溃日志的单个符号 </li>
+<li>符号化内部原理就是：根据符号在二进制中的偏移量，在符号文件中查找对应的符号。其中：符号在二进制中的偏移量 = 堆栈地址 - 镜像的加载地址。</li>
+</ol>
+<!--### 1.4.4 弱弱的问题
+
+1. 为什么图5中的回溯线程中，Simple-Example镜像中的地址“0x000000010003522c 0x100030000 + 21036”没有解析出来，显示的是一串十六进制的数字，你是否也遇到过？也被这样的问题困惑过？《1.6小节 Binary Images》， 会阐述该问题。-->
+<h2 id="线程的状态寄存器"><a href="#线程的状态寄存器" class="headerlink" title="线程的状态寄存器"></a>线程的状态寄存器</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Thread</span> <span class="number">0</span> <span class="string">crashed</span> <span class="string">with</span> <span class="string">ARM</span> <span class="string">Thread</span> <span class="string">State</span> <span class="string">(64-bit):</span></span><br><span class="line"><span class="attr">    x0:</span> <span class="number">0x000000010050b460</span>   <span class="attr">x1:</span> <span class="number">0x0000000100102cea</span>   <span class="attr">x2:</span> <span class="number">0x00000001004339d0</span>   <span class="attr">x3:</span> <span class="number">0x00000001740f8f00</span></span><br><span class="line"><span class="attr">    x4:</span> <span class="number">0x00000001740f8f00</span>   <span class="attr">x5:</span> <span class="number">0x00000001740f8f00</span>   <span class="attr">x6:</span> <span class="number">0x0000000000000001</span>   <span class="attr">x7:</span> <span class="number">0x0000000000000000</span></span><br><span class="line"><span class="attr">    x8:</span> <span class="number">0xffffffffffffffff</span>   <span class="attr">x9:</span> <span class="number">0x000000000000000a</span>  <span class="attr">x10:</span> <span class="number">0x00000001b3ad0018</span>  <span class="attr">x11:</span> <span class="number">0x00c1580100c15880</span></span><br><span class="line"><span class="attr">   x12:</span> <span class="number">0x0000000000c15800</span>  <span class="attr">x13:</span> <span class="number">0x0000000000c15900</span>  <span class="attr">x14:</span> <span class="number">0x0000000000c158c0</span>  <span class="attr">x15:</span> <span class="number">0x0000000000c15801</span></span><br><span class="line"><span class="attr">   x16:</span> <span class="number">0x0000000000000000</span>  <span class="attr">x17:</span> <span class="number">0x00000001000c1224</span>  <span class="attr">x18:</span> <span class="number">0x0000000000000000</span>  <span class="attr">x19:</span> <span class="number">0x00000001740f8f00</span></span><br><span class="line"><span class="attr">   x20:</span> <span class="number">0x00000001004339d0</span>  <span class="attr">x21:</span> <span class="number">0x0000000100102cea</span>  <span class="attr">x22:</span> <span class="number">0x000000010050b460</span>  <span class="attr">x23:</span> <span class="number">0x0000000170240bd0</span></span><br><span class="line"><span class="attr">   x24:</span> <span class="number">0x000000017400db90</span>  <span class="attr">x25:</span> <span class="number">0x0000000000000001</span>  <span class="attr">x26:</span> <span class="number">0x0000000000000000</span>  <span class="attr">x27:</span> <span class="number">0x00000001b2822000</span></span><br><span class="line"><span class="attr">   x28:</span> <span class="number">0x0000000000000040</span>   <span class="attr">fp:</span> <span class="number">0x000000016fd41ab0</span>   <span class="attr">lr:</span> <span class="number">0x0000000194aea7b0</span></span><br><span class="line"><span class="attr">    sp:</span> <span class="number">0x000000016fd41a90</span>   <span class="attr">pc:</span> <span class="number">0x00000001000c122c</span> <span class="attr">cpsr:</span> <span class="number">0x60000000</span></span><br></pre></td></tr></table></figure>
+<p>这是APP crash的时候，ARM64 构架CPU的32个寄存器的值， 其中fp 帧指针、sp堆栈指针，lr 是返回地址指针，这三个都比较有用，用来逐级回溯线程调用栈。</p>
+<h2 id="Binary-Images"><a href="#Binary-Images" class="headerlink" title="Binary Images"></a>Binary Images</h2><p><img src="/wiki/IOS/crash/1_system_Crash_Type/image.png" alt="Binary Images 图8"></p>
+<p>镜像文件就是上面讲的可执行程序 和 依赖的所有动态库。<br>镜像文件中包括镜像的加载地址，和线程回溯中的镜像加载地址指的是一个地址。加载地址后面有个UUID，符号文件中也有个UUID，只有这两个地址一致，才能解析出地址对应的符号。符号文件中的UUID可以通过终端中输入下面的命令得到：</p>
+<figure class="highlight accesslog"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dwarfdump —u <span class="string">[符号文件]</span></span><br></pre></td></tr></table></figure>
+<p>输出如下：</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UUID: C<span class="number">8E0E6E4</span>-F<span class="number">761-3A19</span>-B231-A31C1BB9037A (armv7) </span><br><span class="line">UUID: <span class="number">39</span>BBB8F4-CCB0-<span class="number">3193-8491</span>-C007931CA05E (arm64)</span><br></pre></td></tr></table></figure>
+<p>第二行的arm64构架的UUID居然和图8中的红色矩形框中UUID惊人的一致。是的。必须得一致，这才表示代码对应的符号能在这个符号文件中找到，如果不一致，就没法解析出地址对应的符号。不论是Xcode，还是symbolicatecrash，都解析不了。<br>也可以通过MachOView查看符号文件的UUID，结果如下：</p>
+<p><img src="/wiki/IOS/crash/1_system_Crash_Type/uuid.png" alt="收集、解析IOS崩溃日志9"></p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>这节阐述了崩溃日志的组成结构、通过atos命令行工具符号化崩溃日志以及符号化崩溃日志的原理。同时提及了几个工具有用的工具：</p>
 <ol>
 <li>file,文件类型显示工具（The file-type displaying tool，位于/usr/bin/file）;</li>
@@ -902,19 +975,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/crash/increase_Wild_Pointer2/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/C语言语法/struct_Analize/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现
+                    struct定义语法
                 
             </div>
         </a>
     
     
-        <a href="/wiki/IOS/crash/increase_Wild_Pointer/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/crash/2_Collection_Crash/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title"></div>
+            <div class="article-nav-title">2. 收集崩溃日志方法</div>
         </a>
     
 </nav>
@@ -926,7 +999,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/crash/crash_resolve/" data-title="解决Crash的技能" data-url="http://yoursite.com/wiki/IOS/crash/crash_resolve/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/crash/1_system_Crash_Type/" data-title="1. 系统Crash日志结构介绍" data-url="http://yoursite.com/wiki/IOS/crash/1_system_Crash_Type/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
