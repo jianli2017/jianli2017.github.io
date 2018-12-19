@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/开源库学习/logan/logan/logan_pointer.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/开源库学习/logan/logan/logan_zip_unit.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/开源库学习/logan/logan/logan_model.png">
-<meta property="og:updated_time" content="2018-12-19T11:10:34.151Z">
+<meta property="og:updated_time" content="2018-12-19T11:15:28.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="logan 源码浅析">
 <meta name="twitter:description" content="本文旨在通过logan源码，分析logan的整体结构、存储结构、内部的数据结构、主要的C接口、优点、存在的问题。">
@@ -912,12 +912,12 @@
 <blockquote>
 <p>mmap 其实主要作用就是多个进程共享内存，所以本文有时候将mmap叫做共享内存</p>
 </blockquote>
-<h2 id="一、整体结构"><a href="#一、整体结构" class="headerlink" title="一、整体结构"></a>一、整体结构</h2><p>我相信，对应任何一个三方库，你如果想了解它，第一个想知道的问题是：这个库是整体是什么结构？</p>
+<h2 id="一、整体结构"><a href="#一、整体结构" class="headerlink" title="一、整体结构"></a>一、整体结构</h2><p>我相信，对应任何一个三方库，你如果想了解它，第一个想知道的问题是：这个库的整体结构是什么结构？</p>
 <p>下面来解密logan整体结构：</p>
 <p><img src="/wiki/IOS/开源库学习/logan/logan/logan_struct.png" alt="logan整体结构"></p>
 <p>就画了一个非常简单的图，但是我觉得能将logan整个日志存储的机制表达出来了。</p>
 <ol>
-<li>当程序有日志—– data需要写的时候，我们将data做写处理：格式化(附加上线程、时间等有用的信息)、 压缩、DES加密、 最后追加到mmap中。</li>
+<li>当程序有日志(命名为data) 需要写入的时候，我们将data做系列处理：格式化(附加上线程、时间等有用的信息)、 压缩、DES加密、 最后追加到mmap中。</li>
 <li>mmap 据说能提高写日志的效率，防止丢失，  mmap中，如果日志达到了5K，就构成一个压缩单元，如果有后续的日志，就新开始一个压缩单元。</li>
 <li>当mmap中的日志超过容量(初始指定10M)的1/3就写入日志文件中。</li>
 <li>当日志文件满了，不知道怎么处理了，上传，还是上传？  logan没实现！！！！</li>
