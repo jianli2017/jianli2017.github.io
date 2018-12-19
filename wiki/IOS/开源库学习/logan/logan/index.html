@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/开源库学习/logan/logan/logan_pointer.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/开源库学习/logan/logan/logan_zip_unit.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/开源库学习/logan/logan/logan_model.png">
-<meta property="og:updated_time" content="2018-12-19T11:15:28.203Z">
+<meta property="og:updated_time" content="2018-12-19T11:26:44.218Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="logan 源码浅析">
 <meta name="twitter:description" content="本文旨在通过logan源码，分析logan的整体结构、存储结构、内部的数据结构、主要的C接口、优点、存在的问题。">
@@ -924,30 +924,32 @@
 </ol>
 <p>通过上面我们了解了三个基本的关键节点：</p>
 <ol>
-<li><p>5k  </p>
+<li><p>5k  一个压缩单元的大小</p>
  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOGAN_MAX_GZIP_UTIL <span class="number">5</span> * <span class="number">1024</span> <span class="comment">//压缩单元的大小</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>容量(初始指定10M)的1/3就</p>
+<li><p>容量(初始指定10M)的1/3  写文件的节点</p>
  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LOGAN_WRITEPROTOCOL_DEVIDE_VALUE <span class="number">3</span> <span class="comment">//多少分之一写入</span></span><br><span class="line">buffer_length / LOGAN_WRITEPROTOCOL_DEVIDE_VALUE</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>10M</p>
+<li><p>10M 日志文件总大小</p>
  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uint64_t file_max = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="logan本质–存储结构"><a href="#logan本质–存储结构" class="headerlink" title="logan本质–存储结构"></a>logan本质–存储结构</h2><p>如果你通过上节，了解了logan的整体结构，有没有感觉设计的也很平凡？那么你现在有没有好奇logan到底哪里出色？值得美团去开源它？</p>
-<p>我觉得核心的就是大量日志的组织结构，就是如何高效的将大量日志组织在本地存储，你也可以想想。如果自己做，怎么组织？</p>
-<p>logan用简单的方式实现了海量日志的本地存储，本质是自己设计了一套简单的日志的格式，这是logan的本质，理解了本质，就理解了logan。</p>
+<h2 id="logan本质–存储结构"><a href="#logan本质–存储结构" class="headerlink" title="logan本质–存储结构"></a>logan本质–存储结构</h2><p>如果你通过上节，了解了logan的整体结构，有没有它的感觉设计也很平凡？那么你现在有没有好奇logan到底哪里出色？值得美团去开源它？</p>
+<p>我觉得核心的就是大量日志的组织结构，也就是如何高效的将大量日志组织在本地存储，你也可以想想。如果自己做，怎么组织？</p>
+<p>logan用简单的方式实现了海量日志的本地存储，本质是自己设计了一套日志存储格式，它就是logan的本质，理解了本质，就理解了logan。</p>
 <p>通过查阅源码，整理的日志格式如下 ：</p>
 <p><img src="/wiki/IOS/开源库学习/logan/logan/logFile_format.png" alt="日志文件格式"></p>
-<p>这个图的下面部分是对上面部分的展开。主要分为两部分，日志头、日志体（图中左右两部分）。</p>
-<h3 id="日志头"><a href="#日志头" class="headerlink" title="日志头"></a>日志头</h3><p>日志头以0x0D标志位表示header开始，紧接着用两个字节表示头内容的长度、接着是头内容、最后用0x0E结束标志位表示header结束。</p>
-<p>头内容如下：</p>
+<blockquote>
+<p>图的阅读方式：下面部分是对上面部分的展开。分为两部分，日志头、日志体（图中左右两部分）。</p>
+</blockquote>
+<h3 id="日志头"><a href="#日志头" class="headerlink" title="日志头"></a>日志头</h3><p>日志头以0x0D标志位表示header开始，紧接着用两个字节表示头内容的长度、接着是头内容、最后用0x0E标志位表示header结束。</p>
+<p>头内容数据如下：</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"logan_version"</span>:<span class="number">3</span>,</span><br><span class="line">    <span class="attr">"file"</span>:<span class="string">"2018-12-19"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>logan_version 表示logan的版本，file字段存储日志文件的文件名。 也就是你如果拿到了共享内存，就能通过读取头信息，将共享内存中的数据写入到日志文件中。</p>
+<p>logan_version 表示logan的版本，file字段存储日志文件的文件名。 也就是你如果拿到了共享内存，就能通过读取头信息，将共享内存中的数据写入到file表示的日志文件中。</p>
 <h3 id="日志体"><a href="#日志体" class="headerlink" title="日志体"></a>日志体</h3><p>日志体由长度(total_len，占用三字节、小端模式存储)、协议组成。</p>
 <p>协议由协议起始标志位(1字节、值为0x01)、内容、协议结束标志位(1字节、值为0x00)。我自己理解，所谓协议就是一个压缩单元，超过5K开始下一个压缩单元。</p>
 <p>内容由内容长度(4字节，大端模式存储)、各个log组成。</p>
-<h3 id="先睹为快、窥探日志数据"><a href="#先睹为快、窥探日志数据" class="headerlink" title="先睹为快、窥探日志数据"></a>先睹为快、窥探日志数据</h3><p>如果看懂了上节内容，你有没有想窥探下logan内存中的样子？</p>
+<h3 id="先睹为快、窥探日志数据"><a href="#先睹为快、窥探日志数据" class="headerlink" title="先睹为快、窥探日志数据"></a>先睹为快、窥探日志数据</h3><p>如果看懂了上节内容，你有没有想窥探下logan内存结构的欲望？</p>
 <p><img src="/wiki/IOS/开源库学习/logan/logan/logan_memory.png" alt="日志数据"></p>
 <ol>
 <li>0x0D  头起始标志  </li>
@@ -961,21 +963,24 @@
 <li>0x14D7~0x465C  多个压缩加密后的日志    </li>
 <li>0x00  协议结束标志位</li>
 </ol>
-<p>看了logan日志存储格式，我自己总结了下，其实是三级结构</p>
+<p>看了logan日志存储格式，我自己总结了下，其实就是一个三级结构：</p>
 <p><img src="/wiki/IOS/开源库学习/logan/logan/logan_three_struct.png" alt="logan三级结构"></p>
-<p>你可以回头想想，所有的字段都服务于这个三级结构，如果你按照三级结构理解，这里没有多余的信息。</p>
-<h2 id="日志追加机制"><a href="#日志追加机制" class="headerlink" title="日志追加机制"></a>日志追加机制</h2><p>下面我们就可以了解logan日志增加的机制了，其实，追加日志主要靠四个指针就完成了。</p>
+<p>你可以回头想想，所有的字段都服务于这个三级结构，如果你按照三级结构的思路理解，这里就没有多余的信息。 </p>
+<blockquote>
+<p>我首次看，就觉得怎么这么多len信息，是否是多余的呢。</p>
+</blockquote>
+<h2 id="日志追加机制"><a href="#日志追加机制" class="headerlink" title="日志追加机制"></a>日志追加机制</h2><p>下面我们就可以进一步深入logan日志增加的机制了，其实，追加日志主要靠四个指针就完成了。</p>
 <p><img src="/wiki/IOS/开源库学习/logan/logan/logan_pointer.png" alt="4个关键指针的展示"></p>
 <p>说明下这四个指针的作用：</p>
 <ol>
 <li>buffer_point 标记mmap的起始地址，基本固定不变。</li>
 <li>total_point日志体的起始位置指针 ，这个指针目的是当有新日志添加的时候，更新total_point后面的total_len属性。位置也不变化。</li>
-<li>content_lent_point内容起始位置指针，一个压缩单元变前进一次。它的主要作用是，当增加log后，更新后面的content_len的内容。其实就是指向上面三级结构中的第二级结构</li>
+<li>content_lent_point内容起始位置指针，一个压缩单元完事后，前进一次。它的主要作用是，当增加log后，更新后面的content_len的内容。其实就是指向上面三级结构中的第二级结构</li>
 <li>last_point 添加日志起始指针 ,每次新的日志都追加到last_point处，追加完后，更新last_point为下一个追加位置。 </li>
 </ol>
 <p>上面多次提到了压缩单元，我们用下面的图说明下压缩单元递增的思路：</p>
 <p><img src="/wiki/IOS/开源库学习/logan/logan/logan_zip_unit.png" alt="5K压缩单元递增示意图"></p>
-<p>上面是一个压缩单元完成后，开始新的压缩单元的示意图。我们可以观察content_lent_point、last_point两个指针移动的情况。</p>
+<p>上面是一个压缩单元完成后，开始新压缩单元的示意图。我们可以观察content_lent_point、last_point两个指针移动的情况。(箭头从 蓝色-&gt; 蓝色-&gt; 绿色 的变化过程)</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>感觉也不是很复杂，就是用四个指针标记修改的位置，有新的日志来了，就追加到last_point处。</p>
 <h2 id="核心数据结构"><a href="#核心数据结构" class="headerlink" title="核心数据结构"></a>核心数据结构</h2><p>logan的结构、存储本质、追加日志机制都讲完了，接着看看代码是怎么实现的。logan用一个全局的数据结构管理所有的数据，这个数据结构定义如下 ：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">logan_model_struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> total_len; <span class="comment">//数据长度</span></span><br><span class="line">    <span class="keyword">char</span> *file_path; <span class="comment">//文件路径</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> is_malloc_zlib;</span><br><span class="line">    z_stream *strm;</span><br><span class="line">    <span class="keyword">int</span> zlib_type; <span class="comment">//压缩类型</span></span><br><span class="line">    <span class="keyword">char</span> remain_data[<span class="number">16</span>]; <span class="comment">//剩余空间</span></span><br><span class="line">    <span class="keyword">int</span> remain_data_len; <span class="comment">//剩余空间长度</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> is_ready_gzip; <span class="comment">//是否可以gzip</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> file_stream_type; <span class="comment">//文件流类型</span></span><br><span class="line">    FILE *file; <span class="comment">//文件流</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> file_len; <span class="comment">//文件大小</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *buffer_point; <span class="comment">//缓存的指针 (不变)</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *last_point; <span class="comment">//最后写入位置的指针</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *total_point; <span class="comment">//总数的指针 (可能变) , 给c看,低字节</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *content_lent_point;<span class="comment">//协议内容长度指针 , 给java看,高字节</span></span><br><span class="line">    <span class="keyword">int</span> content_len; <span class="comment">//内容的大小</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> aes_iv[<span class="number">16</span>]; <span class="comment">//aes_iv</span></span><br><span class="line">    <span class="keyword">int</span> is_ok;</span><br><span class="line"></span><br><span class="line">&#125; cLogan_model;</span><br></pre></td></tr></table></figure>
