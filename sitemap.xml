@@ -23,13 +23,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/10__%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/</loc>
-    
-    <lastmod>2019-01-25T10:51:58.244Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/</loc>
     
     <lastmod>2019-01-25T10:51:29.972Z</lastmod>
@@ -716,7 +709,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/Hybird/weex/weex-debug/</loc>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -730,7 +723,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
+    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/CC_pointer_memry/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -744,14 +744,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/Cocoapods/Cocoapods-new-spec/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/union%E5%AE%9A%E4%B9%89/</loc>
+    <loc>http://yoursite.com/wiki/Hybird/weex/weex-conmunication/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -772,7 +765,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
+    <loc>http://yoursite.com/wiki/Hybird/weex/weex-debug/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -780,6 +773,34 @@
   
   <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E7%AE%80%E7%95%A5%E7%89%88/git%E7%AE%80%E7%95%A5%E7%89%88/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/Cocoapods/Cocoapods-new-spec/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/IOS%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85app/IOS_simulator_install_app/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/SSH/ssh-theory/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/union%E5%AE%9A%E4%B9%89/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -800,34 +821,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/IOS%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85app/IOS_simulator_install_app/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/CC_pointer_memry/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/SSH/ssh-theory/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/JS/flexBox/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -835,14 +828,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
+    <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
+    <loc>http://yoursite.com/about/index.html</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
