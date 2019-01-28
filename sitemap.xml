@@ -2,7 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/9__%E6%9E%9A%E4%B8%BE/</loc>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/2__%E5%9F%BA%E7%A1%80/</loc>
+    
+    <lastmod>2019-01-28T01:47:30.358Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/10__%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/</loc>
+    
+    <lastmod>2019-01-28T01:46:39.491Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/</loc>
     
     <lastmod>2019-01-25T10:52:37.023Z</lastmod>
     
@@ -16,42 +30,35 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/8__%E9%97%AD%E5%8C%85/</loc>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/</loc>
     
     <lastmod>2019-01-25T10:51:29.972Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/7__%E5%87%BD%E6%95%B0/</loc>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/</loc>
     
     <lastmod>2019-01-25T10:50:58.540Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/2__%E5%9F%BA%E7%A1%80/</loc>
-    
-    <lastmod>2019-01-25T10:39:57.159Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/13__%E4%B8%8B%E6%A0%87/</loc>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/13__%E4%B8%8B%E6%A0%87/</loc>
     
     <lastmod>2019-01-25T10:27:11.338Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/12__%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2019-01-25T10:17:39.385Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/11__%E5%B1%9E%E6%80%A7/</loc>
+    <loc>http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/11__%E5%B1%9E%E6%80%A7/</loc>
     
     <lastmod>2019-01-25T10:13:56.514Z</lastmod>
     
@@ -709,13 +716,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/Hybird/weex/weex-debug/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -829,6 +829,13 @@
   
   <url>
     <loc>http://yoursite.com/wiki/JS/flexBox/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     

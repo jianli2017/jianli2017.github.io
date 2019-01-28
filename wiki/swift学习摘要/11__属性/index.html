@@ -3,22 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>分类: swift学习记录 | LJ小窝</title>
+    <title>11. 属性 | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="属性">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
-<meta property="og:type" content="website">
-<meta property="og:title" content="LJ小窝">
-<meta property="og:url" content="http://yoursite.com/categories/swift学习记录/index.html">
+    <meta name="description" content="Stored Properties 存储属性 Computed Properties 计算属性 Property Observers 属性观察器 Global and Local Variables Type Properties 类型属性">
+<meta name="keywords" content="属性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="11. 属性">
+<meta property="og:url" content="http://yoursite.com/wiki/swift学习摘要/11__属性/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:description" content="Stored Properties 存储属性 Computed Properties 计算属性 Property Observers 属性观察器 Global and Local Variables Type Properties 类型属性">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-25T10:13:56.514Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
+<meta name="twitter:title" content="11. 属性">
+<meta name="twitter:description" content="Stored Properties 存储属性 Computed Properties 计算属性 Property Observers 属性观察器 Global and Local Variables Type Properties 类型属性">
     
 
     
@@ -631,13 +633,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
-                            swift学习记录
+                            swift学习摘要
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/swift学习记录/10__类和结构体/">10. 类和结构体</a></li>  <li class="file"><a href="/wiki/swift学习记录/11__属性/">11. 属性</a></li>  <li class="file"><a href="/wiki/swift学习记录/13__下标/">13. 下标</a></li>  <li class="file"><a href="/wiki/swift学习记录/2__基础/">2. 基础</a></li>  <li class="file"><a href="/wiki/swift学习记录/12__方法/">12. 方法</a></li>  <li class="file"><a href="/wiki/swift学习记录/7__函数/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift学习记录/8__闭包/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift学习记录/9__枚举/">1. 枚举</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/swift学习摘要/10__类和结构体/">10. 类和结构体</a></li>  <li class="file active"><a href="/wiki/swift学习摘要/11__属性/">11. 属性</a></li>  <li class="file"><a href="/wiki/swift学习摘要/12__方法/">12. 方法</a></li>  <li class="file"><a href="/wiki/swift学习摘要/13__下标/">13. 下标</a></li>  <li class="file"><a href="/wiki/swift学习摘要/2__基础/">2. 基础</a></li>  <li class="file"><a href="/wiki/swift学习摘要/9__枚举/">1. 枚举</a></li>  <li class="file"><a href="/wiki/swift学习摘要/8__闭包/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift学习摘要/7__函数/">7. 函数</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -783,7 +785,7 @@
                     </li> 
                      </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/swift学习记录/10__类和结构体/">10. 类和结构体</a></li>  </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -854,302 +856,173 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main">
-<div class="timeline timeline-wrap">
-    <div class="timeline-row timeline-row-major">
-        <span class="node"><i class="fa fa-folder"></i></span>
-        <h1 class="title">swift学习记录</h1>
-    </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
+            <section id="main"><article id="post-swift学习摘要/11__属性" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
                 
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/10__类和结构体/">10. 类和结构体</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/10__类和结构体/">
-            <time datetime="2019-01-24T04:07:12.000Z" itemprop="datePublished">2019-01-24</time>
-        </a>
-    </div>
-
-
-                    
+                    <div class="article-meta">
+                        
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
+        <a class="article-category-link" href="/categories/swift学习摘要/">swift学习摘要</a>
     </div>
 
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/类和结构体/">类和结构体</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/2__基础/">2. 基础</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/2__基础/">
-            <time datetime="2019-01-24T04:07:12.000Z" itemprop="datePublished">2019-01-24</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/基础/">基础</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/7__函数/">7. 函数</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/7__函数/">
-            <time datetime="2019-01-24T04:07:12.000Z" itemprop="datePublished">2019-01-24</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/函数/">函数</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/8__闭包/">7. 函数</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/8__闭包/">
-            <time datetime="2019-01-24T04:07:12.000Z" itemprop="datePublished">2019-01-24</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/函数/">函数</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/9__枚举/">1. 枚举</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/9__枚举/">
-            <time datetime="2019-01-24T04:07:12.000Z" itemprop="datePublished">2019-01-24</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/枚举/">枚举</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/13__下标/">13. 下标</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/13__下标/">
-            <time datetime="2019-01-18T04:07:12.000Z" itemprop="datePublished">2019-01-18</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/下标/">下标</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/12__方法/">12. 方法</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/12__方法/">
-            <time datetime="2019-01-18T04:07:12.000Z" itemprop="datePublished">2019-01-18</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
-    </div>
-
-                    
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/方法/">方法</a>
-    </div>
-
-                </div>
-            </div>
-        </div>
-    
-        <div class="timeline-row">
-            <span class="node"></span>
-            <div class="content">
-                
-    
-        <h1 itemprop="name">
-            <a class="timeline-article-title" href="/wiki/swift学习记录/11__属性/">11. 属性</a>
-        </h1>
-    
-
-                <div class="article-meta">
-                    
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/swift学习记录/11__属性/">
-            <time datetime="2019-01-18T03:07:12.000Z" itemprop="datePublished">2019-01-18</time>
-        </a>
-    </div>
-
-
-                    
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/swift学习记录/">swift学习记录</a>
-    </div>
-
-                    
+                        
     <div class="article-tag">
         <i class="fa fa-tag"></i>
         <a class="tag-link" href="/tags/属性/">属性</a>
     </div>
 
-                </div>
-            </div>
-        </div>
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/swift学习摘要/11__属性/">
+            <time datetime="2019-01-18T03:07:12.000Z" itemprop="datePublished">2019-01-18</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
     
-</div>
+        <h1 class="article-title" itemprop="name">
+            11. 属性
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#存储属性"><span class="toc-number">1.</span> <span class="toc-text">存储属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计算属性"><span class="toc-number">2.</span> <span class="toc-text">计算属性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性观察器"><span class="toc-number">3.</span> <span class="toc-text">属性观察器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#全局和局部变量"><span class="toc-number">4.</span> <span class="toc-text">全局和局部变量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类型属性"><span class="toc-number">5.</span> <span class="toc-text">类型属性</span></a></li></ol>
+                </div>
+            
+        
+        
+            <ol>
+<li>Stored Properties 存储属性</li>
+<li>Computed Properties 计算属性</li>
+<li>Property Observers 属性观察器</li>
+<li>Global and Local Variables</li>
+<li>Type Properties 类型属性</li>
+</ol>
+<a id="more"></a>
+<p>存储属性将常量和变量值存储为实例 的一部分，而计算属性则是通过计算得到一个值(而不是存储值)。计算属性适用于类、结 构体和枚举类型，而存储属性只适用于类和结构体类型。</p>
+<h2 id="存储属性"><a href="#存储属性" class="headerlink" title="存储属性"></a>存储属性</h2><p>常量结构体实例的存储属性：当值类型的实例声明为常量时，其所有属性也都被标记为常量。如果将引用类型的实例声明为常量时，你仍可以修改该实例的变量属性。</p>
+<p>延迟存储属性：第一次使用时才进行计算。lazy标识，你必须始终将延迟属性声明为变量(使用 var 关键字)，因为延迟属性的初始值可能在实例初始化完成之后，仍然没有被赋值。而常量属性必须在实例初始化完成 之前 就 获得一个值，因此不能声明为延迟。<font color="blue">lazy和let是天敌啊</font></p>
+<p>存储属性和实例变量： swift属性没有相应的实例变量，并且属性的底层存储不能直接访问。</p>
+<h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>除了存储属性之外，类、结构体和枚举还可以定义 计算属性。它们会提供了一个 getter 方法和一个可选的 setter 方法来间接读取和设置其他属性和 值。</p>
+<p>只读计算属性：只有 getter 方法但没有 setter 方法的计算属性称为 只读计算属性 。</p>
+<p>你必须使用 var 关键字来声明计算属性(包括只读计算属性)，这是因为它们的值 是不固定。 let 关键字仅用于常量属性，这种属性一旦被初始化以后，就不能再更 改它们的值。</p>
+<h2 id="属性观察器"><a href="#属性观察器" class="headerlink" title="属性观察器"></a>属性观察器</h2><p>属性观察器会观察并对属性值的变化做出反应。每次设置属性值时都会调用属性观察器，即使新值与属性的当前值相同。</p>
+<p>你可以将属性观察器添加到你定义的任何存储属性上，但延迟存储属性除外。你还可以通过在子类中重写属性来为任何继承的属性(无论是存储还是计算)添加属性观察器。你并不需 要为非重写的计算属性定义属性观察器，因为你可以在计算属性的 setter 方法中观察并响应其值的更改。</p>
+<p>你可以选择在属性上定义一个或两个观察器:</p>
+<ol>
+<li>在存储值之前调用 willSet 。</li>
+<li>存储新值后立即调用 didSet 。</li>
+</ol>
+<p>在调用父类初始化方法之后，在子类中给父类属性赋值时，将会调用父类属性的 willSet 和 didSet 观察器。如果在调用父类初始化方法之前，在子类中给父类属性赋值，则不会调用父类的观察器。</p>
+<p>didSet 观察器不会为旧值提供自定义参数名称，而是使用默认名称 oldValue 。</p>
+<h2 id="全局和局部变量"><a href="#全局和局部变量" class="headerlink" title="全局和局部变量"></a>全局和局部变量</h2><p>上面描述的用于计算和观察属性的功能也可用于 全局变量 和 局部变量 。全局变量是指在任何函数、方法、闭包或类型上下文之外定义的变量。局部变量是指在函数、方法或闭包上下文中定义的变量。</p>
+<p>全局常量和变量总是被延迟计算，与 延迟存储属性 类似。与延迟存储属性不同的是，全局常量和变量不需要使用 lazy 修饰符进行标记。 局部常量和变量永远不会被延迟计算。</p>
+<h2 id="类型属性"><a href="#类型属性" class="headerlink" title="类型属性"></a>类型属性</h2><p>实例属性是属于特定类型的实例的属性。每次创建该类型的新实例时，它都有自己的一组属性值，与任何其他实例不同。</p>
+<p>类型属性用于定义一个对某个类型的 所有 实例都可见的值</p>
+<p>存储类型属性可以是变量或常量。计算类型属性始终是变量属性，与声明计算实例属性的方式相同。</p>
+<p>与存储实例属性不同，你必须始终为存储类型属性提供默认值。这是因为类型本身没有初始化方法来给存储类型属性赋值。<br>存储类型属性在首次访问时被初始化。它们会被保证只初始化一次，即使同时由多个线程访问。请注意你并不需要用 lazy 修饰符标记它们。</p>
+<p>类型属性的语法: 你可以使用static关键字定义类型属性，对于类类型的计算属性，可以使用class关键字来允许子类覆盖超类的实现。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/swift学习摘要/12__方法/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    12. 方法
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/IOS/开源库学习/logan/logan/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">logan 源码浅析</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/swift学习摘要/11__属性/" data-title="11. 属性" data-url="http://yoursite.com/wiki/swift学习摘要/11__属性/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
 </section>
         </div>
         <footer id="footer">
