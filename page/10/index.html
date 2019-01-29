@@ -637,7 +637,7 @@
                             &nbsp;
                             swift学习摘要
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/swift学习摘要/10__类和结构体/">10. 类和结构体</a></li>  <li class="file"><a href="/wiki/swift学习摘要/12__方法/">12. 方法</a></li>  <li class="file"><a href="/wiki/swift学习摘要/11__属性/">11. 属性</a></li>  <li class="file"><a href="/wiki/swift学习摘要/13__下标/">13. 下标</a></li>  <li class="file"><a href="/wiki/swift学习摘要/2__基础/">2. 基础</a></li>  <li class="file"><a href="/wiki/swift学习摘要/8__闭包/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift学习摘要/7__函数/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift学习摘要/9__枚举/">1. 枚举</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/swift学习摘要/10__类和结构体/">10. 类和结构体</a></li>  <li class="file"><a href="/wiki/swift学习摘要/12__方法/">12. 方法</a></li>  <li class="file"><a href="/wiki/swift学习摘要/11__属性/">11. 属性</a></li>  <li class="file"><a href="/wiki/swift学习摘要/13__下标/">13. 下标</a></li>  <li class="file"><a href="/wiki/swift学习摘要/2__基础/">2. 基础</a></li>  <li class="file"><a href="/wiki/swift学习摘要/8__闭包/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift学习摘要/7__函数/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift学习摘要/9__枚举/">1. 枚举</a></li>  <li class="file"><a href="/wiki/swift学习摘要/17__可选链/">17. 可选链</a></li>  <li class="file"><a href="/wiki/swift学习摘要/18__错误处理/">18. 错误处理</a></li>  <li class="file"><a href="/wiki/swift学习摘要/19__类型转换/">19. 类型转换</a></li>  <li class="file"><a href="/wiki/swift学习摘要/14__继承/">14. 继承</a></li>  <li class="file"><a href="/wiki/swift学习摘要/16__析构过程/">16. 析构过程</a></li>  <li class="file"><a href="/wiki/swift学习摘要/20__嵌套类型/">20. 嵌套类型</a></li>  <li class="file"><a href="/wiki/swift学习摘要/15__构造过程/">15. 构造过程</a></li>  <li class="file"><a href="/wiki/swift学习摘要/21__扩展/">21. 扩展</a></li>  <li class="file"><a href="/wiki/swift学习摘要/22__协议/">22. 协议</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -855,6 +855,1049 @@
 </aside>
             
             <section id="main">
+        <article id="post-C语言语法/堆区（heap）和栈区（stack）的区别" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C语言语法/">C语言语法</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/C-语言语法/">C 语言语法</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">
+            <time datetime="2018-04-03T04:07:12.000Z" itemprop="datePublished">2018-04-03</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <a id="more"></a>
+<p>（1）申请方式</p>
+<p>栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等；</p>
+<p>堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收；</p>
+<p>（2）操作方式</p>
+<p>栈区：操作方式类似于数据结构中的栈；</p>
+<p>堆区：不同于数据结构中的堆，分配方式类似于链表。</p>
+<p>（3）申请后系统的响应 </p>
+<p>栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出；</p>
+<p>堆区：首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。 </p>
+<p>（4）申请大小的限制</p>
+<p>栈区：在Windows下,栈是向低地址扩展的数据结构，是一块连续的内存的区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，在WINDOWS下，栈的大小是2M（也有的说是1M，总之是一个编译时就确定的常数），如果申请的空间超过栈的剩余空间时，将提示overflow。因此，能从栈获得的空间较小。</p>
+<p>堆区：堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆的大小受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。</p>
+<p>（5）申请效率的比较</p>
+<p>栈区：系统自动分配，速度较快。但程序员是无法控制的。</p>
+<p>堆区：由new分配的内存，一般速度比较慢，而且容易产生内存碎片,不过用起来最方便. </p>
+<p>注意：在WINDOWS下，最好的方式是用VirtualAlloc分配内存，他不是在堆，也不是在栈是直接在进程的地址空间中保留一快内存，虽然用起来最不方便。但是速度快，也最灵活。</p>
+<p>（6）堆和栈中的存储内容</p>
+<p>栈区：在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。</p>
+<p>堆区：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容有程序员安排。</p>
+<p>参考资料</p>
+<p><a href="https://blog.csdn.net/shanshanhi/article/details/50904706" rel="external nofollow noopener noreferrer" target="_blank">堆区（heap）和栈区（stack）的区别</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/foundation使用记录/NSDateFormatter时间格式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSDateFormatter/">NSDateFormatter</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">
+            <time datetime="2018-03-22T07:35:49.000Z" itemprop="datePublished">2018-03-22</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="时间匹配格式"><a href="#时间匹配格式" class="headerlink" title="时间匹配格式"></a>时间匹配格式</h2><caption><a>Date Field Symbol Table</a></caption>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Sym.</th>
+<th>No.</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>era</td>
+<td>G</td>
+<td>1..3</td>
+<td>AD</td>
+<td>Era - Replaced with the Era string for the current date. One to three letters for the abbreviated form, four letters for the long form, five for the narrow form.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Anno Domini</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>A</td>
+</tr>
+<tr>
+<td>year</td>
+<td>y</td>
+<td>1..n</td>
+<td>1996</td>
+<td>Year. Normally the length specifies the padding, but for two letters it also specifies the maximum length. Example:</td>
+</tr>
+<tr>
+<td></td>
+<td>Y</td>
+<td>1..n</td>
+<td>1997</td>
+<td>Year (in “Week of Year” based calendars). This year designation is used in ISO year-week calendar as defined by ISO 8601, but can be used in non-Gregorian based calendar systems where week date processing is desired. May not always be the same value as calendar year.</td>
+</tr>
+<tr>
+<td></td>
+<td>u</td>
+<td>1..n</td>
+<td>4601</td>
+<td>Extended year. This is a single number designating the year of this calendar system, encompassing all supra-year fields. For example, for the Julian calendar system, year numbers are positive, with an era of BCE or CE. An extended year value for the Julian calendar system assigns positive values to CE years and negative values to BCE years, with 1 BCE being year 0.</td>
+</tr>
+<tr>
+<td>quarter</td>
+<td>Q</td>
+<td>1..2</td>
+<td>02</td>
+<td>Quarter - Use one or two for the numerical quarter, three for the abbreviation, or four for the full name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Q2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>2nd quarter</td>
+</tr>
+<tr>
+<td></td>
+<td>q</td>
+<td>1..2</td>
+<td>02</td>
+<td><strong>Stand-Alone</strong> Quarter - Use one or two for the numerical quarter, three for the abbreviation, or four for the full name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Q2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>2nd quarter</td>
+</tr>
+<tr>
+<td>month</td>
+<td>M</td>
+<td>1..2</td>
+<td>09</td>
+<td>Month - Use one or two for the numerical month, three for the abbreviation, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Sept</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>September</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>S</td>
+</tr>
+<tr>
+<td></td>
+<td>L</td>
+<td>1..2</td>
+<td>09</td>
+<td><strong>Stand-Alone</strong> Month - Use one or two for the numerical month, three for the abbreviation, or four for the full name, or 5 for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Sept</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>September</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>S</td>
+</tr>
+<tr>
+<td></td>
+<td>l</td>
+<td>1</td>
+<td>*</td>
+<td>Special symbol for Chinese leap month, used in combination with M. Only used with the Chinese calendar.</td>
+</tr>
+<tr>
+<td>week</td>
+<td>w</td>
+<td>1..2</td>
+<td>27</td>
+<td>Week of Year.</td>
+</tr>
+<tr>
+<td></td>
+<td>W</td>
+<td>1</td>
+<td>3</td>
+<td>Week of Month</td>
+</tr>
+<tr>
+<td>day</td>
+<td>d</td>
+<td>1..2</td>
+<td>1</td>
+<td>Date - Day of the month</td>
+</tr>
+<tr>
+<td></td>
+<td>D</td>
+<td>1..3</td>
+<td>345</td>
+<td>Day of year</td>
+</tr>
+<tr>
+<td></td>
+<td>F</td>
+<td>1</td>
+<td>2</td>
+<td>Day of Week in Month. The example is for the 2nd Wed in July</td>
+</tr>
+<tr>
+<td></td>
+<td>g</td>
+<td>1..n</td>
+<td>2451334</td>
+<td>Modified Julian day. This is different from the conventional Julian day number in two regards. First, it demarcates days at local zone midnight, rather than noon GMT. Second, it is a local number; that is, it depends on the local time zone. It can be thought of as a single number that encompasses all the date-related fields.</td>
+</tr>
+<tr>
+<td>week day</td>
+<td>E</td>
+<td>1..3</td>
+<td>Tues</td>
+<td>Day of week - Use one through three letters for the short day, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td></td>
+<td>e</td>
+<td>1..2</td>
+<td>2</td>
+<td>Local day of week. Same as E except adds a numeric value that will depend on the local starting day of the week, using one or two letters. For this example, Monday is the first day of the week.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Tues</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td></td>
+<td>c</td>
+<td>1</td>
+<td>2</td>
+<td><strong>Stand-Alone</strong> local day of week - Use one letter for the local numeric value (same as ‘e’), three for the short day, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Tues</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td>period</td>
+<td>a</td>
+<td>1</td>
+<td>AM</td>
+<td>AM or PM</td>
+</tr>
+<tr>
+<td>hour</td>
+<td>h</td>
+<td>1..2</td>
+<td>11</td>
+<td>Hour [1-12].</td>
+</tr>
+<tr>
+<td></td>
+<td>H</td>
+<td>1..2</td>
+<td>13</td>
+<td>Hour [0-23].</td>
+</tr>
+<tr>
+<td></td>
+<td>K</td>
+<td>1..2</td>
+<td>0</td>
+<td>Hour [0-11].</td>
+</tr>
+<tr>
+<td></td>
+<td>k</td>
+<td>1..2</td>
+<td>24</td>
+<td>Hour [1-24].</td>
+</tr>
+<tr>
+<td></td>
+<td>j</td>
+<td>1..2</td>
+<td>n/a</td>
+<td>This is a special-purpose symbol. It must not occur in patterns, but is reserved for use in APIs doing flexible date pattern generation, and requests the preferred format (12 vs 24 hour) for the language in question.</td>
+</tr>
+<tr>
+<td>minute</td>
+<td>m</td>
+<td>1..2</td>
+<td>59</td>
+<td>Minute. Use one or two for zero padding.</td>
+</tr>
+<tr>
+<td>second</td>
+<td>s</td>
+<td>1..2</td>
+<td>12</td>
+<td>Second. Use one or two for zero padding.</td>
+</tr>
+<tr>
+<td></td>
+<td>S</td>
+<td>1..n</td>
+<td>3457</td>
+<td>Fractional Second - rounds to the count of letters. (example is for 12.34567)</td>
+</tr>
+<tr>
+<td></td>
+<td>A</td>
+<td>1..n</td>
+<td>69540000</td>
+<td>Milliseconds in day. This field behaves  _exactly_  like a composite of all time-related fields, not including the zone fields. As such, it also reflects discontinuities of those fields on DST transition days. On a day of DST onset, it will jump forward. On a day of DST cessation, it will jump backward. This reflects the fact that is must be combined with the offset field to obtain a unique local time value.</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>z</td>
+<td>1..3</td>
+<td>PDT _fallbacks: _HPG-8:00 GMT-08:00</td>
+<td>Timezone - with the s _pecific non-location format_ . Where that is unavailable, falls back to  _localized GMT format_ . Use one to three letters for the short format or four for the full format. In the short format, metazone names are not used unless the commonlyUsed flag is on in the locale.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Pacific Daylight Time _fallbacks:_  HPG-8:00 GMT-08:00</td>
+</tr>
+<tr>
+<td></td>
+<td>Z</td>
+<td>1..3</td>
+<td>-0800</td>
+<td>Timezone - Use one to three letters for RFC 822 format, four letters for the localized GMT format.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>HPG+8:00 _fallbacks:_ GMT-08:00</td>
+</tr>
+<tr>
+<td></td>
+<td>v</td>
+<td>1</td>
+<td>PT</td>
+<td>Timezone - with the  _generic_   _non-location format_ . Where that is unavailable, uses special fallback rules given in  _[Appendix J][6]_ . Use one letter for short format, four for long format.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Pacific Time _fallbacks:_ Pacific Time (Canada) Pacific Time (Yellowknife) United States (Los Angeles) Time HPG-8:35 GMT-08:35</td>
+</tr>
+<tr>
+<td></td>
+<td>V</td>
+<td>1</td>
+<td>PST HPG-8:00 GMT-08:00</td>
+<td>Timezone - with the same format as z, except that metazone timezone abbreviations are to be displayed if available, regardless of the value of commonlyUsed.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>United States (Los Angeles) Time _fallbacks:_  HPG-8:35 MT-08:35</td>
+<td>Timezone - with the  _generic_   _location format_ . Where that is unavailable, falls back to the localized GMT format. (Fallback is only necessary with a GMT-style Timezone ID, like Etc/GMT-830.) This is especially useful when presenting possible timezone choices for user selection, since the naming is more uniform than the v format.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patternss" rel="external nofollow noopener noreferrer" target="_blank">UNICODE LOCALE DATA MARKUP LANGUAGE (LDML)</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/暂无分类/指定初始化函数" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/暂无分类/">暂无分类</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/指定初始化函数/">指定初始化函数</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/暂无分类/指定初始化函数/">
+            <time datetime="2018-03-21T04:07:12.000Z" itemprop="datePublished">2018-03-21</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>本文结束了下指定初始化函数，本文完全转载自 <a href="https://blog.csdn.net/zcube/article/details/51657417" rel="external nofollow noopener noreferrer" target="_blank">正确使用NS_DESIGNATED_INITIALIZER</a> 。</p>
+<h2 id="为什么会提到NS-DESIGNATED-INITIALIZER"><a href="#为什么会提到NS-DESIGNATED-INITIALIZER" class="headerlink" title="为什么会提到NS_DESIGNATED_INITIALIZER"></a>为什么会提到NS_DESIGNATED_INITIALIZER</h2><p>============================================================</p>
+<p>最近在清理项目警告，遇到了“Method override for the designated initializer”的警告，全称为：</p>
+<ul>
+<li><p>Method override for the designated initializer of the superclass ‘-init’ not found 或者</p>
+</li>
+<li><p>Method override for the designated initializer of the superclass ‘-initWithNibName:bundle:’ not found。</p>
+</li>
+</ul>
+<p>经排查是因为头文件中出现NS_DESIGNATED_INITIALIZER 声明的初始化方法，如下：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- (instance<span class="keyword">type</span>)initWithPurchaseService:(<span class="type">HTLPrepayPurchaseService</span> *)service <span class="type">NS_DESIGNATED_INITIALIZER</span>;</span><br></pre></td></tr></table></figure>
+<p>如果用了NS_DESIGNATED_INITIALIZER，那么警告中出现init、initWithNibName或是其它，取决于你的继承的父类类型：</p>
+<p>UIViewController</p>
+<ul>
+<li><p>Method override for the designated initializer of the superclass ‘-initWithNibName:bundle:’ not found</p>
+</li>
+<li><p>Method override for the designated initializer of the superclass ‘-initWithCoder:’ not found</p>
+</li>
+</ul>
+<p>UIView</p>
+<ul>
+<li><p>Method override for the designated initializer of the superclass ‘-initWithFrame:’ not found</p>
+</li>
+<li><p>Method override for the designated initializer of the superclass ‘-initWithCoder:’ not found</p>
+</li>
+</ul>
+<p>NSObject</p>
+<ul>
+<li>Method override for the designated initializer of the superclass ‘-init’ not found</li>
+</ul>
+<h2 id="正确使用NS-DESIGNATED-INITIALIZER"><a href="#正确使用NS-DESIGNATED-INITIALIZER" class="headerlink" title="正确使用NS_DESIGNATED_INITIALIZER"></a>正确使用NS_DESIGNATED_INITIALIZER</h2><h3 id="为什么要用NS-DESIGNATED-INITIALIZER"><a href="#为什么要用NS-DESIGNATED-INITIALIZER" class="headerlink" title="为什么要用NS_DESIGNATED_INITIALIZER"></a>为什么要用NS_DESIGNATED_INITIALIZER</h3><p>Objective-C 中主要通过NS_DESIGNATED_INITIALIZER宏来实现指定构造器的。这里之所以要用这个宏，往往是想<font color="red">告诉调用者要用这个方法去初始化（构造）类对象</font>。</p>
+<h3 id="怎样避免使用NS-DESIGNATED-INITIALIZER产生的警告"><a href="#怎样避免使用NS-DESIGNATED-INITIALIZER产生的警告" class="headerlink" title="怎样避免使用NS_DESIGNATED_INITIALIZER产生的警告"></a>怎样避免使用NS_DESIGNATED_INITIALIZER产生的警告</h3><p>如果子类指定了新的初始化器，那么在这个初始化器内部必须调用父类的Designated Initializer。并且需要重写父类的Designated Initializer，将其指向子类新的初始化器。</p>
+<p>如下：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">instancetype</span>)initWithName:(<span class="built_in">NSString</span> *)name <span class="built_in">NS_DESIGNATED_INITIALIZER</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)init</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">return</span> [<span class="keyword">self</span> initWithName:<span class="string">@""</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">instancetype</span>)initWithName:(<span class="built_in">NSString</span> *)name</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">self</span> = [<span class="keyword">super</span> init];</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">self</span>) </span><br><span class="line">	&#123;</span><br><span class="line">		<span class="comment">// do something</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">self</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="更好的做法"><a href="#更好的做法" class="headerlink" title="更好的做法"></a>更好的做法</h3><p>如果定义NS_DESIGNATED_INITIALIZER，大多是不想让调用者调用父类的初始化函数，只希望通过该类指定的初始化进行初始化，这时候就可以用NS_UNAVAILABLE宏。</p>
+<p>如下：</p>
+<figure class="highlight elm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">- (instance<span class="keyword">type</span>)init <span class="type">NS_UNAVAILABLE</span>;</span><br><span class="line">- (instance<span class="keyword">type</span>)initWithName:(<span class="type">NSString</span> *)name <span class="type">NS_DESIGNATED_INITIALIZER</span>;</span><br></pre></td></tr></table></figure>
+<p>如果调用者使用init 初始化，编译器就会给出一个编译错误。使用NS_UNAVAILABLE后，就不需要在.m中重写父类初始化函数了。如果要允许调用者使用init就需要在.m中重写父类的初始化函数，如上提到的，否则就会报警告。</p>
+<h2 id="避免使用new"><a href="#避免使用new" class="headerlink" title="避免使用new"></a>避免使用new</h2><p>如果使用new来创建对象的话，即使init被声明为NS_UNAVAILABLE，也不会收到编译器的警告和错误提示了。</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><ol>
+<li><a href="[http://stackoverflow.com/questions/26185239/ios-designated-initializers-using-ns-designated-initializer]">iOS Designated Initializers : Using NS_DESIGNATED_INITIALIZER
+</a>  </li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/工具下载地址/工具下载地址" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/工具下载地址/">工具下载地址</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/工具/">工具</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/工具下载地址/工具下载地址/">
+            <time datetime="2018-03-13T10:01:31.000Z" itemprop="datePublished">2018-03-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文记录常用工具下载地址</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/工具/工具下载地址/工具下载地址/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/Cocoapods/cocoapod-private-repo" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">
+            <time datetime="2018-03-01T06:50:54.000Z" itemprop="datePublished">2018-03-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a>
+        </h1>
+    
+
+            </header>
+        
+        
+<div class="article-gallery">
+    
+    <a class="gallery-item" href="http://of685p9vy.bkt.clouddn.com/cocoa-pod/createRepo/privateRepo.png" rel="external nofollow noopener noreferrer" target="_blank">
+        <img src="http://of685p9vy.bkt.clouddn.com/cocoa-pod/createRepo/privateRepo.png" itemprop="image">
+    </a>
+    
+</div>
+
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文说明制作Cocoapod私有库的过程。本文涉及到两个仓库 ‘官方仓库’、’私有仓库’。</p>
+<ol>
+<li><a href="https://github.com/CocoaPods/Specs.git" rel="external nofollow noopener noreferrer" target="_blank">官方仓库</a>的作用代表CocoaPods的官方podspec存放地址。 具体可以参考:<a href="https://github.com/CocoaPods/Specs" rel="external nofollow noopener noreferrer" target="_blank">CocoaPods官方源</a>、<a href="http://guides.cocoapods.org/making/specs-and-specs-repo.html" rel="external nofollow noopener noreferrer" target="_blank">Specs</a>; </li>
+<li><a href="https://github.com/jianli2017/LJRepo.git" rel="external nofollow noopener noreferrer" target="_blank">私有仓库</a>的是私有podspec存放地址。在git中仓库名称是LJRepo，clone到本地的别名是MyPrivateRepo。后文中私有仓库–LJRepo指的git地址，MyPrivateRepo指的是clone到本地的名称。</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/工具/Cocoapods/cocoapod-private-repo/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/SSH/ssh-theory" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/SSH/">SSH</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/SSH/ssh-theory/">
+            <time datetime="2018-02-27T10:11:35.000Z" itemprop="datePublished">2018-02-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/SSH/ssh-theory/">图解SSH原理</a>
+        </h1>
+    
+
+            </header>
+        
+        
+<div class="article-gallery">
+    
+    <a class="gallery-item" href="http://of685p9vy.bkt.clouddn.com/ssh/theory/overall.png" rel="external nofollow noopener noreferrer" target="_blank">
+        <img src="http://of685p9vy.bkt.clouddn.com/ssh/theory/overall.png" itemprop="image">
+    </a>
+    
+</div>
+
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>SSH是一种协议标准，其目的是实现安全远程登录以及其它安全网络服务。本文转载于<a href="https://www.jianshu.com/p/33461b619d53" rel="external nofollow noopener noreferrer" target="_blank">图解SSH原理</a></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/工具/SSH/ssh-theory/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/Cocoapods/Cocoapods-new-spec" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">
+            <time datetime="2018-02-27T07:06:13.000Z" itemprop="datePublished">2018-02-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><blockquote>
+<ul>
+<li><a href=""></a></li>
+<li><a href=""></a></li>
+</ul>
+</blockquote>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/Cocoapods/cocoapod-learn-install" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/Cocoapods/">Cocoapods</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">
+            <time datetime="2018-02-27T02:29:06.000Z" itemprop="datePublished">2018-02-27</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p><a href="https://guides.cocoapods.org/" rel="external nofollow noopener noreferrer" target="_blank">CocoaPods</a> Get on with building your app, not duplicating code ,是管理iOS工程依赖的第三方库的工具，通过CocoaPods，我们可以很方便地管理每个第三方库的版本，且不需要做太多的配置。本文在<a href="https://www.jianshu.com/p/1711e131987d" rel="external nofollow noopener noreferrer" target="_blank">看一遍就会的CocoaPods的安装和使用教程</a>的基础上稍微修改而来。<br></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/工具/Cocoapods/cocoapod-learn-install/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-工具/hexo/LaTex" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/hexo-LaTEX/">hexo_LaTEX</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/hexo/LaTex/">
+            <time datetime="2018-02-21T04:07:12.000Z" itemprop="datePublished">2018-02-21</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>本文主要解决hexo 博客部分数学公式不能正常显示的问题。</p>
+<h2 id="使Marked-js与MathJax共存"><a href="#使Marked-js与MathJax共存" class="headerlink" title="使Marked.js与MathJax共存"></a>使Marked.js与MathJax共存</h2><p>因此我提供一个修改marked.js源码的方式来避开这些问题 </p>
+<ul>
+<li>针对下划线的问题，我决定取消_作为斜体转义，因为marked.js中<em>也是斜体的意思，所以取消掉_的转义并不影响我们使用markdown，只要我们习惯用</em>作为斜体字标记就行了。 </li>
+<li>针对marked.js与Mathjax对于个别字符二次转义的问题，我们只要不让marked.js去转义\\,\{,\}在MathJax中有特殊用途的字符就行了。<br>具体修改方式，用编辑器打开marked.js（在./node_modules/marked/lib/中）</li>
+</ul>
+<p>Step 1:</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">\\`*&#123;&#125;\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">escape: /^\\([<span class="string">`*\[\</span>](<span class="link"></span>)# +\-.!_&gt;])/,</span><br></pre></td></tr></table></figure>
+<p>这一步是在原基础上取消了对\\,\{,\}的转义(escape)</p>
+<p>Step 2:</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em: /^<span class="symbol">\b</span>_((?:[^_]|__)+?)_<span class="symbol">\b</span>|^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
+<p>替换成</p>
+<figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em:/^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
+<p>这样一来MathJax就能与marked.js共存了。重启一下hexo看一下吧</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-工具/hexo/自己搭建博客的经历" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -916,647 +1959,8 @@
 
 
     
-        <article id="post-工具/git/git详细记录/git分支管理" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git详细记录/">git详细记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Git/">Git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/git/git详细记录/git分支管理/">
-            <time datetime="2018-02-12T04:18:26.000Z" itemprop="datePublished">2018-02-12</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文全部复制<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" rel="external nofollow noopener noreferrer" target="_blank">Git教程</a>,自己理解的就简单复制，没有理解的就全部粘贴。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/git/git详细记录/git分支管理/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/git/git详细记录/git仓库" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git详细记录/">git详细记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Git/">Git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/git/git详细记录/git仓库/">
-            <time datetime="2018-02-12T04:18:26.000Z" itemprop="datePublished">2018-02-12</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文全部复制<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" rel="external nofollow noopener noreferrer" target="_blank">Git教程</a>,自己已经理解的内容只是简单复制总结部分，没有理解的就全部粘贴，方便以后进一步学习、理解。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/git/git详细记录/git仓库/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/git/git详细记录/git工作区" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git详细记录/">git详细记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Git/">Git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/git/git详细记录/git工作区/">
-            <time datetime="2018-02-12T04:18:26.000Z" itemprop="datePublished">2018-02-12</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文全部复制<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" rel="external nofollow noopener noreferrer" target="_blank">Git教程</a>,自己理解的就简单复制，没有理解的就全部粘贴。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/git/git详细记录/git工作区/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/hexo/hexo-use" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/hexo/">hexo</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/hexo/hexo-use/">
-            <time datetime="2018-02-07T07:57:29.000Z" itemprop="datePublished">2018-02-07</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>使用hexo一年多时间了，今天将使用hexo使用过程做个记录 。备注（搭建平台是MAC）</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/hexo/hexo-use/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-Hybird/webview/gome-Webview" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/webview/">webview</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/webview/">webview</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/webview/gome-Webview/">
-            <time datetime="2018-02-04T04:07:12.000Z" itemprop="datePublished">2018-02-04</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p><ol>
-<li><a href="#webview1">为什么做通用webView</a></li>
-<li><a href="#webview2">通用webView与混合式app的联系</a></li>
-<li><a href="#webview3">WKWebview介绍</a></li>
-<li><a href="#webview4">通用webView与JS交互形式</a></li>
-<li><a href="#webview5">现有webView支持那些JS交互</a></li>
-<li><a href="#webview6">插件的扩展方法</a></li>
-<li><a href="#webview7">webview中遇到的问题</a></li>
-<li><a href="#webview8">调试Webview的JS代码方法</a></li>
-<li><a href="#webview9">参考</a></li>
-</ol></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/Hybird/webview/gome-Webview/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p>Gome weex 使用教程 </p>
-<h1 id="1-搭建Weex环境"><a href="#1-搭建Weex环境" class="headerlink" title="1. 搭建Weex环境"></a>1. 搭建Weex环境</h1><h3 id="1-1安装Node-js"><a href="#1-1安装Node-js" class="headerlink" title="1.1安装Node.js"></a>1.1安装Node.js</h3><p>weex 需要依赖Node.js 和 Weex CLi，首先需要安装Node.js ，可以使用 Homebrew 进行安装：</p>
-<pre><code>brew install node
-</code></pre><p>安装完Node.js 安装 weex-toolkit</p>
-<pre><code>npm install -g weex-toolkit
-weex -v //查看当前weex版本
-</code></pre><h3 id="1-2-集成到项目"><a href="#1-2-集成到项目" class="headerlink" title="1.2 集成到项目"></a>1.2 集成到项目</h3><p>通过cocoaPods 集成 Weex iOS SDK到你的项目，在Podfile文件中添加： </p>
-<pre><code>pod &apos;WeexSDK&apos;, &apos;0.9.5&apos;   ## 建议使用WeexSDK新版本 
-</code></pre><h1 id="2-Gome-weex-使用方法"><a href="#2-Gome-weex-使用方法" class="headerlink" title="2. Gome weex 使用方法"></a>2. Gome weex 使用方法</h1><p>GWeex分为两个流程:</p>
-<ol>
-<li>初始化</li>
-<li>加载Gweex页面<br>每个流程 暴露一个API。，分别是initWeexEnvironment、loadWeexPageResourceForUrl。</li>
-</ol>
-<h3 id="2-1-GWeex-初始化"><a href="#2-1-GWeex-初始化" class="headerlink" title="2.1 GWeex 初始化"></a>2.1 GWeex 初始化</h3><pre><code>-(void) initWeex
-{ 
-    //初始化SDK环境,最新版本的方法名改为：initSDKEnviroment
-    [WXSDKEngine initSDKEnvironment];
-    //registerModule是注册模块，如果没有，你点击weex的渲染的view中的按钮将找不到事件。
-    [WXSDKEngine registerModule:@&quot;event&quot; withClass:[WXEventModule class]];
-
-    ////PageManagerModule
-    [WXSDKEngine registerModule:@&quot;PageManagerModule&quot; withClass:[GWXSchemeModule class]];
-
-    //注册Handler
-    [WXSDKEngine registerHandler:[WXImageDownloader new] withProtocol:@protocol(WXImgLoaderProtocol)];
-
-    ///初始化国美weex 
-    GWXEngine *wxEngine = [GWXEngine shareInstance];
-    [wxEngine initWeexEnvironment];
-}
-</code></pre><p>初始化 过程包含两个任务： 初始化weex ，初始化GWXEngine。</p>
-<h3 id="2-2加载Gome-weex页面"><a href="#2-2加载Gome-weex页面" class="headerlink" title="2.2加载Gome weex页面"></a>2.2加载Gome weex页面</h3><p>加载weex页面，就是将给定的URL 使用weex渲染出来。加载的代码如下：</p>
-<pre><code>GWXEngine *wxEngine = [GWXEngine shareInstance];
-[wxEngine loadWeexPageResourceForUrl:GWX_URL finishBlock:^(NSString *strWeexUrl) {
-
-    if ([strWeexUrl hasPrefix:@&quot;http&quot;])
-    {
-        jumpToScheme(self, strWeexUrl);
-    }
-    else
-    {
-        GMFWeexVC *weexVC = [GMFWeexVC new];
-        weexVC.url = strWeexUrl;
-        [self.navigationController pushViewController:weexVC animated:YES];
-    }
-}];
-</code></pre><p>如果给定的URL能在本地插件表中找到 ，会被使用weex渲染 ，否则会调转到对应的H5页面 。</p>
-<h1 id="3-内部初始化原理"><a href="#3-内部初始化原理" class="headerlink" title="3. 内部初始化原理"></a>3. 内部初始化原理</h1><p>Gome Weex内部实现按照功能分，分为两部分，初始化（包括初始化清单流程、下载插件流程）、加载weex页面。下面分析初始化流程。初始化的流程下图（图1）</p>
-<h3 id="3-1-初始化清单流程"><a href="#3-1-初始化清单流程" class="headerlink" title="3.1 初始化清单流程"></a>3.1 初始化清单流程</h3><p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/init.png" alt="初始化流程"><br>图1</p>
-<p>初始化流程一般在App启动的时候触发，初始化有四个状态、分别是未初始化、初始化中、初始化OK、初始化失败。使用状态控制的目的是防止多次初始化功能 ，只有初始化失败，才可以再次初始化，如果初始化成功，不能再次初始化。</p>
-<p>第一步：当进入初始化流程，首先读取weex/info目录下的weexConfig.plist配置信息到内存 。weexConfig.plist存储着本地多有可用插件的信息。以key value的形式存储。key：是插件ID__版本，value：是插件的信息 。包括 插件下载地址、host、 插件下所有的页面Etag、插件版本、插件支持的SDK版本。如下图所示</p>
-<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/config.png" alt="本地存储的配置信息"></p>
-<p>第二步：请求插件清单接口，获取服务器的插件列表。如果请求OK，进入第三步，否则进入第五步。</p>
-<p>第三步：根据服务器返回的插件列表和本地已有的插件列表 计算出需要新下载的插件列表，添加到下载列表中 。如果  </p>
-<p>第四步： 启动下载流程   </p>
-<p>第五步：如果前面的流程没有出错，将初始化状态设置为OK ，否则设置为失败。</p>
-<h3 id="3-2-下载插件流程"><a href="#3-2-下载插件流程" class="headerlink" title="3.2 下载插件流程"></a>3.2 下载插件流程</h3><p>下载流程是在初始化清单接口完成后，自动触发的 。也包含在初始化流程中。</p>
-<p>下载多个插件是使用operation queue管理的，每个插件抽象为一个operation， 然后将所有的operation添加到下载队列中，下载队列管理所有的插件下载 ，并且，队列中同时只有两个插件下载 ，这样防止内存的峰值太高 。队列中的每个插件operation 执行完成后，回调给GWXEngine，这样 GWXEngine会根据下载的结果，做对应的处理 ，下载成功，添加到本地插件列表中，下载失败，添加到失败列表中。在失败列表中的插件在加载weex也的时候会触发重新下载 。</p>
-<p>operation queque管理插件下载的示意图 ：<br><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/allPluginDown.png" alt="多个plugin下载流程"></p>
-<p>每个插件的下载任务流程如下图所示：</p>
-<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/OnePluginDownload.png" alt="单个plugin下载流程"></p>
-<p>主要分为以下几个过程：</p>
-<ol>
-<li>启动插件下载网络请求 。</li>
-<li>如果请求状态为200 ，插件的zip会保存到download目录下 。</li>
-<li>解压插件zip到unzip目录 </li>
-<li>根据解压出来的文件，构架插件的信息。插件包下的所有页面的ETag值 （文件的修改时间+文件长度）</li>
-<li>将解压出来的插件复制到plugins目录的对应版本下面 。</li>
-<li>如果复制成功 ，将插件的信息保存在本地配置文件weexConfig.plist中，同时保存到内存中 。，同时将整个下载任务状态置为成功</li>
-<li>如果上面的任何一步失败，都将下载任务状态置为失败。</li>
-</ol>
-<p>其中这个过程设计到插件不同状态在不同文件夹下流转的过程如下：</p>
-<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/fileRevert.png" alt="文件流转过程"></p>
-<h3 id="3-3-加载weex-页面流程"><a href="#3-3-加载weex-页面流程" class="headerlink" title="3.3 加载weex 页面流程"></a>3.3 加载weex 页面流程</h3><p>加载页面的流程如下图所示 ：</p>
-<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/loadweexURL.png" alt="加载weex页面"></p>
-<p>完了 。 回头慢慢优化啊 。</p>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/GCD/use-dispatch-semaphore" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/GCD/">GCD</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/dispatch-semaphore-GCD/">dispatch_semaphore GCD</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/GCD/use-dispatch-semaphore/">
-            <time datetime="2017-02-11T07:35:49.000Z" itemprop="datePublished">2017-02-11</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>转载请注明出处 <a href="http://www.cnblogs.com/snailHL/p/3906112.html" rel="external nofollow noopener noreferrer" target="_blank">关于dispatch_semaphore的使用</a>。<br>dispatch_semaphore是GCD用来同步的一种方式，与他相关的共有三个函数，分别是dispatch_semaphore_create、dispatch_semaphore_signal、dispatch_semaphore_wait。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/GCD/use-dispatch-semaphore/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-Hybird/weex/weex-debug" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex断点调试/">weex断点调试</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/weex-debug/">
-            <time datetime="2016-12-28T01:48:40.000Z" itemprop="datePublished">2016-12-28</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>Weex Devtools是为 Weex开发者服务的一款调试工具，可对 .we 代码及 JavaScript 代码断点调试，并能够审查 Weex app 运行时属性，支持 iOS 和 Android 两个平台。本文是基于IOS平台。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/Hybird/weex/weex-debug/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-Hybird/weex/event-analize" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/event-analize/">
-            <time datetime="2016-12-16T09:46:54.000Z" itemprop="datePublished">2016-12-16</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>weex内置多种事件，包括视图的滑动事件：appear、disappear事件；手势事件：click、swipe、longpress、panstart、panmove、panend、touchstart、touchmove、touchend、touchcancel。本文主要分析这些事件的传递原理。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/Hybird/weex/event-analize/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/9/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/11/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/9/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/">下一页 &raquo;</a>
         </nav>
     
 </section>
