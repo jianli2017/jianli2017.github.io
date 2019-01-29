@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-29T08:31:35.540Z</updated>
+  <updated>2019-01-29T10:23:44.998Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,68 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>23. 泛型</title>
+    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/23__%E6%B3%9B%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/swift学习摘要/23__泛型/</id>
+    <published>2019-01-29T03:07:12.000Z</published>
+    <updated>2019-01-29T10:23:44.998Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>The Problem That Generics Solve</li><li>Generic Functions</li><li>Type Parameters</li><li>Naming Type Parameters</li><li>Generic Types</li><li>Extending a Generic Type</li><li>Type Constraints</li><li>Associated Types</li><li>Generic Where Clauses</li><li>Extensions with a Generic Where Clause</li><li>Associated Types with a Generic Where Clause</li><li>Generic Subscripts</li></ol><a id="more"></a><h2 id="泛型解决的问题"><a href="#泛型解决的问题" class="headerlink" title="泛型解决的问题"></a>泛型解决的问题</h2><p>泛型解决某些功能，但由于不同参数，需要重复编写代码的问题。例如实现交换功能的函数。</p><h2 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func swapTwoValues&lt;T&gt;(_ <span class="selector-tag">a</span>: inout T, _ <span class="selector-tag">b</span>: inout T) &#123;</span><br><span class="line">let temporaryA = <span class="selector-tag">a</span> </span><br><span class="line">a=b</span><br><span class="line"><span class="selector-tag">b</span> = temporaryA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>泛型版本的函数使用占位符类型名，而不是一个真正的类型名称。调用泛型函数的时候，从实参中推断类型T。</p><h2 id="类型参数"><a href="#类型参数" class="headerlink" title="类型参数"></a>类型参数</h2><p>类型参数指定并命名一个占位类型，并紧挨着函数名称后面，使用一对尖括号括起来(例如 <t> )。类型参数在调用时被一个真实的类型 所替换。你可以通过在尖括号内写多个类型参数名来提供多个类型参数，用逗号隔开。</t></p><h2 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h2><p>除了泛型函数外，Swift可以定义你自己的泛型类型 。这些自定义的类、结构体、枚举可以和任何类型一起使用，方式类似于数组 和 字典 。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">Element</span>&gt; </span>&#123;</span><br><span class="line"><span class="keyword">var</span> items = [<span class="type">Element</span>]()</span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> item: Element)</span></span> &#123;</span><br><span class="line">items.append(item)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">Element</span> &#123;</span><br><span class="line"><span class="keyword">return</span> items.removeLast()</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="扩展泛型类型"><a href="#扩展泛型类型" class="headerlink" title="扩展泛型类型"></a>扩展泛型类型</h2><p>扩展泛型类型时，你不需要提供类型参数列表作为扩展定义的一部分。 相反，原始 类型定义 中的类型参数列表在扩展的主体内依旧可用，并且原始类型参数名称会被用于引用原始定义 中的类型参数。</p><h2 id="类型约束"><a href="#类型约束" class="headerlink" title="类型约束"></a>类型约束</h2><p>有时候 对泛型函数和泛型类型进行类型约束是很有用的。 类型约束指定参数类型必须继承自特定的类、遵循特定的协议、特定的协议组。</p><p>###类型约束语法</p><p> 类型约束的写法:在类型参数名后跟上一个类或协议来进行约束，使用冒号进行分割，作为类型参数列表的一部分。泛型函数的类型约束语法如下(泛型类型的语法与此相同)</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunction</span>&lt;T: SomeClass, U: SomeProtocol&gt;<span class="params">(someT: T, someU: U)</span></span> &#123;</span><br><span class="line"><span class="comment">// 这⾥里里写函数体的内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>第一个类型参数 T ，类型约束要求 T 的类型必须是 SomeClass 的子类。第二个类型参数 U ，类型约束要求 U 必须遵循 SomeProtocol 协议</p><h3 id="类型约束行为"><a href="#类型约束行为" class="headerlink" title="类型约束行为"></a>类型约束行为</h3><h2 id="关联类型"><a href="#关联类型" class="headerlink" title="关联类型"></a>关联类型</h2><p>当定义一个协议时，有时候定义一个或多个关联类型作为协议的一部分是很有用的。关联类型作为协议的一部分并为一种类型提供占位符名称。在实现该协议之前不会指定该关联类型的实际类型。关联类型使用 associatedtype 关键字来指定。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">associatedtype <span class="type">Item</span></span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(<span class="number">_</span> item: Item)</span></span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"><span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Item</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>item 可以通过类型推断得到。或者</p><figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> Item = <span class="built_in">Int</span></span><br></pre></td></tr></table></figure><h3 id="扩展现有类型，以指定关联类型"><a href="#扩展现有类型，以指定关联类型" class="headerlink" title="扩展现有类型，以指定关联类型"></a>扩展现有类型，以指定关联类型</h3><h3 id="将约束添加到关联类型"><a href="#将约束添加到关联类型" class="headerlink" title="将约束添加到关联类型"></a>将约束添加到关联类型</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">associatedtype <span class="type">Item</span>: <span class="type">Equatable</span></span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(<span class="number">_</span> item: Item)</span></span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"><span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Item</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>为了遵循这个版本的 Container ，容器的 Item 类型必须符合 Equatable 协 议。</p><h3 id="在其关联类型的约束中使用协议"><a href="#在其关联类型的约束中使用协议" class="headerlink" title="在其关联类型的约束中使用协议"></a>在其关联类型的约束中使用协议</h3><h2 id="泛型-Where-⼦句"><a href="#泛型-Where-⼦句" class="headerlink" title="泛型 Where ⼦句"></a>泛型 Where ⼦句</h2><p>对关联类型定义一些规定通常也很有用。你可以通过定义 泛型 where 子句 来完成此操作。 泛型 where 子句使你能够要求关联类型必须符合某个协议，或者某些类型参数和相关类 型必须相同。泛型 where 子句以 where 关键字开头，后跟关联类型的约束条件或类 型和关联类型之间的相等关系。你需要在一个类型或函数体的起始大括号之前写一个泛型where 子句。</p><h3 id="在扩展中使⽤泛型Where⼦句"><a href="#在扩展中使⽤泛型Where⼦句" class="headerlink" title="在扩展中使⽤泛型Where⼦句"></a>在扩展中使⽤泛型Where⼦句</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">associatedtype</span> <span class="keyword">Iterator: </span><span class="keyword">IteratorProtocol </span>where <span class="keyword">Iterator.Element </span>== <span class="keyword">Item</span></span><br></pre></td></tr></table></figure><h2 id="带有泛型Where⼦句的关联类型"><a href="#带有泛型Where⼦句的关联类型" class="headerlink" title="带有泛型Where⼦句的关联类型"></a>带有泛型Where⼦句的关联类型</h2><h2 id="泛型下标"><a href="#泛型下标" class="headerlink" title="泛型下标"></a>泛型下标</h2><p>标也可以用泛型表示，同时也可以包含泛型 where 子句。 可以在下标括号之后的尖括号内写一个类型占位符，在下标主体的起始大括号之前写一个泛型 where子句。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;The Problem That Generics Solve&lt;/li&gt;
+&lt;li&gt;Generic Functions&lt;/li&gt;
+&lt;li&gt;Type Parameters&lt;/li&gt;
+&lt;li&gt;Naming Type Parameters&lt;/li&gt;
+&lt;li&gt;Generic Types&lt;/li&gt;
+&lt;li&gt;Extending a Generic Type&lt;/li&gt;
+&lt;li&gt;Type Constraints&lt;/li&gt;
+&lt;li&gt;Associated Types&lt;/li&gt;
+&lt;li&gt;Generic Where Clauses&lt;/li&gt;
+&lt;li&gt;Extensions with a Generic Where Clause&lt;/li&gt;
+&lt;li&gt;Associated Types with a Generic Where Clause&lt;/li&gt;
+&lt;li&gt;Generic Subscripts&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="泛型" scheme="http://yoursite.com/tags/%E6%B3%9B%E5%9E%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>19. 类型转换</title>
+    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://yoursite.com/wiki/swift学习摘要/19__类型转换/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T03:55:37.511Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
+&lt;li&gt;Checking Type&lt;/li&gt;
+&lt;li&gt;Downcasting&lt;/li&gt;
+&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    
+  </entry>
   
   <entry>
     <title>22. 协议</title>
@@ -80,33 +142,6 @@
   </entry>
   
   <entry>
-    <title>19. 类型转换</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/19__类型转换/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:55:37.511Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
-&lt;li&gt;Checking Type&lt;/li&gt;
-&lt;li&gt;Downcasting&lt;/li&gt;
-&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>21. 扩展</title>
     <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
     <id>http://yoursite.com/wiki/swift学习摘要/21__扩展/</id>
@@ -132,62 +167,6 @@
     
     
       <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>17. 可选链</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/17__可选链/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-28T10:09:02.556Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Optional Chaining as an Alternative to Forced Unwrapping</li><li>Defining Model Classes for Optional Chaining</li><li>Accessing Properties Through Optional Chaining</li><li>Calling Methods Through Optional Chaining</li><li>Accessing Subscripts Through Optional Chaining</li><li>Linking Multiple Levels of Chaining</li><li>Chaining on Methods with Optional Return Values</li></ol><a id="more"></a><p>可选链 是在当前可能为 nil的可选值上查询和调用属性、方法、下标的过程。如果可选值有值，则属性、方法或下标调用成功;如果可选值为 nil ，则属性、方法或下标调用 返回 nil 。多个查询可以链接在一起，如果链中的任何一个节点为 nil ，整个链会 返回失败。</p><h2 id="可选链作为强制展开的代替品"><a href="#可选链作为强制展开的代替品" class="headerlink" title="可选链作为强制展开的代替品"></a>可选链作为强制展开的代替品</h2><p>为了反映可选链可以对 nil 值进行调用这一事实，可选链调用的结果总是一个可选值， 即使正在查询的属性、方法或下标返回一个不可选值。</p><h2 id="为可选链定义模型类"><a href="#为可选链定义模型类" class="headerlink" title="为可选链定义模型类"></a>为可选链定义模型类</h2><p>你可以使用可选链来调用超过一级深度的属性、方法和下标。 这使你可以深入查看相互关联 类型的复杂模型中的子属性，并检查是否可以访问这些子属性上的属性、方法和下标。</p><h2 id="通过可选链访问属性"><a href="#通过可选链访问属性" class="headerlink" title="通过可选链访问属性"></a>通过可选链访问属性</h2><p>赋值是可选链的一部分，也就意味着 = 操作符的右操作数不会被计算。</p><p>任何通过可选链给属性赋值的尝试都会返回一个 Void? 类型的值。这样你可以和 nil 比较来检查赋值是否成功:</p><h2 id="通过可选链调⽤方法"><a href="#通过可选链调⽤方法" class="headerlink" title="通过可选链调⽤方法"></a>通过可选链调⽤方法</h2><p>你可以使用可选链来调用一个可选值的方法，以及检查调用是否成功。即使那个方法没有返回值你依然可以这样做。</p><h2 id="通过可选链访问下标"><a href="#通过可选链访问下标" class="headerlink" title="通过可选链访问下标"></a>通过可选链访问下标</h2><h2 id="访问可选类型的下标"><a href="#访问可选类型的下标" class="headerlink" title="访问可选类型的下标"></a>访问可选类型的下标</h2><p>如果下标返回一个可选类型的值，例如 Swift 中 Dictionary 的键下标，在下标的右括 号 后面 放置一个问号来链接其可选的返回值</p><h2 id="多级链表关联"><a href="#多级链表关联" class="headerlink" title="多级链表关联"></a>多级链表关联</h2><ol><li>如果要检索的类型不是可选的，通过可选链，它将成为可选的。</li><li>如果您要检索的类型已经是可选的，那么它将保持原状。</li></ol><h2 id="在方法的可选返回值上进行可选链式调用"><a href="#在方法的可选返回值上进行可选链式调用" class="headerlink" title="在方法的可选返回值上进行可选链式调用"></a>在方法的可选返回值上进行可选链式调用</h2><p>如果要在该方法的返回值上进行可选链式调用，在方法的圆括号后面加上问号即可。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Optional Chaining as an Alternative to Forced Unwrapping&lt;/li&gt;
-&lt;li&gt;Defining Model Classes for Optional Chaining&lt;/li&gt;
-&lt;li&gt;Accessing Properties Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Calling Methods Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Accessing Subscripts Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Linking Multiple Levels of Chaining&lt;/li&gt;
-&lt;li&gt;Chaining on Methods with Optional Return Values&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>18. 错误处理</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/18__错误处理/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-29T03:19:27.919Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
-&lt;li&gt;Handling Errors&lt;/li&gt;
-&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
@@ -244,6 +223,62 @@
     
     
       <category term="构造过程" scheme="http://yoursite.com/tags/%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>17. 可选链</title>
+    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+    <id>http://yoursite.com/wiki/swift学习摘要/17__可选链/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-28T10:09:02.556Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Optional Chaining as an Alternative to Forced Unwrapping</li><li>Defining Model Classes for Optional Chaining</li><li>Accessing Properties Through Optional Chaining</li><li>Calling Methods Through Optional Chaining</li><li>Accessing Subscripts Through Optional Chaining</li><li>Linking Multiple Levels of Chaining</li><li>Chaining on Methods with Optional Return Values</li></ol><a id="more"></a><p>可选链 是在当前可能为 nil的可选值上查询和调用属性、方法、下标的过程。如果可选值有值，则属性、方法或下标调用成功;如果可选值为 nil ，则属性、方法或下标调用 返回 nil 。多个查询可以链接在一起，如果链中的任何一个节点为 nil ，整个链会 返回失败。</p><h2 id="可选链作为强制展开的代替品"><a href="#可选链作为强制展开的代替品" class="headerlink" title="可选链作为强制展开的代替品"></a>可选链作为强制展开的代替品</h2><p>为了反映可选链可以对 nil 值进行调用这一事实，可选链调用的结果总是一个可选值， 即使正在查询的属性、方法或下标返回一个不可选值。</p><h2 id="为可选链定义模型类"><a href="#为可选链定义模型类" class="headerlink" title="为可选链定义模型类"></a>为可选链定义模型类</h2><p>你可以使用可选链来调用超过一级深度的属性、方法和下标。 这使你可以深入查看相互关联 类型的复杂模型中的子属性，并检查是否可以访问这些子属性上的属性、方法和下标。</p><h2 id="通过可选链访问属性"><a href="#通过可选链访问属性" class="headerlink" title="通过可选链访问属性"></a>通过可选链访问属性</h2><p>赋值是可选链的一部分，也就意味着 = 操作符的右操作数不会被计算。</p><p>任何通过可选链给属性赋值的尝试都会返回一个 Void? 类型的值。这样你可以和 nil 比较来检查赋值是否成功:</p><h2 id="通过可选链调⽤方法"><a href="#通过可选链调⽤方法" class="headerlink" title="通过可选链调⽤方法"></a>通过可选链调⽤方法</h2><p>你可以使用可选链来调用一个可选值的方法，以及检查调用是否成功。即使那个方法没有返回值你依然可以这样做。</p><h2 id="通过可选链访问下标"><a href="#通过可选链访问下标" class="headerlink" title="通过可选链访问下标"></a>通过可选链访问下标</h2><h2 id="访问可选类型的下标"><a href="#访问可选类型的下标" class="headerlink" title="访问可选类型的下标"></a>访问可选类型的下标</h2><p>如果下标返回一个可选类型的值，例如 Swift 中 Dictionary 的键下标，在下标的右括 号 后面 放置一个问号来链接其可选的返回值</p><h2 id="多级链表关联"><a href="#多级链表关联" class="headerlink" title="多级链表关联"></a>多级链表关联</h2><ol><li>如果要检索的类型不是可选的，通过可选链，它将成为可选的。</li><li>如果您要检索的类型已经是可选的，那么它将保持原状。</li></ol><h2 id="在方法的可选返回值上进行可选链式调用"><a href="#在方法的可选返回值上进行可选链式调用" class="headerlink" title="在方法的可选返回值上进行可选链式调用"></a>在方法的可选返回值上进行可选链式调用</h2><p>如果要在该方法的返回值上进行可选链式调用，在方法的圆括号后面加上问号即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Optional Chaining as an Alternative to Forced Unwrapping&lt;/li&gt;
+&lt;li&gt;Defining Model Classes for Optional Chaining&lt;/li&gt;
+&lt;li&gt;Accessing Properties Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Calling Methods Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Accessing Subscripts Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Linking Multiple Levels of Chaining&lt;/li&gt;
+&lt;li&gt;Chaining on Methods with Optional Return Values&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>18. 错误处理</title>
+    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    <id>http://yoursite.com/wiki/swift学习摘要/18__错误处理/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-29T03:19:27.919Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
+&lt;li&gt;Handling Errors&lt;/li&gt;
+&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
@@ -423,31 +458,6 @@
   </entry>
   
   <entry>
-    <title>12. 方法</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/12__方法/</id>
-    <published>2019-01-18T04:07:12.000Z</published>
-    <updated>2019-01-25T10:17:39.385Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Instance Methods 实例方法</li><li>Type Methods 类型方法</li></ol><a id="more"></a><h2 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h2><p>self 属性： 类型的每个实例都有一个名为 self 的隐式属性，它与实例本身完全等效。你可以使用self 属性来调用自己的实例方法。</p><p>在实例例⽅方法中修改值类型： 结构体和枚举是值类型 。默认情况下，无法在其实例方法中修改值类型的属性。你可以通过在方法的 func 关键字前放置 mutating 关键字。</p><p>你不能在常量结构体类型上调用异变方法，因为它的属性不能更改，即使它们是变量属性。</p><p>在可变方法中给self赋值：可变方法能给隐性的self属性赋以一个全新的实例</p><h2 id="类型方法"><a href="#类型方法" class="headerlink" title="类型方法"></a>类型方法</h2><p>为了明确一个方法是类型方法，你可以在这个方法 的 func 关键词前加上 static 关键词。在类中，也可以使用 class 关键词来声明一个类型方法。与 static 关键词不同的是，用 class 关键词声明的类型方法允许它的子类重写其父类对类型方法的实现。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Instance Methods 实例方法&lt;/li&gt;
-&lt;li&gt;Type Methods 类型方法&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="方法" scheme="http://yoursite.com/tags/%E6%96%B9%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>13. 下标</title>
     <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/13__%E4%B8%8B%E6%A0%87/"/>
     <id>http://yoursite.com/wiki/swift学习摘要/13__下标/</id>
@@ -470,6 +480,31 @@
     
     
       <category term="下标" scheme="http://yoursite.com/tags/%E4%B8%8B%E6%A0%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>12. 方法</title>
+    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/wiki/swift学习摘要/12__方法/</id>
+    <published>2019-01-18T04:07:12.000Z</published>
+    <updated>2019-01-25T10:17:39.385Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Instance Methods 实例方法</li><li>Type Methods 类型方法</li></ol><a id="more"></a><h2 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h2><p>self 属性： 类型的每个实例都有一个名为 self 的隐式属性，它与实例本身完全等效。你可以使用self 属性来调用自己的实例方法。</p><p>在实例例⽅方法中修改值类型： 结构体和枚举是值类型 。默认情况下，无法在其实例方法中修改值类型的属性。你可以通过在方法的 func 关键字前放置 mutating 关键字。</p><p>你不能在常量结构体类型上调用异变方法，因为它的属性不能更改，即使它们是变量属性。</p><p>在可变方法中给self赋值：可变方法能给隐性的self属性赋以一个全新的实例</p><h2 id="类型方法"><a href="#类型方法" class="headerlink" title="类型方法"></a>类型方法</h2><p>为了明确一个方法是类型方法，你可以在这个方法 的 func 关键词前加上 static 关键词。在类中，也可以使用 class 关键词来声明一个类型方法。与 static 关键词不同的是，用 class 关键词声明的类型方法允许它的子类重写其父类对类型方法的实现。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Instance Methods 实例方法&lt;/li&gt;
+&lt;li&gt;Type Methods 类型方法&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="方法" scheme="http://yoursite.com/tags/%E6%96%B9%E6%B3%95/"/>
     
   </entry>
   
@@ -558,30 +593,6 @@
     
     
       <category term="mmap" scheme="http://yoursite.com/tags/mmap/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</title>
-    <link href="http://yoursite.com/wiki/IOS/crash/6_increase_Wild_Pointer/"/>
-    <id>http://yoursite.com/wiki/IOS/crash/6_increase_Wild_Pointer/</id>
-    <published>2018-12-13T04:18:26.000Z</published>
-    <updated>2018-12-17T08:49:50.981Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash</p><a id="more"></a><h2 id="为什么错误地址是0x55555561？"><a href="#为什么错误地址是0x55555561？" class="headerlink" title="为什么错误地址是0x55555561？"></a>为什么错误地址是0x55555561？</h2><p>前文介绍了在内存释放后填充0x55使野指针出现后数据不能访问，从而使野指针变成了必现的方法，那这里会有一个比较奇怪的问题：我们在释放的内存上填上了0x55，但为什么大部分时候野指针Crash了，出错的地址却是0x55555561？</p><p>为了解答这个问题，我们可以先看看Crash栈，就会发现这些Crash都是在objc_msgSend上。我们知道Obj-C的对象方法调用是通过objc_msgSend进行的，我们通过野指针访问一个对象的方法也一样，其实是通过objc_msgSend给已经释放的对象发了一条消息。</p><p>而objc_msgSend的函数签名是这样：</p><p>id objc_msgSend(id self, SEL op, …)<br>我们再来看看objc_msgSend的代码:</p><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">libobjc.A.dylib</span>`objc_msgSend:</span><br><span class="line"> <span class="number">0x2f879f40</span> &lt;+<span class="number">0</span>&gt;: <span class="keyword">cbz </span><span class="built_in">r0</span>, <span class="number">0x2f879f7e</span> <span class="comment">; &lt;+62&gt;</span></span><br><span class="line"> <span class="number">0x2f879f42</span> &lt;+<span class="number">2</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r9</span>, [<span class="built_in">r0</span>]</span><br><span class="line"> <span class="number">0x2f879f46</span> &lt;+<span class="number">6</span>&gt;: <span class="keyword">ldrh.w </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>, <span class="number">#0xc</span>]</span><br><span class="line"> <span class="number">0x2f879f4a</span> &lt;+<span class="number">10</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r9</span>, [<span class="built_in">r9</span>, <span class="number">#0x8</span>]</span><br><span class="line"> <span class="number">0x2f879f4e</span> &lt;+<span class="number">14</span>&gt;: <span class="keyword">and.w </span><span class="built_in">r12</span>, <span class="built_in">r12</span>, <span class="built_in">r1</span></span><br><span class="line"> <span class="number">0x2f879f52</span> &lt;+<span class="number">18</span>&gt;: <span class="keyword">add.w </span><span class="built_in">r9</span>, <span class="built_in">r9</span>, <span class="built_in">r12</span>, <span class="keyword">lsl </span><span class="number">#3</span></span><br><span class="line"> <span class="number">0x2f879f56</span> &lt;+<span class="number">22</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>]</span><br><span class="line"> <span class="number">0x2f879f5a</span> &lt;+<span class="number">26</span>&gt;: <span class="keyword">teq.w </span><span class="built_in">r12</span>, <span class="built_in">r1</span></span><br><span class="line"> <span class="number">0x2f879f5e</span> &lt;+<span class="number">30</span>&gt;: <span class="keyword">bne </span><span class="number">0x2f879f66</span> <span class="comment">; &lt;+38&gt;</span></span><br><span class="line"> <span class="number">0x2f879f60</span> &lt;+<span class="number">32</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>, <span class="number">#0x4</span>]</span><br><span class="line"> <span class="number">0x2f879f64</span> &lt;+<span class="number">36</span>&gt;: <span class="keyword">bx </span><span class="built_in">r12</span></span><br><span class="line"> <span class="number">0x2f879f66</span> &lt;+<span class="number">38</span>&gt;: <span class="keyword">cmp.w </span><span class="built_in">r12</span>, <span class="number">#0x1</span></span><br><span class="line"> <span class="number">0x2f879f6a</span> &lt;+<span class="number">42</span>&gt;: <span class="keyword">blo </span><span class="number">0x2f879f78</span> <span class="comment">; &lt;+56&gt;</span></span><br><span class="line"> <span class="number">0x2f879f6c</span> &lt;+<span class="number">44</span>&gt;: <span class="keyword">it </span>eq</span><br><span class="line"> <span class="number">0x2f879f6e</span> &lt;+<span class="number">46</span>&gt;: <span class="keyword">ldreq.w </span><span class="built_in">r9</span>, [<span class="built_in">r9</span>, <span class="number">#0x4</span>]</span><br><span class="line"> <span class="number">0x2f879f72</span> &lt;+<span class="number">50</span>&gt;: <span class="keyword">ldr </span><span class="built_in">r12</span>, [<span class="built_in">r9</span>, <span class="number">#8</span>]!</span><br><span class="line"> <span class="number">0x2f879f76</span> &lt;+<span class="number">54</span>&gt;: <span class="keyword">b </span><span class="number">0x2f879f5a</span> <span class="comment">; &lt;+26&gt;</span></span><br><span class="line"> <span class="number">0x2f879f78</span> &lt;+<span class="number">56</span>&gt;: <span class="keyword">ldr.w </span><span class="built_in">r9</span>, [<span class="built_in">r0</span>]</span><br><span class="line"> <span class="number">0x2f879f7c</span> &lt;+<span class="number">60</span>&gt;: <span class="keyword">b </span><span class="number">0x2f87a1c0</span> <span class="comment">; _objc_msgSend_uncached</span></span><br><span class="line"> <span class="number">0x2f879f7e</span> &lt;+<span class="number">62</span>&gt;: <span class="keyword">mov.w </span><span class="built_in">r1</span>, <span class="number">#0x0</span></span><br><span class="line"> <span class="number">0x2f879f82</span> &lt;+<span class="number">66</span>&gt;: <span class="keyword">bx </span><span class="built_in">lr</span></span><br></pre></td></tr></table></figure><p>我们可以结合Obj-C类的内存布局再来解读一下上面的汇编代码（节选于Obj-C类的源代码）：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">objc_class</span> :</span> objc_object &#123;</span><br><span class="line"> <span class="comment">// Class ISA;</span></span><br><span class="line"> Class superclass;</span><br><span class="line"> <span class="keyword">cache_t</span> cache;</span><br><span class="line"> <span class="keyword">uintptr_t</span> data_NEVER_USE; <span class="comment">// class_rw_t * plus custom rr/alloc flags</span></span><br><span class="line"></span><br><span class="line"> <span class="keyword">class_rw_t</span> *data() &#123;</span><br><span class="line"> <span class="keyword">return</span> (<span class="keyword">class_rw_t</span> *)(data_NEVER_USE &amp; ~CLASS_FAST_FLAG_MASK);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="function"><span class="keyword">void</span> <span class="title">setData</span><span class="params">(<span class="keyword">class_rw_t</span> *newData)</span> </span>&#123;</span><br><span class="line"> <span class="keyword">uintptr_t</span> flags = (<span class="keyword">uintptr_t</span>)data_NEVER_USE &amp; CLASS_FAST_FLAG_MASK;</span><br><span class="line"> data_NEVER_USE = (<span class="keyword">uintptr_t</span>)newData | flags;</span><br><span class="line"> &#125;</span><br><span class="line">……..</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cache_t</span> &#123;</span></span><br><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">bucket_t</span> *<span class="title">buckets</span>;</span></span><br><span class="line"> <span class="keyword">mask_t</span> shiftmask;</span><br><span class="line"> <span class="keyword">mask_t</span> occupied;</span><br><span class="line">……..</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">bucket_t</span> &#123;</span></span><br><span class="line"> <span class="keyword">cache_key_t</span> key;</span><br><span class="line"> IMP imp;</span><br><span class="line">…...</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">uintptr_t</span> <span class="keyword">cache_key_t</span>;</span><br></pre></td></tr></table></figure><p>根据苹果的函数调用约定，objc_msgSend被调用的时候，寄存器对应关系：r0是对象本身self，r1是sel，r2和r3是参数。根据objc_class的声明，我们可以知道：</p><figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x2f879f40</span> &lt;+<span class="number">0</span>&gt;: cbz <span class="built_in">r0</span>, <span class="number">0x2f879f7e</span> //如果self为<span class="number">0</span>就跳转到<span class="number">0x2f879f7e</span>。给nil发消息的话就什么都不做</span><br><span class="line"><span class="number">0x2f879f42</span> &lt;+<span class="number">2</span>&gt;: ldr.w <span class="built_in">r9</span>, [<span class="built_in">r0</span>] //取对象的类到<span class="built_in">r9</span></span><br><span class="line"><span class="number">0x2f879f46</span> &lt;+<span class="number">6</span>&gt;: ldrh.w <span class="built_in">r12</span>, [<span class="built_in">r9</span>, #<span class="number">0xc</span>] //取类的偏移#<span class="number">0xc</span>的数据到<span class="built_in">r12</span>，也就是shiftmask的值</span><br><span class="line"><span class="number">0x2f879f4a</span> &lt;+<span class="number">10</span>&gt;: ldr.w <span class="built_in">r9</span>, [<span class="built_in">r9</span>, #<span class="number">0x8</span>] //取类的偏移#<span class="number">0x8</span>的成员到<span class="built_in">r9</span>，也即是cache</span><br><span class="line"><span class="number">0x2f879f4e</span> &lt;+<span class="number">14</span>&gt;: <span class="keyword">and</span>.w <span class="built_in">r12</span>, <span class="built_in">r12</span>, <span class="built_in">r1</span> //<span class="built_in">r1</span>和shiftmask与，放到<span class="built_in">r12</span>,<span class="built_in">r1</span>是参数一，也就是sel，用来计算sel的index</span><br><span class="line"><span class="number">0x2f879f52</span> &lt;+<span class="number">18</span>&gt;: <span class="keyword">add</span>.w <span class="built_in">r9</span>, <span class="built_in">r9</span>, <span class="built_in">r12</span>, <span class="keyword">lsl</span> #<span class="number">3</span> //左移<span class="number">3</span>位就是乘<span class="number">8</span>，<span class="number">8</span>是索引项 bucket_t的宽度，<span class="built_in">r12</span>是cache索引，<span class="built_in">r9</span>就cache的位置，<span class="built_in">r9</span>+<span class="built_in">r12</span>*<span class="number">8</span>，就是当前sel对应的bucket_t缓存</span><br><span class="line"><span class="number">0x2f879f56</span> &lt;+<span class="number">22</span>&gt;: ldr.w <span class="built_in">r12</span>, [<span class="built_in">r9</span>] //取缓存bucket_t</span><br><span class="line"><span class="number">0x2f879f5a</span> &lt;+<span class="number">26</span>&gt;: teq.w <span class="built_in">r12</span>, <span class="built_in">r1</span> //判断缓存项是不是要找的sel key==sel？</span><br><span class="line"><span class="number">0x2f879f5e</span> &lt;+<span class="number">30</span>&gt;: bne <span class="number">0x2f879f66</span> //不是的话就要查找sel</span><br><span class="line"><span class="number">0x2f879f60</span> &lt;+<span class="number">32</span>&gt;: ldr.w <span class="built_in">r12</span>, [<span class="built_in">r9</span>, #<span class="number">0x4</span>] //是的话就取出imp</span><br><span class="line"><span class="number">0x2f879f64</span> &lt;+<span class="number">36</span>&gt;: <span class="built_in">bx</span> <span class="built_in">r12</span> //调sel的实现，跳到imp里面去执行</span><br></pre></td></tr></table></figure><p>其实上面的代码就是从缓存中找sel的实现的过程，而错误地址之所以是0x55555561是因为ldrh.w r12, [r9, #0xc]这行指令。我们用0x55555555覆盖了对象的isa指针，当发生OC调用查找缓存0x55555555+0xc取shiftmask的时候，发现这个地址不可读，于是CPU抛出了异常。</p><h2 id="怎么获取野指针的更多异常数据？"><a href="#怎么获取野指针的更多异常数据？" class="headerlink" title="怎么获取野指针的更多异常数据？"></a>怎么获取野指针的更多异常数据？</h2><p>弄清楚上述问题后，又有一个问题：既然0x55555555是被当成了类的指针使用，那假如我们用指定的类覆盖这个指针，是不是就可以执行我们指定类的方法呢？</p><p>进一步说就是在发生野指针调用的时候，我们是不是可以控制CPU的行为？说起来有点像溢出攻击，利用shellcode覆盖函数返回值，一旦我们在出错的时候控制了CPU就可以获取更多异常信息，比如是哪个类，调了什么方法，对象的地址之类。</p><p>先解决几个关键问题：</p><ol><li><p>覆盖成什么？<br>我们需要自己写一个类，用它的isa来替换已经释放的对象的isa。如果不出我们所料，我们用自己的类覆盖之后，之前调用的sel就换成了调用我们自己的类的某个sel。这样，只要我们指定的类也实现这个方法，就可以执行我们需要执行的代码，然后在里面获取我们需要的信息。当然，我们无法预料野指针对象会在调用哪个函数时发生Crash，好在我们可以利用runtime的重定向特性了转到我们自己的代码里面去。</p></li><li><p>怎么覆盖isa？<br>object_setClass可以替换一个类的isa，但是试了一下，发生死锁！根据Obj-C对象的内存布局，对象的第一个数据就是isa，这里我们可以直接用自己的类指针替换它，反正是已经释放的内存，随便我们怎么玩。<br>总之，还是很简单，这个类就是下面这样:</p></li></ol><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">@interface</span> <span class="attribute">DPCatcher </span>: NSObject</span><br><span class="line"><span class="variable">@property</span> (readwrite,assign,nonatomic) Class origClass;</span><br><span class="line"><span class="variable">@end</span></span><br><span class="line"></span><br><span class="line"><span class="variable">@implementation</span> DPCatcher</span><br><span class="line">- (id)<span class="attribute">forwardingTargetForSelector</span>:(SEL)aSelector&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,NSStringFromSelector(aSelector));</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line"> <span class="selector-tag">return</span> <span class="selector-tag">nil</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">-</span>(void)<span class="selector-tag">dealloc</span>&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,@<span class="string">"dealloc"</span>);</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">-</span>(oneway void)<span class="selector-tag">release</span>&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,@<span class="string">"release"</span>);</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">-</span> (instancetype)<span class="selector-tag">autorelease</span>&#123;</span><br><span class="line"> <span class="selector-tag">NSLog</span>(@<span class="string">"发现objc野指针:%s::%p=&gt;%@"</span>,class_getName(self.origClass),self,@<span class="string">"autorelease"</span>);</span><br><span class="line"> <span class="selector-tag">abort</span>();</span><br><span class="line">&#125;</span><br><span class="line">@<span class="selector-tag">end</span></span><br></pre></td></tr></table></figure><p>注意：对象的release、dealloc等函数要特殊处理一下，因为任何对象都有这些方法，不会执行重定向。</p><p>然后，我们的free函数改成下面这样（去掉了一些多余代码）：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DPFree</span><span class="params">(<span class="keyword">void</span>* p)</span></span>&#123;</span><br><span class="line"> </span><br><span class="line"> <span class="keyword">size_t</span> memSiziee=malloc_size(p);</span><br><span class="line"> <span class="keyword">if</span> (memSiziee&gt;sDPCatchSize) &#123;<span class="comment">//有足够的空间才覆盖</span></span><br><span class="line"> id obj=(id)p;</span><br><span class="line"> Class origClass=object_getClass(obj); <span class="comment">//判断是不是objc对象 ，registeredClasses里面有所有的类，如果可以查到，说明是objc类</span></span><br><span class="line"> <span class="keyword">if</span> (origClass &amp;&amp; CFSetContainsValue(registeredClasses, origClass)) &#123;</span><br><span class="line"> <span class="built_in">memset</span>(obj, <span class="number">0x55</span>, memSiziee);</span><br><span class="line"> <span class="built_in">memcpy</span>(obj, &amp;sDPCatchIsa, <span class="keyword">sizeof</span>(<span class="keyword">void</span>*));<span class="comment">//把我们自己的类的isa复制过去</span></span><br><span class="line"> </span><br><span class="line"> DPCatcher* bug=(DPCatcher*)p;</span><br><span class="line"> bug.origClass=origClass;</span><br><span class="line"> &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"> <span class="built_in">memset</span>(p, <span class="number">0x55</span>, memSiziee);</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line"> &#125;<span class="keyword">else</span>&#123;</span><br><span class="line"> <span class="built_in">memset</span>(p, <span class="number">0x55</span>, memSiziee);</span><br><span class="line"> &#125;</span><br><span class="line"> <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>初始化的时候获取所有类信息，获取填充类的的大小:</p><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">registeredClasses = <span class="built_in">CFSetCreateMutable</span>(<span class="literal">NULL</span>, <span class="number">0</span>, <span class="literal">NULL</span>);</span><br><span class="line"></span><br><span class="line"> <span class="keyword">unsigned</span> <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line"> Class *classes = objc_copyClassList(&amp;count);</span><br><span class="line"> <span class="keyword">for</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span> i = <span class="number">0</span>; i &lt; count; i++) &#123;</span><br><span class="line"> <span class="built_in">CFSetAddValue</span>(registeredClasses, (__bridge <span class="keyword">const</span> <span class="keyword">void</span> *)(classes[i]));</span><br><span class="line"> &#125;</span><br><span class="line"> free(classes);</span><br><span class="line"> classes=<span class="literal">NULL</span>;</span><br><span class="line"> </span><br><span class="line"> sDPCatchIsa=objc_getClass(<span class="string">"DPCatcher"</span>);</span><br><span class="line"> </span><br><span class="line"> sDPCatchSize=class_getInstanceSize(sDPCatchIsa);</span><br></pre></td></tr></table></figure><p>用下面简单的代码试一下：</p><figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">UIView* testObj=<span class="comment">[<span class="comment">[UIView alloc]</span> init]</span>;</span><br><span class="line"><span class="comment">[testObj release]</span>;</span><br><span class="line"><span class="comment">[testObj setNeedsLayout]</span>;</span><br></pre></td></tr></table></figure><p>发生野指针的类、对象地址和访问的方法就这样可以被打印出来！</p><p><img src="/wiki/IOS/crash/6_increase_Wild_Pointer/forward_crash.png" alt="野指针自报信息"></p><p>上面这两个Crash如果不能重现几乎是无解！但是，加上我们的野指针定位神器之后再看看，类名和地址都可以打出来了，解决起来就不是什么问题了。</p><p>说明：</p><ol><li><p>我们打印出了野指针对象的名字和地址，当这个类的对象比较少时，对查找问题有很大的用处（如果是自定义的类出现野指针，一般还是比较容易找到问题），但是如果是一些经常出现的类，比如nsarray，定位起来还是比较麻烦。这个时候建议试一下xcode的malloc history工具，或者可以自己实现一个类似记录内存使用记录的工具，因为有内存申请和释放的记录，只要重现一次就可以精确定位野指针。</p></li><li><p>如果出现dealloc的使用错误，例如先[super dealloc]，然后release成员变量，那么就会出现崩溃的现象，且此时对象的地址为0x55555555。这是因为[super dealloc]只会释放对应的内存，但其成员的内存不会被release而变成了0x555555。 这种问题场景比较简单，一旦发生绝对是必现的，修复也比较容易。</p></li></ol><p>后记</p><p>写到这里，关于iOS野指针随机问题定位的三篇文章就写完了，特别说一下，文中提到的方法虽然可以提高野指针的曝光率和定位精度，但并不是万能，比如下面这几种情况，可能并不一定适用：</p><ol><li>未触发出现野指针的逻辑：比如说一个有问题的代码，只有在特殊的逻辑下才会有野指针问题，如果我们没有触发这个逻辑，肯定也是无法暴露出这个问题的。这种情况建议还是提高测试的场景覆盖。</li><li>产生野指针和使用野指针的时间间隔太长：时间太长的话，很可能我们保留的指针已经被释放了。</li><li>APP内存消耗大，会降低曝光率。因为内存消耗大的时候，我们保留的指针数量必然减少，而且保留的时间也会更短。</li></ol><ol><li><p>free之前先填上 0x55 ，这个0x55有什么具体含义吗？<br>答：实际上填写数据的关键在于填写数据后其地址指向不可读的内存。而填写0x55，和前面提到的出现异常情况的对象地址0x555555连接起来被当成指针使用的话，就会被识别为0x55555555，而CPU访问这个地址就会抛出异常。<br>另外一点，就是方便区分野指针，例如在Xcode启用Enable Scribble时，指定alloc之后填写的地址为0xaa，防止内存初始化就使用，也是为了方便和free之后的内存做区分。</p></li><li><p>这个方法对于arc和非arc是否都可以用？<br>答：都可以，不过都是arc的话应该比较少出现野指针吧。</p></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文终于可以利用OC Runtime的特性，让OC野指针对象主动抛出自己的信息，某些情况下秒杀某些全系统栈Crash&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="crash" scheme="http://yoursite.com/categories/IOS/crash/"/>
-    
-    
-      <category term="Crash" scheme="http://yoursite.com/tags/Crash/"/>
     
   </entry>
   
