@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-29T10:23:44.998Z</updated>
+  <updated>2019-01-30T10:28:17.979Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,17 +17,50 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>23. 泛型</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/23__%E6%B3%9B%E5%9E%8B/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/23__泛型/</id>
-    <published>2019-01-29T03:07:12.000Z</published>
-    <updated>2019-01-29T10:23:44.998Z</updated>
+    <title>24. 自动引用计数器</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/24__%E8%87%AA%E5%8A%A8%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%99%A8/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/24__自动引用计数器/</id>
+    <published>2019-01-30T03:07:12.000Z</published>
+    <updated>2019-01-30T10:28:17.979Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>The Problem That Generics Solve</li><li>Generic Functions</li><li>Type Parameters</li><li>Naming Type Parameters</li><li>Generic Types</li><li>Extending a Generic Type</li><li>Type Constraints</li><li>Associated Types</li><li>Generic Where Clauses</li><li>Extensions with a Generic Where Clause</li><li>Associated Types with a Generic Where Clause</li><li>Generic Subscripts</li></ol><a id="more"></a><h2 id="泛型解决的问题"><a href="#泛型解决的问题" class="headerlink" title="泛型解决的问题"></a>泛型解决的问题</h2><p>泛型解决某些功能，但由于不同参数，需要重复编写代码的问题。例如实现交换功能的函数。</p><h2 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func swapTwoValues&lt;T&gt;(_ <span class="selector-tag">a</span>: inout T, _ <span class="selector-tag">b</span>: inout T) &#123;</span><br><span class="line">let temporaryA = <span class="selector-tag">a</span> </span><br><span class="line">a=b</span><br><span class="line"><span class="selector-tag">b</span> = temporaryA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>泛型版本的函数使用占位符类型名，而不是一个真正的类型名称。调用泛型函数的时候，从实参中推断类型T。</p><h2 id="类型参数"><a href="#类型参数" class="headerlink" title="类型参数"></a>类型参数</h2><p>类型参数指定并命名一个占位类型，并紧挨着函数名称后面，使用一对尖括号括起来(例如 <t> )。类型参数在调用时被一个真实的类型 所替换。你可以通过在尖括号内写多个类型参数名来提供多个类型参数，用逗号隔开。</t></p><h2 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h2><p>除了泛型函数外，Swift可以定义你自己的泛型类型 。这些自定义的类、结构体、枚举可以和任何类型一起使用，方式类似于数组 和 字典 。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">Element</span>&gt; </span>&#123;</span><br><span class="line"><span class="keyword">var</span> items = [<span class="type">Element</span>]()</span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> item: Element)</span></span> &#123;</span><br><span class="line">items.append(item)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">Element</span> &#123;</span><br><span class="line"><span class="keyword">return</span> items.removeLast()</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="扩展泛型类型"><a href="#扩展泛型类型" class="headerlink" title="扩展泛型类型"></a>扩展泛型类型</h2><p>扩展泛型类型时，你不需要提供类型参数列表作为扩展定义的一部分。 相反，原始 类型定义 中的类型参数列表在扩展的主体内依旧可用，并且原始类型参数名称会被用于引用原始定义 中的类型参数。</p><h2 id="类型约束"><a href="#类型约束" class="headerlink" title="类型约束"></a>类型约束</h2><p>有时候 对泛型函数和泛型类型进行类型约束是很有用的。 类型约束指定参数类型必须继承自特定的类、遵循特定的协议、特定的协议组。</p><p>###类型约束语法</p><p> 类型约束的写法:在类型参数名后跟上一个类或协议来进行约束，使用冒号进行分割，作为类型参数列表的一部分。泛型函数的类型约束语法如下(泛型类型的语法与此相同)</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunction</span>&lt;T: SomeClass, U: SomeProtocol&gt;<span class="params">(someT: T, someU: U)</span></span> &#123;</span><br><span class="line"><span class="comment">// 这⾥里里写函数体的内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>第一个类型参数 T ，类型约束要求 T 的类型必须是 SomeClass 的子类。第二个类型参数 U ，类型约束要求 U 必须遵循 SomeProtocol 协议</p><h3 id="类型约束行为"><a href="#类型约束行为" class="headerlink" title="类型约束行为"></a>类型约束行为</h3><h2 id="关联类型"><a href="#关联类型" class="headerlink" title="关联类型"></a>关联类型</h2><p>当定义一个协议时，有时候定义一个或多个关联类型作为协议的一部分是很有用的。关联类型作为协议的一部分并为一种类型提供占位符名称。在实现该协议之前不会指定该关联类型的实际类型。关联类型使用 associatedtype 关键字来指定。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">associatedtype <span class="type">Item</span></span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(<span class="number">_</span> item: Item)</span></span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"><span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Item</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>item 可以通过类型推断得到。或者</p><figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> Item = <span class="built_in">Int</span></span><br></pre></td></tr></table></figure><h3 id="扩展现有类型，以指定关联类型"><a href="#扩展现有类型，以指定关联类型" class="headerlink" title="扩展现有类型，以指定关联类型"></a>扩展现有类型，以指定关联类型</h3><h3 id="将约束添加到关联类型"><a href="#将约束添加到关联类型" class="headerlink" title="将约束添加到关联类型"></a>将约束添加到关联类型</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">associatedtype <span class="type">Item</span>: <span class="type">Equatable</span></span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(<span class="number">_</span> item: Item)</span></span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"><span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Item</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>为了遵循这个版本的 Container ，容器的 Item 类型必须符合 Equatable 协 议。</p><h3 id="在其关联类型的约束中使用协议"><a href="#在其关联类型的约束中使用协议" class="headerlink" title="在其关联类型的约束中使用协议"></a>在其关联类型的约束中使用协议</h3><h2 id="泛型-Where-⼦句"><a href="#泛型-Where-⼦句" class="headerlink" title="泛型 Where ⼦句"></a>泛型 Where ⼦句</h2><p>对关联类型定义一些规定通常也很有用。你可以通过定义 泛型 where 子句 来完成此操作。 泛型 where 子句使你能够要求关联类型必须符合某个协议，或者某些类型参数和相关类 型必须相同。泛型 where 子句以 where 关键字开头，后跟关联类型的约束条件或类 型和关联类型之间的相等关系。你需要在一个类型或函数体的起始大括号之前写一个泛型where 子句。</p><h3 id="在扩展中使⽤泛型Where⼦句"><a href="#在扩展中使⽤泛型Where⼦句" class="headerlink" title="在扩展中使⽤泛型Where⼦句"></a>在扩展中使⽤泛型Where⼦句</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">associatedtype</span> <span class="keyword">Iterator: </span><span class="keyword">IteratorProtocol </span>where <span class="keyword">Iterator.Element </span>== <span class="keyword">Item</span></span><br></pre></td></tr></table></figure><h2 id="带有泛型Where⼦句的关联类型"><a href="#带有泛型Where⼦句的关联类型" class="headerlink" title="带有泛型Where⼦句的关联类型"></a>带有泛型Where⼦句的关联类型</h2><h2 id="泛型下标"><a href="#泛型下标" class="headerlink" title="泛型下标"></a>泛型下标</h2><p>标也可以用泛型表示，同时也可以包含泛型 where 子句。 可以在下标括号之后的尖括号内写一个类型占位符，在下标主体的起始大括号之前写一个泛型 where子句。</p>]]></content>
+    <content type="html"><![CDATA[<p>官方目录：</p><ol><li>How ARC Works</li><li>ARC in Action</li><li>Strong Reference Cycles Between Class Instances</li><li>Resolving Strong Reference Cycles Between Class Instances</li><li>Strong Reference Cycles for Closures</li><li>Resolving Strong Reference Cycles for Closures</li></ol><a id="more"></a><p>引用计数只适用于实例对象。结构体和枚举是值类型，不是引用类型，并且不通过引用存储和传递的。</p><h2 id="ARC-⼯作机制"><a href="#ARC-⼯作机制" class="headerlink" title="ARC ⼯作机制"></a>ARC ⼯作机制</h2><h2 id="解决实例之间的强引用循环"><a href="#解决实例之间的强引用循环" class="headerlink" title="解决实例之间的强引用循环"></a>解决实例之间的强引用循环</h2><p>Swift 提供了两种方法解决你在使用类的属性而产生的强引用循环:弱引用( weak )和 无主引用( unowned )。</p><p>当一个实例的生命周期比较引用它的实例短，也就是这个实例可能会先于引用它的实例释放 的时候，需要使用弱引用( weak )。对与一栋公寓来说在它的生命周期中是完全可以没 有住户的，所以在这种情况下，上例中 Apartment 类使用弱引用来打断强引用循环是合 适的。相反，当一个实例拥有和引用它的实例相同的生命周期或是比引用它的实例更长的生 命周期的时候，需要使用无主引用( unowned )。</p><p>由于弱引用需要能在运行过程中设置为 nil ,所以必需要声明为可选类型的变量而不是常量。</p><blockquote><p>注意当 ARC 设置弱引用为 nil 的时候，属性观察不会被调用。</p></blockquote><p>无主引用总是有值的。因而，ARC也不会将无主引用的值设置为 nil ，这也意味着无主 引用要被定义为非可选类型。</p><h2 id="解决闭包引起的强引⽤循环"><a href="#解决闭包引起的强引⽤循环" class="headerlink" title="解决闭包引起的强引⽤循环"></a>解决闭包引起的强引⽤循环</h2><p>捕获列表定义了在闭包内部捕获一个或多个引用类型的规则</p><p>捕获列表中的每一项都是由 weak 或 unowned 关键字和实例的引用(如 self ) 或是由其他值初始化的变量(如 delegate = self.delegate! )成组构成的。它们每 一组都写在方括号中，组之间用逗号隔开。<br>捕获列表放在闭包的参数和返回值(如果有返回值的话)前面:</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">lazy var someClosure: (Int, <span class="built_in">String</span>) -&gt; <span class="built_in">String</span> = &#123;</span><br><span class="line">    [unowned <span class="keyword">self</span>, weak delegate = <span class="keyword">self</span>.delegate!] (index: Int, stringToProcess: <span class="built_in">String</span>) -&gt; <span class="built_in">String</span> <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// closure body goes here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
-      &lt;ol&gt;
+      &lt;p&gt;官方目录：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;How ARC Works&lt;/li&gt;
+&lt;li&gt;ARC in Action&lt;/li&gt;
+&lt;li&gt;Strong Reference Cycles Between Class Instances&lt;/li&gt;
+&lt;li&gt;Resolving Strong Reference Cycles Between Class Instances&lt;/li&gt;
+&lt;li&gt;Strong Reference Cycles for Closures&lt;/li&gt;
+&lt;li&gt;Resolving Strong Reference Cycles for Closures&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="自动引用计数器" scheme="http://yoursite.com/tags/%E8%87%AA%E5%8A%A8%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>23. 泛型</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/23__%E6%B3%9B%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/23__泛型/</id>
+    <published>2019-01-29T03:07:12.000Z</published>
+    <updated>2019-01-30T07:29:45.819Z</updated>
+    
+    <content type="html"><![CDATA[<p>官方目录：</p><ol><li>The Problem That Generics Solve</li><li>Generic Functions</li><li>Type Parameters</li><li>Naming Type Parameters</li><li>Generic Types</li><li>Extending a Generic Type</li><li>Type Constraints</li><li>Associated Types</li><li>Generic Where Clauses</li><li>Extensions with a Generic Where Clause</li><li>Associated Types with a Generic Where Clause</li><li>Generic Subscripts</li></ol><a id="more"></a><h2 id="泛型解决的问题"><a href="#泛型解决的问题" class="headerlink" title="泛型解决的问题"></a>泛型解决的问题</h2><p>泛型解决某些功能，例如交换两个数，由于参数类型不同，需要重复编写代码的问题。</p><h2 id="泛型函数"><a href="#泛型函数" class="headerlink" title="泛型函数"></a>泛型函数</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">func swapTwoValues&lt;T&gt;(_ <span class="selector-tag">a</span>: inout T, _ <span class="selector-tag">b</span>: inout T) &#123;</span><br><span class="line">let temporaryA = <span class="selector-tag">a</span> </span><br><span class="line">a=b</span><br><span class="line"><span class="selector-tag">b</span> = temporaryA</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>泛型版本的函数使用占位符类型名，而不是一个真正的类型名称。调用泛型函数的时候，从实参中推断类型T。</p><h2 id="类型参数"><a href="#类型参数" class="headerlink" title="类型参数"></a>类型参数</h2><p><strong>类型参数</strong>指定并命名一个占位类型，<strong>并紧挨着函数名称后面</strong>，使用一对尖括号括起来(例如 <t> )。类型参数在调用时被一个真实的类型所替换。你可以通过在尖括号内写多个类型参数名来提供多个类型参数，用逗号隔开。</t></p><blockquote><p>类型参数：将类型作为参数</p></blockquote><h2 id="泛型类型"><a href="#泛型类型" class="headerlink" title="泛型类型"></a>泛型类型</h2><p>除了泛型函数外，Swift可以定义你自己的泛型类型 。这些自定义的类、结构体、枚举可以和任何类型一起使用，方式类似于数组、字典 。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Stack</span>&lt;<span class="title">Element</span>&gt; </span>&#123;</span><br><span class="line"><span class="keyword">var</span> items = [<span class="type">Element</span>]()</span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">push</span><span class="params">(<span class="number">_</span> item: Element)</span></span> &#123;</span><br><span class="line">items.append(item)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">pop</span><span class="params">()</span></span> -&gt; <span class="type">Element</span> &#123;</span><br><span class="line"><span class="keyword">return</span> items.removeLast()</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="扩展泛型类型"><a href="#扩展泛型类型" class="headerlink" title="扩展泛型类型"></a>扩展泛型类型</h2><p>扩展泛型类型时，你不需要提供<strong>类型参数列表</strong>作为扩展定义的一部分。 相反，原始<strong>类型定义</strong>中的类型参数列表在扩展的主体内依旧可用，并且原始类型参数名称会被用于引用原始定义中的类型参数。</p><h2 id="类型约束"><a href="#类型约束" class="headerlink" title="类型约束"></a>类型约束</h2><p>有时候，对泛型函数和泛型类型进行类型约束是很有用的。类型约束指定参数类型必须继承自特定的类、遵循特定的协议、特定的协议组。</p><p>###类型约束语法</p><p>类型约束的写法:在类型参数名后跟上一个类或协议来进行约束，使用冒号进行分割，作为类型参数列表的一部分。泛型函数的类型约束语法如下(泛型类型的语法与此相同)</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunction</span>&lt;T: SomeClass, U: SomeProtocol&gt;<span class="params">(someT: T, someU: U)</span></span> &#123;</span><br><span class="line"><span class="comment">// 这⾥里里写函数体的内容</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>第一个类型参数<code>T</code>，类型约束要求<code>T</code>的类型必须是<code>SomeClass</code>的子类。第二个类型参数<code>U</code>，类型约束要求<code>U</code>必须遵循<code>SomeProtocol</code>协议</p><h3 id="为啥需要类型约束？"><a href="#为啥需要类型约束？" class="headerlink" title="为啥需要类型约束？"></a>为啥需要类型约束？</h3><p>想想字典的key，必须可哈希，不是所有的类型都能作为字典的key，所以需要约束。</p><h2 id="关联类型"><a href="#关联类型" class="headerlink" title="关联类型"></a>关联类型</h2><p>当定义一个协议时，有时候定义一个或多个关联类型作为协议的一部分是很有用的。<strong>关联类型</strong>作为协议的一部分，并为一种类型提供占位符名称。在实现该协议之前不会指定关联类型的实际类型。关联类型使用 associatedtype 关键字来指定。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">associatedtype <span class="type">Item</span></span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(<span class="number">_</span> item: Item)</span></span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"><span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Item</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>item 可以通过类型推断得到。或者显式的指定：</p><figure class="highlight julia"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> Item = <span class="built_in">Int</span></span><br></pre></td></tr></table></figure><h3 id="将约束添加到关联类型"><a href="#将约束添加到关联类型" class="headerlink" title="将约束添加到关联类型"></a>将约束添加到关联类型</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Container</span> </span>&#123;</span><br><span class="line">associatedtype <span class="type">Item</span>: <span class="type">Equatable</span></span><br><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(<span class="number">_</span> item: Item)</span></span></span><br><span class="line"><span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"><span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Item</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>为了遵循这个版本的 Container ，容器的 Item 类型必须符合 <code>Equatable</code> 协议。</p><h2 id="泛型-Where-⼦句"><a href="#泛型-Where-⼦句" class="headerlink" title="泛型 Where ⼦句"></a>泛型 Where ⼦句</h2><p>对关联类型定义一些规定通常也很有用。你可以通过<strong>定义泛型where子句</strong> 来完成此操作。泛型 where 子句使你能够要求关联类型必须符合某个协议，或者某些类型参数和相关类型必须相同。泛型 where子句以where 关键字开头，后跟关联类型的约束条件或类型和关联类型之间的相等关系。</p><p>where的位置：你需要在一个类型或函数体的起始大括号之前写一个泛型where子句。</p><h3 id="在扩展中使⽤泛型Where⼦句"><a href="#在扩展中使⽤泛型Where⼦句" class="headerlink" title="在扩展中使⽤泛型Where⼦句"></a>在扩展中使⽤泛型Where⼦句</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">associatedtype</span> <span class="keyword">Iterator: </span><span class="keyword">IteratorProtocol </span>where <span class="keyword">Iterator.Element </span>== <span class="keyword">Item</span></span><br></pre></td></tr></table></figure><h2 id="泛型下标"><a href="#泛型下标" class="headerlink" title="泛型下标"></a>泛型下标</h2><p>标也可以用泛型表示，同时也可以包含泛型 where 子句。 可以在下标括号之后的尖括号内写一个类型占位符，在下标主体的起始大括号之前写一个泛型 where子句。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;官方目录：&lt;/p&gt;
+&lt;ol&gt;
 &lt;li&gt;The Problem That Generics Solve&lt;/li&gt;
 &lt;li&gt;Generic Functions&lt;/li&gt;
 &lt;li&gt;Type Parameters&lt;/li&gt;
@@ -44,7 +77,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="泛型" scheme="http://yoursite.com/tags/%E6%B3%9B%E5%9E%8B/"/>
@@ -52,36 +87,9 @@
   </entry>
   
   <entry>
-    <title>19. 类型转换</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/19__类型转换/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:55:37.511Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
-&lt;li&gt;Checking Type&lt;/li&gt;
-&lt;li&gt;Downcasting&lt;/li&gt;
-&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
     <title>22. 协议</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/22__协议/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/22__协议/</id>
     <published>2019-01-29T02:07:12.000Z</published>
     <updated>2019-01-29T10:59:08.348Z</updated>
     
@@ -109,7 +117,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="协议" scheme="http://yoursite.com/tags/%E5%8D%8F%E8%AE%AE/"/>
@@ -118,8 +128,8 @@
   
   <entry>
     <title>20. 嵌套类型</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/20__嵌套类型/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/20__嵌套类型/</id>
     <published>2019-01-29T02:07:12.000Z</published>
     <updated>2019-01-29T03:58:49.024Z</updated>
     
@@ -134,7 +144,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
@@ -142,9 +154,38 @@
   </entry>
   
   <entry>
+    <title>19. 类型转换</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/19__类型转换/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T03:55:37.511Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
+&lt;li&gt;Checking Type&lt;/li&gt;
+&lt;li&gt;Downcasting&lt;/li&gt;
+&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>21. 扩展</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/21__扩展/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
     <published>2019-01-29T02:07:12.000Z</published>
     <updated>2019-01-29T07:07:06.729Z</updated>
     
@@ -163,7 +204,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
@@ -171,34 +214,37 @@
   </entry>
   
   <entry>
-    <title>16. 析构过程</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/16__析构过程/</id>
+    <title>18. 错误处理</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/18__错误处理/</id>
     <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-28T08:50:32.765Z</updated>
+    <updated>2019-01-29T03:19:27.919Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
-&lt;li&gt;Deinitializers in Action&lt;/li&gt;
+&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
+&lt;li&gt;Handling Errors&lt;/li&gt;
+&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
+      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
   <entry>
     <title>15. 构造过程</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/15__%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/15__构造过程/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/15__%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/15__构造过程/</id>
     <published>2019-01-28T02:07:12.000Z</published>
     <updated>2019-01-28T08:39:18.573Z</updated>
     
@@ -219,7 +265,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="构造过程" scheme="http://yoursite.com/tags/%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B/"/>
@@ -228,8 +276,8 @@
   
   <entry>
     <title>17. 可选链</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/17__可选链/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/17__可选链/</id>
     <published>2019-01-28T02:07:12.000Z</published>
     <updated>2019-01-28T10:09:02.556Z</updated>
     
@@ -249,7 +297,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
@@ -257,35 +307,36 @@
   </entry>
   
   <entry>
-    <title>18. 错误处理</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/18__错误处理/</id>
+    <title>16. 析构过程</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/16__析构过程/</id>
     <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-29T03:19:27.919Z</updated>
+    <updated>2019-01-28T08:50:32.765Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
-&lt;li&gt;Handling Errors&lt;/li&gt;
-&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
+&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
+&lt;li&gt;Deinitializers in Action&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+      <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
     
   </entry>
   
   <entry>
     <title>14. 继承</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/14__%E7%BB%A7%E6%89%BF/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/14__继承/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/14__%E7%BB%A7%E6%89%BF/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/14__继承/</id>
     <published>2019-01-28T01:07:12.000Z</published>
     <updated>2019-01-28T02:47:13.962Z</updated>
     
@@ -301,7 +352,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
@@ -309,39 +362,105 @@
   </entry>
   
   <entry>
-    <title>10. 类和结构体</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/10__%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/10__类和结构体/</id>
+    <title>1. 枚举</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
     <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-28T01:46:39.491Z</updated>
+    <updated>2019-01-25T10:52:37.023Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Comparing Structures and Classes</li><li>Structures and Enumerations Are Value Types</li><li>Classes Are Reference Types</li></ol><a id="more"></a><p><img src="/wiki/swift学习摘要/10__类和结构体/1.png" alt="1"></p><p><img src="/wiki/swift学习摘要/10__类和结构体/2.png" alt="2"></p><p><img src="/wiki/swift学习摘要/10__类和结构体/3.png" alt="3"></p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Comparing Structures and Classes&lt;/li&gt;
-&lt;li&gt;Structures and Enumerations Are Value Types&lt;/li&gt;
-&lt;li&gt;Classes Are Reference Types&lt;/li&gt;
+&lt;li&gt;Enumeration Syntax&lt;/li&gt;
+&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
+&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
+&lt;li&gt;Associated Values&lt;/li&gt;
+&lt;li&gt;Raw Values&lt;/li&gt;
+&lt;li&gt;Recursive Enumerations&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="类和结构体" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
+      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>7. 函数</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/8__闭包/</id>
+    <published>2019-01-24T04:07:12.000Z</published>
+    <updated>2019-01-25T10:51:29.972Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Closure Expressions</li><li>Trailing Closures</li><li>Capturing Values</li><li>Closures Are Reference Types</li><li>Escaping Closures</li><li>Autoclosures</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/8__闭包/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/8__闭包/2.jpeg" alt="2"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Closure Expressions&lt;/li&gt;
+&lt;li&gt;Trailing Closures&lt;/li&gt;
+&lt;li&gt;Capturing Values&lt;/li&gt;
+&lt;li&gt;Closures Are Reference Types&lt;/li&gt;
+&lt;li&gt;Escaping Closures&lt;/li&gt;
+&lt;li&gt;Autoclosures&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>7. 函数</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/7__函数/</id>
+    <published>2019-01-24T04:07:12.000Z</published>
+    <updated>2019-01-25T10:50:58.540Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
+&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
+&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
+&lt;li&gt;Function Types&lt;/li&gt;
+&lt;li&gt;Nested Functions&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
   <entry>
     <title>2. 基础</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/2__%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/2__基础/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/2__%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/2__基础/</id>
     <published>2019-01-24T04:07:12.000Z</published>
     <updated>2019-01-28T01:47:30.358Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Constants and Variables</li><li>Comments</li><li>Semicolons</li><li>Integers</li><li>Floating-Point Numbers</li><li>Type Safety and Type Inference</li><li>Numeric Literals</li><li>Numeric Type Conversion</li><li>Type Aliases</li><li>Booleans</li><li>Tuples</li><li>Optionals</li><li>Error Handling</li><li>Assertions and Preconditions</li></ol><a id="more"></a><p><img src="/wiki/swift学习摘要/2__基础/1.png" alt="1"></p><p><img src="/wiki/swift学习摘要/2__基础/2.png" alt="2"></p><p><img src="/wiki/swift学习摘要/2__基础/3.png" alt="3"></p><p><img src="/wiki/swift学习摘要/2__基础/4.png" alt="4"></p><p><img src="/wiki/swift学习摘要/2__基础/5.png" alt="5"></p><p><img src="/wiki/swift学习摘要/2__基础/6.png" alt="6"></p><p><img src="/wiki/swift学习摘要/2__基础/7.png" alt="7"></p><p><img src="/wiki/swift学习摘要/2__基础/8.png" alt="8"></p><p><img src="/wiki/swift学习摘要/2__基础/9.png" alt="9"></p><p><img src="/wiki/swift学习摘要/2__基础/10.png" alt="10"></p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Constants and Variables</li><li>Comments</li><li>Semicolons</li><li>Integers</li><li>Floating-Point Numbers</li><li>Type Safety and Type Inference</li><li>Numeric Literals</li><li>Numeric Type Conversion</li><li>Type Aliases</li><li>Booleans</li><li>Tuples</li><li>Optionals</li><li>Error Handling</li><li>Assertions and Preconditions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/2__基础/1.png" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/2.png" alt="2"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/3.png" alt="3"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/4.png" alt="4"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/5.png" alt="5"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/6.png" alt="6"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/7.png" alt="7"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/8.png" alt="8"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/9.png" alt="9"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/10.png" alt="10"></p>]]></content>
     
     <summary type="html">
     
@@ -364,7 +483,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
@@ -372,95 +493,37 @@
   </entry>
   
   <entry>
-    <title>7. 函数</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/8__闭包/</id>
+    <title>10. 类和结构体</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/10__%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/10__类和结构体/</id>
     <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:51:29.972Z</updated>
+    <updated>2019-01-28T01:46:39.491Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Closure Expressions</li><li>Trailing Closures</li><li>Capturing Values</li><li>Closures Are Reference Types</li><li>Escaping Closures</li><li>Autoclosures</li></ol><a id="more"></a><p><img src="/wiki/swift学习摘要/8__闭包/1.jpeg" alt="1"></p><p><img src="/wiki/swift学习摘要/8__闭包/2.jpeg" alt="2"></p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Comparing Structures and Classes</li><li>Structures and Enumerations Are Value Types</li><li>Classes Are Reference Types</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/1.png" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/2.png" alt="2"></p><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/3.png" alt="3"></p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Closure Expressions&lt;/li&gt;
-&lt;li&gt;Trailing Closures&lt;/li&gt;
-&lt;li&gt;Capturing Values&lt;/li&gt;
-&lt;li&gt;Closures Are Reference Types&lt;/li&gt;
-&lt;li&gt;Escaping Closures&lt;/li&gt;
-&lt;li&gt;Autoclosures&lt;/li&gt;
+&lt;li&gt;Comparing Structures and Classes&lt;/li&gt;
+&lt;li&gt;Structures and Enumerations Are Value Types&lt;/li&gt;
+&lt;li&gt;Classes Are Reference Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>7. 函数</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/7__函数/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:50:58.540Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
-&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
-&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
-&lt;li&gt;Function Types&lt;/li&gt;
-&lt;li&gt;Nested Functions&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>1. 枚举</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/9__枚举/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:52:37.023Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Enumeration Syntax&lt;/li&gt;
-&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
-&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
-&lt;li&gt;Associated Values&lt;/li&gt;
-&lt;li&gt;Raw Values&lt;/li&gt;
-&lt;li&gt;Recursive Enumerations&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
+      <category term="类和结构体" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
     
   </entry>
   
   <entry>
     <title>13. 下标</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/13__%E4%B8%8B%E6%A0%87/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/13__下标/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/13__%E4%B8%8B%E6%A0%87/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/13__下标/</id>
     <published>2019-01-18T04:07:12.000Z</published>
     <updated>2019-01-25T10:27:11.338Z</updated>
     
@@ -476,7 +539,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="下标" scheme="http://yoursite.com/tags/%E4%B8%8B%E6%A0%87/"/>
@@ -485,8 +550,8 @@
   
   <entry>
     <title>12. 方法</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/12__方法/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/12__方法/</id>
     <published>2019-01-18T04:07:12.000Z</published>
     <updated>2019-01-25T10:17:39.385Z</updated>
     
@@ -501,7 +566,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="方法" scheme="http://yoursite.com/tags/%E6%96%B9%E6%B3%95/"/>
@@ -510,8 +577,8 @@
   
   <entry>
     <title>11. 属性</title>
-    <link href="http://yoursite.com/wiki/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/11__%E5%B1%9E%E6%80%A7/"/>
-    <id>http://yoursite.com/wiki/swift学习摘要/11__属性/</id>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/11__%E5%B1%9E%E6%80%A7/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/11__属性/</id>
     <published>2019-01-18T03:07:12.000Z</published>
     <updated>2019-01-25T10:13:56.514Z</updated>
     
@@ -529,7 +596,9 @@
     
     </summary>
     
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
       <category term="属性" scheme="http://yoursite.com/tags/%E5%B1%9E%E6%80%A7/"/>
@@ -559,40 +628,6 @@
     
     
       <category term="logan" scheme="http://yoursite.com/tags/logan/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>mmap原理之详解(转载)</title>
-    <link href="http://yoursite.com/wiki/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/mmap/union%E5%AE%9A%E4%B9%89%E7%9A%84%E5%89%AF%E6%9C%AC/"/>
-    <id>http://yoursite.com/wiki/编程基础/mmap/union定义的副本/</id>
-    <published>2018-12-19T01:07:12.000Z</published>
-    <updated>2018-12-19T03:15:58.822Z</updated>
-    
-    <content type="html"><![CDATA[<p>主要内容</p><ol><li>mmap基础概念</li><li>mmap内存映射原理</li><li>mmap和常规文件操作的区别</li><li>mmap优点总结</li><li>mmap相关函数</li><li>mmap使用细节</li><li>在上面的知识前提下我们下面看看如果大小不是页的整倍数的具体情况</li></ol><p>文章出处：<a href="https://blog.csdn.net/qq_36675830/article/details/79283113" rel="external nofollow noopener noreferrer" target="_blank">mmap原理之详解</a></p><a id="more"></a><h2 id="mmap基础概念"><a href="#mmap基础概念" class="headerlink" title="mmap基础概念"></a>mmap基础概念</h2><p>mmap是一种内存映射文件的方法，即将一个文件或者其它对象映射到进程的地址空间，实现文件磁盘地址和进程虚拟地址空间中一段虚拟地址的一一对映关系。实现这样的映射关系后，进程就可以采用指针的方式读写操作这一段内存，而系统会自动回写脏页面到对应的文件磁盘上，即完成了对文件的操作而不必再调用read,write等系统调用函数。相反，内核空间对这段区域的修改也直接反映用户空间，从而可以实现不同进程间的文件共享。如下图所示：</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;主要内容&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;mmap基础概念&lt;/li&gt;
-&lt;li&gt;mmap内存映射原理&lt;/li&gt;
-&lt;li&gt;mmap和常规文件操作的区别&lt;/li&gt;
-&lt;li&gt;mmap优点总结&lt;/li&gt;
-&lt;li&gt;mmap相关函数&lt;/li&gt;
-&lt;li&gt;mmap使用细节&lt;/li&gt;
-&lt;li&gt;在上面的知识前提下我们下面看看如果大小不是页的整倍数的具体情况&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;文章出处：&lt;a href=&quot;https://blog.csdn.net/qq_36675830/article/details/79283113&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;mmap原理之详解&lt;/a&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="编程基础" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/"/>
-    
-      <category term="mmap" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80/mmap/"/>
-    
-    
-      <category term="mmap" scheme="http://yoursite.com/tags/mmap/"/>
     
   </entry>
   

@@ -1,0 +1,1170 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8">
+    
+    <title>15. 构造过程 | LJ小窝</title>
+    
+    
+        <meta name="keywords" content="构造过程">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="Setting Initial Values for Stored Properties Customizing Initialization Default Initializers Initializer Delegation for Value Types Class Inheritance and Initialization Failable Initializers Required">
+<meta name="keywords" content="构造过程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="15. 构造过程">
+<meta property="og:url" content="http://yoursite.com/wiki/swift语言/swift学习摘要/15__构造过程/index.html">
+<meta property="og:site_name" content="LJ小窝">
+<meta property="og:description" content="Setting Initial Values for Stored Properties Customizing Initialization Default Initializers Initializer Delegation for Value Types Class Inheritance and Initialization Failable Initializers Required">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-01-28T08:39:18.573Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="15. 构造过程">
+<meta name="twitter:description" content="Setting Initial Values for Stored Properties Customizing Initialization Default Initializers Initializer Delegation for Value Types Class Inheritance and Initialization Failable Initializers Required">
+    
+
+    
+        <link rel="alternate" href="/atom.xml" title="LJ小窝" type="application/atom+xml">
+    
+
+    
+
+    <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/libs/open-sans/styles.css">
+    <link rel="stylesheet" href="/libs/source-code-pro/styles.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script src="/libs/jquery/plugins/cookie/1.4.1/jquery.cookie.js"></script>
+    
+    
+        <link rel="stylesheet" href="/libs/lightgallery/css/lightgallery.min.css">
+    
+    
+        <link rel="stylesheet" href="/libs/justified-gallery/justifiedGallery.min.css">
+    
+    
+    
+    
+
+
+</head>
+</html>
+<body>
+    <div id="container">
+        <header id="header">
+    <div id="header-main" class="header-inner">
+        <div class="outer">
+            <a href="/" id="logo">
+                <i class="logo"></i>
+                <span class="site-title">LJ小窝</span>
+            </a>
+            <nav id="main-nav">
+                
+                    <a class="main-nav-link" href="/">首页</a>
+                
+                    <a class="main-nav-link" href="/archives">归档</a>
+                
+                    <a class="main-nav-link" href="/categories">分类</a>
+                
+                    <a class="main-nav-link" href="/tags">标签</a>
+                
+                    <a class="main-nav-link" href="/about">关于</a>
+                
+            </nav>
+            
+            <div id="search-form-wrap">
+
+    <form class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+        <button type="submit" class="search-form-submit"></button>
+    </form>
+    <div class="ins-search">
+    <div class="ins-search-mask"></div>
+    <div class="ins-search-container">
+        <div class="ins-input-wrapper">
+            <input type="text" class="ins-search-input" placeholder="想要查找什么...">
+            <span class="ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+(function (window) {
+    var INSIGHT_CONFIG = {
+        TRANSLATION: {
+            POSTS: '文章',
+            PAGES: '页面',
+            CATEGORIES: '分类',
+            TAGS: '标签',
+            UNTITLED: '(未命名)',
+        },
+        ROOT_URL: '/',
+        CONTENT_URL: '/content.json',
+    };
+    window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+})(window);
+</script>
+<script src="/js/insight.js"></script>
+
+</div>
+        </div>
+    </div>
+    <div id="main-nav-mobile" class="header-sub header-inner">
+        <table class="menu outer">
+            <tr>
+                
+                    <td><a class="main-nav-link" href="/">首页</a></td>
+                
+                    <td><a class="main-nav-link" href="/archives">归档</a></td>
+                
+                    <td><a class="main-nav-link" href="/categories">分类</a></td>
+                
+                    <td><a class="main-nav-link" href="/tags">标签</a></td>
+                
+                    <td><a class="main-nav-link" href="/about">关于</a></td>
+                
+                <td>
+                    
+    <div class="search-form">
+        <input type="text" class="ins-search-input search-form-input" placeholder="搜索">
+    </div>
+
+                </td>
+            </tr>
+        </table>
+    </div>
+</header>
+
+        <div class="outer">
+            
+            
+                <aside id="sidebar">
+   
+        
+    <div class="widget-wrap" id="categories">
+        <h3 class="widget-title">
+            <span>分类</span>
+            &nbsp;
+            <a id="allExpand" href="#">
+                <i class="fa fa-angle-double-down fa-2x"></i>
+            </a>
+        </h3>
+        
+        
+        
+         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++Primer
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第七章类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第七章类/类/">类</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第三章 字符串、向量、数组
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第三章 字符串、向量、数组/字符串、向量、数组/">字符串、向量、数组</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第九章顺序容器
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第九章顺序容器/顺序容器/">顺序容器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章变量和基本类型
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/">变量和基本类型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第八章io库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第八章io库/IO库/">IO库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第六章函数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十三章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十九章特殊工具和技术
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/">特殊工具和技术</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十二章 动态内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十二章 动态内存/动态内存/">动态内存</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十五章 面向对象程序设计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十六章 模板和泛型编程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/">模板和泛型编程</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十四章/重载运算与类型转换/">重载运算与类型转换</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第十章 泛型算法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/">泛型算法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章 表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/表达式/">表达式</a></li>  <li class="file"><a href="/wiki/C++语言/C++Primer/第四章 表达式/运算符优先级表/">运算符优先级表</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            附录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++Primer/附录/关键字使用的位置/">关键字使用的位置</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C++关键字理解
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/C++关键字理解/explicit-learn/">explicit实例浅析(转载)</a></li>  <li class="file"><a href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            STL源码剖析
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第二章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            第四章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/STL源码剖析/第四章/deque/">deque</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            container
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            deque
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/deque/deque的实现原理和使用方法详解/">deque的实现原理和使用方法详解</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            list
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C++语言/container/list/C++标准库中的list的实现原理/">C++标准库中的list的实现原理</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/C++语言/container/forward_list不支持push_back操作/">为什么`forward_list`不支持`push_back`操作？</a></li>  <li class="file"><a href="/wiki/C++语言/container/容器基本操作/">容器基本操作</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            C语言语法
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/C语言语法/struct_Analize/">struct定义语法</a></li>  <li class="file"><a href="/wiki/C语言语法/CC_pointer_memry/">二级指针动态申请内存</a></li>  <li class="file"><a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a></li>  <li class="file"><a href="/wiki/C语言语法/union定义/">union定义(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Hybird
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            webview
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            桌面移动过来的资料
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            weex 文档
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/"></a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/Hybird/weex/Weex_six_events/">weex系列抄之一---事件处理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/event-analize/">weex 事件原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex-debug/">搭建weex断点调试环境</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_four/">weex系列抄之四---flex 布局</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a></li>  <li class="file"><a href="/wiki/Hybird/weex/weex_two/">weex系列抄之二---weex原理</a></li>  <li class="file"><a href="/wiki/Hybird/weex/Weex_five/">weex系列抄之四---由 FlexBox 算法强力驱动的 Weex 布局引擎</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            GCD
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS12
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            MachO
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/MachO/MachO_FileStructure/">Mach-O文件结构理解</a></li>  <li class="file"><a href="/wiki/IOS/MachO/machoviewer/">mach-o Viewer 源码学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Runtime
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            objc
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/objc/0_refer/">0. 参考资料</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/10_load_images/">10.load_images 函数分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/16_retain_release/">16. retain 和 release（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/17_weak/">17. weak 相关源码分析</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/18_syncsize/">18. @synchronized</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/7_NXMapTable/">7. NXMapTable数据结构</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/8__objc_init/">8. objc4入口函数</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/objc/9__read_images/">9. _read_images 从二进制文件中读取类信息</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            神经病院Objective-C Runtime入院系列文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/firstDay/">第一天--isa和Class(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/secondDay/">第二天--消息发送与转发（转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            经典文章
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/经典文章/Objective_C_Category/">深入理解Objective-C：Category(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/经典文章/meta_class/">Objective-C 中的元类（meta class）是什么？</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            crash
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/1_system_Crash_Type/">1. 系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/2_Collection_Crash/">2. 收集崩溃日志方法</a></li>  <li class="file"><a href="/wiki/IOS/crash/3_KSCrash_Analize/">3. KSCrash原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/4_increase_Wild_Pointer/">4.如何定位Obj-C野指针随机Crash(一):先提高野指针Crash率(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/7_increase_Wild_Pointer/">7. Scribble& NSZombieEnabled</a></li>  <li class="file"><a href="/wiki/IOS/crash/6_increase_Wild_Pointer/">6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            foundation使用记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使的副本/">统计函数执行时间</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            事件处理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/事件处理/iOS事件处理/">iOS事件处理看我就够了(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            内存管理
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/内存管理/内存学习/">内存学习</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            动态库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            小码哥视频
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/小码哥视频/ios_jalebroke/">NSInvocation的基本使</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            库
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/库/组件化-库/">组件化-库</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            开源库学习
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            fishhook
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/开源库学习/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            logan
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/开源库学习/logan/logan/">logan 源码浅析</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            暂无分类
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            虚拟内存
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            JS
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/JS/flexBox/">flexBox 伸缩盒子模型</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            linux命令
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/linux命令/export命令/">export命令</a></li>  <li class="file"><a href="/wiki/linux命令/set命令/">set命令</a></li>  <li class="file"><a href="/wiki/linux命令/特殊参数/">set命令</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            swift语言
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            swift学习摘要
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/swift语言/swift学习摘要/10__类和结构体/">10. 类和结构体</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/11__属性/">11. 属性</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/12__方法/">12. 方法</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/13__下标/">13. 下标</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/14__继承/">14. 继承</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/16__析构过程/">16. 析构过程</a></li>  <li class="file active"><a href="/wiki/swift语言/swift学习摘要/15__构造过程/">15. 构造过程</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/17__可选链/">17. 可选链</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/18__错误处理/">18. 错误处理</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/20__嵌套类型/">20. 嵌套类型</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/24__自动引用计数器/">24. 自动引用计数器</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/21__扩展/">21. 扩展</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/22__协议/">22. 协议</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/23__泛型/">23. 泛型</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/2__基础/">2. 基础</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/7__函数/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/8__闭包/">7. 函数</a></li>  <li class="file"><a href="/wiki/swift语言/swift学习摘要/9__枚举/">1. 枚举</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Cocoapods
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-learn-install/">cocoapod学习 安装和使用（1）</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/cocoapod-private-repo/">创建私有仓库</a></li>  <li class="file"><a href="/wiki/工具/Cocoapods/Cocoapods-new-spec/">Cocoapods-new-spec</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            IOS模拟器安装app
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/IOS模拟器安装app/IOS_simulator_install_app/">给IOS模拟器按照APP</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Xcode编译常量
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/Xcode编译常量/xcode编译环境变量/">Xcode编译环境变量</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git简略版
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            git详细记录
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/git/git详细记录/git仓库/">Git仓库(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a></li>  <li class="file"><a href="/wiki/工具/git/git详细记录/git工作区/">git时光穿梭(转载)</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            hexo
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/hexo/LaTex/">支持LaTEX的hexo博客</a></li>  <li class="file"><a href="/wiki/工具/hexo/hexo-use/">hexo使用指南</a></li>  <li class="file"><a href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            markdowm
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/markdowm/Markdown公式编辑学习笔记/">Markdown公式编辑</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            ruby
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/ruby/homebrew-gem使用/">homebrew-gem使用.</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            工具下载地址
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/工具/工具下载地址/工具下载地址/">工具下载地址</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            数据知识
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            编程理论
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            SSH
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/SSH/ssh-theory/">图解SSH原理</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            mmap
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/mmap/union定义的副本/">mmap原理之详解(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            正则表达式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                     </ul> 
+    </div>
+    <script>
+        $(document).ready(function() {
+            var iconFolderOpenClass  = 'fa-folder-open';
+            var iconFolderCloseClass = 'fa-folder';
+            var iconAllExpandClass = 'fa-angle-double-down';
+            var iconAllPackClass = 'fa-angle-double-up';
+            // Handle directory-tree expansion:
+            // 左键单独展开目录
+            $(document).on('click', '#categories a[data-role="directory"]', function (event) {
+                event.preventDefault();
+
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var subtree = $(this).siblings('ul');
+                icon.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if (expanded) {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideUp({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderCloseClass);
+                } else {
+                    if (typeof subtree != 'undefined') {
+                        subtree.slideDown({ duration: 100 });
+                    }
+                    icon.addClass(iconFolderOpenClass);
+                }
+            });
+            // 右键展开下属所有目录
+            $('#categories a[data-role="directory"]').bind("contextmenu", function(event){
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconFolderOpenClass);
+                var listNode = $(this).siblings('ul');
+                var subtrees = $.merge(listNode.find('li ul'), listNode);
+                var icons = $.merge(listNode.find('.fa'), icon);
+                icons.removeClass(iconFolderOpenClass).removeClass(iconFolderCloseClass);
+                if(expanded) {
+                    subtrees.slideUp({ duration: 100 });
+                    icons.addClass(iconFolderCloseClass);
+                } else {
+                    subtrees.slideDown({ duration: 100 });
+                    icons.addClass(iconFolderOpenClass);
+                }
+            })
+            // 展开关闭所有目录按钮
+            $(document).on('click', '#allExpand', function (event) {
+                event.preventDefault();
+                
+                var icon = $(this).children('.fa');
+                var expanded = icon.hasClass(iconAllExpandClass);
+                icon.removeClass(iconAllExpandClass).removeClass(iconAllPackClass);
+                if(expanded) {
+                    $('#sidebar .fa.fa-folder').removeClass('fa-folder').addClass('fa-folder-open')
+                    $('#categories li ul').slideDown({ duration: 100 });
+                    icon.addClass(iconAllPackClass);
+                } else {
+                    $('#sidebar .fa.fa-folder-open').removeClass('fa-folder-open').addClass('fa-folder')
+                    $('#categories li ul').slideUp({ duration: 100 });
+                    icon.addClass(iconAllExpandClass);
+                }
+            });  
+        });
+    </script>
+
+    
+    <div id="toTop" class="fa fa-angle-up"></div>
+</aside>
+            
+            <section id="main"><article id="post-swift语言/swift学习摘要/15__构造过程" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/swift语言/swift学习摘要/">swift学习摘要</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/构造过程/">构造过程</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/swift语言/swift学习摘要/15__构造过程/">
+            <time datetime="2019-01-28T02:07:12.000Z" itemprop="datePublished">2019-01-28</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            15. 构造过程
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#设置存储属性的初始值"><span class="toc-number">1.</span> <span class="toc-text">设置存储属性的初始值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造器器"><span class="toc-number">2.</span> <span class="toc-text">构造器器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认属性值"><span class="toc-number">3.</span> <span class="toc-text">默认属性值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自定义构造过程"><span class="toc-number">4.</span> <span class="toc-text">自定义构造过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可选属性类型"><span class="toc-number">5.</span> <span class="toc-text">可选属性类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在构造过程期间给常量赋值"><span class="toc-number">6.</span> <span class="toc-text">在构造过程期间给常量赋值</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#默认构造器"><span class="toc-number">7.</span> <span class="toc-text">默认构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构体类型的成员构造器器"><span class="toc-number">8.</span> <span class="toc-text">结构体类型的成员构造器器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#值类型的构造器器代理"><span class="toc-number">9.</span> <span class="toc-text">值类型的构造器器代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的继承和构造过程"><span class="toc-number">10.</span> <span class="toc-text">类的继承和构造过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#指定构造器和便利构造器"><span class="toc-number">11.</span> <span class="toc-text">指定构造器和便利构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#类的构造代理"><span class="toc-number">12.</span> <span class="toc-text">类的构造代理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#两段式构造器过程"><span class="toc-number">13.</span> <span class="toc-text">两段式构造器过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造器的继承和重写"><span class="toc-number">14.</span> <span class="toc-text">构造器的继承和重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#自动构造器的继承"><span class="toc-number">15.</span> <span class="toc-text">自动构造器的继承</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可失败构造器"><span class="toc-number">16.</span> <span class="toc-text">可失败构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#枚举的可失败构造器"><span class="toc-number">17.</span> <span class="toc-text">枚举的可失败构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#带有原始值枚举的可失败构造器"><span class="toc-number">18.</span> <span class="toc-text">带有原始值枚举的可失败构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#构造失败的传递"><span class="toc-number">19.</span> <span class="toc-text">构造失败的传递</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重写可失败构造器"><span class="toc-number">20.</span> <span class="toc-text">重写可失败构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#init-可失败构造器"><span class="toc-number">21.</span> <span class="toc-text">init! 可失败构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#必要构造器"><span class="toc-number">22.</span> <span class="toc-text">必要构造器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用闭包或函数设置默认属性值"><span class="toc-number">23.</span> <span class="toc-text">使用闭包或函数设置默认属性值</span></a></li></ol>
+                </div>
+            
+        
+        
+            <ol>
+<li>Setting Initial Values for Stored Properties</li>
+<li>Customizing Initialization</li>
+<li>Default Initializers</li>
+<li>Initializer Delegation for Value Types</li>
+<li>Class Inheritance and Initialization</li>
+<li>Failable Initializers</li>
+<li>Required Initializers</li>
+<li>Setting a Default Property Value with a Closure or Function</li>
+</ol>
+<a id="more"></a>
+<p>Swift 的构造器不用返回值。它们主要的作用就是确保在第一次使用前某类型 的实例都能正确的初始化。</p>
+<h2 id="设置存储属性的初始值"><a href="#设置存储属性的初始值" class="headerlink" title="设置存储属性的初始值"></a>设置存储属性的初始值</h2><p>类和结构体在其创建实例时 必须 为它们所有的存储属性设置适当的初始值。存储属性不能处 于未知状态。<br>你可以在构造器中为存储属性设置初始值，或是作为定义属性时的一部分设置其默认值。</p>
+<blockquote>
+<p>注意：当你为存储属性设置默认值时，或是在构造器中设置其初始值，属性值是直接设置的，并不会调用任何属性观察器。</p>
+</blockquote>
+<h2 id="构造器器"><a href="#构造器器" class="headerlink" title="构造器器"></a>构造器器</h2><p>构造器在创建某类实例时调用。其最简单的形式用 init 数的实例方法</p>
+<h2 id="默认属性值"><a href="#默认属性值" class="headerlink" title="默认属性值"></a>默认属性值</h2><p>你可以在构造器中设置一个存储属性的初始值。或指定一个 <code>默认属性值</code> 作为声明 属性的一部分。指定默认属性值你可以通过在属性定义时为其赋一个初始值。</p>
+<blockquote>
+<p>注意：如果一个属性总是相同的初始值，与其在构造器中设置一个值不如提供一个默认值。其效果是相同的，但是默认值与属性构造器的联系更紧密一些。它使构造器更简短，更清晰，并且可以通过默认值推断属性类型。默认值也使你更易使用默认构造器和构造器继承，</p>
+</blockquote>
+<h2 id="自定义构造过程"><a href="#自定义构造过程" class="headerlink" title="自定义构造过程"></a>自定义构造过程</h2><p>参数名：如果你在构造 器中没有为 每一个 参数提供外部参数名，Swift 就会自动为其提供外部参数名。</p>
+<blockquote>
+<p>注意如果不使用外部参数名是无法调用这些构造器的。如果在构造器中定义了外部参数名就必须使用，忽略它将会触发编译错误。</p>
+</blockquote>
+<h2 id="可选属性类型"><a href="#可选属性类型" class="headerlink" title="可选属性类型"></a>可选属性类型</h2><p>可选类型的属性会自动被初始化为 nil ，表示属性在构造过程期间故意设置为『没有 值』。</p>
+<h2 id="在构造过程期间给常量赋值"><a href="#在构造过程期间给常量赋值" class="headerlink" title="在构造过程期间给常量赋值"></a>在构造过程期间给常量赋值</h2><p>构造过程期间你可以在任何时间点给常量属性赋值，只要构造完成时设置了确定值即可。一旦常量属性被赋值，就不能再次修改。</p>
+<blockquote>
+<p>注意：对于类的实例来说，常量属性只能在定义常量属性类的构造器中修改。不能在派生类中修改。</p>
+</blockquote>
+<h2 id="默认构造器"><a href="#默认构造器" class="headerlink" title="默认构造器"></a>默认构造器</h2><p>Swift 为属性均有默认值和没有构造器的结构体或类提供了一个 默认构造器 。默认构造器创 建了一个所有属性都有默认值的新实例。</p>
+<h2 id="结构体类型的成员构造器器"><a href="#结构体类型的成员构造器器" class="headerlink" title="结构体类型的成员构造器器"></a>结构体类型的成员构造器器</h2><p>如果结构体没有任何自定义构造器，那么结构体类型会自动接收一个 成员构造器。不同于默 认构造器，即使结构体的存储属性没有默认值，它也会接收成员构造器。</p>
+<h2 id="值类型的构造器器代理"><a href="#值类型的构造器器代理" class="headerlink" title="值类型的构造器器代理"></a>值类型的构造器器代理</h2><p>构造器可以调用其他构造器来执行实例的部分构造过程。这个过程称之为 构造器代理 ，以避免多个构造器之间的<strong>重复代码</strong>。</p>
+<p>对于值类型，在自定义构造器中使用 self.init 来引用同一类型中的其他构造器。<strong>你只能在构造器中调用 self.init </strong>。</p>
+<p>如果你为值类型定义了一个自定义构造器，你将无法再访问该类型的默认构造器( 如果是结 构体就是成员构造器 )</p>
+<blockquote>
+<p>注意：如果你想让你的自定义类型可以使用默认构造器，成员构造器，自定义构造器来进行初始化，就把自定义构造器写在扩展中，而不是作为值类型原始实现的一部分。</p>
+</blockquote>
+<h2 id="类的继承和构造过程"><a href="#类的继承和构造过程" class="headerlink" title="类的继承和构造过程"></a>类的继承和构造过程</h2><p>类的所有存储属性 — 包括任何从父类继承而来的属性 — 必须 在构造过程期间赋值。<br>Swift 给类类型定义了两种构造器以确保所有存储属性都能接收到初始值。它们分别是指定构造器和便利构造器。</p>
+<h2 id="指定构造器和便利构造器"><a href="#指定构造器和便利构造器" class="headerlink" title="指定构造器和便利构造器"></a>指定构造器和便利构造器</h2><p>指定构造器是类的主要构造器。一个指定构造器初始化该类引入的所有属性，并调用合适的父类构造器以继续父类链上的构造过程。</p>
+<p>便利构造器有着相同风格的写法，但是在 init 关键字之前需要放置 convenience 修饰符，并使用空格来分隔。</p>
+<h2 id="类的构造代理"><a href="#类的构造代理" class="headerlink" title="类的构造代理"></a>类的构造代理</h2><p>为了简化指定构造器和便利构造器之间的关系。Swift 对构造器之间的代理采用了如下三条规则：</p>
+<ol>
+<li>指定构造器必须调用其直系父类的指定构造器。</li>
+<li>便利构造器必须调用 同一 类中的其他构造器。</li>
+<li>便利构造器最后必须调用指定构造器。</li>
+</ol>
+<p>简单的记忆方法:</p>
+<ol>
+<li>指定构造器必须 <strong>向上</strong> 代理。 </li>
+<li>便利构造器必须 <strong>横向</strong> 代理。</li>
+</ol>
+<h2 id="两段式构造器过程"><a href="#两段式构造器过程" class="headerlink" title="两段式构造器过程"></a>两段式构造器过程</h2><p>Swift 中类的构造过程是两段式处理。第一阶段，为类引入的每个存储属性赋一个初始值。一旦确定了所有存储属性的初始状态，第二阶段开始，在新的实例被认为可以使用前，每个类都有机会进一步定制其存储属性。</p>
+<p>Swift 的编译器执行了四个有帮助的安全检查以确保两段式构造过程无误完成: </p>
+<ol>
+<li>安全检查 1：指定构造器必须确保其类引入的所有属性在向上代理父类构造器之前完成初始化。如上所述，一个对象的内存只在其所有存储属性初始状态已知时才被认为完全初始化。为了符合此规则，指定构造器必须确保其所属类拥有的属性在向上代理前完成初始化。</li>
+<li>安全检查 2：指定构造器必须在继承属性赋值前向上代理父类构造器，否则，便利构造器赋予的新值将被父类构造过程的一部分重写。</li>
+<li>安全检查 3：便利构造器必须在 任何 属性(包括同一类中定义的属性)赋值前代理另一个构造器。否则便利构造器赋予的新值将被其所属类的指定构造器重写。</li>
+<li>安全检查 4 构造器在第一阶段构造过程完成前，不能调用任何实例方法，不能读取任何实例属性的值，不能引用 self 作为一个值。</li>
+</ol>
+<p>以下是基于以上四个安全检查的两段式构造过程的流程:</p>
+<p>阶段 1：</p>
+<ol>
+<li>在类中调用指定或便利构造器。</li>
+<li>对一个新实例分配内存，但内存没还没有初始化。 指定构造器确认其所属类的所有存储属性都有值。现在那些存储属性的内存初始化完成。</li>
+<li>指定构造器移交给父类构造器以为其存储属性执行相同的任务。 </li>
+<li>这个过程沿着类的继承链持续向上，直到到达继承链的顶端。</li>
+<li>一旦到达链的顶端，并且链中最后的类确保其所有存储属性都有值，则认为实例的内 存已经完全初始化，至此阶段 1 完成。</li>
+</ol>
+<p>阶段 2：</p>
+<ol>
+<li>从链顶端往下，链中每个指定构造器都可以选择进一步定制实例，构造器现在可以访 问 self 并修改它的属性，调用实例方法，等等。</li>
+<li>最终，在链中的任何便利构造器也都可以选择定制实例以及使用 self 。</li>
+</ol>
+<h2 id="构造器的继承和重写"><a href="#构造器的继承和重写" class="headerlink" title="构造器的继承和重写"></a>构造器的继承和重写</h2><p>与 Objective-C 的派生类不同，Swift 的派生类默认不继承其父类构造器。Swift 这种机制防止了更定制化的派生类继承父类的简单构造器，也防止将简单构造器用于创建不完全初始化或是错误初始化的派生类实例。</p>
+<p>当你在写一个与父类 指定 构造器相匹配的派生类构造器时，你是在有效的重写指定构造器。 因此，你必须在派生类构造器的定义前写上修饰符 override 。即使你重写的是一个自动提供的默认构造器，也要写上 override 。</p>
+<p>相反的，如果你写一个与父类 便利 构造器相匹配的派生类构造器，根据 类的构造器代理 规 则，派生类是不能直接调用父类便利构造器的。因此，你的派生类(严格来说)没有重写父 类构造器。所以，在提供与父类便利构造器相匹配的实现时，无需编写 修饰<br>符 override </p>
+<p>默认构造器(在可用时)总是类中的指定构造器。</p>
+<p>派生类可在构造过程期间可修改变量继承属性，但不能修改常量继承属性。</p>
+<h2 id="自动构造器的继承"><a href="#自动构造器的继承" class="headerlink" title="自动构造器的继承"></a>自动构造器的继承</h2><p>如上所述，派生类默认不继承其父类构造器。然而，如果满足某些特定条件，父类构造器 是 可以被自动继承的。实际上，这意味着很多常见场景中你不需要重写构造器，并且可以安全的以最小代价继承父类构造器。<br>假设你为派生类引入的所有属性提供了默认值，请应用以下两条规则以达到自动继承的目的:</p>
+<ol>
+<li>规则 1:如果你的派生类没有定义任何指定构造器，它会自动继承其父类的所有指定构造器。</li>
+<li>规则 2:如果你的派生类为其父类的 所有 指定构造器都提供了实现 — 无论是按照规则 1 继承而来， 或是定义时提供了自定义实现 — 它都会自动继承父类的所有便利构造器。甚至在派生类进一步添加便利构造器时，这些规则仍然适用。</li>
+</ol>
+<h2 id="可失败构造器"><a href="#可失败构造器" class="headerlink" title="可失败构造器"></a>可失败构造器</h2><p>为了应对可能失败的构造过程，你可以为类，结构体，或是枚举定义一个或是多个可失败构 造器。编写可失败构造器的语法就是在 init 关键字后面添加问号( init? )。</p>
+<blockquote>
+<p>注意:你不能使用相同的参数类型或参数名定义一个可失败构造器后又定义一个非失败构造器。</p>
+</blockquote>
+<p>可失败构造器会创建一个关联值类型是自身构造类型的 可选 类型。在可失败构造器中编 写 return nil 以表示可以在任何情况下触发失败。</p>
+<p>注意:严格来说，构造器没有返回值。它们的作用是确保构造过程结束时 self 可以完全并正确的初始化。虽然你写 return nil 是用于触发构造器失败，但表示构造成功是不会使用 return 关键字的。</p>
+<h2 id="枚举的可失败构造器"><a href="#枚举的可失败构造器" class="headerlink" title="枚举的可失败构造器"></a>枚举的可失败构造器</h2><h2 id="带有原始值枚举的可失败构造器"><a href="#带有原始值枚举的可失败构造器" class="headerlink" title="带有原始值枚举的可失败构造器"></a>带有原始值枚举的可失败构造器</h2><h2 id="构造失败的传递"><a href="#构造失败的传递" class="headerlink" title="构造失败的传递"></a>构造失败的传递</h2><p>类、结构体或枚举的可失败构造器可以横向代理同一类型中的其他可失败构造器。类似的，派生类的可失败构造器可以向上代理其父类的可失败构造器。</p>
+<blockquote>
+<p>注意：一个可失败构造可以代理一个非失败构造器。如果你需要添加一个可能失败的状态到现有构造过程，请使用这个办法，否则将会构造失败。</p>
+</blockquote>
+<h2 id="重写可失败构造器"><a href="#重写可失败构造器" class="headerlink" title="重写可失败构造器"></a>重写可失败构造器</h2><p>你可以在派生来中重写父类的可失败构造器，就像其他构造器那样。或是你可以用派生类的 非失败 构造器重写父类的可失败构造器。这允许你定义一个不会构造失败的派生类，即使父 类的构造过程允许失败。</p>
+<p>注意如果你使用非失败的派生类构造器重写了可失败的父类构造器，向上代理父类构造器的 唯一的方法就是强制解包(force-unwrap)可失败父类构造器的结果。</p>
+<p>你可以使用非失败构造器重写可失败构造器，但是反过来不行。</p>
+<h2 id="init-可失败构造器"><a href="#init-可失败构造器" class="headerlink" title="init! 可失败构造器"></a>init! 可失败构造器</h2><p>通常使用在关键字 init 后面放置问号( init? )的方式来定义一个可失败构造器， 用于创建一个适当的可选类型实例。你也可以定义一个可失败构造器，将其用于创建一个适 当的隐式解包可选类型的实例。为了定义这个可失败构造器，在关键字 init 后面用叹号 来替代问号( init! )。</p>
+<h2 id="必要构造器"><a href="#必要构造器" class="headerlink" title="必要构造器"></a>必要构造器</h2><p>在类构造器的定义前写修饰符 required 以指明该类的每个派生类必须实现此构造器。</p>
+<p>在每个派生类实现必要构造器时也必须在构造器前面写修饰符 required ，以指明构造 器要求应用于继承链中所有派生类。重写一个必要指定构造器时无需写修饰符 override 。</p>
+<h2 id="使用闭包或函数设置默认属性值"><a href="#使用闭包或函数设置默认属性值" class="headerlink" title="使用闭包或函数设置默认属性值"></a>使用闭包或函数设置默认属性值</h2><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">SomeClass</span> &#123;</span><br><span class="line">	<span class="keyword">let</span> someProperty: SomeType = &#123;</span><br><span class="line">		<span class="comment">// 在闭包中创建⼀一个带有默认值的 someProperty // someValue 的类型必须是 SomeType</span></span><br><span class="line">		<span class="keyword">return</span> someValue</span><br><span class="line">	&#125;() </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意那个闭包的结束是在大括号后面尾随一对空括号。这告诉 Swift 立即执行闭包。如果你 忽略了这对括号，则为试图将闭包本身赋值给属性，而不是闭包的返回值。</p>
+<p>注意：如果你使用闭包初始化属性，记住在闭包执行时其他实例还未初始化。这意味着无法在闭包中访问其他属性值，即使那些属性有默认值。你也不能隐式使用 self 属性，或 是调用实例方法。</p>
+</blockquote>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+    
+<nav id="article-nav">
+    
+        <a href="/wiki/swift语言/swift学习摘要/18__错误处理/" id="article-nav-newer" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">上一篇</strong>
+            <div class="article-nav-title">
+                
+                    18. 错误处理
+                
+            </div>
+        </a>
+    
+    
+        <a href="/wiki/swift语言/swift学习摘要/17__可选链/" id="article-nav-older" class="article-nav-link-wrap">
+            <strong class="article-nav-caption">下一篇</strong>
+            <div class="article-nav-title">17. 可选链</div>
+        </a>
+    
+</nav>
+
+
+
+
+
+    
+    
+        <section id="comments"> 
+    <div class="ds-thread" data-thread-key="wiki/swift语言/swift学习摘要/15__构造过程/" data-title="15. 构造过程" data-url="http://yoursite.com/wiki/swift语言/swift学习摘要/15__构造过程/"></div>
+    <style>
+        #ds-thread #ds-reset .ds-textarea-wrapper {
+            background: none;
+        }
+        #ds-reset .ds-avatar img {
+            box-shadow: none;
+        }
+        #ds-reset .ds-gradient-bg {
+            background: #f7f7f7;
+        }
+        #ds-thread #ds-reset li.ds-tab a {
+            border-radius: 3px;
+        }
+        #ds-thread #ds-reset .ds-post-button {
+            color: white;
+            border: none;
+            box-shadow: none;
+            background: #d32;
+            text-shadow: none;
+            font-weight: normal;
+            font-family: 'Microsoft Yahei';
+        }
+        #ds-thread #ds-reset .ds-post-button:hover {
+            color: white;
+            background: #DE594C;
+        }
+        #ds-thread #ds-reset .ds-post-button:active {
+            background: #d32;
+        }
+        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
+            color: white;
+            background: #d32;
+            box-shadow: none;
+            text-shadow: none;
+            font-weight: normal;
+        }
+    </style>
+ </section>
+    
+
+
+
+
+<!-- baidu url auto push script -->
+<script type="text/javascript">
+    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
+</script>     
+</section>
+        </div>
+        <footer id="footer">
+    <div class="outer">
+        <div id="footer-info" class="inner">
+            LJ &copy; 2019 
+            <a rel="external nofollow noopener noreferrer" href="http://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/80x15.png"></a>
+            <br> Powered by <a href="http://hexo.io/" target="_blank" rel="external nofollow noopener noreferrer">Hexo</a>. Theme - <a href="https://github.com/zthxxx/hexo-theme-Wikitten" rel="external nofollow noopener noreferrer" target="_blank">wikitten</a>
+        </div>
+    </div>
+</footer>
+        
+    
+    <script type="text/javascript">
+    var duoshuoQuery = {short_name:'lijian'};
+    (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0]
+    || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+
+
+
+    
+        <script src="/libs/lightgallery/js/lightgallery.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-thumbnail.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-pager.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-autoplay.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-fullscreen.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-zoom.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-hash.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-share.min.js"></script>
+        <script src="/libs/lightgallery/js/lg-video.min.js"></script>
+    
+    
+        <script src="/libs/justified-gallery/jquery.justifiedGallery.min.js"></script>
+    
+    
+        <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true,
+            TeX: {
+                equationNumbers: {
+                  autoNumber: 'AMS'
+                }
+            }
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+
+
+<!-- Custom Scripts -->
+<script src="/js/main.js"></script>
+
+    </div>
+</body>
