@@ -87,32 +87,23 @@
   </entry>
   
   <entry>
-    <title>22. 协议</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/22__协议/</id>
+    <title>21. 扩展</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
     <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T10:59:08.348Z</updated>
+    <updated>2019-01-29T07:07:06.729Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Protocol Syntax</li><li>Property Requirements</li><li>Method Requirements</li><li>Mutating Method Requirements</li><li>Initializer Requirements</li><li>Protocols as Types</li><li>Delegation</li><li>Adding Protocol Conformance with an Extension</li><li>Collections of Protocol Types</li><li>Protocol Inheritance</li><li>Class-Only Protocols</li><li>Protocol Composition</li><li>Checking for Protocol Conformance</li><li>Optional Protocol Requirements</li><li>Protocol Extensions</li></ol><a id="more"></a><p><strong>协议</strong>可以作为方法、属性或者其他的一些特定的任务和功能块的设计蓝图。协议可以适用于类、结构体、枚举,并为它们提供具体的实现或满足特定的需求。任意类型只要满足一个协议的要求，那么我们便称这个类型<strong>遵循</strong>这个协议。</p><p>除了要求遵循协议的类型必须提供对应的实现以外，还可以通过<strong>协议扩展</strong>来为协议的遵循者提供默认的或者对其有利的实现。</p><h2 id="协议语法"><a href="#协议语法" class="headerlink" title="协议语法"></a>协议语法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">SomeProtocol</span> </span>&#123;</span><br><span class="line"> <span class="comment">// 协议的定义写在这⾥</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SomeStructure</span>: FirstProtocol, AnotherProtocol </span>&#123; </span><br><span class="line"><span class="comment">// 结构体的定义写在这⾥</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>需要注意的是，在为子类适配协议时，父类的名称需要写在协议名之前，分隔符不变。</p><h2 id="属性要求"><a href="#属性要求" class="headerlink" title="属性要求"></a>属性要求</h2><p>协议可以要求遵循者提供特定名称的实例属性、类型属性。协议只指定属性的名称和类型，而不指定属性是储存属性还是计算属性。此外，协议中也可以指定属性是可读的还是可读可写的。</p><p><strong>协议可以指定属性的名称、类型、读写性</strong></p><p>协议属性通常会以var关键字来声明变量属性。在类型声明后加上<code>{ get set }</code>来表示属性是可读可写的，用<code>{ get }</code>来表示可读属性。</p><p>在协议中定义<strong>类型属性</strong>时，始终使用static关键字作为前缀。即使该<strong>类型属性</strong>在类实现时以以 class 或 static 关键字作为前缀，这个规则也适用。</p><h2 id="方法要求"><a href="#方法要求" class="headerlink" title="方法要求"></a>方法要求</h2><p>我们无法为协议中定义的方法的参数指定默认值。</p><p>与<strong>类型属性</strong>一样，当在协议中定义<strong>类型方法</strong>时，始终使用static 关键字作为前缀。即使该类型方法要求在由类实现时以 class 或 static 关键字为前缀，也是如此。</p><h2 id="异变方法要求"><a href="#异变方法要求" class="headerlink" title="异变方法要求"></a>异变方法要求</h2><blockquote><p>注意：如果将协议实例方法要求标记为mutating，则在为类编写该方法的实现时，不需要写<code>mutating</code>关键字。 mutating关键字仅由结构体和枚举使用。</p></blockquote><h2 id="构造器要求"><a href="#构造器要求" class="headerlink" title="构造器要求"></a>构造器要求</h2><p>协议可能要求通过遵循类型来实现<strong>指定构造器</strong>。和普通构造器写法一样，你可以将构造器定义写在协议中，只是不用写大括号和构造器实现。</p><h3 id="类实现协议构造器的要求"><a href="#类实现协议构造器的要求" class="headerlink" title="类实现协议构造器的要求"></a>类实现协议构造器的要求</h3><p>你可以通过实现指定构造器、便利构造器来使遵循协议的类满足协议的构造器要求。在这两种情况下，你必须使用 required 修饰符标记构造器实现。</p><h3 id="可失败的构造器的要求"><a href="#可失败的构造器的要求" class="headerlink" title="可失败的构造器的要求"></a>可失败的构造器的要求</h3><p>遵循类型可以用可失败或非可失败的构造器来满足可失败的构造器要求。非可失败的构造器要求必须用非可失败的构造器或隐式展开的可失败的构造器来满足。</p><h2 id="将协议作为类型"><a href="#将协议作为类型" class="headerlink" title="将协议作为类型"></a>将协议作为类型</h2><p>协议本身并不实现任何功能。不过，你创建的任何协议都可以变为一个功能完备的类型在代码中使用。因为它是一种类型，所以你可以在允许其他类型的许多地方使用协议，包括:</p><ol><li>作为函数、方法或构造器的参数类型或返回类型</li><li>作为常量、变量或属性的类型</li><li>作为数组、字典或其他容器的元素类型</li></ol><h2 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h2><p>委托是一种设计模式，它使类或结构体能够将其某些职责交给(或委托)到另一种类型的实例。通过定义封装委托职责的协议来实现此设计模式，从而保证遵循协议的类型(称为委托)提供被委托的功能。</p><h2 id="扩展添加遵循某协议"><a href="#扩展添加遵循某协议" class="headerlink" title="扩展添加遵循某协议"></a>扩展添加遵循某协议</h2><pre><code>extension Dice: TextRepresentable {    var textualDescription: String {        return &quot;A \(sides)-sided dice&quot;    }}</code></pre><h3 id="有条件地遵循协议"><a href="#有条件地遵循协议" class="headerlink" title="有条件地遵循协议"></a>有条件地遵循协议</h3><p>泛型类型可能只能在特定条件下满足协议的要求，例如类的泛型参数遵循一个协议。你可以通过在扩展类型时列出条件约束，让泛型类型有条件的遵循一个协议。通过编写一个泛型where分句，在遵循的协议名称后面写上约束条件。</p><h3 id="通过扩展申明类采纳了协议"><a href="#通过扩展申明类采纳了协议" class="headerlink" title="通过扩展申明类采纳了协议"></a>通过扩展申明类采纳了协议</h3><p>如果一个类型已经满足遵循一个协议的所有要求，但它没有申明遵循了这个协议，你可以通过一个空的扩展遵循该协议。</p><blockquote><p>注意：类型不会自动遵循一个协议，即便已经满足这个协议的要求。它们必须显示的申明它们遵循了这个协议。</p></blockquote><h2 id="协议类型的集合"><a href="#协议类型的集合" class="headerlink" title="协议类型的集合"></a>协议类型的集合</h2><p>协议可以用作诸如数组或字典之类的集合类型的元素类型。</p><h2 id="协议继承"><a href="#协议继承" class="headerlink" title="协议继承"></a>协议继承</h2><p>协议可以继承一个或多个协议，并且可以在其继承的协议的基础上添加更多的要求。协议继承的语法类似于类继承的语法，但是协议继承支持同时继承多个协议，并用逗号隔开。</p><h2 id="类的专属协议"><a href="#类的专属协议" class="headerlink" title="类的专属协议"></a>类的专属协议</h2><p>你可以通过将<code>AnyObject</code>协议添加到协议的继承列表中，来将协议限定为仅类类型(而不是结构体或枚举)可用。</p><blockquote><p>注意： 当协议的要求遵循者必须符合引用语义而不是值语义时，请使用<strong>类专属协议</strong>。</p></blockquote><h2 id="协议组合"><a href="#协议组合" class="headerlink" title="协议组合"></a>协议组合</h2><p>某些场合下，要求类型可以同时遵循多个协议是很有用的。您可以使用<strong>协议组合</strong>将多个协议组合到单个需求中。协议组合的行为就像你定义了一个临时本地协议，该协议具有组合中所有协议的要求。协议组合不定义任何新的协议类型。</p><p>协议组合使用<code>SomeProtocol &amp; AnotherProtocol</code>的形式。你可以根据需要，列出尽可能多的协议，用&amp;符号分隔它们。除了协议列表之外，协议组合还可以包含一个类类型，你可以使用它来指定继承的父类。</p><h2 id="检查协议的遵循情况"><a href="#检查协议的遵循情况" class="headerlink" title="检查协议的遵循情况"></a>检查协议的遵循情况</h2><p>你可以使用<strong>类型转换</strong>中描述的 is 和 as 运算符来检查协议遵循、转换成特定协议。检查和转换协议与检查和转换类型的语法相同:</p><ol><li>如果实例遵循协议，则is运算符返回true ，如果不遵循则返回false 。</li><li>向下转换运算符as?返回协议类型的可选值，如果实例不遵循该协议，则该值为nil 。</li><li>向下转换运算符的as!强制向下转换为协议类型，如果向下转换不成功则触发运行时错误。</li></ol><h2 id="可选协议要求"><a href="#可选协议要求" class="headerlink" title="可选协议要求"></a>可选协议要求</h2><p>你可以为协议定义可选要求，这些要求不强制遵循者必须实现。可选要求以 optional修饰符为前缀，作为协议定义的一部分。</p><p>可选要求允许你的代码与Objective-C交互。协议和可选要求都必须用@objc 属性标记。请注意：@objc协议只能由继承自Objective-C类或其他@objc类的类遵循。结构体或枚举不能遵循它们。</p><p>在可选要求中使用方法或属性时，其类型将自动变为可选。例如，类型 (Int) -&gt;String 的方法变为 ((Int) -&gt; String)? 。请注意：整个函数类型变成了可选项， 而不是方法的返回值。</p><p>考虑到遵循协议的类型可能未实现要求，你应该使用可选链来调用可选协议。你通过在调用方法名称后面写一个问号来检查可选方法是否实现，例如 <code>someOptionalMethod? (someArgument)</code> 。</p><h2 id="协议扩展–协议上创建扩展"><a href="#协议扩展–协议上创建扩展" class="headerlink" title="协议扩展–协议上创建扩展"></a>协议扩展–协议上创建扩展</h2><p><font color="blue">通过在协议上创建扩展</font>，所有遵循者都将自动获得此方法的实现，而无需任何其他修改。</p><p>协议扩展可以为符合协议的类型添加实现，但无法扩展协议本身或是继承其他协议。 协议继承始终在协议自身的声明中指定。</p><h3 id="提供默认实现"><a href="#提供默认实现" class="headerlink" title="提供默认实现"></a>提供默认实现</h3><p>你可以使用<strong>协议扩展</strong>来为任何方法或计算属性提供默认实现。如果一个遵循者本身就实现了协议中要求的方法或属性，那么这个实现会代替协议扩展中的默认实现。</p><p>注意：由协议扩展提供默认实现和可选协议不同。尽管符合的类型不需要提供任何一种协议的实现，但默认的实现在被调用时不需要可选链。</p><h3 id="为协议扩展添加条件约束"><a href="#为协议扩展添加条件约束" class="headerlink" title="为协议扩展添加条件约束"></a>为协议扩展添加条件约束</h3><p>当我们定义一个协议扩展时，我们可以通过where关键字在被扩展的协议名称后指定一个约束条件。</p><blockquote><p>注意：如果一个类型遵循了多个具有同名方法或属性的扩展协议，那么 Swift会优先调用约束条件较多一方的属性或方法。</p></blockquote>]]></content>
+    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Protocol Syntax&lt;/li&gt;
-&lt;li&gt;Property Requirements&lt;/li&gt;
-&lt;li&gt;Method Requirements&lt;/li&gt;
-&lt;li&gt;Mutating Method Requirements&lt;/li&gt;
-&lt;li&gt;Initializer Requirements&lt;/li&gt;
-&lt;li&gt;Protocols as Types&lt;/li&gt;
-&lt;li&gt;Delegation&lt;/li&gt;
-&lt;li&gt;Adding Protocol Conformance with an Extension&lt;/li&gt;
-&lt;li&gt;Collections of Protocol Types&lt;/li&gt;
-&lt;li&gt;Protocol Inheritance&lt;/li&gt;
-&lt;li&gt;Class-Only Protocols&lt;/li&gt;
-&lt;li&gt;Protocol Composition&lt;/li&gt;
-&lt;li&gt;Checking for Protocol Conformance&lt;/li&gt;
-&lt;li&gt;Optional Protocol Requirements&lt;/li&gt;
-&lt;li&gt;Protocol Extensions&lt;/li&gt;
+&lt;li&gt;Extension Syntax&lt;/li&gt;
+&lt;li&gt;Computed Properties&lt;/li&gt;
+&lt;li&gt;Initializers&lt;/li&gt;
+&lt;li&gt;Methods&lt;/li&gt;
+&lt;li&gt;Subscripts&lt;/li&gt;
+&lt;li&gt;Nested Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -122,7 +113,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="协议" scheme="http://yoursite.com/tags/%E5%8D%8F%E8%AE%AE/"/>
+      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
     
   </entry>
   
@@ -183,23 +174,32 @@
   </entry>
   
   <entry>
-    <title>21. 扩展</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
+    <title>22. 协议</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/22__协议/</id>
     <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T07:07:06.729Z</updated>
+    <updated>2019-01-29T10:59:08.348Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Protocol Syntax</li><li>Property Requirements</li><li>Method Requirements</li><li>Mutating Method Requirements</li><li>Initializer Requirements</li><li>Protocols as Types</li><li>Delegation</li><li>Adding Protocol Conformance with an Extension</li><li>Collections of Protocol Types</li><li>Protocol Inheritance</li><li>Class-Only Protocols</li><li>Protocol Composition</li><li>Checking for Protocol Conformance</li><li>Optional Protocol Requirements</li><li>Protocol Extensions</li></ol><a id="more"></a><p><strong>协议</strong>可以作为方法、属性或者其他的一些特定的任务和功能块的设计蓝图。协议可以适用于类、结构体、枚举,并为它们提供具体的实现或满足特定的需求。任意类型只要满足一个协议的要求，那么我们便称这个类型<strong>遵循</strong>这个协议。</p><p>除了要求遵循协议的类型必须提供对应的实现以外，还可以通过<strong>协议扩展</strong>来为协议的遵循者提供默认的或者对其有利的实现。</p><h2 id="协议语法"><a href="#协议语法" class="headerlink" title="协议语法"></a>协议语法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">SomeProtocol</span> </span>&#123;</span><br><span class="line"> <span class="comment">// 协议的定义写在这⾥</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SomeStructure</span>: FirstProtocol, AnotherProtocol </span>&#123; </span><br><span class="line"><span class="comment">// 结构体的定义写在这⾥</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>需要注意的是，在为子类适配协议时，父类的名称需要写在协议名之前，分隔符不变。</p><h2 id="属性要求"><a href="#属性要求" class="headerlink" title="属性要求"></a>属性要求</h2><p>协议可以要求遵循者提供特定名称的实例属性、类型属性。协议只指定属性的名称和类型，而不指定属性是储存属性还是计算属性。此外，协议中也可以指定属性是可读的还是可读可写的。</p><p><strong>协议可以指定属性的名称、类型、读写性</strong></p><p>协议属性通常会以var关键字来声明变量属性。在类型声明后加上<code>{ get set }</code>来表示属性是可读可写的，用<code>{ get }</code>来表示可读属性。</p><p>在协议中定义<strong>类型属性</strong>时，始终使用static关键字作为前缀。即使该<strong>类型属性</strong>在类实现时以以 class 或 static 关键字作为前缀，这个规则也适用。</p><h2 id="方法要求"><a href="#方法要求" class="headerlink" title="方法要求"></a>方法要求</h2><p>我们无法为协议中定义的方法的参数指定默认值。</p><p>与<strong>类型属性</strong>一样，当在协议中定义<strong>类型方法</strong>时，始终使用static 关键字作为前缀。即使该类型方法要求在由类实现时以 class 或 static 关键字为前缀，也是如此。</p><h2 id="异变方法要求"><a href="#异变方法要求" class="headerlink" title="异变方法要求"></a>异变方法要求</h2><blockquote><p>注意：如果将协议实例方法要求标记为mutating，则在为类编写该方法的实现时，不需要写<code>mutating</code>关键字。 mutating关键字仅由结构体和枚举使用。</p></blockquote><h2 id="构造器要求"><a href="#构造器要求" class="headerlink" title="构造器要求"></a>构造器要求</h2><p>协议可能要求通过遵循类型来实现<strong>指定构造器</strong>。和普通构造器写法一样，你可以将构造器定义写在协议中，只是不用写大括号和构造器实现。</p><h3 id="类实现协议构造器的要求"><a href="#类实现协议构造器的要求" class="headerlink" title="类实现协议构造器的要求"></a>类实现协议构造器的要求</h3><p>你可以通过实现指定构造器、便利构造器来使遵循协议的类满足协议的构造器要求。在这两种情况下，你必须使用 required 修饰符标记构造器实现。</p><h3 id="可失败的构造器的要求"><a href="#可失败的构造器的要求" class="headerlink" title="可失败的构造器的要求"></a>可失败的构造器的要求</h3><p>遵循类型可以用可失败或非可失败的构造器来满足可失败的构造器要求。非可失败的构造器要求必须用非可失败的构造器或隐式展开的可失败的构造器来满足。</p><h2 id="将协议作为类型"><a href="#将协议作为类型" class="headerlink" title="将协议作为类型"></a>将协议作为类型</h2><p>协议本身并不实现任何功能。不过，你创建的任何协议都可以变为一个功能完备的类型在代码中使用。因为它是一种类型，所以你可以在允许其他类型的许多地方使用协议，包括:</p><ol><li>作为函数、方法或构造器的参数类型或返回类型</li><li>作为常量、变量或属性的类型</li><li>作为数组、字典或其他容器的元素类型</li></ol><h2 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h2><p>委托是一种设计模式，它使类或结构体能够将其某些职责交给(或委托)到另一种类型的实例。通过定义封装委托职责的协议来实现此设计模式，从而保证遵循协议的类型(称为委托)提供被委托的功能。</p><h2 id="扩展添加遵循某协议"><a href="#扩展添加遵循某协议" class="headerlink" title="扩展添加遵循某协议"></a>扩展添加遵循某协议</h2><pre><code>extension Dice: TextRepresentable {    var textualDescription: String {        return &quot;A \(sides)-sided dice&quot;    }}</code></pre><h3 id="有条件地遵循协议"><a href="#有条件地遵循协议" class="headerlink" title="有条件地遵循协议"></a>有条件地遵循协议</h3><p>泛型类型可能只能在特定条件下满足协议的要求，例如类的泛型参数遵循一个协议。你可以通过在扩展类型时列出条件约束，让泛型类型有条件的遵循一个协议。通过编写一个泛型where分句，在遵循的协议名称后面写上约束条件。</p><h3 id="通过扩展申明类采纳了协议"><a href="#通过扩展申明类采纳了协议" class="headerlink" title="通过扩展申明类采纳了协议"></a>通过扩展申明类采纳了协议</h3><p>如果一个类型已经满足遵循一个协议的所有要求，但它没有申明遵循了这个协议，你可以通过一个空的扩展遵循该协议。</p><blockquote><p>注意：类型不会自动遵循一个协议，即便已经满足这个协议的要求。它们必须显示的申明它们遵循了这个协议。</p></blockquote><h2 id="协议类型的集合"><a href="#协议类型的集合" class="headerlink" title="协议类型的集合"></a>协议类型的集合</h2><p>协议可以用作诸如数组或字典之类的集合类型的元素类型。</p><h2 id="协议继承"><a href="#协议继承" class="headerlink" title="协议继承"></a>协议继承</h2><p>协议可以继承一个或多个协议，并且可以在其继承的协议的基础上添加更多的要求。协议继承的语法类似于类继承的语法，但是协议继承支持同时继承多个协议，并用逗号隔开。</p><h2 id="类的专属协议"><a href="#类的专属协议" class="headerlink" title="类的专属协议"></a>类的专属协议</h2><p>你可以通过将<code>AnyObject</code>协议添加到协议的继承列表中，来将协议限定为仅类类型(而不是结构体或枚举)可用。</p><blockquote><p>注意： 当协议的要求遵循者必须符合引用语义而不是值语义时，请使用<strong>类专属协议</strong>。</p></blockquote><h2 id="协议组合"><a href="#协议组合" class="headerlink" title="协议组合"></a>协议组合</h2><p>某些场合下，要求类型可以同时遵循多个协议是很有用的。您可以使用<strong>协议组合</strong>将多个协议组合到单个需求中。协议组合的行为就像你定义了一个临时本地协议，该协议具有组合中所有协议的要求。协议组合不定义任何新的协议类型。</p><p>协议组合使用<code>SomeProtocol &amp; AnotherProtocol</code>的形式。你可以根据需要，列出尽可能多的协议，用&amp;符号分隔它们。除了协议列表之外，协议组合还可以包含一个类类型，你可以使用它来指定继承的父类。</p><h2 id="检查协议的遵循情况"><a href="#检查协议的遵循情况" class="headerlink" title="检查协议的遵循情况"></a>检查协议的遵循情况</h2><p>你可以使用<strong>类型转换</strong>中描述的 is 和 as 运算符来检查协议遵循、转换成特定协议。检查和转换协议与检查和转换类型的语法相同:</p><ol><li>如果实例遵循协议，则is运算符返回true ，如果不遵循则返回false 。</li><li>向下转换运算符as?返回协议类型的可选值，如果实例不遵循该协议，则该值为nil 。</li><li>向下转换运算符的as!强制向下转换为协议类型，如果向下转换不成功则触发运行时错误。</li></ol><h2 id="可选协议要求"><a href="#可选协议要求" class="headerlink" title="可选协议要求"></a>可选协议要求</h2><p>你可以为协议定义可选要求，这些要求不强制遵循者必须实现。可选要求以 optional修饰符为前缀，作为协议定义的一部分。</p><p>可选要求允许你的代码与Objective-C交互。协议和可选要求都必须用@objc 属性标记。请注意：@objc协议只能由继承自Objective-C类或其他@objc类的类遵循。结构体或枚举不能遵循它们。</p><p>在可选要求中使用方法或属性时，其类型将自动变为可选。例如，类型 (Int) -&gt;String 的方法变为 ((Int) -&gt; String)? 。请注意：整个函数类型变成了可选项， 而不是方法的返回值。</p><p>考虑到遵循协议的类型可能未实现要求，你应该使用可选链来调用可选协议。你通过在调用方法名称后面写一个问号来检查可选方法是否实现，例如 <code>someOptionalMethod? (someArgument)</code> 。</p><h2 id="协议扩展–协议上创建扩展"><a href="#协议扩展–协议上创建扩展" class="headerlink" title="协议扩展–协议上创建扩展"></a>协议扩展–协议上创建扩展</h2><p><font color="blue">通过在协议上创建扩展</font>，所有遵循者都将自动获得此方法的实现，而无需任何其他修改。</p><p>协议扩展可以为符合协议的类型添加实现，但无法扩展协议本身或是继承其他协议。 协议继承始终在协议自身的声明中指定。</p><h3 id="提供默认实现"><a href="#提供默认实现" class="headerlink" title="提供默认实现"></a>提供默认实现</h3><p>你可以使用<strong>协议扩展</strong>来为任何方法或计算属性提供默认实现。如果一个遵循者本身就实现了协议中要求的方法或属性，那么这个实现会代替协议扩展中的默认实现。</p><p>注意：由协议扩展提供默认实现和可选协议不同。尽管符合的类型不需要提供任何一种协议的实现，但默认的实现在被调用时不需要可选链。</p><h3 id="为协议扩展添加条件约束"><a href="#为协议扩展添加条件约束" class="headerlink" title="为协议扩展添加条件约束"></a>为协议扩展添加条件约束</h3><p>当我们定义一个协议扩展时，我们可以通过where关键字在被扩展的协议名称后指定一个约束条件。</p><blockquote><p>注意：如果一个类型遵循了多个具有同名方法或属性的扩展协议，那么 Swift会优先调用约束条件较多一方的属性或方法。</p></blockquote>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Extension Syntax&lt;/li&gt;
-&lt;li&gt;Computed Properties&lt;/li&gt;
-&lt;li&gt;Initializers&lt;/li&gt;
-&lt;li&gt;Methods&lt;/li&gt;
-&lt;li&gt;Subscripts&lt;/li&gt;
-&lt;li&gt;Nested Types&lt;/li&gt;
+&lt;li&gt;Protocol Syntax&lt;/li&gt;
+&lt;li&gt;Property Requirements&lt;/li&gt;
+&lt;li&gt;Method Requirements&lt;/li&gt;
+&lt;li&gt;Mutating Method Requirements&lt;/li&gt;
+&lt;li&gt;Initializer Requirements&lt;/li&gt;
+&lt;li&gt;Protocols as Types&lt;/li&gt;
+&lt;li&gt;Delegation&lt;/li&gt;
+&lt;li&gt;Adding Protocol Conformance with an Extension&lt;/li&gt;
+&lt;li&gt;Collections of Protocol Types&lt;/li&gt;
+&lt;li&gt;Protocol Inheritance&lt;/li&gt;
+&lt;li&gt;Class-Only Protocols&lt;/li&gt;
+&lt;li&gt;Protocol Composition&lt;/li&gt;
+&lt;li&gt;Checking for Protocol Conformance&lt;/li&gt;
+&lt;li&gt;Optional Protocol Requirements&lt;/li&gt;
+&lt;li&gt;Protocol Extensions&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -209,7 +209,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
+      <category term="协议" scheme="http://yoursite.com/tags/%E5%8D%8F%E8%AE%AE/"/>
     
   </entry>
   
@@ -238,6 +238,38 @@
     
     
       <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>17. 可选链</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/17__可选链/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-28T10:09:02.556Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Optional Chaining as an Alternative to Forced Unwrapping</li><li>Defining Model Classes for Optional Chaining</li><li>Accessing Properties Through Optional Chaining</li><li>Calling Methods Through Optional Chaining</li><li>Accessing Subscripts Through Optional Chaining</li><li>Linking Multiple Levels of Chaining</li><li>Chaining on Methods with Optional Return Values</li></ol><a id="more"></a><p>可选链 是在当前可能为 nil的可选值上查询和调用属性、方法、下标的过程。如果可选值有值，则属性、方法或下标调用成功;如果可选值为 nil ，则属性、方法或下标调用 返回 nil 。多个查询可以链接在一起，如果链中的任何一个节点为 nil ，整个链会 返回失败。</p><h2 id="可选链作为强制展开的代替品"><a href="#可选链作为强制展开的代替品" class="headerlink" title="可选链作为强制展开的代替品"></a>可选链作为强制展开的代替品</h2><p>为了反映可选链可以对 nil 值进行调用这一事实，可选链调用的结果总是一个可选值， 即使正在查询的属性、方法或下标返回一个不可选值。</p><h2 id="为可选链定义模型类"><a href="#为可选链定义模型类" class="headerlink" title="为可选链定义模型类"></a>为可选链定义模型类</h2><p>你可以使用可选链来调用超过一级深度的属性、方法和下标。 这使你可以深入查看相互关联 类型的复杂模型中的子属性，并检查是否可以访问这些子属性上的属性、方法和下标。</p><h2 id="通过可选链访问属性"><a href="#通过可选链访问属性" class="headerlink" title="通过可选链访问属性"></a>通过可选链访问属性</h2><p>赋值是可选链的一部分，也就意味着 = 操作符的右操作数不会被计算。</p><p>任何通过可选链给属性赋值的尝试都会返回一个 Void? 类型的值。这样你可以和 nil 比较来检查赋值是否成功:</p><h2 id="通过可选链调⽤方法"><a href="#通过可选链调⽤方法" class="headerlink" title="通过可选链调⽤方法"></a>通过可选链调⽤方法</h2><p>你可以使用可选链来调用一个可选值的方法，以及检查调用是否成功。即使那个方法没有返回值你依然可以这样做。</p><h2 id="通过可选链访问下标"><a href="#通过可选链访问下标" class="headerlink" title="通过可选链访问下标"></a>通过可选链访问下标</h2><h2 id="访问可选类型的下标"><a href="#访问可选类型的下标" class="headerlink" title="访问可选类型的下标"></a>访问可选类型的下标</h2><p>如果下标返回一个可选类型的值，例如 Swift 中 Dictionary 的键下标，在下标的右括 号 后面 放置一个问号来链接其可选的返回值</p><h2 id="多级链表关联"><a href="#多级链表关联" class="headerlink" title="多级链表关联"></a>多级链表关联</h2><ol><li>如果要检索的类型不是可选的，通过可选链，它将成为可选的。</li><li>如果您要检索的类型已经是可选的，那么它将保持原状。</li></ol><h2 id="在方法的可选返回值上进行可选链式调用"><a href="#在方法的可选返回值上进行可选链式调用" class="headerlink" title="在方法的可选返回值上进行可选链式调用"></a>在方法的可选返回值上进行可选链式调用</h2><p>如果要在该方法的返回值上进行可选链式调用，在方法的圆括号后面加上问号即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Optional Chaining as an Alternative to Forced Unwrapping&lt;/li&gt;
+&lt;li&gt;Defining Model Classes for Optional Chaining&lt;/li&gt;
+&lt;li&gt;Accessing Properties Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Calling Methods Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Accessing Subscripts Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Linking Multiple Levels of Chaining&lt;/li&gt;
+&lt;li&gt;Chaining on Methods with Optional Return Values&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
     
   </entry>
   
@@ -271,38 +303,6 @@
     
     
       <category term="构造过程" scheme="http://yoursite.com/tags/%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>17. 可选链</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/17__可选链/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-28T10:09:02.556Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Optional Chaining as an Alternative to Forced Unwrapping</li><li>Defining Model Classes for Optional Chaining</li><li>Accessing Properties Through Optional Chaining</li><li>Calling Methods Through Optional Chaining</li><li>Accessing Subscripts Through Optional Chaining</li><li>Linking Multiple Levels of Chaining</li><li>Chaining on Methods with Optional Return Values</li></ol><a id="more"></a><p>可选链 是在当前可能为 nil的可选值上查询和调用属性、方法、下标的过程。如果可选值有值，则属性、方法或下标调用成功;如果可选值为 nil ，则属性、方法或下标调用 返回 nil 。多个查询可以链接在一起，如果链中的任何一个节点为 nil ，整个链会 返回失败。</p><h2 id="可选链作为强制展开的代替品"><a href="#可选链作为强制展开的代替品" class="headerlink" title="可选链作为强制展开的代替品"></a>可选链作为强制展开的代替品</h2><p>为了反映可选链可以对 nil 值进行调用这一事实，可选链调用的结果总是一个可选值， 即使正在查询的属性、方法或下标返回一个不可选值。</p><h2 id="为可选链定义模型类"><a href="#为可选链定义模型类" class="headerlink" title="为可选链定义模型类"></a>为可选链定义模型类</h2><p>你可以使用可选链来调用超过一级深度的属性、方法和下标。 这使你可以深入查看相互关联 类型的复杂模型中的子属性，并检查是否可以访问这些子属性上的属性、方法和下标。</p><h2 id="通过可选链访问属性"><a href="#通过可选链访问属性" class="headerlink" title="通过可选链访问属性"></a>通过可选链访问属性</h2><p>赋值是可选链的一部分，也就意味着 = 操作符的右操作数不会被计算。</p><p>任何通过可选链给属性赋值的尝试都会返回一个 Void? 类型的值。这样你可以和 nil 比较来检查赋值是否成功:</p><h2 id="通过可选链调⽤方法"><a href="#通过可选链调⽤方法" class="headerlink" title="通过可选链调⽤方法"></a>通过可选链调⽤方法</h2><p>你可以使用可选链来调用一个可选值的方法，以及检查调用是否成功。即使那个方法没有返回值你依然可以这样做。</p><h2 id="通过可选链访问下标"><a href="#通过可选链访问下标" class="headerlink" title="通过可选链访问下标"></a>通过可选链访问下标</h2><h2 id="访问可选类型的下标"><a href="#访问可选类型的下标" class="headerlink" title="访问可选类型的下标"></a>访问可选类型的下标</h2><p>如果下标返回一个可选类型的值，例如 Swift 中 Dictionary 的键下标，在下标的右括 号 后面 放置一个问号来链接其可选的返回值</p><h2 id="多级链表关联"><a href="#多级链表关联" class="headerlink" title="多级链表关联"></a>多级链表关联</h2><ol><li>如果要检索的类型不是可选的，通过可选链，它将成为可选的。</li><li>如果您要检索的类型已经是可选的，那么它将保持原状。</li></ol><h2 id="在方法的可选返回值上进行可选链式调用"><a href="#在方法的可选返回值上进行可选链式调用" class="headerlink" title="在方法的可选返回值上进行可选链式调用"></a>在方法的可选返回值上进行可选链式调用</h2><p>如果要在该方法的返回值上进行可选链式调用，在方法的圆括号后面加上问号即可。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Optional Chaining as an Alternative to Forced Unwrapping&lt;/li&gt;
-&lt;li&gt;Defining Model Classes for Optional Chaining&lt;/li&gt;
-&lt;li&gt;Accessing Properties Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Calling Methods Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Accessing Subscripts Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Linking Multiple Levels of Chaining&lt;/li&gt;
-&lt;li&gt;Chaining on Methods with Optional Return Values&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
     
   </entry>
   
@@ -362,37 +362,6 @@
   </entry>
   
   <entry>
-    <title>1. 枚举</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:52:37.023Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Enumeration Syntax&lt;/li&gt;
-&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
-&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
-&lt;li&gt;Associated Values&lt;/li&gt;
-&lt;li&gt;Raw Values&lt;/li&gt;
-&lt;li&gt;Recursive Enumerations&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
-    
-  </entry>
-  
-  <entry>
     <title>7. 函数</title>
     <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/"/>
     <id>http://yoursite.com/wiki/swift语言/swift学习摘要/8__闭包/</id>
@@ -410,36 +379,6 @@
 &lt;li&gt;Closures Are Reference Types&lt;/li&gt;
 &lt;li&gt;Escaping Closures&lt;/li&gt;
 &lt;li&gt;Autoclosures&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>7. 函数</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/7__函数/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:50:58.540Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
-&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
-&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
-&lt;li&gt;Function Types&lt;/li&gt;
-&lt;li&gt;Nested Functions&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -489,6 +428,67 @@
     
     
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>1. 枚举</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
+    <published>2019-01-24T04:07:12.000Z</published>
+    <updated>2019-01-25T10:52:37.023Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Enumeration Syntax&lt;/li&gt;
+&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
+&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
+&lt;li&gt;Associated Values&lt;/li&gt;
+&lt;li&gt;Raw Values&lt;/li&gt;
+&lt;li&gt;Recursive Enumerations&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>7. 函数</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/7__函数/</id>
+    <published>2019-01-24T04:07:12.000Z</published>
+    <updated>2019-01-25T10:50:58.540Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
+&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
+&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
+&lt;li&gt;Function Types&lt;/li&gt;
+&lt;li&gt;Nested Functions&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   
@@ -606,28 +606,28 @@
   </entry>
   
   <entry>
-    <title>logan 源码浅析</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/logan/logan/"/>
-    <id>http://yoursite.com/wiki/IOS/开源库学习/logan/logan/</id>
-    <published>2018-12-19T04:07:12.000Z</published>
-    <updated>2018-12-20T07:49:35.638Z</updated>
+    <title>英语资源</title>
+    <link href="http://yoursite.com/wiki/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/"/>
+    <id>http://yoursite.com/wiki/英语学习/学习资源/</id>
+    <published>2019-01-14T04:07:12.000Z</published>
+    <updated>2019-02-14T07:38:25.443Z</updated>
     
-    <content type="html"><![CDATA[<p>本文旨在通过logan源码，分析logan的整体结构、存储结构、内部的数据结构、主要的C接口、优点、存在的问题。</p><a id="more"></a><blockquote><p>mmap 其实主要作用就是多个进程共享内存，所以本文有时候将mmap叫做共享内存</p></blockquote><h2 id="基本使用方法"><a href="#基本使用方法" class="headerlink" title="基本使用方法"></a>基本使用方法</h2><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///初始化</span></span><br><span class="line"><span class="built_in">NSData</span> *keydata = [<span class="string">@"0123456789012345"</span> dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSData</span> *ivdata = [<span class="string">@"0123456789012345"</span> dataUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line">uint64_t file_max = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</span><br><span class="line">loganInit(keydata, ivdata, file_max);</span><br><span class="line"></span><br><span class="line"><span class="comment">/// 写入日志</span></span><br><span class="line"><span class="built_in">NSString</span> *strLog = <span class="string">@"日志"</span>;</span><br><span class="line">logan(LoganTypeAction, strLog);</span><br></pre></td></tr></table></figure><p>使用方法非常简单 loganInit 初始化logan系统，logan 写入日志。</p><h2 id="整体结构"><a href="#整体结构" class="headerlink" title="整体结构"></a>整体结构</h2><p>我相信，对应任何一个三方库，你如果想了解它，第一个想知道的问题是：这个库的整体结构是什么结构？</p><p>下面来解密logan整体结构：</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_struct.png" alt="logan整体结构"></p><p>就画了一个非常简单的图，但是我觉得能将logan整个日志存储的机制表达出来了。</p><ol><li>当程序有日志(命名为data) 需要写入的时候，我们将data做系列处理：格式化(附加上线程、时间等有用的信息)、 压缩、DES加密、 最后追加到mmap中。</li><li>mmap 据说能提高写日志的效率，防止丢失，  mmap中，如果日志达到了5K，就构成一个压缩单元，如果有后续的日志，就新开始一个压缩单元。</li><li>当mmap中的日志超过容量(初始指定10M)的1/3就写入日志文件中。</li><li>当日志文件满了，不知道怎么处理了，上传，还是上传？  logan没实现！！！！</li></ol><p>下面贴出了logan本地文件的结构</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_file.png" alt="本地文件结构"></p><ol><li>2018-12-19 是日志文件。</li><li>logan.mmap2是共享内存的映射文件。</li></ol><h2 id="logan本质–存储结构"><a href="#logan本质–存储结构" class="headerlink" title="logan本质–存储结构"></a>logan本质–存储结构</h2><p>如果你通过上节，了解了logan的整体结构，有没有它的感觉设计也很平凡？那么你现在有没有好奇logan到底哪里出色？值得美团去开源它？</p><p>我觉得核心的就是大量日志的组织结构，也就是如何高效的将大量日志组织在本地存储，你也可以想想。如果自己做，怎么组织？</p><p>logan用简单的方式实现了海量日志的本地存储，本质是自己设计了一套日志存储格式，它就是logan的本质，理解了本质，就理解了logan。</p><p>通过查阅源码，整理的日志格式如下 ：</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logFile_format.png" alt="日志文件格式"></p><blockquote><p>图的阅读方式：下面部分是对上面部分的展开。分为两部分，日志头、日志体（图中左右两部分）。</p></blockquote><h3 id="日志头"><a href="#日志头" class="headerlink" title="日志头"></a>日志头</h3><p>日志头以0x0D标志位表示header开始，紧接着用两个字节表示头内容的长度、接着是头内容、最后用0x0E标志位表示header结束。</p><p>头内容数据如下：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"logan_version"</span>:<span class="number">3</span>,</span><br><span class="line">    <span class="attr">"file"</span>:<span class="string">"2018-12-19"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>logan_version 表示logan的版本，file字段存储日志文件的文件名。 也就是你如果拿到了共享内存，就能通过读取头信息，将共享内存中的数据写入到file表示的日志文件中。</p><h3 id="日志体"><a href="#日志体" class="headerlink" title="日志体"></a>日志体</h3><p>日志体由长度(total_len，占用三字节、小端模式存储)、协议组成。</p><p>协议由协议起始标志位(1字节、值为0x01)、内容、协议结束标志位(1字节、值为0x00)。我自己理解，所谓协议就是一个压缩单元，超过5K开始下一个压缩单元。</p><p>内容由内容长度(4字节，大端模式存储)、各个log组成。</p><h3 id="先睹为快、窥探日志数据"><a href="#先睹为快、窥探日志数据" class="headerlink" title="先睹为快、窥探日志数据"></a>先睹为快、窥探日志数据</h3><p>如果看懂了上节内容，你有没有想窥探下logan内存结构的欲望？</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_memory.png" alt="日志数据"></p><ol><li>0x0D  头起始标志  </li><li>0x0028  = 40  头长度</li><li>0x7B ~0x7D00  头内容</li><li>0x0E  头结束标志</li><li>—这里是分割线， 表示头结束，下面是日志体—</li><li>0x000055  tatal_len 日志体总长度</li><li>0x01 协议起始标志位</li><li>0x00000050 内容长度</li><li>0x14D7~0x465C  多个压缩加密后的日志    </li><li>0x00  协议结束标志位</li></ol><p>看了logan日志存储格式，我自己总结了下，其实就是一个三级结构：</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_three_struct.png" alt="logan三级结构"></p><p>你可以回头想想，所有的字段都服务于这个三级结构，如果你按照三级结构的思路理解，这里就没有多余的信息。 </p><blockquote><p>我首次看，就觉得怎么这么多len信息，是否是多余的呢。</p></blockquote><h2 id="日志追加机制"><a href="#日志追加机制" class="headerlink" title="日志追加机制"></a>日志追加机制</h2><h3 id="追加机制"><a href="#追加机制" class="headerlink" title="追加机制"></a>追加机制</h3><p>下面我们就可以进一步深入logan日志增加的机制了，其实，追加日志主要靠四个指针就完成了。</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_pointer.png" alt="4个关键指针的展示"></p><p>说明下这四个指针的作用：</p><ol><li>buffer_point 标记mmap的起始地址，基本固定不变。</li><li>total_point日志体的起始位置指针 ，这个指针目的是当有新日志添加的时候，更新total_point后面的total_len属性。位置也不变化。</li><li>content_lent_point内容起始位置指针，一个压缩单元完事后，前进一次。它的主要作用是，当增加log后，更新后面的content_len的内容。其实就是指向上面三级结构中的第二级结构</li><li>last_point 添加日志起始指针 ,每次新的日志都追加到last_point处，追加完后，更新last_point为下一个追加位置。 </li></ol><p>上面多次提到了压缩单元，我们用下面的图说明下压缩单元递增的思路：</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_zip_unit.png" alt="5K压缩单元递增示意图"></p><p>上面是一个压缩单元完成后，开始新压缩单元的示意图。我们可以观察content_lent_point、last_point两个指针移动的情况。(箭头从 蓝色-&gt; 蓝色-&gt; 绿色 的变化过程)</p><h3 id="关键节点"><a href="#关键节点" class="headerlink" title="关键节点"></a>关键节点</h3><p>通过上面我们了解了三个基本的关键节点：</p><ol><li><p>5k  一个压缩单元的大小</p> <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LOGAN_MAX_GZIP_UTIL <span class="number">5</span> * <span class="number">1024</span> <span class="comment">//压缩单元的大小</span></span><br></pre></td></tr></table></figure></li><li><p>容量(初始指定10M)的1/3  写文件的节点</p> <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">LOGAN_WRITEPROTOCOL_DEVIDE_VALUE <span class="number">3</span> <span class="comment">//多少分之一写入</span></span><br><span class="line">buffer_length / LOGAN_WRITEPROTOCOL_DEVIDE_VALUE</span><br></pre></td></tr></table></figure></li><li><p>10M 日志文件总大小</p> <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">uint64_t file_max = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span></span><br></pre></td></tr></table></figure></li></ol><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>感觉也不是很复杂，就是用四个指针标记修改的位置，有新的日志来了，就追加到last_point处。</p><h2 id="核心数据结构"><a href="#核心数据结构" class="headerlink" title="核心数据结构"></a>核心数据结构</h2><p>logan的结构、存储本质、追加日志机制都讲完了，接着看看代码是怎么实现的。logan用一个全局的数据结构管理所有的数据，这个数据结构定义如下 ：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">logan_model_struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> total_len; <span class="comment">//数据长度</span></span><br><span class="line">    <span class="keyword">char</span> *file_path; <span class="comment">//文件路径</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> is_malloc_zlib;</span><br><span class="line">    z_stream *strm;</span><br><span class="line">    <span class="keyword">int</span> zlib_type; <span class="comment">//压缩类型</span></span><br><span class="line">    <span class="keyword">char</span> remain_data[<span class="number">16</span>]; <span class="comment">//剩余空间</span></span><br><span class="line">    <span class="keyword">int</span> remain_data_len; <span class="comment">//剩余空间长度</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> is_ready_gzip; <span class="comment">//是否可以gzip</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> file_stream_type; <span class="comment">//文件流类型</span></span><br><span class="line">    FILE *file; <span class="comment">//文件流</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">long</span> file_len; <span class="comment">//文件大小</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *buffer_point; <span class="comment">//缓存的指针 (不变)</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *last_point; <span class="comment">//最后写入位置的指针</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *total_point; <span class="comment">//总数的指针 (可能变) , 给c看,低字节</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *content_lent_point;<span class="comment">//协议内容长度指针 , 给java看,高字节</span></span><br><span class="line">    <span class="keyword">int</span> content_len; <span class="comment">//内容的大小</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> aes_iv[<span class="number">16</span>]; <span class="comment">//aes_iv</span></span><br><span class="line">    <span class="keyword">int</span> is_ok;</span><br><span class="line"></span><br><span class="line">&#125; cLogan_model;</span><br></pre></td></tr></table></figure><p>感觉定义的很乱，我整理了下 ：</p><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_model.png" alt="数据结构"></p><ol><li><p>日志文件相关的：有日志文件的路径file_path、文件流状态file_stream_type、文件流file、文件内容的大小file_len。其中文件流状态file_stream_type可选的取值：</p> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGAN_FILE_NONE 0</span></span><br><span class="line">   <span class="meta">#<span class="meta-keyword">define</span> LOGAN_FILE_OPEN 1</span></span><br><span class="line">   <span class="meta">#<span class="meta-keyword">define</span> LOGAN_FILE_CLOSE 2</span></span><br></pre></td></tr></table></figure></li><li><p>压缩相关的： is_malloc_zlib 表示strm是否申请空间 ,zlib_type 压缩状态，is_ready_gzip压缩是否准备好。 zlib_type可以的取值如下：</p> <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGAN_ZLIB_NONE 0</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGAN_ZLIB_INIT 1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGAN_ZLIB_ING  2</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGAN_ZLIB_END  3</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOGAN_ZLIB_FAIL 4</span></span><br></pre></td></tr></table></figure></li><li><p>mmap操作相关的，记录日志的长度信息、四个指针的信息。</p></li><li>下面是加密相关的，DES加密是16字节为一个单元，如果日志压缩后，长度取余，不足16字节的内容就不参与加密了，等着下次日志，一起加密。所以remain_data、remain_data_len表示剩下的未加密的压缩过的日志数据。aes_iv 表示DES加密的初始向量。</li><li>is_ok 表示整个logan是否是正常状态。</li></ol><p>我将上面的数据分类主要的5类，到了哪一步，关注哪一步就ok了。分类后，就很好理解了。</p><h2 id="核心接口"><a href="#核心接口" class="headerlink" title="核心接口"></a>核心接口</h2><p>下面我列举了logan C语言层的4个核心接口：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clogan_init</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *cache_dirs, <span class="keyword">const</span> <span class="keyword">char</span> *path_dirs, <span class="keyword">int</span> max_file, <span class="keyword">const</span> <span class="keyword">char</span> *encrypt_key16, <span class="keyword">const</span> <span class="keyword">char</span> *encrypt_iv16)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clogan_open</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *pathname)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clogan_write</span><span class="params">(<span class="keyword">int</span> flag, <span class="keyword">char</span> *<span class="built_in">log</span>, <span class="keyword">long</span> <span class="keyword">long</span> local_time, <span class="keyword">char</span> *thread_name, <span class="keyword">long</span> <span class="keyword">long</span> thread_id,<span class="keyword">int</span> is_main)</span></span></span><br><span class="line"><span class="function">             </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clogan_flush</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br></pre></td></tr></table></figure><p>下面一一讲解下，所有的代码都是缩减代码。方便理解函数完成的主体工作。</p><h3 id="clogan-init"><a href="#clogan-init" class="headerlink" title="clogan_init"></a>clogan_init</h3><p>clogan_init 主要功能是：</p><ol><li>打开映射内存</li><li>如果存在上次程序结束后没有写入文件的日志，将上次日志写入到文件中。使本次以一个干净的环境开始。</li></ol><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">clogan_init(<span class="keyword">const</span> <span class="keyword">char</span> *cache_dirs, <span class="keyword">const</span> <span class="keyword">char</span> *path_dirs, <span class="keyword">int</span> max_file, <span class="keyword">const</span> <span class="keyword">char</span> *encrypt_key16,</span><br><span class="line">            <span class="keyword">const</span> <span class="keyword">char</span> *encrypt_iv16) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">///保存秘钥、初始向量</span></span><br><span class="line">    aes_init_key_iv(encrypt_key16, encrypt_iv16);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 构建内存映射文件路径</span></span><br><span class="line">    <span class="keyword">char</span> *cache_path = <span class="built_in">malloc</span>(total);</span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> != cache_path) &#123;</span><br><span class="line">        _mmap_file_path = cache_path;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/// 构建日志目录</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> != dirs) &#123;</span><br><span class="line">        _dir_path = dirs; <span class="comment">//日志写入的文件目录</span></span><br><span class="line">    &#125; </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 打开内存映射</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="literal">NULL</span> == _logan_buffer) &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="literal">NULL</span> == _cache_buffer_buffer) &#123;</span><br><span class="line">            flag = open_mmap_file_clogan(cache_path, &amp;_logan_buffer, &amp;_cache_buffer_buffer);</span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">   </span><br><span class="line">    <span class="comment">///读取内存映射中的日志，写入到文件中，准备开始一个干净的日志环境。</span></span><br><span class="line">    <span class="keyword">if</span> (is_init_ok) &#123;</span><br><span class="line">        <span class="keyword">if</span> (flag == LOGAN_MMAP_MMAP) <span class="comment">//MMAP的缓存模式,从缓存的MMAP中读取数据</span></span><br><span class="line">            read_mmap_data_clogan(_dir_path);</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="clogan-open"><a href="#clogan-open" class="headerlink" title="clogan_open"></a>clogan_open</h3><p>clogan_open 主要工作是：</p><ol><li>初始化zlib</li><li>初始化加密模块</li><li>初始化全局数据logan_model</li></ol><p>代码如下：</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">int clogan_open(const char *pathname) &#123;</span><br><span class="line"></span><br><span class="line">    is_open_ok = <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">///全局的logan_model 初始化</span></span><br><span class="line">    <span class="keyword">if</span> (NULL != logan_model) &#123; <span class="comment">//回写到日志中</span></span><br><span class="line">     </span><br><span class="line">    &#125; </span><br><span class="line">    <span class="keyword">else</span> </span><br><span class="line">    &#123;</span><br><span class="line">        logan_model = malloc(sizeof(cLogan_model));</span><br><span class="line">        <span class="keyword">if</span> (NULL != logan_model) &#123;</span><br><span class="line">            memset(logan_model, <span class="number">0</span>, sizeof(cLogan_model));</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="title">logan_model</span>-&gt;</span>file_path = temp_file;</span><br><span class="line">    <span class="function"><span class="title">logan_model</span>-&gt;</span>buffer_point = _logan_buffer;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/// zlib 的初始化</span></span><br><span class="line">    init_zlib_clogan(logan_model)</span><br><span class="line">    </span><br><span class="line">   <span class="comment">///添加头信息</span></span><br><span class="line">   add_mmap_header_clogan(back_data, logan_model);</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="title">logan_model</span>-&gt;</span><span class="function"><span class="title">last_point</span> = logan_model-&gt;</span>total_point + LOGAN_MMAP_TOTALLEN;</span><br><span class="line">    <span class="function"><span class="title">logan_model</span>-&gt;</span>total_point = _logan_buffer;</span><br><span class="line">    <span class="function"><span class="title">logan_model</span>-&gt;</span>total_len = <span class="number">0</span>;</span><br><span class="line">    <span class="function"><span class="title">logan_model</span>-&gt;</span><span class="function"><span class="title">last_point</span> = logan_model-&gt;</span>total_point + LOGAN_MMAP_TOTALLEN;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">///设置关键指针信息，长度信息</span></span><br><span class="line">    restore_last_position_clogan(logan_model);</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/// 加密信息初始化</span></span><br><span class="line">    init_encrypt_key_clogan(logan_model);</span><br><span class="line">    <span class="function"><span class="title">logan_model</span>-&gt;</span>is_ok = <span class="number">1</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (is_open_ok) &#123;</span><br><span class="line">        back = CLOGAN_OPEN_SUCCESS;</span><br><span class="line">    &#125; </span><br><span class="line">    return back;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>clogan_open 主要完成：初始化全局的logan_model、init_zlib_clogan、init_encrypt_key_clogan 三个工作。</p><h3 id="clogan-write"><a href="#clogan-write" class="headerlink" title="clogan_write"></a>clogan_write</h3><h4 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h4><p>clogan_write 顾名思义，就是写入日志，这里用简单的树形结构描述它的过程。</p><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">├── clogan_write</span><br><span class="line">│   └── clogan_write_section分片写入</span><br><span class="line">│       └── clogan_write2</span><br><span class="line">│           ├── <span class="number">1.</span> clogan_zlib_compress</span><br><span class="line">│           │   └── clogan_zlib</span><br><span class="line">│           │       ├── aes_encrypt_clogan</span><br><span class="line">│           │       └── deflate</span><br><span class="line">│           ├── <span class="number">2.</span> update_length_clogan(logan_model);<span class="comment">///写完日志，更新长度信息</span></span><br><span class="line">│           ├── <span class="number">3.</span> 如果一个压缩单元完事，结束这个压缩单元</span><br><span class="line">│           │   ├── clogan_zlib_end_compress(logan_model)</span><br><span class="line">│           │   ├── aes_encrypt_clogan 加密剩余部分</span><br><span class="line">│           │   └── update_length_clogan(logan_model)</span><br><span class="line">│           ├── <span class="number">4.</span> 如果mmap的大小大于总容量的<span class="number">1</span>/<span class="number">3</span></span><br><span class="line">│           │   └── write_flush_clogan();写入文件</span><br><span class="line">│           └── <span class="number">5.</span> 如果一个单元完事，还要做下面工作，开始下一个压缩单元</span><br><span class="line">│               ├── init_encrypt_key_clogan(logan_model)</span><br><span class="line">│               ├── init_zlib_clogan(logan_model)</span><br><span class="line">│               ├── logan_model-&gt;content_len = <span class="number">0</span></span><br><span class="line">│               ├── logan_model-&gt;remain_data_len = <span class="number">0</span></span><br><span class="line">│               └── restore_last_position_clogan(logan_model)</span><br></pre></td></tr></table></figure><h4 id="协议分析"><a href="#协议分析" class="headerlink" title="协议分析"></a>协议分析</h4><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_protocal.png" alt="协议"></p><h3 id="clogan-flush"><a href="#clogan-flush" class="headerlink" title="clogan_flush"></a>clogan_flush</h3><p>clogan_flush 将mmap中的日志强制写入到文件中。</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">clogan_flush</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    write_flush_clogan();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>clogan_flush 调用了write_flush_clogan。</p><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> write_flush_clogan() </span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">if</span> (logan_model-&gt;total_len &gt; LOGAN_WRITEPROTOCOL_HEAER_LENGTH) &#123;</span><br><span class="line">        <span class="keyword">unsigned</span> <span class="keyword">char</span> *<span class="built_in">point</span> = logan_model-&gt;total_point;</span><br><span class="line">        <span class="built_in">point</span> += LOGAN_MMAP_TOTALLEN;</span><br><span class="line">        write_dest_clogan(<span class="built_in">point</span>, <span class="keyword">sizeof</span>(<span class="keyword">char</span>), logan_model-&gt;total_len, logan_model);</span><br><span class="line">        clear_clogan(logan_model);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>write_flush_clogan调用write_dest_clogan将mmap中的数据写入到文件中，同时调用clear_clogan清空全局数据logan_model的状态。</p><figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//文件写入磁盘、更新文件大小</span></span><br><span class="line">void write_dest_clogan(void *point, size_t size, size_t length, cLogan_model *loganModel) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="title">fwrite</span>(point, sizeof(char), logan_model-&gt;</span><span class="function"><span class="title">total_len</span>, logan_model-&gt;</span>file);<span class="comment">//写入到文件中</span></span><br><span class="line">    <span class="function"><span class="title">fflush</span>(logan_model-&gt;</span>file);</span><br><span class="line">    <span class="function"><span class="title">loganModel</span>-&gt;</span><span class="function"><span class="title">file_len</span> += loganModel-&gt;</span>total_len; <span class="comment">//修改文件大小</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><p>美团的<a href="https://mp.weixin.qq.com/s/ojUZjT4YhUWZ3jh37UtJmg" rel="external nofollow noopener noreferrer" target="_blank">Logan：美团点评移动端基础日志库揭秘</a>说，有下面的缺点：</p><ol><li>卡顿，影响性能</li><li>日志丢失</li><li>安全性</li><li>日志分散</li></ol><p>我看了logan的源码，logan确实解决了上面的问题，反过来，logan有下面的优点：</p><ol><li>不卡顿，性能好</li><li>日志不丢失</li><li>安全</li><li>日志集中</li></ol><h2 id="目前存在的问题"><a href="#目前存在的问题" class="headerlink" title="目前存在的问题"></a>目前存在的问题</h2><p>logan主要实现了日志的本地存储功能，考虑的很多边界情况，我觉得应该可以使用，但是还存在下面的问题 ：</p><ol><li>没有日志回捞功能(没有开源，这个工作主要在服务端，客户端也没发现对应的接口)</li><li>没有主动上报功能(主动上报有简单的实现，这个应该也归结为使用者的功能吧)</li><li>日志大于10M的情况没有处理，需要自己完善。</li></ol><p>没有写的证据在这里：</p><figure class="highlight coq"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (is_file_exist_clogan(logan_model-&gt;file_path)) </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (logan_model-&gt;file_len &gt; max_file_len) &#123;</span><br><span class="line">        printf_clogan(<span class="string">"clogan_write &gt; beyond max file , cant write log\n"</span>);</span><br><span class="line">        back = CLOAGN_WRITE_FAIL_MAXFILE;</span><br><span class="line">        <span class="keyword">return</span> back;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>如果文件的大小超过了10M，直接返回了 ，不在写入日志。</p><h2 id="胡思乱想"><a href="#胡思乱想" class="headerlink" title="胡思乱想"></a>胡思乱想</h2><p><img src="/wiki/IOS/开源库学习/logan/logan/logan_future.png" alt="胡思乱想">  </p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://mp.weixin.qq.com/s/ojUZjT4YhUWZ3jh37UtJmg" rel="external nofollow noopener noreferrer" target="_blank">Logan：美团点评移动端基础日志库揭秘</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/36367134" rel="external nofollow noopener noreferrer" target="_blank">英语语法其实蛮简单</a></p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;本文旨在通过logan源码，分析logan的整体结构、存储结构、内部的数据结构、主要的C接口、优点、存在的问题。&lt;/p&gt;
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/36367134&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;英语语法其实蛮简单&lt;/a&gt;&lt;/p&gt;
+
+      
     
     </summary>
     
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="开源库学习" scheme="http://yoursite.com/categories/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/"/>
-    
-      <category term="logan" scheme="http://yoursite.com/categories/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/logan/"/>
+      <category term="英语学习" scheme="http://yoursite.com/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/"/>
     
     
-      <category term="logan" scheme="http://yoursite.com/tags/logan/"/>
+      <category term="英语资源" scheme="http://yoursite.com/tags/%E8%8B%B1%E8%AF%AD%E8%B5%84%E6%BA%90/"/>
     
   </entry>
   
