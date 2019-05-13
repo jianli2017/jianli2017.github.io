@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-01-30T10:28:17.979Z</updated>
+  <updated>2019-05-13T10:22:15.157Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,152 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>JLRoute学习</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/JLRoute/JLRoute/"/>
+    <id>http://yoursite.com/wiki/IOS/开源库学习/JLRoute/JLRoute/</id>
+    <published>2019-05-13T04:07:12.000Z</published>
+    <updated>2019-05-13T10:22:15.157Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h2><p><img src="/wiki/IOS/开源库学习/JLRoute/JLRoute/image/register.png" alt="注册流程"></p><h2 id="route流程"><a href="#route流程" class="headerlink" title="route流程"></a>route流程</h2><p><img src="/wiki/IOS/开源库学习/JLRoute/JLRoute/image/routerurl.png" alt="注册流程"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;注册流程&quot;&gt;&lt;a href=&quot;#注册流程&quot; class=&quot;headerlink&quot; title=&quot;注册流程&quot;&gt;&lt;/a&gt;注册流程&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/wiki/IOS/开源库学习/JLRoute/JLRoute/image/register.png&quot; 
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="开源库学习" scheme="http://yoursite.com/categories/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/"/>
+    
+      <category term="JLRoute" scheme="http://yoursite.com/categories/IOS/%E5%BC%80%E6%BA%90%E5%BA%93%E5%AD%A6%E4%B9%A0/JLRoute/"/>
+    
+    
+      <category term="JLRoute" scheme="http://yoursite.com/tags/JLRoute/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NSScanner</title>
+    <link href="http://yoursite.com/wiki/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/NSScaner/"/>
+    <id>http://yoursite.com/wiki/IOS/foundation使用记录/NSScaner/</id>
+    <published>2019-05-13T01:35:49.000Z</published>
+    <updated>2019-05-13T10:21:48.262Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations.</p><p>NSScanner是一个string的解析器。</p><p>An NSScanner object interprets and converts the characters of an NSString object into number and string values. </p><p>NSScanner对象将 NSString对象的字符 解析转化为 数字或string。</p><p>NSScanner是个类族。</p><p>初始化方法：</p><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>scannerWithString:</span><br></pre></td></tr></table></figure><p>扫描字符或string</p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">scanCharactersFromSet:</span><span class="string">intoString:</span></span><br></pre></td></tr></table></figure><p>扫描一个数字</p><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>scanDecimal:</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexade
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="foundation使用记录" scheme="http://yoursite.com/categories/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="NSScanner" scheme="http://yoursite.com/tags/NSScanner/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>NSURL记录</title>
+    <link href="http://yoursite.com/wiki/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/NSURL%E8%AE%B0%E5%BD%95/"/>
+    <id>http://yoursite.com/wiki/IOS/foundation使用记录/NSURL记录/</id>
+    <published>2019-05-10T07:35:49.000Z</published>
+    <updated>2019-05-10T11:00:15.844Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="url是什么？"><a href="#url是什么？" class="headerlink" title="url是什么？"></a>url是什么？</h2><p>url是（ Uniform Resource Locator ）统一资源定位符的缩写。</p><h2 id="完整格式-amp-语法"><a href="#完整格式-amp-语法" class="headerlink" title="完整格式&amp;语法"></a>完整格式&amp;语法</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scheme:[<span class="string">//[user[:password</span>]@]host[<span class="string">:port</span>]][<span class="string">/path</span>][<span class="symbol">?query</span>][<span class="string">#fragment</span>]</span><br></pre></td></tr></table></figure><ol><li>scheme: 传送协议。</li><li>层级URL标记符号(为[//],固定不变)</li><li>user、password：访问资源需要的凭证信息（可省略）</li><li>host：服务器。（通常为域名，有时为IP地址）</li><li>port：端口号。（以数字方式表示，若为HTTP的默认值“:80”可省略）</li><li>path：路径。（以“/”字符区别路径中的每一个目录名称）</li><li>query：查询。（GET模式的窗体参数，以“?”字符为起点，每个参数以“&amp;”隔开，再以“=”分开参数名称与数据，通常以UTF8的URL编码，避开字符冲突的问题）</li><li>fragment：片段。以“#”字符为起点</li></ol><hr><h2 id="NSURLComponents"><a href="#NSURLComponents" class="headerlink" title="NSURLComponents"></a>NSURLComponents</h2><ul><li><p>Accessing Components in Native Format</p><p> 包括：fragment、host、path、query、queryItems、scheme等</p></li><li><p>Accessing Components in URL-Encoded Format</p><p> 包括：percentEncodedFragment、percentEncodedHost等</p></li><li><p>Locating Components in the URL String Representation</p><p>包括：rangeOfFragment、rangeOfHost等</p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;url是什么？&quot;&gt;&lt;a href=&quot;#url是什么？&quot; class=&quot;headerlink&quot; title=&quot;url是什么？&quot;&gt;&lt;/a&gt;url是什么？&lt;/h2&gt;&lt;p&gt;url是（ Uniform Resource Locator ）
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="foundation使用记录" scheme="http://yoursite.com/categories/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="NSURL" scheme="http://yoursite.com/tags/NSURL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>appledoc生成文档实践</title>
+    <link href="http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/use_appledoc/"/>
+    <id>http://yoursite.com/wiki/工具/use_appledoc/</id>
+    <published>2019-05-05T02:18:26.000Z</published>
+    <updated>2019-05-05T03:57:03.555Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>第一步，下载appledoc，安装：</p><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/tomaz/appledoc.git</span><br><span class="line"><span class="keyword">cd</span> ./appledoc</span><br><span class="line">sudo <span class="keyword">sh</span> install-appledoc.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure><p>第二步，验证appledoc是否安装成功：</p><figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appledoc <span class="comment">--help</span></span><br></pre></td></tr></table></figure><p>第三步， touch命令创建脚本，复制下面代码到脚本，然后添加执行权限，执行脚本：</p><figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">appledoc \</span><br><span class="line">-<span class="ruby">-output ./apiDoc \</span></span><br><span class="line"><span class="ruby">-i *.m \</span></span><br><span class="line"><span class="ruby">--project-name <span class="string">"GSecretKey"</span> \</span></span><br><span class="line"><span class="ruby">--project-company <span class="string">"com.Gome"</span> \</span></span><br><span class="line"><span class="ruby">--no-create-docset \</span></span><br><span class="line"><span class="ruby">--keep-undocumented-objects \</span></span><br><span class="line"><span class="ruby">--keep-undocumented-members \</span></span><br><span class="line"><span class="ruby">--no-warn-undocumented-object \</span></span><br><span class="line"><span class="ruby">--no-warn-undocumented-member  \</span></span><br><span class="line"><span class="ruby">./</span></span><br></pre></td></tr></table></figure><p>这样就可以将<code>./</code>目录下所有头文件中的注释自动生成出对应的文档到<code>./apiDoc</code>目录下。实际使用中，可以根据需要修改源文件路径、生成文件的路径、project-name、project-company。</p><p>上面的脚本是可以运行的，但是少了注释，难以理解。不添加注释的原因是：上面的命令太长，使用多行显示，使用 <code>\</code>实现多行功能，如果在 <code>\</code> 后直接添加注释，脚本会运行报错，没有地方添加注释。所以，可执行的脚本没有注释，下面将有注释的脚本单独列出来，方便理解:</p><figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">appledoc <span class="string">\</span></span><br><span class="line"><span class="comment">#文档输出目录</span></span><br><span class="line">--output ./apiDoc <span class="string">\</span>                                       </span><br><span class="line"><span class="comment">#忽略.m文件，因.m中均为私有api和属性，开源的接口文档中理应忽略掉</span></span><br><span class="line">-i *.m <span class="string">\</span>                                                         </span><br><span class="line"><span class="comment">#工程的名字</span></span><br><span class="line">--project-name <span class="string">"GSecretKey"</span> <span class="string">\</span></span><br><span class="line"><span class="comment">#公司的名字</span></span><br><span class="line">--project-company <span class="string">"com.Gome"</span> <span class="string">\</span></span><br><span class="line"><span class="comment">#不生成docset，直接输出html</span></span><br><span class="line">--<span class="literal">no</span>-create-docset <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的文件也输出html  --&gt;目的是看到所有的文件</span></span><br><span class="line">--keep-undocumented-objects <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的属性和方法也输出到html  --&gt;目的是看到所有的属性和方法</span></span><br><span class="line">--keep-undocumented-members <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的文件不提示警告</span></span><br><span class="line">--<span class="literal">no</span>-warn-undocumented-object <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的属性和方法不提示警告</span></span><br><span class="line">--<span class="literal">no</span>-warn-undocumented-member <span class="string">\</span></span><br><span class="line"><span class="comment">#需要输出的文件路径  --&gt;这里推荐最好直接为当前工程路径平级输出，便于维护和使用</span></span><br><span class="line">./</span><br></pre></td></tr></table></figure><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><blockquote><p>实际使用上问题挺多，尤其Xcode9之后，普遍的方法会出现此错误：ERROR | !&gt; xcrun: error: unable to find utility “docsetutil”, not a developer tool or in PATH</p></blockquote><p>解决办法：终端-&gt;编写脚本-&gt;运行脚本-&gt;更新脚本从而规避docsetutil找不到等错误，经过验证，将命令放在脚本中，确实解决了这个问题。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><div id="refer">参考</div></h2><ol><li><a href="https://www.jianshu.com/p/f5cb3c728a5b" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发_编写接口文档（appledoc实用篇）</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;h2 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h2&gt;&lt;p&gt;第一步，下载appledoc，安装：&lt;/p&gt;
+&lt;figure class=&quot;highlight vim&quot;
+      
+    
+    </summary>
+    
+      <category term="工具" scheme="http://yoursite.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+      <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ABTest IOS SDK设计</title>
+    <link href="http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/"/>
+    <id>http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/</id>
+    <published>2019-03-22T06:18:26.000Z</published>
+    <updated>2019-03-22T07:14:11.394Z</updated>
+    
+    <content type="html"><![CDATA[<p>阅读目录：</p><ol><li><a href="#design">ABTest使用场景分析</a></li><li><a href="#sdk">SDK设计图</a></li><li><a href="#jd">附录：XX App AB效果</a></li></ol><h2 id="ABTest使用场景分析"><a href="#ABTest使用场景分析" class="headerlink" title="ABTest使用场景分析"></a><div id="design">ABTest使用场景分析</div></h2><p>下图说明ABTest使用场景的分析。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/ABL1.png" alt="流程解析"></p><p>依据上图的分析，设计出下面的SDK流程。</p><h2 id="SDK设计图"><a href="#SDK设计图" class="headerlink" title="SDK设计图"></a><div id="sdk">SDK设计图</div></h2><p>下图说明SDK的设计图。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/ABL2.png" alt="SDK设计图"></p><h2 id="附录：XX-App-AB效果"><a href="#附录：XX-App-AB效果" class="headerlink" title="附录：XX App AB效果"></a><div id="jd">附录：XX App AB效果</div></h2><p>经过反编译XX APP，分析XX客户端的AB实现原理，然后修改XX的代码，对比底部Bar的AB效果。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/JDA.PNG" alt="A"><br><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/JDB.jpeg" alt="B"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;阅读目录：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a href=&quot;#design&quot;&gt;ABTest使用场景分析&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#sdk&quot;&gt;SDK设计图&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#jd&quot;&gt;附录：XX App AB效果&lt;/a&gt;&lt;/li&gt;
+&lt;
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="ABTest" scheme="http://yoursite.com/categories/IOS/ABTest/"/>
+    
+      <category term="ABTest" scheme="http://yoursite.com/categories/IOS/ABTest/ABTest/"/>
+    
+    
+      <category term="ABTest" scheme="http://yoursite.com/tags/ABTest/"/>
+    
+  </entry>
   
   <entry>
     <title>24. 自动引用计数器</title>
@@ -87,37 +233,6 @@
   </entry>
   
   <entry>
-    <title>21. 扩展</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T07:07:06.729Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Extension Syntax&lt;/li&gt;
-&lt;li&gt;Computed Properties&lt;/li&gt;
-&lt;li&gt;Initializers&lt;/li&gt;
-&lt;li&gt;Methods&lt;/li&gt;
-&lt;li&gt;Subscripts&lt;/li&gt;
-&lt;li&gt;Nested Types&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>20. 嵌套类型</title>
     <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
     <id>http://yoursite.com/wiki/swift语言/swift学习摘要/20__嵌套类型/</id>
@@ -145,21 +260,23 @@
   </entry>
   
   <entry>
-    <title>19. 类型转换</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/19__类型转换/</id>
+    <title>21. 扩展</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
     <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:55:37.511Z</updated>
+    <updated>2019-01-29T07:07:06.729Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
-&lt;li&gt;Checking Type&lt;/li&gt;
-&lt;li&gt;Downcasting&lt;/li&gt;
-&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
+&lt;li&gt;Extension Syntax&lt;/li&gt;
+&lt;li&gt;Computed Properties&lt;/li&gt;
+&lt;li&gt;Initializers&lt;/li&gt;
+&lt;li&gt;Methods&lt;/li&gt;
+&lt;li&gt;Subscripts&lt;/li&gt;
+&lt;li&gt;Nested Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -169,7 +286,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
     
   </entry>
   
@@ -210,6 +327,35 @@
     
     
       <category term="协议" scheme="http://yoursite.com/tags/%E5%8D%8F%E8%AE%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>19. 类型转换</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/19__类型转换/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T03:55:37.511Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
+&lt;li&gt;Checking Type&lt;/li&gt;
+&lt;li&gt;Downcasting&lt;/li&gt;
+&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
     
   </entry>
   
@@ -362,6 +508,37 @@
   </entry>
   
   <entry>
+    <title>1. 枚举</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
+    <published>2019-01-24T04:07:12.000Z</published>
+    <updated>2019-01-25T10:52:37.023Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Enumeration Syntax&lt;/li&gt;
+&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
+&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
+&lt;li&gt;Associated Values&lt;/li&gt;
+&lt;li&gt;Raw Values&lt;/li&gt;
+&lt;li&gt;Recursive Enumerations&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>7. 函数</title>
     <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/"/>
     <id>http://yoursite.com/wiki/swift语言/swift学习摘要/8__闭包/</id>
@@ -379,6 +556,36 @@
 &lt;li&gt;Closures Are Reference Types&lt;/li&gt;
 &lt;li&gt;Escaping Closures&lt;/li&gt;
 &lt;li&gt;Autoclosures&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>7. 函数</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/7__函数/</id>
+    <published>2019-01-24T04:07:12.000Z</published>
+    <updated>2019-01-25T10:50:58.540Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
+&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
+&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
+&lt;li&gt;Function Types&lt;/li&gt;
+&lt;li&gt;Nested Functions&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -428,206 +635,6 @@
     
     
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>1. 枚举</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:52:37.023Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Enumeration Syntax&lt;/li&gt;
-&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
-&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
-&lt;li&gt;Associated Values&lt;/li&gt;
-&lt;li&gt;Raw Values&lt;/li&gt;
-&lt;li&gt;Recursive Enumerations&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>7. 函数</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/7__函数/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:50:58.540Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
-&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
-&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
-&lt;li&gt;Function Types&lt;/li&gt;
-&lt;li&gt;Nested Functions&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>10. 类和结构体</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/10__%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/10__类和结构体/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-28T01:46:39.491Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Comparing Structures and Classes</li><li>Structures and Enumerations Are Value Types</li><li>Classes Are Reference Types</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/1.png" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/2.png" alt="2"></p><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/3.png" alt="3"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Comparing Structures and Classes&lt;/li&gt;
-&lt;li&gt;Structures and Enumerations Are Value Types&lt;/li&gt;
-&lt;li&gt;Classes Are Reference Types&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="类和结构体" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>13. 下标</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/13__%E4%B8%8B%E6%A0%87/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/13__下标/</id>
-    <published>2019-01-18T04:07:12.000Z</published>
-    <updated>2019-01-25T10:27:11.338Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Subscript Syntax</li><li>Subscript Usage</li><li>Subscript Options</li></ol><a id="more"></a><p>你可以为单个类型定义多个下标，并根据传递给下标的索引值的类型，选择要使用的相应下 标进行重载。 下标不限于单个维度，你可以定义具有多个输入参数的下标以满足你自定义类 型的需求。</p><h2 id="下标语法"><a href="#下标语法" class="headerlink" title="下标语法"></a>下标语法</h2><p>使用下标, 让你可以通过在实例名称后面的方括号中写入一个或多个值来查询类的实例。它们 的语法类似于实例方法和计算属性语法。使用 subscript 关键字定义下标，并且和实例 方法类似，可以指定一个或多个输入参数和返回类型。与实例方法不同，下标可以是读写或 只读。和计算属性类似, 读写是由 getter 和 setter 方法实现的</p><figure class="highlight haxe"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">subscript(index: <span class="type">Int</span>) -&gt; <span class="keyword">Int</span> &#123;</span><br><span class="line"><span class="keyword">get</span> &#123;</span><br><span class="line"><span class="comment">// 在这⾥里里返回⼀一个对应下标的值 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">set</span>(<span class="keyword">new</span><span class="type">Value</span>) &#123;</span><br><span class="line"><span class="comment">// 在这⾥里里执⾏行行对应的赋值操作</span></span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>与只读计算属性一样，你可以通过删除 get 关键字以及大括号来简化只读下标的声明</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">subscript</span><span class="params">(index: Int)</span></span> -&gt; Int &#123; </span><br><span class="line"><span class="comment">// 在这⾥里里返回⼀一个对应下标的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="下标用法"><a href="#下标用法" class="headerlink" title="下标用法"></a>下标用法</h2><p>下标通常被用来作为访问集合、列表或序列中的元素的快捷方式.</p><p>Swift 的 Dictionary 类型将其键值作为下标实现并返回一个可选类型</p><h2 id="下标选项"><a href="#下标选项" class="headerlink" title="下标选项"></a>下标选项</h2><p>下标可以设置任意数量的输入参数，这些输入参数也可以是任意类型。 同时，下标也可以返 回任何类型。 下标可以使用可变参数，但它们不能使用输入输出参数或是提供默认参数值。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Subscript Syntax&lt;/li&gt;
-&lt;li&gt;Subscript Usage&lt;/li&gt;
-&lt;li&gt;Subscript Options&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="下标" scheme="http://yoursite.com/tags/%E4%B8%8B%E6%A0%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>12. 方法</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/12__方法/</id>
-    <published>2019-01-18T04:07:12.000Z</published>
-    <updated>2019-01-25T10:17:39.385Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Instance Methods 实例方法</li><li>Type Methods 类型方法</li></ol><a id="more"></a><h2 id="实例方法"><a href="#实例方法" class="headerlink" title="实例方法"></a>实例方法</h2><p>self 属性： 类型的每个实例都有一个名为 self 的隐式属性，它与实例本身完全等效。你可以使用self 属性来调用自己的实例方法。</p><p>在实例例⽅方法中修改值类型： 结构体和枚举是值类型 。默认情况下，无法在其实例方法中修改值类型的属性。你可以通过在方法的 func 关键字前放置 mutating 关键字。</p><p>你不能在常量结构体类型上调用异变方法，因为它的属性不能更改，即使它们是变量属性。</p><p>在可变方法中给self赋值：可变方法能给隐性的self属性赋以一个全新的实例</p><h2 id="类型方法"><a href="#类型方法" class="headerlink" title="类型方法"></a>类型方法</h2><p>为了明确一个方法是类型方法，你可以在这个方法 的 func 关键词前加上 static 关键词。在类中，也可以使用 class 关键词来声明一个类型方法。与 static 关键词不同的是，用 class 关键词声明的类型方法允许它的子类重写其父类对类型方法的实现。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Instance Methods 实例方法&lt;/li&gt;
-&lt;li&gt;Type Methods 类型方法&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="方法" scheme="http://yoursite.com/tags/%E6%96%B9%E6%B3%95/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>11. 属性</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/11__%E5%B1%9E%E6%80%A7/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/11__属性/</id>
-    <published>2019-01-18T03:07:12.000Z</published>
-    <updated>2019-01-25T10:13:56.514Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Stored Properties 存储属性</li><li>Computed Properties 计算属性</li><li>Property Observers 属性观察器</li><li>Global and Local Variables</li><li>Type Properties 类型属性</li></ol><a id="more"></a><p>存储属性将常量和变量值存储为实例 的一部分，而计算属性则是通过计算得到一个值(而不是存储值)。计算属性适用于类、结 构体和枚举类型，而存储属性只适用于类和结构体类型。</p><h2 id="存储属性"><a href="#存储属性" class="headerlink" title="存储属性"></a>存储属性</h2><p>常量结构体实例的存储属性：当值类型的实例声明为常量时，其所有属性也都被标记为常量。如果将引用类型的实例声明为常量时，你仍可以修改该实例的变量属性。</p><p>延迟存储属性：第一次使用时才进行计算。lazy标识，你必须始终将延迟属性声明为变量(使用 var 关键字)，因为延迟属性的初始值可能在实例初始化完成之后，仍然没有被赋值。而常量属性必须在实例初始化完成 之前 就 获得一个值，因此不能声明为延迟。<font color="blue">lazy和let是天敌啊</font></p><p>存储属性和实例变量： swift属性没有相应的实例变量，并且属性的底层存储不能直接访问。</p><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>除了存储属性之外，类、结构体和枚举还可以定义 计算属性。它们会提供了一个 getter 方法和一个可选的 setter 方法来间接读取和设置其他属性和 值。</p><p>只读计算属性：只有 getter 方法但没有 setter 方法的计算属性称为 只读计算属性 。</p><p>你必须使用 var 关键字来声明计算属性(包括只读计算属性)，这是因为它们的值 是不固定。 let 关键字仅用于常量属性，这种属性一旦被初始化以后，就不能再更 改它们的值。</p><h2 id="属性观察器"><a href="#属性观察器" class="headerlink" title="属性观察器"></a>属性观察器</h2><p>属性观察器会观察并对属性值的变化做出反应。每次设置属性值时都会调用属性观察器，即使新值与属性的当前值相同。</p><p>你可以将属性观察器添加到你定义的任何存储属性上，但延迟存储属性除外。你还可以通过在子类中重写属性来为任何继承的属性(无论是存储还是计算)添加属性观察器。你并不需 要为非重写的计算属性定义属性观察器，因为你可以在计算属性的 setter 方法中观察并响应其值的更改。</p><p>你可以选择在属性上定义一个或两个观察器:</p><ol><li>在存储值之前调用 willSet 。</li><li>存储新值后立即调用 didSet 。</li></ol><p>在调用父类初始化方法之后，在子类中给父类属性赋值时，将会调用父类属性的 willSet 和 didSet 观察器。如果在调用父类初始化方法之前，在子类中给父类属性赋值，则不会调用父类的观察器。</p><p>didSet 观察器不会为旧值提供自定义参数名称，而是使用默认名称 oldValue 。</p><h2 id="全局和局部变量"><a href="#全局和局部变量" class="headerlink" title="全局和局部变量"></a>全局和局部变量</h2><p>上面描述的用于计算和观察属性的功能也可用于 全局变量 和 局部变量 。全局变量是指在任何函数、方法、闭包或类型上下文之外定义的变量。局部变量是指在函数、方法或闭包上下文中定义的变量。</p><p>全局常量和变量总是被延迟计算，与 延迟存储属性 类似。与延迟存储属性不同的是，全局常量和变量不需要使用 lazy 修饰符进行标记。 局部常量和变量永远不会被延迟计算。</p><h2 id="类型属性"><a href="#类型属性" class="headerlink" title="类型属性"></a>类型属性</h2><p>实例属性是属于特定类型的实例的属性。每次创建该类型的新实例时，它都有自己的一组属性值，与任何其他实例不同。</p><p>类型属性用于定义一个对某个类型的 所有 实例都可见的值</p><p>存储类型属性可以是变量或常量。计算类型属性始终是变量属性，与声明计算实例属性的方式相同。</p><p>与存储实例属性不同，你必须始终为存储类型属性提供默认值。这是因为类型本身没有初始化方法来给存储类型属性赋值。<br>存储类型属性在首次访问时被初始化。它们会被保证只初始化一次，即使同时由多个线程访问。请注意你并不需要用 lazy 修饰符标记它们。</p><p>类型属性的语法: 你可以使用static关键字定义类型属性，对于类类型的计算属性，可以使用class关键字来允许子类覆盖超类的实现。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Stored Properties 存储属性&lt;/li&gt;
-&lt;li&gt;Computed Properties 计算属性&lt;/li&gt;
-&lt;li&gt;Property Observers 属性观察器&lt;/li&gt;
-&lt;li&gt;Global and Local Variables&lt;/li&gt;
-&lt;li&gt;Type Properties 类型属性&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="属性" scheme="http://yoursite.com/tags/%E5%B1%9E%E6%80%A7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>英语资源</title>
-    <link href="http://yoursite.com/wiki/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/"/>
-    <id>http://yoursite.com/wiki/英语学习/学习资源/</id>
-    <published>2019-01-14T04:07:12.000Z</published>
-    <updated>2019-02-14T07:38:25.443Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://zhuanlan.zhihu.com/p/36367134" rel="external nofollow noopener noreferrer" target="_blank">英语语法其实蛮简单</a></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://zhuanlan.zhihu.com/p/36367134&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;英语语法其实蛮简单&lt;/a&gt;&lt;/p&gt;
-
-      
-    
-    </summary>
-    
-      <category term="英语学习" scheme="http://yoursite.com/categories/%E8%8B%B1%E8%AF%AD%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="英语资源" scheme="http://yoursite.com/tags/%E8%8B%B1%E8%AF%AD%E8%B5%84%E6%BA%90/"/>
     
   </entry>
   
