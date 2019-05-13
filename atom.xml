@@ -133,9 +133,9 @@
     <link href="http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/"/>
     <id>http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/</id>
     <published>2019-03-22T06:18:26.000Z</published>
-    <updated>2019-03-22T07:14:11.394Z</updated>
+    <updated>2019-05-13T11:14:26.611Z</updated>
     
-    <content type="html"><![CDATA[<p>阅读目录：</p><ol><li><a href="#design">ABTest使用场景分析</a></li><li><a href="#sdk">SDK设计图</a></li><li><a href="#jd">附录：XX App AB效果</a></li></ol><h2 id="ABTest使用场景分析"><a href="#ABTest使用场景分析" class="headerlink" title="ABTest使用场景分析"></a><div id="design">ABTest使用场景分析</div></h2><p>下图说明ABTest使用场景的分析。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/ABL1.png" alt="流程解析"></p><p>依据上图的分析，设计出下面的SDK流程。</p><h2 id="SDK设计图"><a href="#SDK设计图" class="headerlink" title="SDK设计图"></a><div id="sdk">SDK设计图</div></h2><p>下图说明SDK的设计图。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/ABL2.png" alt="SDK设计图"></p><h2 id="附录：XX-App-AB效果"><a href="#附录：XX-App-AB效果" class="headerlink" title="附录：XX App AB效果"></a><div id="jd">附录：XX App AB效果</div></h2><p>经过反编译XX APP，分析XX客户端的AB实现原理，然后修改XX的代码，对比底部Bar的AB效果。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/JDA.PNG" alt="A"><br><img src="/wiki/IOS/ABTest/ABTest/ABTest/image/JDB.jpeg" alt="B"></p>]]></content>
+    <content type="html"><![CDATA[<p>阅读目录：</p><ol><li><a href="#design">ABTest使用场景分析</a></li><li><a href="#sdk">SDK设计图</a></li><li><a href="#jd">附录：XX App AB效果</a></li></ol><h2 id="ABTest使用场景分析"><a href="#ABTest使用场景分析" class="headerlink" title="ABTest使用场景分析"></a><div id="design">ABTest使用场景分析</div></h2><p>下图说明ABTest使用场景的分析。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/ABL1.png" alt="流程解析"></p><p>依据上图的分析，设计出下面的SDK流程。</p><h2 id="SDK设计图"><a href="#SDK设计图" class="headerlink" title="SDK设计图"></a><div id="sdk">SDK设计图</div></h2><p>下图说明SDK的设计图。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/ABL2.png" alt="SDK设计图"></p><h2 id="附录：XX-App-AB效果"><a href="#附录：XX-App-AB效果" class="headerlink" title="附录：XX App AB效果"></a><div id="jd">附录：XX App AB效果</div></h2><p>经过反编译XX APP，分析XX客户端的AB实现原理，然后修改XX的代码，对比底部Bar的AB效果。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/JDA.PNG" alt="A"><br><img src="/wiki/IOS/ABTest/ABTest/ABTest/JDB.jpeg" alt="B"></p>]]></content>
     
     <summary type="html">
     
@@ -233,62 +233,6 @@
   </entry>
   
   <entry>
-    <title>19. 类型转换</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/19__类型转换/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:55:37.511Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
-&lt;li&gt;Checking Type&lt;/li&gt;
-&lt;li&gt;Downcasting&lt;/li&gt;
-&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>20. 嵌套类型</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/20__嵌套类型/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:58:49.024Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Nested Types in Action</li><li>Referring to Nested Types</li></ol><a id="more"></a><p> 通常我们会创建枚举来支持特定的类或结构体的功能。类似地，为了可以方便地定义在更复杂类型上下文中使用的实用 工具类和结构，Swift 允许你定义 嵌套类型 ，从而实现在枚举、类和结构体中的定义嵌套类型。</p><p>如果要将一个类型嵌套在另一个类型中，只需在支持类型的大括号内定义嵌套类型即可。类型支持多层嵌套。</p><h2 id="嵌套类型的使用"><a href="#嵌套类型的使用" class="headerlink" title="嵌套类型的使用"></a>嵌套类型的使用</h2><h2 id="引⽤嵌套类型"><a href="#引⽤嵌套类型" class="headerlink" title="引⽤嵌套类型"></a>引⽤嵌套类型</h2><p>要在其定义上下文之外使用嵌套类型，需要在其名称前面加上嵌套在其中的类型的名称。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Nested Types in Action&lt;/li&gt;
-&lt;li&gt;Referring to Nested Types&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
     <title>22. 协议</title>
     <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
     <id>http://yoursite.com/wiki/swift语言/swift学习摘要/22__协议/</id>
@@ -360,24 +304,19 @@
   </entry>
   
   <entry>
-    <title>17. 可选链</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/17__可选链/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-28T10:09:02.556Z</updated>
+    <title>20. 嵌套类型</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/20__嵌套类型/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T03:58:49.024Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Optional Chaining as an Alternative to Forced Unwrapping</li><li>Defining Model Classes for Optional Chaining</li><li>Accessing Properties Through Optional Chaining</li><li>Calling Methods Through Optional Chaining</li><li>Accessing Subscripts Through Optional Chaining</li><li>Linking Multiple Levels of Chaining</li><li>Chaining on Methods with Optional Return Values</li></ol><a id="more"></a><p>可选链 是在当前可能为 nil的可选值上查询和调用属性、方法、下标的过程。如果可选值有值，则属性、方法或下标调用成功;如果可选值为 nil ，则属性、方法或下标调用 返回 nil 。多个查询可以链接在一起，如果链中的任何一个节点为 nil ，整个链会 返回失败。</p><h2 id="可选链作为强制展开的代替品"><a href="#可选链作为强制展开的代替品" class="headerlink" title="可选链作为强制展开的代替品"></a>可选链作为强制展开的代替品</h2><p>为了反映可选链可以对 nil 值进行调用这一事实，可选链调用的结果总是一个可选值， 即使正在查询的属性、方法或下标返回一个不可选值。</p><h2 id="为可选链定义模型类"><a href="#为可选链定义模型类" class="headerlink" title="为可选链定义模型类"></a>为可选链定义模型类</h2><p>你可以使用可选链来调用超过一级深度的属性、方法和下标。 这使你可以深入查看相互关联 类型的复杂模型中的子属性，并检查是否可以访问这些子属性上的属性、方法和下标。</p><h2 id="通过可选链访问属性"><a href="#通过可选链访问属性" class="headerlink" title="通过可选链访问属性"></a>通过可选链访问属性</h2><p>赋值是可选链的一部分，也就意味着 = 操作符的右操作数不会被计算。</p><p>任何通过可选链给属性赋值的尝试都会返回一个 Void? 类型的值。这样你可以和 nil 比较来检查赋值是否成功:</p><h2 id="通过可选链调⽤方法"><a href="#通过可选链调⽤方法" class="headerlink" title="通过可选链调⽤方法"></a>通过可选链调⽤方法</h2><p>你可以使用可选链来调用一个可选值的方法，以及检查调用是否成功。即使那个方法没有返回值你依然可以这样做。</p><h2 id="通过可选链访问下标"><a href="#通过可选链访问下标" class="headerlink" title="通过可选链访问下标"></a>通过可选链访问下标</h2><h2 id="访问可选类型的下标"><a href="#访问可选类型的下标" class="headerlink" title="访问可选类型的下标"></a>访问可选类型的下标</h2><p>如果下标返回一个可选类型的值，例如 Swift 中 Dictionary 的键下标，在下标的右括 号 后面 放置一个问号来链接其可选的返回值</p><h2 id="多级链表关联"><a href="#多级链表关联" class="headerlink" title="多级链表关联"></a>多级链表关联</h2><ol><li>如果要检索的类型不是可选的，通过可选链，它将成为可选的。</li><li>如果您要检索的类型已经是可选的，那么它将保持原状。</li></ol><h2 id="在方法的可选返回值上进行可选链式调用"><a href="#在方法的可选返回值上进行可选链式调用" class="headerlink" title="在方法的可选返回值上进行可选链式调用"></a>在方法的可选返回值上进行可选链式调用</h2><p>如果要在该方法的返回值上进行可选链式调用，在方法的圆括号后面加上问号即可。</p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Nested Types in Action</li><li>Referring to Nested Types</li></ol><a id="more"></a><p> 通常我们会创建枚举来支持特定的类或结构体的功能。类似地，为了可以方便地定义在更复杂类型上下文中使用的实用 工具类和结构，Swift 允许你定义 嵌套类型 ，从而实现在枚举、类和结构体中的定义嵌套类型。</p><p>如果要将一个类型嵌套在另一个类型中，只需在支持类型的大括号内定义嵌套类型即可。类型支持多层嵌套。</p><h2 id="嵌套类型的使用"><a href="#嵌套类型的使用" class="headerlink" title="嵌套类型的使用"></a>嵌套类型的使用</h2><h2 id="引⽤嵌套类型"><a href="#引⽤嵌套类型" class="headerlink" title="引⽤嵌套类型"></a>引⽤嵌套类型</h2><p>要在其定义上下文之外使用嵌套类型，需要在其名称前面加上嵌套在其中的类型的名称。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Optional Chaining as an Alternative to Forced Unwrapping&lt;/li&gt;
-&lt;li&gt;Defining Model Classes for Optional Chaining&lt;/li&gt;
-&lt;li&gt;Accessing Properties Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Calling Methods Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Accessing Subscripts Through Optional Chaining&lt;/li&gt;
-&lt;li&gt;Linking Multiple Levels of Chaining&lt;/li&gt;
-&lt;li&gt;Chaining on Methods with Optional Return Values&lt;/li&gt;
+&lt;li&gt;Nested Types in Action&lt;/li&gt;
+&lt;li&gt;Referring to Nested Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -387,24 +326,26 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+      <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
     
   </entry>
   
   <entry>
-    <title>16. 析构过程</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/16__析构过程/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-28T08:50:32.765Z</updated>
+    <title>19. 类型转换</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/19__类型转换/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T03:55:37.511Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
-&lt;li&gt;Deinitializers in Action&lt;/li&gt;
+&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
+&lt;li&gt;Checking Type&lt;/li&gt;
+&lt;li&gt;Downcasting&lt;/li&gt;
+&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -414,35 +355,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>18. 错误处理</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/18__错误处理/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-29T03:19:27.919Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
-&lt;li&gt;Handling Errors&lt;/li&gt;
-&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
     
   </entry>
   
@@ -480,6 +393,93 @@
   </entry>
   
   <entry>
+    <title>18. 错误处理</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/18__错误处理/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-29T03:19:27.919Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
+&lt;li&gt;Handling Errors&lt;/li&gt;
+&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>16. 析构过程</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/16__析构过程/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-28T08:50:32.765Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
+&lt;li&gt;Deinitializers in Action&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>17. 可选链</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/17__可选链/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-28T10:09:02.556Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Optional Chaining as an Alternative to Forced Unwrapping</li><li>Defining Model Classes for Optional Chaining</li><li>Accessing Properties Through Optional Chaining</li><li>Calling Methods Through Optional Chaining</li><li>Accessing Subscripts Through Optional Chaining</li><li>Linking Multiple Levels of Chaining</li><li>Chaining on Methods with Optional Return Values</li></ol><a id="more"></a><p>可选链 是在当前可能为 nil的可选值上查询和调用属性、方法、下标的过程。如果可选值有值，则属性、方法或下标调用成功;如果可选值为 nil ，则属性、方法或下标调用 返回 nil 。多个查询可以链接在一起，如果链中的任何一个节点为 nil ，整个链会 返回失败。</p><h2 id="可选链作为强制展开的代替品"><a href="#可选链作为强制展开的代替品" class="headerlink" title="可选链作为强制展开的代替品"></a>可选链作为强制展开的代替品</h2><p>为了反映可选链可以对 nil 值进行调用这一事实，可选链调用的结果总是一个可选值， 即使正在查询的属性、方法或下标返回一个不可选值。</p><h2 id="为可选链定义模型类"><a href="#为可选链定义模型类" class="headerlink" title="为可选链定义模型类"></a>为可选链定义模型类</h2><p>你可以使用可选链来调用超过一级深度的属性、方法和下标。 这使你可以深入查看相互关联 类型的复杂模型中的子属性，并检查是否可以访问这些子属性上的属性、方法和下标。</p><h2 id="通过可选链访问属性"><a href="#通过可选链访问属性" class="headerlink" title="通过可选链访问属性"></a>通过可选链访问属性</h2><p>赋值是可选链的一部分，也就意味着 = 操作符的右操作数不会被计算。</p><p>任何通过可选链给属性赋值的尝试都会返回一个 Void? 类型的值。这样你可以和 nil 比较来检查赋值是否成功:</p><h2 id="通过可选链调⽤方法"><a href="#通过可选链调⽤方法" class="headerlink" title="通过可选链调⽤方法"></a>通过可选链调⽤方法</h2><p>你可以使用可选链来调用一个可选值的方法，以及检查调用是否成功。即使那个方法没有返回值你依然可以这样做。</p><h2 id="通过可选链访问下标"><a href="#通过可选链访问下标" class="headerlink" title="通过可选链访问下标"></a>通过可选链访问下标</h2><h2 id="访问可选类型的下标"><a href="#访问可选类型的下标" class="headerlink" title="访问可选类型的下标"></a>访问可选类型的下标</h2><p>如果下标返回一个可选类型的值，例如 Swift 中 Dictionary 的键下标，在下标的右括 号 后面 放置一个问号来链接其可选的返回值</p><h2 id="多级链表关联"><a href="#多级链表关联" class="headerlink" title="多级链表关联"></a>多级链表关联</h2><ol><li>如果要检索的类型不是可选的，通过可选链，它将成为可选的。</li><li>如果您要检索的类型已经是可选的，那么它将保持原状。</li></ol><h2 id="在方法的可选返回值上进行可选链式调用"><a href="#在方法的可选返回值上进行可选链式调用" class="headerlink" title="在方法的可选返回值上进行可选链式调用"></a>在方法的可选返回值上进行可选链式调用</h2><p>如果要在该方法的返回值上进行可选链式调用，在方法的圆括号后面加上问号即可。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Optional Chaining as an Alternative to Forced Unwrapping&lt;/li&gt;
+&lt;li&gt;Defining Model Classes for Optional Chaining&lt;/li&gt;
+&lt;li&gt;Accessing Properties Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Calling Methods Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Accessing Subscripts Through Optional Chaining&lt;/li&gt;
+&lt;li&gt;Linking Multiple Levels of Chaining&lt;/li&gt;
+&lt;li&gt;Chaining on Methods with Optional Return Values&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
     <title>14. 继承</title>
     <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/14__%E7%BB%A7%E6%89%BF/"/>
     <id>http://yoursite.com/wiki/swift语言/swift学习摘要/14__继承/</id>
@@ -504,37 +504,6 @@
     
     
       <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>1. 枚举</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
-    <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:52:37.023Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Enumeration Syntax&lt;/li&gt;
-&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
-&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
-&lt;li&gt;Associated Values&lt;/li&gt;
-&lt;li&gt;Raw Values&lt;/li&gt;
-&lt;li&gt;Recursive Enumerations&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
     
   </entry>
   
@@ -633,6 +602,36 @@
     
     
       <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>7. 函数</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/7__函数/</id>
+    <published>2019-01-24T04:07:12.000Z</published>
+    <updated>2019-01-25T10:50:58.540Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
+&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
+&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
+&lt;li&gt;Function Types&lt;/li&gt;
+&lt;li&gt;Nested Functions&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
     
   </entry>
   

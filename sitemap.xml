@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/</loc>
+    
+    <lastmod>2019-05-13T11:14:26.611Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/notice/notice/</loc>
+    
+    <lastmod>2019-05-13T11:12:18.603Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/opensource/JLRoute/JLRoute/</loc>
     
     <lastmod>2019-05-13T11:04:49.434Z</lastmod>
@@ -26,13 +40,6 @@
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/use_appledoc/</loc>
     
     <lastmod>2019-05-05T03:57:03.555Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/</loc>
-    
-    <lastmod>2019-03-22T07:14:11.394Z</lastmod>
     
   </url>
   
@@ -835,13 +842,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/hexo/hexo-use/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -955,6 +955,13 @@
   
   <url>
     <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/union%E5%AE%9A%E4%B9%89/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/categories/index.html</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
