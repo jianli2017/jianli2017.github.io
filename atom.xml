@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-05-13T10:52:18.700Z</updated>
+  <updated>2019-05-13T11:04:49.434Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,15 +21,15 @@
     <link href="http://yoursite.com/wiki/IOS/opensource/JLRoute/JLRoute/"/>
     <id>http://yoursite.com/wiki/IOS/opensource/JLRoute/JLRoute/</id>
     <published>2019-05-13T04:07:12.000Z</published>
-    <updated>2019-05-13T10:52:18.700Z</updated>
+    <updated>2019-05-13T11:04:49.434Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/jlRoute/register.png" alt="注册流程"></p><h2 id="route流程"><a href="#route流程" class="headerlink" title="route流程"></a>route流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/jlRoute/routerurl.png" alt="route流程"></p>]]></content>
+    <content type="html"><![CDATA[<h2 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/register.png" alt="注册流程"></p><h2 id="route流程"><a href="#route流程" class="headerlink" title="route流程"></a>route流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/routerurl.png" alt="route流程"></p>]]></content>
     
     <summary type="html">
     
       
       
-        &lt;h2 id=&quot;注册流程&quot;&gt;&lt;a href=&quot;#注册流程&quot; class=&quot;headerlink&quot; title=&quot;注册流程&quot;&gt;&lt;/a&gt;注册流程&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/wiki/IOS/opensource/JLRoute/JLRoute/jlRoute/registe
+        &lt;h2 id=&quot;注册流程&quot;&gt;&lt;a href=&quot;#注册流程&quot; class=&quot;headerlink&quot; title=&quot;注册流程&quot;&gt;&lt;/a&gt;注册流程&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/wiki/IOS/opensource/JLRoute/JLRoute/register.png&quot; a
       
     
     </summary>
@@ -262,23 +262,19 @@
   </entry>
   
   <entry>
-    <title>21. 扩展</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
+    <title>20. 嵌套类型</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/20__嵌套类型/</id>
     <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T07:07:06.729Z</updated>
+    <updated>2019-01-29T03:58:49.024Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Nested Types in Action</li><li>Referring to Nested Types</li></ol><a id="more"></a><p> 通常我们会创建枚举来支持特定的类或结构体的功能。类似地，为了可以方便地定义在更复杂类型上下文中使用的实用 工具类和结构，Swift 允许你定义 嵌套类型 ，从而实现在枚举、类和结构体中的定义嵌套类型。</p><p>如果要将一个类型嵌套在另一个类型中，只需在支持类型的大括号内定义嵌套类型即可。类型支持多层嵌套。</p><h2 id="嵌套类型的使用"><a href="#嵌套类型的使用" class="headerlink" title="嵌套类型的使用"></a>嵌套类型的使用</h2><h2 id="引⽤嵌套类型"><a href="#引⽤嵌套类型" class="headerlink" title="引⽤嵌套类型"></a>引⽤嵌套类型</h2><p>要在其定义上下文之外使用嵌套类型，需要在其名称前面加上嵌套在其中的类型的名称。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Extension Syntax&lt;/li&gt;
-&lt;li&gt;Computed Properties&lt;/li&gt;
-&lt;li&gt;Initializers&lt;/li&gt;
-&lt;li&gt;Methods&lt;/li&gt;
-&lt;li&gt;Subscripts&lt;/li&gt;
-&lt;li&gt;Nested Types&lt;/li&gt;
+&lt;li&gt;Nested Types in Action&lt;/li&gt;
+&lt;li&gt;Referring to Nested Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -288,7 +284,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
+      <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
     
   </entry>
   
@@ -333,19 +329,23 @@
   </entry>
   
   <entry>
-    <title>20. 嵌套类型</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/20__嵌套类型/</id>
+    <title>21. 扩展</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
     <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:58:49.024Z</updated>
+    <updated>2019-01-29T07:07:06.729Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Nested Types in Action</li><li>Referring to Nested Types</li></ol><a id="more"></a><p> 通常我们会创建枚举来支持特定的类或结构体的功能。类似地，为了可以方便地定义在更复杂类型上下文中使用的实用 工具类和结构，Swift 允许你定义 嵌套类型 ，从而实现在枚举、类和结构体中的定义嵌套类型。</p><p>如果要将一个类型嵌套在另一个类型中，只需在支持类型的大括号内定义嵌套类型即可。类型支持多层嵌套。</p><h2 id="嵌套类型的使用"><a href="#嵌套类型的使用" class="headerlink" title="嵌套类型的使用"></a>嵌套类型的使用</h2><h2 id="引⽤嵌套类型"><a href="#引⽤嵌套类型" class="headerlink" title="引⽤嵌套类型"></a>引⽤嵌套类型</h2><p>要在其定义上下文之外使用嵌套类型，需要在其名称前面加上嵌套在其中的类型的名称。</p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Nested Types in Action&lt;/li&gt;
-&lt;li&gt;Referring to Nested Types&lt;/li&gt;
+&lt;li&gt;Extension Syntax&lt;/li&gt;
+&lt;li&gt;Computed Properties&lt;/li&gt;
+&lt;li&gt;Initializers&lt;/li&gt;
+&lt;li&gt;Methods&lt;/li&gt;
+&lt;li&gt;Subscripts&lt;/li&gt;
+&lt;li&gt;Nested Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -355,62 +355,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>18. 错误处理</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/18__错误处理/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-29T03:19:27.919Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
-&lt;li&gt;Handling Errors&lt;/li&gt;
-&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>16. 析构过程</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/16__析构过程/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-28T08:50:32.765Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
-&lt;li&gt;Deinitializers in Action&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
+      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
     
   </entry>
   
@@ -443,6 +388,61 @@
     
     
       <category term="可选链" scheme="http://yoursite.com/tags/%E5%8F%AF%E9%80%89%E9%93%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>16. 析构过程</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/16__析构过程/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-28T08:50:32.765Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
+&lt;li&gt;Deinitializers in Action&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>18. 错误处理</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/18__错误处理/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-29T03:19:27.919Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
+&lt;li&gt;Handling Errors&lt;/li&gt;
+&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
     
   </entry>
   
@@ -508,31 +508,23 @@
   </entry>
   
   <entry>
-    <title>2. 基础</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/2__%E5%9F%BA%E7%A1%80/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/2__基础/</id>
+    <title>1. 枚举</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
     <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-28T01:47:30.358Z</updated>
+    <updated>2019-01-25T10:52:37.023Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Constants and Variables</li><li>Comments</li><li>Semicolons</li><li>Integers</li><li>Floating-Point Numbers</li><li>Type Safety and Type Inference</li><li>Numeric Literals</li><li>Numeric Type Conversion</li><li>Type Aliases</li><li>Booleans</li><li>Tuples</li><li>Optionals</li><li>Error Handling</li><li>Assertions and Preconditions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/2__基础/1.png" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/2.png" alt="2"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/3.png" alt="3"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/4.png" alt="4"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/5.png" alt="5"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/6.png" alt="6"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/7.png" alt="7"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/8.png" alt="8"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/9.png" alt="9"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/10.png" alt="10"></p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Constants and Variables&lt;/li&gt;
-&lt;li&gt;Comments&lt;/li&gt;
-&lt;li&gt;Semicolons&lt;/li&gt;
-&lt;li&gt;Integers&lt;/li&gt;
-&lt;li&gt;Floating-Point Numbers&lt;/li&gt;
-&lt;li&gt;Type Safety and Type Inference&lt;/li&gt;
-&lt;li&gt;Numeric Literals&lt;/li&gt;
-&lt;li&gt;Numeric Type Conversion&lt;/li&gt;
-&lt;li&gt;Type Aliases&lt;/li&gt;
-&lt;li&gt;Booleans&lt;/li&gt;
-&lt;li&gt;Tuples&lt;/li&gt;
-&lt;li&gt;Optionals&lt;/li&gt;
-&lt;li&gt;Error Handling&lt;/li&gt;
-&lt;li&gt;Assertions and Preconditions&lt;/li&gt;
+&lt;li&gt;Enumeration Syntax&lt;/li&gt;
+&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
+&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
+&lt;li&gt;Associated Values&lt;/li&gt;
+&lt;li&gt;Raw Values&lt;/li&gt;
+&lt;li&gt;Recursive Enumerations&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -542,7 +534,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
+      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
     
   </entry>
   
@@ -578,22 +570,20 @@
   </entry>
   
   <entry>
-    <title>7. 函数</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/7__函数/</id>
+    <title>10. 类和结构体</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/10__%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/10__类和结构体/</id>
     <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:50:58.540Z</updated>
+    <updated>2019-01-28T01:46:39.491Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Defining and Calling Functions</li><li>Function Parameters and Return Values</li><li>Function Argument Labels and Parameter Names</li><li>Function Types</li><li>Nested Functions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/7__函数/1.jpeg" alt="1"></p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Comparing Structures and Classes</li><li>Structures and Enumerations Are Value Types</li><li>Classes Are Reference Types</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/1.png" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/2.png" alt="2"></p><p><img src="/wiki/swift语言/swift学习摘要/10__类和结构体/3.png" alt="3"></p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Defining and Calling Functions&lt;/li&gt;
-&lt;li&gt;Function Parameters and Return Values&lt;/li&gt;
-&lt;li&gt;Function Argument Labels and Parameter Names&lt;/li&gt;
-&lt;li&gt;Function Types&lt;/li&gt;
-&lt;li&gt;Nested Functions&lt;/li&gt;
+&lt;li&gt;Comparing Structures and Classes&lt;/li&gt;
+&lt;li&gt;Structures and Enumerations Are Value Types&lt;/li&gt;
+&lt;li&gt;Classes Are Reference Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -603,28 +593,36 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="函数" scheme="http://yoursite.com/tags/%E5%87%BD%E6%95%B0/"/>
+      <category term="类和结构体" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/"/>
     
   </entry>
   
   <entry>
-    <title>1. 枚举</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/9__枚举/</id>
+    <title>2. 基础</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/2__%E5%9F%BA%E7%A1%80/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/2__基础/</id>
     <published>2019-01-24T04:07:12.000Z</published>
-    <updated>2019-01-25T10:52:37.023Z</updated>
+    <updated>2019-01-28T01:47:30.358Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Enumeration Syntax</li><li>Matching Enumeration Values with a Switch Statement</li><li>Iterating over Enumeration Cases</li><li>Associated Values</li><li>Raw Values</li><li>Recursive Enumerations</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/1.jpeg" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/9__枚举/2.jpeg" alt="1"></p>]]></content>
+    <content type="html"><![CDATA[<ol><li>Constants and Variables</li><li>Comments</li><li>Semicolons</li><li>Integers</li><li>Floating-Point Numbers</li><li>Type Safety and Type Inference</li><li>Numeric Literals</li><li>Numeric Type Conversion</li><li>Type Aliases</li><li>Booleans</li><li>Tuples</li><li>Optionals</li><li>Error Handling</li><li>Assertions and Preconditions</li></ol><a id="more"></a><p><img src="/wiki/swift语言/swift学习摘要/2__基础/1.png" alt="1"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/2.png" alt="2"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/3.png" alt="3"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/4.png" alt="4"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/5.png" alt="5"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/6.png" alt="6"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/7.png" alt="7"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/8.png" alt="8"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/9.png" alt="9"></p><p><img src="/wiki/swift语言/swift学习摘要/2__基础/10.png" alt="10"></p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Enumeration Syntax&lt;/li&gt;
-&lt;li&gt;Matching Enumeration Values with a Switch Statement&lt;/li&gt;
-&lt;li&gt;Iterating over Enumeration Cases&lt;/li&gt;
-&lt;li&gt;Associated Values&lt;/li&gt;
-&lt;li&gt;Raw Values&lt;/li&gt;
-&lt;li&gt;Recursive Enumerations&lt;/li&gt;
+&lt;li&gt;Constants and Variables&lt;/li&gt;
+&lt;li&gt;Comments&lt;/li&gt;
+&lt;li&gt;Semicolons&lt;/li&gt;
+&lt;li&gt;Integers&lt;/li&gt;
+&lt;li&gt;Floating-Point Numbers&lt;/li&gt;
+&lt;li&gt;Type Safety and Type Inference&lt;/li&gt;
+&lt;li&gt;Numeric Literals&lt;/li&gt;
+&lt;li&gt;Numeric Type Conversion&lt;/li&gt;
+&lt;li&gt;Type Aliases&lt;/li&gt;
+&lt;li&gt;Booleans&lt;/li&gt;
+&lt;li&gt;Tuples&lt;/li&gt;
+&lt;li&gt;Optionals&lt;/li&gt;
+&lt;li&gt;Error Handling&lt;/li&gt;
+&lt;li&gt;Assertions and Preconditions&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -634,7 +632,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="枚举" scheme="http://yoursite.com/tags/%E6%9E%9A%E4%B8%BE/"/>
+      <category term="基础" scheme="http://yoursite.com/tags/%E5%9F%BA%E7%A1%80/"/>
     
   </entry>
   
