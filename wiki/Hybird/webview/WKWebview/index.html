@@ -24,7 +24,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_1.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_2.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_3.png">
-<meta property="og:updated_time" content="2019-05-20T07:59:50.806Z">
+<meta property="og:updated_time" content="2019-05-20T08:03:25.051Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通用webview开发记录">
 <meta name="twitter:description" content="为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考">
@@ -1107,23 +1107,17 @@
 </li>
 <li><p>根据NSError中的错误码分析错误的原因，解决问题。</p>
 <p>下面是我遇到的几个记录下来的错误码，通过分析，大部分能明白错误的原因：</p>
+</li>
+</ul>
+</li>
+</ul>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">Error</span> <span class="attribute">Domain</span>=WebKitErrorDomain <span class="attribute">Code</span>=102 <span class="string">"Frame load interrupted"</span> UserInfo=&#123;_WKRecoveryAttempterErrorKey=</span><br><span class="line">&lt;WKReloadFrameErrorRecoveryAttempter: 0x60000062fa80&gt;, <span class="attribute">NSErrorFailingURLStringKey</span>=https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=, <span class="attribute">NSErrorFailingURLKey</span>=https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=, <span class="attribute">NSLocalizedDescription</span>=Frame load interrupted&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-<pre><code>这个是加载中访问了https://login.m.gomeplus.com/login.html url，打断了加载。
-
+<p>这个是加载中访问了<a href="https://login.m.gomeplus.com/login.html" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html</a> url，打断了加载。</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">Error</span> <span class="attribute">Domain</span>=NSURLErrorDomain <span class="attribute">Code</span>=-1002 <span class="string">"unsupported URL"</span> UserInfo=&#123;<span class="attribute">_WKRecoveryAttempterErrorKey</span>=&lt;WKReloadFrameErrorRecoveryAttempter: 0x608000233ae0&gt;, <span class="attribute">NSErrorFailingURLStringKey</span>=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, <span class="attribute">NSErrorFailingURLKey</span>=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, <span class="attribute">NSLocalizedDescription</span>=unsupported URL, <span class="attribute">NSUnderlyingError</span>=0x604000653440 &#123;<span class="builtin-name">Error</span> <span class="attribute">Domain</span>=kCFErrorDomainCFNetwork <span class="attribute">Code</span>=-1002 <span class="string">"(null)”&#125;&#125;</span></span><br></pre></td></tr></table></figure>
-
-
-这个是JS中访问了不支持的scheme,itms-appss
-
+<p>这个是JS中访问了不支持的scheme,itms-appss</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">Error</span> <span class="attribute">Domain</span>=NSURLErrorDomain <span class="attribute">Code</span>=-1202 <span class="string">"The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk."</span> UserInfo=&#123;<span class="attribute">NSURLErrorFailingURLPeerTrustErrorKey</span>=&lt;SecTrustRef: 0x600000301200&gt;, <span class="attribute">NSLocalizedRecoverySuggestion</span>=Would you like <span class="keyword">to</span> connect <span class="keyword">to</span> the<span class="built_in"> server </span>anyway?, <span class="attribute">NSErrorFailingURLStringKey</span>=https://m.gomeholdings.com/content/2017042516183080569_.html, <span class="attribute">NSErrorFailingURLKey</span>=https://m.gomeholdings.com/content/2017042516183080569_.html, NSErrorPeerCertificateChainKey=(</span><br><span class="line">    <span class="string">"&lt;cert(0x7fef30f1fc40) s: *.gomeholdings.com i: Charles Proxy CA (3 \U516b\U6708 2016, bogon)&gt;"</span>,</span><br><span class="line">    <span class="string">"&lt;cert(0x7fef30f12390) s: Charles Proxy CA (3 \U516b\U6708 2016, bogon) i: Charles Proxy CA (3 \U516b\U6708 2016, bogon)&gt;"</span></span><br><span class="line">), <span class="attribute">NSErrorClientCertificateStateKey</span>=0, <span class="attribute">NSLocalizedDescription</span>=The certificate <span class="keyword">for</span> this<span class="built_in"> server </span>is invalid. You might be connecting <span class="keyword">to</span> a<span class="built_in"> server </span>that is pretending <span class="keyword">to</span> be “m.gomeholdings.com” which could put your confidential information at risk., <span class="attribute">_WKRecoveryAttempterErrorKey</span>=&lt;WKReloadFrameErrorRecoveryAttempter: 0x600000829e60&gt;, <span class="attribute">_kCFStreamErrorDomainKey</span>=3, <span class="attribute">NSUnderlyingError</span>=0x600000a52f90 &#123;<span class="builtin-name">Error</span> <span class="attribute">Domain</span>=kCFErrorDomainCFNetwork <span class="attribute">Code</span>=-1202 <span class="string">"(null)"</span> UserInfo=&#123;<span class="attribute">_kCFStreamPropertySSLClientCertificateState</span>=0, <span class="attribute">_kCFNetworkCFStreamSSLErrorOriginalValue</span>=-9813, <span class="attribute">_kCFStreamErrorDomainKey</span>=3, <span class="attribute">_kCFStreamErrorCodeKey</span>=-9813&#125;&#125;, <span class="attribute">_kCFStreamErrorCodeKey</span>=-9813&#125;</span><br></pre></td></tr></table></figure>
-
-
-这个是认证服务器证书失败。
-</code></pre><h1 id="8、调试Webview的JS代码方法"><a href="#8、调试Webview的JS代码方法" class="headerlink" title="8、调试Webview的JS代码方法"></a><div id="webview8">8、调试Webview的JS代码方法</div></h1><p>在项目的过程中，有时会遇到webview刷新不出界面的现象，这时，就需要调试html页面，查找问题，进而判断是否是咱们的问题。调试使用safari自带的功能就可以完成。具体步骤：</p>
+<p>这个是认证服务器证书失败。</p>
+<h1 id="8、调试Webview的JS代码方法"><a href="#8、调试Webview的JS代码方法" class="headerlink" title="8、调试Webview的JS代码方法"></a><div id="webview8">8、调试Webview的JS代码方法</div></h1><p>在项目的过程中，有时会遇到webview刷新不出界面的现象，这时，就需要调试html页面，查找问题，进而判断是否是咱们的问题。调试使用safari自带的功能就可以完成。具体步骤：</p>
 <ul>
 <li>打开safari开发模式。在safari菜单栏，选择safari、偏好设置、高级，在最下面将 “在菜单中显示开发菜单” 选中。<br><img src="/wiki/Hybird/webview/WKWebview/safari_config_1.png" alt="插件扩展方法3"></li>
 <li>链接到webview界面。选择开发、Simulator、 对应的页面，打开调试器。<br><img src="/wiki/Hybird/webview/WKWebview/safari_config_2.png" alt="插件扩展方法3"></li>
