@@ -21,14 +21,11 @@
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/Cordova_JS.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/Cordova_class_ship.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/Cordova_init.png">
-<meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/cordova_config1.png">
-<meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/cordova_config2.png">
-<meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/cordova_config3.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/cordova_error.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_1.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_2.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_3.png">
-<meta property="og:updated_time" content="2019-05-20T07:51:40.836Z">
+<meta property="og:updated_time" content="2019-05-20T07:58:52.169Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通用webview开发记录">
 <meta name="twitter:description" content="为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考">
@@ -1062,17 +1059,24 @@
 <ul>
 <li><p>首先确定插件的别名，这个名字需要三端一样，然后确定插件的类名（这个按照代码规范命名就可以）。</p>
 </li>
-<li><p>将插件别名和插件类名的对应关系添加到cordova的配置文件中。配置文件查找方法、书写方法如图：</p>
+<li><p>将插件别名和插件类名的对应关系添加到cordova的配置文件config.xml中。</p>
 </li>
 </ul>
-<p><img src="/wiki/Hybird/webview/WKWebview/cordova_config1.png" alt="插件扩展方法1"><br>图1<br><img src="/wiki/Hybird/webview/WKWebview/cordova_config2.png" alt="插件扩展方法2"><br>图2<br><img src="/wiki/Hybird/webview/WKWebview/cordova_config3.png" alt="插件扩展方法3"><br>图3</p>
+<!--配置文件查找方法、书写方法如图：-->
+<!--![插件扩展方法1](WKWebview/cordova_config1.png)-->
+<!---->
+<!--![插件扩展方法2](WKWebview/cordova_config2.png)-->
+<!---->
+<!--![插件扩展方法3](WKWebview/cordova_config3.png)-->
 <ul>
 <li><p>创建插件类，这个类必须继承于CDVPlugin类；</p>
 </li>
-<li><p>定义插件方法，插件方法需要三端统一。方法的格式就是：-(void)<methodname>:(CDVInvokedUrlCommand *)command；</methodname></p>
+<li><p>定义插件方法，插件方法需要三端统一。方法的格式就是：</p>
 </li>
-<li><p>实现方法，实现插件方法分3部分：解析参数判断、完成Native的功能、将结果回调给JS；</p>
-</li>
+</ul>
+   <figure class="highlight erlang"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-<span class="params">(void)</span>&lt;methodName&gt;:<span class="params">(CDVInvokedUrlCommand *)</span>command；</span><br></pre></td></tr></table></figure>
+<ul>
+<li>实现方法，实现插件方法分3部分：解析参数判断、完成Native的功能、将结果回调给JS；</li>
 </ul>
 <p>参数解析：</p>
 <p>CDVInvokedUrlCommand 类是对JS传递过来参数的封装，我们从arguments属性中获取参数，CDVInvokedUrlCommand的属性定义如下：</p>
