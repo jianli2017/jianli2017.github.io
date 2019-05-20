@@ -28,7 +28,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_1.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_2.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_3.png">
-<meta property="og:updated_time" content="2019-05-20T07:39:49.755Z">
+<meta property="og:updated_time" content="2019-05-20T07:51:40.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通用webview开发记录">
 <meta name="twitter:description" content="为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考">
@@ -1019,158 +1019,45 @@
 <li>将UIWebViewDelegate和UIWebView重构成了14个类与3个协议</li>
 </ol>
 <h3 id="3-1-创建WKWebview"><a href="#3-1-创建WKWebview" class="headerlink" title="3.1 创建WKWebview"></a>3.1 创建WKWebview</h3><p>WKWebview既可以使用alloc、init方法创建，也可以使用自己的方法创建，下面是创建WKWebview的实例代码：</p>
-<pre><code>WKUserContentController* userContentController = [[WKUserContentController alloc] init];
-[userContentController addScriptMessageHandler:self name:CDV_BRIDGE_NAME];
-
-WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
-configuration.userContentController = userContentController;
-
-WKWebView* wkWebView = [[WKWebView alloc] initWithFrame:frame configuration:configuration];
-</code></pre><h3 id="3-2-WKWebview加载页面"><a href="#3-2-WKWebview加载页面" class="headerlink" title="3.2 WKWebview加载页面"></a>3.2 WKWebview加载页面</h3><pre><code>WKWebView *webView =self.webViewEngine.engineWebView;
-strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-NSURL *url = [NSURL URLWithString:GMK_Str_Protect(strUrl)];
-if (nil == url)
-{
-    [self notFoundHtml];
-    return;
-}
-NSMutableURLRequest* appReq = [NSMutableURLRequest requestWithURL:url
-                                            cachePolicy:NSURLRequestUseProtocolCachePolicy
-                                                  timeoutInterval:20.0];
-if (nil == appReq)
-{
-    [self notFoundHtml];
-    return;
-}
-
-[self.webViewEngine loadRequest:appReq];
-</code></pre><h3 id="3-3-WKWebview代理"><a href="#3-3-WKWebview代理" class="headerlink" title="3.3 WKWebview代理"></a>3.3 WKWebview代理</h3><p>WKWebView有两个代理,WKUIDelegate 和 WKNavigationDelegate。WKNavigationDelegate主要处理一些跳转、加载处理操作；WKUIDelegate主要处理UI相关的操作：确认框，警告框，提示框。因此WKNavigationDelegate更加常用。下面是WKNavigationDelegate的代理列表：</p>
-<pre><code>///二、页面是否加载 ，相当于shouldStartLoadWithRequest
-- (void) webView: (WKWebView *) webView decidePolicyForNavigationAction: (WKNavigationAction*) navigationAction decisionHandler: (void (^)(WKNavigationActionPolicy)) decisionHandler
-{
-    //允许跳转
-    decisionHandler(WKNavigationResponsePolicyAllow);
-    //不允许跳转
-    //decisionHandler(WKNavigationResponsePolicyCancel);
-}
-
-///三、页面开始加载
-- (void)webView:(WKWebView*)webView didStartProvisionalNavigation:(WKNavigation*)navigation
-{
-
-}
-///四、收到响应
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationResponse:(WKNavigationResponse *)navigationResponse decisionHandler:(void (^)(WKNavigationResponsePolicy))decisionHandler 
-{
-    //允许跳转
-    decisionHandler(WKNavigationResponsePolicyAllow);
-    //不允许跳转
-    //decisionHandler(WKNavigationResponsePolicyCancel);
-}
-///五、收到数据
-- (void)webView:(WKWebView *)webView didCommitNavigation:(WKNavigation *)navigation 
-{ 
-}
-///六、页面加载完成
-- (void)webView:(WKWebView*)webView didFinishNavigation:(WKNavigation*)navigation
-{
-}
-///七、页面加载失败
-- (void)webView:(WKWebView*)theWebView didFailNavigation:(WKNavigation*)navigation withError:(NSError*)error
-{
-
-}
-/// 八、跳转失败
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(null_unspecified WKNavigation *)navigation withError:(NSError *)error
-{
-
-}
-/// 九、重定向
-- (void)webView:(WKWebView *)webView didReceiveServerRedirectForProvisionalNavigation:(null_unspecified WKNavigation *)navigation
-{
-}
-
-///十、这个目的解决白屏问题  （ios9以上）
-- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView API_AVAILABLE(macosx(10.11), ios(9.0))
-{
-    [self loadRequestWithUrl:self.strCurrentURL];
-}
-</code></pre><p>WKUIDelegate有下面三个代理：</p>
-<pre><code>- (void)                        webView:(WKWebView*)webView
-     runJavaScriptAlertPanelWithMessage:(NSString*)message
-                       initiatedByFrame:(WKFrameInfo*)frame
-                      completionHandler:(void (^)(void))completionHandler
-
-- (void)                        webView:(WKWebView*)webView
-   runJavaScriptConfirmPanelWithMessage:(NSString*)message
-                       initiatedByFrame:(WKFrameInfo*)frame
-                      completionHandler:(void (^)(BOOL result))completionHandler
-
-- (void)                        webView:(WKWebView*)webView
-  runJavaScriptTextInputPanelWithPrompt:(NSString*)prompt
-                            defaultText:(NSString*)defaultText
-                       initiatedByFrame:(WKFrameInfo*)frame
-                      completionHandler:(void (^)(NSString* result))completionHandler
-</code></pre><h3 id="3-3-WKUserContentController"><a href="#3-3-WKUserContentController" class="headerlink" title="3.3 WKUserContentController"></a>3.3 WKUserContentController</h3><p>A WKUserContentController object provides a way for JavaScript to post<br> messages to a web view.</p>
+<figure class="highlight inform7"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">WKUserContentController* userContentController = <span class="comment">[<span class="comment">[WKUserContentController alloc]</span> init]</span>;</span><br><span class="line"><span class="comment">[userContentController addScriptMessageHandler:self name:CDV_BRIDGE_NAME]</span>;</span><br><span class="line">    </span><br><span class="line">WKWebViewConfiguration* configuration = <span class="comment">[<span class="comment">[WKWebViewConfiguration alloc]</span> init]</span>;</span><br><span class="line">configuration.userContentController = userContentController;</span><br><span class="line">	</span><br><span class="line">WKWebView* wkWebView = <span class="comment">[<span class="comment">[WKWebView alloc]</span> initWithFrame:frame configuration:configuration]</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="3-2-WKWebview加载页面"><a href="#3-2-WKWebview加载页面" class="headerlink" title="3.2 WKWebview加载页面"></a>3.2 WKWebview加载页面</h3><figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">WKWebView</span> *webView =<span class="keyword">self</span>.webViewEngine.engineWebView;</span><br><span class="line">strUrl = [strUrl stringByAddingPercentEscapesUsingEncoding:<span class="built_in">NSUTF8StringEncoding</span>];</span><br><span class="line"><span class="built_in">NSURL</span> *url = [<span class="built_in">NSURL</span> URLWithString:GMK_Str_Protect(strUrl)];</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">nil</span> == url)</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> notFoundHtml];</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">NSMutableURLRequest</span>* appReq = [<span class="built_in">NSMutableURLRequest</span> requestWithURL:url</span><br><span class="line">            								cachePolicy:<span class="built_in">NSURLRequestUseProtocolCachePolicy</span></span><br><span class="line">                                                  timeoutInterval:<span class="number">20.0</span>];</span><br><span class="line"><span class="keyword">if</span> (<span class="literal">nil</span> == appReq)</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> notFoundHtml];</span><br><span class="line">    <span class="keyword">return</span>;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line">[<span class="keyword">self</span>.webViewEngine loadRequest:appReq];</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-WKWebview代理"><a href="#3-3-WKWebview代理" class="headerlink" title="3.3 WKWebview代理"></a>3.3 WKWebview代理</h3><p>WKWebView有两个代理,WKUIDelegate 和 WKNavigationDelegate。WKNavigationDelegate主要处理一些跳转、加载处理操作；WKUIDelegate主要处理UI相关的操作：确认框，警告框，提示框。因此WKNavigationDelegate更加常用。下面是WKNavigationDelegate的代理列表：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///二、页面是否加载 ，相当于shouldStartLoadWithRequest</span></span><br><span class="line">- (<span class="keyword">void</span>) webView: (<span class="built_in">WKWebView</span> *) webView decidePolicyForNavigationAction: (<span class="built_in">WKNavigationAction</span>*) navigationAction decisionHandler: (<span class="keyword">void</span> (^)(<span class="built_in">WKNavigationActionPolicy</span>)) decisionHandler</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//允许跳转</span></span><br><span class="line">    decisionHandler(<span class="built_in">WKNavigationResponsePolicyAllow</span>);</span><br><span class="line">    <span class="comment">//不允许跳转</span></span><br><span class="line">    <span class="comment">//decisionHandler(WKNavigationResponsePolicyCancel);</span></span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">///三、页面开始加载</span></span><br><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span>*)webView didStartProvisionalNavigation:(<span class="built_in">WKNavigation</span>*)navigation</span><br><span class="line">&#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">///四、收到响应</span></span><br><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView decidePolicyForNavigationResponse:(<span class="built_in">WKNavigationResponse</span> *)navigationResponse decisionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">WKNavigationResponsePolicy</span>))decisionHandler </span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//允许跳转</span></span><br><span class="line">    decisionHandler(<span class="built_in">WKNavigationResponsePolicyAllow</span>);</span><br><span class="line">    <span class="comment">//不允许跳转</span></span><br><span class="line">    <span class="comment">//decisionHandler(WKNavigationResponsePolicyCancel);</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">///五、收到数据</span></span><br><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didCommitNavigation:(<span class="built_in">WKNavigation</span> *)navigation </span><br><span class="line">&#123; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">///六、页面加载完成</span></span><br><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span>*)webView didFinishNavigation:(<span class="built_in">WKNavigation</span>*)navigation</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">///七、页面加载失败</span></span><br><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span>*)theWebView didFailNavigation:(<span class="built_in">WKNavigation</span>*)navigation withError:(<span class="built_in">NSError</span>*)error</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// 八、跳转失败</span></span><br><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didFailProvisionalNavigation:(<span class="keyword">null_unspecified</span> <span class="built_in">WKNavigation</span> *)navigation withError:(<span class="built_in">NSError</span> *)error</span><br><span class="line">&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// 九、重定向</span></span><br><span class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">WKWebView</span> *)webView didReceiveServerRedirectForProvisionalNavigation:(<span class="keyword">null_unspecified</span> <span class="built_in">WKNavigation</span> *)navigation</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line">	</span><br><span class="line"><span class="comment">///十、这个目的解决白屏问题  （ios9以上）</span></span><br><span class="line">- (<span class="keyword">void</span>)webViewWebContentProcessDidTerminate:(<span class="built_in">WKWebView</span> *)webView API_AVAILABLE(macosx(<span class="number">10.11</span>), ios(<span class="number">9.0</span>))</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="keyword">self</span> loadRequestWithUrl:<span class="keyword">self</span>.strCurrentURL];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>WKUIDelegate有下面三个代理：</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">-</span> (void)                        <span class="selector-tag">webView</span><span class="selector-pseudo">:(WKWebView</span>*)<span class="selector-tag">webView</span></span><br><span class="line">     <span class="selector-tag">runJavaScriptAlertPanelWithMessage</span><span class="selector-pseudo">:(NSString</span>*)<span class="selector-tag">message</span></span><br><span class="line">                       <span class="selector-tag">initiatedByFrame</span><span class="selector-pseudo">:(WKFrameInfo</span>*)<span class="selector-tag">frame</span></span><br><span class="line">                      <span class="selector-tag">completionHandler</span><span class="selector-pseudo">:(void</span> (^)(void))<span class="selector-tag">completionHandler</span></span><br><span class="line">	</span><br><span class="line"><span class="selector-tag">-</span> (void)                        <span class="selector-tag">webView</span><span class="selector-pseudo">:(WKWebView</span>*)<span class="selector-tag">webView</span></span><br><span class="line">   <span class="selector-tag">runJavaScriptConfirmPanelWithMessage</span><span class="selector-pseudo">:(NSString</span>*)<span class="selector-tag">message</span></span><br><span class="line">                       <span class="selector-tag">initiatedByFrame</span><span class="selector-pseudo">:(WKFrameInfo</span>*)<span class="selector-tag">frame</span></span><br><span class="line">                      <span class="selector-tag">completionHandler</span><span class="selector-pseudo">:(void</span> (^)(BOOL result))<span class="selector-tag">completionHandler</span></span><br><span class="line">	</span><br><span class="line"><span class="selector-tag">-</span> (void)                        <span class="selector-tag">webView</span><span class="selector-pseudo">:(WKWebView</span>*)<span class="selector-tag">webView</span></span><br><span class="line">  <span class="selector-tag">runJavaScriptTextInputPanelWithPrompt</span><span class="selector-pseudo">:(NSString</span>*)<span class="selector-tag">prompt</span></span><br><span class="line">                            <span class="selector-tag">defaultText</span><span class="selector-pseudo">:(NSString</span>*)<span class="selector-tag">defaultText</span></span><br><span class="line">                       <span class="selector-tag">initiatedByFrame</span><span class="selector-pseudo">:(WKFrameInfo</span>*)<span class="selector-tag">frame</span></span><br><span class="line">                      <span class="selector-tag">completionHandler</span><span class="selector-pseudo">:(void</span> (^)(NSString* result))<span class="selector-tag">completionHandler</span></span><br></pre></td></tr></table></figure>
+<h3 id="3-3-WKUserContentController"><a href="#3-3-WKUserContentController" class="headerlink" title="3.3 WKUserContentController"></a>3.3 WKUserContentController</h3><p>A WKUserContentController object provides a way for JavaScript to post<br> messages to a web view.</p>
 <p> WKUserContentController 对象为JavaSript提供了向webview发送消息的方式。</p>
 <p> The user content controller associated with a web view is specified by its<br> web view configuration.</p>
 <p> WKUserContentController 通过WKWebViewConfiguration 关联到webview。</p>
 <p> 下面的代码是创建WKUserContentController，并关联到WKWebview的代码：</p>
-<pre><code>///创建WKUserContentController
-WKUserContentController* userContentController = [[WKUserContentController alloc] init];
-[userContentController addScriptMessageHandler:self name:CDV_BRIDGE_NAME];
-
-///关联到webview
-WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
-configuration.userContentController = userContentController
-</code></pre><p>关联以后，JS就可以通过下面的代码向WKWebview发送消息。</p>
-<pre><code>window.webkit.messageHandlers.&lt;name&gt;.postMessage(&lt;messageBody&gt;)
-</code></pre><p>WKWebview接收到JS的消息后，会触发WKScriptMessageHandler协议的userContentController：didReceiveScriptMessage:方法：</p>
-<pre><code>- (void)userContentController:(WKUserContentController*)userContentController
-  didReceiveScriptMessage:(WKScriptMessage*)message
-{
-    if (![message.name isEqualToString:CDV_BRIDGE_NAME]) {
-        return;
-    }
-
-    CDVViewController* vc = (CDVViewController*)self.viewController;
-    NSArray* jsonEntry = message.body; // NSString:callbackId, NSString:service, NSString:action, NSArray:args
-}
-</code></pre><p>在这个方法中就可以根据消息的内容，调用Native的功能。</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///创建WKUserContentController</span></span><br><span class="line"><span class="built_in">WKUserContentController</span>* userContentController = [[<span class="built_in">WKUserContentController</span> alloc] init];</span><br><span class="line">[userContentController addScriptMessageHandler:<span class="keyword">self</span> name:CDV_BRIDGE_NAME];</span><br><span class="line">    </span><br><span class="line"><span class="comment">///关联到webview</span></span><br><span class="line"><span class="built_in">WKWebViewConfiguration</span>* configuration = [[<span class="built_in">WKWebViewConfiguration</span> alloc] init];</span><br><span class="line">configuration.userContentController = userContentController</span><br></pre></td></tr></table></figure>
+<p>关联以后，JS就可以通过下面的代码向WKWebview发送消息。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">window</span><span class="selector-class">.webkit</span><span class="selector-class">.messageHandlers</span>.&lt;<span class="selector-tag">name</span>&gt;<span class="selector-class">.postMessage</span>(&lt;<span class="selector-tag">messageBody</span>&gt;)</span><br></pre></td></tr></table></figure>
+<p>WKWebview接收到JS的消息后，会触发WKScriptMessageHandler协议的userContentController：didReceiveScriptMessage:方法：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="keyword">void</span>)userContentController:(<span class="built_in">WKUserContentController</span>*)userContentController</span><br><span class="line">  didReceiveScriptMessage:(<span class="built_in">WKScriptMessage</span>*)message</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span> (![message.name isEqualToString:CDV_BRIDGE_NAME]) &#123;</span><br><span class="line">	    <span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	CDVViewController* vc = (CDVViewController*)<span class="keyword">self</span>.viewController;</span><br><span class="line">	<span class="built_in">NSArray</span>* jsonEntry = message.body; <span class="comment">// NSString:callbackId, NSString:service, NSString:action, NSArray:args</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个方法中就可以根据消息的内容，调用Native的功能。</p>
 <h3 id="3-4-动态注入JS"><a href="#3-4-动态注入JS" class="headerlink" title="3.4 动态注入JS"></a>3.4 动态注入JS</h3><p>WKWebview支持将JS预先注入到Webview中，可以定制带document加载前或者后执行注入的JS。注入JS是将WKUserScript关联的webview的configuration中，代码示例如下。</p>
-<pre><code>/// 4. cookie信息脚本()
-WKUserScript * cookieScript = [[WKUserScript alloc]
-                                   initWithSource:mstrCookieInfo
-                                   injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-if (GMK_Ary_Is_Valid(webView.configuration.userContentController.userScripts))
-{
-    [webView.configuration.userContentController removeAllUserScripts];
-}
-if (script)
-{
-    [webView.configuration.userContentController addUserScript:script];
-}
-</code></pre><h1 id="4、通用webView与JS交互"><a href="#4、通用webView与JS交互" class="headerlink" title=" 4、通用webView与JS交互"></a><div id="webview4"> 4、通用webView与JS交互</div></h1><p>下图是cordova中JS和Native的交互机制<br><img src="/wiki/Hybird/webview/WKWebview/Cordova_JS.png" alt="cordova中JS和Native的交互机制"></p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">WKUserScript</span> * cookieScript = [[<span class="built_in">WKUserScript</span> alloc]</span><br><span class="line">                                   initWithSource:mstrCookieInfo</span><br><span class="line">                                   injectionTime:<span class="built_in">WKUserScriptInjectionTimeAtDocumentStart</span> forMainFrameOnly:<span class="literal">NO</span>];</span><br><span class="line"><span class="keyword">if</span> (GMK_Ary_Is_Valid(webView.configuration.userContentController.userScripts))</span><br><span class="line">&#123;</span><br><span class="line">    [webView.configuration.userContentController removeAllUserScripts];</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (script)</span><br><span class="line">&#123;</span><br><span class="line">    [webView.configuration.userContentController addUserScript:script];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="4、通用webView与JS交互"><a href="#4、通用webView与JS交互" class="headerlink" title=" 4、通用webView与JS交互"></a><div id="webview4"> 4、通用webView与JS交互</div></h1><p>下图是cordova中JS和Native的交互机制<br><img src="/wiki/Hybird/webview/WKWebview/Cordova_JS.png" alt="cordova中JS和Native的交互机制"></p>
 <p>下面是 cordova源码的结构<br><img src="/wiki/Hybird/webview/WKWebview/Cordova_class_ship.png" alt="cordovad的组织结构"></p>
 <p>下面是 cordova初始化webview的流程<br><img src="/wiki/Hybird/webview/WKWebview/Cordova_init.png" alt="cordovad的组织结构"></p>
-<h2 id="5、现有webView支持那些JS交互"><a href="#5、现有webView支持那些JS交互" class="headerlink" title="5、现有webView支持那些JS交互"></a><div id="webview5">5、现有webView支持那些JS交互</div></h2><p>在开发通用webview的时候，统一规划了插件。规划后插件列表如下：</p>
-<ol>
-<li>cordova-plugin-gome-AddressBook 通信录插件，包含选择联系人接口</li>
-<li>cordova-plugin-gome-business 业务类型插件，包括上传金融加密 face++，我的国美关闭浮层等接口</li>
-<li>cordova-plugin-gome-cashier收银台插件</li>
-<li>cordova-plugin-gome-CustomerService在线客服插件</li>
-<li>cordova-plugin-gome-device  设备信息插件，包括拨打电话、获取设备信息接口</li>
-<li>cordova-plugin-gome-location 定位插件，包括获取四级区域信息接口</li>
-<li>cordova-plugin-gome-login登录插件，包括调起登录，用户信息，是否登录接口</li>
-<li>cordova-plugin-gome-network 网络请求插件，包括发送网络请求、获取网络连接状态接口</li>
-<li>cordova-plugin-gome-picture 图片插件，包括调起原生插件、保存图片</li>
-<li>cordova-plugin-gome-route 路由插件，包括打开vc，关闭当前页面接口</li>
-<li>cordova-plugin-gome-share 分享插件，包括调起分享组件接口</li>
-<li>cordova-plugin-gome-shopChat购物车插件，包括刷新购物车数量接口</li>
-<li>cordova-plugin-gome-statistics统计插件 ，webview埋点时候</li>
-<li>cordova-plugin-gome-view视图插件，包括toast、 初始化导航栏、错误页面、显示隐藏导航栏接口</li>
-</ol>
-<p>所有插件的详细信息请参考：<a href="http://m-wiki.ds.gome.com.cn/android/hybrid/Plugins.html" rel="external nofollow noopener noreferrer" target="_blank">plugin插件列表</a></p>
+<h2 id="5、现有webView支持那些JS交互"><a href="#5、现有webView支持那些JS交互" class="headerlink" title="5、现有webView支持那些JS交互"></a><div id="webview5">5、现有webView支持那些JS交互</div></h2><p>在开发通用webview的时候，统一规划了插件。规划后插件列表省略。</p>
+<!--1. cordova-plugin-gome-AddressBook 通信录插件，包含选择联系人接口
+2. cordova-plugin-gome-business 业务类型插件，包括上传金融加密 face++，我的国美关闭浮层等接口
+3. cordova-plugin-gome-cashier收银台插件
+4. cordova-plugin-gome-CustomerService在线客服插件
+5. cordova-plugin-gome-device  设备信息插件，包括拨打电话、获取设备信息接口
+6. cordova-plugin-gome-location 定位插件，包括获取四级区域信息接口
+7. cordova-plugin-gome-login登录插件，包括调起登录，用户信息，是否登录接口
+8. cordova-plugin-gome-network 网络请求插件，包括发送网络请求、获取网络连接状态接口
+9. cordova-plugin-gome-picture 图片插件，包括调起原生插件、保存图片
+10. cordova-plugin-gome-route 路由插件，包括打开vc，关闭当前页面接口
+11. cordova-plugin-gome-share 分享插件，包括调起分享组件接口
+12. cordova-plugin-gome-shopChat购物车插件，包括刷新购物车数量接口
+13. cordova-plugin-gome-statistics统计插件 ，webview埋点时候
+14. cordova-plugin-gome-view视图插件，包括toast、 初始化导航栏、错误页面、显示隐藏导航栏接口
+
+所有插件的详细信息请参考：[plugin插件列表](http://m-wiki.ds.gome.com.cn/android/hybrid/Plugins.html)-->
 <h1 id="6、插件的扩展方法"><a href="#6、插件的扩展方法" class="headerlink" title="6、插件的扩展方法"></a><div id="webview6">6、插件的扩展方法</div></h1><p>如果现有的插件不能满足新的需求，需要扩展新的插件，扩展方法如下：</p>
 <ul>
 <li><p>首先确定插件的别名，这个名字需要三端一样，然后确定插件的类名（这个按照代码规范命名就可以）。</p>
@@ -1189,26 +1076,17 @@ if (script)
 </ul>
 <p>参数解析：</p>
 <p>CDVInvokedUrlCommand 类是对JS传递过来参数的封装，我们从arguments属性中获取参数，CDVInvokedUrlCommand的属性定义如下：</p>
-<pre><code>@property (nonatomic, readonly) NSArray* arguments;
-@property (nonatomic, readonly) NSString* callbackId;
-@property (nonatomic, readonly) NSString* className;
-@property (nonatomic, readonly) NSString* methodName;
-</code></pre><p>回调结果：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSArray</span>* arguments;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span>* callbackId;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span>* className;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span>* methodName;</span><br></pre></td></tr></table></figure>
+<p>回调结果：</p>
 <p>回调的数据格式需要预先定义好，然后使用下面的代码将数据回调给JS：</p>
-<pre><code>NSDictionary *dic = @{GMM_ViewPlugin_Successed:@&quot;Y&quot;};
-CDVPluginResult * result=[CDVPluginResult resultWithStatus:CDVCommandStatus_OK 
-                                       messageAsDictionary:dic];
-[self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-</code></pre><h1 id="7、webview中遇到的问题"><a href="#7、webview中遇到的问题" class="headerlink" title="7、webview中遇到的问题"></a><div id="webview7">7、webview中遇到的问题</div></h1><ul>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">NSDictionary *<span class="keyword">dic </span>= @&#123;@<span class="string">"isSuccess"</span>:@<span class="string">"Y"</span>&#125;<span class="comment">;</span></span><br><span class="line">CDVPluginResult * result=[CDVPluginResult resultWithStatus:CDVCommandStatus_OK </span><br><span class="line"><span class="symbol">                                       messageAsDictionary:</span><span class="keyword">dic];</span></span><br><span class="line"><span class="keyword">[self.commandDelegate </span>sendPluginResult:result callbackId:command.callbackId]<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<h1 id="7、webview中遇到的问题"><a href="#7、webview中遇到的问题" class="headerlink" title="7、webview中遇到的问题"></a><div id="webview7">7、webview中遇到的问题</div></h1><ul>
 <li><p>_blank 问题：</p>
 <p> a便签中如果有_blank属性，表示在新的窗口打开页面，但是我们打不开，解决办法是添加如下代理的实现，直接在当前窗口加载url</p>
-<p>  -(WKWebView <em>)webView:(WKWebView </em>)webView createWebViewWithConfiguration:(WKWebViewConfiguration <em>)configuration forNavigationAction:(WKNavigationAction </em>)navigationAction windowFeatures:(WKWindowFeatures *)windowFeatures<br>  {</p>
-<pre><code>if (!navigationAction.targetFrame.isMainFrame) {
-    [webView loadRequest:navigationAction.request];
-}
-return nil;
-</code></pre><p>  }</p>
 </li>
+</ul>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-(<span class="built_in">WKWebView</span> *)webView:(<span class="built_in">WKWebView</span> *)webView createWebViewWithConfiguration:(<span class="built_in">WKWebViewConfiguration</span> *)configuration forNavigationAction:(<span class="built_in">WKNavigationAction</span> *)navigationAction windowFeatures:(<span class="built_in">WKWindowFeatures</span> *)windowFeatures</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!navigationAction.targetFrame.isMainFrame) &#123;</span><br><span class="line">        [webView loadRequest:navigationAction.request];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
 <li><p>cookie问题、白屏问题</p>
 <p>这个问题都是参考 <a href="http://www.cnblogs.com/NSong/p/6489802.html" rel="external nofollow noopener noreferrer" target="_blank">WKWebView 那些坑</a>解决的，都有不错的解决方法</p>
 </li>
@@ -1218,23 +1096,29 @@ return nil;
 <li><p>webview出现错误页面诊断方法<br><img src="/wiki/Hybird/webview/WKWebview/cordova_error.png" alt="插件扩展方法3"><br>遇到这个界面，请先自行定位，定位方法：</p>
 <ul>
 <li><p>首先找到GMBCordovaVC的WK失败代理：</p>
-<pre><code>webView: didFailNavigation: withError:
-webView:didFailProvisionalNavigation: withError:
-</code></pre></li>
-<li>然后打印出错误原因</li>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">webView:</span> <span class="string">didFailNavigation:</span> <span class="string">withError:</span></span><br><span class="line"><span class="string">webView:</span><span class="string">didFailProvisionalNavigation:</span> <span class="string">withError:</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>然后打印出错误原因</p>
+</li>
 <li><p>根据NSError中的错误码分析错误的原因，解决问题。</p>
 <p>下面是我遇到的几个记录下来的错误码，通过分析，大部分能明白错误的原因：</p>
-<p>Error Domain=WebKitErrorDomain Code=102 “Frame load interrupted” UserInfo={_WKRecoveryAttempterErrorKey=<br><wkreloadframeerrorrecoveryattempter: 0x60000062fa80="">, NSErrorFailingURLStringKey=<a href="https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=</a>, NSErrorFailingURLKey=<a href="https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=</a>, NSLocalizedDescription=Frame load interrupted}</wkreloadframeerrorrecoveryattempter:></p>
-<p>这个是加载中访问了<a href="https://login.m.gomeplus.com/login.html" rel="external nofollow noopener noreferrer" target="_blank">https://login.m.gomeplus.com/login.html</a> url，打断了加载。</p>
-<p>Error Domain=NSURLErrorDomain Code=-1002 “unsupported URL” UserInfo={_WKRecoveryAttempterErrorKey=<wkreloadframeerrorrecoveryattempter: 0x608000233ae0="">, NSErrorFailingURLStringKey=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, NSErrorFailingURLKey=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, NSLocalizedDescription=unsupported URL, NSUnderlyingError=0x604000653440 {Error Domain=kCFErrorDomainCFNetwork Code=-1002 “(null)”}}</wkreloadframeerrorrecoveryattempter:></p>
-<p>这个是JS中访问了不支持的scheme,itms-appss</p>
-<p>Error Domain=NSURLErrorDomain Code=-1202 “The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk.” UserInfo={NSURLErrorFailingURLPeerTrustErrorKey=<sectrustref: 0x600000301200="">, NSLocalizedRecoverySuggestion=Would you like to connect to the server anyway?, NSErrorFailingURLStringKey=<a href="https://m.gomeholdings.com/content/2017042516183080569_.html" rel="external nofollow noopener noreferrer" target="_blank">https://m.gomeholdings.com/content/2017042516183080569_.html</a>, NSErrorFailingURLKey=<a href="https://m.gomeholdings.com/content/2017042516183080569_.html" rel="external nofollow noopener noreferrer" target="_blank">https://m.gomeholdings.com/content/2017042516183080569_.html</a>, NSErrorPeerCertificateChainKey=(<br>   “<cert(0x7fef30f1fc40) s:="" *.gomeholdings.com="" i:="" charles="" proxy="" ca="" (3="" \u516b\u6708="" 2016,="" bogon)="">“,<br>   “<cert(0x7fef30f12390) s:="" charles="" proxy="" ca="" (3="" \u516b\u6708="" 2016,="" bogon)="" i:="">“<br>), NSErrorClientCertificateStateKey=0, NSLocalizedDescription=The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk., _WKRecoveryAttempterErrorKey=<wkreloadframeerrorrecoveryattempter: 0x600000829e60="">, _kCFStreamErrorDomainKey=3, NSUnderlyingError=0x600000a52f90 {Error Domain=kCFErrorDomainCFNetwork Code=-1202 “(null)” UserInfo={_kCFStreamPropertySSLClientCertificateState=0, _kCFNetworkCFStreamSSLErrorOriginalValue=-9813, _kCFStreamErrorDomainKey=3, _kCFStreamErrorCodeKey=-9813}}, _kCFStreamErrorCodeKey=-9813}</wkreloadframeerrorrecoveryattempter:></cert(0x7fef30f12390)></cert(0x7fef30f1fc40)></sectrustref:></p>
-<p>这个是认证服务器证书失败。</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">Error</span> <span class="attribute">Domain</span>=WebKitErrorDomain <span class="attribute">Code</span>=102 <span class="string">"Frame load interrupted"</span> UserInfo=&#123;_WKRecoveryAttempterErrorKey=</span><br><span class="line">&lt;WKReloadFrameErrorRecoveryAttempter: 0x60000062fa80&gt;, <span class="attribute">NSErrorFailingURLStringKey</span>=https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=, <span class="attribute">NSErrorFailingURLKey</span>=https://login.m.gomeplus.com/login.html?return_url=Ly9jYXNoaWVyLm0uZ29tZXBsdXMuY29tL3ZvdWNoZXJfbGlzdC0wLmh0bWw=, <span class="attribute">NSLocalizedDescription</span>=Frame load interrupted&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
 </ul>
-<h1 id="8、调试Webview的JS代码方法"><a href="#8、调试Webview的JS代码方法" class="headerlink" title="8、调试Webview的JS代码方法"></a><div id="webview8">8、调试Webview的JS代码方法</div></h1><p>在项目的过程中，有时会遇到webview刷新不出界面的现象，这时，就需要调试html页面，查找问题，进而判断是否是咱们的问题。调试使用safari自带的功能就可以完成。具体步骤：</p>
+<pre><code>这个是加载中访问了https://login.m.gomeplus.com/login.html url，打断了加载。
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">Error</span> <span class="attribute">Domain</span>=NSURLErrorDomain <span class="attribute">Code</span>=-1002 <span class="string">"unsupported URL"</span> UserInfo=&#123;<span class="attribute">_WKRecoveryAttempterErrorKey</span>=&lt;WKReloadFrameErrorRecoveryAttempter: 0x608000233ae0&gt;, <span class="attribute">NSErrorFailingURLStringKey</span>=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, <span class="attribute">NSErrorFailingURLKey</span>=itms-appss://itunes.apple.com/cn/app/guo-mei-zai-xian/id486744917?mt=8, <span class="attribute">NSLocalizedDescription</span>=unsupported URL, <span class="attribute">NSUnderlyingError</span>=0x604000653440 &#123;<span class="builtin-name">Error</span> <span class="attribute">Domain</span>=kCFErrorDomainCFNetwork <span class="attribute">Code</span>=-1002 <span class="string">"(null)”&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+这个是JS中访问了不支持的scheme,itms-appss
+
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">Error</span> <span class="attribute">Domain</span>=NSURLErrorDomain <span class="attribute">Code</span>=-1202 <span class="string">"The certificate for this server is invalid. You might be connecting to a server that is pretending to be “m.gomeholdings.com” which could put your confidential information at risk."</span> UserInfo=&#123;<span class="attribute">NSURLErrorFailingURLPeerTrustErrorKey</span>=&lt;SecTrustRef: 0x600000301200&gt;, <span class="attribute">NSLocalizedRecoverySuggestion</span>=Would you like <span class="keyword">to</span> connect <span class="keyword">to</span> the<span class="built_in"> server </span>anyway?, <span class="attribute">NSErrorFailingURLStringKey</span>=https://m.gomeholdings.com/content/2017042516183080569_.html, <span class="attribute">NSErrorFailingURLKey</span>=https://m.gomeholdings.com/content/2017042516183080569_.html, NSErrorPeerCertificateChainKey=(</span><br><span class="line">    <span class="string">"&lt;cert(0x7fef30f1fc40) s: *.gomeholdings.com i: Charles Proxy CA (3 \U516b\U6708 2016, bogon)&gt;"</span>,</span><br><span class="line">    <span class="string">"&lt;cert(0x7fef30f12390) s: Charles Proxy CA (3 \U516b\U6708 2016, bogon) i: Charles Proxy CA (3 \U516b\U6708 2016, bogon)&gt;"</span></span><br><span class="line">), <span class="attribute">NSErrorClientCertificateStateKey</span>=0, <span class="attribute">NSLocalizedDescription</span>=The certificate <span class="keyword">for</span> this<span class="built_in"> server </span>is invalid. You might be connecting <span class="keyword">to</span> a<span class="built_in"> server </span>that is pretending <span class="keyword">to</span> be “m.gomeholdings.com” which could put your confidential information at risk., <span class="attribute">_WKRecoveryAttempterErrorKey</span>=&lt;WKReloadFrameErrorRecoveryAttempter: 0x600000829e60&gt;, <span class="attribute">_kCFStreamErrorDomainKey</span>=3, <span class="attribute">NSUnderlyingError</span>=0x600000a52f90 &#123;<span class="builtin-name">Error</span> <span class="attribute">Domain</span>=kCFErrorDomainCFNetwork <span class="attribute">Code</span>=-1202 <span class="string">"(null)"</span> UserInfo=&#123;<span class="attribute">_kCFStreamPropertySSLClientCertificateState</span>=0, <span class="attribute">_kCFNetworkCFStreamSSLErrorOriginalValue</span>=-9813, <span class="attribute">_kCFStreamErrorDomainKey</span>=3, <span class="attribute">_kCFStreamErrorCodeKey</span>=-9813&#125;&#125;, <span class="attribute">_kCFStreamErrorCodeKey</span>=-9813&#125;</span><br></pre></td></tr></table></figure>
+
+
+这个是认证服务器证书失败。
+</code></pre><h1 id="8、调试Webview的JS代码方法"><a href="#8、调试Webview的JS代码方法" class="headerlink" title="8、调试Webview的JS代码方法"></a><div id="webview8">8、调试Webview的JS代码方法</div></h1><p>在项目的过程中，有时会遇到webview刷新不出界面的现象，这时，就需要调试html页面，查找问题，进而判断是否是咱们的问题。调试使用safari自带的功能就可以完成。具体步骤：</p>
 <ul>
 <li>打开safari开发模式。在safari菜单栏，选择safari、偏好设置、高级，在最下面将 “在菜单中显示开发菜单” 选中。<br><img src="/wiki/Hybird/webview/WKWebview/safari_config_1.png" alt="插件扩展方法3"></li>
 <li>链接到webview界面。选择开发、Simulator、 对应的页面，打开调试器。<br><img src="/wiki/Hybird/webview/WKWebview/safari_config_2.png" alt="插件扩展方法3"></li>
