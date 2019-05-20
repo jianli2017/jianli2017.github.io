@@ -21,11 +21,10 @@
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/Cordova_JS.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/Cordova_class_ship.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/Cordova_init.png">
-<meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/cordova_error.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_1.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_2.png">
 <meta property="og:image" content="http://yoursite.com/wiki/Hybird/webview/WKWebview/safari_config_3.png">
-<meta property="og:updated_time" content="2019-05-20T07:58:52.169Z">
+<meta property="og:updated_time" content="2019-05-20T07:59:50.806Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="通用webview开发记录">
 <meta name="twitter:description" content="为什么做通用webView 通用webView与混合式app的联系 WKWebview介绍 通用webView与JS交互形式 现有webView支持那些JS交互 插件的扩展方法 webview中遇到的问题 调试Webview的JS代码方法 参考">
@@ -1097,9 +1096,11 @@
 <li><p>NSURLErrorCancelled 问题。</p>
 <p>webview如果上一个请求没有完成，立即操作界面，触发新的网络请求，wk代理会收到错误，错误码是NSURLErrorCancelled，这个时候不应该展示错误页面，需要直接return。</p>
 </li>
-<li><p>webview出现错误页面诊断方法<br><img src="/wiki/Hybird/webview/WKWebview/cordova_error.png" alt="插件扩展方法3"><br>遇到这个界面，请先自行定位，定位方法：</p>
+<li><p>webview出现错误页面诊断方法 </p>
+<!--![插件扩展方法3](WKWebview/cordova_error.png)
+遇到这个界面，请先自行定位，定位方法：-->
 <ul>
-<li><p>首先找到GMBCordovaVC的WK失败代理：</p>
+<li><p>首先找到CordovaVC的WK失败代理：</p>
 <figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">webView:</span> <span class="string">didFailNavigation:</span> <span class="string">withError:</span></span><br><span class="line"><span class="string">webView:</span><span class="string">didFailProvisionalNavigation:</span> <span class="string">withError:</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>然后打印出错误原因</p>
