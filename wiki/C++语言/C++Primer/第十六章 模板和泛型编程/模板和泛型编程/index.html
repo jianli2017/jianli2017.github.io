@@ -9,18 +9,18 @@
         <meta name="keywords" content="模板和泛型编程">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="名义模板 模板实参推断 重载与模板 可变参数模板 模板的特例化  面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。">
+    <meta name="description" content="定义模板 模板实参推断 重载与模板 可变参数模板 模板的特例化  面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。">
 <meta name="keywords" content="模板和泛型编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="模板和泛型编程">
 <meta property="og:url" content="http://yoursite.com/wiki/C++语言/C++Primer/第十六章 模板和泛型编程/模板和泛型编程/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="名义模板 模板实参推断 重载与模板 可变参数模板 模板的特例化  面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。">
+<meta property="og:description" content="定义模板 模板实参推断 重载与模板 可变参数模板 模板的特例化  面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-09-25T07:36:16.526Z">
+<meta property="og:updated_time" content="2019-05-16T07:37:29.011Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="模板和泛型编程">
-<meta name="twitter:description" content="名义模板 模板实参推断 重载与模板 可变参数模板 模板的特例化  面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。">
+<meta name="twitter:description" content="定义模板 模板实参推断 重载与模板 可变参数模板 模板的特例化  面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。">
     
 
     
@@ -394,7 +394,7 @@
                             &nbsp;
                             webview
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/gome-Webview/">通用webview开发记录</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/Hybird/webview/WKWebview/">通用webview开发记录</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -966,19 +966,42 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义模板"><span class="toc-number">1.</span> <span class="toc-text">定义模板</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#函数模板"><span class="toc-number">1.1.</span> <span class="toc-text">函数模板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#类模板"><span class="toc-number">1.2.</span> <span class="toc-text">类模板</span></a></li></ol></li></ol>
                 </div>
             
         
         
             <ol>
-<li>名义模板</li>
+<li>定义模板</li>
 <li>模板实参推断</li>
 <li>重载与模板</li>
 <li>可变参数模板</li>
 <li>模板的特例化</li>
 </ol>
 <p>面向对象编程和泛型编程都能处理程序在不知道类型的情况，不同之处在于： OOP能处理类型在运行之前未知的情况，而在泛型编程中，在编译器时就能获知类型了。<br><a id="more"></a></p>
+<p>一个模板就是一个创建类或函数的蓝图或者公式。当我们提足够的信息，将蓝图转化为特定的类或函数。这种转化发生在编译期。</p>
+<h2 id="定义模板"><a href="#定义模板" class="headerlink" title="定义模板"></a>定义模板</h2><h3 id="函数模板"><a href="#函数模板" class="headerlink" title="函数模板"></a>函数模板</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">compare</span><span class="params">(<span class="keyword">const</span> T &amp;v1, <span class="keyword">const</span> T &amp;v2)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>模板定义以template开始，后跟一个模板参数列表。</p>
+<p>函数参数： 调用时，实参初始化形参。</p>
+<p>模板参数表示类、函数定义中用到的类型或值。使用模板时，指定模板实参，绑定到模板形参上。</p>
+<p>函数实参推断模板实参。</p>
+<ul>
+<li>模板类型参数 ： </li>
+<li>非类型参数：是常量，必须能字编译时处理。使用场景：数组的大小</li>
+<li>模板编译：当编译器遇到一个模板时，他并不生成代码。只有当我们实例化出模板的一个特定版本时，编译器才会生成代码。当我们使用模板时，编译器才生成代码。 函数模板和类模板成员函数的定义放在头文件中</li>
+</ul>
+<h3 id="类模板"><a href="#类模板" class="headerlink" title="类模板"></a>类模板</h3><ul>
+<li>类模板实例化：必须提供模板实参，由于没法推断出来。 一个类模板的每个实例都形成一个独立的类。类型Blob<string> 与任何其他Blob类型都没有关联。</string></li>
+<li>类模板作用域中引用模板类型：</li>
+<li>定义在类模板之外的成员函数必须以关键字 template开始。 （由于每个实例都以自己版本的成员函数）</li>
+</ul>
+<p>template <typename t=""><br>ret-type Blob<t>::memberName(param)</t></typename></p>
+<ul>
+<li>构造函数的定义以模板参数开始</li>
+<li>类模板成员函数实例化：一个类模板的成员函数只有当程序用到它时才进行实例化。如果一个函数没有调用，则它不会实例化。</li>
+<li>在类内部代码简化模板类名的使用。当我们使用类模板类型时必须提供实参，但这一规则有一个例外。在类模板的作用域中，可以指向使用模板名，不提供实参</li>
+<li>在类模板外使用类模板名：在类模板外定义其成员时，必须记住，我们并不在类的作用域中。知道遇到类名，才表示进入作用域。返回值在类的作用域外。</li>
+</ul>
 
             </div>
         
@@ -991,19 +1014,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/C++语言/C++Primer/第十九章特殊工具和技术/特殊工具和技术/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    变量和基本类型
+                    特殊工具和技术
                 
             </div>
         </a>
     
     
-        <a href="/wiki/linux命令/特殊参数/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/C++语言/C++Primer/第二章变量和基本类型/变量和基本类型/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">set命令</div>
+            <div class="article-nav-title">变量和基本类型</div>
         </a>
     
 </nav>
