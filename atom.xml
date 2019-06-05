@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-06-03T09:29:49.395Z</updated>
+  <updated>2019-06-05T11:41:20.218Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,62 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>AFNetworking 源码浅析</title>
+    <link href="http://yoursite.com/wiki/IOS/opensource/AFNetworking/AFNetworking/"/>
+    <id>http://yoursite.com/wiki/IOS/opensource/AFNetworking/AFNetworking/</id>
+    <published>2019-06-05T10:07:12.000Z</published>
+    <updated>2019-06-05T11:41:20.218Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文学习了AFNetworking，画了几个图，当做学习的成绩，留作以后复习使用。</p><a id="more"></a><h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking1.png" alt="AFNetworking"></p><h2 id="接收到响应"><a href="#接收到响应" class="headerlink" title="接收到响应"></a>接收到响应</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking2.png" alt="AFNetworking"></p><h2 id="进度条模块"><a href="#进度条模块" class="headerlink" title="进度条模块"></a>进度条模块</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking3.png" alt="AFNetworking"></p><h2 id="认证模块"><a href="#认证模块" class="headerlink" title="认证模块"></a>认证模块</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking4.png" alt="AFNetworking"></p><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking5.png" alt="AFNetworking"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文学习了AFNetworking，画了几个图，当做学习的成绩，留作以后复习使用。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="opensource" scheme="http://yoursite.com/categories/IOS/opensource/"/>
+    
+      <category term="AFNetworking" scheme="http://yoursite.com/categories/IOS/opensource/AFNetworking/"/>
+    
+    
+      <category term="AFNetworking" scheme="http://yoursite.com/tags/AFNetworking/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>需要后续学习的知识</title>
+    <link href="http://yoursite.com/wiki/IOS/Learn/ABTest/"/>
+    <id>http://yoursite.com/wiki/IOS/Learn/ABTest/</id>
+    <published>2019-06-05T02:18:26.000Z</published>
+    <updated>2019-06-05T05:38:17.837Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录需要学习的东西，防止后来忘记了</p><ol><li>swift</li><li><a href="https://www.jianshu.com/p/488c1f46cedd" rel="external nofollow noopener noreferrer" target="_blank">第三方源码-AFNetworking解析</a> <a href="https://github.com/draveness/analyze/blob/master/contents/AFNetworking/AFNetworkReachabilityManager%20监控网络状态（四）.md" rel="external nofollow noopener noreferrer" target="_blank">afn</a></li><li><a href="https://www.jianshu.com/c/c75e45b08d4b" rel="external nofollow noopener noreferrer" target="_blank">iOS高级开发面试题整理</a></li><li><a href="http://www.cocoachina.com/detail/27025" rel="external nofollow noopener noreferrer" target="_blank">模块化吧</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;记录需要学习的东西，防止后来忘记了&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;swift&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.jianshu.com/p/488c1f46cedd&quot; rel=&quot;external nofollow noopener noreferrer
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="Learn" scheme="http://yoursite.com/categories/IOS/Learn/"/>
+    
+    
+      <category term="learn" scheme="http://yoursite.com/tags/learn/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS App 签名的原理([抄袭的，有问题请联系](http://wereadteam.github.io/2017/03/13/Signature/))</title>
@@ -41,13 +97,13 @@
   </entry>
   
   <entry>
-    <title>单词查找数</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_2_search/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_2_search/</id>
+    <title>字符串排序</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_1_sort/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_1_sort/</id>
     <published>2019-05-30T02:07:12.000Z</published>
-    <updated>2019-05-30T10:16:11.353Z</updated>
+    <updated>2019-05-30T02:19:46.129Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="单词查找树"><a href="#单词查找树" class="headerlink" title="单词查找树"></a>单词查找树</h2><p>每个节点都有R条连接，其中R为字母表的大小</p><p>每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。</p><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。</p><p>查找结果：</p><ol><li>尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保存的值。</li><li>键的尾字符所对应的节点中值为空，未命中，符号表中不存在被查找的键</li><li>查找结束于一条空链接，这也是一次未命中的查找</li></ol><p>查找过程就是在单词查找树中从根节点开始检查某条路径上所有节点。</p><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ol><li>在到达键尾部前就遇到了一个空链接，需要为键中还未被检查的每个字符创建一个对应的节点，并将键对应的值保存在最后一个节点中。</li><li>在遇到空链接前就到达了健的尾部，将该节点中值设为键对应的值。</li></ol><h3 id="节点的表示"><a href="#节点的表示" class="headerlink" title="节点的表示"></a>节点的表示</h3><p>每个节点都含有一个值和26个链接</p><p>在单词查找树中，键是由从根节点到含有非空值的节点的路径隐式表示的。数据节点并不会保存字符串或字符，它保存了链接数组和值。基于含有R个字符的字母表的单词查找数称为<strong>R向单词查找树</strong>。</p><h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>size的延时实现：</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>()</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">size</span>(root);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>(Node x)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">null</span> == x) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val) ++cnt;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span> ;i&lt;R, ++i)</span><br><span class="line">&#123;</span><br><span class="line">cnt += <span class="keyword">size</span>(<span class="keyword">next</span>[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node <span class="built_in">get</span>(Node x,<span class="keyword">String</span> <span class="built_in">key</span>, <span class="built_in">int</span> d)&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(d== <span class="built_in">key</span>.length()) <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始递归</span></span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d++);</span><br><span class="line">Node next = x.next[c];</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">get</span>(next, <span class="built_in">key</span>,d)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Value <span class="built_in">get</span>(<span class="keyword">String</span> <span class="built_in">key</span>)</span><br><span class="line">&#123;</span><br><span class="line">Node node = <span class="built_in">get</span>(root,<span class="built_in">key</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">return</span> node.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node put(Node x, <span class="keyword">String</span> <span class="built_in">key</span>, Value val, <span class="built_in">int</span> d) &#123;</span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) x= <span class="keyword">new</span> Node();</span><br><span class="line"><span class="keyword">if</span>(d == <span class="built_in">key</span>.length()) &#123;x.val = val, <span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d);</span><br><span class="line">x.next[c] = put(x.next[c],<span class="built_in">key</span>,val,d+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> put(<span class="keyword">String</span> <span class="built_in">key</span>, Value val) &#123;</span><br><span class="line">root = put(root,<span class="built_in">key</span>,val,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> collect(Node x, <span class="keyword">String</span> pre, Queue&lt;<span class="keyword">String</span>&gt;) &#123;</span><br><span class="line"><span class="keyword">if</span>(x== <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">char</span> c=<span class="number">0</span>; c&lt;R; c++) &#123;</span><br><span class="line">collect(x.next[c],pre+c,q);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Iterable&lt;<span class="keyword">String</span>&gt; keysWithPrefix(<span class="keyword">String</span> pre) &#123;</span><br><span class="line">Queue&lt;<span class="keyword">String</span>&gt;  q = <span class="keyword">new</span> Queue&lt;Sting&gt;();</span><br><span class="line">collect(<span class="built_in">get</span>(root,pre,<span class="number">0</span>),pre,q);</span><br><span class="line"><span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h3>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p><ol><li>计算各组的频率<code>count[r+1]++</code>;</li><li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li><li>数据分类</li><li>回写</li></ol><h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p><p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p><h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>]]></content>
     
     <summary type="html">
     
@@ -64,7 +120,7 @@
       <category term="算法4" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/"/>
     
     
-      <category term="单词查找数" scheme="http://yoursite.com/tags/%E5%8D%95%E8%AF%8D%E6%9F%A5%E6%89%BE%E6%95%B0/"/>
+      <category term="字符串排序" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   
@@ -97,13 +153,13 @@
   </entry>
   
   <entry>
-    <title>字符串排序</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_1_sort/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_1_sort/</id>
+    <title>单词查找数</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_2_search/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_2_search/</id>
     <published>2019-05-30T02:07:12.000Z</published>
-    <updated>2019-05-30T02:19:46.129Z</updated>
+    <updated>2019-05-30T10:16:11.353Z</updated>
     
-    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p><ol><li>计算各组的频率<code>count[r+1]++</code>;</li><li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li><li>数据分类</li><li>回写</li></ol><h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p><p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p><h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>]]></content>
+    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="单词查找树"><a href="#单词查找树" class="headerlink" title="单词查找树"></a>单词查找树</h2><p>每个节点都有R条连接，其中R为字母表的大小</p><p>每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。</p><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。</p><p>查找结果：</p><ol><li>尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保存的值。</li><li>键的尾字符所对应的节点中值为空，未命中，符号表中不存在被查找的键</li><li>查找结束于一条空链接，这也是一次未命中的查找</li></ol><p>查找过程就是在单词查找树中从根节点开始检查某条路径上所有节点。</p><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ol><li>在到达键尾部前就遇到了一个空链接，需要为键中还未被检查的每个字符创建一个对应的节点，并将键对应的值保存在最后一个节点中。</li><li>在遇到空链接前就到达了健的尾部，将该节点中值设为键对应的值。</li></ol><h3 id="节点的表示"><a href="#节点的表示" class="headerlink" title="节点的表示"></a>节点的表示</h3><p>每个节点都含有一个值和26个链接</p><p>在单词查找树中，键是由从根节点到含有非空值的节点的路径隐式表示的。数据节点并不会保存字符串或字符，它保存了链接数组和值。基于含有R个字符的字母表的单词查找数称为<strong>R向单词查找树</strong>。</p><h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>size的延时实现：</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>()</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">size</span>(root);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>(Node x)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">null</span> == x) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val) ++cnt;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span> ;i&lt;R, ++i)</span><br><span class="line">&#123;</span><br><span class="line">cnt += <span class="keyword">size</span>(<span class="keyword">next</span>[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node <span class="built_in">get</span>(Node x,<span class="keyword">String</span> <span class="built_in">key</span>, <span class="built_in">int</span> d)&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(d== <span class="built_in">key</span>.length()) <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始递归</span></span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d++);</span><br><span class="line">Node next = x.next[c];</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">get</span>(next, <span class="built_in">key</span>,d)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Value <span class="built_in">get</span>(<span class="keyword">String</span> <span class="built_in">key</span>)</span><br><span class="line">&#123;</span><br><span class="line">Node node = <span class="built_in">get</span>(root,<span class="built_in">key</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">return</span> node.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node put(Node x, <span class="keyword">String</span> <span class="built_in">key</span>, Value val, <span class="built_in">int</span> d) &#123;</span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) x= <span class="keyword">new</span> Node();</span><br><span class="line"><span class="keyword">if</span>(d == <span class="built_in">key</span>.length()) &#123;x.val = val, <span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d);</span><br><span class="line">x.next[c] = put(x.next[c],<span class="built_in">key</span>,val,d+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> put(<span class="keyword">String</span> <span class="built_in">key</span>, Value val) &#123;</span><br><span class="line">root = put(root,<span class="built_in">key</span>,val,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> collect(Node x, <span class="keyword">String</span> pre, Queue&lt;<span class="keyword">String</span>&gt;) &#123;</span><br><span class="line"><span class="keyword">if</span>(x== <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">char</span> c=<span class="number">0</span>; c&lt;R; c++) &#123;</span><br><span class="line">collect(x.next[c],pre+c,q);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Iterable&lt;<span class="keyword">String</span>&gt; keysWithPrefix(<span class="keyword">String</span> pre) &#123;</span><br><span class="line">Queue&lt;<span class="keyword">String</span>&gt;  q = <span class="keyword">new</span> Queue&lt;Sting&gt;();</span><br><span class="line">collect(<span class="built_in">get</span>(root,pre,<span class="number">0</span>),pre,q);</span><br><span class="line"><span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h3>]]></content>
     
     <summary type="html">
     
@@ -120,7 +176,7 @@
       <category term="算法4" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/"/>
     
     
-      <category term="字符串排序" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8E%92%E5%BA%8F/"/>
+      <category term="单词查找数" scheme="http://yoursite.com/tags/%E5%8D%95%E8%AF%8D%E6%9F%A5%E6%89%BE%E6%95%B0/"/>
     
   </entry>
   
@@ -341,66 +397,6 @@
   </entry>
   
   <entry>
-    <title>19. 类型转换</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/19__类型转换/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:55:37.511Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
-&lt;li&gt;Checking Type&lt;/li&gt;
-&lt;li&gt;Downcasting&lt;/li&gt;
-&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>21. 扩展</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T07:07:06.729Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Extension Syntax&lt;/li&gt;
-&lt;li&gt;Computed Properties&lt;/li&gt;
-&lt;li&gt;Initializers&lt;/li&gt;
-&lt;li&gt;Methods&lt;/li&gt;
-&lt;li&gt;Subscripts&lt;/li&gt;
-&lt;li&gt;Nested Types&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
-    
-  </entry>
-  
-  <entry>
     <title>22. 协议</title>
     <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
     <id>http://yoursite.com/wiki/swift语言/swift学习摘要/22__协议/</id>
@@ -441,6 +437,66 @@
   </entry>
   
   <entry>
+    <title>21. 扩展</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/21__扩展/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T07:07:06.729Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Extension Syntax</li><li>Computed Properties</li><li>Initializers</li><li>Methods</li><li>Subscripts</li><li>Nested Types</li></ol><a id="more"></a><p> Extensions :为已存在的类、结构体、枚举或者协议类型增添了一个新的功能。这项功 能包括在对你无法访问源码的情况下进行类的扩展的能力(例如“追溯模型”)。Swift 中的Extensions 与 Objective-C 中的 Categories 类似。(但与 Objective-C 中 Categories 有所不同的是，Swift 中的 Extensions 并没有一个具体的命名)<br>在 Swift 中 Extensions 可以做到:</p><ol><li>添加计算实例属性和计算类型属性</li><li>定义实例方法和类方法</li><li>提供新的初始化方法</li><li>定义下标脚本</li><li>定义和使用新的嵌套类型</li><li>使现有类型符合协议</li></ol><blockquote><p>注意: Extensions 可以为类增添一个新的功能，但却不能重写之前已经存在的功能。</p></blockquote><h2 id="Extension-语法"><a href="#Extension-语法" class="headerlink" title="Extension 语法"></a>Extension 语法</h2><p>使用关键字 Extension 来声明一个扩展:</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SomeType</span> </span>&#123;</span><br><span class="line"><span class="comment">//编写 SomeType 的新功能</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><blockquote><p>注意：如果你想为一个已经存在的类型的进行扩展并添加一个新的功能，那么这个功能将会被 该类所有的实例使用，即使在这个 Extension 被定义之前。</p></blockquote><h2 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h2><p>Extensions 可以将计算实例属性与计算类型属性添加到现有类中去。</p><blockquote><p>注意：Extensions 可以添加一个新的属性，但是他们不能存储这些属性，也不能为现有类 型添加属性观察者。</p></blockquote><h2 id="初始化器"><a href="#初始化器" class="headerlink" title="初始化器"></a>初始化器</h2><p>Extensions 可以给类添加一个便利初始化器，但它们不能够提供指定初始化器、反初始化器。指定初始化器和反初始化器都必须由原始类去提供。</p><blockquote><p>注意： 如果你声明了一个带有扩展的新的初始化器，那么你仍然有责任去确认在这个初始化器完成之后，每一个实例都已经被初始化完成。</p></blockquote><h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>扩展可以向已经存在的类型添加实例方法或类方法。</p><h3 id="可变实例方法"><a href="#可变实例方法" class="headerlink" title="可变实例方法"></a>可变实例方法</h3><p> 我们可以通过在扩展中添加实例方法来实现修改变量。</p><h2 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h2><p> Extensions 能够对已经存在的类型添加下标。</p><h2 id="嵌套类型"><a href="#嵌套类型" class="headerlink" title="嵌套类型"></a>嵌套类型</h2><p>我们可以通过扩展 Extensions 来向任何已经存在的类、结构体或枚举添加新的嵌套类 型。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Extension Syntax&lt;/li&gt;
+&lt;li&gt;Computed Properties&lt;/li&gt;
+&lt;li&gt;Initializers&lt;/li&gt;
+&lt;li&gt;Methods&lt;/li&gt;
+&lt;li&gt;Subscripts&lt;/li&gt;
+&lt;li&gt;Nested Types&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="扩展" scheme="http://yoursite.com/tags/%E6%89%A9%E5%B1%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>19. 类型转换</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/19__类型转换/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T03:55:37.511Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
+&lt;li&gt;Checking Type&lt;/li&gt;
+&lt;li&gt;Downcasting&lt;/li&gt;
+&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
+    
+  </entry>
+  
+  <entry>
     <title>20. 嵌套类型</title>
     <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
     <id>http://yoursite.com/wiki/swift语言/swift学习摘要/20__嵌套类型/</id>
@@ -464,61 +520,6 @@
     
     
       <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>18. 错误处理</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/18__错误处理/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-29T03:19:27.919Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Representing and Throwing Errors</li><li>Handling Errors</li><li>Specifying Cleanup Actions</li></ol><a id="more"></a><h2 id="表示和抛出错误"><a href="#表示和抛出错误" class="headerlink" title="表示和抛出错误"></a>表示和抛出错误</h2><p>在 Swift 中，错误是遵循 Error 协议的值。Error 是一个空协议，表明遵循该协议的类型 可以用于错误处理。</p><h2 id="处理错误"><a href="#处理错误" class="headerlink" title="处理错误"></a>处理错误</h2><p>在 Swift 中有四种处理错误的方式：</p><ol><li>您可以将错误从函数传递给调用该函数的代码</li><li>可以使 用 do - catch 语句处理错误，</li><li>可以通过可选值处理错误</li><li>通过断言保证错误不会 发生</li></ol><h3 id="使⽤抛出函数传递错误"><a href="#使⽤抛出函数传递错误" class="headerlink" title="使⽤抛出函数传递错误"></a>使⽤抛出函数传递错误</h3><p>为了让函数、方法或者初始化程序可以抛出错误，您需要在函数声明的参数后面添写 throws 关键字。标有 throws 的函数称为抛出函数。如果函数指定了返回类型，则在返回箭头 ( -&gt; ) 之前添写 throws 关键字。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">canThrowErrors</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure><blockquote><p>注意:只有抛出函数才能传递错误。任何在非抛出函数中抛出错误都必须在函数内部进行处理。</p></blockquote><h3 id="使⽤-Do-Catch-处理错误"><a href="#使⽤-Do-Catch-处理错误" class="headerlink" title="使⽤ Do-Catch 处理错误"></a>使⽤ Do-Catch 处理错误</h3><p>在可抛出函数中，封闭的do - catch 子句或调用者必须处理错误。 如果错误传播到顶级作用域而未被处理， 则会出现运行时错误。</p><h3 id="将错误转换为可选值"><a href="#将错误转换为可选值" class="headerlink" title="将错误转换为可选值"></a>将错误转换为可选值</h3><p>你可以使用 try? 将错误转换为可选值来处理错误。 如果在执行 try? 表达式时抛出 错误，表达式的值将为 nil 。</p><h3 id="禁⽤错误传播"><a href="#禁⽤错误传播" class="headerlink" title="禁⽤错误传播"></a>禁⽤错误传播</h3><p>有时你知道可抛出函数或方法实际上不会在运行时抛出错误。 在这种情况下，你可以在表达 式之前添加 try! 来禁用错误传播，并把调用过程包装在运行时断言中，从而禁止其抛出 错误。 而如果实际运行时抛出了错误，你将收到运行时错误。</p><h2 id="指定清理操作"><a href="#指定清理操作" class="headerlink" title="指定清理操作"></a>指定清理操作</h2><p>当代码执行到即将离开当前代码块之前，可以使用 defer 语句来执行一组语句。无论是 因为错误而离开 — 抑或是因为诸如 return 或 break 等语句而离开， defer 语句都可以让你执行一些必要的清理。例如，你可以使用 defer 语句来关闭文件描述符 或释放手动分配的内存。</p><p>defer 语句会推迟执行，直到退出当前作用域。该语句由 defer 关键字和稍后要执 行的语句组成。延迟语句可能不包含任何将控制转移出语句的代码，例如 break 或 return 语句，或抛出错误。延迟操作的执行顺序与它们在源代码中编写的顺序相反。也 就是说，第一个 defer 语句中的代码最后一个执行，第二个 defer 语句中的代码倒 数第二个执行，依此类推。源代码中的最后一个 defer 语句最先执行。</p><blockquote><p>注意： 即使没有涉及错误处理代码，也可以使用 defer 语句。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Representing and Throwing Errors&lt;/li&gt;
-&lt;li&gt;Handling Errors&lt;/li&gt;
-&lt;li&gt;Specifying Cleanup Actions&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="错误处理" scheme="http://yoursite.com/tags/%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>16. 析构过程</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/16__析构过程/</id>
-    <published>2019-01-28T02:07:12.000Z</published>
-    <updated>2019-01-28T08:50:32.765Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
-&lt;li&gt;Deinitializers in Action&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="继承" scheme="http://yoursite.com/tags/%E7%BB%A7%E6%89%BF/"/>
     
   </entry>
   
@@ -588,20 +589,19 @@
   </entry>
   
   <entry>
-    <title>14. 继承</title>
-    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/14__%E7%BB%A7%E6%89%BF/"/>
-    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/14__继承/</id>
-    <published>2019-01-28T01:07:12.000Z</published>
-    <updated>2019-01-28T02:47:13.962Z</updated>
+    <title>16. 析构过程</title>
+    <link href="http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/"/>
+    <id>http://yoursite.com/wiki/swift语言/swift学习摘要/16__析构过程/</id>
+    <published>2019-01-28T02:07:12.000Z</published>
+    <updated>2019-01-28T08:50:32.765Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Subscript Syntax</li><li>Subscript Usage</li><li>Subscript Options</li></ol><a id="more"></a><p>一个类可以 继承 另一个类的方法，属性以及其他特性。当一个类继承另一个类时，继承类称 为 子类，被继承类称为 父类。在 Swift 中，继承是类类型区别于其他类型的基本特性。</p><p>Swift 中的子类可以调用和访问父类的方法，属性和下标，还可以重写这些方法，属性和下标 来优化或修改它们的行为。Swift 会通过检查重写的定义和父类的定义是否匹配来帮助确保重 写是正确的。</p><p>子类还可以给继承的属性添加属性观察器，以便在属性值发生变化时得到通知。属性观察器<br>可以被添加到任何属性，不管它原始定义是储存属性还是计算属性。</p><h2 id="定义一个基类"><a href="#定义一个基类" class="headerlink" title="定义一个基类"></a>定义一个基类</h2><p>Swift 中的类并不继承自一个统一的类。定义类时如果不指定父类那么该类自动成为基类。</p><h2 id="子类化"><a href="#子类化" class="headerlink" title="子类化"></a>子类化</h2><p>子类化 是在已有类的基础上创建新类的行为。</p><h2 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h2><p>一个子类可以对实例方法、类方法、实例属性、类属性和下标进行自定义实现，如果没有自定义，则会从超类继承，这就是所谓的重写。</p><p>重写从父类继承的特性，你需要在定义重写时添加 override 前缀。这表明你打算重写 一个特性并且没有使用错误的匹配定义。意外的重写会导致不可预料的行为，且任何没有使 用 override 关键词修饰的重写声明在编译代码时会被标记为错误。<br>override 关键词也提醒 Swift 编译器去检查你重写的这个类的超类(或它的某个父类) 是否有匹配重写版本的声明。这个检查确保你的重写定义是正确无误的。</p><h2 id="访问⽗父类的⽅方法、属性和下标"><a href="#访问⽗父类的⽅方法、属性和下标" class="headerlink" title="访问⽗父类的⽅方法、属性和下标"></a>访问⽗父类的⽅方法、属性和下标</h2><p>当你在子类中重写方法、属性或下标时，有时把父类的实现作为重写的一部分是很有用的。<br>例如，你可以优化现有的实现，或将修改后的值存储在现有的继承变量中。<br>在适当的情况下，应该用 super 前缀访问父类的方法、属性或下标:</p><ol><li>一个名为 someMethod() 的重写方法可以在实现中通过 super.someMethod() 来调用父类的 someMethod() 方法。</li><li>一个名为 someProperty 的属性可以在重写 getter 或 setter 的实现中通过 super.someProperty 访问父类的 someProperty 属性。</li><li>一个 someIndex 的重写下标可以在重写下标的实现中通过 super[someIndex] 访问父类的相同下标。</li></ol><h2 id="重写属性的-Getters-和-Setters"><a href="#重写属性的-Getters-和-Setters" class="headerlink" title="重写属性的 Getters 和 Setters"></a>重写属性的 Getters 和 Setters</h2><p>无论继承的属性原来是存储属性还是计算属性，都可以提供自定义的 getter(如果 setter 适 用，也包括 setter)来重写任何继承属性。子类不知道继承的属性是存储属性还是计算属 性，子类只知道继承的属性具有特定的名称和类型。你必须始终声明要重写的属性的名称和 类型，以使编译器能够检查你重写的属性是否与具有相同名称和类型的父类属性匹配。<br>通过在子类属性中重写 getter 和 setter，可以将继承的只读属性重写为读写属性，但是，你不能将继承的读写属性重写为只读属性。</p><blockquote><p>注意如果你重写属性的 setter 就必须同时重写属性的 getter。如果你不想在重写 getter 中修 改继承属性的值，你可以简单地在 getter 中返回 super.someProperty ，其中someProperty 是你想要重写的属性名称。</p></blockquote><h2 id="重写属性观察者"><a href="#重写属性观察者" class="headerlink" title="重写属性观察者"></a>重写属性观察者</h2><p>你可以用“属性重写特性”给一个继承属性增加属性观察者。 无论这个属性的初始值是多少，当它的值改变时你将会收到通知。更多有关属性观察者的信息，参阅 属性观察者.</p><blockquote><p>注意：你不能给常量存储属性或只读属性增加属性观察者。 因为这些属性值不能被修改，所以它是不能提供 willSet 或 didSet 的重写实现。<br>当然，你不能为同一个属性同时提供 setter 重写和 didSet 观察者。 如果你想观察这个属性值的改变，并且你已经为这个属性提供了一个重写的 setter 方法，那么你能在这个自定义 setter 方法里观察到它任何值的改变。</p></blockquote><h2 id="防⽌止重写"><a href="#防⽌止重写" class="headerlink" title="防⽌止重写"></a>防⽌止重写</h2><p>你可以通过标记方法、属性或下标为 final 来防止它被重写。通过在方法、属性或下标前添加 关键字 final (比如 final var 、 final func 、 final class func 和final subscript )来完成此操作</p>]]></content>
+    <content type="html"><![CDATA[<ol><li>ow Deinitialization Works</li><li>Deinitializers in Action</li></ol><a id="more"></a><p>析构器 会在类的实例销毁之前被立即调用。使用deinit关键字来表示析构器，类似于使用init关键字标示构造器，析构器仅适用于class类型。</p><h2 id="析构器是如何运作的"><a href="#析构器是如何运作的" class="headerlink" title="析构器是如何运作的"></a>析构器是如何运作的</h2><p>在类的定义中, 类最多只能有一个析构器。 析构器不接受任何参数，并且没有括号。</p><p>在实例销毁之前，会自动调用析构器。你不能自己调用析构器。父类的析构器由其子类继承，父类析构器会在子类析构器实现的末尾自动调用。即使子类不提供自己的析构器，父类析构器也会被调用。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Subscript Syntax&lt;/li&gt;
-&lt;li&gt;Subscript Usage&lt;/li&gt;
-&lt;li&gt;Subscript Options&lt;/li&gt;
+&lt;li&gt;ow Deinitialization Works&lt;/li&gt;
+&lt;li&gt;Deinitializers in Action&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
