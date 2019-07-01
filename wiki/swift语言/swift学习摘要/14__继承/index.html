@@ -9,18 +9,18 @@
         <meta name="keywords" content="继承">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Subscript Syntax Subscript Usage Subscript Options">
+    <meta name="description" content="定义一个基类 子类生成 重写 防止重写">
 <meta name="keywords" content="继承">
 <meta property="og:type" content="article">
 <meta property="og:title" content="14. 继承">
 <meta property="og:url" content="http://yoursite.com/wiki/swift语言/swift学习摘要/14__继承/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="Subscript Syntax Subscript Usage Subscript Options">
+<meta property="og:description" content="定义一个基类 子类生成 重写 防止重写">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-28T02:47:13.962Z">
+<meta property="og:updated_time" content="2019-07-01T08:59:48.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="14. 继承">
-<meta name="twitter:description" content="Subscript Syntax Subscript Usage Subscript Options">
+<meta name="twitter:description" content="定义一个基类 子类生成 重写 防止重写">
     
 
     
@@ -475,7 +475,7 @@
                             &nbsp;
                             Learn
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Learn/ABTest/">需要后续学习的知识</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Learn/learn/">需要后续学习的知识</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -984,39 +984,46 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义一个基类"><span class="toc-number">1.</span> <span class="toc-text">定义一个基类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子类化"><span class="toc-number">2.</span> <span class="toc-text">子类化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重写"><span class="toc-number">3.</span> <span class="toc-text">重写</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#访问⽗父类的⽅方法、属性和下标"><span class="toc-number">4.</span> <span class="toc-text">访问⽗父类的⽅方法、属性和下标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重写属性的-Getters-和-Setters"><span class="toc-number">5.</span> <span class="toc-text">重写属性的 Getters 和 Setters</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重写属性观察者"><span class="toc-number">6.</span> <span class="toc-text">重写属性观察者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防⽌止重写"><span class="toc-number">7.</span> <span class="toc-text">防⽌止重写</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#定义一个基类"><span class="toc-number">1.</span> <span class="toc-text">定义一个基类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#子类化"><span class="toc-number">2.</span> <span class="toc-text">子类化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#重写"><span class="toc-number">3.</span> <span class="toc-text">重写</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#访问⽗类的⽅法、属性和下标"><span class="toc-number">3.1.</span> <span class="toc-text">访问⽗类的⽅法、属性和下标</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写属性的Getters和Setters"><span class="toc-number">3.2.</span> <span class="toc-text">重写属性的Getters和Setters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重写属性观察者"><span class="toc-number">3.3.</span> <span class="toc-text">重写属性观察者</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防⽌止重写"><span class="toc-number">4.</span> <span class="toc-text">防⽌止重写</span></a></li></ol>
                 </div>
             
         
         
             <ol>
-<li>Subscript Syntax</li>
-<li>Subscript Usage</li>
-<li>Subscript Options</li>
+<li>定义一个基类</li>
+<li>子类生成</li>
+<li>重写</li>
+<li>防止重写</li>
 </ol>
 <a id="more"></a>
-<p>一个类可以 继承 另一个类的方法，属性以及其他特性。当一个类继承另一个类时，继承类称 为 子类，被继承类称为 父类。在 Swift 中，继承是类类型区别于其他类型的基本特性。</p>
-<p>Swift 中的子类可以调用和访问父类的方法，属性和下标，还可以重写这些方法，属性和下标 来优化或修改它们的行为。Swift 会通过检查重写的定义和父类的定义是否匹配来帮助确保重 写是正确的。</p>
-<p>子类还可以给继承的属性添加属性观察器，以便在属性值发生变化时得到通知。属性观察器<br>可以被添加到任何属性，不管它原始定义是储存属性还是计算属性。</p>
-<h2 id="定义一个基类"><a href="#定义一个基类" class="headerlink" title="定义一个基类"></a>定义一个基类</h2><p>Swift 中的类并不继承自一个统一的类。定义类时如果不指定父类那么该类自动成为基类。</p>
-<h2 id="子类化"><a href="#子类化" class="headerlink" title="子类化"></a>子类化</h2><p>子类化 是在已有类的基础上创建新类的行为。</p>
+<p>一个类可以继承另一个类的方法、属性以及其他特性。当一个类继承另一个类时，继承类称为<strong>子类</strong>，被继承类称为<strong>父类</strong>。在 Swift中，继承是<strong>类类型</strong>区别于其<strong>他类型</strong>的基本特性。 <font color="red">也就是说类的主要特性是继承.</font></p>
+<p>Swift中的子类可以调用和访问父类的方法、属性和下标。还可以重写这些方法、属性和下标来优化或修改它们的行为。Swift会通过检查重写的定义和父类的定义是否匹配来帮助确保重写是正确的。</p>
+<p>子类还可以给继承的属性添加属性观察器，以便在属性值发生变化时得到通知。属性观察器可以被添加到任何属性，不管它原始定义是储存属性还是计算属性。</p>
+<h2 id="定义一个基类"><a href="#定义一个基类" class="headerlink" title="定义一个基类"></a>定义一个基类</h2><p>Swift 中的类并不继承自一个统一的类。定义类时如果不指定父类，那么该类自动成为基类。</p>
+<h2 id="子类化"><a href="#子类化" class="headerlink" title="子类化"></a>子类化</h2><p>子类化：是在已有类的基础上创建新类的行为。</p>
 <h2 id="重写"><a href="#重写" class="headerlink" title="重写"></a>重写</h2><p>一个子类可以对实例方法、类方法、实例属性、类属性和下标进行自定义实现，如果没有自定义，则会从超类继承，这就是所谓的重写。</p>
-<p>重写从父类继承的特性，你需要在定义重写时添加 override 前缀。这表明你打算重写 一个特性并且没有使用错误的匹配定义。意外的重写会导致不可预料的行为，且任何没有使 用 override 关键词修饰的重写声明在编译代码时会被标记为错误。<br>override 关键词也提醒 Swift 编译器去检查你重写的这个类的超类(或它的某个父类) 是否有匹配重写版本的声明。这个检查确保你的重写定义是正确无误的。</p>
-<h2 id="访问⽗父类的⽅方法、属性和下标"><a href="#访问⽗父类的⽅方法、属性和下标" class="headerlink" title="访问⽗父类的⽅方法、属性和下标"></a>访问⽗父类的⽅方法、属性和下标</h2><p>当你在子类中重写方法、属性或下标时，有时把父类的实现作为重写的一部分是很有用的。<br>例如，你可以优化现有的实现，或将修改后的值存储在现有的继承变量中。<br>在适当的情况下，应该用 super 前缀访问父类的方法、属性或下标:</p>
+<p>重写从父类继承的特性，你需要在定义重写时添加 override 前缀。这表明你打算重写一个特性并且没有使用错误的匹配定义。意外的重写会导致不可预料的行为，且任何没有使 用 override 关键词修饰的重写声明在编译代码时会被标记为错误。</p>
+<p>override 关键词也提醒 Swift 编译器去检查你重写的这个类的超类(或它的某个父类) 是否有匹配重写版本的声明。这个检查确保你的重写定义是正确无误的。  <font color="red"> override 关键字很重要，帮你检查重写是否正确。</font></p>
+<h3 id="访问⽗类的⽅法、属性和下标"><a href="#访问⽗类的⽅法、属性和下标" class="headerlink" title="访问⽗类的⽅法、属性和下标"></a>访问⽗类的⽅法、属性和下标</h3><p>当你在子类中重写方法、属性或下标时，有时把父类的实现作为重写的一部分是很有用的。<br>例如，你可以优化现有的实现，或将修改后的值存储在现有的继承变量中。<br>在适当的情况下，应该用 super 前缀访问父类的方法、属性或下标:</p>
 <ol>
 <li>一个名为 someMethod() 的重写方法可以在实现中通过 super.someMethod() 来调用父类的 someMethod() 方法。</li>
 <li>一个名为 someProperty 的属性可以在重写 getter 或 setter 的实现中通过 super.someProperty 访问父类的 someProperty 属性。</li>
 <li>一个 someIndex 的重写下标可以在重写下标的实现中通过 super[someIndex] 访问父类的相同下标。</li>
 </ol>
-<h2 id="重写属性的-Getters-和-Setters"><a href="#重写属性的-Getters-和-Setters" class="headerlink" title="重写属性的 Getters 和 Setters"></a>重写属性的 Getters 和 Setters</h2><p>无论继承的属性原来是存储属性还是计算属性，都可以提供自定义的 getter(如果 setter 适 用，也包括 setter)来重写任何继承属性。子类不知道继承的属性是存储属性还是计算属 性，子类只知道继承的属性具有特定的名称和类型。你必须始终声明要重写的属性的名称和 类型，以使编译器能够检查你重写的属性是否与具有相同名称和类型的父类属性匹配。<br>通过在子类属性中重写 getter 和 setter，可以将继承的只读属性重写为读写属性，但是，你不能将继承的读写属性重写为只读属性。</p>
+<font color="red"> 访问父类，使用supper。</font>
+
+
+<h3 id="重写属性的Getters和Setters"><a href="#重写属性的Getters和Setters" class="headerlink" title="重写属性的Getters和Setters"></a>重写属性的Getters和Setters</h3><p>无论继承的属性原来是存储属性还是计算属性，都可以提供自定义的 getter(如果setter适用，也包括 setter)来重写任何继承属性。子类不知道继承的属性是存储属性还是计算属性，子类只知道继承的属性具有特定的名称和类型。你必须始终声明要重写的属性的名称和类型，以使编译器能够检查你重写的属性是否与具有相同名称和类型的父类属性匹配。<br>通过在子类属性中重写 getter 和 setter，可以将继承的只读属性重写为读写属性，但是，你不能将继承的读写属性重写为只读属性。</p>
 <blockquote>
-<p>注意如果你重写属性的 setter 就必须同时重写属性的 getter。如果你不想在重写 getter 中修 改继承属性的值，你可以简单地在 getter 中返回 super.someProperty ，其中someProperty 是你想要重写的属性名称。</p>
+<p>注意如果你重写属性的 setter 就必须同时重写属性的 getter。如果你不想在重写 getter 中修改继承属性的值，你可以简单地在 getter 中返回 super.someProperty ，其中someProperty 是你想要重写的属性名称。</p>
 </blockquote>
-<h2 id="重写属性观察者"><a href="#重写属性观察者" class="headerlink" title="重写属性观察者"></a>重写属性观察者</h2><p>你可以用“属性重写特性”给一个继承属性增加属性观察者。 无论这个属性的初始值是多少，当它的值改变时你将会收到通知。更多有关属性观察者的信息，参阅 属性观察者.</p>
+ <font color="red"> 重写setter，一定重写getter？为什么。</font>
+
+<h3 id="重写属性观察者"><a href="#重写属性观察者" class="headerlink" title="重写属性观察者"></a>重写属性观察者</h3><p>你可以用“属性重写特性”给一个继承属性增加属性观察者。 无论这个属性的初始值是多少，当它的值改变时你将会收到通知。更多有关属性观察者的信息，参阅属性观察者.</p>
 <blockquote>
 <p>注意：你不能给常量存储属性或只读属性增加属性观察者。 因为这些属性值不能被修改，所以它是不能提供 willSet 或 didSet 的重写实现。<br>当然，你不能为同一个属性同时提供 setter 重写和 didSet 观察者。 如果你想观察这个属性值的改变，并且你已经为这个属性提供了一个重写的 setter 方法，那么你能在这个自定义 setter 方法里观察到它任何值的改变。</p>
 </blockquote>
-<h2 id="防⽌止重写"><a href="#防⽌止重写" class="headerlink" title="防⽌止重写"></a>防⽌止重写</h2><p>你可以通过标记方法、属性或下标为 final 来防止它被重写。通过在方法、属性或下标前添加 关键字 final (比如 final var 、 final func 、 final class func 和final subscript )来完成此操作</p>
+<h2 id="防⽌止重写"><a href="#防⽌止重写" class="headerlink" title="防⽌止重写"></a>防⽌止重写</h2><p>你可以通过标记方法、属性或下标为final来防止它被重写。通过在方法、属性或下标前添加关键字 final (比如 final var 、 final func 、 final class func 和final subscript )来完成此操作</p>
 
             </div>
         

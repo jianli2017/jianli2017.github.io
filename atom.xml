@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-06-05T11:41:20.218Z</updated>
+  <updated>2019-06-05T11:49:12.850Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://yoursite.com/wiki/IOS/opensource/AFNetworking/AFNetworking/"/>
     <id>http://yoursite.com/wiki/IOS/opensource/AFNetworking/AFNetworking/</id>
     <published>2019-06-05T10:07:12.000Z</published>
-    <updated>2019-06-05T11:41:20.218Z</updated>
+    <updated>2019-06-05T11:49:12.850Z</updated>
     
-    <content type="html"><![CDATA[<p>本文学习了AFNetworking，画了几个图，当做学习的成绩，留作以后复习使用。</p><a id="more"></a><h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking1.png" alt="AFNetworking"></p><h2 id="接收到响应"><a href="#接收到响应" class="headerlink" title="接收到响应"></a>接收到响应</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking2.png" alt="AFNetworking"></p><h2 id="进度条模块"><a href="#进度条模块" class="headerlink" title="进度条模块"></a>进度条模块</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking3.png" alt="AFNetworking"></p><h2 id="认证模块"><a href="#认证模块" class="headerlink" title="认证模块"></a>认证模块</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking4.png" alt="AFNetworking"></p><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking5.png" alt="AFNetworking"></p>]]></content>
+    <content type="html"><![CDATA[<p>本文学习了AFNetworking，画了几个图，当做学习的成绩，留作以后复习使用。</p><a id="more"></a><h2 id="发送请求"><a href="#发送请求" class="headerlink" title="发送请求"></a>发送请求</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking1.png" alt="AFNetworking"></p><h2 id="接收到响应"><a href="#接收到响应" class="headerlink" title="接收到响应"></a>接收到响应</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking2.png" alt="AFNetworking"></p><h2 id="进度条模块"><a href="#进度条模块" class="headerlink" title="进度条模块"></a>进度条模块</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking3.png" alt="AFNetworking"></p><h2 id="认证模块"><a href="#认证模块" class="headerlink" title="认证模块"></a>认证模块</h2><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking4.png" alt="AFNetworking"></p><p><img src="/wiki/IOS/opensource/AFNetworking/AFNetworking/AFNetworking5.png" alt="AFNetworking"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol><li><a href="https://github.com/draveness/analyze/blob/master/contents/AFNetworking/验证%20HTTPS%20请求的证书（五）.md" rel="external nofollow noopener noreferrer" target="_blank">验证 HTTPS 请求的证书（五）</a></li><li><a href="https://www.jianshu.com/p/488c1f46cedd" rel="external nofollow noopener noreferrer" target="_blank">11.第三方源码-AFNetworking解析</a></li></ol>]]></content>
     
     <summary type="html">
     
@@ -44,12 +44,12 @@
   
   <entry>
     <title>需要后续学习的知识</title>
-    <link href="http://yoursite.com/wiki/IOS/Learn/ABTest/"/>
-    <id>http://yoursite.com/wiki/IOS/Learn/ABTest/</id>
+    <link href="http://yoursite.com/wiki/IOS/Learn/learn/"/>
+    <id>http://yoursite.com/wiki/IOS/Learn/learn/</id>
     <published>2019-06-05T02:18:26.000Z</published>
-    <updated>2019-06-05T05:38:17.837Z</updated>
+    <updated>2019-06-27T10:57:29.404Z</updated>
     
-    <content type="html"><![CDATA[<p>记录需要学习的东西，防止后来忘记了</p><ol><li>swift</li><li><a href="https://www.jianshu.com/p/488c1f46cedd" rel="external nofollow noopener noreferrer" target="_blank">第三方源码-AFNetworking解析</a> <a href="https://github.com/draveness/analyze/blob/master/contents/AFNetworking/AFNetworkReachabilityManager%20监控网络状态（四）.md" rel="external nofollow noopener noreferrer" target="_blank">afn</a></li><li><a href="https://www.jianshu.com/c/c75e45b08d4b" rel="external nofollow noopener noreferrer" target="_blank">iOS高级开发面试题整理</a></li><li><a href="http://www.cocoachina.com/detail/27025" rel="external nofollow noopener noreferrer" target="_blank">模块化吧</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>记录需要学习的东西，防止后来忘记了</p><ol><li>swift</li><li><a href="https://www.jianshu.com/p/488c1f46cedd" rel="external nofollow noopener noreferrer" target="_blank">第三方源码-AFNetworking解析</a> <a href="https://github.com/draveness/analyze/blob/master/contents/AFNetworking/AFNetworkReachabilityManager%20监控网络状态（四）.md" rel="external nofollow noopener noreferrer" target="_blank">afn</a></li><li><a href="https://www.jianshu.com/c/c75e45b08d4b" rel="external nofollow noopener noreferrer" target="_blank">iOS高级开发面试题整理</a></li><li><a href="http://www.cocoachina.com/detail/27025" rel="external nofollow noopener noreferrer" target="_blank">模块化吧</a></li><li><a href="https://github.com/MisterBooo/LeetCodeAnimation" rel="external nofollow noopener noreferrer" target="_blank">LeetCodeAnimation</a> Star 28897</li><li><a href="https://github.com/azl397985856/leetcode" rel="external nofollow noopener noreferrer" target="_blank">leetcode</a> Star 8961</li></ol>]]></content>
     
     <summary type="html">
     
