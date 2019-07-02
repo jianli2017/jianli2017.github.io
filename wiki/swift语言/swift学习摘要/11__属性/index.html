@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="Stored Properties 存储属性 Computed Properties 计算属性 Property Observers 属性观察器 Global and Local Variables Type Properties 类型属性">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-01T10:16:27.829Z">
+<meta property="og:updated_time" content="2019-07-02T00:55:59.822Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="11. 属性">
 <meta name="twitter:description" content="Stored Properties 存储属性 Computed Properties 计算属性 Property Observers 属性观察器 Global and Local Variables Type Properties 类型属性">
@@ -1019,11 +1019,7 @@
 </ol>
 <p>在调用父类初始化方法之后，在子类中给父类属性赋值时，将会调用父类属性的 willSet 和 didSet 观察器。如果在调用父类初始化方法之前，在子类中给父类属性赋值，则不会调用父类的观察器。</p>
 <p>didSet 观察器不会为旧值提供自定义参数名称，而是使用默认名称 oldValue 。</p>
-<font color="red"> 对于计算属性，父类有setter， 子类有didset，设置子类的属性，父类的setter也会调用</font>
-
-<font color="red"> 对于存储属性，父类有didSet， 子类有didset，设置子类的属性，父类的didSet也会调用</font>
-
-<font color="red"> 如果有setter，必须有getter， 因为如果没有getter，你取不出来，这个属性还有什么意义？</font>
+<font color="red"><br><br>1. 对于计算属性，父类有setter， 子类有didset，设置子类的属性，父类的setter也会调用<br>2. 对于存储属性，父类有didSet， 子类有didset，设置子类的属性，父类的didSet也会调用<br>3. 如果有setter，必须有getter， 因为如果没有getter，你取不出来，这个属性还有什么意义？<br><br></font>
 
 
 <h2 id="全局和局部变量"><a href="#全局和局部变量" class="headerlink" title="全局和局部变量"></a>全局和局部变量</h2><p>上面描述的用于计算和观察属性的功能也可用于 全局变量 和 局部变量 。全局变量是指在任何函数、方法、闭包或类型上下文之外定义的变量。局部变量是指在函数、方法或闭包上下文中定义的变量。</p>
