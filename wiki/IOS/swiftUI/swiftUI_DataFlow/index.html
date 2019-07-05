@@ -22,7 +22,8 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/swiftUI/swiftUI_DataFlow/BindingConvertible.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/swiftUI/swiftUI_DataFlow/BindableObject.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/swiftUI/swiftUI_DataFlow/ObjectBinding.png">
-<meta property="og:updated_time" content="2019-07-05T03:17:23.043Z">
+<meta property="og:image" content="http://yoursite.com/wiki/IOS/swiftUI/swiftUI_DataFlow/EnvionmentObject.png">
+<meta property="og:updated_time" content="2019-07-05T03:22:11.919Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift新特性">
 <meta name="twitter:description" content="对于不变的常量直接传递给 SwiftUI 即可。 对于控件上需要管理的状态使用 @State 管理。 对于外部的事件变化使用 BindableObject 发送通知。 对于需要共享的视图可变数据使用 @ObjectBinding 管理。 不要出现多个状态同步管理，使用 @Binding 共享一个 Source of truth。 对于系统环境使用 @Enviroment 管理。 对于需要共享的不">
@@ -881,7 +882,7 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/英语学习/学习资源/">英语资源</a></li>  </ul> 
                     </li> 
-                     <li class="file"><a href="/wiki/swift语言/swift学习摘要/10__类和结构体/">10. 类和结构体</a></li>  </ul> 
+                     </ul> 
     </div>
     <script>
         $(document).ready(function() {
@@ -999,7 +1000,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#State"><span class="toc-number">1.</span> <span class="toc-text">State</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binding-引用语义"><span class="toc-number">2.</span> <span class="toc-text">Binding(引用语义)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BindingConvertible（state转化为引用语义的Binding）"><span class="toc-number">3.</span> <span class="toc-text">BindingConvertible（state转化为引用语义的Binding）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BindableObject（接受外部通知）"><span class="toc-number">4.</span> <span class="toc-text">BindableObject（接受外部通知）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ObjectBinding-多个界面共用一个数据，内部包装多个界面"><span class="toc-number">5.</span> <span class="toc-text">ObjectBinding(多个界面共用一个数据，内部包装多个界面)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">6.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#State"><span class="toc-number">1.</span> <span class="toc-text">State</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Binding-引用语义"><span class="toc-number">2.</span> <span class="toc-text">Binding(引用语义)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BindingConvertible（state转化为引用语义的Binding）"><span class="toc-number">3.</span> <span class="toc-text">BindingConvertible（state转化为引用语义的Binding）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#BindableObject（接受外部通知）"><span class="toc-number">4.</span> <span class="toc-text">BindableObject（接受外部通知）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ObjectBinding-多个界面共用一个数据，内部包装多个界面"><span class="toc-number">5.</span> <span class="toc-text">ObjectBinding(多个界面共用一个数据，内部包装多个界面)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#EnvionmentObject-环境对象"><span class="toc-number">6.</span> <span class="toc-text">EnvionmentObject(环境对象)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
                 </div>
             
         
@@ -1020,6 +1021,7 @@
 <h2 id="BindingConvertible（state转化为引用语义的Binding）"><a href="#BindingConvertible（state转化为引用语义的Binding）" class="headerlink" title="BindingConvertible（state转化为引用语义的Binding）"></a>BindingConvertible（state转化为引用语义的Binding）</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_DataFlow/BindingConvertible.png" alt="BindingConvertible"></p>
 <h2 id="BindableObject（接受外部通知）"><a href="#BindableObject（接受外部通知）" class="headerlink" title="BindableObject（接受外部通知）"></a>BindableObject（接受外部通知）</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_DataFlow/BindableObject.png" alt="BindableObject"></p>
 <h2 id="ObjectBinding-多个界面共用一个数据，内部包装多个界面"><a href="#ObjectBinding-多个界面共用一个数据，内部包装多个界面" class="headerlink" title="ObjectBinding(多个界面共用一个数据，内部包装多个界面)"></a>ObjectBinding(多个界面共用一个数据，内部包装多个界面)</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_DataFlow/ObjectBinding.png" alt="ObjectBinding"></p>
+<h2 id="EnvionmentObject-环境对象"><a href="#EnvionmentObject-环境对象" class="headerlink" title="EnvionmentObject(环境对象)"></a>EnvionmentObject(环境对象)</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_DataFlow/EnvionmentObject.png" alt="ObjectBinding"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation" rel="external nofollow noopener noreferrer" target="_blank">官方教程</a></li>
 <li><a href="https://onevcat.com/2019/06/swift-ui-firstlook/" rel="external nofollow noopener noreferrer" target="_blank">SwiftUI 的一些初步探索 (一)</a></li>
