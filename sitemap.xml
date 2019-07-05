@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/swiftUI/swiftUI_DataFlow/</loc>
+    
+    <lastmod>2019-07-05T03:17:23.043Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/swiftUI/swiftUI/</loc>
     
     <lastmod>2019-07-04T11:00:51.440Z</lastmod>
@@ -9,28 +16,28 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/24__%E8%87%AA%E5%8A%A8%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%99%A8/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/24__%E8%87%AA%E5%8A%A8%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E5%99%A8/</loc>
     
     <lastmod>2019-07-02T01:56:24.589Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/11__%E5%B1%9E%E6%80%A7/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/11__%E5%B1%9E%E6%80%A7/</loc>
     
     <lastmod>2019-07-02T00:55:59.822Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/15__%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/15__%E6%9E%84%E9%80%A0%E8%BF%87%E7%A8%8B/</loc>
     
     <lastmod>2019-07-01T11:07:49.893Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/14__%E7%BB%A7%E6%89%BF/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/14__%E7%BB%A7%E6%89%BF/</loc>
     
     <lastmod>2019-07-01T08:59:48.166Z</lastmod>
     
@@ -170,65 +177,72 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/23__%E6%B3%9B%E5%9E%8B/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/23__%E6%B3%9B%E5%9E%8B/</loc>
     
     <lastmod>2019-01-30T07:29:45.819Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/</loc>
     
     <lastmod>2019-01-29T10:59:08.348Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/21__%E6%89%A9%E5%B1%95/</loc>
     
     <lastmod>2019-01-29T07:07:06.729Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/</loc>
     
     <lastmod>2019-01-29T03:58:49.024Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</loc>
     
     <lastmod>2019-01-29T03:55:37.511Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/18__%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/</loc>
     
     <lastmod>2019-01-29T03:19:27.919Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/17__%E5%8F%AF%E9%80%89%E9%93%BE/</loc>
     
     <lastmod>2019-01-28T10:09:02.556Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/16__%E6%9E%90%E6%9E%84%E8%BF%87%E7%A8%8B/</loc>
     
     <lastmod>2019-01-28T08:50:32.765Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/2__%E5%9F%BA%E7%A1%80/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/2__%E5%9F%BA%E7%A1%80/</loc>
     
     <lastmod>2019-01-28T01:47:30.358Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/10__%E7%B1%BB%E5%92%8C%E7%BB%93%E6%9E%84%E4%BD%93/</loc>
+    
+    <lastmod>2019-01-28T01:46:39.491Z</lastmod>
     
   </url>
   
@@ -240,35 +254,35 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/9__%E6%9E%9A%E4%B8%BE/</loc>
     
     <lastmod>2019-01-25T10:52:37.023Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/8__%E9%97%AD%E5%8C%85/</loc>
     
     <lastmod>2019-01-25T10:51:29.972Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/7__%E5%87%BD%E6%95%B0/</loc>
     
     <lastmod>2019-01-25T10:50:58.540Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/13__%E4%B8%8B%E6%A0%87/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/13__%E4%B8%8B%E6%A0%87/</loc>
     
     <lastmod>2019-01-25T10:27:11.338Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/</loc>
+    <loc>http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/12__%E6%96%B9%E6%B3%95/</loc>
     
     <lastmod>2019-01-25T10:17:39.385Z</lastmod>
     
@@ -891,13 +905,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/Cocoapods/Cocoapods-new-spec/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/IOS%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85app/IOS_simulator_install_app/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -961,14 +968,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/struct_Analize/</loc>
+    <loc>http://yoursite.com/wiki/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/SSH/ssh-theory/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/SSH/ssh-theory/</loc>
+    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/struct_Analize/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -982,14 +989,14 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/CC_pointer_memry/</loc>
+    <loc>http://yoursite.com/wiki/JS/flexBox/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/JS/flexBox/</loc>
+    <loc>http://yoursite.com/wiki/C%E8%AF%AD%E8%A8%80%E8%AF%AD%E6%B3%95/CC_pointer_memry/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
@@ -1011,6 +1018,13 @@
   
   <url>
     <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/Cocoapods/Cocoapods-new-spec/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
