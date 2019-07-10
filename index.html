@@ -590,7 +590,7 @@
                             &nbsp;
                             swiftUI
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/swiftUI/swiftUI/">Swift新特性</a></li>  <li class="file"><a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">Swift新特性</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/swiftUI/swiftUI/">Swift新特性</a></li>  <li class="file"><a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">SwiftUI 数据流理解</a></li>  <li class="file"><a href="/wiki/IOS/swiftUI/swiftUI_Share/">SwiftUI 分享内容</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -945,6 +945,112 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/swiftUI/swiftUI_Share" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swiftUI/">swiftUI</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/SwiftUI/">SwiftUI</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/swiftUI/swiftUI_Share/">
+            <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_Share/">SwiftUI 分享内容</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <a id="more"></a>
+<h2 id="跨平台技术介绍"><a href="#跨平台技术介绍" class="headerlink" title="跨平台技术介绍"></a>跨平台技术介绍</h2><ol>
+<li>H5+原生（Cordova）</li>
+<li>JavaScript开发+原生渲染 （React Native、Weex）</li>
+<li>自绘UI+原生功能(Flutter、SwiftUI)</li>
+</ol>
+<h3 id="H5-原生"><a href="#H5-原生" class="headerlink" title="H5+原生"></a>H5+原生</h3><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_H5.png" alt="混合APP的原理"></p>
+<p>缺点：性能瓶颈、复杂任务无法胜任</p>
+<h3 id="JavaScript开发-原生渲染"><a href="#JavaScript开发-原生渲染" class="headerlink" title="JavaScript开发+原生渲染"></a>JavaScript开发+原生渲染</h3><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_Weex.png" alt="JavaScript开发+原生渲染"></p>
+<p>相比较于原生，多了从Vue到原始的翻译过程,没有达到原始的效果，有进一步优化的空间 </p>
+<h3 id="自绘UI-原生功能"><a href="#自绘UI-原生功能" class="headerlink" title="自绘UI+原生功能"></a>自绘UI+原生功能</h3><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_flutter.png" alt="flutter"></p>
+<p>flutter Dart语言开发, Skia渲染。Skia是Google的一个2D图形处理函数库，包含字型、坐标转换，以及点阵图都有高效能且简洁的表现，Skia是跨平台的，并提供了非常友好的API</p>
+<p>我觉得已经挺好了</p>
+<h2 id="SwiftUI简介"><a href="#SwiftUI简介" class="headerlink" title="SwiftUI简介"></a>SwiftUI简介</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_SwiftUI.png" alt="SwiftUI"></p>
+<ol>
+<li>声明式语法（SwiftUI），内部黑盒完成渲染</li>
+<li>响应式编程，数据变化，监控、通知SwiftUI刷新数据</li>
+<li>无缝调用原始功能</li>
+</ol>
+<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p>代码</p>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">struct</span>  <span class="selector-tag">LandmarkList</span>: <span class="selector-tag">View</span> &#123;</span><br><span class="line">    <span class="variable">@EnvironmentObject</span> var <span class="attribute">userData</span>: UserData</span><br><span class="line">    </span><br><span class="line">    var <span class="attribute">body</span>: some View &#123;</span><br><span class="line">        <span class="selector-tag">NavigationView</span> &#123;</span><br><span class="line">            <span class="selector-tag">List</span> &#123;</span><br><span class="line">                <span class="selector-tag">Toggle</span>(<span class="attribute">isOn</span>: $userData.showFavoritesOnly) &#123;</span><br><span class="line">                    <span class="selector-tag">Text</span>(<span class="string">"Show Favorites Only"</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="selector-tag">ForEach</span>(userData.landmarks) &#123; <span class="selector-tag">landmark</span> <span class="selector-tag">in</span></span><br><span class="line">                    <span class="selector-tag">if</span> !<span class="selector-tag">self</span><span class="selector-class">.userData</span><span class="selector-class">.showFavoritesOnly</span> || <span class="selector-tag">landmark</span><span class="selector-class">.isFavorite</span> &#123;</span><br><span class="line">                        <span class="selector-tag">NavigationButton</span>(</span><br><span class="line">                            <span class="attribute">destination</span>: LandmarkDetail(<span class="attribute">landmark</span>: landmark)</span><br><span class="line">                                .environmentObject(self.userData)</span><br><span class="line">                        ) &#123;</span><br><span class="line">                            <span class="selector-tag">LandmarkRow</span>(<span class="attribute">landmark</span>: landmark)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="selector-class">.navigationBarTitle</span>(Text(<span class="string">"Landmarks"</span>), <span class="attribute">displayMode</span>: .large)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">struct</span> <span class="selector-tag">LandmarkRow</span>: <span class="selector-tag">View</span> &#123;</span><br><span class="line">    <span class="selector-tag">var</span> <span class="selector-tag">landmark</span>: <span class="selector-tag">Landmark</span></span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">var</span> <span class="selector-tag">body</span>: <span class="selector-tag">some</span> <span class="selector-tag">View</span> &#123;</span><br><span class="line">        <span class="selector-tag">HStack</span> &#123;</span><br><span class="line">            <span class="selector-tag">landmark</span><span class="selector-class">.image</span>(<span class="attribute">forSize</span>: <span class="number">50</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="selector-tag">Text</span>(<span class="attribute">verbatim</span>: landmark.name)</span><br><span class="line">            </span><br><span class="line">            <span class="selector-tag">Spacer</span>()</span><br><span class="line">            </span><br><span class="line">            <span class="selector-tag">if</span> <span class="selector-tag">landmark</span><span class="selector-class">.isFavorite</span> &#123;</span><br><span class="line">                <span class="selector-tag">VStack</span> &#123;</span><br><span class="line">                    <span class="selector-tag">Image</span>(<span class="attribute">systemName</span>: <span class="string">"star.fill"</span>)</span><br><span class="line">                        <span class="selector-class">.imageScale</span>(.medium)</span><br><span class="line">                        <span class="selector-class">.foregroundColor</span>(.yellow)</span><br><span class="line">                    <span class="selector-tag">Text</span>(<span class="string">"sdfsdf"</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_Sample.png" alt="例子"></p>
+<h2 id="声明式-渲染原理原理浅析"><a href="#声明式-渲染原理原理浅析" class="headerlink" title="声明式-渲染原理原理浅析"></a>声明式-渲染原理原理浅析</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_modifer.png" alt="声明式原理"></p>
+<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_VIew_protocal.png" alt="view协议分析"></p>
+<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_chain.png" alt="链式调用的分析"></p>
+<p>HStack 和 ZStack 的非常类似安卓的 LinerLayout，算法也同 Flex 布局比较相似。 对于如下的布局, 苹果都会在控件之间添加上符合苹果人机交互指南的间距，保证 UI 的优雅和一致性。</p>
+<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_Stack.png" alt="Stack"></p>
+<p>对于如上的 Stack 是怎么计算的？设 Stack 主轴方向长度为 W1。</p>
+<ol>
+<li>根据人机交互指南的预留出边距 S, 边距根据元素的排列可能有多个</li>
+<li>得到剩余的主轴宽度 W2= W1 - N * S</li>
+<li>平均分配一个预估宽度</li>
+<li>计算一些具备明确宽高的元素 如 Image 设置了 Frame的元素的等。</li>
+<li>沿主轴方向从前到后计算，，如果计算出来的宽度小于预估宽度则正常显示，不够则截断。</li>
+<li>最后的元素为剩余宽度，如果不够显示则阶段</li>
+<li>默认的交叉轴对齐方式为 Center，Stack 占据包括最大元素的边界。</li>
+</ol>
+<p>默认的计算是顺序计算布局，如果某些元素比较重要，可以使用 LayoutPriority Modifier 提高布局优先级避免出现视图截断。</p>
+<h2 id="数据流原理"><a href="#数据流原理" class="headerlink" title="数据流原理"></a>数据流原理</h2><p>不讲</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation" rel="external nofollow noopener noreferrer" target="_blank">官方教程</a></li>
+<li><a href="https://onevcat.com/2019/06/swift-ui-firstlook/" rel="external nofollow noopener noreferrer" target="_blank">SwiftUI 的一些初步探索 (一)</a></li>
+<li><a href="https://mp.weixin.qq.com/s/ciiauLB__o-cXXfKn7lL1Q" rel="external nofollow noopener noreferrer" target="_blank">系列文章深度解读|SwiftUI 背后那些事儿</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/swiftUI/swiftUI" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1045,7 +1151,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">Swift新特性</a>
+            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">SwiftUI 数据流理解</a>
         </h1>
     
 
@@ -1288,6 +1394,71 @@
 
 
     
+        <article id="post-数据结构与算法/算法4/5_3_findSubString" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/子字符串查找/">子字符串查找</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/数据结构与算法/算法4/5_3_findSubString/">
+            <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/数据结构与算法/算法4/5_3_findSubString/">子字符串查找</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
+<h2 id="暴力子字符串查找算法"><a href="#暴力子字符串查找算法" class="headerlink" title="暴力子字符串查找算法"></a>暴力子字符串查找算法</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> search(<span class="keyword">String</span> pat,<span class="keyword">String</span> txt)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> M = pat.length();</span><br><span class="line">	<span class="keyword">int</span> N = txt.length();</span><br><span class="line">	<span class="built_in">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-M;j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt; M ;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">if</span>(txt.charAt(i+j) != pat.charAt(j))</span><br><span class="line">				<span class="built_in">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">if</span>(j==M) <span class="built_in">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> N;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在最坏情况下，暴力子字符串查找算法在长度为N的文本中查找长度为M的模式需要NM次比较。</p>
+<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><p>主要思想：提前判断如何重新开始查找。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-数据结构与算法/算法4/5_2_search" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1358,71 +1529,6 @@
 <h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node put(Node x, <span class="keyword">String</span> <span class="built_in">key</span>, Value val, <span class="built_in">int</span> d) &#123;</span><br><span class="line">	<span class="keyword">if</span>(x == <span class="keyword">null</span>) x= <span class="keyword">new</span> Node();</span><br><span class="line">	<span class="keyword">if</span>(d == <span class="built_in">key</span>.length()) &#123;x.val = val, <span class="keyword">return</span> x;&#125;</span><br><span class="line">	<span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d);</span><br><span class="line">	x.next[c] = put(x.next[c],<span class="built_in">key</span>,val,d+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> put(<span class="keyword">String</span> <span class="built_in">key</span>, Value val) &#123;</span><br><span class="line">	root = put(root,<span class="built_in">key</span>,val,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> collect(Node x, <span class="keyword">String</span> pre, Queue&lt;<span class="keyword">String</span>&gt;) &#123;</span><br><span class="line">	<span class="keyword">if</span>(x== <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(x.val != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">char</span> c=<span class="number">0</span>; c&lt;R; c++) &#123;</span><br><span class="line">		collect(x.next[c],pre+c,q);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Iterable&lt;<span class="keyword">String</span>&gt; keysWithPrefix(<span class="keyword">String</span> pre) &#123;</span><br><span class="line">	Queue&lt;<span class="keyword">String</span>&gt;  q = <span class="keyword">new</span> Queue&lt;Sting&gt;();</span><br><span class="line">	collect(<span class="built_in">get</span>(root,pre,<span class="number">0</span>),pre,q);</span><br><span class="line">	<span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h3>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-数据结构与算法/算法4/5_3_findSubString" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/子字符串查找/">子字符串查找</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/数据结构与算法/算法4/5_3_findSubString/">
-            <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/数据结构与算法/算法4/5_3_findSubString/">子字符串查找</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
-<h2 id="暴力子字符串查找算法"><a href="#暴力子字符串查找算法" class="headerlink" title="暴力子字符串查找算法"></a>暴力子字符串查找算法</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> search(<span class="keyword">String</span> pat,<span class="keyword">String</span> txt)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> M = pat.length();</span><br><span class="line">	<span class="keyword">int</span> N = txt.length();</span><br><span class="line">	<span class="built_in">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-M;j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt; M ;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">if</span>(txt.charAt(i+j) != pat.charAt(j))</span><br><span class="line">				<span class="built_in">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">if</span>(j==M) <span class="built_in">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> N;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在最坏情况下，暴力子字符串查找算法在长度为N的文本中查找长度为M的模式需要NM次比较。</p>
-<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><p>主要思想：提前判断如何重新开始查找。</p>
-
             </div>
         
         <footer class="article-footer">
@@ -1557,79 +1663,6 @@
         
             <h2 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/register.png" alt="注册流程"></p>
 <h2 id="route流程"><a href="#route流程" class="headerlink" title="route流程"></a>route流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/routerurl.png" alt="route流程"></p>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/foundation使用记录/NSScaner" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/NSScanner/">NSScanner</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/foundation使用记录/NSScaner/">
-            <time datetime="2019-05-13T01:35:49.000Z" itemprop="datePublished">2019-05-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/foundation使用记录/NSScaner/">NSScanner</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <a id="more"></a>
-<p>A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations.</p>
-<p>NSScanner是一个string的解析器。</p>
-<p>An NSScanner object interprets and converts the characters of an NSString object into number and string values. </p>
-<p>NSScanner对象将 NSString对象的字符 解析转化为 数字或string。</p>
-<p>NSScanner是个类族。</p>
-<p>初始化方法：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>scannerWithString:</span><br></pre></td></tr></table></figure>
-<p>扫描字符或string</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">scanCharactersFromSet:</span><span class="string">intoString:</span></span><br></pre></td></tr></table></figure>
-<p>扫描一个数字</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>scanDecimal:</span><br></pre></td></tr></table></figure>
 
             </div>
         
