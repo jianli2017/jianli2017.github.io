@@ -990,54 +990,14 @@
         
         
             
+                
+                <p></p><p>介绍SwiftUI</p><p></p>
+            
         
         
-            <a id="more"></a>
-<h2 id="跨平台技术介绍"><a href="#跨平台技术介绍" class="headerlink" title="跨平台技术介绍"></a>跨平台技术介绍</h2><ol>
-<li>H5+原生（Cordova）</li>
-<li>JavaScript开发+原生渲染 （React Native、Weex）</li>
-<li>自绘UI+原生功能(Flutter、SwiftUI)</li>
-</ol>
-<h3 id="H5-原生"><a href="#H5-原生" class="headerlink" title="H5+原生"></a>H5+原生</h3><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_H5.png" alt="混合APP的原理"></p>
-<p>缺点：性能瓶颈、复杂任务无法胜任</p>
-<h3 id="JavaScript开发-原生渲染"><a href="#JavaScript开发-原生渲染" class="headerlink" title="JavaScript开发+原生渲染"></a>JavaScript开发+原生渲染</h3><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_Weex.png" alt="JavaScript开发+原生渲染"></p>
-<p>相比较于原生，多了从Vue到原始的翻译过程,没有达到原始的效果，有进一步优化的空间 </p>
-<h3 id="自绘UI-原生功能"><a href="#自绘UI-原生功能" class="headerlink" title="自绘UI+原生功能"></a>自绘UI+原生功能</h3><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_flutter.png" alt="flutter"></p>
-<p>flutter Dart语言开发, Skia渲染。Skia是Google的一个2D图形处理函数库，包含字型、坐标转换，以及点阵图都有高效能且简洁的表现，Skia是跨平台的，并提供了非常友好的API</p>
-<p>我觉得已经挺好了</p>
-<h2 id="SwiftUI简介"><a href="#SwiftUI简介" class="headerlink" title="SwiftUI简介"></a>SwiftUI简介</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_SwiftUI.png" alt="SwiftUI"></p>
-<ol>
-<li>声明式语法（SwiftUI），内部黑盒完成渲染</li>
-<li>响应式编程，数据变化，监控、通知SwiftUI刷新数据</li>
-<li>无缝调用原始功能</li>
-</ol>
-<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p>代码</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">struct</span>  <span class="selector-tag">LandmarkList</span>: <span class="selector-tag">View</span> &#123;</span><br><span class="line">    <span class="variable">@EnvironmentObject</span> var <span class="attribute">userData</span>: UserData</span><br><span class="line">    </span><br><span class="line">    var <span class="attribute">body</span>: some View &#123;</span><br><span class="line">        <span class="selector-tag">NavigationView</span> &#123;</span><br><span class="line">            <span class="selector-tag">List</span> &#123;</span><br><span class="line">                <span class="selector-tag">Toggle</span>(<span class="attribute">isOn</span>: $userData.showFavoritesOnly) &#123;</span><br><span class="line">                    <span class="selector-tag">Text</span>(<span class="string">"Show Favorites Only"</span>)</span><br><span class="line">                &#125;</span><br><span class="line">                </span><br><span class="line">                <span class="selector-tag">ForEach</span>(userData.landmarks) &#123; <span class="selector-tag">landmark</span> <span class="selector-tag">in</span></span><br><span class="line">                    <span class="selector-tag">if</span> !<span class="selector-tag">self</span><span class="selector-class">.userData</span><span class="selector-class">.showFavoritesOnly</span> || <span class="selector-tag">landmark</span><span class="selector-class">.isFavorite</span> &#123;</span><br><span class="line">                        <span class="selector-tag">NavigationButton</span>(</span><br><span class="line">                            <span class="attribute">destination</span>: LandmarkDetail(<span class="attribute">landmark</span>: landmark)</span><br><span class="line">                                .environmentObject(self.userData)</span><br><span class="line">                        ) &#123;</span><br><span class="line">                            <span class="selector-tag">LandmarkRow</span>(<span class="attribute">landmark</span>: landmark)</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="selector-class">.navigationBarTitle</span>(Text(<span class="string">"Landmarks"</span>), <span class="attribute">displayMode</span>: .large)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">struct</span> <span class="selector-tag">LandmarkRow</span>: <span class="selector-tag">View</span> &#123;</span><br><span class="line">    <span class="selector-tag">var</span> <span class="selector-tag">landmark</span>: <span class="selector-tag">Landmark</span></span><br><span class="line"></span><br><span class="line">    <span class="selector-tag">var</span> <span class="selector-tag">body</span>: <span class="selector-tag">some</span> <span class="selector-tag">View</span> &#123;</span><br><span class="line">        <span class="selector-tag">HStack</span> &#123;</span><br><span class="line">            <span class="selector-tag">landmark</span><span class="selector-class">.image</span>(<span class="attribute">forSize</span>: <span class="number">50</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="selector-tag">Text</span>(<span class="attribute">verbatim</span>: landmark.name)</span><br><span class="line">            </span><br><span class="line">            <span class="selector-tag">Spacer</span>()</span><br><span class="line">            </span><br><span class="line">            <span class="selector-tag">if</span> <span class="selector-tag">landmark</span><span class="selector-class">.isFavorite</span> &#123;</span><br><span class="line">                <span class="selector-tag">VStack</span> &#123;</span><br><span class="line">                    <span class="selector-tag">Image</span>(<span class="attribute">systemName</span>: <span class="string">"star.fill"</span>)</span><br><span class="line">                        <span class="selector-class">.imageScale</span>(.medium)</span><br><span class="line">                        <span class="selector-class">.foregroundColor</span>(.yellow)</span><br><span class="line">                    <span class="selector-tag">Text</span>(<span class="string">"sdfsdf"</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_Sample.png" alt="例子"></p>
-<h2 id="声明式-渲染原理原理浅析"><a href="#声明式-渲染原理原理浅析" class="headerlink" title="声明式-渲染原理原理浅析"></a>声明式-渲染原理原理浅析</h2><p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_modifer.png" alt="声明式原理"></p>
-<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_VIew_protocal.png" alt="view协议分析"></p>
-<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_chain.png" alt="链式调用的分析"></p>
-<p>HStack 和 ZStack 的非常类似安卓的 LinerLayout，算法也同 Flex 布局比较相似。 对于如下的布局, 苹果都会在控件之间添加上符合苹果人机交互指南的间距，保证 UI 的优雅和一致性。</p>
-<p><img src="/wiki/IOS/swiftUI/swiftUI_Share/SwiftUI_Stack.png" alt="Stack"></p>
-<p>对于如上的 Stack 是怎么计算的？设 Stack 主轴方向长度为 W1。</p>
-<ol>
-<li>根据人机交互指南的预留出边距 S, 边距根据元素的排列可能有多个</li>
-<li>得到剩余的主轴宽度 W2= W1 - N * S</li>
-<li>平均分配一个预估宽度</li>
-<li>计算一些具备明确宽高的元素 如 Image 设置了 Frame的元素的等。</li>
-<li>沿主轴方向从前到后计算，，如果计算出来的宽度小于预估宽度则正常显示，不够则截断。</li>
-<li>最后的元素为剩余宽度，如果不够显示则阶段</li>
-<li>默认的交叉轴对齐方式为 Center，Stack 占据包括最大元素的边界。</li>
-</ol>
-<p>默认的计算是顺序计算布局，如果某些元素比较重要，可以使用 LayoutPriority Modifier 提高布局优先级避免出现视图截断。</p>
-<h2 id="数据流原理"><a href="#数据流原理" class="headerlink" title="数据流原理"></a>数据流原理</h2><p>不讲</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
-<li><a href="https://developer.apple.com/tutorials/swiftui/building-lists-and-navigation" rel="external nofollow noopener noreferrer" target="_blank">官方教程</a></li>
-<li><a href="https://onevcat.com/2019/06/swift-ui-firstlook/" rel="external nofollow noopener noreferrer" target="_blank">SwiftUI 的一些初步探索 (一)</a></li>
-<li><a href="https://mp.weixin.qq.com/s/ciiauLB__o-cXXfKn7lL1Q" rel="external nofollow noopener noreferrer" target="_blank">系列文章深度解读|SwiftUI 背后那些事儿</a></li>
-</ol>
-
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/swiftUI/swiftUI_Share/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
