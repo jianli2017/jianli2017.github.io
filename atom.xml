@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-12T07:29:50.088Z</updated>
+  <updated>2019-07-12T10:44:49.631Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>KMP字符串查找</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/34_KMP/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/34_KMP/</id>
+    <published>2019-07-12T10:07:12.000Z</published>
+    <updated>2019-07-12T10:44:49.631Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录KMP算法的主要思想</p><a id="more"></a><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>模式串和主串匹配的过程，当遇到不匹配的字符的时候，我们希望找到一种规律，可以往后多滑动几位。</p><p>模式串和主串匹配的过程中，存在相等和不相等的可能。</p><p>不相等的处理：拿好前缀本身，在它的后缀子串中，查找最长的那个可以和好前缀的前缀子串匹配。</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_多滑动几位.png" alt="匹配过程中，不相等处理"></p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_代码.png" alt="KMP 代码"></p><h2 id="失效函数计算方法"><a href="#失效函数计算方法" class="headerlink" title="失效函数计算方法"></a>失效函数计算方法</h2><p>next说明：</p><ol><li>下标：每个前缀结尾的下标</li><li>值： 这个前缀的最长可以匹配的前缀子串的结尾下标</li></ol><p>next[i-1] = k-1,则next[i] = k</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_Next求解中，相等处理.png" alt="KMP_Next求解中，相等处理"></p><p>查找b[0,i-1]的次长可匹配后缀子串，这个问题变成， 查找b[0,y]的最长匹配后缀子串的问题</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next求解中，不相等.png" alt="KMP_Next求解中，相等处理"></p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next代码.png" alt="KMP_Next求解中，相等处理"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录KMP算法的主要思想&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构和算法之美" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>理解OAuth</title>
@@ -170,62 +192,6 @@
   </entry>
   
   <entry>
-    <title>单词查找数</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_2_search/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_2_search/</id>
-    <published>2019-05-30T02:07:12.000Z</published>
-    <updated>2019-05-30T10:16:11.353Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="单词查找树"><a href="#单词查找树" class="headerlink" title="单词查找树"></a>单词查找树</h2><p>每个节点都有R条连接，其中R为字母表的大小</p><p>每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。</p><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。</p><p>查找结果：</p><ol><li>尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保存的值。</li><li>键的尾字符所对应的节点中值为空，未命中，符号表中不存在被查找的键</li><li>查找结束于一条空链接，这也是一次未命中的查找</li></ol><p>查找过程就是在单词查找树中从根节点开始检查某条路径上所有节点。</p><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ol><li>在到达键尾部前就遇到了一个空链接，需要为键中还未被检查的每个字符创建一个对应的节点，并将键对应的值保存在最后一个节点中。</li><li>在遇到空链接前就到达了健的尾部，将该节点中值设为键对应的值。</li></ol><h3 id="节点的表示"><a href="#节点的表示" class="headerlink" title="节点的表示"></a>节点的表示</h3><p>每个节点都含有一个值和26个链接</p><p>在单词查找树中，键是由从根节点到含有非空值的节点的路径隐式表示的。数据节点并不会保存字符串或字符，它保存了链接数组和值。基于含有R个字符的字母表的单词查找数称为<strong>R向单词查找树</strong>。</p><h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>size的延时实现：</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>()</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">size</span>(root);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>(Node x)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">null</span> == x) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val) ++cnt;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span> ;i&lt;R, ++i)</span><br><span class="line">&#123;</span><br><span class="line">cnt += <span class="keyword">size</span>(<span class="keyword">next</span>[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node <span class="built_in">get</span>(Node x,<span class="keyword">String</span> <span class="built_in">key</span>, <span class="built_in">int</span> d)&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(d== <span class="built_in">key</span>.length()) <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始递归</span></span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d++);</span><br><span class="line">Node next = x.next[c];</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">get</span>(next, <span class="built_in">key</span>,d)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Value <span class="built_in">get</span>(<span class="keyword">String</span> <span class="built_in">key</span>)</span><br><span class="line">&#123;</span><br><span class="line">Node node = <span class="built_in">get</span>(root,<span class="built_in">key</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">return</span> node.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node put(Node x, <span class="keyword">String</span> <span class="built_in">key</span>, Value val, <span class="built_in">int</span> d) &#123;</span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) x= <span class="keyword">new</span> Node();</span><br><span class="line"><span class="keyword">if</span>(d == <span class="built_in">key</span>.length()) &#123;x.val = val, <span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d);</span><br><span class="line">x.next[c] = put(x.next[c],<span class="built_in">key</span>,val,d+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> put(<span class="keyword">String</span> <span class="built_in">key</span>, Value val) &#123;</span><br><span class="line">root = put(root,<span class="built_in">key</span>,val,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> collect(Node x, <span class="keyword">String</span> pre, Queue&lt;<span class="keyword">String</span>&gt;) &#123;</span><br><span class="line"><span class="keyword">if</span>(x== <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">char</span> c=<span class="number">0</span>; c&lt;R; c++) &#123;</span><br><span class="line">collect(x.next[c],pre+c,q);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Iterable&lt;<span class="keyword">String</span>&gt; keysWithPrefix(<span class="keyword">String</span> pre) &#123;</span><br><span class="line">Queue&lt;<span class="keyword">String</span>&gt;  q = <span class="keyword">new</span> Queue&lt;Sting&gt;();</span><br><span class="line">collect(<span class="built_in">get</span>(root,pre,<span class="number">0</span>),pre,q);</span><br><span class="line"><span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h3>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://algs4.cs.princeton.edu/code/javadoc/&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;算法4 官网地址&lt;/a&gt;&lt;/p&gt;
-&lt;h2 i
-      
-    
-    </summary>
-    
-      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="算法4" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/"/>
-    
-    
-      <category term="单词查找数" scheme="http://yoursite.com/tags/%E5%8D%95%E8%AF%8D%E6%9F%A5%E6%89%BE%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>子字符串查找</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/34_KMP/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/34_KMP/</id>
-    <published>2019-05-30T02:07:12.000Z</published>
-    <updated>2019-07-12T10:40:08.314Z</updated>
-    
-    <content type="html"><![CDATA[<h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>模式串和主串匹配的过程，当遇到不匹配的字符的时候，我们希望找到一种规律，可以往后多滑动几位。</p><p>模式串和主串匹配的过程中，存在相等和不相等的可能。</p><p>不相等的处理：拿好前缀本身，在它的后缀子串中，查找最长的那个可以和好前缀的前缀子串匹配。</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_多滑动几位.png" alt="匹配过程中，不相等处理"></p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_代码.png" alt="KMP 代码"></p><h2 id="失效函数计算方法"><a href="#失效函数计算方法" class="headerlink" title="失效函数计算方法"></a>失效函数计算方法</h2><p>next说明：</p><ol><li>下标：每个前缀结尾的下标</li><li>值： 这个前缀的最长可以匹配的前缀子串的结尾下标</li></ol><p>next[i-1] = k-1,则next[i] = k</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_Next求解中，相等处理.png" alt="KMP_Next求解中，相等处理"></p><p>查找b[0,i-1]的次长可匹配后缀子串，这个问题变成， 查找b[0,y]的最长匹配后缀子串的问题</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next求解中，不相等.png" alt="KMP_Next求解中，相等处理"></p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next代码.png" alt="KMP_Next求解中，相等处理"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h2 id=&quot;思想&quot;&gt;&lt;a href=&quot;#思想&quot; class=&quot;headerlink&quot; title=&quot;思想&quot;&gt;&lt;/a&gt;思想&lt;/h2&gt;&lt;p&gt;模式串和主串匹配的过程，当遇到不匹配的字符的时候，我们希望找到一种规律，可以往后多滑动几位。&lt;/p&gt;
-&lt;p&gt;模式串和主串匹配的过程中，存在相
-      
-    
-    </summary>
-    
-      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据结构和算法之美" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-      <category term="子字符串查找" scheme="http://yoursite.com/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E6%89%BE/"/>
-    
-  </entry>
-  
-  <entry>
     <title>字符串排序</title>
     <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_1_sort/"/>
     <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_1_sort/</id>
@@ -278,6 +244,34 @@
     
     
       <category term="子字符串查找" scheme="http://yoursite.com/tags/%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%9F%A5%E6%89%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>单词查找数</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_2_search/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_2_search/</id>
+    <published>2019-05-30T02:07:12.000Z</published>
+    <updated>2019-05-30T10:16:11.353Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="单词查找树"><a href="#单词查找树" class="headerlink" title="单词查找树"></a>单词查找树</h2><p>每个节点都有R条连接，其中R为字母表的大小</p><p>每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。</p><h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。</p><p>查找结果：</p><ol><li>尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保存的值。</li><li>键的尾字符所对应的节点中值为空，未命中，符号表中不存在被查找的键</li><li>查找结束于一条空链接，这也是一次未命中的查找</li></ol><p>查找过程就是在单词查找树中从根节点开始检查某条路径上所有节点。</p><h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ol><li>在到达键尾部前就遇到了一个空链接，需要为键中还未被检查的每个字符创建一个对应的节点，并将键对应的值保存在最后一个节点中。</li><li>在遇到空链接前就到达了健的尾部，将该节点中值设为键对应的值。</li></ol><h3 id="节点的表示"><a href="#节点的表示" class="headerlink" title="节点的表示"></a>节点的表示</h3><p>每个节点都含有一个值和26个链接</p><p>在单词查找树中，键是由从根节点到含有非空值的节点的路径隐式表示的。数据节点并不会保存字符串或字符，它保存了链接数组和值。基于含有R个字符的字母表的单词查找数称为<strong>R向单词查找树</strong>。</p><h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>size的延时实现：</p><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>()</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> <span class="keyword">size</span>(root);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>(Node x)</span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">if</span>(<span class="keyword">null</span> == x) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val) ++cnt;</span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span> ;i&lt;R, ++i)</span><br><span class="line">&#123;</span><br><span class="line">cnt += <span class="keyword">size</span>(<span class="keyword">next</span>[i]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node <span class="built_in">get</span>(Node x,<span class="keyword">String</span> <span class="built_in">key</span>, <span class="built_in">int</span> d)&#123;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span>(d== <span class="built_in">key</span>.length()) <span class="keyword">return</span> x;</span><br><span class="line"></span><br><span class="line"><span class="comment">//开始递归</span></span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d++);</span><br><span class="line">Node next = x.next[c];</span><br><span class="line"><span class="keyword">return</span> <span class="built_in">get</span>(next, <span class="built_in">key</span>,d)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Value <span class="built_in">get</span>(<span class="keyword">String</span> <span class="built_in">key</span>)</span><br><span class="line">&#123;</span><br><span class="line">Node node = <span class="built_in">get</span>(root,<span class="built_in">key</span>,<span class="number">0</span>);</span><br><span class="line"><span class="keyword">if</span>(node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">return</span> node.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node put(Node x, <span class="keyword">String</span> <span class="built_in">key</span>, Value val, <span class="built_in">int</span> d) &#123;</span><br><span class="line"><span class="keyword">if</span>(x == <span class="keyword">null</span>) x= <span class="keyword">new</span> Node();</span><br><span class="line"><span class="keyword">if</span>(d == <span class="built_in">key</span>.length()) &#123;x.val = val, <span class="keyword">return</span> x;&#125;</span><br><span class="line"><span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d);</span><br><span class="line">x.next[c] = put(x.next[c],<span class="built_in">key</span>,val,d+<span class="number">1</span>);</span><br><span class="line"><span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> put(<span class="keyword">String</span> <span class="built_in">key</span>, Value val) &#123;</span><br><span class="line">root = put(root,<span class="built_in">key</span>,val,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> collect(Node x, <span class="keyword">String</span> pre, Queue&lt;<span class="keyword">String</span>&gt;) &#123;</span><br><span class="line"><span class="keyword">if</span>(x== <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line"><span class="keyword">if</span>(x.val != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line"><span class="keyword">for</span>(<span class="built_in">char</span> c=<span class="number">0</span>; c&lt;R; c++) &#123;</span><br><span class="line">collect(x.next[c],pre+c,q);</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Iterable&lt;<span class="keyword">String</span>&gt; keysWithPrefix(<span class="keyword">String</span> pre) &#123;</span><br><span class="line">Queue&lt;<span class="keyword">String</span>&gt;  q = <span class="keyword">new</span> Queue&lt;Sting&gt;();</span><br><span class="line">collect(<span class="built_in">get</span>(root,pre,<span class="number">0</span>),pre,q);</span><br><span class="line"><span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h3>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://algs4.cs.princeton.edu/code/javadoc/&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;算法4 官网地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2 i
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="算法4" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/"/>
+    
+    
+      <category term="单词查找数" scheme="http://yoursite.com/tags/%E5%8D%95%E8%AF%8D%E6%9F%A5%E6%89%BE%E6%95%B0/"/>
     
   </entry>
   
@@ -535,35 +529,6 @@
   </entry>
   
   <entry>
-    <title>20. 嵌套类型</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:58:49.024Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Nested Types in Action</li><li>Referring to Nested Types</li></ol><a id="more"></a><p> 通常我们会创建枚举来支持特定的类或结构体的功能。类似地，为了可以方便地定义在更复杂类型上下文中使用的实用 工具类和结构，Swift 允许你定义 嵌套类型 ，从而实现在枚举、类和结构体中的定义嵌套类型。</p><p>如果要将一个类型嵌套在另一个类型中，只需在支持类型的大括号内定义嵌套类型即可。类型支持多层嵌套。</p><h2 id="嵌套类型的使用"><a href="#嵌套类型的使用" class="headerlink" title="嵌套类型的使用"></a>嵌套类型的使用</h2><h2 id="引⽤嵌套类型"><a href="#引⽤嵌套类型" class="headerlink" title="引⽤嵌套类型"></a>引⽤嵌套类型</h2><p>要在其定义上下文之外使用嵌套类型，需要在其名称前面加上嵌套在其中的类型的名称。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Nested Types in Action&lt;/li&gt;
-&lt;li&gt;Referring to Nested Types&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
     <title>22. 协议</title>
     <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
     <id>http://yoursite.com/wiki/IOS/swift语言/swift学习摘要/22__协议/</id>
@@ -602,6 +567,35 @@
     
     
       <category term="协议" scheme="http://yoursite.com/tags/%E5%8D%8F%E8%AE%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>20. 嵌套类型</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/</id>
+    <published>2019-01-29T02:07:12.000Z</published>
+    <updated>2019-01-29T03:58:49.024Z</updated>
+    
+    <content type="html"><![CDATA[<ol><li>Nested Types in Action</li><li>Referring to Nested Types</li></ol><a id="more"></a><p> 通常我们会创建枚举来支持特定的类或结构体的功能。类似地，为了可以方便地定义在更复杂类型上下文中使用的实用 工具类和结构，Swift 允许你定义 嵌套类型 ，从而实现在枚举、类和结构体中的定义嵌套类型。</p><p>如果要将一个类型嵌套在另一个类型中，只需在支持类型的大括号内定义嵌套类型即可。类型支持多层嵌套。</p><h2 id="嵌套类型的使用"><a href="#嵌套类型的使用" class="headerlink" title="嵌套类型的使用"></a>嵌套类型的使用</h2><h2 id="引⽤嵌套类型"><a href="#引⽤嵌套类型" class="headerlink" title="引⽤嵌套类型"></a>引⽤嵌套类型</h2><p>要在其定义上下文之外使用嵌套类型，需要在其名称前面加上嵌套在其中的类型的名称。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;Nested Types in Action&lt;/li&gt;
+&lt;li&gt;Referring to Nested Types&lt;/li&gt;
+&lt;/ol&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="swift学习摘要" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
+    
+    
+      <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
     
   </entry>
   
