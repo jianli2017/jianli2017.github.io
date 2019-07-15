@@ -3,25 +3,34 @@
 <head>
     <meta charset="utf-8">
     
-    <title>理解OAuth | LJ小窝</title>
+    <title>LJ小窝</title>
     
     
-        <meta name="keywords" content="理解OAuth">
+        <meta name="keywords" content="LJ小窝">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="理解OAuth">
+    <meta name="description" content="授权登录 背景随着国美生态系统中APP的不断增加，多个APP的登录问题日渐突出，比如我们新做一个美店APP，只有两个选择  重新开放美店的登录系统 复用现有国美APP的代码  对于方案1，不仅需要增加开发成本，并且不一定能有效的接入国美会员体系。对于方案2，也就是我们现在使用的方案，国美APP提供了登录SDK，美店APP集成，这就存在严重的不足，首先是APP的包会变大，其次每次有新的APP需要集成">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解OAuth">
+<meta property="og:title" content="LJ小窝">
 <meta property="og:url" content="http://yoursite.com/wiki/编程理论/OAuth 2.0/OAuth/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="理解OAuth">
+<meta property="og:description" content="授权登录 背景随着国美生态系统中APP的不断增加，多个APP的登录问题日渐突出，比如我们新做一个美店APP，只有两个选择  重新开放美店的登录系统 复用现有国美APP的代码  对于方案1，不仅需要增加开发成本，并且不一定能有效的接入国美会员体系。对于方案2，也就是我们现在使用的方案，国美APP提供了登录SDK，美店APP集成，这就存在严重的不足，首先是APP的包会变大，其次每次有新的APP需要集成">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/auth_struct.png">
 <meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/auth.png">
-<meta property="og:updated_time" content="2019-07-12T07:29:50.088Z">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/QQOpenList.png">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/QQOpen_detail.png">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/QQOpen_IOS.png">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/QQOpen_andrion.png">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/openGomeUrl.png">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/sendRequet.png">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/code.png">
+<meta property="og:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/handleurl.png">
+<meta property="og:updated_time" content="2019-07-15T10:31:13.955Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解OAuth">
-<meta name="twitter:description" content="理解OAuth">
-<meta name="twitter:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/auth.png">
+<meta name="twitter:title" content="LJ小窝">
+<meta name="twitter:description" content="授权登录 背景随着国美生态系统中APP的不断增加，多个APP的登录问题日渐突出，比如我们新做一个美店APP，只有两个选择  重新开放美店的登录系统 复用现有国美APP的代码  对于方案1，不仅需要增加开发成本，并且不一定能有效的接入国美会员体系。对于方案2，也就是我们现在使用的方案，国美APP提供了登录SDK，美店APP集成，这就存在严重的不足，首先是APP的包会变大，其次每次有新的APP需要集成">
+<meta name="twitter:image" content="http://yoursite.com/wiki/编程理论/OAuth%202.0/OAuth/auth_struct.png">
     
 
     
@@ -836,7 +845,7 @@
                             &nbsp;
                             OAuth 2.0
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/编程理论/OAuth 2.0/OAuth/">理解OAuth</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/编程理论/OAuth 2.0/OAuth/"></a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -969,52 +978,130 @@
     <div class="article-inner">
         
         
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/编程理论/">编程理论</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/编程理论/OAuth-2-0/">OAuth 2.0</a>
-    </div>
-
-                        
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/编程理论/OAuth 2.0/OAuth/">
-            <time datetime="2019-07-11T04:11:35.000Z" itemprop="datePublished">2019-07-11</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 class="article-title" itemprop="name">
-            理解OAuth
-        </h1>
-    
-
-            </header>
-        
         
         <div class="article-entry" itemprop="articleBody">
         
         
             
-                <div id="toc" class="toc-article">
-                <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理分析"><span class="toc-number">1.</span> <span class="toc-text">原理分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">2.</span> <span class="toc-text">参考资料</span></a></li></ol>
-                </div>
-            
         
         
-            <p>理解OAuth</p>
-<a id="more"></a>
-<h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p><img src="/wiki/编程理论/OAuth 2.0/OAuth/auth.png" alt="OAuth"></p>
+            <p>授权登录</p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>随着国美生态系统中APP的不断增加，多个APP的登录问题日渐突出，比如我们新做一个美店APP，只有两个选择</p>
+<ol>
+<li>重新开放美店的登录系统</li>
+<li>复用现有国美APP的代码</li>
+</ol>
+<p>对于方案1，不仅需要增加开发成本，并且不一定能有效的接入国美会员体系。<br>对于方案2，也就是我们现在使用的方案，国美APP提供了登录SDK，美店APP集成，这就存在严重的不足，首先是APP的包会变大，其次每次有新的APP需要集成登录SDK，都需要前端后端开发一起开发，以便区分什么APP集成，做出对应的兼容措施，再次是SDK变化，集成SDK的APP不能及时集成，最后，无法保证其他APP能否安全的保护用户的信息。</p>
+<p>所以我们就考虑，有没有更有效的方案呢？</p>
+<p>参考微信、QQ三方授权，发现，通过OAuth授权方案可以解决上面的登录问题，同时该方案保证了安全性。</p>
+<h2 id="OAuth-简介"><a href="#OAuth-简介" class="headerlink" title="OAuth 简介"></a>OAuth 简介</h2><p>OAuth 2.0 是目前最流行的授权机制，用来授权第三方应用，获取用户数据。该机制用到了很多术语，为了方便，我将术语列举在下面</p>
+<ol>
+<li>Third-party application：第三方应用程序，本文中又称”客户端”（client），可以想象为美店APP。</li>
+<li>HTTP service：HTTP服务提供商，可以假象为国美后端服务。</li>
+<li>Resource Owner：资源所有者，可以假想为过么的用户。</li>
+<li>Authorization server：认证服务器，即服务提供商专门用来处理认证的服务器。</li>
+<li>Resource server：资源服务器，即服务提供商存放用户生成的资源的服务器。</li>
+</ol>
+<p>我将上面5个角色画了一张图，方便理解：</p>
+<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/auth_struct.png" alt="OAuth"></p>
+<p>简单说，OAuth 就是一种授权机制。数据的所有者告诉系统，同意授权第三方应用进入系统，获取这些数据。系统从而产生一个短期的进入令牌（token），用来代替密码，供第三方应用使用。</p>
+<h2 id="总体设计"><a href="#总体设计" class="headerlink" title="总体设计"></a>总体设计</h2><p><img src="/wiki/编程理论/OAuth 2.0/OAuth/auth.png" alt="总体设计"></p>
+<p>【总体设计图】</p>
+<h3 id="开放平台设计"><a href="#开放平台设计" class="headerlink" title="开放平台设计"></a>开放平台设计</h3><p>开发平台需要三个页面：</p>
+<ol>
+<li>一个是列表页，描述所有注册的APP列表</li>
+<li>详情页，可以参考应用的信息</li>
+<li>注册页面，注册一个三分APP</li>
+</ol>
+<p>列表页如下：<br><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpenList.png" alt="OAuth"></p>
+<p>详情页如下：<br><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpen_detail.png" alt="OAuth"></p>
+<p>注册APP页面如下，分别是IOS和Android注册页面：</p>
+<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpen_IOS.png" alt="OAuth"><br><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpen_andrion.png" alt="OAuth"></p>
+<p>需要的字段</p>
+<table>
+<thead>
+<tr>
+<th>字段名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APPID</td>
+<td>—</td>
+</tr>
+<tr>
+<td>APPKEY</td>
+<td>—</td>
+</tr>
+<tr>
+<td>appName</td>
+<td>应用的名称</td>
+</tr>
+<tr>
+<td>appIcon</td>
+<td>应用图标</td>
+</tr>
+<tr>
+<td>appDescription</td>
+<td>应用描述</td>
+</tr>
+<tr>
+<td>appOwener</td>
+<td>应用提供方</td>
+</tr>
+<tr>
+<td>appStoreID</td>
+<td>appStore上的应用ID</td>
+</tr>
+<tr>
+<td>appBundleID</td>
+<td>APP的包ID</td>
+</tr>
+</tbody>
+</table>
+<h3 id="IOS平台SDK设计"><a href="#IOS平台SDK设计" class="headerlink" title="IOS平台SDK设计"></a>IOS平台SDK设计</h3><p>SDK 完成的功能包括：</p>
+<ol>
+<li>换起微信</li>
+<li>从微信回到三方APP</li>
+</ol>
+<p>所以设计的接口包括</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*1 发送请求到国美，等待国美返回onResp */</span></span><br><span class="line">+(<span class="keyword">BOOL) </span>sendReq:(<span class="keyword">BaseReq*)req;</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line">/*2 处理国美通过URL启动三方App时传递的数据 */</span><br><span class="line">+(<span class="keyword">BOOL) </span>handleOpenURL:(NSURL *) url delegate:(id&lt;GMApiDelegate&gt;) delegate<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*3 检查国美是否已被用户安装 */</span></span><br><span class="line">+(<span class="keyword">BOOL) </span>isWXAppInstalled<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*4 获取当前微信SDK的版本号*/</span></span><br><span class="line">+(NSString *) getApiVersion<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>其中sendReq对应 【总体设计图】的步骤 A（导向授权服务，即导向国美APP）, 下面是OAuth规范要求的参数：</p>
+<ol>
+<li>response_type：表示授权类型，必选项，此处的值固定为”code”</li>
+<li>client_id：表示客户端的ID，必选项</li>
+<li>redirect_uri：表示重定向URI，可选项</li>
+<li>scope：表示申请的权限范围，可选项</li>
+<li>state：表示客户端的当前状态，可以指定任意值，认证服务器会原封不动地返回这个值。</li>
+</ol>
+<p>我们分析了微信的URL，各个参数对应如下：</p>
+<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/openGomeUrl.png" alt="定向到国美APP的参数"></p>
+<p>我分析了微信的源码得到定向的整体流程，我们也可以完全参考这个流程</p>
+<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/sendRequet.png" alt="sendReq 流程"></p>
+<p>其中handleOpenURL 对应【总体设计图】的步骤G （国美APP导向三方APP后的处理），OAuth文档规定的参数如下：</p>
+<ol>
+<li>code：表示授权码，必选项。该码的有效期应该很短，通常设为10分钟，客户端只能使用该码一次，否则会被授权服务器拒绝。该码与客户端ID和重定向URI，是一一对应关系。</li>
+<li>state：如果客户端的请求中包含这个参数，认证服务器的回应也必须一模一样包含这个参数。</li>
+</ol>
+<p>我们分析了微信的URL，各个参数对应如下：<br><img src="/wiki/编程理论/OAuth 2.0/OAuth/code.png" alt="国美APP定向到三方APP的参数"></p>
+<p>我参照微信的流程，设计定向后，SDK的处理流程如下：</p>
+<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/handleurl.png" alt="handleOpenURL 流程"></p>
+<h3 id="后端设计"><a href="#后端设计" class="headerlink" title="后端设计"></a>后端设计</h3><p>使用code换token的请求，对应于【总体设计图中】中的步骤H、I，包含以下参数：</p>
+<ol>
+<li>grant_type：表示使用的授权模式，必选项，此处的值固定为”authorization_code”。</li>
+<li>code：表示上一步获得的授权码，必选项。</li>
+<li>redirect_uri：表示重定向URI，必选项，且必须与A步骤中的该参数值保持一致。</li>
+<li>client_id：表示客户端ID，必选项。</li>
+</ol>
+<p>使用code换token的响应，对应于【总体设计图中】中的步骤J，包含以下参数：</p>
+<ol>
+<li>access_token：表示访问令牌，必选项。</li>
+<li>token_type：表示令牌类型，该值大小写不敏感，必选项，可以是bearer类型或mac类型。</li>
+<li>expires_in：表示过期时间，单位为秒。如果省略该参数，必须其他方式设置过期时间。</li>
+<li>refresh_token：表示更新令牌，用来获取下一次的访问令牌，可选项。</li>
+<li>scope：表示权限范围，如果与客户端申请的范围一致，此项可省略。</li>
+</ol>
 <h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
 <li><a href="https://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" rel="external nofollow noopener noreferrer" target="_blank">理解OAuth 2.0</a></li>
 </ul>
@@ -1030,19 +1117,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/swiftUI/swiftUI_Share的副本/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    KMP字符串查找
+                    (no title)
                 
             </div>
         </a>
     
     
-        <a href="/wiki/IOS/swiftUI/swiftUI/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/编程理论/SSH/ssh-theory/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">Swift新特性</div>
+            <div class="article-nav-title">图解SSH原理</div>
         </a>
     
 </nav>
@@ -1054,7 +1141,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/编程理论/OAuth 2.0/OAuth/" data-title="理解OAuth" data-url="http://yoursite.com/wiki/编程理论/OAuth 2.0/OAuth/"></div>
+    <div class="ds-thread" data-thread-key="wiki/编程理论/OAuth 2.0/OAuth/" data-title="" data-url="http://yoursite.com/wiki/编程理论/OAuth 2.0/OAuth/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
