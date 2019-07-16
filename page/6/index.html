@@ -806,7 +806,7 @@
                             &nbsp;
                             数据结构和算法之美
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/">KMP字符串查找</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/">KMP字符串查找</a></li>  <li class="file"><a href="/wiki/数据结构与算法/数据结构和算法之美/36_AC自动机/">AC自动机多模式匹配</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -963,7 +963,7 @@
 </aside>
             
             <section id="main">
-        <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/Runtime/objc/13_class_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -985,7 +985,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/12_initialize/">
+        <a href="/wiki/IOS/Runtime/objc/13_class_initialize/">
             <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
         </a>
     </div>
@@ -997,7 +997,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a>
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a>
         </h1>
     
 
@@ -1009,18 +1009,79 @@
         
             
                 
-                <p></p><p>这篇文章可能是对 Objective-C 源代码解析系列文章中最短的一篇了，在 Objective-C 中，我们总是会同时想到 <code>load</code>、<code>initialize</code> 这两个类方法。而这两个方法也经常在一起比较。</p>
-<p>本文会主要介绍：</p>
-<ol>
-<li><code>initialize</code> 方法的调用为什么是惰性的。</li>
-<li>这货能干啥。</li>
-</ol><p></p>
+                <p></p><p>本文是我自己理解_class_initialize的记录</p><p></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/12_initialize/#more">查看更多</a>
+                <a href="/wiki/IOS/Runtime/objc/13_class_initialize/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/load/">load</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/11_load/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1562,72 +1623,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/objc/3NSObject/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/objc/1_NSObject_isa" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/isa/">isa</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">
-            <time datetime="2018-11-01T02:38:11.000Z" itemprop="datePublished">2018-11-01</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
