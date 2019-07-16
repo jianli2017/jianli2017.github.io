@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-12T10:44:49.631Z</updated>
+  <updated>2019-07-16T01:27:41.925Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/34_KMP/"/>
     <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/34_KMP/</id>
     <published>2019-07-12T10:07:12.000Z</published>
-    <updated>2019-07-12T10:44:49.631Z</updated>
+    <updated>2019-07-16T01:27:41.925Z</updated>
     
-    <content type="html"><![CDATA[<p>记录KMP算法的主要思想</p><a id="more"></a><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>模式串和主串匹配的过程，当遇到不匹配的字符的时候，我们希望找到一种规律，可以往后多滑动几位。</p><p>模式串和主串匹配的过程中，存在相等和不相等的可能。</p><p>不相等的处理：拿好前缀本身，在它的后缀子串中，查找最长的那个可以和好前缀的前缀子串匹配。</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_多滑动几位.png" alt="匹配过程中，不相等处理"></p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_代码.png" alt="KMP 代码"></p><h2 id="失效函数计算方法"><a href="#失效函数计算方法" class="headerlink" title="失效函数计算方法"></a>失效函数计算方法</h2><p>next说明：</p><ol><li>下标：每个前缀结尾的下标</li><li>值： 这个前缀的最长可以匹配的前缀子串的结尾下标</li></ol><p>next[i-1] = k-1,则next[i] = k</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_Next求解中，相等处理.png" alt="KMP_Next求解中，相等处理"></p><p>查找b[0,i-1]的次长可匹配后缀子串，这个问题变成， 查找b[0,y]的最长匹配后缀子串的问题</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next求解中，不相等.png" alt="KMP_Next求解中，相等处理"></p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next代码.png" alt="KMP_Next求解中，相等处理"></p>]]></content>
+    <content type="html"><![CDATA[<p>记录KMP算法的主要思想</p><a id="more"></a><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>模式串和主串匹配的过程，当遇到不匹配的字符的时候，我们希望找到一种规律，可以往后多滑动几位。</p><p>模式串和主串匹配的过程中，存在相等和不相等的可能。</p><p>不相等的处理：拿好前缀本身，在它的后缀子串中，查找最长的那个可以和好前缀的前缀子串匹配。</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_多滑动几位.png" alt="匹配过程中，不相等处理"></p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">func kmp(<span class="string">a:</span> String, <span class="string">n:</span> Int, <span class="string">b:</span> String, <span class="string">m:</span>Int) -&gt; Int &#123;</span><br><span class="line">    let next = getNexts(<span class="string">b:</span> b, <span class="string">m:</span> m)</span><br><span class="line">    var j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.&lt;n &#123;</span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> &amp;&amp; a[a.index(a.startIndex, <span class="string">offsetBy:</span> i)] != b[b.index(b.startIndex, <span class="string">offsetBy:</span> j)] &#123; <span class="comment">//处理不等于的情况，i不动，j尽量移动多位</span></span><br><span class="line">            j = next[j<span class="number">-1</span>] + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//相等，继续往后比较</span></span><br><span class="line">        <span class="keyword">if</span> a[a.index(a.startIndex, <span class="string">offsetBy:</span> i)] == b[b.index(b.startIndex, <span class="string">offsetBy:</span> j)] &#123;</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//查找到了结果</span></span><br><span class="line">        <span class="keyword">if</span> j == m &#123;</span><br><span class="line">            <span class="keyword">return</span> i - m + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="失效函数计算方法"><a href="#失效函数计算方法" class="headerlink" title="失效函数计算方法"></a>失效函数计算方法</h2><p>next说明：</p><ol><li>下标：每个前缀结尾的下标</li><li>值： 这个前缀的最长可以匹配的前缀子串的结尾下标</li></ol><p>next[i-1] = k-1,则next[i] = k</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_Next求解中，相等处理.png" alt="KMP_Next求解中，相等处理"></p><p>查找b[0,i-1]的次长可匹配后缀子串，这个问题变成， 查找b[0,y]的最长匹配后缀子串的问题</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next求解中，不相等.png" alt="KMP_Next求解中，相等处理"></p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*失效函数：  b 表示模式串，m表示模式串的长度*/</span></span><br><span class="line">func getNexts(<span class="selector-tag">b</span>: String, m: Int) -&gt; [Int] &#123;</span><br><span class="line">    <span class="selector-tag">var</span> next:[Int] = Array(repeating: -<span class="number">1</span>, count: m)  <span class="comment">//定义失效函数</span></span><br><span class="line">    <span class="selector-tag">var</span> k = -<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="number">0</span>..&lt;m &#123;</span><br><span class="line">        while k != -<span class="number">1</span> &amp;&amp; <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: k+<span class="number">1</span>)] != <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: i)] &#123;</span><br><span class="line">            k = next[k]</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: k+<span class="number">1</span>)] == <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: i)] &#123;</span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        next[k] = k</span><br><span class="line">    &#125;</span><br><span class="line">    return next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
@@ -34,6 +34,28 @@
       <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
     
       <category term="数据结构和算法之美" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>理解OAuth</title>
+    <link href="http://yoursite.com/wiki/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/OAuth%202.0/OAuth/"/>
+    <id>http://yoursite.com/wiki/编程理论/OAuth 2.0/OAuth/</id>
+    <published>2019-07-11T04:11:35.000Z</published>
+    <updated>2019-07-16T01:23:34.166Z</updated>
+    
+    <content type="html"><![CDATA[<p>理解OAuth</p><a id="more"></a><h2 id="原理分析"><a href="#原理分析" class="headerlink" title="原理分析"></a>原理分析</h2><p><img src="/wiki/编程理论/OAuth 2.0/OAuth/auth.png" alt="OAuth"></p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a href="https://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" rel="external nofollow noopener noreferrer" target="_blank">理解OAuth 2.0</a></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;理解OAuth&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="编程理论" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/"/>
+    
+      <category term="OAuth 2.0" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/OAuth-2-0/"/>
     
     
   </entry>
@@ -574,37 +596,6 @@
     
     
       <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>19. 类型转换</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/swift学习摘要/19__类型转换/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:55:37.511Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
-&lt;li&gt;Checking Type&lt;/li&gt;
-&lt;li&gt;Downcasting&lt;/li&gt;
-&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
     
   </entry>
   

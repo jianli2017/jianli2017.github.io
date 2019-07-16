@@ -833,7 +833,7 @@
                             &nbsp;
                             OAuth 2.0
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/OAuth 2.0/OAuth/"></a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/OAuth 2.0/OAuth/">理解OAuth</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -963,6 +963,205 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/Runtime/objc/2_NSObject_objc_object" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSObject/">NSObject</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">
+            <time datetime="2018-11-01T02:38:11.000Z" itemprop="datePublished">2018-11-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/">2. class_data_bits_t 结构</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <a id="more"></a>
+<blockquote>
+<p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
+</blockquote>
+<p>在上一篇分析 <code>isa</code> 的文章<a href="https://github.com/Draveness/iOS-Source-Code-Analyze/blob/master/contents/objc/从%20NSObject%20的初始化了解%20isa.md" rel="external nofollow noopener noreferrer" target="_blank">从 NSObject 的初始化了解 isa</a> 中曾经说到过实例方法被调用时，会通过其持有 <code>isa</code> 指针寻找对应的类，然后在其中的 <code>class_data_bits_t</code> 中查找对应的方法，在这一篇文章中会介绍方法在 ObjC 中是如何存储方法的。</p>
+<p>这篇文章的首先会根据 ObjC 源代码来分析方法在内存中的存储结构，然后在 lldb 调试器中一步一步验证分析的正确性。</p>
+<h2 id="方法在内存中的位置"><a href="#方法在内存中的位置" class="headerlink" title="方法在内存中的位置"></a>方法在内存中的位置</h2><p>先来了解一下 ObjC 中类的结构图：<br><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-class.png" alt="类的结构图"></p>
+<ul>
+<li><code>isa</code> 是指向元类的指针，不了解元类的可以看 <a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
+<li><code>super_class</code> 指向当前类的父类</li>
+<li><code>cache</code> 用于缓存指针和 <code>vtable</code>，加速方法的调用</li>
+<li><code>bits</code> 就是存储类的方法、属性和遵循的协议等信息的地方</li>
+</ul>
+<h3 id="class-data-bits-t-结构体"><a href="#class-data-bits-t-结构体" class="headerlink" title="class_data_bits_t 结构体"></a><code>class_data_bits_t</code> 结构体</h3><p>这一小结会分析类结构体中的 <code>class_data_bits_t bits</code>。其中只含有一个 64 位的 <code>bits</code> 用于存储与类有关的信息，它的定义如下 ：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">class_data_bits_t</span> &#123;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// Values are the FAST_ flags above.</span></span><br><span class="line">    <span class="keyword">uintptr_t</span> bits; <span class="comment">// 只有这个一个成员变量，所有数据都存在这里，包括 rw 的地址和一些 flag</span></span><br><span class="line">                    <span class="comment">// 1. 在 realized 之前，bits 存的是 ro 的地址，</span></span><br><span class="line">                    <span class="comment">// 2. realized 后，bits 存 rw 的地址，rw 里的存有 ro 的地址</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从定义可以看出，这只用一个成员，但是也类似位域，不同的位有不同的作用，bit不像isa使用位域定义，他使用移位定义，如下:</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// class is a Swift class</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_IS_SWIFT           (1UL&lt;&lt;0)  <span class="comment">// 用于判断 Swift 类</span></span></span><br><span class="line"><span class="comment">// class or superclass has default retain/release/autorelease/retainCount/</span></span><br><span class="line"><span class="comment">//   _tryRetain/_isDeallocating/retainWeakReference/allowsWeakReference</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_HAS_DEFAULT_RR     (1UL&lt;&lt;1)  <span class="comment">// 当前类或者父类含有默认的 retain/release/autorelease/retainCount/_tryRetain/_isDeallocating/retainWeakReference/allowsWeakReference 方法</span></span></span><br><span class="line"><span class="comment">// class's instances requires raw isa</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_REQUIRES_RAW_ISA   (1UL&lt;&lt;2)  <span class="comment">// 当前类的实例需要 raw isa</span></span></span><br><span class="line"><span class="comment">// data pointer</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_DATA_MASK          0x00007ffffffffff8UL <span class="comment">// 存 rw 的地址的位置</span></span></span><br></pre></td></tr></table></figure>
+<p>全部是FAST开头，说明可以快速取到，而不用去次级对象中取。还有以RW、RO开头的宏，表示在次级的class_rw_t、class_ro_t结构的标志位。class_data_bits_t的类图如下：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-class-data-bits-t.png" alt="objc-method-class-data-bits-t"></p>
+<p>在 <code>objc_class</code> 结构体中的注释写到 <code>class_data_bits_t</code> 相当于 <code>class_rw_t</code> 指针加上 rr/alloc 的标志。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class_data_bits_t</span> bits;    <span class="comment">// class_rw_t * plus custom rr/alloc flags</span></span><br></pre></td></tr></table></figure>
+<p>它为我们提供了便捷方法用于返回其中的 <code>class_rw_t *</code> 指针：</p>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">class_rw_t</span>* <span class="class"><span class="keyword">data</span>() &#123;</span></span><br><span class="line"><span class="class">   <span class="title">return</span> (<span class="title">class_rw_t</span> *)(<span class="title">bits</span> &amp; <span class="type">FAST_DATA_MASK</span>);</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>将 <code>bits</code> 与 <code>FAST_DATA_MASK</code> 进行位运算，只取其中的 <code>[3, 47]</code> 位转换成 <code>class_rw_t *</code> 返回。</p>
+<blockquote>
+<p>在 x86_64 架构上，Mac OS <strong>只使用了其中的 47 位来为对象分配地址</strong>。而且由于地址要按字节在内存中按字节对齐，所以掩码的后三位都是 0。</p>
+</blockquote>
+<p>因为 <code>class_rw_t *</code> 指针只存于第 <code>[3, 47]</code> 位，所以可以使用最后三位来存储关于当前类的其他信息：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-class_data_bits_t.png" alt="objc-method-class_data_bits_t"></p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_IS_SWIFT           (1UL&lt;&lt;0)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_HAS_DEFAULT_RR     (1UL&lt;&lt;1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_REQUIRES_RAW_ISA   (1UL&lt;&lt;2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> FAST_DATA_MASK          0x00007ffffffffff8UL</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>isSwift()</code><ul>
+<li><code>FAST_IS_SWIFT</code> 用于判断 Swift 类</li>
+</ul>
+</li>
+<li><code>hasDefaultRR()</code><ul>
+<li><code>FAST_HAS_DEFAULT_RR</code> 当前类或者父类含有默认的 <code>retain/release/autorelease/retainCount/_tryRetain/_isDeallocating/retainWeakReference/allowsWeakReference</code> 方法</li>
+</ul>
+</li>
+<li><code>requiresRawIsa()</code><ul>
+<li><code>FAST_REQUIRES_RAW_ISA</code> 当前类的实例需要 raw <code>isa</code></li>
+</ul>
+</li>
+</ul>
+<p>执行 <code>class_data_bits_t</code> 结构体中的 <code>data()</code> 方法或者调用 <code>objc_class</code> 中的 <code>data()</code> 方法会返回同一个 <code>class_rw_t *</code> 指针，因为 <code>objc_class</code> 中的方法只是对 <code>class_data_bits_t</code> 中对应方法的封装。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// objc_class 中的 data() 方法</span><br><span class="line">class_data_bits_t bits;</span><br><span class="line"></span><br><span class="line">class_rw_t *data() &#123; </span><br><span class="line">   return bits.data();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// class_data_bits_t 中的 data() 方法</span><br><span class="line">uintptr_t bits;</span><br><span class="line"></span><br><span class="line">class_rw_t* data() &#123;</span><br><span class="line">   return (class_rw_t *)(bits &amp; FAST_DATA_MASK);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="class-rw-t-和-class-ro-t"><a href="#class-rw-t-和-class-ro-t" class="headerlink" title="class_rw_t 和 class_ro_t"></a><code>class_rw_t</code> 和 <code>class_ro_t</code></h3><p>ObjC 类中的属性、方法还有遵循的协议等信息都保存在 <code>class_rw_t</code> 中：</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">struct class_rw_t &#123;</span><br><span class="line">    uint32_t flags<span class="comment">;</span></span><br><span class="line">    uint32_t version<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    const class_ro_t *ro<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    method_array_t methods<span class="comment">;</span></span><br><span class="line">    property_array_t properties<span class="comment">;</span></span><br><span class="line">    protocol_array_t protocols<span class="comment">;</span></span><br><span class="line"></span><br><span class="line">    Class firstSubclass<span class="comment">;</span></span><br><span class="line">    Class nextSiblingClass<span class="comment">;</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>其中还有一个指向常量的指针 <code>ro</code>，其中存储了<strong>当前类在编译期就已经确定的属性、方法以及遵循的协议</strong>。</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">class_ro_t</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> flags;</span><br><span class="line">    <span class="keyword">uint32_t</span> instanceStart;</span><br><span class="line">    <span class="keyword">uint32_t</span> instanceSize;</span><br><span class="line">    <span class="keyword">uint32_t</span> reserved;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uint8_t</span> * ivarLayout;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">char</span> * name;</span><br><span class="line">    <span class="keyword">method_list_t</span> * baseMethodList;</span><br><span class="line">    <span class="keyword">protocol_list_t</span> * baseProtocols;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">ivar_list_t</span> * ivars;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">uint8_t</span> * weakIvarLayout;</span><br><span class="line">    <span class="keyword">property_list_t</span> *baseProperties;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>在编译期间</strong>类的结构中的 <code>class_data_bits_t *data</code> 指向的是一个 <code>class_ro_t *</code> 指针：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-before-realize.png" alt="objc-method-before-realize"></p>
+<p>然后在加载 <em>ObjC 运行时</em>的时候调用 <code>realizeClass</code> 方法：</p>
+<ol>
+<li>从 <code>class_data_bits_t</code> 调用 <code>data</code> 方法，将结果从 <code>class_rw_t</code> 强制转换为 <code>class_ro_t</code> 指针</li>
+<li>初始化一个 <code>class_rw_t</code> 结构体</li>
+<li>设置结构体 <code>ro</code> 的值以及 <code>flag</code></li>
+<li>最后设置正确的 <code>data</code>。</li>
+</ol>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">class_ro_t</span> *ro = (<span class="keyword">const</span> <span class="keyword">class_ro_t</span> *)cls-&gt;data();</span><br><span class="line"><span class="keyword">class_rw_t</span> *rw = (<span class="keyword">class_rw_t</span> *)<span class="built_in">calloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">class_rw_t</span>), <span class="number">1</span>);</span><br><span class="line">rw-&gt;ro = ro;</span><br><span class="line">rw-&gt;flags = RW_REALIZED|RW_REALIZING;</span><br><span class="line">cls-&gt;setData(rw);</span><br></pre></td></tr></table></figure>
+<p>下图是 <code>realizeClass</code> 方法执行过后的类所占用内存的布局，你可以与上面调用方法前的内存布局对比以下，看有哪些更改：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-after-realize-class.png" alt="objc-method-after-realize-class"></p>
+<p>但是，在这段代码运行之后 <code>class_rw_t</code> 中的方法，属性以及协议列表均为空。这时需要 <code>realizeClass</code> 调用 <code>methodizeClass</code> 方法来<strong>将类自己实现的方法（包括分类）、属性和遵循的协议加载到 <code>methods</code>、 <code>properties</code> 和 <code>protocols</code> 列表中</strong>。</p>
+<h2 id="XXObject"><a href="#XXObject" class="headerlink" title="XXObject"></a>XXObject</h2><p>下面，我们将分析一个类 <code>XXObject</code> 在运行时初始化过程中内存的更改，这是 <code>XXObject</code> 的接口与实现：</p>
+<figure class="highlight objectivec"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// XXObject.h 文件</span></span><br><span class="line"><span class="meta">#import <span class="meta-string">&lt;Foundation/Foundation.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XXObject</span> : <span class="title">NSObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)hello;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// XXObject.m 文件</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#import <span class="meta-string">"XXObject.h"</span></span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XXObject</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)hello &#123;</span><br><span class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Hello"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这段代码是运行在 Mac OS X 10.11.3 (x86_64)版本中，而不是运行在 iPhone 模拟器或者真机上的，如果你在 iPhone 或者真机上运行，可能有一定差别。</p>
+</blockquote>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-target.png" alt="objc-method-target"></p>
+<p>这是主程序的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line">#import &quot;XXObject.h&quot;</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        Class cls = [XXObject class];</span><br><span class="line">        NSLog(@&quot;%p&quot;, cls);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="编译后内存中类的结构"><a href="#编译后内存中类的结构" class="headerlink" title="编译后内存中类的结构"></a>编译后内存中类的结构</h3><p>因为<strong>类在内存中的位置是编译期就确定的</strong>，先运行一次代码获取 <code>XXObject</code> 在内存中的地址。</p>
+<figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0x100001168</span></span><br></pre></td></tr></table></figure>
+<p>接下来，在整个 ObjC 运行时初始化之前，也就是 <code>_objc_init</code> 方法中加入一个断点：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-after-compile.png" alt="objc-method-after-compile"></p>
+<p>然后在 lldb 中输入以下命令：</p>
+<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">(lldb) p (objc_class *)<span class="number">0</span>x100001168</span><br><span class="line">(objc_class *) <span class="variable">$0</span> = <span class="number">0</span>x0000000100001168</span><br><span class="line">(lldb) p (class_data_bits_t *)<span class="number">0</span>x100001188</span><br><span class="line">(class_data_bits_t *) <span class="variable">$1</span> = <span class="number">0</span>x0000000100001188</span><br><span class="line">(lldb) p <span class="variable">$1</span>-&gt;data()</span><br><span class="line">warning: could not <span class="built_in">load</span> <span class="literal">any</span> Objective-C class information. This will significantly reduce the quality of type information available.</span><br><span class="line">(class_rw_t *) <span class="variable">$2</span> = <span class="number">0</span>x00000001000010e8</span><br><span class="line">(lldb) p (class_ro_t *)<span class="variable">$2</span> // 将 class_rw_t 强制转化为 class_ro_t</span><br><span class="line">(class_ro_t *) <span class="variable">$3</span> = <span class="number">0</span>x00000001000010e8</span><br><span class="line">(lldb) p *<span class="variable">$3</span></span><br><span class="line">(class_ro_t) <span class="variable">$4</span> = &#123;</span><br><span class="line">  <span class="keyword">flags</span> = <span class="number">128</span></span><br><span class="line">  instanceStart = <span class="number">8</span></span><br><span class="line">  instanceSize = <span class="number">8</span></span><br><span class="line">  reserved = <span class="number">0</span></span><br><span class="line">  ivarLayout = <span class="number">0</span>x0000000000000000 <span class="variable">&lt;no value available&gt;</span></span><br><span class="line">  name = <span class="number">0</span>x0000000100000f7a <span class="string">"XXObject"</span></span><br><span class="line">  baseMethodList = <span class="number">0</span>x00000001000010c8</span><br><span class="line">  baseProtocols = <span class="number">0</span>x0000000000000000</span><br><span class="line">  ivars = <span class="number">0</span>x0000000000000000</span><br><span class="line">  weakIvarLayout = <span class="number">0</span>x0000000000000000 <span class="variable">&lt;no value available&gt;</span></span><br><span class="line">  baseProperties = <span class="number">0</span>x0000000000000000</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-lldb-print-before-realize.png" alt="objc-method-lldb-print-before-realize"></p>
+<p>现在我们获取了类经过编译器处理后的只读属性 <code>class_ro_t</code>：</p>
+<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(class_ro_t) $<span class="number">4</span> = &#123;</span><br><span class="line">  flags = <span class="number">128</span></span><br><span class="line">  instanceStart = <span class="number">8</span></span><br><span class="line">  instanceSize = <span class="number">8</span></span><br><span class="line">  reserved = <span class="number">0</span></span><br><span class="line">  ivarLayout = <span class="number">0x0000000000000000</span> &lt;no value available&gt;</span><br><span class="line">  name = <span class="number">0x0000000100000f7a</span> <span class="string">"XXObject"</span></span><br><span class="line">  baseMethodList = <span class="number">0x00000001000010c8</span></span><br><span class="line">  baseProtocols = <span class="number">0x0000000000000000</span></span><br><span class="line">  ivars = <span class="number">0x0000000000000000</span></span><br><span class="line">  weakIvarLayout = <span class="number">0x0000000000000000</span> &lt;no value available&gt;</span><br><span class="line">  baseProperties = <span class="number">0x0000000000000000</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到这里面只有 <code>baseMethodList</code> 和 <code>name</code> 是有值的，其它的 <code>ivarLayout</code>、 <code>baseProtocols</code>、 <code>ivars</code>、<code>weakIvarLayout</code> 和 <code>baseProperties</code> 都指向了空指针，因为类中没有实例变量，协议以及属性。所以这里的结构体符合我们的预期。</p>
+<p>通过下面的命令查看 <code>baseMethodList</code> 中的内容：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">(lldb) <span class="selector-tag">p</span> $<span class="number">4</span>.baseMethodList</span><br><span class="line">(method_list_t *) $<span class="number">5</span> = <span class="number">0</span>x00000001000010c8</span><br><span class="line">(lldb) <span class="selector-tag">p</span> $<span class="number">5</span>-&gt;get(<span class="number">0</span>)</span><br><span class="line">(method_t) $<span class="number">6</span> = &#123;</span><br><span class="line">  name = <span class="string">"hello"</span></span><br><span class="line">  types = <span class="number">0</span>x0000000100000fa4 <span class="string">"v16@0:8"</span></span><br><span class="line">  imp = <span class="number">0</span>x0000000100000e90 (method`-[XXObject hello] at XXObject<span class="selector-class">.m</span>:<span class="number">13</span>)</span><br><span class="line">&#125;</span><br><span class="line">(lldb) <span class="selector-tag">p</span> $<span class="number">5</span>-&gt;get(<span class="number">1</span>)</span><br><span class="line">Assertion failed: (<span class="selector-tag">i</span> &lt; count), function get, file /Users/apple/Desktop/objc-runtime/runtime/objc-runtime-new<span class="selector-class">.h</span>, line <span class="number">110</span>.</span><br><span class="line">error: Execution was interrupted, reason: signal SIGABRT.</span><br><span class="line">The process has been returned to the state before expression evaluation.</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-lldb-print-method-list.png" alt="objc-method-lldb-print-method-list"></p>
+<p>使用 <code>$5-&gt;get(0)</code> 时，成功获取到了 <code>-[XXObject hello]</code> 方法的结构体 <code>method_t</code>。而尝试获取下一个方法时，断言提示我们当前类只有一个方法。</p>
+<h3 id="realizeClass"><a href="#realizeClass" class="headerlink" title="realizeClass"></a>realizeClass</h3><p>这篇文章中不会对 <code>realizeClass</code> 进行详细的分析，该方法的主要作用是对类进行第一次初始化，其中包括：</p>
+<ul>
+<li>分配可读写数据空间</li>
+<li>返回真正的类结构</li>
+</ul>
+<figure class="highlight delphi"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">Class</span> realizeClass(<span class="keyword">Class</span> cls)</span><br></pre></td></tr></table></figure>
+<p>上面就是这个方法的签名，我们需要在这个方法中打一个条件断点，来判断当前类是否为 <code>XXObject</code>：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-lldb-breakpoint.png" alt="objc-method-lldb-breakpoint"></p>
+<p>这里直接判断两个指针是否相等，而不使用 <code>[NSStringFromClass(cls) isEqualToString:@&quot;XXObject&quot;]</code> 是因为在这个时间点，这些方法都不能调用，在 ObjC 中没有这些方法，所以只能通过判断类指针是否相等的方式来确认当前类是 <code>XXObject</code>。</p>
+<blockquote>
+<p>直接与指针比较是因为类在内存中的位置是编译期确定的，只要代码不改变，类在内存中的位置就会不变（已经说过很多遍了）。</p>
+</blockquote>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-breakpoint-before-set-rw.png" alt="objc-method-breakpoint-before-set-r"></p>
+<p>这个断点就设置在这里，因为 <code>XXObject</code> 是一个正常的类，所以会走 <code>else</code> 分支为<strong>可写的类数据</strong>分配内存。</p>
+<blockquote>
+<p>运行代码时，因为每次都会判断当前类指针是不是指向的 <code>XXObject</code>，所以会等一会才会进入断点。</p>
+</blockquote>
+<p>在这时打印类结构体中的 <code>data</code> 的值，发现其中的布局依旧是这样的：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-before-realize.png" alt="objc-method-before-realize"></p>
+<p>在运行完这段代码之后:</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-after-realize-breakpoint.png" alt="objc-method-after-realize-breakpoint"></p>
+<p>我们再来打印类的结构:</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line">(lldb) p (objc_class *)cls <span class="comment">// 打印类指针</span></span><br><span class="line">(objc_class *) <span class="variable">$262</span> = 0x0000000100001168</span><br><span class="line">(lldb) p (class_data_bits_t *)0x0000000100001188 <span class="comment">// 在类指针上加 32 的 offset 打印 class_data_bits_t 指针</span></span><br><span class="line">(class_data_bits_t *) <span class="variable">$263</span> = 0x0000000100001188</span><br><span class="line">(lldb) p *<span class="variable">$263</span> <span class="comment">// 访问 class_data_bits_t 指针的内容</span></span><br><span class="line">(class_data_bits_t) <span class="variable">$264</span> = (bits = 4302315312)</span><br><span class="line">(lldb) p <span class="variable">$264</span>.data() <span class="comment">// 获取 class_rw_t</span></span><br><span class="line">(class_rw_t *) <span class="variable">$265</span> = 0x0000000100701f30</span><br><span class="line">(lldb) p *<span class="variable">$265</span> <span class="comment">// 访问 class_rw_t 指针的内容，发现它的 ro 已经设置好了</span></span><br><span class="line">(class_rw_t) <span class="variable">$266</span> = &#123;</span><br><span class="line">  flags = 2148007936</span><br><span class="line">  <span class="keyword">version</span> = 0</span><br><span class="line">  ro = 0x00000001000010e8</span><br><span class="line">  methods = &#123;</span><br><span class="line">    list_array_tt&lt;method_t, method_list_t&gt; = &#123;</span><br><span class="line">       = &#123;</span><br><span class="line">        <span class="keyword">list</span> = 0x0000000000000000</span><br><span class="line">        arrayAndFlag = 0</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  properties = &#123;</span><br><span class="line">    list_array_tt&lt;property_t, property_list_t&gt; = &#123;</span><br><span class="line">       = &#123;</span><br><span class="line">        <span class="keyword">list</span> = 0x0000000000000000</span><br><span class="line">        arrayAndFlag = 0</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  protocols = &#123;</span><br><span class="line">    list_array_tt&lt;unsigned long, protocol_list_t&gt; = &#123;</span><br><span class="line">       = &#123;</span><br><span class="line">        <span class="keyword">list</span> = 0x0000000000000000</span><br><span class="line">        arrayAndFlag = 0</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  firstSubclass = nil</span><br><span class="line">  nextSiblingClass = nil</span><br><span class="line">  demangledName = 0x0000000000000000 &lt;<span class="keyword">no</span> value available&gt;</span><br><span class="line">&#125;</span><br><span class="line">(lldb) p <span class="variable">$266</span>.ro <span class="comment">// 获取 class_ro_t 指针</span></span><br><span class="line">(<span class="keyword">const</span> class_ro_t *) <span class="variable">$267</span> = 0x00000001000010e8</span><br><span class="line">(lldb) p *<span class="variable">$267</span> <span class="comment">// 访问 class_ro_t 指针的内容</span></span><br><span class="line">(<span class="keyword">const</span> class_ro_t) <span class="variable">$268</span> = &#123;</span><br><span class="line">  flags = 128</span><br><span class="line">  instanceStart = 8</span><br><span class="line">  instanceSize = 8</span><br><span class="line">  reserved = 0</span><br><span class="line">  ivarLayout = 0x0000000000000000 &lt;<span class="keyword">no</span> value available&gt;</span><br><span class="line">  name = 0x0000000100000f7a <span class="string">"XXObject"</span></span><br><span class="line">  baseMethodList = 0x00000001000010c8</span><br><span class="line">  baseProtocols = 0x0000000000000000</span><br><span class="line">  ivars = 0x0000000000000000</span><br><span class="line">  weakIvarLayout = 0x0000000000000000 &lt;<span class="keyword">no</span> value available&gt;</span><br><span class="line">  baseProperties = 0x0000000000000000</span><br><span class="line">&#125;</span><br><span class="line">(lldb) p <span class="variable">$268</span>.baseMethodList <span class="comment">// 获取基本方法列表</span></span><br><span class="line">(method_list_t *<span class="keyword">const</span>) <span class="variable">$269</span> = 0x00000001000010c8</span><br><span class="line">(lldb) p <span class="variable">$269</span>-&gt;<span class="built_in">get</span>(0) <span class="comment">// 访问第一个方法</span></span><br><span class="line">(method_t) <span class="variable">$270</span> = &#123;</span><br><span class="line">  name = <span class="string">"hello"</span></span><br><span class="line">  types = 0x0000000100000fa4 <span class="string">"v16@0:8"</span></span><br><span class="line">  imp = 0x0000000100000e90 (method`-[XXObject hello] at XXObject.<span class="keyword">m</span>:13)</span><br><span class="line">&#125;</span><br><span class="line">(lldb) p <span class="variable">$269</span>-&gt;<span class="built_in">get</span>(1) <span class="comment">// 尝试访问第二个方法，越界</span></span><br><span class="line"><span class="keyword">error</span>: Execution was interrupted, reason: signal SIGABRT.</span><br><span class="line">The process has been returned to the state before expression evaluation.</span><br><span class="line">Assertion failed: (i &lt; <span class="keyword">count</span>), function get, <span class="keyword">file</span> /Users/apple/Desktop/objc-runtime/runtime/objc-runtime-new.<span class="keyword">h</span>, <span class="keyword">line</span> 110.</span><br><span class="line">(lldb)</span><br></pre></td></tr></table></figure>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-print-class-struct-after-realize.png" alt="objc-method-print-class-struct-after-realize"></p>
+<blockquote>
+<p>最后一个操作实在是截取不到了</p>
+</blockquote>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="keyword">class_ro_t</span> *ro = (<span class="keyword">const</span> <span class="keyword">class_ro_t</span> *)cls-&gt;data();</span><br><span class="line"><span class="keyword">class_rw_t</span> *rw = (<span class="keyword">class_rw_t</span> *)<span class="built_in">calloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">class_rw_t</span>), <span class="number">1</span>);</span><br><span class="line">rw-&gt;ro = ro;</span><br><span class="line">rw-&gt;flags = RW_REALIZED|RW_REALIZING;</span><br><span class="line">cls-&gt;setData(rw);</span><br></pre></td></tr></table></figure>
+<p>在上述的代码运行之后，类的只读指针 <code>class_ro_t</code> 以及可读写指针 <code>class_rw_t</code> 都被正确的设置了。但是到这里，其 <code>class_rw_t</code> 部分的方法等成员的指针 <code>methods</code>、 <code>protocols</code> 和 <code>properties</code> 均为空，这些会在 <code>methodizeClass</code> 中进行设置：</p>
+<p><img src="/wiki/IOS/Runtime/objc/2_NSObject_objc_object/objc-method-after-methodizeClass.png" alt="objc-method-after-methodizeClass"></p>
+<p>在这里调用了 <code>method_array_t</code> 的 <code>attachLists</code> 方法，将 <code>baseMethods</code> 中的方法添加到 <code>methods</code> 数组之后。我们访问 <code>methods</code> 才会获取当前类的实例方法。</p>
+<h2 id="方法的结构"><a href="#方法的结构" class="headerlink" title="方法的结构"></a>方法的结构</h2><p>说了这么多，到现在我们可以简单看一下方法的结构，与类和对象一样，方法在内存中也是一个结构体。</p>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">struct method_t &#123;</span><br><span class="line">    SEL name<span class="comment">;</span></span><br><span class="line">    const char *types<span class="comment">;</span></span><br><span class="line">    IMP imp<span class="comment">;</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br></pre></td></tr></table></figure>
+<p>其中包含方法名，类型还有方法的实现指针 <code>IMP</code>：</p>
+<p>上面的 <code>-[XXObject hello]</code> 方法的结构体是这样的：</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name</span> = <span class="string">"hello"</span></span><br><span class="line"><span class="attr">types</span> = <span class="number">0</span>x0000000100000fa4 <span class="string">"v16@0:8"</span></span><br><span class="line"><span class="attr">imp</span> = <span class="number">0</span>x0000000100000e90 (method`-[XXObject hello] at XXObject.m:<span class="number">13</span></span><br></pre></td></tr></table></figure>
+<p>方法的名字在这里没有什么好说的。其中，方法的类型是一个非常奇怪的字符串 <code>&quot;v16@0:8&quot;</code> 这在 ObjC 中叫做<em>类型编码</em>(Type Encoding)，你可以看这篇<a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" rel="external nofollow noopener noreferrer" target="_blank">官方文档</a>了解与类型编码相关的信息。</p>
+<p>对于方法的实现，lldb 为我们标注了方法在文件中实现的位置。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>在分析方法在内存中的位置时，笔者最开始一直在尝试寻找<strong>只读</strong>结构体 <code>class_ro_t</code> 中 <code>baseMethods</code> 第一次设置的位置（了解类的方法是如何被加载的）。尝试从 <code>methodizeClass</code> 方法一直向上找，直到 <code>_obj_init</code> 方法也没有找到设置只读区域的 <code>baseMethods</code> 的方法。</p>
+<p>而且在 runtime 初始化之后，<code>realizeClass</code> 之前，从 <code>class_data_bits_t</code> 结构体中获取的 <code>class_rw_t</code> 一直都是错误的，这个问题在最开始非常让我困惑，直到后来在 <code>realizeClass</code> 中发现原来在这时并不是 <code>class_rw_t</code> 结构体，而是<code>class_ro_t</code>，才明白错误的原因。</p>
+<p>后来突然想到类的一些方法、属性和协议实在编译期决定的（<code>baseMethods</code> 等成员以及类在内存中的位置都是编译期决定的），才感觉到豁然开朗。</p>
+<ol>
+<li>类在内存中的位置是在编译期间决定的，在之后修改代码，也不会改变内存中的位置。</li>
+<li>类的方法、属性以及协议在编译期间存放到了“错误”的位置，直到 <code>realizeClass</code> 执行之后，才放到了 <code>class_rw_t</code> 指向的只读区域 <code>class_ro_t</code>，这样我们即可以在运行时为 <code>class_rw_t</code> 添加方法，也不会影响类的只读结构。</li>
+<li>在 <code>class_ro_t</code> 中的属性在运行期间就不能改变了，再添加方法时，会修改 <code>class_rw_t</code> 中的 <code>methods</code> 列表，而不是 <code>class_ro_t</code> 中的 <code>baseMethods</code>，对于方法的添加会在之后的文章中分析。</li>
+</ol>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://www.sealiesoftware.com/blog/archive/2009/04/14/objc_explain_Classes_and_metaclasses.html" rel="external nofollow noopener noreferrer" target="_blank">Classes and Metaclasses</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Tagged_pointer" rel="external nofollow noopener noreferrer" target="_blank">Tagged Pointer</a></li>
+<li><a href="https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html" rel="external nofollow noopener noreferrer" target="_blank">类型编码</a></li>
+<li><a href="http://nshipster.cn/type-encodings/" rel="external nofollow noopener noreferrer" target="_blank">Type Encodings</a></li>
+</ul>
+<p>Follow: <a href="https://github.com/Draveness" rel="external nofollow noopener noreferrer" target="_blank">@Draveness</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/Runtime/objc/0_refer" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1626,81 +1825,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/IOS12/IOS12-compatibility/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-C++语言/C++Primer/第七章类/类" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第七章类/">第七章类</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/类/">类</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/C++语言/C++Primer/第七章类/类/">
-            <time datetime="2018-08-20T04:07:12.000Z" itemprop="datePublished">2018-08-20</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/C++语言/C++Primer/第七章类/类/">类</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>主要内容：</p>
-<ol>
-<li>定义抽象数据类型</li>
-<li>访问控制与封装</li>
-<li>类的其他特性</li>
-<li>类的作用域</li>
-<li>构造函数再探</li>
-<li>类的静态成员</li>
-</ol>
-<p>数据抽象能帮助我们将对象的具体实现和对象所能执行的操作分离开来。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/C++语言/C++Primer/第七章类/类/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

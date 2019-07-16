@@ -833,7 +833,7 @@
                             &nbsp;
                             OAuth 2.0
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/OAuth 2.0/OAuth/"></a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/OAuth 2.0/OAuth/">理解OAuth</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -963,6 +963,454 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/foundation使用记录/NSDateFormatter时间格式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSDateFormatter/">NSDateFormatter</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">
+            <time datetime="2018-03-22T07:35:49.000Z" itemprop="datePublished">2018-03-22</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="时间匹配格式"><a href="#时间匹配格式" class="headerlink" title="时间匹配格式"></a>时间匹配格式</h2><caption><a>Date Field Symbol Table</a></caption>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Sym.</th>
+<th>No.</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>era</td>
+<td>G</td>
+<td>1..3</td>
+<td>AD</td>
+<td>Era - Replaced with the Era string for the current date. One to three letters for the abbreviated form, four letters for the long form, five for the narrow form.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Anno Domini</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>A</td>
+</tr>
+<tr>
+<td>year</td>
+<td>y</td>
+<td>1..n</td>
+<td>1996</td>
+<td>Year. Normally the length specifies the padding, but for two letters it also specifies the maximum length. Example:</td>
+</tr>
+<tr>
+<td></td>
+<td>Y</td>
+<td>1..n</td>
+<td>1997</td>
+<td>Year (in “Week of Year” based calendars). This year designation is used in ISO year-week calendar as defined by ISO 8601, but can be used in non-Gregorian based calendar systems where week date processing is desired. May not always be the same value as calendar year.</td>
+</tr>
+<tr>
+<td></td>
+<td>u</td>
+<td>1..n</td>
+<td>4601</td>
+<td>Extended year. This is a single number designating the year of this calendar system, encompassing all supra-year fields. For example, for the Julian calendar system, year numbers are positive, with an era of BCE or CE. An extended year value for the Julian calendar system assigns positive values to CE years and negative values to BCE years, with 1 BCE being year 0.</td>
+</tr>
+<tr>
+<td>quarter</td>
+<td>Q</td>
+<td>1..2</td>
+<td>02</td>
+<td>Quarter - Use one or two for the numerical quarter, three for the abbreviation, or four for the full name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Q2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>2nd quarter</td>
+</tr>
+<tr>
+<td></td>
+<td>q</td>
+<td>1..2</td>
+<td>02</td>
+<td><strong>Stand-Alone</strong> Quarter - Use one or two for the numerical quarter, three for the abbreviation, or four for the full name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Q2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>2nd quarter</td>
+</tr>
+<tr>
+<td>month</td>
+<td>M</td>
+<td>1..2</td>
+<td>09</td>
+<td>Month - Use one or two for the numerical month, three for the abbreviation, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Sept</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>September</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>S</td>
+</tr>
+<tr>
+<td></td>
+<td>L</td>
+<td>1..2</td>
+<td>09</td>
+<td><strong>Stand-Alone</strong> Month - Use one or two for the numerical month, three for the abbreviation, or four for the full name, or 5 for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Sept</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>September</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>S</td>
+</tr>
+<tr>
+<td></td>
+<td>l</td>
+<td>1</td>
+<td>*</td>
+<td>Special symbol for Chinese leap month, used in combination with M. Only used with the Chinese calendar.</td>
+</tr>
+<tr>
+<td>week</td>
+<td>w</td>
+<td>1..2</td>
+<td>27</td>
+<td>Week of Year.</td>
+</tr>
+<tr>
+<td></td>
+<td>W</td>
+<td>1</td>
+<td>3</td>
+<td>Week of Month</td>
+</tr>
+<tr>
+<td>day</td>
+<td>d</td>
+<td>1..2</td>
+<td>1</td>
+<td>Date - Day of the month</td>
+</tr>
+<tr>
+<td></td>
+<td>D</td>
+<td>1..3</td>
+<td>345</td>
+<td>Day of year</td>
+</tr>
+<tr>
+<td></td>
+<td>F</td>
+<td>1</td>
+<td>2</td>
+<td>Day of Week in Month. The example is for the 2nd Wed in July</td>
+</tr>
+<tr>
+<td></td>
+<td>g</td>
+<td>1..n</td>
+<td>2451334</td>
+<td>Modified Julian day. This is different from the conventional Julian day number in two regards. First, it demarcates days at local zone midnight, rather than noon GMT. Second, it is a local number; that is, it depends on the local time zone. It can be thought of as a single number that encompasses all the date-related fields.</td>
+</tr>
+<tr>
+<td>week day</td>
+<td>E</td>
+<td>1..3</td>
+<td>Tues</td>
+<td>Day of week - Use one through three letters for the short day, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td></td>
+<td>e</td>
+<td>1..2</td>
+<td>2</td>
+<td>Local day of week. Same as E except adds a numeric value that will depend on the local starting day of the week, using one or two letters. For this example, Monday is the first day of the week.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Tues</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td></td>
+<td>c</td>
+<td>1</td>
+<td>2</td>
+<td><strong>Stand-Alone</strong> local day of week - Use one letter for the local numeric value (same as ‘e’), three for the short day, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Tues</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td>period</td>
+<td>a</td>
+<td>1</td>
+<td>AM</td>
+<td>AM or PM</td>
+</tr>
+<tr>
+<td>hour</td>
+<td>h</td>
+<td>1..2</td>
+<td>11</td>
+<td>Hour [1-12].</td>
+</tr>
+<tr>
+<td></td>
+<td>H</td>
+<td>1..2</td>
+<td>13</td>
+<td>Hour [0-23].</td>
+</tr>
+<tr>
+<td></td>
+<td>K</td>
+<td>1..2</td>
+<td>0</td>
+<td>Hour [0-11].</td>
+</tr>
+<tr>
+<td></td>
+<td>k</td>
+<td>1..2</td>
+<td>24</td>
+<td>Hour [1-24].</td>
+</tr>
+<tr>
+<td></td>
+<td>j</td>
+<td>1..2</td>
+<td>n/a</td>
+<td>This is a special-purpose symbol. It must not occur in patterns, but is reserved for use in APIs doing flexible date pattern generation, and requests the preferred format (12 vs 24 hour) for the language in question.</td>
+</tr>
+<tr>
+<td>minute</td>
+<td>m</td>
+<td>1..2</td>
+<td>59</td>
+<td>Minute. Use one or two for zero padding.</td>
+</tr>
+<tr>
+<td>second</td>
+<td>s</td>
+<td>1..2</td>
+<td>12</td>
+<td>Second. Use one or two for zero padding.</td>
+</tr>
+<tr>
+<td></td>
+<td>S</td>
+<td>1..n</td>
+<td>3457</td>
+<td>Fractional Second - rounds to the count of letters. (example is for 12.34567)</td>
+</tr>
+<tr>
+<td></td>
+<td>A</td>
+<td>1..n</td>
+<td>69540000</td>
+<td>Milliseconds in day. This field behaves  _exactly_  like a composite of all time-related fields, not including the zone fields. As such, it also reflects discontinuities of those fields on DST transition days. On a day of DST onset, it will jump forward. On a day of DST cessation, it will jump backward. This reflects the fact that is must be combined with the offset field to obtain a unique local time value.</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>z</td>
+<td>1..3</td>
+<td>PDT _fallbacks: _HPG-8:00 GMT-08:00</td>
+<td>Timezone - with the s _pecific non-location format_ . Where that is unavailable, falls back to  _localized GMT format_ . Use one to three letters for the short format or four for the full format. In the short format, metazone names are not used unless the commonlyUsed flag is on in the locale.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Pacific Daylight Time _fallbacks:_  HPG-8:00 GMT-08:00</td>
+</tr>
+<tr>
+<td></td>
+<td>Z</td>
+<td>1..3</td>
+<td>-0800</td>
+<td>Timezone - Use one to three letters for RFC 822 format, four letters for the localized GMT format.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>HPG+8:00 _fallbacks:_ GMT-08:00</td>
+</tr>
+<tr>
+<td></td>
+<td>v</td>
+<td>1</td>
+<td>PT</td>
+<td>Timezone - with the  _generic_   _non-location format_ . Where that is unavailable, uses special fallback rules given in  _[Appendix J][6]_ . Use one letter for short format, four for long format.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Pacific Time _fallbacks:_ Pacific Time (Canada) Pacific Time (Yellowknife) United States (Los Angeles) Time HPG-8:35 GMT-08:35</td>
+</tr>
+<tr>
+<td></td>
+<td>V</td>
+<td>1</td>
+<td>PST HPG-8:00 GMT-08:00</td>
+<td>Timezone - with the same format as z, except that metazone timezone abbreviations are to be displayed if available, regardless of the value of commonlyUsed.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>United States (Los Angeles) Time _fallbacks:_  HPG-8:35 MT-08:35</td>
+<td>Timezone - with the  _generic_   _location format_ . Where that is unavailable, falls back to the localized GMT format. (Fallback is only necessary with a GMT-style Timezone ID, like Etc/GMT-830.) This is especially useful when presenting possible timezone choices for user selection, since the naming is more uniform than the v format.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patternss" rel="external nofollow noopener noreferrer" target="_blank">UNICODE LOCALE DATA MARKUP LANGUAGE (LDML)</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/暂无分类/指定初始化函数" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1285,151 +1733,6 @@
 <li><a href="https://onevcat.com/2019/06/swift-ui-firstlook/" rel="external nofollow noopener noreferrer" target="_blank">SwiftUI 的一些初步探索 (一)</a></li>
 <li><a href="https://mp.weixin.qq.com/s/ciiauLB__o-cXXfKn7lL1Q" rel="external nofollow noopener noreferrer" target="_blank">系列文章深度解读|SwiftUI 背后那些事儿</a></li>
 </ol>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-编程理论/OAuth 2.0/OAuth" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p>授权登录</p>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>随着国美生态系统中APP的不断增加，多个APP的登录问题日渐突出，比如我们新做一个美店APP，只有两个选择</p>
-<ol>
-<li>重新开放美店的登录系统</li>
-<li>复用现有国美APP的代码</li>
-</ol>
-<p>对于方案1，不仅需要增加开发成本，并且不一定能有效的接入国美会员体系。<br>对于方案2，也就是我们现在使用的方案，国美APP提供了登录SDK，美店APP集成，这就存在严重的不足，首先是APP的包会变大，其次每次有新的APP需要集成登录SDK，都需要前端后端开发一起开发，以便区分什么APP集成，做出对应的兼容措施，再次是SDK变化，集成SDK的APP不能及时集成，最后，无法保证其他APP能否安全的保护用户的信息。</p>
-<p>所以我们就考虑，有没有更有效的方案呢？</p>
-<p>参考微信、QQ三方授权，发现，通过OAuth授权方案可以解决上面的登录问题，同时该方案保证了安全性。</p>
-<h2 id="OAuth-简介"><a href="#OAuth-简介" class="headerlink" title="OAuth 简介"></a>OAuth 简介</h2><p>OAuth 2.0 是目前最流行的授权机制，用来授权第三方应用，获取用户数据。该机制用到了很多术语，为了方便，我将术语列举在下面</p>
-<ol>
-<li>Third-party application：第三方应用程序，本文中又称”客户端”（client），可以想象为美店APP。</li>
-<li>HTTP service：HTTP服务提供商，可以假象为国美后端服务。</li>
-<li>Resource Owner：资源所有者，可以假想为过么的用户。</li>
-<li>Authorization server：认证服务器，即服务提供商专门用来处理认证的服务器。</li>
-<li>Resource server：资源服务器，即服务提供商存放用户生成的资源的服务器。</li>
-</ol>
-<p>我将上面5个角色画了一张图，方便理解：</p>
-<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/auth_struct.png" alt="OAuth"></p>
-<p>简单说，OAuth 就是一种授权机制。数据的所有者告诉系统，同意授权第三方应用进入系统，获取这些数据。系统从而产生一个短期的进入令牌（token），用来代替密码，供第三方应用使用。</p>
-<h2 id="总体设计"><a href="#总体设计" class="headerlink" title="总体设计"></a>总体设计</h2><p><img src="/wiki/编程理论/OAuth 2.0/OAuth/auth.png" alt="总体设计"></p>
-<p>【总体设计图】</p>
-<h3 id="开放平台设计"><a href="#开放平台设计" class="headerlink" title="开放平台设计"></a>开放平台设计</h3><p>开发平台需要三个页面：</p>
-<ol>
-<li>一个是列表页，描述所有注册的APP列表</li>
-<li>详情页，可以参考应用的信息</li>
-<li>注册页面，注册一个三分APP</li>
-</ol>
-<p>列表页如下：<br><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpenList.png" alt="OAuth"></p>
-<p>详情页如下：<br><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpen_detail.png" alt="OAuth"></p>
-<p>注册APP页面如下，分别是IOS和Android注册页面：</p>
-<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpen_IOS.png" alt="OAuth"><br><img src="/wiki/编程理论/OAuth 2.0/OAuth/QQOpen_andrion.png" alt="OAuth"></p>
-<p>需要的字段</p>
-<table>
-<thead>
-<tr>
-<th>字段名称</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>APPID</td>
-<td>—</td>
-</tr>
-<tr>
-<td>APPKEY</td>
-<td>—</td>
-</tr>
-<tr>
-<td>appName</td>
-<td>应用的名称</td>
-</tr>
-<tr>
-<td>appIcon</td>
-<td>应用图标</td>
-</tr>
-<tr>
-<td>appDescription</td>
-<td>应用描述</td>
-</tr>
-<tr>
-<td>appOwener</td>
-<td>应用提供方</td>
-</tr>
-<tr>
-<td>appStoreID</td>
-<td>appStore上的应用ID</td>
-</tr>
-<tr>
-<td>appBundleID</td>
-<td>APP的包ID</td>
-</tr>
-</tbody>
-</table>
-<h3 id="IOS平台SDK设计"><a href="#IOS平台SDK设计" class="headerlink" title="IOS平台SDK设计"></a>IOS平台SDK设计</h3><p>SDK 完成的功能包括：</p>
-<ol>
-<li>换起微信</li>
-<li>从微信回到三方APP</li>
-</ol>
-<p>所以设计的接口包括</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*1 发送请求到国美，等待国美返回onResp */</span></span><br><span class="line">+(<span class="keyword">BOOL) </span>sendReq:(<span class="keyword">BaseReq*)req;</span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line"><span class="keyword"></span></span><br><span class="line">/*2 处理国美通过URL启动三方App时传递的数据 */</span><br><span class="line">+(<span class="keyword">BOOL) </span>handleOpenURL:(NSURL *) url delegate:(id&lt;GMApiDelegate&gt;) delegate<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/*3 检查国美是否已被用户安装 */</span></span><br><span class="line">+(<span class="keyword">BOOL) </span>isWXAppInstalled<span class="comment">;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*4 获取当前微信SDK的版本号*/</span></span><br><span class="line">+(NSString *) getApiVersion<span class="comment">;</span></span><br></pre></td></tr></table></figure>
-<p>其中sendReq对应 【总体设计图】的步骤 A（导向授权服务，即导向国美APP）, 下面是OAuth规范要求的参数：</p>
-<ol>
-<li>response_type：表示授权类型，必选项，此处的值固定为”code”</li>
-<li>client_id：表示客户端的ID，必选项</li>
-<li>redirect_uri：表示重定向URI，可选项</li>
-<li>scope：表示申请的权限范围，可选项</li>
-<li>state：表示客户端的当前状态，可以指定任意值，认证服务器会原封不动地返回这个值。</li>
-</ol>
-<p>我们分析了微信的URL，各个参数对应如下：</p>
-<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/openGomeUrl.png" alt="定向到国美APP的参数"></p>
-<p>我分析了微信的源码得到定向的整体流程，我们也可以完全参考这个流程</p>
-<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/sendRequet.png" alt="sendReq 流程"></p>
-<p>其中handleOpenURL 对应【总体设计图】的步骤G （国美APP导向三方APP后的处理），OAuth文档规定的参数如下：</p>
-<ol>
-<li>code：表示授权码，必选项。该码的有效期应该很短，通常设为10分钟，客户端只能使用该码一次，否则会被授权服务器拒绝。该码与客户端ID和重定向URI，是一一对应关系。</li>
-<li>state：如果客户端的请求中包含这个参数，认证服务器的回应也必须一模一样包含这个参数。</li>
-</ol>
-<p>我们分析了微信的URL，各个参数对应如下：<br><img src="/wiki/编程理论/OAuth 2.0/OAuth/code.png" alt="国美APP定向到三方APP的参数"></p>
-<p>我参照微信的流程，设计定向后，SDK的处理流程如下：</p>
-<p><img src="/wiki/编程理论/OAuth 2.0/OAuth/handleurl.png" alt="handleOpenURL 流程"></p>
-<h3 id="后端设计"><a href="#后端设计" class="headerlink" title="后端设计"></a>后端设计</h3><p>使用code换token的请求，对应于【总体设计图中】中的步骤H、I，包含以下参数：</p>
-<ol>
-<li>grant_type：表示使用的授权模式，必选项，此处的值固定为”authorization_code”。</li>
-<li>code：表示上一步获得的授权码，必选项。</li>
-<li>redirect_uri：表示重定向URI，必选项，且必须与A步骤中的该参数值保持一致。</li>
-<li>client_id：表示客户端ID，必选项。</li>
-</ol>
-<p>使用code换token的响应，对应于【总体设计图中】中的步骤J，包含以下参数：</p>
-<ol>
-<li>access_token：表示访问令牌，必选项。</li>
-<li>token_type：表示令牌类型，该值大小写不敏感，必选项，可以是bearer类型或mac类型。</li>
-<li>expires_in：表示过期时间，单位为秒。如果省略该参数，必须其他方式设置过期时间。</li>
-<li>refresh_token：表示更新令牌，用来获取下一次的访问令牌，可选项。</li>
-<li>scope：表示权限范围，如果与客户端申请的范围一致，此项可省略。</li>
-</ol>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="https://www.ruanyifeng.com/blog/2014/05/oauth_2_0.html" rel="external nofollow noopener noreferrer" target="_blank">理解OAuth 2.0</a></li>
-</ul>
 
             </div>
         
