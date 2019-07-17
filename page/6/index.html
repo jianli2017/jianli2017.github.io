@@ -599,7 +599,7 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/12__方法/">12. 方法</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/10__类和结构体/">10. 类和结构体</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/11__属性/">11. 属性</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/17__可选链/">17. 可选链</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/13__下标/">13. 下标</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/16__析构过程/">16. 析构过程</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/18__错误处理/">18. 错误处理</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/15__构造过程/">15. 构造过程</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/14__继承/">14. 继承</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">20. 嵌套类型</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/2__基础/">2. 基础</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/22__协议/">22. 协议</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/23__泛型/">23. 泛型</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/">21. 扩展</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/7__函数/">7. 函数</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/8__闭包/">7. 函数</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/24__自动引用计数器/">24. 自动引用计数器</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/9__枚举/">1. 枚举</a></li>  </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/IOS/swift语言/swift使用经验/">swift 使用经验</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -963,6 +963,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/load/">load</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/11_load/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/Runtime/objc/13_class_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1029,7 +1095,7 @@
 
 
     
-        <article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1045,13 +1111,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/load/">load</a>
+        <a class="tag-link" href="/tags/initialize/">initialize</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/11_load/">
+        <a href="/wiki/IOS/Runtime/objc/12_initialize/">
             <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
         </a>
     </div>
@@ -1063,7 +1129,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a>
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a>
         </h1>
     
 
@@ -1075,13 +1141,18 @@
         
             
                 
-                <p></p><p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p><p></p>
+                <p></p><p>这篇文章可能是对 Objective-C 源代码解析系列文章中最短的一篇了，在 Objective-C 中，我们总是会同时想到 <code>load</code>、<code>initialize</code> 这两个类方法。而这两个方法也经常在一起比较。</p>
+<p>本文会主要介绍：</p>
+<ol>
+<li><code>initialize</code> 方法的调用为什么是惰性的。</li>
+<li>这货能干啥。</li>
+</ol><p></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
+                <a href="/wiki/IOS/Runtime/objc/12_initialize/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1570,74 +1641,8 @@
 
 
     
-        <article id="post-IOS/Runtime/objc/3NSObject" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/NSObject/">NSObject</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/3NSObject/">
-            <time datetime="2018-11-02T02:38:11.000Z" itemprop="datePublished">2018-11-02</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文保存了NSObject的基本完整类图。方便以后理解。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/3NSObject/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/5/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/7/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/5/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/7/">下一页 &raquo;</a>
         </nav>
     
 </section>

@@ -599,7 +599,7 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/12__方法/">12. 方法</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/10__类和结构体/">10. 类和结构体</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/11__属性/">11. 属性</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/17__可选链/">17. 可选链</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/13__下标/">13. 下标</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/16__析构过程/">16. 析构过程</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/18__错误处理/">18. 错误处理</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/15__构造过程/">15. 构造过程</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/14__继承/">14. 继承</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">20. 嵌套类型</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/2__基础/">2. 基础</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/22__协议/">22. 协议</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/23__泛型/">23. 泛型</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/">21. 扩展</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/7__函数/">7. 函数</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/8__闭包/">7. 函数</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/24__自动引用计数器/">24. 自动引用计数器</a></li>  <li class="file"><a href="/wiki/IOS/swift语言/swift学习摘要/9__枚举/">1. 枚举</a></li>  </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/IOS/swift语言/swift使用经验/">swift 使用经验</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -963,7 +963,7 @@
 </aside>
             
             <section id="main">
-        <article id="post-IOS/swift语言/swift学习摘要/20__嵌套类型" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/swift语言/swift学习摘要/22__协议" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -979,13 +979,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/嵌套类型/">嵌套类型</a>
+        <a class="tag-link" href="/tags/协议/">协议</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">
+        <a href="/wiki/IOS/swift语言/swift学习摘要/22__协议/">
             <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
         </a>
     </div>
@@ -997,7 +997,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">20. 嵌套类型</a>
+            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/22__协议/">22. 协议</a>
         </h1>
     
 
@@ -1010,15 +1010,99 @@
             
                 
                 <p><ol>
-<li>Nested Types in Action</li>
-<li>Referring to Nested Types</li>
+<li>Protocol Syntax</li>
+<li>Property Requirements</li>
+<li>Method Requirements</li>
+<li>Mutating Method Requirements</li>
+<li>Initializer Requirements</li>
+<li>Protocols as Types</li>
+<li>Delegation</li>
+<li>Adding Protocol Conformance with an Extension</li>
+<li>Collections of Protocol Types</li>
+<li>Protocol Inheritance</li>
+<li>Class-Only Protocols</li>
+<li>Protocol Composition</li>
+<li>Checking for Protocol Conformance</li>
+<li>Optional Protocol Requirements</li>
+<li>Protocol Extensions</li>
 </ol></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/#more">查看更多</a>
+                <a href="/wiki/IOS/swift语言/swift学习摘要/22__协议/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/swift语言/swift学习摘要/19__类型转换" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/swift学习摘要/">swift学习摘要</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/类型转换/">类型转换</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">
+            <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p><ol>
+<li>Defining a Class Hierarchy for Type Casting</li>
+<li>Checking Type</li>
+<li>Downcasting</li>
+<li>Type Casting for Any and AnyObject</li>
+</ol></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1464,76 +1548,6 @@
 
 
     
-        <article id="post-IOS/swift语言/swift学习摘要/10__类和结构体" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/swift学习摘要/">swift学习摘要</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/类和结构体/">类和结构体</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/10__类和结构体/">
-            <time datetime="2019-01-24T04:07:12.000Z" itemprop="datePublished">2019-01-24</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/10__类和结构体/">10. 类和结构体</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p><ol>
-<li>Comparing Structures and Classes</li>
-<li>Structures and Enumerations Are Value Types</li>
-<li>Classes Are Reference Types</li>
-</ol></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/10__类和结构体/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-IOS/swift语言/swift学习摘要/7__函数" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1680,7 +1694,7 @@
 
     
         <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/15/">15</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/2/">&laquo; 上一页</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/16/">16</a><a class="extend next" rel="next" href="/page/4/">下一页 &raquo;</a>
         </nav>
     
 </section>

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-16T09:35:56.575Z</updated>
+  <updated>2019-07-17T02:21:31.728Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>swift 使用经验</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E4%BD%BF%E7%94%A8%E7%BB%8F%E9%AA%8C/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/swift使用经验/</id>
+    <published>2019-07-17T01:07:12.000Z</published>
+    <updated>2019-07-17T02:21:31.728Z</updated>
+    
+    <content type="html"><![CDATA[<p>列举swift使用经验</p><a id="more"></a><h2 id="Swift-数组Array作为函数参数时如何在函数内部改变其值？"><a href="#Swift-数组Array作为函数参数时如何在函数内部改变其值？" class="headerlink" title="Swift 数组Array作为函数参数时如何在函数内部改变其值？"></a>Swift 数组Array作为函数参数时如何在函数内部改变其值？</h2><p>Swift中我们可以在参数类型的前面加上一个 inout 关键字，并在调用函数时在参数前加个取地址符 &amp;，如下所示：</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func doSomething(numArr: inout [String])&#123;</span><br><span class="line">    numArr.append(<span class="string">"4"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="selector-tag">var</span> numbers = [<span class="string">"1"</span>,<span class="string">"2"</span>,<span class="string">"3"</span>]</span><br><span class="line"><span class="function"><span class="title">doSomething</span><span class="params">(numArr: &amp;numbers)</span></span></span><br><span class="line"><span class="function"><span class="title">print</span><span class="params">(numbers)</span></span></span><br></pre></td></tr></table></figure><blockquote><p>注意，inout 修饰参数时采用的是拷入拷出模式，即在函数内部使用的是参数的copy，函数结束后，又对参数重新赋值。</p><p>由此，可以延伸一下，当一个类的属性被设置了 willSet 和 didSet 观察器时，如果该属性被作为函数参数，同时被 inout 修饰，那么当调用此函数时，会触发 willSet 和 didSet 观察器。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;列举swift使用经验&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>AC自动机多模式匹配</title>
@@ -518,21 +540,19 @@
   </entry>
   
   <entry>
-    <title>19. 类型转换</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/19__%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/swift学习摘要/19__类型转换/</id>
+    <title>20. 嵌套类型</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/20__%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/</id>
     <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T03:55:37.511Z</updated>
+    <updated>2019-01-29T03:58:49.024Z</updated>
     
-    <content type="html"><![CDATA[<ol><li>Defining a Class Hierarchy for Type Casting</li><li>Checking Type</li><li>Downcasting</li><li>Type Casting for Any and AnyObject</li></ol><a id="more"></a><p>Swift 中的类型转换是通过 is 和 as 运算符实现的。 这两个运算符提供了一种简单 而直观的方法来检查值的类型，或将值转换为其他类型。</p><h2 id="定义一个类结构作为类型转换示例"><a href="#定义一个类结构作为类型转换示例" class="headerlink" title="定义一个类结构作为类型转换示例"></a>定义一个类结构作为类型转换示例</h2><p>你可以使用类型转换连同类和子类的层次结构来检查特定类的实例类型，并将该实例强制转 换为同一层次结构中的另一个类。</p><h2 id="类型检查"><a href="#类型检查" class="headerlink" title="类型检查"></a>类型检查</h2><p>使用 类型检查运算符( is )来检查实例是否属于某个特定子类型。 如果实例属于该子类型，则类型检查运算符将返回 true ，否则，将返回 false 。</p><h2 id="强制转型"><a href="#强制转型" class="headerlink" title="强制转型"></a>强制转型</h2><p>实际上某个类型的常量或变量可能本来就是某个子类的实例。当确认是这种情况情况时，你 可以尝试使用 类型强制转换运算符 ( as? 或 as! )将该常量或变量 强制转换 成子 类型。</p><p>由于强制转换可能会失败，因该类型转换运算符有两种不同的形式。条件形式 as? 会返 回你尝试强制转换的类型的可选值。强制形式 as! 则会尝试强制转换，并同时将结果强 制解包。</p><p>当你不确定强制转换是否成功时，请使用类型转换运算符的条件形式( as? )。这种形 式的运算符将始终返回一个可选值，如果无法进行强制转换，该值将为 nil 。这使得你 可以检查强制转换是否成功。<br>仅当你确定强制转换会始终成功时，才使用类型转换运算符的强制形式( as! )。如果 你尝试强制转换为不正确的类型，此形式的运算符将触发运行时错误。</p><blockquote><p>转换实际上不会变更实例或修改其值。原本的实例保持不变;我们仅仅把它看作是它类型的实例，对其进行简单地处理和访问。</p></blockquote><h2 id="对Any和AnyObject做类型转换"><a href="#对Any和AnyObject做类型转换" class="headerlink" title="对Any和AnyObject做类型转换"></a>对Any和AnyObject做类型转换</h2><p>Swift 提供了两种特殊的类型来处理非特定类型:</p><ol><li>Any 可以表示任何类型的实例，包括函数类型。 </li><li>AnyObject 可以表示任何类类型的实例。</li></ol><p>只有在明确需要 Any 或 AnyObject 所提供的行为和功能时才使用他们。 最好在你 的代码中明确需要使用的类型。</p><blockquote><p>注意<br>Any 类型表示任何类型的值，包括可选类型。 如果程序需要一个类型为 Any 的 值，而你却使用了可选类型，Swift 会向你发出警告。 如果你确实需要将可选值作为Any 使用，可以使用 as 操作符将可选类型显式地转换为 Any 类型，如下所 示。</p></blockquote><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let optionalNumber: <span class="keyword">Int</span>? = <span class="number">3</span> things.<span class="keyword">append</span>(optionalNumber) <span class="comment">// 警告 </span></span><br><span class="line">things.<span class="keyword">append</span>(optionalNumber as <span class="keyword">Any</span>) <span class="comment">// 没有警告</span></span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<ol><li>Nested Types in Action</li><li>Referring to Nested Types</li></ol><a id="more"></a><p> 通常我们会创建枚举来支持特定的类或结构体的功能。类似地，为了可以方便地定义在更复杂类型上下文中使用的实用 工具类和结构，Swift 允许你定义 嵌套类型 ，从而实现在枚举、类和结构体中的定义嵌套类型。</p><p>如果要将一个类型嵌套在另一个类型中，只需在支持类型的大括号内定义嵌套类型即可。类型支持多层嵌套。</p><h2 id="嵌套类型的使用"><a href="#嵌套类型的使用" class="headerlink" title="嵌套类型的使用"></a>嵌套类型的使用</h2><h2 id="引⽤嵌套类型"><a href="#引⽤嵌套类型" class="headerlink" title="引⽤嵌套类型"></a>引⽤嵌套类型</h2><p>要在其定义上下文之外使用嵌套类型，需要在其名称前面加上嵌套在其中的类型的名称。</p>]]></content>
     
     <summary type="html">
     
       &lt;ol&gt;
-&lt;li&gt;Defining a Class Hierarchy for Type Casting&lt;/li&gt;
-&lt;li&gt;Checking Type&lt;/li&gt;
-&lt;li&gt;Downcasting&lt;/li&gt;
-&lt;li&gt;Type Casting for Any and AnyObject&lt;/li&gt;
+&lt;li&gt;Nested Types in Action&lt;/li&gt;
+&lt;li&gt;Referring to Nested Types&lt;/li&gt;
 &lt;/ol&gt;
     
     </summary>
@@ -544,49 +564,7 @@
       <category term="swift学习摘要" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
     
     
-      <category term="类型转换" scheme="http://yoursite.com/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>22. 协议</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/22__%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/swift学习摘要/22__协议/</id>
-    <published>2019-01-29T02:07:12.000Z</published>
-    <updated>2019-01-29T10:59:08.348Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>Protocol Syntax</li><li>Property Requirements</li><li>Method Requirements</li><li>Mutating Method Requirements</li><li>Initializer Requirements</li><li>Protocols as Types</li><li>Delegation</li><li>Adding Protocol Conformance with an Extension</li><li>Collections of Protocol Types</li><li>Protocol Inheritance</li><li>Class-Only Protocols</li><li>Protocol Composition</li><li>Checking for Protocol Conformance</li><li>Optional Protocol Requirements</li><li>Protocol Extensions</li></ol><a id="more"></a><p><strong>协议</strong>可以作为方法、属性或者其他的一些特定的任务和功能块的设计蓝图。协议可以适用于类、结构体、枚举,并为它们提供具体的实现或满足特定的需求。任意类型只要满足一个协议的要求，那么我们便称这个类型<strong>遵循</strong>这个协议。</p><p>除了要求遵循协议的类型必须提供对应的实现以外，还可以通过<strong>协议扩展</strong>来为协议的遵循者提供默认的或者对其有利的实现。</p><h2 id="协议语法"><a href="#协议语法" class="headerlink" title="协议语法"></a>协议语法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">SomeProtocol</span> </span>&#123;</span><br><span class="line"> <span class="comment">// 协议的定义写在这⾥</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight thrift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SomeStructure</span>: FirstProtocol, AnotherProtocol </span>&#123; </span><br><span class="line"><span class="comment">// 结构体的定义写在这⾥</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>需要注意的是，在为子类适配协议时，父类的名称需要写在协议名之前，分隔符不变。</p><h2 id="属性要求"><a href="#属性要求" class="headerlink" title="属性要求"></a>属性要求</h2><p>协议可以要求遵循者提供特定名称的实例属性、类型属性。协议只指定属性的名称和类型，而不指定属性是储存属性还是计算属性。此外，协议中也可以指定属性是可读的还是可读可写的。</p><p><strong>协议可以指定属性的名称、类型、读写性</strong></p><p>协议属性通常会以var关键字来声明变量属性。在类型声明后加上<code>{ get set }</code>来表示属性是可读可写的，用<code>{ get }</code>来表示可读属性。</p><p>在协议中定义<strong>类型属性</strong>时，始终使用static关键字作为前缀。即使该<strong>类型属性</strong>在类实现时以以 class 或 static 关键字作为前缀，这个规则也适用。</p><h2 id="方法要求"><a href="#方法要求" class="headerlink" title="方法要求"></a>方法要求</h2><p>我们无法为协议中定义的方法的参数指定默认值。</p><p>与<strong>类型属性</strong>一样，当在协议中定义<strong>类型方法</strong>时，始终使用static 关键字作为前缀。即使该类型方法要求在由类实现时以 class 或 static 关键字为前缀，也是如此。</p><h2 id="异变方法要求"><a href="#异变方法要求" class="headerlink" title="异变方法要求"></a>异变方法要求</h2><blockquote><p>注意：如果将协议实例方法要求标记为mutating，则在为类编写该方法的实现时，不需要写<code>mutating</code>关键字。 mutating关键字仅由结构体和枚举使用。</p></blockquote><h2 id="构造器要求"><a href="#构造器要求" class="headerlink" title="构造器要求"></a>构造器要求</h2><p>协议可能要求通过遵循类型来实现<strong>指定构造器</strong>。和普通构造器写法一样，你可以将构造器定义写在协议中，只是不用写大括号和构造器实现。</p><h3 id="类实现协议构造器的要求"><a href="#类实现协议构造器的要求" class="headerlink" title="类实现协议构造器的要求"></a>类实现协议构造器的要求</h3><p>你可以通过实现指定构造器、便利构造器来使遵循协议的类满足协议的构造器要求。在这两种情况下，你必须使用 required 修饰符标记构造器实现。</p><h3 id="可失败的构造器的要求"><a href="#可失败的构造器的要求" class="headerlink" title="可失败的构造器的要求"></a>可失败的构造器的要求</h3><p>遵循类型可以用可失败或非可失败的构造器来满足可失败的构造器要求。非可失败的构造器要求必须用非可失败的构造器或隐式展开的可失败的构造器来满足。</p><h2 id="将协议作为类型"><a href="#将协议作为类型" class="headerlink" title="将协议作为类型"></a>将协议作为类型</h2><p>协议本身并不实现任何功能。不过，你创建的任何协议都可以变为一个功能完备的类型在代码中使用。因为它是一种类型，所以你可以在允许其他类型的许多地方使用协议，包括:</p><ol><li>作为函数、方法或构造器的参数类型或返回类型</li><li>作为常量、变量或属性的类型</li><li>作为数组、字典或其他容器的元素类型</li></ol><h2 id="委托"><a href="#委托" class="headerlink" title="委托"></a>委托</h2><p>委托是一种设计模式，它使类或结构体能够将其某些职责交给(或委托)到另一种类型的实例。通过定义封装委托职责的协议来实现此设计模式，从而保证遵循协议的类型(称为委托)提供被委托的功能。</p><h2 id="扩展添加遵循某协议"><a href="#扩展添加遵循某协议" class="headerlink" title="扩展添加遵循某协议"></a>扩展添加遵循某协议</h2><pre><code>extension Dice: TextRepresentable {    var textualDescription: String {        return &quot;A \(sides)-sided dice&quot;    }}</code></pre><h3 id="有条件地遵循协议"><a href="#有条件地遵循协议" class="headerlink" title="有条件地遵循协议"></a>有条件地遵循协议</h3><p>泛型类型可能只能在特定条件下满足协议的要求，例如类的泛型参数遵循一个协议。你可以通过在扩展类型时列出条件约束，让泛型类型有条件的遵循一个协议。通过编写一个泛型where分句，在遵循的协议名称后面写上约束条件。</p><h3 id="通过扩展申明类采纳了协议"><a href="#通过扩展申明类采纳了协议" class="headerlink" title="通过扩展申明类采纳了协议"></a>通过扩展申明类采纳了协议</h3><p>如果一个类型已经满足遵循一个协议的所有要求，但它没有申明遵循了这个协议，你可以通过一个空的扩展遵循该协议。</p><blockquote><p>注意：类型不会自动遵循一个协议，即便已经满足这个协议的要求。它们必须显示的申明它们遵循了这个协议。</p></blockquote><h2 id="协议类型的集合"><a href="#协议类型的集合" class="headerlink" title="协议类型的集合"></a>协议类型的集合</h2><p>协议可以用作诸如数组或字典之类的集合类型的元素类型。</p><h2 id="协议继承"><a href="#协议继承" class="headerlink" title="协议继承"></a>协议继承</h2><p>协议可以继承一个或多个协议，并且可以在其继承的协议的基础上添加更多的要求。协议继承的语法类似于类继承的语法，但是协议继承支持同时继承多个协议，并用逗号隔开。</p><h2 id="类的专属协议"><a href="#类的专属协议" class="headerlink" title="类的专属协议"></a>类的专属协议</h2><p>你可以通过将<code>AnyObject</code>协议添加到协议的继承列表中，来将协议限定为仅类类型(而不是结构体或枚举)可用。</p><blockquote><p>注意： 当协议的要求遵循者必须符合引用语义而不是值语义时，请使用<strong>类专属协议</strong>。</p></blockquote><h2 id="协议组合"><a href="#协议组合" class="headerlink" title="协议组合"></a>协议组合</h2><p>某些场合下，要求类型可以同时遵循多个协议是很有用的。您可以使用<strong>协议组合</strong>将多个协议组合到单个需求中。协议组合的行为就像你定义了一个临时本地协议，该协议具有组合中所有协议的要求。协议组合不定义任何新的协议类型。</p><p>协议组合使用<code>SomeProtocol &amp; AnotherProtocol</code>的形式。你可以根据需要，列出尽可能多的协议，用&amp;符号分隔它们。除了协议列表之外，协议组合还可以包含一个类类型，你可以使用它来指定继承的父类。</p><h2 id="检查协议的遵循情况"><a href="#检查协议的遵循情况" class="headerlink" title="检查协议的遵循情况"></a>检查协议的遵循情况</h2><p>你可以使用<strong>类型转换</strong>中描述的 is 和 as 运算符来检查协议遵循、转换成特定协议。检查和转换协议与检查和转换类型的语法相同:</p><ol><li>如果实例遵循协议，则is运算符返回true ，如果不遵循则返回false 。</li><li>向下转换运算符as?返回协议类型的可选值，如果实例不遵循该协议，则该值为nil 。</li><li>向下转换运算符的as!强制向下转换为协议类型，如果向下转换不成功则触发运行时错误。</li></ol><h2 id="可选协议要求"><a href="#可选协议要求" class="headerlink" title="可选协议要求"></a>可选协议要求</h2><p>你可以为协议定义可选要求，这些要求不强制遵循者必须实现。可选要求以 optional修饰符为前缀，作为协议定义的一部分。</p><p>可选要求允许你的代码与Objective-C交互。协议和可选要求都必须用@objc 属性标记。请注意：@objc协议只能由继承自Objective-C类或其他@objc类的类遵循。结构体或枚举不能遵循它们。</p><p>在可选要求中使用方法或属性时，其类型将自动变为可选。例如，类型 (Int) -&gt;String 的方法变为 ((Int) -&gt; String)? 。请注意：整个函数类型变成了可选项， 而不是方法的返回值。</p><p>考虑到遵循协议的类型可能未实现要求，你应该使用可选链来调用可选协议。你通过在调用方法名称后面写一个问号来检查可选方法是否实现，例如 <code>someOptionalMethod? (someArgument)</code> 。</p><h2 id="协议扩展–协议上创建扩展"><a href="#协议扩展–协议上创建扩展" class="headerlink" title="协议扩展–协议上创建扩展"></a>协议扩展–协议上创建扩展</h2><p><font color="blue">通过在协议上创建扩展</font>，所有遵循者都将自动获得此方法的实现，而无需任何其他修改。</p><p>协议扩展可以为符合协议的类型添加实现，但无法扩展协议本身或是继承其他协议。 协议继承始终在协议自身的声明中指定。</p><h3 id="提供默认实现"><a href="#提供默认实现" class="headerlink" title="提供默认实现"></a>提供默认实现</h3><p>你可以使用<strong>协议扩展</strong>来为任何方法或计算属性提供默认实现。如果一个遵循者本身就实现了协议中要求的方法或属性，那么这个实现会代替协议扩展中的默认实现。</p><p>注意：由协议扩展提供默认实现和可选协议不同。尽管符合的类型不需要提供任何一种协议的实现，但默认的实现在被调用时不需要可选链。</p><h3 id="为协议扩展添加条件约束"><a href="#为协议扩展添加条件约束" class="headerlink" title="为协议扩展添加条件约束"></a>为协议扩展添加条件约束</h3><p>当我们定义一个协议扩展时，我们可以通过where关键字在被扩展的协议名称后指定一个约束条件。</p><blockquote><p>注意：如果一个类型遵循了多个具有同名方法或属性的扩展协议，那么 Swift会优先调用约束条件较多一方的属性或方法。</p></blockquote>]]></content>
-    
-    <summary type="html">
-    
-      &lt;ol&gt;
-&lt;li&gt;Protocol Syntax&lt;/li&gt;
-&lt;li&gt;Property Requirements&lt;/li&gt;
-&lt;li&gt;Method Requirements&lt;/li&gt;
-&lt;li&gt;Mutating Method Requirements&lt;/li&gt;
-&lt;li&gt;Initializer Requirements&lt;/li&gt;
-&lt;li&gt;Protocols as Types&lt;/li&gt;
-&lt;li&gt;Delegation&lt;/li&gt;
-&lt;li&gt;Adding Protocol Conformance with an Extension&lt;/li&gt;
-&lt;li&gt;Collections of Protocol Types&lt;/li&gt;
-&lt;li&gt;Protocol Inheritance&lt;/li&gt;
-&lt;li&gt;Class-Only Protocols&lt;/li&gt;
-&lt;li&gt;Protocol Composition&lt;/li&gt;
-&lt;li&gt;Checking for Protocol Conformance&lt;/li&gt;
-&lt;li&gt;Optional Protocol Requirements&lt;/li&gt;
-&lt;li&gt;Protocol Extensions&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="swift学习摘要" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/swift%E5%AD%A6%E4%B9%A0%E6%91%98%E8%A6%81/"/>
-    
-    
-      <category term="协议" scheme="http://yoursite.com/tags/%E5%8D%8F%E8%AE%AE/"/>
+      <category term="嵌套类型" scheme="http://yoursite.com/tags/%E5%B5%8C%E5%A5%97%E7%B1%BB%E5%9E%8B/"/>
     
   </entry>
   
