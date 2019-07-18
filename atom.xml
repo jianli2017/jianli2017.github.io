@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-18T06:57:03.484Z</updated>
+  <updated>2019-07-18T08:17:13.940Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,50 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>40_动态规划理论</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/41_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%90%86%E8%AE%BA/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/41_动态规划理论/</id>
+    <published>2019-07-17T03:07:12.000Z</published>
+    <updated>2019-07-18T08:17:13.940Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录动态规划思想</p><a id="more"></a><h2 id="一个模型、三个特征"><a href="#一个模型、三个特征" class="headerlink" title="一个模型、三个特征"></a>一个模型、三个特征</h2><p>一个模型：多阶段决策最优模型。解决最优问题，在解决的过程中，需要经历多个决策阶段，每个决策阶段对应一组状态，然后我们寻找一组决策序列，经过这组决策序列，产生最终期望的最优解。</p><p>最优子结构：问题的最优解包含子问题的最优解，反过来说，我们可以通过子问题的最优解，推导出问题的最优解。也就是后阶段的状态可以通过前阶段的状态推导出来。</p><p>无后效性：推导后面，只需要关心前面状态值，不关心状态怎么推导出来。某阶段的状态一旦确定，就不会受之后阶段的决策影响。</p><p>重复子问题：达到某个相同阶段时，可能产生重复的状态 </p><h2 id="两种动态规划的解决思路"><a href="#两种动态规划的解决思路" class="headerlink" title="两种动态规划的解决思路"></a>两种动态规划的解决思路</h2><ol><li>状态转移表法，：回溯算法实现- 定义状态 - 画递归树、找重复子问题、 话状态转移表- 将填表过程翻译为代码</li><li>状态转移方程法：找最优子结构- 写状态转移方程- 将状态转移方程翻译为代码。</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录动态规划思想&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构和算法之美" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>39_回溯思想</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/39_%E5%9B%9E%E6%BA%AF%E6%80%9D%E6%83%B3/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/39_回溯思想/</id>
+    <published>2019-07-17T03:07:12.000Z</published>
+    <updated>2019-07-17T06:45:13.471Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录回溯思想</p><a id="more"></a><h2 id="回溯思想"><a href="#回溯思想" class="headerlink" title="回溯思想"></a>回溯思想</h2><p>遇到分岔路口时， 随意选择一条路，当发现一条路不通时，回到上一个岔路口。</p><p>八皇后问题：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queen8</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> result = <span class="type">Array</span>(repeating: <span class="number">0</span>, <span class="built_in">count</span>: <span class="number">8</span>)</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cal8Queens</span><span class="params">(row:Int)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> row == <span class="number">8</span> &#123;</span><br><span class="line">            printQueens(result: result)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> column <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">8</span> &#123;  <span class="comment">//每一行都有8种方法</span></span><br><span class="line">            <span class="keyword">if</span> isOK(row: row, column: column) &#123;</span><br><span class="line">                result[row] = column</span><br><span class="line">                cal8Queens(row: row + <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">isOK</span><span class="params">(row: Int, column: Int)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> leftUp = column - <span class="number">1</span></span><br><span class="line">        <span class="keyword">var</span> rightUp = column + <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: row-<span class="number">1</span>, through: <span class="number">0</span>, by: -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> result[i] == column &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> leftUp &gt;= <span class="number">0</span> &amp;&amp; result[i] == leftUp &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> rightUp &lt; <span class="number">8</span> &amp;&amp; result[i] == rightUp &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            leftUp -= <span class="number">1</span></span><br><span class="line">            rightUp += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">printQueens</span><span class="params">(result: [Int])</span></span> &#123;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">8</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">8</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> result[i] == j &#123;</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"Q "</span>, terminator: <span class="string">""</span>)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"* "</span>, terminator: <span class="string">""</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">" "</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"一种方案完成---------"</span>)</span><br><span class="line">        <span class="built_in">count</span> += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">testQueen8</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> queen = <span class="type">Queen8</span>()</span><br><span class="line">            </span><br><span class="line">        queen.cal8Queens(row: <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">print</span>(queen.<span class="built_in">count</span>)  <span class="comment">//92种方案</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录回溯思想&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="数据结构和算法之美" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>40_初识动态规划</title>
@@ -50,28 +94,6 @@
     <summary type="html">
     
       &lt;p&gt;记录分治思想&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据结构和算法之美" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>39_回溯思想</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/39_%E5%9B%9E%E6%BA%AF%E6%80%9D%E6%83%B3/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/39_回溯思想/</id>
-    <published>2019-07-17T03:07:12.000Z</published>
-    <updated>2019-07-17T06:45:13.471Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录回溯思想</p><a id="more"></a><h2 id="回溯思想"><a href="#回溯思想" class="headerlink" title="回溯思想"></a>回溯思想</h2><p>遇到分岔路口时， 随意选择一条路，当发现一条路不通时，回到上一个岔路口。</p><p>八皇后问题：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queen8</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> <span class="built_in">count</span> = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> result = <span class="type">Array</span>(repeating: <span class="number">0</span>, <span class="built_in">count</span>: <span class="number">8</span>)</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cal8Queens</span><span class="params">(row:Int)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> row == <span class="number">8</span> &#123;</span><br><span class="line">            printQueens(result: result)</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> column <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">8</span> &#123;  <span class="comment">//每一行都有8种方法</span></span><br><span class="line">            <span class="keyword">if</span> isOK(row: row, column: column) &#123;</span><br><span class="line">                result[row] = column</span><br><span class="line">                cal8Queens(row: row + <span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">isOK</span><span class="params">(row: Int, column: Int)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> leftUp = column - <span class="number">1</span></span><br><span class="line">        <span class="keyword">var</span> rightUp = column + <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: row-<span class="number">1</span>, through: <span class="number">0</span>, by: -<span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> result[i] == column &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> leftUp &gt;= <span class="number">0</span> &amp;&amp; result[i] == leftUp &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">if</span> rightUp &lt; <span class="number">8</span> &amp;&amp; result[i] == rightUp &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            leftUp -= <span class="number">1</span></span><br><span class="line">            rightUp += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">printQueens</span><span class="params">(result: [Int])</span></span> &#123;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">8</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">8</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> result[i] == j &#123;</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"Q "</span>, terminator: <span class="string">""</span>)</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">"* "</span>, terminator: <span class="string">""</span>)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">" "</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"一种方案完成---------"</span>)</span><br><span class="line">        <span class="built_in">count</span> += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">testQueen8</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> queen = <span class="type">Queen8</span>()</span><br><span class="line">            </span><br><span class="line">        queen.cal8Queens(row: <span class="number">0</span>)</span><br><span class="line">        <span class="built_in">print</span>(queen.<span class="built_in">count</span>)  <span class="comment">//92种方案</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录回溯思想&lt;/p&gt;
     
     </summary>
     
@@ -302,34 +324,6 @@
   </entry>
   
   <entry>
-    <title>字符串排序</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_1_sort/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_1_sort/</id>
-    <published>2019-05-30T02:07:12.000Z</published>
-    <updated>2019-05-30T02:19:46.129Z</updated>
-    
-    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p><ol><li>计算各组的频率<code>count[r+1]++</code>;</li><li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li><li>数据分类</li><li>回写</li></ol><h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p><p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p><h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;&lt;a href=&quot;https://algs4.cs.princeton.edu/code/javadoc/&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;算法4 官网地址&lt;/a&gt;&lt;/p&gt;
-&lt;h2 i
-      
-    
-    </summary>
-    
-      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="算法4" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/"/>
-    
-    
-      <category term="字符串排序" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8E%92%E5%BA%8F/"/>
-    
-  </entry>
-  
-  <entry>
     <title>单词查找数</title>
     <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_2_search/"/>
     <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_2_search/</id>
@@ -354,6 +348,34 @@
     
     
       <category term="单词查找数" scheme="http://yoursite.com/tags/%E5%8D%95%E8%AF%8D%E6%9F%A5%E6%89%BE%E6%95%B0/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>字符串排序</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/5_1_sort/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/算法4/5_1_sort/</id>
+    <published>2019-05-30T02:07:12.000Z</published>
+    <updated>2019-05-30T02:19:46.129Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p><h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p><ol><li>计算各组的频率<code>count[r+1]++</code>;</li><li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li><li>数据分类</li><li>回写</li></ol><h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p><p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p><h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://algs4.cs.princeton.edu/code/javadoc/&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;算法4 官网地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2 i
+      
+    
+    </summary>
+    
+      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
+    
+      <category term="算法4" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%954/"/>
+    
+    
+      <category term="字符串排序" scheme="http://yoursite.com/tags/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8E%92%E5%BA%8F/"/>
     
   </entry>
   
@@ -494,40 +516,6 @@
     
     
       <category term="工具" scheme="http://yoursite.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ABTest IOS SDK设计</title>
-    <link href="http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/"/>
-    <id>http://yoursite.com/wiki/IOS/ABTest/ABTest/ABTest/</id>
-    <published>2019-03-22T06:18:26.000Z</published>
-    <updated>2019-05-13T11:14:26.611Z</updated>
-    
-    <content type="html"><![CDATA[<p>阅读目录：</p><ol><li><a href="#design">ABTest使用场景分析</a></li><li><a href="#sdk">SDK设计图</a></li><li><a href="#jd">附录：XX App AB效果</a></li></ol><h2 id="ABTest使用场景分析"><a href="#ABTest使用场景分析" class="headerlink" title="ABTest使用场景分析"></a><div id="design">ABTest使用场景分析</div></h2><p>下图说明ABTest使用场景的分析。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/ABL1.png" alt="流程解析"></p><p>依据上图的分析，设计出下面的SDK流程。</p><h2 id="SDK设计图"><a href="#SDK设计图" class="headerlink" title="SDK设计图"></a><div id="sdk">SDK设计图</div></h2><p>下图说明SDK的设计图。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/ABL2.png" alt="SDK设计图"></p><h2 id="附录：XX-App-AB效果"><a href="#附录：XX-App-AB效果" class="headerlink" title="附录：XX App AB效果"></a><div id="jd">附录：XX App AB效果</div></h2><p>经过反编译XX APP，分析XX客户端的AB实现原理，然后修改XX的代码，对比底部Bar的AB效果。</p><p><img src="/wiki/IOS/ABTest/ABTest/ABTest/JDA.PNG" alt="A"><br><img src="/wiki/IOS/ABTest/ABTest/ABTest/JDB.jpeg" alt="B"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;阅读目录：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;&lt;a href=&quot;#design&quot;&gt;ABTest使用场景分析&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#sdk&quot;&gt;SDK设计图&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#jd&quot;&gt;附录：XX App AB效果&lt;/a&gt;&lt;/li&gt;
-&lt;
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="ABTest" scheme="http://yoursite.com/categories/IOS/ABTest/"/>
-    
-      <category term="ABTest" scheme="http://yoursite.com/categories/IOS/ABTest/ABTest/"/>
-    
-    
-      <category term="ABTest" scheme="http://yoursite.com/tags/ABTest/"/>
     
   </entry>
   
