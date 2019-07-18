@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-07-18T08:17:13.940Z</updated>
+  <updated>2019-07-18T08:19:50.591Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>40_动态规划理论</title>
+    <title>41_动态规划理论</title>
     <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/41_%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%90%86%E8%AE%BA/"/>
     <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/41_动态规划理论/</id>
     <published>2019-07-17T03:07:12.000Z</published>
-    <updated>2019-07-18T08:17:13.940Z</updated>
+    <updated>2019-07-18T08:19:50.591Z</updated>
     
     <content type="html"><![CDATA[<p>记录动态规划思想</p><a id="more"></a><h2 id="一个模型、三个特征"><a href="#一个模型、三个特征" class="headerlink" title="一个模型、三个特征"></a>一个模型、三个特征</h2><p>一个模型：多阶段决策最优模型。解决最优问题，在解决的过程中，需要经历多个决策阶段，每个决策阶段对应一组状态，然后我们寻找一组决策序列，经过这组决策序列，产生最终期望的最优解。</p><p>最优子结构：问题的最优解包含子问题的最优解，反过来说，我们可以通过子问题的最优解，推导出问题的最优解。也就是后阶段的状态可以通过前阶段的状态推导出来。</p><p>无后效性：推导后面，只需要关心前面状态值，不关心状态怎么推导出来。某阶段的状态一旦确定，就不会受之后阶段的决策影响。</p><p>重复子问题：达到某个相同阶段时，可能产生重复的状态 </p><h2 id="两种动态规划的解决思路"><a href="#两种动态规划的解决思路" class="headerlink" title="两种动态规划的解决思路"></a>两种动态规划的解决思路</h2><ol><li>状态转移表法，：回溯算法实现- 定义状态 - 画递归树、找重复子问题、 话状态转移表- 将填表过程翻译为代码</li><li>状态转移方程法：找最优子结构- 写状态转移方程- 将状态转移方程翻译为代码。</li></ol>]]></content>
     
