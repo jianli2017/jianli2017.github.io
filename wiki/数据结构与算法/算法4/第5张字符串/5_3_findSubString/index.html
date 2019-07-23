@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>单词查找数 | LJ小窝</title>
+    <title>子字符串查找 | LJ小窝</title>
     
     
-        <meta name="keywords" content="单词查找数">
+        <meta name="keywords" content="子字符串查找">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="算法4 官网地址 单词查找树每个节点都有R条连接，其中R为字母表的大小 每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。 查找以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。 查找结果：  尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保">
-<meta name="keywords" content="单词查找数">
+    <meta name="description" content="算法4 官网地址 暴力子字符串查找算法12345678910111213141516public static int search(String pat,String txt)&amp;#123;	int M = pat.length();	int N = txt.length();	for(int i=0;i&amp;lt;=N-M;j++)	&amp;#123;		int j = 0;		for(int j=0;">
+<meta name="keywords" content="子字符串查找">
 <meta property="og:type" content="article">
-<meta property="og:title" content="单词查找数">
-<meta property="og:url" content="http://yoursite.com/wiki/数据结构与算法/算法4/5_2_search/index.html">
+<meta property="og:title" content="子字符串查找">
+<meta property="og:url" content="http://yoursite.com/wiki/数据结构与算法/算法4/第5张字符串/5_3_findSubString/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="算法4 官网地址 单词查找树每个节点都有R条连接，其中R为字母表的大小 每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。 查找以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。 查找结果：  尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保">
+<meta property="og:description" content="算法4 官网地址 暴力子字符串查找算法12345678910111213141516public static int search(String pat,String txt)&amp;#123;	int M = pat.length();	int N = txt.length();	for(int i=0;i&amp;lt;=N-M;j++)	&amp;#123;		int j = 0;		for(int j=0;">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-30T10:16:11.353Z">
+<meta property="og:updated_time" content="2019-05-30T11:10:44.308Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="单词查找数">
-<meta name="twitter:description" content="算法4 官网地址 单词查找树每个节点都有R条连接，其中R为字母表的大小 每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。 查找以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。 查找结果：  尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保">
+<meta name="twitter:title" content="子字符串查找">
+<meta name="twitter:description" content="算法4 官网地址 暴力子字符串查找算法12345678910111213141516public static int search(String pat,String txt)&amp;#123;	int M = pat.length();	int N = txt.length();	for(int i=0;i&amp;lt;=N-M;j++)	&amp;#123;		int j = 0;		for(int j=0;">
     
 
     
@@ -826,7 +826,16 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据结构与算法/算法4/第4章图/4.1 无向图/">4.1 无向图</a></li>  <li class="file"><a href="/wiki/数据结构与算法/算法4/第4章图/4.3 最小生成树/">4.3 最小生成树</a></li>  <li class="file"><a href="/wiki/数据结构与算法/算法4/第4章图/4.2 有向图/">4.2 有向图</a></li>  <li class="file"><a href="/wiki/数据结构与算法/算法4/第4章图/4.4 最短路径/">4.4 最短路径</a></li>  </ul> 
                     </li> 
-                     <li class="file"><a href="/wiki/数据结构与算法/算法4/about/">算法4</a></li>  <li class="file"><a href="/wiki/数据结构与算法/算法4/5_1_sort/">字符串排序</a></li>  <li class="file"><a href="/wiki/数据结构与算法/算法4/5_3_findSubString/">子字符串查找</a></li>  <li class="file active"><a href="/wiki/数据结构与算法/算法4/5_2_search/">单词查找数</a></li>  </ul> 
+                    
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            第5张字符串
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据结构与算法/算法4/第5张字符串/5_1_sort/">字符串排序</a></li>  <li class="file"><a href="/wiki/数据结构与算法/算法4/第5张字符串/5_2_search/">单词查找数</a></li>  <li class="file active"><a href="/wiki/数据结构与算法/算法4/第5张字符串/5_3_findSubString/">子字符串查找</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/数据结构与算法/算法4/about/">算法4</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -973,7 +982,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-数据结构与算法/算法4/5_2_search" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-数据结构与算法/算法4/第5张字符串/5_3_findSubString" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -983,19 +992,19 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a>
+        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/第5张字符串/">第5张字符串</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/单词查找数/">单词查找数</a>
+        <a class="tag-link" href="/tags/子字符串查找/">子字符串查找</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/数据结构与算法/算法4/5_2_search/">
+        <a href="/wiki/数据结构与算法/算法4/第5张字符串/5_3_findSubString/">
             <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
         </a>
     </div>
@@ -1007,7 +1016,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            单词查找数
+            子字符串查找
         </h1>
     
 
@@ -1020,34 +1029,16 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#单词查找树"><span class="toc-number">1.</span> <span class="toc-text">单词查找树</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查找"><span class="toc-number">1.1.</span> <span class="toc-text">查找</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#插入"><span class="toc-number">1.2.</span> <span class="toc-text">插入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#节点的表示"><span class="toc-number">1.3.</span> <span class="toc-text">节点的表示</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#大小"><span class="toc-number">1.4.</span> <span class="toc-text">大小</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get"><span class="toc-number">1.5.</span> <span class="toc-text">get</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#put"><span class="toc-number">1.6.</span> <span class="toc-text">put</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#查找所有键"><span class="toc-number">1.7.</span> <span class="toc-text">查找所有键</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#通配符匹配"><span class="toc-number">1.8.</span> <span class="toc-text">通配符匹配</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#暴力子字符串查找算法"><span class="toc-number">1.</span> <span class="toc-text">暴力子字符串查找算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#KMP算法"><span class="toc-number">1.1.</span> <span class="toc-text">KMP算法</span></a></li></ol></li></ol>
                 </div>
             
         
         
             <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
-<h2 id="单词查找树"><a href="#单词查找树" class="headerlink" title="单词查找树"></a>单词查找树</h2><p>每个节点都有R条连接，其中R为字母表的大小</p>
-<p>每个键所关联的值保存在该键的最后一个字母所对应的节点中。值为空的节点在符号表中没有对应的键，他们的存在是为了简化单词查找树中的查找操作。</p>
-<h3 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h3><p>以被查找的键中的字符为导向，单词查找树中的每个节点都包含了下一个可能出现的所有字符的链接。</p>
-<p>查找结果：</p>
-<ol>
-<li>尾字符对应的节点中的值非空，查找一次命中，键所对应的值就是尾字符所对应的节点中保存的值。</li>
-<li>键的尾字符所对应的节点中值为空，未命中，符号表中不存在被查找的键</li>
-<li>查找结束于一条空链接，这也是一次未命中的查找</li>
-</ol>
-<p>查找过程就是在单词查找树中从根节点开始检查某条路径上所有节点。</p>
-<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><ol>
-<li>在到达键尾部前就遇到了一个空链接，需要为键中还未被检查的每个字符创建一个对应的节点，并将键对应的值保存在最后一个节点中。</li>
-<li>在遇到空链接前就到达了健的尾部，将该节点中值设为键对应的值。</li>
-</ol>
-<h3 id="节点的表示"><a href="#节点的表示" class="headerlink" title="节点的表示"></a>节点的表示</h3><p>每个节点都含有一个值和26个链接</p>
-<p>在单词查找树中，键是由从根节点到含有非空值的节点的路径隐式表示的。数据节点并不会保存字符串或字符，它保存了链接数组和值。基于含有R个字符的字母表的单词查找数称为<strong>R向单词查找树</strong>。</p>
-<h3 id="大小"><a href="#大小" class="headerlink" title="大小"></a>大小</h3><p>size的延时实现：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>()</span><br><span class="line">&#123;	</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">size</span>(root);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">int</span> <span class="keyword">size</span>(Node x)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">if</span>(<span class="keyword">null</span> == x) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> cnt = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(x.val) ++cnt;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span> ;i&lt;R, ++i)</span><br><span class="line">	&#123;</span><br><span class="line">		cnt += <span class="keyword">size</span>(<span class="keyword">next</span>[i]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> cnt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node <span class="built_in">get</span>(Node x,<span class="keyword">String</span> <span class="built_in">key</span>, <span class="built_in">int</span> d)&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(x == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">if</span>(d== <span class="built_in">key</span>.length()) <span class="keyword">return</span> x;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//开始递归</span></span><br><span class="line">	<span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d++);</span><br><span class="line">	Node next = x.next[c];</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">get</span>(next, <span class="built_in">key</span>,d)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> Value <span class="built_in">get</span>(<span class="keyword">String</span> <span class="built_in">key</span>)</span><br><span class="line">&#123;</span><br><span class="line">	Node node = <span class="built_in">get</span>(root,<span class="built_in">key</span>,<span class="number">0</span>);</span><br><span class="line">	<span class="keyword">if</span>(node == <span class="keyword">null</span>) <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	<span class="keyword">return</span> node.val;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node put(Node x, <span class="keyword">String</span> <span class="built_in">key</span>, Value val, <span class="built_in">int</span> d) &#123;</span><br><span class="line">	<span class="keyword">if</span>(x == <span class="keyword">null</span>) x= <span class="keyword">new</span> Node();</span><br><span class="line">	<span class="keyword">if</span>(d == <span class="built_in">key</span>.length()) &#123;x.val = val, <span class="keyword">return</span> x;&#125;</span><br><span class="line">	<span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d);</span><br><span class="line">	x.next[c] = put(x.next[c],<span class="built_in">key</span>,val,d+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> put(<span class="keyword">String</span> <span class="built_in">key</span>, Value val) &#123;</span><br><span class="line">	root = put(root,<span class="built_in">key</span>,val,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> collect(Node x, <span class="keyword">String</span> pre, Queue&lt;<span class="keyword">String</span>&gt;) &#123;</span><br><span class="line">	<span class="keyword">if</span>(x== <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(x.val != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">char</span> c=<span class="number">0</span>; c&lt;R; c++) &#123;</span><br><span class="line">		collect(x.next[c],pre+c,q);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Iterable&lt;<span class="keyword">String</span>&gt; keysWithPrefix(<span class="keyword">String</span> pre) &#123;</span><br><span class="line">	Queue&lt;<span class="keyword">String</span>&gt;  q = <span class="keyword">new</span> Queue&lt;Sting&gt;();</span><br><span class="line">	collect(<span class="built_in">get</span>(root,pre,<span class="number">0</span>),pre,q);</span><br><span class="line">	<span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h3>
+<h2 id="暴力子字符串查找算法"><a href="#暴力子字符串查找算法" class="headerlink" title="暴力子字符串查找算法"></a>暴力子字符串查找算法</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> search(<span class="keyword">String</span> pat,<span class="keyword">String</span> txt)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> M = pat.length();</span><br><span class="line">	<span class="keyword">int</span> N = txt.length();</span><br><span class="line">	<span class="built_in">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-M;j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt; M ;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">if</span>(txt.charAt(i+j) != pat.charAt(j))</span><br><span class="line">				<span class="built_in">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">if</span>(j==M) <span class="built_in">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> N;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在最坏情况下，暴力子字符串查找算法在长度为N的文本中查找长度为M的模式需要NM次比较。</p>
+<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><p>主要思想：提前判断如何重新开始查找。</p>
+
             </div>
         
         <footer class="article-footer">
@@ -1069,9 +1060,9 @@
         </a>
     
     
-        <a href="/wiki/数据结构与算法/算法4/5_1_sort/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/数据结构与算法/算法4/第5张字符串/5_2_search/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">字符串排序</div>
+            <div class="article-nav-title">单词查找数</div>
         </a>
     
 </nav>
@@ -1083,7 +1074,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/数据结构与算法/算法4/5_2_search/" data-title="单词查找数" data-url="http://yoursite.com/wiki/数据结构与算法/算法4/5_2_search/"></div>
+    <div class="ds-thread" data-thread-key="wiki/数据结构与算法/算法4/第5张字符串/5_3_findSubString/" data-title="子字符串查找" data-url="http://yoursite.com/wiki/数据结构与算法/算法4/第5张字符串/5_3_findSubString/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
