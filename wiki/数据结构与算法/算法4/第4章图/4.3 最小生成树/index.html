@@ -20,7 +20,9 @@
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.3%20最小生成树/mst_cut.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.3%20最小生成树/mst_cut_process.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.3%20最小生成树/prim_trace.png">
-<meta property="og:updated_time" content="2019-07-23T11:46:29.067Z">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.3%20最小生成树/Prim_trace_eager.png">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.3%20最小生成树/Kruskal.png">
+<meta property="og:updated_time" content="2019-07-23T11:54:24.854Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4.3 最小生成树">
 <meta name="twitter:description" content="图的生成树是它的一棵含有所有顶点的无环连通子图，一幅加权无向图的最小生成树(MST)是它的一棵权值(树中所有边的权值之后)最小的生成树 最小生成树的解决方法有： prim算法、kruskal算法">
@@ -1028,7 +1030,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加权无向图的数据类型"><span class="toc-number">2.</span> <span class="toc-text">加权无向图的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最小生成树的API-和测试用例"><span class="toc-number">3.</span> <span class="toc-text">最小生成树的API 和测试用例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prim-算法"><span class="toc-number">4.</span> <span class="toc-text">Prim 算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">5.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#原理"><span class="toc-number">1.</span> <span class="toc-text">原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#加权无向图的数据类型"><span class="toc-number">2.</span> <span class="toc-text">加权无向图的数据类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最小生成树的API-和测试用例"><span class="toc-number">3.</span> <span class="toc-text">最小生成树的API 和测试用例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prim-算法"><span class="toc-number">4.</span> <span class="toc-text">Prim 算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Prim算法的即时实现"><span class="toc-number">5.</span> <span class="toc-text">Prim算法的即时实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Kruskal"><span class="toc-number">6.</span> <span class="toc-text">Kruskal</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">7.</span> <span class="toc-text">参考</span></a></li></ol>
                 </div>
             
         
@@ -1061,7 +1063,8 @@
 <h2 id="Prim-算法"><a href="#Prim-算法" class="headerlink" title="Prim 算法"></a>Prim 算法</h2><p>思路： 一开始，这棵树只有一个顶点，然后会向它添加V-1条边，每次总是将下一条连接树中顶点与不在树中的顶点，且权重最小的边假如树中（即由树中顶点所定义的切分中的一条横切边）。</p>
 <p>每当我们向树中添加一条边之后，也向树中添加一个顶点。 就要将连接这个顶点和其他所有不在树中的顶点加入到优先队列中，用marked[]来标识， 但是还有一点，连接新加入树中的顶点，与其他已经在树中的顶点的所有边都失效了。</p>
 <p><img src="/wiki/数据结构与算法/算法4/第4章图/4.3 最小生成树/prim_trace.png" alt="prim算法的轨迹"></p>
-<p>​    </p>
+<h2 id="Prim算法的即时实现"><a href="#Prim算法的即时实现" class="headerlink" title="Prim算法的即时实现"></a>Prim算法的即时实现</h2><p><img src="/wiki/数据结构与算法/算法4/第4章图/4.3 最小生成树/Prim_trace_eager.png" alt="prim算法的即时轨迹"></p>
+<h2 id="Kruskal"><a href="#Kruskal" class="headerlink" title="Kruskal"></a>Kruskal</h2><p><img src="/wiki/数据结构与算法/算法4/第4章图/4.3 最小生成树/Kruskal.png" alt="Kruskal算法的轨迹"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></li>
 </ol>
