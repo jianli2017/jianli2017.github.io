@@ -21,7 +21,9 @@
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.2%20有向图/find_directed_cycle.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.2%20有向图/find_directed_cycle_trace.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.2%20有向图/topo.png">
-<meta property="og:updated_time" content="2019-07-23T07:12:32.963Z">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.2%20有向图/kasarajuCC.png">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.2%20有向图/kasarajucc_trace.png">
+<meta property="og:updated_time" content="2019-07-23T07:48:29.036Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4.2 有向图">
 <meta name="twitter:description" content="有向图学习记录">
@@ -1070,6 +1072,15 @@
 <h2 id="有向图中的强连通性"><a href="#有向图中的强连通性" class="headerlink" title="有向图中的强连通性"></a>有向图中的强连通性</h2><p>强连通性： 如果两个顶点v和w是相互可达的，则，他们是强连通的。</p>
 <p>强连通分量的定义是基于顶点的，是由于： 有些边的两个顶点都在同一个连通分量中，而有限边连接的顶点在不同的强连通分量中。</p>
 <p>kosarajuCC算法：</p>
+<ol>
+<li>在给定一幅有向图G中，使用DepthFirstOrder来计算它的反向图$$G^R$$的逆后序排列</li>
+<li>在G中进行标准的深度优先搜索，但是，要按照刚才计算得到的顺序来访问所有未标记的顶点</li>
+<li>在构造函数中，所有在同一个递归dfs() 调用中被访问到的顶点都在同一个连通分量中，将他们按照和CC相同的方式识别出来</li>
+</ol>
+<p><img src="/wiki/数据结构与算法/算法4/第4章图/4.2 有向图/kasarajuCC.png" alt="kasarajuCC的正确性证明"></p>
+<p>实现代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KosarajuCC</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> _marked: [<span class="type">Bool</span>]  <span class="comment">//已达顶点</span></span><br><span class="line">    <span class="keyword">var</span> _id: [<span class="type">Int</span>]  <span class="comment">//分量标识，索引顶点，值是连通分量标识</span></span><br><span class="line">    <span class="keyword">var</span> _count = <span class="number">0</span>  <span class="comment">//分量个数</span></span><br><span class="line">    <span class="keyword">init</span>(graph: <span class="type">Digraph</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> vertexCount = graph.v()</span><br><span class="line">        <span class="keyword">self</span>._marked = [<span class="type">Bool</span>](repeating: <span class="literal">false</span>, <span class="built_in">count</span>: vertexCount)</span><br><span class="line">        <span class="keyword">self</span>._id = [<span class="type">Int</span>](repeating: <span class="number">0</span>, <span class="built_in">count</span>: vertexCount)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> order = <span class="type">DepthFirstOrder</span>(graph: graph.<span class="built_in">reverse</span>())</span><br><span class="line">        <span class="keyword">for</span> s <span class="keyword">in</span> order.reversePost() &#123;</span><br><span class="line">            <span class="keyword">if</span> !_marked[s] &#123;</span><br><span class="line">                dfs(graph, s)</span><br><span class="line">                <span class="keyword">self</span>._count += <span class="number">1</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">dfs</span><span class="params">(<span class="number">_</span> G: Digraph, <span class="number">_</span> v: Int)</span></span>  &#123;</span><br><span class="line">        <span class="keyword">self</span>._marked[v] = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">self</span>._id[v] = <span class="keyword">self</span>._count</span><br><span class="line">        <span class="keyword">for</span> w <span class="keyword">in</span> <span class="type">G</span>.adj(v) &#123;</span><br><span class="line">            <span class="keyword">if</span> !<span class="keyword">self</span>._marked[w] &#123;</span><br><span class="line">                dfs(<span class="type">G</span>, w)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">stronglyConnected</span><span class="params">(<span class="number">_</span> v: Int, <span class="number">_</span> w: Int)</span></span> -&gt; <span class="type">Bool</span> &#123; <span class="comment">//判断两个顶点是否连通</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>._id[v] == <span class="keyword">self</span>._id[w]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">id</span><span class="params">(<span class="number">_</span> v: Int)</span></span> -&gt; <span class="type">Int</span> &#123; <span class="comment">//返回顶点属于的连通分量</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>._id[v]</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">count</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123; <span class="comment">//返回连通分量的个数</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>._count</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/wiki/数据结构与算法/算法4/第4章图/4.2 有向图/kasarajucc_trace.png" alt="kasarajuCC轨迹图"></p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
 <li><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></li>
 </ol>
@@ -1085,11 +1096,11 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/数据结构与算法/算法4/第4章图/4.3 最小生成树/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/数据结构与算法/算法4/第4章图/4.1 无向图/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    4.3 最小生成树
+                    4.1 无向图
                 
             </div>
         </a>
