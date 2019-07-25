@@ -22,7 +22,12 @@
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/relax_vertex.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/Dijkstra_trace.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/topo_path.png">
-<meta property="og:updated_time" content="2019-07-25T03:33:04.633Z">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/topo_long_path.png">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/task_data.png">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/task.png">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/task_long_path.png">
+<meta property="og:image" content="http://yoursite.com/wiki/数据结构与算法/算法4/第4章图/4.4%20最短路径/bellmanford_trace.png">
+<meta property="og:updated_time" content="2019-07-25T07:25:12.681Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="4.4 最短路径">
 <meta name="twitter:description" content="记录最短路径相关的主要内容">
@@ -1030,7 +1035,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#加权有向图的数据结构"><span class="toc-number">1.</span> <span class="toc-text">加权有向图的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最短路径的数据结构"><span class="toc-number">1.1.</span> <span class="toc-text">最短路径的数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#边的松弛"><span class="toc-number">1.2.</span> <span class="toc-text">边的松弛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#顶点松弛"><span class="toc-number">1.3.</span> <span class="toc-text">顶点松弛</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最短路径算法的理论基础"><span class="toc-number">2.</span> <span class="toc-text">最短路径算法的理论基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最优性条件"><span class="toc-number">2.1.</span> <span class="toc-text">最优性条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dijkstra-算法"><span class="toc-number">3.</span> <span class="toc-text">Dijkstra 算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无环加权图中最短路径算法"><span class="toc-number">4.</span> <span class="toc-text">无环加权图中最短路径算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考："><span class="toc-number">5.</span> <span class="toc-text">参考：</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#加权有向图的数据结构"><span class="toc-number">1.</span> <span class="toc-text">加权有向图的数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最短路径的数据结构"><span class="toc-number">1.1.</span> <span class="toc-text">最短路径的数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#边的松弛"><span class="toc-number">1.2.</span> <span class="toc-text">边的松弛</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#顶点松弛"><span class="toc-number">1.3.</span> <span class="toc-text">顶点松弛</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#最短路径算法的理论基础"><span class="toc-number">2.</span> <span class="toc-text">最短路径算法的理论基础</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最优性条件"><span class="toc-number">2.1.</span> <span class="toc-text">最优性条件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Dijkstra-算法"><span class="toc-number">3.</span> <span class="toc-text">Dijkstra 算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无环加权图中最短路径算法"><span class="toc-number">4.</span> <span class="toc-text">无环加权图中最短路径算法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#最长路径"><span class="toc-number">4.1.</span> <span class="toc-text">最长路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优先级限制下的并行任务调度"><span class="toc-number">4.2.</span> <span class="toc-text">优先级限制下的并行任务调度</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一般加权有向图中的最短路径问题"><span class="toc-number">5.</span> <span class="toc-text">一般加权有向图中的最短路径问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#负权重环"><span class="toc-number">5.1.</span> <span class="toc-text">负权重环</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考："><span class="toc-number">6.</span> <span class="toc-text">参考：</span></a></li></ol>
                 </div>
             
         
@@ -1078,6 +1083,29 @@
 <li>将顶点7和边7-&gt;2添加到树中， 边6-&gt;2失效</li>
 <li>将顶底0 添加到树中，边0-&gt;2失效</li>
 <li>将顶点2添加到树中</li>
+</ol>
+<p>命题S： 按照拓扑顺序放松顶点，就能在E+V成正比的时间内解决无环加权有向图的单点最短路径问题。</p>
+<h3 id="最长路径"><a href="#最长路径" class="headerlink" title="最长路径"></a>最长路径</h3><p>命题T： 解决无环加权有向图中最长路径问题所需的事件与V+E成正比。</p>
+<p>证明： 给定一个最长路径问题，复制原始无环加权有向图得到一个副本，并将副本中的所有权重变为负值，这样，副本中的最短路径即为原图中的最长路径，要将最短路径问题的答案转化为最长路径问题的答案，只需要将方案中权重变为正值即可。 根据命题S可得到算法的时间复杂度为E+V</p>
+<p><img src="/wiki/数据结构与算法/算法4/第4章图/4.4 最短路径/topo_long_path.png" alt="无环加权图的最长路径算法轨迹"></p>
+<p>最长路径的应用： 优先级限制下的并行任务调度。 也叫关键路径法</p>
+<h3 id="优先级限制下的并行任务调度"><a href="#优先级限制下的并行任务调度" class="headerlink" title="优先级限制下的并行任务调度"></a>优先级限制下的并行任务调度</h3><p>任务如下：</p>
+<p><img src="/wiki/数据结构与算法/算法4/第4章图/4.4 最短路径/task_data.png" alt="任务问题"></p>
+<p>解决并行任务调度问题的关键路径方法的步骤如下： 创建一幅无环加权有向图，其中包括一个起点s和一个重点t，且每个任务都对应着两个顶点，一个起始顶点和一个结束顶点。对于每个任务都有一条从他的起始顶点指向结束顶点的边，边的权重为任务所需的时间。对于每个优先级限制v-&gt;w，添加一条从v的结束顶点指向w的起始顶点的权重为0的边。我们还需要为每个任务添加一条从起点指向该任务的起始顶点的权重为0的边，以及一条从该任务的结束顶点到终点的权重为0的边。这样一个任务预计的开始时间即为从起点到它的起始顶点的最长距离。</p>
+<p><img src="/wiki/数据结构与算法/算法4/第4章图/4.4 最短路径/task.png" alt="任务建模为图"></p>
+<p><img src="/wiki/数据结构与算法/算法4/第4章图/4.4 最短路径/task_long_path.png" alt="任务的关键路径"></p>
+<p>下面讲了一个最后期限下的并行任务调度，引出了负权重可能在实际中的用处，进入下一节</p>
+<h2 id="一般加权有向图中的最短路径问题"><a href="#一般加权有向图中的最短路径问题" class="headerlink" title="一般加权有向图中的最短路径问题"></a>一般加权有向图中的最短路径问题</h2><h3 id="负权重环"><a href="#负权重环" class="headerlink" title="负权重环"></a>负权重环</h3><p>加权有向图中的负权重环是一个总权重为负的有向环</p>
+<p>负权重环存在的情况下，可以构建任意小的路径，所以研究最短路径没啥意义</p>
+<p>命题X（Bellman-ford算法）：在任意含有V个顶点的加权有向图中给定起点s ，从s无法到达任何负权重环，以下算法能够解决其中的单点点最短路径问题： 将diatTo[s]初始化为0，其他distTo[]元素初始化为无穷大，以任意顺序放松有向图中的所有边，重复V轮。证明使用归纳法</p>
+<p><img src="/wiki/数据结构与算法/算法4/第4章图/4.4 最短路径/bellmanford_trace.png" alt="任务的关键路径"></p>
+<p>说明：</p>
+<ol>
+<li>放松边1-3  将顶点3加入队列中</li>
+<li>放松边3-6 将顶点6加入队列中</li>
+<li>放松边6-4 6-0 6-2，将顶点4 0 2 加入队列中</li>
+<li>放松边4-7 4-5 将顶点7 4 加入队列中，放松已经失效的边0-4 0 -2 软后再放松2-7 并重新为4 -7着色</li>
+<li>放松7 -5 并重新为4-5着色，办不将顶点5加入队列中，他已经在队列中了，放松已经失效的边7-3 然后放松已经失效的边5-1 5-4 5-7 此时队列为空</li>
 </ol>
 <h2 id="参考："><a href="#参考：" class="headerlink" title="参考："></a>参考：</h2><p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
 
