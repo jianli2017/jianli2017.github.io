@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="矩阵学习记录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-08T06:52:38.484Z">
+<meta property="og:updated_time" content="2019-08-08T09:49:47.935Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="线性代数矩阵">
 <meta name="twitter:description" content="矩阵学习记录">
@@ -1065,7 +1065,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵"><span class="toc-number">1.</span> <span class="toc-text">矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵运算"><span class="toc-number">2.</span> <span class="toc-text">矩阵运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵乘法"><span class="toc-number">2.1.</span> <span class="toc-text">矩阵乘法</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵"><span class="toc-number">1.</span> <span class="toc-text">矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵运算"><span class="toc-number">2.</span> <span class="toc-text">矩阵运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵乘法"><span class="toc-number">2.1.</span> <span class="toc-text">矩阵乘法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方阵的行列式"><span class="toc-number">2.2.</span> <span class="toc-text">方阵的行列式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逆矩阵"><span class="toc-number">3.</span> <span class="toc-text">逆矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵的分块"><span class="toc-number">4.</span> <span class="toc-text">矩阵的分块</span></a></li></ol>
                 </div>
             
         
@@ -1091,7 +1091,8 @@
 <li>(λ+μ)A = λA+μA</li>
 <li>λ(A+B) = λA + λB</li>
 </ol>
-<h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><ol>
+<h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>$$c_{ij} = \sum_{k=1}^{s}a_{ik}b_{kj}$$</p>
+<ol>
 <li>对于两个n阶方阵A、B ，若AB = BA， 则A与B是可交换的</li>
 <li><p>特别注意：若两个矩阵A，B满足AB=O，不能推出A=O或B=O的结论；若AB=AC，A≠O，也不能推出B=C的结论.</p>
 </li>
@@ -1110,7 +1111,32 @@
 <li>$$(λA)^T = λA^T$$</li>
 <li>$$(AB)^T = B^TA^T$$</li>
 </ol>
-
+<p>对称阵：特点是它的元素以主对角线为对称轴，对应相等。 $$A^T = A$$</p>
+<p>反对称阵： $$A^T = -A$$</p>
+<h3 id="方阵的行列式"><a href="#方阵的行列式" class="headerlink" title="方阵的行列式"></a>方阵的行列式</h3><p>由n阶方阵A的元素所构成的行列式（各元素的位置不变），称为方阵A的行列式，记作|A|或detA.</p>
+<p>注意：方阵与行列式是两个不同的概念，n阶方阵是n2个数按一定方式排成的数表，而n阶行列式则是n2个数按一定的运算法则所确定的一个数.</p>
+<ol>
+<li>$$|A^T| = |A|$$ </li>
+<li>$$|λA| = λ^n|A| $$</li>
+<li>|AB| = |A||B|</li>
+</ol>
+<h2 id="逆矩阵"><a href="#逆矩阵" class="headerlink" title="逆矩阵"></a>逆矩阵</h2><p>设A为n阶方阵，若存在n阶矩阵B，使得：</p>
+<p>AB = BA = E</p>
+<p>则称方阵A是可逆的，并称B是A的逆矩阵 记作 $$A^{-1} = B$$</p>
+<p>定理1 ： 若矩阵A可逆，则其逆矩阵唯一</p>
+<p>定理2： 设$$A^*$$ 为A的版税矩阵，则有：</p>
+<p>$$ AA^<em> = A^</em>A = |A|E $$</p>
+<p>定理3 ： n阶方阵A可逆的充分必要条件是|A| != 0 且有：</p>
+<p>$$ A^{-1} = \frac{1}{|A|A^*}$$</p>
+<p>方阵的逆矩阵的性质：</p>
+<ol>
+<li>若A可逆，则$$(A^{-1})^{-1} = A$$</li>
+<li>若A可逆，数λ不为0， 则λA可逆，且$$(λA)^{-1} = \frac{1}{λ}A^{-1}$$</li>
+<li>若AB为同阶方阵，且A、B都可逆，则AB可逆，且 $$(AB)^{-1} = B^{-1}A^{-1}$$</li>
+<li>若A可逆，则$$A^T$$可逆，且$$ (A^T)^{-1} = (A^{-1})^T$$</li>
+<li>若A可逆，则$$ |A{-1}| = \frac{1}{|A|} = |A|^{-1} $$</li>
+</ol>
+<h2 id="矩阵的分块"><a href="#矩阵的分块" class="headerlink" title="矩阵的分块"></a>矩阵的分块</h2>
             </div>
         
         <footer class="article-footer">
