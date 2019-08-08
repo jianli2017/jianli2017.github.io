@@ -559,6 +559,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            Aspects
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/opensource/Aspects/aspect/">aspect源码浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             JLRoute
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/opensource/JLRoute/JLRoute/">JLRoute学习</a></li>  </ul> 
@@ -1008,6 +1017,81 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/swiftUI/swiftUI_DataFlow" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swiftUI/">swiftUI</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/SwiftUI/">SwiftUI</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">
+            <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">SwiftUI 数据流理解</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p><ol>
+<li>对于不变的常量直接传递给 SwiftUI 即可。</li>
+<li>对于控件上需要管理的状态使用 @State 管理。</li>
+<li>对于外部的事件变化使用 BindableObject 发送通知。</li>
+<li>对于需要共享的视图可变数据使用 @ObjectBinding 管理。</li>
+<li>不要出现多个状态同步管理，使用 @Binding 共享一个 Source of truth。</li>
+<li>对于系统环境使用 @Enviroment 管理。</li>
+<li>对于需要共享的不可变数据使用 @EnviromemntObject 管理。</li>
+<li>@Binding 具有引用语义，可以很好的和 @Binding @objectBinding @State 协作，避免出现多个数据不同步。</li>
+</ol></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/opensource/AFNetworking/AFNetworking" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1140,7 +1224,7 @@
 
 
     
-        <article id="post-数据结构与算法/算法4/第5章字符串/5_3_findSubString" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-数据结构与算法/算法4/第5章字符串/5_1_sort" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1156,13 +1240,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/子字符串查找/">子字符串查找</a>
+        <a class="tag-link" href="/tags/字符串排序/">字符串排序</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_3_findSubString/">
+        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">
             <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
         </a>
     </div>
@@ -1174,7 +1258,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_3_findSubString/">子字符串查找</a>
+            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">字符串排序</a>
         </h1>
     
 
@@ -1188,9 +1272,16 @@
         
         
             <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
-<h2 id="暴力子字符串查找算法"><a href="#暴力子字符串查找算法" class="headerlink" title="暴力子字符串查找算法"></a>暴力子字符串查找算法</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> search(<span class="keyword">String</span> pat,<span class="keyword">String</span> txt)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> M = pat.length();</span><br><span class="line">	<span class="keyword">int</span> N = txt.length();</span><br><span class="line">	<span class="built_in">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-M;j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt; M ;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">if</span>(txt.charAt(i+j) != pat.charAt(j))</span><br><span class="line">				<span class="built_in">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">if</span>(j==M) <span class="built_in">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> N;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在最坏情况下，暴力子字符串查找算法在长度为N的文本中查找长度为M的模式需要NM次比较。</p>
-<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><p>主要思想：提前判断如何重新开始查找。</p>
+<h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p>
+<ol>
+<li>计算各组的频率<code>count[r+1]++</code>;</li>
+<li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li>
+<li>数据分类</li>
+<li>回写</li>
+</ol>
+<h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p>
+<p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p>
+<h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>
 
             </div>
         
@@ -1288,7 +1379,7 @@
 
 
     
-        <article id="post-数据结构与算法/算法4/第5章字符串/5_1_sort" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-数据结构与算法/算法4/第5章字符串/5_3_findSubString" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1304,13 +1395,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/字符串排序/">字符串排序</a>
+        <a class="tag-link" href="/tags/子字符串查找/">子字符串查找</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">
+        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_3_findSubString/">
             <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
         </a>
     </div>
@@ -1322,7 +1413,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">字符串排序</a>
+            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_3_findSubString/">子字符串查找</a>
         </h1>
     
 
@@ -1336,16 +1427,9 @@
         
         
             <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
-<h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p>
-<ol>
-<li>计算各组的频率<code>count[r+1]++</code>;</li>
-<li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li>
-<li>数据分类</li>
-<li>回写</li>
-</ol>
-<h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p>
-<p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p>
-<h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>
+<h2 id="暴力子字符串查找算法"><a href="#暴力子字符串查找算法" class="headerlink" title="暴力子字符串查找算法"></a>暴力子字符串查找算法</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> search(<span class="keyword">String</span> pat,<span class="keyword">String</span> txt)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> M = pat.length();</span><br><span class="line">	<span class="keyword">int</span> N = txt.length();</span><br><span class="line">	<span class="built_in">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-M;j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt; M ;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">if</span>(txt.charAt(i+j) != pat.charAt(j))</span><br><span class="line">				<span class="built_in">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">if</span>(j==M) <span class="built_in">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> N;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在最坏情况下，暴力子字符串查找算法在长度为N的文本中查找长度为M的模式需要NM次比较。</p>
+<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><p>主要思想：提前判断如何重新开始查找。</p>
 
             </div>
         
@@ -1646,80 +1730,6 @@
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><div id="refer">参考</div></h2><ol>
 <li><a href="https://www.jianshu.com/p/f5cb3c728a5b" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发_编写接口文档（appledoc实用篇）</a></li>
 </ol>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/ABTest/ABTest/ABTest" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/ABTest/">ABTest</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/ABTest/ABTest/">ABTest</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/ABTest/">ABTest</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/ABTest/ABTest/ABTest/">
-            <time datetime="2019-03-22T06:18:26.000Z" itemprop="datePublished">2019-03-22</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/ABTest/ABTest/ABTest/">ABTest IOS SDK设计</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p>阅读目录：</p>
-<ol>
-<li><a href="#design">ABTest使用场景分析</a></li>
-<li><a href="#sdk">SDK设计图</a></li>
-<li><a href="#jd">附录：XX App AB效果</a></li>
-</ol>
-<h2 id="ABTest使用场景分析"><a href="#ABTest使用场景分析" class="headerlink" title="ABTest使用场景分析"></a><div id="design">ABTest使用场景分析</div></h2><p>下图说明ABTest使用场景的分析。</p>
-<p><img src="/wiki/IOS/ABTest/ABTest/ABTest/ABL1.png" alt="流程解析"></p>
-<p>依据上图的分析，设计出下面的SDK流程。</p>
-<h2 id="SDK设计图"><a href="#SDK设计图" class="headerlink" title="SDK设计图"></a><div id="sdk">SDK设计图</div></h2><p>下图说明SDK的设计图。</p>
-<p><img src="/wiki/IOS/ABTest/ABTest/ABTest/ABL2.png" alt="SDK设计图"></p>
-<h2 id="附录：XX-App-AB效果"><a href="#附录：XX-App-AB效果" class="headerlink" title="附录：XX App AB效果"></a><div id="jd">附录：XX App AB效果</div></h2><p>经过反编译XX APP，分析XX客户端的AB实现原理，然后修改XX的代码，对比底部Bar的AB效果。</p>
-<p><img src="/wiki/IOS/ABTest/ABTest/ABTest/JDA.PNG" alt="A"><br><img src="/wiki/IOS/ABTest/ABTest/ABTest/JDB.jpeg" alt="B"></p>
 
             </div>
         
