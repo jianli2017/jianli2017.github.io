@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-08T06:48:15.732Z</updated>
+  <updated>2019-08-08T06:52:38.484Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/matrix/"/>
     <id>http://yoursite.com/wiki/数学知识/matrix/</id>
     <published>2019-08-08T04:07:12.000Z</published>
-    <updated>2019-08-08T06:48:15.732Z</updated>
+    <updated>2019-08-08T06:52:38.484Z</updated>
     
-    <content type="html"><![CDATA[<p>矩阵学习记录</p><a id="more"></a><h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><p>$$A = (a_{ij})_{m*n}$$</p><ol><li>只有一行元素，这样的矩阵称为行矩阵</li><li>若矩阵只有一列元素，这样的矩阵称为列矩阵</li><li>若n阶方阵，主对角线以外的元素全为0，这样的矩阵称为对角阵</li><li>对象元素相同的对角阵，称为向量阵</li><li>向量阵的元素为1，单位阵</li></ol><h2 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h2><ol><li>A+B  相同阵才能进行相加</li><li>A+B = B+A ，  （A+B） + C = A + （B + C）</li></ol><p>数与矩阵的乘法：</p><ol><li>λA</li><li>(λμ)A = λ(μA)</li><li>(λ+μ)A = λA+μA</li><li>λ(A+B) = λA + λB</li></ol><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><ol><li>对于两个n阶方阵A、B ，若AB = BA， 则A与B是可交换的</li><li><p>特别注意：若两个矩阵A，B满足AB=O，不能推出A=O或B=O的结论；若AB=AC，A≠O，也不能推出B=C的结论.</p></li><li><p>（AB）C=A（BC）； </p></li><li>A（B+C）=AB+AC，（B+C）A=BA+CA；</li><li>λ（AB）=（λA）B=A（λB）.对于单位矩阵E，容易验证EmAm×n=Am×n，Am×nEn=Am×n，可简记为EA=AE=A.</li></ol><p>方阵的幂 :</p><p>$$A^kA^1 = A^{k+1}$$</p><p>$$A^k^l = A^{kl}$$</p><p>###矩阵转置</p><ol><li>$$(A^T)^T = A$$</li><li>$$(A+B)^T = A^T + B^T$$</li><li>$$(λA)^T = λA^T$$</li><li>$$(AB)^T = B^TA^T$$</li></ol>]]></content>
+    <content type="html"><![CDATA[<p>矩阵学习记录</p><a id="more"></a><h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><p>$$A = (a_{ij})_{m*n}$$</p><ol><li>只有一行元素，这样的矩阵称为行矩阵</li><li>若矩阵只有一列元素，这样的矩阵称为列矩阵</li><li>若n阶方阵，主对角线以外的元素全为0，这样的矩阵称为对角阵</li><li>对象元素相同的对角阵，称为向量阵</li><li>向量阵的元素为1，单位阵</li></ol><h2 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h2><ol><li>A+B  相同阵才能进行相加</li><li>A+B = B+A ，  （A+B） + C = A + （B + C）</li></ol><p>数与矩阵的乘法：</p><ol><li>λA</li><li>(λμ)A = λ(μA)</li><li>(λ+μ)A = λA+μA</li><li>λ(A+B) = λA + λB</li></ol><h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><ol><li>对于两个n阶方阵A、B ，若AB = BA， 则A与B是可交换的</li><li><p>特别注意：若两个矩阵A，B满足AB=O，不能推出A=O或B=O的结论；若AB=AC，A≠O，也不能推出B=C的结论.</p></li><li><p>（AB）C=A（BC）； </p></li><li>A（B+C）=AB+AC，（B+C）A=BA+CA；</li><li>λ（AB）=（λA）B=A（λB）.对于单位矩阵E，容易验证EmAm×n=Am×n，Am×nEn=Am×n，可简记为EA=AE=A.</li></ol><p>方阵的幂 :</p><p>$$A^kA^1 = A^{k+1}$$</p><p>$$(A^k)^l = A^{kl}$$</p><p>###矩阵转置</p><ol><li>$$(A^T)^T = A$$</li><li>$$(A+B)^T = A^T + B^T$$</li><li>$$(λA)^T = λA^T$$</li><li>$$(AB)^T = B^TA^T$$</li></ol>]]></content>
     
     <summary type="html">
     
