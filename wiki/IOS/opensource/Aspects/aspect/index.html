@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/aspect_2.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/aspect_3.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/aspect_4.png">
-<meta property="og:updated_time" content="2019-08-08T03:54:32.323Z">
+<meta property="og:updated_time" content="2019-08-08T03:57:44.740Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="aspect源码浅析">
 <meta name="twitter:description" content="图解aspect。">
@@ -1070,14 +1070,14 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#源码示意图"><span class="toc-number">1.</span> <span class="toc-text">源码示意图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#图解aspect"><span class="toc-number">1.</span> <span class="toc-text">图解aspect</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考"><span class="toc-number">2.</span> <span class="toc-text">参考</span></a></li></ol>
                 </div>
             
         
         
             <p>图解<a href="https://github.com/steipete/Aspects" rel="external nofollow noopener noreferrer" target="_blank">aspect</a>。</p>
 <a id="more"></a>
-<h2 id="源码示意图"><a href="#源码示意图" class="headerlink" title="源码示意图"></a>源码示意图</h2><p>aspect 切方法分为两种：</p>
+<h2 id="图解aspect"><a href="#图解aspect" class="headerlink" title="图解aspect"></a>图解aspect</h2><p>aspect 切方法分为两种：</p>
 <ol>
 <li>为实例切方法，只实例有效，类的其他实例不受影响，类似KVO，原理是交换了isa。</li>
 <li>为类切方法： 交换了类的实例方法，所有实例都生效。</li>
