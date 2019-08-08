@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/aspect_2.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/aspect_3.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/aspect_4.png">
-<meta property="og:updated_time" content="2019-08-08T03:41:49.699Z">
+<meta property="og:updated_time" content="2019-08-08T03:50:47.391Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="aspect源码浅析">
 <meta name="twitter:description" content="图解aspect。">
@@ -1077,10 +1077,16 @@
         
             <p>图解<a href="https://github.com/steipete/Aspects" rel="external nofollow noopener noreferrer" target="_blank">aspect</a>。</p>
 <a id="more"></a>
-<h2 id="源码示意图"><a href="#源码示意图" class="headerlink" title="源码示意图"></a>源码示意图</h2><p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_1.png" alt="aspect主流程"></p>
-<p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_2.png" alt="aspect交换方法后的结果"></p>
+<h2 id="源码示意图"><a href="#源码示意图" class="headerlink" title="源码示意图"></a>源码示意图</h2><p>aspect 切方法分为两种：</p>
+<ol>
+<li>为实例切方法，只实例有效，类的其他实例不受影响，类似KVO，原理是交换了isa。</li>
+<li>为类切方法： 交换了类的实例方法，所有实例都生效。</li>
+</ol>
+<p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_1.png" alt="aspect主流程"></p>
+<p>其实看过原理后，就交换了两个方法，一个是当前selector，一个是forwardInvocation。<br><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_2.png" alt="aspect交换方法后的结果"></p>
+<p>一定要理解方法的中包含SEL、IMP，SEL理解为方法的名称，IMP是方法的代码实现，图中很多地方使用SEL、IMP后缀区分两着。</p>
 <p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_3.png" alt="aspect执行切片方法的流程"></p>
-<p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_4.png" alt="aspect执行切片方法的流程直观理解"></p>
+<p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_4.png" alt="aspect执行切片方法的流程直观理解"><br>特别注意步骤9，解决的是如果向切片类发送了非切片方法，还走原理的消息转发流程，如不认识的方法报 not recognize selector send to instance错误。</p>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>无</p>
 
             </div>
