@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="第一章，行列式学习记录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-09T08:33:31.583Z">
+<meta property="og:updated_time" content="2019-08-09T08:45:20.424Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第一章行列式">
 <meta name="twitter:description" content="第一章，行列式学习记录">
@@ -1073,8 +1073,7 @@
             <p>第一章，行列式学习记录</p>
 <a id="more"></a>
 <h2 id="1、二三阶行列式"><a href="#1、二三阶行列式" class="headerlink" title="1、二三阶行列式"></a>1、二三阶行列式</h2><p>定理1 ： 一个排列进行一次对换，排列改变奇偶性一次</p>
-<h3 id="n阶行列式"><a href="#n阶行列式" class="headerlink" title="n阶行列式"></a>n阶行列式</h3><p>在三阶行列式中,行标固定为123，列表为123的全排列，有6中情况。</p>
-<p>三阶行列式的定义 ： $$ \sum (-1)^t a_{1p_1} a_{2p_2} a_{3p_3}$$</p>
+<h3 id="n阶行列式"><a href="#n阶行列式" class="headerlink" title="n阶行列式"></a>n阶行列式</h3><p>在三阶行列式中,行标固定为123，列表为123的全排列，有6中情况。所以，三阶行列式的定义如下： $$ \sum (-1)^t a_{1p_1} a_{2p_2} a_{3p_3}$$</p>
 <p>定理2： n阶行列式也可以定义为：</p>
 <p> $$ D = \sum (-1)^τ a_{p_11} a_{p_22} … a_{p_nn}  \text    ，其中τ为行排列p_1p_2…p_n 的逆序数$$</p>
 <p> 定理3 ：  n阶行列式也可以定义为：</p>
@@ -1092,7 +1091,7 @@
 <li>用同样的方法处理除去第一行和第一列后余下的低一阶的行列式，如此反复下去，直到使它变为上三角行列式，这时主对角线上元素的乘积就是所求行列式的值.</li>
 </ol>
 <h2 id="3、-行列式按行（列）展开"><a href="#3、-行列式按行（列）展开" class="headerlink" title="3、 行列式按行（列）展开"></a>3、 行列式按行（列）展开</h2><p>定义2　在n阶行列式中，把元素$a_{ij}$所在的第i行和第j列划去，余下的n-1阶行列式（依原来的排法），称为元素$a_{ij}$的余子式，记作$M_{ij}$  ；记$$A_{ij}= (-1)^{i+j}M_{ij}，$$称$A_{ij}$为元素$a_{ij}$的代数余子式.</p>
-<p>引理　一个n阶行列式D，若第i行所有元素除$a_{ij}$外全为零，则该行列式等于$a_{ij}$与它的代数余子式的乘积，即$$D=a_{ij}A_{ij}$$</p>
+<p>引理　一个n阶行列式D，若第i行所有元素除$a_{ij}$为全为零，则该行列式等于$a_{ij}$与它的代数余子式的乘积，即$$D=a_{ij}A_{ij}$$</p>
 <p>定理4　行列式等于它的任一行（列）的各元素与其对应的代数余子式的乘积之和，即<br>$$D=a_{i1}A_{i1}+a_{i2}A_{i2}+…+a_{in}A_{in}（i=1，2，…，n），$$<br>或<br>$$D=a_{1j}A_{1j}+a_{2j}A_{2j}＋…＋a_{nj}A_{nj}（j=1，2，…，n）.$$</p>
 <p>下面是范德蒙行列式：<br>$$<br>D_n =<br>\begin{vmatrix}<br>1 &amp; 1 &amp; \cdots &amp; 1 \\<br>x_1 &amp; x_2 &amp; \cdots  &amp; x_n \\<br>x_1^2 &amp; x_2^2 &amp; \cdots  &amp; x_n^2 \\<br>\vdots &amp; \vdots &amp;  &amp; \vdots \\<br>x_1^{n-1} &amp; x_2^{n-1} &amp; \cdots &amp; x_n^{n-1}<br>\end{vmatrix}<br>=\prod_{n\ge{i}\gt{j}\ge{i}}{(x_i - x_j)}<br>$$</p>
 <p>下面这个公式不明白，但是后面会使用</p>
@@ -1104,7 +1103,7 @@
 <p>使用克莱姆法则必须注意：</p>
 <ol>
 <li>未知量的个数与方程的个数要相等；</li>
-<li>系数行列式不为零.对于不符合这两个条件的方程组</li>
+<li>系数行列式不为零.</li>
 </ol>
 <p>常数项全为0的方程称为齐次线性方程。</p>
 <p>$$<br>\left \{<br>\begin{array}{c}<br>a_{11}x_{1}+a_{12}x_{2} + \cdots + a_{1n}x_{n} = 0 \\<br>a_{21}x_{1}+a_{22}x_{2} + \cdots + a_{2n}x_{n} = 0 \\<br>………………………….. \\<br>a_{n1}x_{1}+a_{n2}x_{2} + \cdots + a_{nn}x_{n}  = 0<br>\end{array}<br>\right.<br>$$</p>
