@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="学习线性代数的第三章。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-12T03:56:29.234Z">
+<meta property="og:updated_time" content="2019-08-12T07:11:26.487Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第三章 矩阵的初等变换和线性方程组">
 <meta name="twitter:description" content="学习线性代数的第三章。">
@@ -1065,14 +1065,14 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-5"><a class="toc-link" href="#矩阵初等变换"><span class="toc-number">1.</span> <span class="toc-text">矩阵初等变换</span></a></li></ol><li class="toc-item toc-level-4"><a class="toc-link" href="#初等矩阵"><span class="toc-number"></span> <span class="toc-text">初等矩阵</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#矩阵的秩"><span class="toc-number">1.</span> <span class="toc-text">矩阵的秩</span></a></li></ol>
-                </li></div>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵初等变换"><span class="toc-number">1.</span> <span class="toc-text">矩阵初等变换</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初等矩阵"><span class="toc-number">2.</span> <span class="toc-text">初等矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵的秩"><span class="toc-number">3.</span> <span class="toc-text">矩阵的秩</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵秩的定义"><span class="toc-number">3.1.</span> <span class="toc-text">矩阵秩的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵秩与矩阵的初等变换"><span class="toc-number">3.2.</span> <span class="toc-text">矩阵秩与矩阵的初等变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵的秩的性质"><span class="toc-number">3.3.</span> <span class="toc-text">矩阵的秩的性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线性方程组的解"><span class="toc-number">4.</span> <span class="toc-text">线性方程组的解</span></a></li></ol>
+                </div>
             
         
         
             <p>学习线性代数的第三章。</p>
 <a id="more"></a>
-<h5 id="矩阵初等变换"><a href="#矩阵初等变换" class="headerlink" title="矩阵初等变换"></a>矩阵初等变换</h5><p>定义1　下面3种变换称为矩阵的初等行变换：</p>
+<h2 id="矩阵初等变换"><a href="#矩阵初等变换" class="headerlink" title="矩阵初等变换"></a>矩阵初等变换</h2><p>定义1　下面3种变换称为矩阵的初等行变换：</p>
 <ol>
 <li>对调矩阵的两行（对调i，j两行，记作ri↔rj）；</li>
 <li>将某一行所有元素乘以数k≠0（第i行乘k，记作ri×k）；</li>
@@ -1083,19 +1083,46 @@
 <p>行阶梯形矩阵B2还称为行<strong>最简形矩阵</strong>，其特点是：每个非零行的第一个非零元为1，且这些非零元所在的列的其他元素都为0.</p>
 <p><strong>标准形</strong>，其特点是：左上角是一个单位矩阵，其余元素全为</p>
 <p>任何矩阵A都有唯一的标准形.等价矩阵有相同的标准形.即有相同标准形的矩阵是等价的.因此所有与A等价的矩阵组成一个集合，称为一个等价类，标准形F是这个等价类中形式最简单的矩阵.</p>
-<h4 id="初等矩阵"><a href="#初等矩阵" class="headerlink" title="初等矩阵"></a>初等矩阵</h4><p>定义2　由单位矩阵E经过一次初等变换得到的方阵称为初等矩阵.</p>
+<h2 id="初等矩阵"><a href="#初等矩阵" class="headerlink" title="初等矩阵"></a>初等矩阵</h2><p>定义2　由单位矩阵E经过一次初等变换得到的方阵称为初等矩阵.</p>
 <p>定理1　设A是一个m×n矩阵，则对A施行一次初等行变换，相当于用相应的m阶初等矩阵左乘A；对A施行一次初等列变换，相当于用相应的n阶初等矩阵右乘A.</p>
 <p>定理2　方阵A可逆的充分必要条件是存在有限个初等矩阵P1，P2，…，Ps，使A=P1P2…Ps.</p>
 <p>推论4　对于n阶矩阵A与n×s矩阵B，若，则A可逆，且X=A1B.特别地，对于n个未知数n个方程的线性方程组Ax=b，若增广矩阵，则A可逆，且x=A1b为方程组的唯一解.</p>
-<h5 id="矩阵的秩"><a href="#矩阵的秩" class="headerlink" title="矩阵的秩"></a>矩阵的秩</h5><p>定义4　设在m×n矩阵A中有一个不等于0的r阶子式D，且所有的r+1阶子式（如果存在的话）全等于0，则D称为矩阵A的最高阶非零子式.数r称为矩阵A的秩，记作R（A）=r.我们规定零矩阵的秩为0.</p>
+<h2 id="矩阵的秩"><a href="#矩阵的秩" class="headerlink" title="矩阵的秩"></a>矩阵的秩</h2><h3 id="矩阵秩的定义"><a href="#矩阵秩的定义" class="headerlink" title="矩阵秩的定义"></a>矩阵秩的定义</h3><p>定义4　设在m×n矩阵A中有一个不等于0的r阶子式D，且所有的r+1阶子式（如果存在的话）全等于0，则D称为矩阵A的最高阶非零子式.数r称为矩阵A的秩，记作R（A）=r.我们规定零矩阵的秩为0.</p>
 <p>注意：</p>
 <ol>
 <li>由行列式的展开法则可知，在A中，当所有r+l阶子式全等于0时，所有高于r+l阶的子式也全等于0，因此把r阶非零子式称为A的最高阶非零子式，而A的秩R（A）就是A中不等于0的子式的最高阶数. </li>
 <li>若矩阵A中存在某个s阶子式不等于0，则R（A）≥s；若所有t阶子式全为0，则R（A）&lt;t.</li>
 <li>对任意m×n矩阵A，有O≤R（A）≤min{m，n}.</li>
-<li>对任意m×n矩阵A，有R（A）=R（AT）.（v）对n阶方阵A，若|A|≠0，则R（A）=n，此时方阵A可逆，所以可逆矩阵又称满秩矩阵；若|A|=0，则R（A）&lt;n，此时方阵A不可逆，因此不可逆矩阵又称降秩矩阵（或奇异矩阵）.</li>
+<li>对任意m×n矩阵A，有R（A）=$R(A^T)$. </li>
+<li>对n阶方阵A，若|A|≠0，则R（A）=n，此时方阵A可逆，所以可逆矩阵又称满秩矩阵；若|A|=0，则R（A）&lt;n，此时方阵A不可逆，因此不可逆矩阵又称降秩矩阵（或奇异矩阵）.</li>
 </ol>
-<p>黄璇,吴高翔,罗贤强,刘忠东. 线性代数 (Chinese Edition) (Kindle 位置 844-847). Kindle 版本. </p>
+<h3 id="矩阵秩与矩阵的初等变换"><a href="#矩阵秩与矩阵的初等变换" class="headerlink" title="矩阵秩与矩阵的初等变换"></a>矩阵秩与矩阵的初等变换</h3><p>定理3　若A～B，则R（A）=R（B）.</p>
+<p>由定理3可知，要求矩阵的秩，只要把矩阵用初等行变换化为行阶梯形矩阵，则行阶梯形矩阵中，非零行的行数即为该矩阵的秩.</p>
+<h3 id="矩阵的秩的性质"><a href="#矩阵的秩的性质" class="headerlink" title="矩阵的秩的性质"></a>矩阵的秩的性质</h3><ol>
+<li>性质1　0≤R（Am×n）≤min{m，n}，且R（A）=0的充分必要条件是A=O.</li>
+<li>性质2　R（A）=R（$A^T$）.</li>
+<li>性质3　R（A）=R（kA）（k≠0）.</li>
+<li>性质4　若A～B，则R（A）=R（B）.</li>
+<li>性质5　若P，Q可逆，则R（PAQ）=R（A）.</li>
+<li>性质6　max{R（A），R（B）}≤R（A，B）≤R（A）+R（B），特别地，当B=b为列向量时，有R（A）≤R（A，b）≤R（A）+1.</li>
+<li>性质7　R（A±B）≤R（A）+R（B）</li>
+<li>性质8　R（AB）≤min{R（A），R（B）}.</li>
+<li>性质9　若$A_{m×n}B_{n×l}=O$，则R（A）+R（B）≤n.</li>
+</ol>
+<h2 id="线性方程组的解"><a href="#线性方程组的解" class="headerlink" title="线性方程组的解"></a>线性方程组的解</h2><p>消元法就是<strong>增广矩阵</strong> 变换的过程。</p>
+<p>定理4　n元非齐次线性方程组Ax=b，</p>
+<ol>
+<li>无解的充分必要条件是R（A）&lt;R（A，b）；</li>
+<li>有唯一解的充分必要条件是R（A）=R（A，b）=n；</li>
+<li>有无穷多解的充分必要条件是R（A）=R（A，b）&lt;n.</li>
+</ol>
+<p>由定理4，可知解线性方程组Ax=b时，只需对增广矩阵B=（A，b）施行初等行变换化为行阶梯形矩阵，判别线性方程组是否有解；在有解时，继续对增广矩阵施行初等行变换化为行最简形矩阵，而后求出线性方程组的解.</p>
+<p>定理5　矩阵方程AX=B有解的充分必要条件是R（A）=R（A，B）.</p>
+<p>齐次线性方程组有非零解的充分必要条件：</p>
+<p>定理7　n元齐次线性方程组Ax=0有非零解的充分必要条件是系数矩阵A的秩R（A）&lt;n；而只有零解得充分必要条件是R（A）=n.</p>
+<p>推论1　若齐次线性方程组Ax=0中方程的个数小于未知数的个数，则它必有非零解.</p>
+<p>推论2　n个方程n个未知数的齐次线性方程组Ax=0有非零解的充分必要条件是系数行列式|A|=0；而它只有零解的充分必要条件是系数行列式|A|≠0.定理7还可以推广到矩阵方程情形中.</p>
+<p>定理8　矩阵方程$A_{m×n}X_{n×l}=O_{m×l}$只有零解的充分必要条件是R（A）=n.</p>
 
             </div>
         
