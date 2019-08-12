@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/matrixTransformation/</loc>
+    
+    <lastmod>2019-08-12T03:56:29.234Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/matrix/</loc>
     
-    <lastmod>2019-08-12T02:32:45.156Z</lastmod>
+    <lastmod>2019-08-12T03:44:41.504Z</lastmod>
     
   </url>
   
@@ -1059,13 +1066,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/IOS%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85app/IOS_simulator_install_app/</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -1165,6 +1165,13 @@
   
   <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/Cocoapods/Cocoapods-new-spec/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/IOS%E6%A8%A1%E6%8B%9F%E5%99%A8%E5%AE%89%E8%A3%85app/IOS_simulator_install_app/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     
