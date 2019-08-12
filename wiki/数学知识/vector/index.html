@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>NSScanner | LJ小窝</title>
+    <title>第四章 向量组的线性相关性 | LJ小窝</title>
     
     
-        <meta name="keywords" content="NSScanner">
+        <meta name="keywords" content="线性代数">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations. NSScanner是一个string的解析器。 An NSScanner">
-<meta name="keywords" content="NSScanner">
+    <meta name="description" content="本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。">
+<meta name="keywords" content="线性代数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSScanner">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/foundation使用记录/NSScaner/index.html">
+<meta property="og:title" content="第四章 向量组的线性相关性">
+<meta property="og:url" content="http://yoursite.com/wiki/数学知识/vector/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations. NSScanner是一个string的解析器。 An NSScanner">
+<meta property="og:description" content="本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-13T10:21:48.262Z">
+<meta property="og:updated_time" content="2019-08-12T09:29:55.518Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="NSScanner">
-<meta name="twitter:description" content="A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations. NSScanner是一个string的解析器。 An NSScanner">
+<meta name="twitter:title" content="第四章 向量组的线性相关性">
+<meta name="twitter:description" content="本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。">
     
 
     
@@ -426,9 +426,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -532,13 +532,13 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/1_system_Crash_Type/">1. 系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/2_Collection_Crash/">2. 收集崩溃日志方法</a></li>  <li class="file"><a href="/wiki/IOS/crash/3_KSCrash_Analize/">3. KSCrash原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/4_increase_Wild_Pointer/">4.如何定位Obj-C野指针随机Crash(一):先提高野指针Crash率(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/7_increase_Wild_Pointer/">7. Scribble& NSZombieEnabled</a></li>  <li class="file"><a href="/wiki/IOS/crash/6_increase_Wild_Pointer/">6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             foundation使用记录
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  <li class="file active"><a href="/wiki/IOS/foundation使用记录/NSScaner/">NSScanner</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSURL记录/">NSURL记录</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSInvocation的基本使/">NSInvocation的基本使</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSScaner/">NSScanner</a></li>  <li class="file"><a href="/wiki/IOS/foundation使用记录/NSURL记录/">NSURL记录</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -804,13 +804,13 @@
                      <li class="file"><a href="/wiki/工具/use_appledoc/">appledoc生成文档实践</a></li>  </ul> 
                     </li> 
                     
-                    <li class="directory">
+                    <li class="directory open">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
+                            <i class="fa fa-folder-open"></i>
                             &nbsp;
                             数学知识
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  <li class="file"><a href="/wiki/数学知识/matrix/">第二章矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/det/">第一章行列式</a></li>  <li class="file"><a href="/wiki/数学知识/matrixTransformation/">第三章 矩阵的初等变换和线性方程组</a></li>  <li class="file"><a href="/wiki/数学知识/vector/">第四章 向量组的线性相关性</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  <li class="file"><a href="/wiki/数学知识/matrix/">第二章矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/det/">第一章行列式</a></li>  <li class="file"><a href="/wiki/数学知识/matrixTransformation/">第三章 矩阵的初等变换和线性方程组</a></li>  <li class="file active"><a href="/wiki/数学知识/vector/">第四章 向量组的线性相关性</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1018,7 +1018,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/foundation使用记录/NSScaner" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-数学知识/vector" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1028,20 +1028,20 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
+        <a class="article-category-link" href="/categories/数学知识/">数学知识</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/NSScanner/">NSScanner</a>
+        <a class="tag-link" href="/tags/线性代数/">线性代数</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/foundation使用记录/NSScaner/">
-            <time datetime="2019-05-13T01:35:49.000Z" itemprop="datePublished">2019-05-13</time>
+        <a href="/wiki/数学知识/vector/">
+            <time datetime="2019-08-11T02:07:12.000Z" itemprop="datePublished">2019-08-11</time>
         </a>
     </div>
 
@@ -1052,7 +1052,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            NSScanner
+            第四章 向量组的线性相关性
         </h1>
     
 
@@ -1065,24 +1065,39 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#向量组及其线性组合"><span class="toc-number">1.</span> <span class="toc-text">向量组及其线性组合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量组的线性相关性"><span class="toc-number">2.</span> <span class="toc-text">向量组的线性相关性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量组的秩"><span class="toc-number">3.</span> <span class="toc-text">向量组的秩</span></a></li></ol>
                 </div>
             
         
         
-            <a id="more"></a>
-<p>A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations.</p>
-<p>NSScanner是一个string的解析器。</p>
-<p>An NSScanner object interprets and converts the characters of an NSString object into number and string values. </p>
-<p>NSScanner对象将 NSString对象的字符 解析转化为 数字或string。</p>
-<p>NSScanner是个类族。</p>
-<p>初始化方法：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>scannerWithString:</span><br></pre></td></tr></table></figure>
-<p>扫描字符或string</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">scanCharactersFromSet:</span><span class="string">intoString:</span></span><br></pre></td></tr></table></figure>
-<p>扫描一个数字</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>scanDecimal:</span><br></pre></td></tr></table></figure>
-
+            <p>本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。</p>
+<a id="more"></a>
+<h2 id="向量组及其线性组合"><a href="#向量组及其线性组合" class="headerlink" title="向量组及其线性组合"></a>向量组及其线性组合</h2><p><strong>定义2</strong>　设有向量组$A:a_1，a_2，…，a_m$及任意给定的m个实数$k_1，k_2，…，k_m$，表达式：</p>
+<p>$$k_1a_1+k_2a_2+…+k_ma_m$$</p>
+<p>称为向量组A的一个<strong>线性组合</strong>，$k_1，k_2，…，k_m$，称为这个线性组合的系数.</p>
+<p>若向量b等于向量组A的某一线性组合，即存在数$λ_1，λ_2，…，λ_m$，使$$b=λ_1a_1+λ_2a_2+…+λ_ma_m$$，则称<strong>向量b可由向量组A线性表示</strong>.</p>
+<p><strong>定理1</strong>　向量b可由向量组A:a1，a2，…，am线性表示的充分必要条件是矩阵A=（a1，a2，…，am）的秩等于矩阵B=（a1，a2，…，am，b）的秩.</p>
+<p><strong>定义3</strong>　若向量组B:b1，b2，…，bl的每个向量都可由向量组A:a1，a2，…，am线性表示，则称向量组B可由向量组A线性表示；若向量组A与向量组B可相互线性表示，则称向量组A与B等价.</p>
+<p><strong>定理2</strong>　向量组$B:b_1，b_2，…，b_l$可由向量组$A:a_1，a_2，…a_m$线性表示的充分必要条件是矩阵A＝$（a_1，a_2，…，a_m）$的秩等于矩阵$（A，B）=（a_1，…，a_m，b_1，…b_l）$的秩，即$$R（A）=R（A，B）$$</p>
+<p><strong>推论　</strong>向量组$A:a_1，a_2，…，a_m$与向量组$B:b_1，b_2，…，b_l$等价的充分必要条件是$$R（A）=R（B）=R（A，B）$$，其中，A和B分别是向量组A和向量组B构成的矩阵.</p>
+<p><strong>定理3</strong>　设$A=（a_1，a_2，…，a_m），B=（b_1，b_2，…，b_l），$若向量组$B：b_1，b_2，…，b_l$可由向量组$A:a_1，a_2，….a_m$线性表示，则$$R（B）≤R（A）$$.</p>
+<h2 id="向量组的线性相关性"><a href="#向量组的线性相关性" class="headerlink" title="向量组的线性相关性"></a>向量组的线性相关性</h2><p>定义4　给定向量组$A:a_1，a_2，…，a_m$，若存在不全为零的一组数$k_1，k_2，…，k_m$，使$$k_1a_1+k_2a_2+…+k_ma_m=0$$，则称向量组A是线性相关的，否则称向量组A线性无关.根据相关性的定义，易得如下结论：</p>
+<ol>
+<li>对于只有一个向量a的向量组，当a=0时线性相关，当a≠0时线性无关：</li>
+<li>含两个向量a1，a2的向量组线性相关a1，a2的分量对应成比例；</li>
+<li>含有零向量的向量组一定线性相关.</li>
+</ol>
+<p>向量组线性相关概念也可移用于线性方程组，当方程组中某个方程是其余方程的线性组合时，这个方程就是多余的，这时称方程组是线性相关的；当方程组中没有多余方程时，就称方程组是线性无关的.设$A=（a_1，a_2，…，a_m）$，则向量组$A:a_1，a_2，…，a_m$线性相关，就是齐次线性方程组</p>
+<p>$$x_1a_1+x_2a_2+…+x_ma_m=0$$，即Ax=0有非零解.由第3章定理7，可得</p>
+<p><strong>定理4　</strong>向量组$A:a_1，a_2，…，a_m$线性相关的充分必要条件是矩阵$A=（a_1，a_2，…，a_m）$的秩R（A）&lt;m；线性无关的充分必要条件是R（A）=m（m为向量组A中向量的个数）.</p>
+<p><strong>推论</strong>　m个n维列向量构成的向量组$A:a_1，a_2，….a_m$，当m&gt;n时，一定线性相关.</p>
+<p><strong>定理5　</strong></p>
+<ol>
+<li>向量组$A:a_1，a_2.…，a_m（m≥2）$线性相关的充分必要条件是向量组中至少有一个向量可由其余m1个向量线性表示.</li>
+<li>若向量组$A:a_1.a_2，…，a_m$线性相关，则向量组$B:a_1，a_2，…，a_m，a_{m+1}$也线性相关；反之，若向量组$B:a_1，a_2，…，a_m，a_{m+1}$，线性无关，则向量组$A:a_1，a_2，…，a_m$也线性无关.</li>
+<li>设向量组$A:a_1，a_2，…a_m$线性无关，而向量组$B:a_1，a_2，…，a_m，b$线性相关，则向量b必能由向量组A线性表示，且表示唯一</li>
+</ol>
+<h2 id="向量组的秩"><a href="#向量组的秩" class="headerlink" title="向量组的秩"></a>向量组的秩</h2>
             </div>
         
         <footer class="article-footer">
@@ -1094,19 +1109,10 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/opensource/JLRoute/JLRoute/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    JLRoute学习
-                
-            </div>
-        </a>
     
-    
-        <a href="/wiki/IOS/foundation使用记录/NSURL记录/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/数学知识/matrixTransformation/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">NSURL记录</div>
+            <div class="article-nav-title">第三章 矩阵的初等变换和线性方程组</div>
         </a>
     
 </nav>
@@ -1118,7 +1124,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/foundation使用记录/NSScaner/" data-title="NSScanner" data-url="http://yoursite.com/wiki/IOS/foundation使用记录/NSScaner/"></div>
+    <div class="ds-thread" data-thread-key="wiki/数学知识/vector/" data-title="第四章 向量组的线性相关性" data-url="http://yoursite.com/wiki/数学知识/vector/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-08-12T07:11:26.487Z</updated>
+  <updated>2019-08-12T09:29:55.518Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>第四章 向量组的线性相关性</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/vector/"/>
+    <id>http://yoursite.com/wiki/数学知识/vector/</id>
+    <published>2019-08-11T02:07:12.000Z</published>
+    <updated>2019-08-12T09:29:55.518Z</updated>
+    
+    <content type="html"><![CDATA[<p>本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。</p><a id="more"></a><h2 id="向量组及其线性组合"><a href="#向量组及其线性组合" class="headerlink" title="向量组及其线性组合"></a>向量组及其线性组合</h2><p><strong>定义2</strong>　设有向量组$A:a_1，a_2，…，a_m$及任意给定的m个实数$k_1，k_2，…，k_m$，表达式：</p><p>$$k_1a_1+k_2a_2+…+k_ma_m$$</p><p>称为向量组A的一个<strong>线性组合</strong>，$k_1，k_2，…，k_m$，称为这个线性组合的系数.</p><p>若向量b等于向量组A的某一线性组合，即存在数$λ_1，λ_2，…，λ_m$，使$$b=λ_1a_1+λ_2a_2+…+λ_ma_m$$，则称<strong>向量b可由向量组A线性表示</strong>.</p><p><strong>定理1</strong>　向量b可由向量组A:a1，a2，…，am线性表示的充分必要条件是矩阵A=（a1，a2，…，am）的秩等于矩阵B=（a1，a2，…，am，b）的秩.</p><p><strong>定义3</strong>　若向量组B:b1，b2，…，bl的每个向量都可由向量组A:a1，a2，…，am线性表示，则称向量组B可由向量组A线性表示；若向量组A与向量组B可相互线性表示，则称向量组A与B等价.</p><p><strong>定理2</strong>　向量组$B:b_1，b_2，…，b_l$可由向量组$A:a_1，a_2，…a_m$线性表示的充分必要条件是矩阵A＝$（a_1，a_2，…，a_m）$的秩等于矩阵$（A，B）=（a_1，…，a_m，b_1，…b_l）$的秩，即$$R（A）=R（A，B）$$</p><p><strong>推论　</strong>向量组$A:a_1，a_2，…，a_m$与向量组$B:b_1，b_2，…，b_l$等价的充分必要条件是$$R（A）=R（B）=R（A，B）$$，其中，A和B分别是向量组A和向量组B构成的矩阵.</p><p><strong>定理3</strong>　设$A=（a_1，a_2，…，a_m），B=（b_1，b_2，…，b_l），$若向量组$B：b_1，b_2，…，b_l$可由向量组$A:a_1，a_2，….a_m$线性表示，则$$R（B）≤R（A）$$.</p><h2 id="向量组的线性相关性"><a href="#向量组的线性相关性" class="headerlink" title="向量组的线性相关性"></a>向量组的线性相关性</h2><p>定义4　给定向量组$A:a_1，a_2，…，a_m$，若存在不全为零的一组数$k_1，k_2，…，k_m$，使$$k_1a_1+k_2a_2+…+k_ma_m=0$$，则称向量组A是线性相关的，否则称向量组A线性无关.根据相关性的定义，易得如下结论：</p><ol><li>对于只有一个向量a的向量组，当a=0时线性相关，当a≠0时线性无关：</li><li>含两个向量a1，a2的向量组线性相关a1，a2的分量对应成比例；</li><li>含有零向量的向量组一定线性相关.</li></ol><p>向量组线性相关概念也可移用于线性方程组，当方程组中某个方程是其余方程的线性组合时，这个方程就是多余的，这时称方程组是线性相关的；当方程组中没有多余方程时，就称方程组是线性无关的.设$A=（a_1，a_2，…，a_m）$，则向量组$A:a_1，a_2，…，a_m$线性相关，就是齐次线性方程组</p><p>$$x_1a_1+x_2a_2+…+x_ma_m=0$$，即Ax=0有非零解.由第3章定理7，可得</p><p><strong>定理4　</strong>向量组$A:a_1，a_2，…，a_m$线性相关的充分必要条件是矩阵$A=（a_1，a_2，…，a_m）$的秩R（A）&lt;m；线性无关的充分必要条件是R（A）=m（m为向量组A中向量的个数）.</p><p><strong>推论</strong>　m个n维列向量构成的向量组$A:a_1，a_2，….a_m$，当m&gt;n时，一定线性相关.</p><p><strong>定理5　</strong></p><ol><li>向量组$A:a_1，a_2.…，a_m（m≥2）$线性相关的充分必要条件是向量组中至少有一个向量可由其余m1个向量线性表示.</li><li>若向量组$A:a_1.a_2，…，a_m$线性相关，则向量组$B:a_1，a_2，…，a_m，a_{m+1}$也线性相关；反之，若向量组$B:a_1，a_2，…，a_m，a_{m+1}$，线性无关，则向量组$A:a_1，a_2，…，a_m$也线性无关.</li><li>设向量组$A:a_1，a_2，…a_m$线性无关，而向量组$B:a_1，a_2，…，a_m，b$线性相关，则向量b必能由向量组A线性表示，且表示唯一</li></ol><h2 id="向量组的秩"><a href="#向量组的秩" class="headerlink" title="向量组的秩"></a>向量组的秩</h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
+    
+    
+      <category term="线性代数" scheme="http://yoursite.com/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>第三章 矩阵的初等变换和线性方程组</title>
@@ -164,19 +186,19 @@
   
   <entry>
     <title>1. 两数之和</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/3_%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/LeetCode/top1_10/3_无重复字符的最长子串/</id>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/LeetCode/top1_10/1_两数之和/</id>
     <published>2019-07-25T09:07:12.000Z</published>
     <updated>2019-07-25T09:31:21.420Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/wiki/数据结构与算法/LeetCode/top1_10/3_无重复字符的最长子串/1_两数之和/problem.png" alt="题目"></p><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(<span class="number">_</span> nums: [Int], <span class="number">_</span> target: Int)</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">       <span class="comment">// num = [2, 7, 11, 15] target = 9</span></span><br><span class="line">        <span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Int</span>]()</span><br><span class="line">        <span class="keyword">for</span> (i, v) <span class="keyword">in</span> nums.enumerated() &#123;</span><br><span class="line">            <span class="comment">// i = 0, v = 2</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> lastIndex = dict[target - v] &#123;</span><br><span class="line">                <span class="keyword">return</span> [lastIndex, i]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                dict[v] = i</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"NO Output"</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/wiki/数据结构与算法/LeetCode/top1_10/1_两数之和/problem.png" alt="题目"></p><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(<span class="number">_</span> nums: [Int], <span class="number">_</span> target: Int)</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">       <span class="comment">// num = [2, 7, 11, 15] target = 9</span></span><br><span class="line">        <span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Int</span>]()</span><br><span class="line">        <span class="keyword">for</span> (i, v) <span class="keyword">in</span> nums.enumerated() &#123;</span><br><span class="line">            <span class="comment">// i = 0, v = 2</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> lastIndex = dict[target - v] &#123;</span><br><span class="line">                <span class="keyword">return</span> [lastIndex, i]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                dict[v] = i</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"NO Output"</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
         &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/wiki/数据结构与算法/LeetCode/top1_10/3_无重复字符的最长子
+&lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/wiki/数据结构与算法/LeetCode/top1_10/1_两数之和/prob
       
     
     </summary>
@@ -192,19 +214,19 @@
   
   <entry>
     <title>1. 两数之和</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/LeetCode/top1_10/1_两数之和/</id>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/3_%E6%97%A0%E9%87%8D%E5%A4%8D%E5%AD%97%E7%AC%A6%E7%9A%84%E6%9C%80%E9%95%BF%E5%AD%90%E4%B8%B2/"/>
+    <id>http://yoursite.com/wiki/数据结构与算法/LeetCode/top1_10/3_无重复字符的最长子串/</id>
     <published>2019-07-25T09:07:12.000Z</published>
     <updated>2019-07-25T09:31:21.420Z</updated>
     
-    <content type="html"><![CDATA[<a id="more"></a><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/wiki/数据结构与算法/LeetCode/top1_10/1_两数之和/problem.png" alt="题目"></p><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(<span class="number">_</span> nums: [Int], <span class="number">_</span> target: Int)</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">       <span class="comment">// num = [2, 7, 11, 15] target = 9</span></span><br><span class="line">        <span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Int</span>]()</span><br><span class="line">        <span class="keyword">for</span> (i, v) <span class="keyword">in</span> nums.enumerated() &#123;</span><br><span class="line">            <span class="comment">// i = 0, v = 2</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> lastIndex = dict[target - v] &#123;</span><br><span class="line">                <span class="keyword">return</span> [lastIndex, i]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                dict[v] = i</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"NO Output"</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
+    <content type="html"><![CDATA[<a id="more"></a><h2 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h2><p><img src="/wiki/数据结构与算法/LeetCode/top1_10/3_无重复字符的最长子串/1_两数之和/problem.png" alt="题目"></p><h2 id="解法"><a href="#解法" class="headerlink" title="解法"></a>解法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">twoSum</span><span class="params">(<span class="number">_</span> nums: [Int], <span class="number">_</span> target: Int)</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">       <span class="comment">// num = [2, 7, 11, 15] target = 9</span></span><br><span class="line">        <span class="keyword">var</span> dict = [<span class="type">Int</span>: <span class="type">Int</span>]()</span><br><span class="line">        <span class="keyword">for</span> (i, v) <span class="keyword">in</span> nums.enumerated() &#123;</span><br><span class="line">            <span class="comment">// i = 0, v = 2</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> lastIndex = dict[target - v] &#123;</span><br><span class="line">                <span class="keyword">return</span> [lastIndex, i]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                dict[v] = i</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"NO Output"</span>)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>]]></content>
     
     <summary type="html">
     
       
       
         &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/wiki/数据结构与算法/LeetCode/top1_10/1_两数之和/prob
+&lt;h2 id=&quot;题目&quot;&gt;&lt;a href=&quot;#题目&quot; class=&quot;headerlink&quot; title=&quot;题目&quot;&gt;&lt;/a&gt;题目&lt;/h2&gt;&lt;p&gt;&lt;img src=&quot;/wiki/数据结构与算法/LeetCode/top1_10/3_无重复字符的最长子
       
     
     </summary>
@@ -459,28 +481,6 @@
     <summary type="html">
     
       &lt;p&gt;记录AC算法的主要思想&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数据结构与算法" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"/>
-    
-      <category term="数据结构和算法之美" scheme="http://yoursite.com/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>KMP字符串查找</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%92%8C%E7%AE%97%E6%B3%95%E4%B9%8B%E7%BE%8E/34_KMP/"/>
-    <id>http://yoursite.com/wiki/数据结构与算法/数据结构和算法之美/34_KMP/</id>
-    <published>2019-07-12T10:07:12.000Z</published>
-    <updated>2019-07-16T01:27:41.925Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录KMP算法的主要思想</p><a id="more"></a><h2 id="思想"><a href="#思想" class="headerlink" title="思想"></a>思想</h2><p>模式串和主串匹配的过程，当遇到不匹配的字符的时候，我们希望找到一种规律，可以往后多滑动几位。</p><p>模式串和主串匹配的过程中，存在相等和不相等的可能。</p><p>不相等的处理：拿好前缀本身，在它的后缀子串中，查找最长的那个可以和好前缀的前缀子串匹配。</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_多滑动几位.png" alt="匹配过程中，不相等处理"></p><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">func kmp(<span class="string">a:</span> String, <span class="string">n:</span> Int, <span class="string">b:</span> String, <span class="string">m:</span>Int) -&gt; Int &#123;</span><br><span class="line">    let next = getNexts(<span class="string">b:</span> b, <span class="string">m:</span> m)</span><br><span class="line">    var j = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0.</span>.&lt;n &#123;</span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> &amp;&amp; a[a.index(a.startIndex, <span class="string">offsetBy:</span> i)] != b[b.index(b.startIndex, <span class="string">offsetBy:</span> j)] &#123; <span class="comment">//处理不等于的情况，i不动，j尽量移动多位</span></span><br><span class="line">            j = next[j<span class="number">-1</span>] + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//相等，继续往后比较</span></span><br><span class="line">        <span class="keyword">if</span> a[a.index(a.startIndex, <span class="string">offsetBy:</span> i)] == b[b.index(b.startIndex, <span class="string">offsetBy:</span> j)] &#123;</span><br><span class="line">            j += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//查找到了结果</span></span><br><span class="line">        <span class="keyword">if</span> j == m &#123;</span><br><span class="line">            <span class="keyword">return</span> i - m + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="失效函数计算方法"><a href="#失效函数计算方法" class="headerlink" title="失效函数计算方法"></a>失效函数计算方法</h2><p>next说明：</p><ol><li>下标：每个前缀结尾的下标</li><li>值： 这个前缀的最长可以匹配的前缀子串的结尾下标</li></ol><p>next[i-1] = k-1,则next[i] = k</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_Next求解中，相等处理.png" alt="KMP_Next求解中，相等处理"></p><p>查找b[0,i-1]的次长可匹配后缀子串，这个问题变成， 查找b[0,y]的最长匹配后缀子串的问题</p><p><img src="/wiki/数据结构与算法/数据结构和算法之美/34_KMP/KMP_next求解中，不相等.png" alt="KMP_Next求解中，相等处理"></p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*失效函数：  b 表示模式串，m表示模式串的长度*/</span></span><br><span class="line">func getNexts(<span class="selector-tag">b</span>: String, m: Int) -&gt; [Int] &#123;</span><br><span class="line">    <span class="selector-tag">var</span> next:[Int] = Array(repeating: -<span class="number">1</span>, count: m)  <span class="comment">//定义失效函数</span></span><br><span class="line">    <span class="selector-tag">var</span> k = -<span class="number">1</span></span><br><span class="line">    <span class="keyword">for</span> <span class="selector-tag">i</span> <span class="keyword">in</span> <span class="number">0</span>..&lt;m &#123;</span><br><span class="line">        while k != -<span class="number">1</span> &amp;&amp; <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: k+<span class="number">1</span>)] != <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: i)] &#123;</span><br><span class="line">            k = next[k]</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: k+<span class="number">1</span>)] == <span class="selector-tag">b</span>[<span class="selector-tag">b</span>.index(<span class="selector-tag">b</span><span class="selector-class">.startIndex</span>, offsetBy: i)] &#123;</span><br><span class="line">            k += <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        next[k] = k</span><br><span class="line">    &#125;</span><br><span class="line">    return next</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录KMP算法的主要思想&lt;/p&gt;
     
     </summary>
     
