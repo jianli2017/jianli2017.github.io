@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>第二章矩阵 | LJ小窝</title>
+    <title>第四章 向量组的线性相关性 | LJ小窝</title>
     
     
         <meta name="keywords" content="线性代数">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="矩阵学习记录">
+    <meta name="description" content="本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。">
 <meta name="keywords" content="线性代数">
 <meta property="og:type" content="article">
-<meta property="og:title" content="第二章矩阵">
-<meta property="og:url" content="http://yoursite.com/wiki/数学知识/matrix/index.html">
+<meta property="og:title" content="第四章 向量组的线性相关性">
+<meta property="og:url" content="http://yoursite.com/wiki/数学知识/线性代数/vector/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="矩阵学习记录">
+<meta property="og:description" content="本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-12T03:44:41.504Z">
+<meta property="og:updated_time" content="2019-08-13T03:06:16.478Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="第二章矩阵">
-<meta name="twitter:description" content="矩阵学习记录">
+<meta name="twitter:title" content="第四章 向量组的线性相关性">
+<meta name="twitter:description" content="本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。">
     
 
     
@@ -810,7 +810,16 @@
                             &nbsp;
                             数学知识
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  <li class="file active"><a href="/wiki/数学知识/matrix/">第二章矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/det/">第一章行列式</a></li>  <li class="file"><a href="/wiki/数学知识/matrixTransformation/">第三章 矩阵的初等变换和线性方程组</a></li>  <li class="file"><a href="/wiki/数学知识/vector/">第四章 向量组的线性相关性</a></li>  </ul> 
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory open">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder-open"></i>
+                            &nbsp;
+                            线性代数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/线性代数/matrix/">第二章矩阵</a></li>  <li class="file active"><a href="/wiki/数学知识/线性代数/vector/">第四章 向量组的线性相关性</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/det/">第一章行列式</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/相似矩阵/">第五章 相似矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/matrixTransformation/">第三章 矩阵的初等变换和线性方程组</a></li>  </ul> 
+                    </li> 
+                     <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1018,7 +1027,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-数学知识/matrix" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-数学知识/线性代数/vector" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1028,7 +1037,7 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/数学知识/">数学知识</a>
+        <a class="article-category-link" href="/categories/数学知识/">数学知识</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数学知识/线性代数/">线性代数</a>
     </div>
 
                         
@@ -1040,8 +1049,8 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/数学知识/matrix/">
-            <time datetime="2019-08-08T04:07:12.000Z" itemprop="datePublished">2019-08-08</time>
+        <a href="/wiki/数学知识/线性代数/vector/">
+            <time datetime="2019-08-11T02:07:12.000Z" itemprop="datePublished">2019-08-11</time>
         </a>
     </div>
 
@@ -1052,7 +1061,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            第二章矩阵
+            第四章 向量组的线性相关性
         </h1>
     
 
@@ -1065,89 +1074,66 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵"><span class="toc-number">1.</span> <span class="toc-text">矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵运算"><span class="toc-number">2.</span> <span class="toc-text">矩阵运算</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵乘法"><span class="toc-number">2.1.</span> <span class="toc-text">矩阵乘法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#矩阵转置"><span class="toc-number">2.2.</span> <span class="toc-text">矩阵转置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#方阵的行列式"><span class="toc-number">2.3.</span> <span class="toc-text">方阵的行列式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#逆矩阵"><span class="toc-number">3.</span> <span class="toc-text">逆矩阵</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#矩阵的分块"><span class="toc-number">4.</span> <span class="toc-text">矩阵的分块</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#向量组及其线性组合"><span class="toc-number">1.</span> <span class="toc-text">向量组及其线性组合</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量组的线性相关性"><span class="toc-number">2.</span> <span class="toc-text">向量组的线性相关性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量组的秩"><span class="toc-number">3.</span> <span class="toc-text">向量组的秩</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#线性方程组的解结构"><span class="toc-number">4.</span> <span class="toc-text">线性方程组的解结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#齐次线性方程组的解结构"><span class="toc-number">4.1.</span> <span class="toc-text">齐次线性方程组的解结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#非齐次线性方程组的解结构"><span class="toc-number">4.2.</span> <span class="toc-text">非齐次线性方程组的解结构</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#向量空间"><span class="toc-number">5.</span> <span class="toc-text">向量空间</span></a></li></ol>
                 </div>
             
         
         
-            <p>矩阵学习记录</p>
+            <p>本章讨论向量组的线性相关性，引入最大无关组和向量组的秩的概念。</p>
 <a id="more"></a>
-<h2 id="矩阵"><a href="#矩阵" class="headerlink" title="矩阵"></a>矩阵</h2><p>定义： 矩阵可以记作：$A=(a_{ij})_{m<em>n}$，也可以记作 $A_{m</em>n}$</p>
+<h2 id="向量组及其线性组合"><a href="#向量组及其线性组合" class="headerlink" title="向量组及其线性组合"></a>向量组及其线性组合</h2><p><strong>定义2</strong>　设有向量组$A:a_1，a_2，…，a_m$及任意给定的m个实数$k_1，k_2，…，k_m$，表达式：</p>
+<p>$$k_1a_1+k_2a_2+…+k_ma_m$$</p>
+<p>称为向量组A的一个<strong>线性组合</strong>，$k_1，k_2，…，k_m$，称为这个线性组合的系数.</p>
+<p>若向量b等于向量组A的某一线性组合，即存在数$λ_1，λ_2，…，λ_m$，使$$b=λ_1a_1+λ_2a_2+…+λ_ma_m$$，则称<strong>向量b可由向量组A线性表示</strong>.</p>
+<p><strong>定理1</strong>　向量b可由向量组A:a1，a2，…，am线性表示的充分必要条件是矩阵A=（a1，a2，…，am）的秩等于矩阵B=（a1，a2，…，am，b）的秩.</p>
+<p><strong>定义3</strong>　若向量组B:b1，b2，…，bl的每个向量都可由向量组A:a1，a2，…，am线性表示，则称向量组B可由向量组A线性表示；若向量组A与向量组B可相互线性表示，则称向量组A与B等价.</p>
+<p><strong>定理2</strong>　向量组$B:b_1，b_2，…，b_l$可由向量组$A:a_1，a_2，…a_m$线性表示的充分必要条件是矩阵A＝$（a_1，a_2，…，a_m）$的秩等于矩阵$（A，B）=（a_1，…，a_m，b_1，…b_l）$的秩，即$$R（A）=R（A，B）$$</p>
+<p><strong>推论　</strong>向量组$A:a_1，a_2，…，a_m$与向量组$B:b_1，b_2，…，b_l$等价的充分必要条件是$$R（A）=R（B）=R（A，B）$$，其中，A和B分别是向量组A和向量组B构成的矩阵.</p>
+<p><strong>定理3</strong>　设$A=（a_1，a_2，…，a_m），B=（b_1，b_2，…，b_l），$若向量组$B：b_1，b_2，…，b_l$可由向量组$A:a_1，a_2，….a_m$线性表示，则$$R（B）≤R（A）$$.</p>
+<h2 id="向量组的线性相关性"><a href="#向量组的线性相关性" class="headerlink" title="向量组的线性相关性"></a>向量组的线性相关性</h2><p>定义4　给定向量组$A:a_1，a_2，…，a_m$，若存在不全为零的一组数$k_1，k_2，…，k_m$，使$$k_1a_1+k_2a_2+…+k_ma_m=0$$，则称向量组A是线性相关的，否则称向量组A线性无关.根据相关性的定义，易得如下结论：</p>
 <ol>
-<li>只有一行元素，这样的矩阵称为行矩阵,A=$（a_1，a_2，…，a_n）$.</li>
-<li>若矩阵只有一列元素，这样的矩阵称为列矩阵</li>
-<li>若n阶方阵，主对角线以外的元素全为0，这样的矩阵称为对角阵，A=$diag（λ_1，λ_2，…，λ_n）$</li>
-<li>对角元素相同的对角阵，称为数量阵</li>
-<li>向量阵的元素为1，单位阵</li>
+<li>对于只有一个向量a的向量组，当a=0时线性相关，当a≠0时线性无关：</li>
+<li>含两个向量a1，a2的向量组线性相关a1，a2的分量对应成比例；</li>
+<li>含有零向量的向量组一定线性相关.</li>
 </ol>
-<p>定义2　若两个矩阵的行数与列数分别相等，则称它们为同型矩阵.</p>
-<h2 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h2><p>矩阵加法的运算规律：</p>
+<p>向量组线性相关概念也可移用于线性方程组，当方程组中某个方程是其余方程的线性组合时，这个方程就是多余的，这时称方程组是线性相关的；当方程组中没有多余方程时，就称方程组是线性无关的.设$A=（a_1，a_2，…，a_m）$，则向量组$A:a_1，a_2，…，a_m$线性相关，就是齐次线性方程组</p>
+<p>$$x_1a_1+x_2a_2+…+x_ma_m=0$$，即Ax=0有非零解.由第3章定理7，可得</p>
+<p><strong>定理4　</strong>向量组$A:a_1，a_2，…，a_m$线性相关的充分必要条件是矩阵$A=（a_1，a_2，…，a_m）$的秩R（A）&lt;m；线性无关的充分必要条件是R（A）=m（m为向量组A中向量的个数）.</p>
+<p><strong>推论</strong>　m个n维列向量构成的向量组$A:a_1，a_2，….a_m$，当m&gt;n时，一定线性相关.</p>
+<p><strong>定理5　</strong></p>
 <ol>
-<li>A+B = B + A 交换律</li>
-<li>(A+B) + C = A + (B + C) 结合律</li>
+<li>向量组$A:a_1，a_2.…，a_m（m≥2）$线性相关的充分必要条件是向量组中至少有一个向量可由其余m1个向量线性表示.</li>
+<li>若向量组$A:a_1.a_2，…，a_m$线性相关，则向量组$B:a_1，a_2，…，a_m，a_{m+1}$也线性相关；反之，若向量组$B:a_1，a_2，…，a_m，a_{m+1}$，线性无关，则向量组$A:a_1，a_2，…，a_m$也线性无关.</li>
+<li>设向量组$A:a_1，a_2，…a_m$线性无关，而向量组$B:a_1，a_2，…，a_m，b$线性相关，则向量b必能由向量组A线性表示，且表示唯一</li>
 </ol>
-<p>数与矩阵的乘法：</p>
-<p>定义4　数λ与矩阵A的乘积记作λA或A.</p>
-<p>数与矩阵相乘的运算规律：</p>
+<h2 id="向量组的秩"><a href="#向量组的秩" class="headerlink" title="向量组的秩"></a>向量组的秩</h2><p><strong>定义5</strong>　给定向量组A，若在A中能选出一个含r个向量的部分组$A0:a_1，a_2，…，a_r$，满足：</p>
 <ol>
-<li>(λμ)A = λ(μA)</li>
-<li>(λ+μ)A = λA+μA</li>
-<li>λ(A+B) = λA + λB</li>
+<li>向量组A0线性无关；</li>
+<li>向量组A中任意r+l个向量（如果A中有r+l个向量的话）都线性相关，则称向量组A0为向量组A的一个最大线性无关组，简称为最大无关组.最大无关组A0中所含向量个数：称为向量组A的秩.向量组$A:a_1，a_2，…，a_m$的秩，记作RA或$R（a_1，a_2，…，a_m）$</li>
 </ol>
-<h3 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h3><p>定义5　设矩阵$A=(a_{ij})_{m×s}，B=(b_{ij})_{s×n}，$则规定矩阵A与矩阵B的乘积是一个m×n矩阵$C= (c_{ij})_{m×n}$，其中<br> $c_{ij} = \sum_{k=1}^{s}a_{ik}b_{kj}$.</p>
+<p>只含有零向量的向量组没有最大无关组，规定它的秩为0.</p>
+<p>由定义可知：</p>
 <ol>
-<li>对于两个n阶方阵A、B ，若AB = BA， 则A与B是可交换的</li>
-<li>特别注意：若两个矩阵A，B满足AB=O，不能推出A=O或B=O的结论；若AB=AC，A≠O，也不能推出B=C的结论.</li>
+<li>若向量组A线性无关，则A的最大无关组就是A本身，它的秩就等于它所含向量的个数；</li>
+<li>向量组A线性相关的充分必要条件是向量组A的秩小于所含向量的个数；</li>
+<li>向量组A与它的最大无关组A0等价.因为A0是A的一个部分组，故A0总能由A线性表示；在A中任取一向量a，则有$a_1，a_2，…，a_r$，a这r+1个向量线性相关，而a1.a2，…，ar，线性无关，由4.2节定理5可知a能由$a_1，a_2，…，a_r$线性表示，即A能由A0线性表示.</li>
 </ol>
-<p>矩阵乘法的运算规律：</p>
+<p>定理6　矩阵的秩等于它的列向量组的秩，也等于它的行向量组的秩.</p>
+<h2 id="线性方程组的解结构"><a href="#线性方程组的解结构" class="headerlink" title="线性方程组的解结构"></a>线性方程组的解结构</h2><h3 id="齐次线性方程组的解结构"><a href="#齐次线性方程组的解结构" class="headerlink" title="齐次线性方程组的解结构"></a>齐次线性方程组的解结构</h3><p><strong>性质1　</strong>若x=ξ1，x=ξ2为Ax=0的解，则x=ξ1+ξ2也是Ax=0的解.</p>
+<p><strong>性质2</strong>　若X=ξ1，为Ax=0的解，k为实数，则x=kξ1，也是Ax=0的解.</p>
+<p>定义6　若向量$ξ_1，ξ_2，…，ξ_t$为齐次线性方程组Ax=0的解向量，且满足： </p>
 <ol>
-<li>（AB）C=A（BC）； </li>
-<li>A（B+C）=AB+AC，（B+C）A= BA+CA；</li>
-<li>λ（AB）=（λA）B=A（λB）.</li>
+<li>$ξ_1，ξ_2.…，ξ_t$线性无关；</li>
+<li>Ax=0的所有解均可由$ξ_1，ξ_2，…，ξ_t$线性表示，则称$ξ_1，ξ_2，…，ξ_t$为方程组Ax=0的一个基础解系，</li>
 </ol>
-<p>对于单位矩阵E，容易验证$E_mA_{m×n}=A_{m×n}，A_{m×n}E_n=A_{m×n}$，可简记为EA=AE=A.</p>
-<p>方阵的幂的运算规律 :</p>
-<ol>
-<li>$A^kA^1 = A^{k+1}$</li>
-<li>$(A^k)^l = A^{kl}$</li>
-</ol>
-<p>特别注意： 矩阵乘法不满足交换律。</p>
-<h3 id="矩阵转置"><a href="#矩阵转置" class="headerlink" title="矩阵转置"></a>矩阵转置</h3><p>定义6　将m×n矩阵A的行换成同序数的列得到的一个n×m矩阵，称为A的转置矩阵，记作$A^T$.</p>
-<p>矩阵转置的运算规律：</p>
-<ol>
-<li>$(A^T)^T = A$</li>
-<li>$(A+B)^T = A^T + B^T$</li>
-<li>$(λA)^T = λA^T$</li>
-<li>$(AB)^T = B^TA^T$</li>
-</ol>
-<p>定义7　设A为n阶方阵，如果满足$A^T$=A，则称对称阵，特点是它的元素以主对角线为对称轴，对应相等。</p>
-<p>反对称阵： $A^T = -A$</p>
-<h3 id="方阵的行列式"><a href="#方阵的行列式" class="headerlink" title="方阵的行列式"></a>方阵的行列式</h3><p>由n阶方阵A的元素所构成的行列式（各元素的位置不变），称为方阵A的行列式，记作|A|或detA.</p>
-<p>注意：方阵与行列式是两个不同的概念，n阶方阵是n2个数按一定方式排成的数表，而n阶行列式则是n2个数按一定的运算法则所确定的一个数.</p>
-<p>方阵行列式的运算规律：</p>
-<ol>
-<li>$|A^T| = |A|$$</li>
-<li>$|λA| = λ^n|A| $</li>
-<li>|AB| = |A||B|</li>
-</ol>
-<p>对于n阶方阵A，B，一般来说AB≠BA，但总有|AB|=|BA|=|A|·|B|.</p>
-<h2 id="逆矩阵"><a href="#逆矩阵" class="headerlink" title="逆矩阵"></a>逆矩阵</h2><p>设A为n阶方阵，若存在n阶矩阵B，使得：</p>
-<p>AB = BA = E</p>
-<p>则称方阵A是可逆的，并称B是A的逆矩阵 记作 $A^{-1} = B$,逆矩阵一定是方阵。</p>
-<p>定理1 ： 若矩阵A可逆，则其逆矩阵唯一</p>
-<p>定理2： 设$A^*$ 为A的伴随矩阵，就是每个元素都是对应的代数余子式。则有：</p>
-<p>$$AA^<em>=A^</em>A=|A|E$$</p>
-<p>定理3 ： n阶方阵A可逆的充分必要条件是|A| != 0 且有：</p>
-<p>$ A^{-1} = \frac{1}{|A|}A^*$</p>
-<p>方阵的逆矩阵的性质：</p>
-<ol>
-<li>若A可逆，则$(A^{-1})^{-1} = A$</li>
-<li>若A可逆，数λ不为0， 则λA可逆，且$(λA)^{-1} = \frac{1}{λ}A^{-1}$</li>
-<li>若AB为同阶方阵，且A、B都可逆，则AB可逆，且 $(AB)^{-1} = B^{-1}A^{-1}$</li>
-<li>若A可逆，则$A^T$可逆，且$ (A^T)^{-1} = (A^{-1})^T$</li>
-<li>若A可逆，则$ |A^{-1}| = \frac{1}{|A|} = |A|^{-1} $</li>
-</ol>
-<h2 id="矩阵的分块"><a href="#矩阵的分块" class="headerlink" title="矩阵的分块"></a>矩阵的分块</h2>
+<p>称$$x=k_1ξ_1+k_2ξ_2+…+k_tξ_t，$$（其中k1，k2，…，kt为任意实数）为方程组Ax=0的通解.若把方程组Ax=0的所有解组成一个向量组S，则基础解系$ξ_1，ξ_2，…，ξ_t$为向量组S的一个最大无关组.</p>
+<p><strong>定理7</strong>　设A为m×n矩阵，若R（A）=r，则n元齐次线性方程组Ax=0的解集S的秩$R_S=n-r$.</p>
+<h3 id="非齐次线性方程组的解结构"><a href="#非齐次线性方程组的解结构" class="headerlink" title="非齐次线性方程组的解结构"></a>非齐次线性方程组的解结构</h3><p><strong>性质3</strong>　若x=η1，x=η2为Ax=b的解，则x=η1η2为对应齐次线性方程组Ax=0的解.</p>
+<p><strong>性质4</strong>　设x=η是方程Ax=b的解，x=ξ是方程Ax=0的解，则x=ξ+η仍是方程Ax=b的解.</p>
+<p>由性质3可知，若求得方程Ax=b的一个特解$η^{*}$，则方程Ax=b的任一解都可表示为$$x=ξ+η*.（其中ξ为方程Ax=0的解）$$若方程Ax=0的通解为<br>$$x=k_1ξ_1+k_2ξ_2+…+k_{n-r}ξ_{n-r}$$，则方程Ax=b的任一解都可表示为</p>
+<p>$$x=k_1ξ_1+k_2ξ_2+…+k_{n-r}ξ_{n-r}+η^*$$.由性质4可知，方程Ax=b的通解为<br>$$x=k_1ξ_1+k_2ξ_2+…+k_{n-r}ξ_{n-r}+η^*$$，其中，$k_1，k_2，…，k_{n-r}$为任意实数，$ξ_1，ξ_2，…，ξ_{n-r}$是方程Ax=0的基础解系.</p>
+<h2 id="向量空间"><a href="#向量空间" class="headerlink" title="向量空间"></a>向量空间</h2><p><strong>定义7</strong>　设V是非空的n维向量的集合，若集合V对向量的加法及向量的数乘这两种运算封闭，则称集合V是一个向量空间.</p>
+
             </div>
         
         <footer class="article-footer">
@@ -1159,19 +1145,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/数学知识/det/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/数学知识/线性代数/相似矩阵/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    第一章行列式
+                    第五章 相似矩阵
                 
             </div>
         </a>
     
     
-        <a href="/wiki/IOS/opensource/Aspects/aspect/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/数学知识/线性代数/det/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">aspect源码浅析</div>
+            <div class="article-nav-title">第一章行列式</div>
         </a>
     
 </nav>
@@ -1183,7 +1169,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/数学知识/matrix/" data-title="第二章矩阵" data-url="http://yoursite.com/wiki/数学知识/matrix/"></div>
+    <div class="ds-thread" data-thread-key="wiki/数学知识/线性代数/vector/" data-title="第四章 向量组的线性相关性" data-url="http://yoursite.com/wiki/数学知识/线性代数/vector/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
