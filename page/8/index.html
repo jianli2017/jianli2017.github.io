@@ -813,6 +813,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            概率论和数理统计
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/概率论和数理统计/第一章 概率论的基本概念/">第四章 向量组的线性相关性</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             线性代数
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/线性代数/matrix/">第二章矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/vector/">第四章 向量组的线性相关性</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/det/">第一章行列式</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/相似矩阵/">第五章 相似矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/matrixTransformation/">第三章 矩阵的初等变换和线性方程组</a></li>  </ul> 
@@ -1026,6 +1035,77 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/initialize/">initialize</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/12_initialize/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>这篇文章可能是对 Objective-C 源代码解析系列文章中最短的一篇了，在 Objective-C 中，我们总是会同时想到 <code>load</code>、<code>initialize</code> 这两个类方法。而这两个方法也经常在一起比较。</p>
+<p>本文会主要介绍：</p>
+<ol>
+<li><code>initialize</code> 方法的调用为什么是惰性的。</li>
+<li>这货能干啥。</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/12_initialize/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/Runtime/objc/13_class_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1092,7 +1172,7 @@
 
 
     
-        <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1108,13 +1188,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/initialize/">initialize</a>
+        <a class="tag-link" href="/tags/load/">load</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/12_initialize/">
+        <a href="/wiki/IOS/Runtime/objc/11_load/">
             <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
         </a>
     </div>
@@ -1126,7 +1206,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a>
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/11_load/">11. 你真的了解 load 方法么？</a>
         </h1>
     
 
@@ -1138,18 +1218,13 @@
         
             
                 
-                <p></p><p>这篇文章可能是对 Objective-C 源代码解析系列文章中最短的一篇了，在 Objective-C 中，我们总是会同时想到 <code>load</code>、<code>initialize</code> 这两个类方法。而这两个方法也经常在一起比较。</p>
-<p>本文会主要介绍：</p>
-<ol>
-<li><code>initialize</code> 方法的调用为什么是惰性的。</li>
-<li>这货能干啥。</li>
-</ol><p></p>
+                <p></p><p>__objc_init函数是objc4库的入口函数。该函数里面注册了dyld_image_state_bound、dyld_image_state_dependents_initialized两种状态， 当Dyld bind 操作结束之后，会发出 dyld_image_state_bound 通知，然后执行与之绑定的回调函数 map_2_images，当调用Objc 的 + load的时候发送dyld_image_state_dependents_initialized消息，执行load_images函数。</p><p></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/12_initialize/#more">查看更多</a>
+                <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1638,74 +1713,8 @@
 
 
     
-        <article id="post-IOS/Runtime/objc/3NSObject" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/NSObject/">NSObject</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/3NSObject/">
-            <time datetime="2018-11-02T02:38:11.000Z" itemprop="datePublished">2018-11-02</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文保存了NSObject的基本完整类图。方便以后理解。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/3NSObject/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/7/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/17/">17</a><a class="extend next" rel="next" href="/page/9/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/7/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><span class="page-number current">8</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/">18</a><a class="extend next" rel="next" href="/page/9/">下一页 &raquo;</a>
         </nav>
     
 </section>
