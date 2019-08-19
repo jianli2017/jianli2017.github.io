@@ -682,6 +682,15 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存/">虚拟内存之一----关于</a></li>  <li class="file"><a href="/wiki/IOS/虚拟内存/虚拟内存之2/">查看虚拟内存</a></li>  </ul> 
                     </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            黑夜模式
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/黑夜模式/支持黑夜模式/">Supporting Dark Mode in Your Interface（支持黑夜模式）</a></li>  <li class="file"><a href="/wiki/IOS/黑夜模式/选择明确的样式/">Choosing a Specific Interface Style for Your iOS App</a></li>  </ul> 
+                    </li> 
                      </ul> 
                     </li> 
                     
@@ -1279,7 +1288,7 @@
 
 
     
-        <article id="post-IOS/swiftUI/swiftUI_DataFlow" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/黑夜模式/选择明确的样式" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1289,7 +1298,7 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swiftUI/">swiftUI</a>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/黑夜模式/">黑夜模式</a>
     </div>
 
                         
@@ -1301,7 +1310,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">
+        <a href="/wiki/IOS/黑夜模式/选择明确的样式/">
             <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
         </a>
     </div>
@@ -1313,7 +1322,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">SwiftUI 数据流理解</a>
+            <a class="article-title" href="/wiki/IOS/黑夜模式/选择明确的样式/">Choosing a Specific Interface Style for Your iOS App</a>
         </h1>
     
 
@@ -1325,88 +1334,14 @@
         
             
                 
-                <p><ol>
-<li>对于不变的常量直接传递给 SwiftUI 即可。</li>
-<li>对于控件上需要管理的状态使用 @State 管理。</li>
-<li>对于外部的事件变化使用 BindableObject 发送通知。</li>
-<li>对于需要共享的视图可变数据使用 @ObjectBinding 管理。</li>
-<li>不要出现多个状态同步管理，使用 @Binding 共享一个 Source of truth。</li>
-<li>对于系统环境使用 @Enviroment 管理。</li>
-<li>对于需要共享的不可变数据使用 @EnviromemntObject 管理。</li>
-<li>@Binding 具有引用语义，可以很好的和 @Binding @objectBinding @State 协作，避免出现多个数据不同步。</li>
-</ol></p>
+                <p></p><p>Adopt a specific interface style for your views, view controllers, or app when it is inappropriate to support both light and dark variants.</p>
+<p>当你的APP不适合light、dark模式时，为你的view，controller选择一个明确的样式。</p><p></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/swiftUI/swiftUI" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swiftUI/">swiftUI</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/SwiftUI/">SwiftUI</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swiftUI/swiftUI/">
-            <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI/">Swift新特性</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文按照自己的思路理解swift的新特性</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/swiftUI/swiftUI/#more">查看更多</a>
+                <a href="/wiki/IOS/黑夜模式/选择明确的样式/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1486,6 +1421,214 @@
 
 
     
+        <article id="post-IOS/swiftUI/swiftUI" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swiftUI/">swiftUI</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/SwiftUI/">SwiftUI</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/swiftUI/swiftUI/">
+            <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI/">Swift新特性</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文按照自己的思路理解swift的新特性</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/swiftUI/swiftUI/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/黑夜模式/支持黑夜模式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/黑夜模式/">黑夜模式</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/SwiftUI/">SwiftUI</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/黑夜模式/支持黑夜模式/">
+            <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/黑夜模式/支持黑夜模式/">Supporting Dark Mode in Your Interface（支持黑夜模式）</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>Update colors, images, and behaviors so that your app adapts automatically when Dark Mode is active.</p>
+<p>当黑夜模式激活后，更新颜色、图片、行为，使app自动适应黑夜模式。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/黑夜模式/支持黑夜模式/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/swiftUI/swiftUI_DataFlow" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swiftUI/">swiftUI</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/SwiftUI/">SwiftUI</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">
+            <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">SwiftUI 数据流理解</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p><ol>
+<li>对于不变的常量直接传递给 SwiftUI 即可。</li>
+<li>对于控件上需要管理的状态使用 @State 管理。</li>
+<li>对于外部的事件变化使用 BindableObject 发送通知。</li>
+<li>对于需要共享的视图可变数据使用 @ObjectBinding 管理。</li>
+<li>不要出现多个状态同步管理，使用 @Binding 共享一个 Source of truth。</li>
+<li>对于系统环境使用 @Enviroment 管理。</li>
+<li>对于需要共享的不可变数据使用 @EnviromemntObject 管理。</li>
+<li>@Binding 具有引用语义，可以很好的和 @Binding @objectBinding @State 协作，避免出现多个数据不同步。</li>
+</ol></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/opensource/AFNetworking/AFNetworking" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1539,137 +1682,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/opensource/AFNetworking/AFNetworking/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/暂无分类/ios_sign" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/暂无分类/">暂无分类</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/iOS-App-签名的原理/">iOS App 签名的原理</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/暂无分类/ios_sign/">
-            <time datetime="2019-06-03T04:07:12.000Z" itemprop="datePublished">2019-06-03</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/暂无分类/ios_sign/">iOS App 签名的原理([抄袭的，有问题请联系](http://wereadteam.github.io/2017/03/13/Signature/))</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/暂无分类/ios_sign/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-数据结构与算法/算法4/第5章字符串/5_3_findSubString" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/第5章字符串/">第5章字符串</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/子字符串查找/">子字符串查找</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_3_findSubString/">
-            <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_3_findSubString/">子字符串查找</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
-<h2 id="暴力子字符串查找算法"><a href="#暴力子字符串查找算法" class="headerlink" title="暴力子字符串查找算法"></a>暴力子字符串查找算法</h2><figure class="highlight arduino"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> search(<span class="keyword">String</span> pat,<span class="keyword">String</span> txt)</span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">int</span> M = pat.length();</span><br><span class="line">	<span class="keyword">int</span> N = txt.length();</span><br><span class="line">	<span class="built_in">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=N-M;j++)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j = <span class="number">0</span>;</span><br><span class="line">		<span class="built_in">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt; M ;j++)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="built_in">if</span>(txt.charAt(i+j) != pat.charAt(j))</span><br><span class="line">				<span class="built_in">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">if</span>(j==M) <span class="built_in">return</span> i;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">return</span> N;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在最坏情况下，暴力子字符串查找算法在长度为N的文本中查找长度为M的模式需要NM次比较。</p>
-<h3 id="KMP算法"><a href="#KMP算法" class="headerlink" title="KMP算法"></a>KMP算法</h3><p>主要思想：提前判断如何重新开始查找。</p>
-
             </div>
         
         <footer class="article-footer">
