@@ -18,7 +18,7 @@
 <meta property="og:description" content="Update colors, images, and behaviors so that your app adapts automatically when Dark Mode is active. 当黑夜模式激活后，更新颜色、图片、行为，使app自动适应黑夜模式。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/黑夜模式/支持黑夜模式/1.png">
-<meta property="og:updated_time" content="2019-08-19T02:45:08.166Z">
+<meta property="og:updated_time" content="2019-08-19T03:09:54.525Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Supporting Dark Mode in Your Interface（支持黑夜模式）">
 <meta name="twitter:description" content="Update colors, images, and behaviors so that your app adapts automatically when Dark Mode is active. 当黑夜模式激活后，更新颜色、图片、行为，使app自动适应黑夜模式。">
@@ -693,7 +693,7 @@
                             &nbsp;
                             黑夜模式
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/黑夜模式/支持黑夜模式/">Supporting Dark Mode in Your Interface（支持黑夜模式）</a></li>  <li class="file"><a href="/wiki/IOS/黑夜模式/选择明确的样式/">Choosing a Specific Interface Style for Your iOS App</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/黑夜模式/支持黑夜模式/">Supporting Dark Mode in Your Interface（支持黑夜模式）</a></li>  <li class="file"><a href="/wiki/IOS/黑夜模式/选择明确的样式/">Choosing a Specific Interface Style for Your iOS App（选择明确的界面样式）</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -1110,10 +1110,10 @@
 <li>Define custom colors in your asset catalog. When you need a specific color, create it as a color asset. In your asset, specify different color values for both light and dark appearances. You can also specify high-contrast versions of your colors.</li>
 </ol>
 <ol>
-<li>选择UIColor定义的语义color,而不是固定的颜色</li>
+<li>选择UIColor类中定义的<strong>语义color</strong>,而不是固定的颜色</li>
 <li>将自定义color定义在asset catalog中，指定dark、light中颜色。代码中使用<strong>UIColor(named: “customControlColor”)</strong> 加载颜色。</li>
 </ol>
-<p>定义在asset catalog中的颜色自动适配dark、light模式。模式变化，不需要重新加载。</p>
+<p>定义在asset catalog中的颜色自动适配dark、light模式。模式的变化，不需要重新加载。</p>
 <h2 id="Create-Images-for-All-Appearances"><a href="#Create-Images-for-All-Appearances" class="headerlink" title="Create Images for All Appearances"></a>Create Images for All Appearances</h2><p>If an image is difficult to see when changing appearances, provide a new image asset that looks good in the other appearance.</p>
 <p>提供image asset 支持两种模式。</p>
 <h2 id="Update-Custom-Views-Using-Specific-Methods-使用特定方法更新自定义view。"><a href="#Update-Custom-Views-Using-Specific-Methods-使用特定方法更新自定义view。" class="headerlink" title="Update Custom Views Using Specific Methods 使用特定方法更新自定义view。"></a>Update Custom Views Using Specific Methods 使用特定方法更新自定义view。</h2><p><img src="/wiki/IOS/黑夜模式/支持黑夜模式/1.png" alt=""></p>
