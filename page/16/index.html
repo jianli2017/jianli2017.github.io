@@ -824,7 +824,7 @@
                             &nbsp;
                             概率论和数理统计
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/概率论和数理统计/第一章 概率论的基本概念/">第四章 向量组的线性相关性</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/概率论和数理统计/第一章 概率论的基本概念/">第一章 基本知识</a></li>  <li class="file"><a href="/wiki/数学知识/概率论和数理统计/第二章 随机变量及其分布/">第二章 随机变量及其分布</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1044,6 +1044,107 @@
 </aside>
             
             <section id="main">
+        <article id="post-Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p>Gome weex 使用教程 </p>
+<h1 id="1-搭建Weex环境"><a href="#1-搭建Weex环境" class="headerlink" title="1. 搭建Weex环境"></a>1. 搭建Weex环境</h1><h3 id="1-1安装Node-js"><a href="#1-1安装Node-js" class="headerlink" title="1.1安装Node.js"></a>1.1安装Node.js</h3><p>weex 需要依赖Node.js 和 Weex CLi，首先需要安装Node.js ，可以使用 Homebrew 进行安装：</p>
+<pre><code>brew install node
+</code></pre><p>安装完Node.js 安装 weex-toolkit</p>
+<pre><code>npm install -g weex-toolkit
+weex -v //查看当前weex版本
+</code></pre><h3 id="1-2-集成到项目"><a href="#1-2-集成到项目" class="headerlink" title="1.2 集成到项目"></a>1.2 集成到项目</h3><p>通过cocoaPods 集成 Weex iOS SDK到你的项目，在Podfile文件中添加： </p>
+<pre><code>pod &apos;WeexSDK&apos;, &apos;0.9.5&apos;   ## 建议使用WeexSDK新版本 
+</code></pre><h1 id="2-Gome-weex-使用方法"><a href="#2-Gome-weex-使用方法" class="headerlink" title="2. Gome weex 使用方法"></a>2. Gome weex 使用方法</h1><p>GWeex分为两个流程:</p>
+<ol>
+<li>初始化</li>
+<li>加载Gweex页面<br>每个流程 暴露一个API。，分别是initWeexEnvironment、loadWeexPageResourceForUrl。</li>
+</ol>
+<h3 id="2-1-GWeex-初始化"><a href="#2-1-GWeex-初始化" class="headerlink" title="2.1 GWeex 初始化"></a>2.1 GWeex 初始化</h3><pre><code>-(void) initWeex
+{ 
+    //初始化SDK环境,最新版本的方法名改为：initSDKEnviroment
+    [WXSDKEngine initSDKEnvironment];
+    //registerModule是注册模块，如果没有，你点击weex的渲染的view中的按钮将找不到事件。
+    [WXSDKEngine registerModule:@&quot;event&quot; withClass:[WXEventModule class]];
+
+    ////PageManagerModule
+    [WXSDKEngine registerModule:@&quot;PageManagerModule&quot; withClass:[GWXSchemeModule class]];
+
+    //注册Handler
+    [WXSDKEngine registerHandler:[WXImageDownloader new] withProtocol:@protocol(WXImgLoaderProtocol)];
+
+    ///初始化国美weex 
+    GWXEngine *wxEngine = [GWXEngine shareInstance];
+    [wxEngine initWeexEnvironment];
+}
+</code></pre><p>初始化 过程包含两个任务： 初始化weex ，初始化GWXEngine。</p>
+<h3 id="2-2加载Gome-weex页面"><a href="#2-2加载Gome-weex页面" class="headerlink" title="2.2加载Gome weex页面"></a>2.2加载Gome weex页面</h3><p>加载weex页面，就是将给定的URL 使用weex渲染出来。加载的代码如下：</p>
+<pre><code>GWXEngine *wxEngine = [GWXEngine shareInstance];
+[wxEngine loadWeexPageResourceForUrl:GWX_URL finishBlock:^(NSString *strWeexUrl) {
+
+    if ([strWeexUrl hasPrefix:@&quot;http&quot;])
+    {
+        jumpToScheme(self, strWeexUrl);
+    }
+    else
+    {
+        GMFWeexVC *weexVC = [GMFWeexVC new];
+        weexVC.url = strWeexUrl;
+        [self.navigationController pushViewController:weexVC animated:YES];
+    }
+}];
+</code></pre><p>如果给定的URL能在本地插件表中找到 ，会被使用weex渲染 ，否则会调转到对应的H5页面 。</p>
+<h1 id="3-内部初始化原理"><a href="#3-内部初始化原理" class="headerlink" title="3. 内部初始化原理"></a>3. 内部初始化原理</h1><p>Gome Weex内部实现按照功能分，分为两部分，初始化（包括初始化清单流程、下载插件流程）、加载weex页面。下面分析初始化流程。初始化的流程下图（图1）</p>
+<h3 id="3-1-初始化清单流程"><a href="#3-1-初始化清单流程" class="headerlink" title="3.1 初始化清单流程"></a>3.1 初始化清单流程</h3><p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/init.png" alt="初始化流程"><br>图1</p>
+<p>初始化流程一般在App启动的时候触发，初始化有四个状态、分别是未初始化、初始化中、初始化OK、初始化失败。使用状态控制的目的是防止多次初始化功能 ，只有初始化失败，才可以再次初始化，如果初始化成功，不能再次初始化。</p>
+<p>第一步：当进入初始化流程，首先读取weex/info目录下的weexConfig.plist配置信息到内存 。weexConfig.plist存储着本地多有可用插件的信息。以key value的形式存储。key：是插件ID__版本，value：是插件的信息 。包括 插件下载地址、host、 插件下所有的页面Etag、插件版本、插件支持的SDK版本。如下图所示</p>
+<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/config.png" alt="本地存储的配置信息"></p>
+<p>第二步：请求插件清单接口，获取服务器的插件列表。如果请求OK，进入第三步，否则进入第五步。</p>
+<p>第三步：根据服务器返回的插件列表和本地已有的插件列表 计算出需要新下载的插件列表，添加到下载列表中 。如果  </p>
+<p>第四步： 启动下载流程   </p>
+<p>第五步：如果前面的流程没有出错，将初始化状态设置为OK ，否则设置为失败。</p>
+<h3 id="3-2-下载插件流程"><a href="#3-2-下载插件流程" class="headerlink" title="3.2 下载插件流程"></a>3.2 下载插件流程</h3><p>下载流程是在初始化清单接口完成后，自动触发的 。也包含在初始化流程中。</p>
+<p>下载多个插件是使用operation queue管理的，每个插件抽象为一个operation， 然后将所有的operation添加到下载队列中，下载队列管理所有的插件下载 ，并且，队列中同时只有两个插件下载 ，这样防止内存的峰值太高 。队列中的每个插件operation 执行完成后，回调给GWXEngine，这样 GWXEngine会根据下载的结果，做对应的处理 ，下载成功，添加到本地插件列表中，下载失败，添加到失败列表中。在失败列表中的插件在加载weex也的时候会触发重新下载 。</p>
+<p>operation queque管理插件下载的示意图 ：<br><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/allPluginDown.png" alt="多个plugin下载流程"></p>
+<p>每个插件的下载任务流程如下图所示：</p>
+<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/OnePluginDownload.png" alt="单个plugin下载流程"></p>
+<p>主要分为以下几个过程：</p>
+<ol>
+<li>启动插件下载网络请求 。</li>
+<li>如果请求状态为200 ，插件的zip会保存到download目录下 。</li>
+<li>解压插件zip到unzip目录 </li>
+<li>根据解压出来的文件，构架插件的信息。插件包下的所有页面的ETag值 （文件的修改时间+文件长度）</li>
+<li>将解压出来的插件复制到plugins目录的对应版本下面 。</li>
+<li>如果复制成功 ，将插件的信息保存在本地配置文件weexConfig.plist中，同时保存到内存中 。，同时将整个下载任务状态置为成功</li>
+<li>如果上面的任何一步失败，都将下载任务状态置为失败。</li>
+</ol>
+<p>其中这个过程设计到插件不同状态在不同文件夹下流转的过程如下：</p>
+<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/fileRevert.png" alt="文件流转过程"></p>
+<h3 id="3-3-加载weex-页面流程"><a href="#3-3-加载weex-页面流程" class="headerlink" title="3.3 加载weex 页面流程"></a>3.3 加载weex 页面流程</h3><p>加载页面的流程如下图所示 ：</p>
+<p><img src="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/Image/loadweexURL.png" alt="加载weex页面"></p>
+<p>完了 。 回头慢慢优化啊 。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/GCD/use-dispatch-semaphore" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1242,138 +1343,6 @@
 
 
     
-        <article id="post-Hybird/weex/weex-conmunication" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/weex/">weex</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/Hybird/weex/weex-conmunication/">
-            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/Hybird/weex/weex-conmunication/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/git/git简略版/git简略版" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git简略版/">git简略版</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/git/">git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/git/git简略版/git简略版/">
-            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>git 简略笔记<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/git/git简略版/git简略版/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-编程理论/正则表达式/正则表达式学习" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1506,6 +1475,138 @@
 
 
     
+        <article id="post-工具/git/git简略版/git简略版" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git简略版/">git简略版</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/git/">git</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/git/git简略版/git简略版/">
+            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/git/git简略版/git简略版/">Git笔记</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>git 简略笔记<br></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/工具/git/git简略版/git简略版/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-Hybird/weex/weex-conmunication" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/weex-conmunication/">
+            <time datetime="2016-12-13T10:01:31.000Z" itemprop="datePublished">2016-12-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/Hybird/weex/weex-conmunication/">weex 通信原理分析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文首先简单阐述了JavaScriptCore中JS和Native的通信机制，在此基础上，分析了weex中的JS和Native的通信机制。<br></p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/Hybird/weex/weex-conmunication/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-JS/flexBox" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1625,72 +1726,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/经典文章/Objective_C_Category/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/神经病院Objective-C-Runtime入院系列文章/">神经病院Objective-C Runtime入院系列文章</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/runtime/">runtime</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">
-            <time datetime="2016-11-29T06:25:09.000Z" itemprop="datePublished">2016-11-29</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/">第三天——如何正确使用Runtime(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>到了今天终于要”出院”了，要总结一下住院几天的收获，谈谈Runtime到底能为我们开发带来些什么好处。当然它也是把双刃剑，使用不当的话，也会成为开发路上的一个大坑。<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/神经病院Objective-C Runtime入院系列文章/thirdDay/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

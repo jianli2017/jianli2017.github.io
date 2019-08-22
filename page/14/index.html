@@ -824,7 +824,7 @@
                             &nbsp;
                             概率论和数理统计
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/概率论和数理统计/第一章 概率论的基本概念/">第四章 向量组的线性相关性</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/概率论和数理统计/第一章 概率论的基本概念/">第一章 基本知识</a></li>  <li class="file"><a href="/wiki/数学知识/概率论和数理统计/第二章 随机变量及其分布/">第二章 随机变量及其分布</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1220,6 +1220,130 @@
 <hr>
 <h2 id="抄袭地址"><a href="#抄袭地址" class="headerlink" title="抄袭地址"></a>抄袭地址</h2><ol>
 <li><a href="http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html" rel="external nofollow noopener noreferrer" target="_blank">Flex 布局教程：语法篇</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-Hybird/weex/weex_one" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/Hybird/">Hybird</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/Hybird/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/weex/">weex</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/Hybird/weex/weex_one/">
+            <time datetime="2018-05-04T04:07:12.000Z" itemprop="datePublished">2018-05-04</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/Hybird/weex/weex_one/">weex系列抄之一---环境搭建</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="React-Native-和-Weex"><a href="#React-Native-和-Weex" class="headerlink" title="React Native 和 Weex"></a>React Native 和 Weex</h2><p>自从Weex出生的那一天起，就无法摆脱和React Native相互比较的命运。React Native宣称“Learn once, write anywhere”，而Weex宣称“Write Once, Run Everywhere”。Weex从出生那天起，就被给予了一统三端的厚望。React Native可以支持iOS、Android，而Weex可以支持iOS、Android、HTML5。</p>
+<p>在Native端，两者的最大的区别可能就是在对JSBundle是否分包。React Native官方只允许将React Native基础JS库和业务JS一起打成一个JS bundle，没有提供分包的功能，所以如果想节约流量就必须制作分包打包工具。而Weex默认打的JS bundle只包含业务JS代码，体积小很多，基础JS库包含在Weex SDK中，这一点Weex与Facebook的React Native和微软的Cordova相比，Weex更加轻量，体积小巧。</p>
+<p>在JS端，Weex又被人称为Vue Native，所以 React Native 和 Weex 的区别就在 React 和 Vue 两者上了。</p>
+<p>笔者没有写过React Native，所以也没法客观的去比较两者。不过知乎上有一个关于Weex 和 React Native很好的对比文章<a href="https://zhuanlan.zhihu.com/p/21677103" rel="external nofollow noopener noreferrer" target="_blank">《weex&amp;React Native对比》</a>，推荐大家阅读。</p>
+<p>前两天<a href="http://www.weibo.com/122678100" rel="external nofollow noopener noreferrer" target="_blank">@Allen 许帅</a>也在<a href="http://tech.glowing.com/cn/" rel="external nofollow noopener noreferrer" target="_blank">Glow 技术团队博客</a>上面发布了一篇<a href="http://tech.glowing.com/cn/react-native-at-glow/" rel="external nofollow noopener noreferrer" target="_blank">《React Native 在 Glow 的实践》</a>这篇文章里面也谈了很多关于React Native实践相关的点，也强烈推荐大家去阅读。</p>
+<h2 id="入门手册"><a href="#入门手册" class="headerlink" title="入门手册"></a>入门手册</h2><p>关于小白想入门Weex，当然最基础的还是要通读文档，文档是官方最好的学习资料。官方的基础文档有两份：</p>
+<p><a href="http://weex-project.io/cn/guide/" rel="external nofollow noopener noreferrer" target="_blank">教程文档</a><br><a href="http://weex-project.io/cn/references/" rel="external nofollow noopener noreferrer" target="_blank">手册文档</a></p>
+<p>在文档手册里面包含了Weex所有目前有的组件，模块，每个组件和模块的用法和属性。遇到问题可以先过来翻翻。很有可能有些组件和模块没有那些属性。</p>
+<h2 id="Weex系列工具"><a href="#Weex系列工具" class="headerlink" title="Weex系列工具"></a>Weex系列工具</h2><p>看完官方文档以后，就可以开始上手构建工程项目了。</p>
+<p>Weex也和前端项目一样，拥有它自己的脚手架全家桶。</p>
+<ol>
+<li>weex-toolkit </li>
+<li>weexpack </li>
+<li>playground </li>
+<li>code snippets </li>
+<li>weex-devtool。</li>
+</ol>
+<h4 id="weex-toolkit"><a href="#weex-toolkit" class="headerlink" title="weex-toolkit"></a>weex-toolkit</h4><p>weex-toolkit是用来初始化项目，编译，运行，debug所有工具。</p>
+<p>通过下面的命令安装 </p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g weex-toolkit</span><br></pre></td></tr></table></figure>
+<p>安装完成后就可以使用weex 命令了 </p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weex-toolkit.png" alt=""></p>
+<p>我们主要用的就是debug 和 compile命令。debug 是启动chrome调试器 、compile命令是将写好的js文件编译为JS bundle。</p>
+<h4 id="weexpack"><a href="#weexpack" class="headerlink" title="weexpack"></a>weexpack</h4><p>weexpack是用来打包JSBundle的，实际也是对Webpack的封装。</p>
+<h4 id="playground"><a href="#playground" class="headerlink" title="playground"></a>playground</h4><p>playground是一个上架的App，这个可以用来通过扫码实时在手机上显示出实际的页面。</p>
+<p> <img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/playground.png" alt=""></p>
+<h4 id="code-snippets"><a href="#code-snippets" class="headerlink" title="code snippets"></a>code snippets</h4><p>code snippets这个是一个在线的playground。</p>
+<p> <img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/dotwe.png" alt=""></p>
+<h4 id="weex-devtool"><a href="#weex-devtool" class="headerlink" title="weex-devtool"></a>weex-devtool</h4><p>weex-devtool 可以使用chrome调试JS 代码。  这个工具我认为主要方便前端开发使用。</p>
+<p>使用步骤，首先启动调试服务，终端输入</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">weex</span> <span class="literal">debug</span></span><br></pre></td></tr></table></figure>
+<p>结果如下:</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebug.png" alt=""></p>
+<p>同时启动chrome。然后在代码中将host换为图中的host。</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">NSString *strHost =  [[NSUserDefaults standardUserDefaults] <span class="string">objectForKey:</span>GWX_WEEX_DEBUG_HOST];</span><br><span class="line">    <span class="keyword">if</span>(strHost.length&gt;<span class="number">5</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        NSString *strURL = [NSString <span class="string">stringWithFormat:</span>@<span class="string">"ws://%@/debugProxy/native"</span>,strHost];</span><br><span class="line">        [WXDevTool <span class="string">setDebug:</span>YES];</span><br><span class="line">        [WXLog <span class="string">setLogLevel:</span>WXLogLevelLog];</span><br><span class="line">        [WXDevTool <span class="string">launchDevToolDebugWithUrl:</span>strURL];</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        [WXDebugTool <span class="string">setDebug:</span>NO];</span><br><span class="line">        [WXLog <span class="string">setLogLevel:</span>WXLogLevelError];</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<p>启动app，看到app链接到了 chrome调试服务器 </p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebugapp.png" alt=""></p>
+<p>下图是debuger 截图 ：</p>
+<p><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebugdebug.png" alt=""></p>
+<p>下图是inspect截图：<br><img src="http://of685p9vy.bkt.clouddn.com/hybird/weex/weexdebugpage.png" alt=""></p>
+<p>具体使用方法看这两篇文章即可：</p>
+<ol>
+<li><p><a href="https://zhuanlan.zhihu.com/p/25331465" rel="external nofollow noopener noreferrer" target="_blank">《Weex 入坑指南：Debug 调试是一门手艺活》</a>  </p>
+</li>
+<li><p><a href="https://github.com/weexteam/article/issues/50" rel="external nofollow noopener noreferrer" target="_blank">《Weex调试神器——Weex Devtools使用手册》</a></p>
+</li>
+</ol>
+<h2 id="Weex-Market插件"><a href="#Weex-Market插件" class="headerlink" title="Weex Market插件"></a><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_pseudo-best_practices_for_iOS_developers.md#2-weex-market%E6%8F%92%E4%BB%B6" rel="external nofollow noopener noreferrer" target="_blank">Weex Market插件</a></h2><p>在日常开发中，我们可以全部自己开发完所有的Weex界面，当然还可以用一些已有的优秀的轮子。Weex的所有优秀的轮子都在Weex Market里面。</p>
+<p> <a href="https://camo.githubusercontent.com/bdaba9a49b7d7b32486fb7d68a1c5c965c07b19c/687474703a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f313139343031322d353631643838663562333739353763352e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" rel="external nofollow noopener noreferrer" target="_blank">Weex Market</a> </p>
+<p>在这个Market里面有很多已经写好的轮子，直接拿来用，可以节约很多时间。</p>
+<p>比如这里很火的weex-chart。weex-chart图表插件是通过g2-mobile依赖[gcanvas插件][23]实现的</p>
+<p>如果你想使用[Weex Market][24]的Plugin插件，你可以使用weex plugin 命令：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weex plugin <span class="keyword">add</span><span class="bash"> plugin_name</span></span><br></pre></td></tr></table></figure>
+<p>你只需要输入插件的名称就可以从远程添加插件到你本地的项目，比如添加 weex-chart，我们可以输入命令：</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weex plugin <span class="keyword">add</span><span class="bash"> weex-chart</span></span><br></pre></td></tr></table></figure>
+<p>我们可以使用plugin remove移除插件，比如移除安装好的 weex-cahrt：</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ weex plugin <span class="builtin-name">remove</span> weex-chart</span><br></pre></td></tr></table></figure>
+<p>这个插件库里面我用过weex-router，还不错，用它来做weex的路由管理。推荐使用。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://weex-project.io/cn/guide/" rel="external nofollow noopener noreferrer" target="_blank">官方教程</a></li>
+<li><a href="http://weex-project.io/cn/references/" rel="external nofollow noopener noreferrer" target="_blank">官方手册</a></li>
+<li><a href="https://github.com/halfrost/Halfrost-Field/blob/master/contents/iOS/Weex/Weex_pseudo-best_practices_for_iOS_developers.md#ios-开发者的-weex-伪最佳实践指北" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者的 Weex 伪最佳实践指北</a></li>
 </ol>
 
             </div>
@@ -2224,75 +2348,6 @@
 <li><a href="https://mp.weixin.qq.com/s/ciiauLB__o-cXXfKn7lL1Q" rel="external nofollow noopener noreferrer" target="_blank">系列文章深度解读|SwiftUI 背后那些事儿</a></li>
 </ol>
 
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-编程理论/SSH/ssh-theory" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/编程理论/">编程理论</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/编程理论/SSH/">SSH</a>
-    </div>
-
-                        
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/编程理论/SSH/ssh-theory/">
-            <time datetime="2018-02-27T10:11:35.000Z" itemprop="datePublished">2018-02-27</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/编程理论/SSH/ssh-theory/">图解SSH原理</a>
-        </h1>
-    
-
-            </header>
-        
-        
-<div class="article-gallery">
-    
-    <a class="gallery-item" href="/ssh-theory/overall.png" rel="gallery_cjs30cuts001hu1fy8d5skdz6">
-        <img src="/ssh-theory/overall.png" itemprop="image">
-    </a>
-    
-</div>
-
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>SSH是一种协议标准，其目的是实现安全远程登录以及其它安全网络服务。本文转载于<a href="https://www.jianshu.com/p/33461b619d53" rel="external nofollow noopener noreferrer" target="_blank">图解SSH原理</a></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/编程理论/SSH/ssh-theory/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
