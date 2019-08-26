@@ -835,6 +835,15 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/线性代数/matrix/">第二章矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/vector/">第四章 向量组的线性相关性</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/det/">第一章行列式</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/相似矩阵/">第五章 相似矩阵</a></li>  <li class="file"><a href="/wiki/数学知识/线性代数/matrixTransformation/">第三章 矩阵的初等变换和线性方程组</a></li>  </ul> 
                     </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            高数
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/高数/函数与极限/">函数与极限</a></li>  </ul> 
+                    </li> 
                      <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
                     </li> 
                     
@@ -1044,7 +1053,7 @@
 </aside>
             
             <section id="main">
-        <article id="post-C++语言/C++Primer/第六章函数/函数" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-C++语言/C++Primer/第十三章/拷贝控制" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1054,19 +1063,19 @@
                         
     <div class="article-category">
     	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第六章函数/">第六章函数</a>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第十三章/">第十三章</a>
     </div>
 
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/函数/">函数</a>
+        <a class="tag-link" href="/tags/拷贝控制/">拷贝控制</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/C++语言/C++Primer/第六章函数/函数/">
+        <a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">
             <time datetime="2018-07-13T04:07:12.000Z" itemprop="datePublished">2018-07-13</time>
         </a>
     </div>
@@ -1078,7 +1087,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/C++语言/C++Primer/第六章函数/函数/">函数</a>
+            <a class="article-title" href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/">拷贝控制</a>
         </h1>
     
 
@@ -1090,22 +1099,106 @@
         
             
                 
-                <p></p><p>主要内容：</p>
+                <p><ol>
+<li>拷贝、赋值、销毁</li>
+<li>拷贝控制和资源管理</li>
+<li>交换操作</li>
+<li>拷贝控制示例</li>
+<li>动态内存管理</li>
+<li>对象移动</li>
+</ol>
+</p><p>我们将学到：拷贝、赋值、移动、销毁做什么？下面是拷贝操作的几个函数：</p>
 <ol>
-<li>函数基础</li>
-<li>参数传递</li>
-<li>函数类型和return语句</li>
-<li>函数重载</li>
-<li>特殊用途语言特性</li>
-<li>函数匹配</li>
-<li>函数指针</li>
-</ol><p></p>
+<li>拷贝构造函数  </li>
+<li>拷贝赋值运算符</li>
+<li>移动构造函数</li>
+<li>移动赋值运算符</li>
+<li>析构函数</li>
+</ol>
+<p>函数类–初始化：拷贝和移动构造函数定义了当用同类型的另一个对象初始化本对象时做什么<br>运算符类—赋值：拷贝和移动赋值运算符定义了将一个对象赋予同类型的另一个对象是做什么。</p>
+<p>如果一个类没有定义所有的拷贝控制成员，编译器会自动定义缺失的操作。</p><p></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/C++语言/C++Primer/第六章函数/函数/#more">查看更多</a>
+                <a href="/wiki/C++语言/C++Primer/第十三章/拷贝控制/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第十五章-面向对象程序设计/">第十五章 面向对象程序设计</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/面向对象程序设计/">面向对象程序设计</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">
+            <time datetime="2018-07-13T04:07:12.000Z" itemprop="datePublished">2018-07-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/">面向对象程序设计</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p><ol>
+<li>OOP概述</li>
+<li>定义基类和派生类</li>
+<li>虚函数</li>
+<li>抽象基类</li>
+<li>访问控制和继承</li>
+<li>继承中的类作用域</li>
+<li>构造函数和拷贝控制</li>
+<li>容器与继承</li>
+<li>文本查询程序</li>
+</ol></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/C++Primer/第十五章 面向对象程序设计/面向对象程序设计/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -2234,72 +2327,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/MachO/machoviewer/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/opensource/fishhook/fishHookPicture" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/opensource/">opensource</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/opensource/fishhook/">fishhook</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/图解fishhook/">图解fishhook</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/opensource/fishhook/fishHookPicture/">
-            <time datetime="2018-06-21T04:07:12.000Z" itemprop="datePublished">2018-06-21</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/opensource/fishhook/fishHookPicture/">图解fishhook</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文尝试9图片解释fishhook原理<br></p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/opensource/fishhook/fishHookPicture/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
