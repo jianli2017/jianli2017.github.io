@@ -17,16 +17,14 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="记录导数与微分的主要知识点">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/7.png">
-<meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/8.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/9.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/10.png">
 <meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/11.png">
-<meta property="og:updated_time" content="2019-09-09T07:17:20.584Z">
+<meta property="og:updated_time" content="2019-09-09T07:43:53.120Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="导数与微分">
 <meta name="twitter:description" content="记录导数与微分的主要知识点">
-<meta name="twitter:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/7.png">
+<meta name="twitter:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/9.png">
     
 
     
@@ -1116,7 +1114,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一节、导数的概念"><span class="toc-number">1.</span> <span class="toc-text">第一节、导数的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二节、函数的求导法则"><span class="toc-number">2.</span> <span class="toc-text">第二节、函数的求导法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的微分"><span class="toc-number">3.</span> <span class="toc-text">函数的微分</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一节、导数的概念"><span class="toc-number">1.</span> <span class="toc-text">第一节、导数的概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二节、函数的求导法则"><span class="toc-number">2.</span> <span class="toc-text">第二节、函数的求导法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三节、高阶导数"><span class="toc-number">3.</span> <span class="toc-text">第三节、高阶导数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五节、函数的微分"><span class="toc-number">4.</span> <span class="toc-text">第五节、函数的微分</span></a></li></ol>
                 </div>
             
         
@@ -1151,10 +1149,11 @@
 <li>$[\mu(x)\nu(x)]’ = \mu(x)’\nu(x) + \mu(x)\nu(x)’$</li>
 <li>$[\frac{\mu(x)’}{\nu(x)}]’ = \frac{\mu(x)’\nu(x)- \mu(x)\nu(x)’}{\nu^2(x)}$ 其中$\nu(x)$!=0</li>
 </ol>
-<p><img src="/wiki/数学知识/高数/导数与微分/7.png" alt="反函数导数问题"></p>
-<p><img src="/wiki/数学知识/高数/导数与微分/8.png" alt="复合函数求导问题"></p>
+<p><strong>定理2（反函数求导法则）</strong>:如果函数x=f(y)在区间$I_y$内单调、可导且f’(y)!=0，那么他的反函数y=$f^{-1}(x)$在区间$I_x$内也可导，且：<br>$$[f^{-1}(x)]’ = \frac{1}{f’(y)}或 \frac{dy}{dx}=\frac{1}{\frac{dx}{dy}}$$ </p>
+<p><strong>定理3（复合函数求导法则</strong>）如果u=g(x)在点x可导，而y=f(u)在点u=g(x)可导，那么符合函数y=f[g(x)]在点x可导，且其导数为：<br>$$\frac{dy}{dx}=f’(u) \cdot g’(x) 或 \frac{dy}{dx}=\frac{dy}{du} \cdot \frac{du}{dx}$$</p>
 <p><img src="/wiki/数学知识/高数/导数与微分/9.png" alt="导数公式"></p>
-<h2 id="函数的微分"><a href="#函数的微分" class="headerlink" title="函数的微分"></a>函数的微分</h2><p>定义： 设函数 y= f(x)在某区间内有定义，$x_0$及$x_0 + \Delta x$在这区间内，如果函数的增量：</p>
+<h2 id="第三节、高阶导数"><a href="#第三节、高阶导数" class="headerlink" title="第三节、高阶导数"></a>第三节、高阶导数</h2><p>没有学习</p>
+<h2 id="第五节、函数的微分"><a href="#第五节、函数的微分" class="headerlink" title="第五节、函数的微分"></a>第五节、函数的微分</h2><p>定义： 设函数 y= f(x)在某区间内有定义，$x_0$及$x_0 + \Delta x$在这区间内，如果函数的增量：</p>
 <p>$$\Delta y = f(x_0 + \Delta x) - f(x_0)$$</p>
 <p>可表示为：</p>
 <p>$$\Delta y = A \Delta x + o(\Delta x)$$</p>
@@ -1162,7 +1161,7 @@
 <p>$$dy = A \Delta x$$</p>
 <p>$$dy = f’(x_)) \Delta x$$</p>
 <p>微分可以近视代替因变量的增量 。</p>
-<p>通常把自变量x的增量$\Delta x$称为自变量微分（微小小的数），记作dx，于是函数y=f(x)的微分又可记作<br>$$dy = f’(x)dx$$</p>
+<p>通常把自变量x的增量$\Delta x$称为自变量微分（微小的数），记作dx，于是函数y=f(x)的微分又可记作<br>$$dy = f’(x)dx$$</p>
 <p>微分的几何意义： dy 是曲线的切线上点的众坐标的相应增量。非线性函数的局部线性化。</p>
 <p>下面是微分公式：</p>
 <p><img src="/wiki/数学知识/高数/导数与微分/10.png" alt="微分公式"></p>
