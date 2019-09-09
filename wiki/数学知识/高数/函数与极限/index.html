@@ -17,7 +17,7 @@
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="记录函数与极限学习记录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-08-29T06:17:45.479Z">
+<meta property="og:updated_time" content="2019-09-09T03:54:54.185Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数与极限">
 <meta name="twitter:description" content="记录函数与极限学习记录">
@@ -1110,52 +1110,60 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的极限"><span class="toc-number">1.</span> <span class="toc-text">函数的极限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无穷小和无穷大"><span class="toc-number">2.</span> <span class="toc-text">无穷小和无穷大</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#极限运算法则"><span class="toc-number">3.</span> <span class="toc-text">极限运算法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#极限存在准则-两个重要极限"><span class="toc-number">4.</span> <span class="toc-text">极限存在准则 两个重要极限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#无穷小的比较"><span class="toc-number">5.</span> <span class="toc-text">无穷小的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的连续性和间断性"><span class="toc-number">6.</span> <span class="toc-text">函数的连续性和间断性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭区间上连续函数的性质"><span class="toc-number">7.</span> <span class="toc-text">闭区间上连续函数的性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有用的公式"><span class="toc-number">8.</span> <span class="toc-text">有用的公式</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#数列的极限"><span class="toc-number">1.</span> <span class="toc-text">数列的极限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的极限"><span class="toc-number">2.</span> <span class="toc-text">函数的极限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第四节-无穷小和无穷大"><span class="toc-number">3.</span> <span class="toc-text">第四节 无穷小和无穷大</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五节极限运算法则"><span class="toc-number">4.</span> <span class="toc-text">第五节极限运算法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第六节-极限存在准则、两个重要极限"><span class="toc-number">5.</span> <span class="toc-text">第六节 极限存在准则、两个重要极限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第七节：无穷小的比较"><span class="toc-number">6.</span> <span class="toc-text">第七节：无穷小的比较</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#函数的连续性和间断性"><span class="toc-number">7.</span> <span class="toc-text">函数的连续性和间断性</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭区间上连续函数的性质"><span class="toc-number">8.</span> <span class="toc-text">闭区间上连续函数的性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#有用的公式"><span class="toc-number">9.</span> <span class="toc-text">有用的公式</span></a></li></ol>
                 </div>
             
         
         
             <p>记录函数与极限学习记录</p>
 <a id="more"></a>
-<h2 id="函数的极限"><a href="#函数的极限" class="headerlink" title="函数的极限"></a>函数的极限</h2><p>自变量变化的情形：</p>
+<h2 id="数列的极限"><a href="#数列的极限" class="headerlink" title="数列的极限"></a>数列的极限</h2><p><strong>定义</strong>： 设{$x_n$}为一数列，如果存在常数a，对于任意给定的正数$\epsilon$ (不论它多么小)，总存在正整数N，使得，当n&gt;N时，不等式<br>$$|x_n-a|&lt;\epsilon$$<br>都成立，那么就称常数a是数列{$x_n$}的极限，或者称数列{$x_n$}收敛于a，记为：<br>$$\lim \limits_{n \to \infty} {x_n} = a$$</p>
+<p><strong>收敛数列的性质 </strong></p>
+<p><strong>定理一（极限的唯一性）</strong> 如果数列{$x_n$}收敛，那么他的极限唯一</p>
+<p><strong>定理二（收敛数列的有界性）</strong>如果数列{$x_n$}收敛，那么数列{$x_n$}一定有界。</p>
+<p><strong>定理三（收敛数列的保号性）</strong>如果$\lim \limits_{n \to \infty} {x_n} = a$，且a&gt;0，那么存在正整数N，当n&gt;N时，都有$x_n$&gt;0</p>
+<p>定理四（收敛数列与其子数列间的关系）如果数列{$x_n$}收敛于a，那么他的任一子数列也收敛，且极限也是a。</p>
+<h2 id="函数的极限"><a href="#函数的极限" class="headerlink" title="函数的极限"></a>函数的极限</h2><p>讨论函数极限时，自变量变化的情形包括：</p>
 <ol>
 <li>自变量x任意的接近于有限制$x_0$</li>
 <li>自变量x的绝对值无限大</li>
 </ol>
-<p>定义1 设函数f(x)在点$x_0$的去心领域内有定义，如果存在常数A，对于任意给定的正数$\epsilon$(不论多么小)，总存在正数$\delta$,使得当x满足不等式0&lt;|x-$x_0$|&lt;$\delta$时，对应的函数值f(x)都满足不等式<br>$$|f(x)-A|&lt;\epsilon$$<br>那么常数A就叫做函数f(x)当x-&gt;$x_0$时的极限记作：<br>$$\lim_{x-&gt;x_0}f(x)=A$$</p>
+<p><strong>定义1</strong> 设函数f(x)在点$x_0$的去心领域内有定义，如果存在常数A，对于任意给定的正数$\epsilon$(不论多么小)，总存在正数$\delta$,使得当x满足不等式0&lt;|x-$x_0$|&lt;$\delta$时，对应的函数值f(x)都满足不等式<br>$$|f(x)-A|&lt;\epsilon$$<br>那么常数A就叫做函数f(x)当x-&gt;$x_0$时的极限记作：<br>$$\lim_{x-&gt;x_0}f(x)=A$$</p>
 <p>函数极限的性质：</p>
 <ol>
 <li>极限的唯一性</li>
 <li>局部有界性  </li>
 <li>局部保号性</li>
-<li>函数极限和数列极限的关系</li>
+<li>函数极限和数列极限的关系（函数有极限，数列也有极限）</li>
 </ol>
-<h2 id="无穷小和无穷大"><a href="#无穷小和无穷大" class="headerlink" title="无穷小和无穷大"></a>无穷小和无穷大</h2><p>定义： 极限为零，那么称函数为当x-&gt;$x_0$时的无穷小</p>
-<p>定理1 ： 在自变量的同一变化过程$x-&gt;x_0$中，函数f(x)具有极限的充分必要条件是f(x) = A + $\alpha$,其中 $\alpha$是无穷小。</p>
-<p>定理2： 在自变量的同一变化过程中，如果f(x)为无穷大，那么$\frac{1}{f(x)}$为无穷大，如果f(x)为无穷小，且f(x)!=0 .那么$\frac{1}{f(x)}$为无穷大。</p>
-<h2 id="极限运算法则"><a href="#极限运算法则" class="headerlink" title="极限运算法则"></a>极限运算法则</h2><p>定理1 两个无穷小的和是无穷小</p>
-<p>定理2 有界函数与无穷小的乘积是无穷小</p>
-<p>定理3 如果limf(x)=A,limg(x)=B,那么</p>
+<h2 id="第四节-无穷小和无穷大"><a href="#第四节-无穷小和无穷大" class="headerlink" title="第四节 无穷小和无穷大"></a>第四节 无穷小和无穷大</h2><p><strong>定义</strong>： 极限为零，那么称函数为当x-&gt;$x_0$时的无穷小</p>
+<p><strong>定理1</strong> ： 在自变量的同一变化过程$x-&gt;x_0$中，函数f(x)具有极限的充分必要条件是f(x) = A + $\alpha$,其中 $\alpha$是无穷小。</p>
+<p><strong>定理2</strong>： 在自变量的同一变化过程中，如果f(x)为无穷大，那么$\frac{1}{f(x)}$为无穷大，如果f(x)为无穷小，且f(x)!=0 .那么$\frac{1}{f(x)}$为无穷大。</p>
+<h2 id="第五节极限运算法则"><a href="#第五节极限运算法则" class="headerlink" title="第五节极限运算法则"></a>第五节极限运算法则</h2><p><strong>定理1</strong> 两个无穷小的和是无穷小</p>
+<p><strong>定理2</strong> 有界函数与无穷小的乘积是无穷小</p>
+<p>$x \to x_0 （或 x \to \infty）$ 如果limf(x)=A,limg(x)=B,那么</p>
 <ol>
 <li>lim[f(x)+g(x)]=limf(x)+limg(x)=A+B</li>
 <li>lim[f(x)g(x)]=limf(x)limg(x)=AB</li>
-<li>lim$\frac{f(x)}{g(x)}$=$\frac{limf(x)}{limg(x)}=\frac{A}{B}$</li>
+<li>lim$\frac{f(x)}{g(x)}$=$\frac{limf(x)}{limg(x)}=\frac{A}{B}$，其中B不等于0</li>
 </ol>
 <p>定理4 数列和函数有类似定理3的性质<br>定理5 $\upsilon(x)&gt;=\psi$(x),而lim$\upsilon(x)$=A,lim$\psi(x)$=B,那么A&gt;=B</p>
 <blockquote>
 <p>注意： 求极限时，如果分母为0，需要化为不为0</p>
 </blockquote>
-<p>定理6 复合函数的极限运算法则</p>
-<h2 id="极限存在准则-两个重要极限"><a href="#极限存在准则-两个重要极限" class="headerlink" title="极限存在准则 两个重要极限"></a>极限存在准则 两个重要极限</h2><p><strong>准则1</strong> ，如果数列{$x_n$}、{$y_n$}、{$z_n$}满足下面条件：</p>
-<p>{$y_n$}&lt;={$x_n$}&lt;={$z_n$}</p>
-<p>$\lim_ \limits{n-&gt;\infty}y_n=a,\lim_ \limits{n-&gt;\infty}z_n=a$</p>
+<p>定理6 复合函数的极限运算法则，设函数y=f[g(x)]是由函数u=g(x)与函数y=f(u)符合而成，f[g(x)]在点$x_0$的某个去心领域内有定义，$\lim \limits_{x \to x_0}{g(x)}=u_0$ , $\lim \limits_{u \to u_0} {f(u)}=A$,且存在$\delta_0&gt;0$，当x属于（$x_0,\delta_0$）时，有g(x)!=$u_0$,则<br>$$\lim \limits_{x \to x_0} {f[g(x)]} = \lim \limits_{u \to u_0} {f(u)}=A $$</p>
+<h2 id="第六节-极限存在准则、两个重要极限"><a href="#第六节-极限存在准则、两个重要极限" class="headerlink" title="第六节 极限存在准则、两个重要极限"></a>第六节 极限存在准则、两个重要极限</h2><p><strong>准则1</strong> ，如果数列{$x_n$}、{$y_n$}、{$z_n$}满足下面条件：</p>
+<p>$y_n$&lt;=$x_n$&lt;=$z_n$</p>
+<p>且$\lim_ \limits{n-&gt;\infty}y_n=a,\lim_ \limits{n-&gt;\infty}z_n=a$</p>
 <p>那么数列{$x_n$}的极限存在，且$\lim \limits_{n-&gt;\infty}x_n=a$</p>
-<p>这个准则称为夹逼准则。</p>
-<p><strong>准则2</strong> 单调有界必有极限</p>
-<p>$$\lim \limits_{n-&gt;\infty}(1+\frac{1}{n})^n=e$$</p>
+<p>这个准则称为<strong>夹逼准则</strong>。</p>
+<p><strong>准则2 单调有界必有极限。</strong></p>
+<p>一个重要的极限公式：$$\lim \limits_{n-&gt;\infty}(1+\frac{1}{n})^n=e$$</p>
 <p>柯西极限存在准则  数列{$x_n$} 收敛的充分必要条件是：对于任意给定的正数$\epsilon$,存在正整数N，使得m&gt;N, n&gt;N时，有：</p>
 <p>$$|x_n-x_m|&lt;\epsilon$$</p>
-<h2 id="无穷小的比较"><a href="#无穷小的比较" class="headerlink" title="无穷小的比较"></a>无穷小的比较</h2><p>定义(那个小那个高) ：</p>
+<h2 id="第七节：无穷小的比较"><a href="#第七节：无穷小的比较" class="headerlink" title="第七节：无穷小的比较"></a>第七节：无穷小的比较</h2><p>定义： 如果函数f(x)当$x \to x_0 （或 x \to \infty）$时极限为零，那么称函数f(x)为当$x \to x_0 （或 x \to \infty）时的无穷小。</p>
+<p>定理1 在自变量的同一变化过程$x \to x_0 （或 x \to \infty）$中，函数f(x)具有极限A的充分必要条件是f(x)=A+a,其中a是无穷小。</p>
+<p>定义(更小的阶数更高) ：</p>
 <ol>
 <li>如果$lim \frac{\beta}{\alpha}$ = 0，那么就说$\beta$是比$\alpha$高阶的无穷小，记作$\beta$=o($\alpha$)</li>
 <li>如果$lim \frac{\beta}{\alpha}$ = $\infty$，那么就说$\beta$是比$\alpha$低阶的无穷小</li>
