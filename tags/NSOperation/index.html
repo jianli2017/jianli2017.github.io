@@ -3,24 +3,22 @@
 <head>
     <meta charset="utf-8">
     
-    <title>dispatch_semaphore 的使用方法 | LJ小窝</title>
+    <title>标签: NSOperation | LJ小窝</title>
     
     
-        <meta name="keywords" content="dispatch_semaphore GCD">
+        <meta name="keywords" content="LJ小窝">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="转载请注明出处 关于dispatch_semaphore的使用。dispatch_semaphore是GCD用来同步的一种方式，与他相关的共有三个函数，分别是dispatch_semaphore_create、dispatch_semaphore_signal、dispatch_semaphore_wait。">
-<meta name="keywords" content="dispatch_semaphore GCD">
-<meta property="og:type" content="article">
-<meta property="og:title" content="dispatch_semaphore 的使用方法">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/GCD/use-dispatch-semaphore/index.html">
+    <meta name="description" content="勿以恶小而为之 勿以善小而不为">
+<meta property="og:type" content="website">
+<meta property="og:title" content="LJ小窝">
+<meta property="og:url" content="http://yoursite.com/tags/NSOperation/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="转载请注明出处 关于dispatch_semaphore的使用。dispatch_semaphore是GCD用来同步的一种方式，与他相关的共有三个函数，分别是dispatch_semaphore_create、dispatch_semaphore_signal、dispatch_semaphore_wait。">
+<meta property="og:description" content="勿以恶小而为之 勿以善小而不为">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-07-12T09:05:32.046Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="dispatch_semaphore 的使用方法">
-<meta name="twitter:description" content="转载请注明出处 关于dispatch_semaphore的使用。dispatch_semaphore是GCD用来同步的一种方式，与他相关的共有三个函数，分别是dispatch_semaphore_create、dispatch_semaphore_signal、dispatch_semaphore_wait。">
+<meta name="twitter:title" content="LJ小窝">
+<meta name="twitter:description" content="勿以恶小而为之 勿以善小而不为">
     
 
     
@@ -426,9 +424,9 @@
                      </ul> 
                     </li> 
                     
-                    <li class="directory open">
+                    <li class="directory">
                         <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
+                            <i class="fa fa-folder"></i>
                             &nbsp;
                             IOS
                         </a>
@@ -449,15 +447,6 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/ABTest/ABTest/about/"></a></li>  <li class="file"><a href="/wiki/IOS/ABTest/ABTest/ABTest/">ABTest IOS SDK设计</a></li>  </ul> 
                     </li> 
                      </ul> 
-                    </li> 
-                    
-                    <li class="directory open">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder-open"></i>
-                            &nbsp;
-                            GCD
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -647,6 +636,15 @@
                             动态库
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            多线程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/多线程/NSOperation/">NSOperation</a></li>  <li class="file"><a href="/wiki/IOS/多线程/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -844,7 +842,7 @@
                             &nbsp;
                             高数
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/高数/函数与极限/">函数与极限</a></li>  <li class="file"><a href="/wiki/数学知识/高数/导数与微分/">导数与微分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/four_indefinite_integral/">不定积分</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/高数/函数与极限/">函数与极限</a></li>  <li class="file"><a href="/wiki/数学知识/高数/导数与微分/">导数与微分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/four_indefinite_integral/">不定积分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/定积分/">定积分</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
                     </li> 
@@ -1063,169 +1061,50 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/GCD/use-dispatch-semaphore" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/GCD/">GCD</a>
+            <section id="main">
+<div class="timeline timeline-wrap">
+    <div class="timeline-row timeline-row-major">
+        <span class="node"><i class="fa fa-tag"></i></span>
+        <h1 class="title">#NSOperation</h1>
     </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/dispatch-semaphore-GCD/">dispatch_semaphore GCD</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/GCD/use-dispatch-semaphore/">
-            <time datetime="2017-02-11T07:35:49.000Z" itemprop="datePublished">2017-02-11</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
+    
+        <div class="timeline-row">
+            <span class="node"></span>
+            <div class="content">
                 
     
-        <h1 class="article-title" itemprop="name">
-            dispatch_semaphore 的使用方法
+        <h1 itemprop="name">
+            <a class="timeline-article-title" href="/wiki/IOS/多线程/NSOperation/">NSOperation</a>
         </h1>
     
 
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                <div id="toc" class="toc-article">
-                <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#dispatch-semaphore-create"><span class="toc-number">1.</span> <span class="toc-text">dispatch_semaphore_create</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dispatch-semaphore-signal"><span class="toc-number">2.</span> <span class="toc-text">dispatch_semaphore_signal</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#dispatch-semaphore-wait"><span class="toc-number">3.</span> <span class="toc-text">dispatch_semaphore_wait</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#返回值"><span class="toc-number">4.</span> <span class="toc-text">返回值</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#宏"><span class="toc-number">5.</span> <span class="toc-text">宏</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#关于信号量，一般可以用停车来比喻。"><span class="toc-number">6.</span> <span class="toc-text">关于信号量，一般可以用停车来比喻。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#示例"><span class="toc-number">7.</span> <span class="toc-text">示例</span></a></li></ol>
-                </div>
-            
-        
-        
-            <p>转载请注明出处 <a href="http://www.cnblogs.com/snailHL/p/3906112.html" rel="external nofollow noopener noreferrer" target="_blank">关于dispatch_semaphore的使用</a>。<br>dispatch_semaphore是GCD用来同步的一种方式，与他相关的共有三个函数，分别是dispatch_semaphore_create、dispatch_semaphore_signal、dispatch_semaphore_wait。</p>
-<a id="more"></a>
-<p>下面我们逐一介绍三个函数：</p>
-<h1 id="dispatch-semaphore-create"><a href="#dispatch-semaphore-create" class="headerlink" title="dispatch_semaphore_create"></a>dispatch_semaphore_create</h1><p>dispatch_semaphore_create的声明为：</p>
-<figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">dispatch_semaphore_t  <span class="title">dispatch_semaphore_create</span>(<span class="params"><span class="keyword">long</span> <span class="keyword">value</span></span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>传入的参数为long，输出一个dispatch_semaphore_t类型且值为value的信号量。值得注意的是，这里的传入的参数value必须大于或等于0，否则dispatch_semaphore_create会返回NULL。</p>
-<h1 id="dispatch-semaphore-signal"><a href="#dispatch-semaphore-signal" class="headerlink" title="dispatch_semaphore_signal"></a>dispatch_semaphore_signal</h1><p>dispatch_semaphore_signal的声明为：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">long</span> <span class="title">dispatch_semaphore_signal</span><span class="params">(<span class="keyword">dispatch_semaphore_t</span> dsema)</span></span></span><br></pre></td></tr></table></figure>
-<p>这个函数会使传入的信号量dsema的值加1；</p>
-<h1 id="dispatch-semaphore-wait"><a href="#dispatch-semaphore-wait" class="headerlink" title="dispatch_semaphore_wait"></a>dispatch_semaphore_wait</h1><p>dispatch_semaphore_wait的声明为：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">long <span class="keyword">dispatch_semaphore_wait(dispatch_semaphore_t </span>dsema, <span class="keyword">dispatch_time_t </span>timeout)；</span><br></pre></td></tr></table></figure>
-<p>这个函数会使传入的信号量dsema的值减1；这个函数的作用是这样的，如果dsema信号量的值大于0，该函数所处线程就继续执行下面的语句，并且将信号量的值减1；如果desema的值为0，那么这个函数就阻塞当前线程等待timeout（注意timeout的类型为dispatch_time_t，不能直接传入整形或float型数），如果等待的期间desema的值被dispatch_semaphore_signal函数加1了，且该函数（即dispatch_semaphore_wait）所处线程获得了信号量，那么就继续向下执行并将信号量减1。如果等待期间没有获取到信号量或者信号量的值一直为0，那么等到timeout时，其所处线程自动执行其后语句。</p>
-<h1 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a>返回值</h1><p>dispatch_semaphore_signal的返回值为long类型，当返回值为0时表示当前并没有线程等待其处理的信号量，其处理的信号量的值加1即可。当返回值不为0时，表示其当前有（一个或多个）线程等待其处理的信号量，并且该函数唤醒了一个等待的线程（当线程有优先级时，唤醒优先级最高的线程；否则随机唤醒）。<br>dispatch_semaphore_wait的返回值也为long型。当其返回0时表示在timeout之前，该函数所处的线程被成功唤醒。当其返回不为0时，表示timeout发生。
-　　</p>
-<h1 id="宏"><a href="#宏" class="headerlink" title="宏"></a>宏</h1><p>在设置timeout时，比较有用的两个宏：DISPATCH_TIME_NOW 和 DISPATCH_TIME_FOREVER。</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">DISPATCH_TIME_NOW　</span>　表示当前；</span><br><span class="line"><span class="keyword">DISPATCH_TIME_FOREVER　</span>　表示遥远的未来；</span><br></pre></td></tr></table></figure>
-<p>一般可以直接设置timeout为这两个宏其中的一个，或者自己创建一个dispatch_time_t类型的变量。创建dispatch_time_t类型的变量有两种方法，dispatch_time和dispatch_walltime。利用创建dispatch_time创建dispatch_time_t类型变量的时候一般也会用到这两个变量。</p>
-<p>dispatch_time的声明如下：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">dispatch_time_t</span> dispatch_time(<span class="keyword">dispatch_time_t</span> when, <span class="keyword">int64_t</span> delta)；</span><br></pre></td></tr></table></figure>
-<p>其参数when需传入一个dispatch_time_t类型的变量，和一个delta值。表示when加delta时间就是timeout的时间。例如：</p>
-<figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_time_t  t = dispatch_time(DISPATCH_TIME_NOW, <span class="number">1</span>*<span class="number">1000</span>*<span class="number">1000</span>*<span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>表示当前时间向后延时一秒为timeout的时间。</p>
-<h1 id="关于信号量，一般可以用停车来比喻。"><a href="#关于信号量，一般可以用停车来比喻。" class="headerlink" title="关于信号量，一般可以用停车来比喻。"></a>关于信号量，一般可以用停车来比喻。</h1><p>停车场剩余4个车位，那么即使同时来了四辆车也能停的下。如果此时来了五辆车，那么就有一辆需要等待。信号量的值就相当于剩余车位的数目，dispatch_semaphore_wait函数就相当于来了一辆车，dispatch_semaphore_signal就相当于走了一辆车。停车位的剩余数目在初始化的时候就已经指明了（dispatch_semaphore_create（long value）），<br>调用一次dispatch_semaphore_signal，剩余的车位就增加一个；调用一次dispatch_semaphore_wait剩余车位就减少一个；当剩余车位为0时，再来车（即调用dispatch_semaphore_wait）就只能等待。有可能同时有几辆车等待一个停车位。有些车主没有耐心，给自己设定了一段等待时间，这段时间内等不到停车位就走了，如果等到了就开进去停车。而有些车主就像把车停在这，所以就一直等下去。</p>
-<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><p>代码举简单示例如下：</p>
-<figure class="highlight qml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">dispatch_semaphore_t <span class="keyword">signal</span><span class="string"></span>;</span><br><span class="line"><span class="keyword">signal</span><span class="string"> </span>= dispatch_semaphore_create(<span class="number">1</span>);</span><br><span class="line">__block long x = <span class="number">0</span>;</span><br><span class="line">NSLog(@<span class="string">"0_x:%ld"</span>,x);</span><br><span class="line">dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, <span class="number">0</span>), ^&#123;</span><br><span class="line">sleep(<span class="number">1</span>);</span><br><span class="line">NSLog(@<span class="string">"waiting"</span>);</span><br><span class="line">x = dispatch_semaphore_signal(<span class="keyword">signal</span><span class="string">)</span>;</span><br><span class="line">NSLog(@<span class="string">"1_x:%ld"</span>,x);</span><br><span class="line"></span><br><span class="line">sleep(<span class="number">2</span>);</span><br><span class="line">NSLog(@<span class="string">"waking"</span>);</span><br><span class="line">x = dispatch_semaphore_signal(<span class="keyword">signal</span><span class="string">)</span>;</span><br><span class="line">NSLog(@<span class="string">"2_x:%ld"</span>,x);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//    dispatch_time_t duration = dispatch_time(DISPATCH_TIME_NOW, 1*1000*1000*1000); //超时1秒</span></span><br><span class="line"><span class="comment">//    dispatch_semaphore_wait(signal, duration);</span></span><br><span class="line"></span><br><span class="line">x = dispatch_semaphore_wait(<span class="keyword">signal</span><span class="string"></span>, DISPATCH_TIME_FOREVER);</span><br><span class="line">NSLog(@<span class="string">"3_x:%ld"</span>,x);</span><br><span class="line"></span><br><span class="line">x = dispatch_semaphore_wait(<span class="keyword">signal</span><span class="string"></span>, DISPATCH_TIME_FOREVER);</span><br><span class="line">NSLog(@<span class="string">"wait 2"</span>);</span><br><span class="line">NSLog(@<span class="string">"4_x:%ld"</span>,x);</span><br><span class="line"></span><br><span class="line">x = dispatch_semaphore_wait(<span class="keyword">signal</span><span class="string"></span>, DISPATCH_TIME_FOREVER);</span><br><span class="line">NSLog(@<span class="string">"wait 3"</span>);</span><br><span class="line">NSLog(@<span class="string">"5_x:%ld"</span>,x);</span><br></pre></td></tr></table></figure>
-<p>最终打印的结果为：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:54.734</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:70b]</span> 0_<span class="selector-tag">x</span><span class="selector-pseudo">:0</span></span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:54.737</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:70b]</span> 3_<span class="selector-tag">x</span><span class="selector-pseudo">:0</span></span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:55.738</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:f03]</span> <span class="selector-tag">waiting</span></span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:55.739</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:70b]</span> <span class="selector-tag">wait</span> 2</span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:55.739</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:f03]</span> 1_<span class="selector-tag">x</span><span class="selector-pseudo">:1</span></span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:55.739</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:70b]</span> 4_<span class="selector-tag">x</span><span class="selector-pseudo">:0</span></span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:57.741</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:f03]</span> <span class="selector-tag">waking</span></span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:57.742</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:f03]</span> 2_<span class="selector-tag">x</span><span class="selector-pseudo">:1</span></span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:57.742</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:70b]</span> <span class="selector-tag">wait</span> 3</span><br><span class="line">2014<span class="selector-tag">-08-11</span> 22<span class="selector-pseudo">:51</span><span class="selector-pseudo">:57.742</span> <span class="selector-tag">LHTest</span><span class="selector-attr">[15700:70b]</span> 5_<span class="selector-tag">x</span><span class="selector-pseudo">:0</span></span><br></pre></td></tr></table></figure>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
+                <div class="article-meta">
+                    
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/多线程/NSOperation/">
+            <time datetime="2019-09-17T02:35:49.000Z" itemprop="datePublished">2019-09-17</time>
+        </a>
     </div>
-</article>
 
 
-    
-<nav id="article-nav">
-    
-        <a href="/wiki/Hybird/weex/桌面移动过来的资料/weex 文档/国美weex使用教程/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    (no title)
-                
+                    
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/多线程/">多线程</a>
+    </div>
+
+                    
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSOperation/">NSOperation</a>
+    </div>
+
+                </div>
             </div>
-        </a>
+        </div>
     
-    
-        <a href="/wiki/Hybird/weex/weex-debug/" id="article-nav-older" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">搭建weex断点调试环境</div>
-        </a>
-    
-</nav>
-
-
-
-
-
-    
-    
-        <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/GCD/use-dispatch-semaphore/" data-title="dispatch_semaphore 的使用方法" data-url="http://yoursite.com/wiki/IOS/GCD/use-dispatch-semaphore/"></div>
-    <style>
-        #ds-thread #ds-reset .ds-textarea-wrapper {
-            background: none;
-        }
-        #ds-reset .ds-avatar img {
-            box-shadow: none;
-        }
-        #ds-reset .ds-gradient-bg {
-            background: #f7f7f7;
-        }
-        #ds-thread #ds-reset li.ds-tab a {
-            border-radius: 3px;
-        }
-        #ds-thread #ds-reset .ds-post-button {
-            color: white;
-            border: none;
-            box-shadow: none;
-            background: #d32;
-            text-shadow: none;
-            font-weight: normal;
-            font-family: 'Microsoft Yahei';
-        }
-        #ds-thread #ds-reset .ds-post-button:hover {
-            color: white;
-            background: #DE594C;
-        }
-        #ds-thread #ds-reset .ds-post-button:active {
-            background: #d32;
-        }
-        #ds-smilies-tooltip ul.ds-smilies-tabs li a.ds-current {
-            color: white;
-            background: #d32;
-            box-shadow: none;
-            text-shadow: none;
-            font-weight: normal;
-        }
-    </style>
- </section>
-    
-
-
-
-
-<!-- baidu url auto push script -->
-<script type="text/javascript">
-    !function(){var e=/([http|https]:\/\/[a-zA-Z0-9\_\.]+\.baidu\.com)/gi,r=window.location.href,o=document.referrer;if(!e.test(r)){var n="//api.share.baidu.com/s.gif";o?(n+="?r="+encodeURIComponent(document.referrer),r&&(n+="&l="+r)):r&&(n+="?l="+r);var t=new Image;t.src=n}}(window);
-</script>     
+</div>
 </section>
         </div>
         <footer id="footer">

@@ -453,15 +453,6 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            GCD
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
                             IOS12
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
@@ -645,6 +636,15 @@
                             动态库
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            多线程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/多线程/NSOperation/">NSOperation</a></li>  <li class="file"><a href="/wiki/IOS/多线程/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -842,7 +842,7 @@
                             &nbsp;
                             高数
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/高数/函数与极限/">函数与极限</a></li>  <li class="file"><a href="/wiki/数学知识/高数/导数与微分/">导数与微分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/four_indefinite_integral/">不定积分</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/高数/函数与极限/">函数与极限</a></li>  <li class="file"><a href="/wiki/数学知识/高数/导数与微分/">导数与微分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/four_indefinite_integral/">不定积分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/定积分/">定积分</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
                     </li> 
@@ -1062,6 +1062,537 @@
 </aside>
             
             <section id="main">
+        <article id="post-C语言语法/堆区（heap）和栈区（stack）的区别" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C语言语法/">C语言语法</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/C-语言语法/">C 语言语法</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">
+            <time datetime="2018-04-03T04:07:12.000Z" itemprop="datePublished">2018-04-03</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C语言语法/堆区（heap）和栈区（stack）的区别/">堆区（heap）和栈区（stack）的区别(转载)</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <a id="more"></a>
+<p>（1）申请方式</p>
+<p>栈区：由编译器自动分配释放，存放函数的参数值，局部变量值等；</p>
+<p>堆区：一般由程序员分配释放（使用new/delete或malloc/free），若程序员不释放，程序结束时可能由OS回收；</p>
+<p>（2）操作方式</p>
+<p>栈区：操作方式类似于数据结构中的栈；</p>
+<p>堆区：不同于数据结构中的堆，分配方式类似于链表。</p>
+<p>（3）申请后系统的响应 </p>
+<p>栈区：只要栈的剩余空间大于所申请空间，系统将为程序提供内存，否则将报异常提示栈溢出；</p>
+<p>堆区：首先应该知道操作系统有一个记录空闲内存地址的链表，当系统收到程序的申请时，会遍历该链表，寻找第一个空间大于所申请空间的堆结点，然后将该结点从空闲结点链表中删除，并将该结点的空间分配给程序，另外，对于大多数系统，会在这块内存空间中的首地址处记录本次分配的大小，这样，代码中的delete语句才能正确的释放本内存空间。另外，由于找到的堆结点的大小不一定正好等于申请的大小，系统会自动的将多余的那部分重新放入空闲链表中。 </p>
+<p>（4）申请大小的限制</p>
+<p>栈区：在Windows下,栈是向低地址扩展的数据结构，是一块连续的内存的区域。这句话的意思是栈顶的地址和栈的最大容量是系统预先规定好的，在WINDOWS下，栈的大小是2M（也有的说是1M，总之是一个编译时就确定的常数），如果申请的空间超过栈的剩余空间时，将提示overflow。因此，能从栈获得的空间较小。</p>
+<p>堆区：堆是向高地址扩展的数据结构，是不连续的内存区域。这是由于系统是用链表来存储的空闲内存地址的，自然是不连续的，而链表的遍历方向是由低地址向高地址。堆的大小受限于计算机系统中有效的虚拟内存。由此可见，堆获得的空间比较灵活，也比较大。</p>
+<p>（5）申请效率的比较</p>
+<p>栈区：系统自动分配，速度较快。但程序员是无法控制的。</p>
+<p>堆区：由new分配的内存，一般速度比较慢，而且容易产生内存碎片,不过用起来最方便. </p>
+<p>注意：在WINDOWS下，最好的方式是用VirtualAlloc分配内存，他不是在堆，也不是在栈是直接在进程的地址空间中保留一快内存，虽然用起来最不方便。但是速度快，也最灵活。</p>
+<p>（6）堆和栈中的存储内容</p>
+<p>栈区：在函数调用时，第一个进栈的是主函数中后的下一条指令（函数调用语句的下一条可执行语句）的地址，然后是函数的各个参数，在大多数的C编译器中，参数是由右往左入栈的，然后是函数中的局部变量。注意静态变量是不入栈的。当本次函数调用结束后，局部变量先出栈，然后是参数，最后栈顶指针指向最开始存的地址，也就是主函数中的下一条指令，程序由该点继续运行。</p>
+<p>堆区：一般是在堆的头部用一个字节存放堆的大小。堆中的具体内容有程序员安排。</p>
+<p>参考资料</p>
+<p><a href="https://blog.csdn.net/shanshanhi/article/details/50904706" rel="external nofollow noopener noreferrer" target="_blank">堆区（heap）和栈区（stack）的区别</a></p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/foundation使用记录/NSDateFormatter时间格式" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSDateFormatter/">NSDateFormatter</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">
+            <time datetime="2018-03-22T07:35:49.000Z" itemprop="datePublished">2018-03-22</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/foundation使用记录/NSDateFormatter时间格式/">NSDateFormatter 时间格式</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <h2 id="时间匹配格式"><a href="#时间匹配格式" class="headerlink" title="时间匹配格式"></a>时间匹配格式</h2><caption><a>Date Field Symbol Table</a></caption>
+
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Sym.</th>
+<th>No.</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>era</td>
+<td>G</td>
+<td>1..3</td>
+<td>AD</td>
+<td>Era - Replaced with the Era string for the current date. One to three letters for the abbreviated form, four letters for the long form, five for the narrow form.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Anno Domini</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>A</td>
+</tr>
+<tr>
+<td>year</td>
+<td>y</td>
+<td>1..n</td>
+<td>1996</td>
+<td>Year. Normally the length specifies the padding, but for two letters it also specifies the maximum length. Example:</td>
+</tr>
+<tr>
+<td></td>
+<td>Y</td>
+<td>1..n</td>
+<td>1997</td>
+<td>Year (in “Week of Year” based calendars). This year designation is used in ISO year-week calendar as defined by ISO 8601, but can be used in non-Gregorian based calendar systems where week date processing is desired. May not always be the same value as calendar year.</td>
+</tr>
+<tr>
+<td></td>
+<td>u</td>
+<td>1..n</td>
+<td>4601</td>
+<td>Extended year. This is a single number designating the year of this calendar system, encompassing all supra-year fields. For example, for the Julian calendar system, year numbers are positive, with an era of BCE or CE. An extended year value for the Julian calendar system assigns positive values to CE years and negative values to BCE years, with 1 BCE being year 0.</td>
+</tr>
+<tr>
+<td>quarter</td>
+<td>Q</td>
+<td>1..2</td>
+<td>02</td>
+<td>Quarter - Use one or two for the numerical quarter, three for the abbreviation, or four for the full name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Q2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>2nd quarter</td>
+</tr>
+<tr>
+<td></td>
+<td>q</td>
+<td>1..2</td>
+<td>02</td>
+<td><strong>Stand-Alone</strong> Quarter - Use one or two for the numerical quarter, three for the abbreviation, or four for the full name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Q2</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>2nd quarter</td>
+</tr>
+<tr>
+<td>month</td>
+<td>M</td>
+<td>1..2</td>
+<td>09</td>
+<td>Month - Use one or two for the numerical month, three for the abbreviation, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Sept</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>September</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>S</td>
+</tr>
+<tr>
+<td></td>
+<td>L</td>
+<td>1..2</td>
+<td>09</td>
+<td><strong>Stand-Alone</strong> Month - Use one or two for the numerical month, three for the abbreviation, or four for the full name, or 5 for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Sept</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>September</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>S</td>
+</tr>
+<tr>
+<td></td>
+<td>l</td>
+<td>1</td>
+<td>*</td>
+<td>Special symbol for Chinese leap month, used in combination with M. Only used with the Chinese calendar.</td>
+</tr>
+<tr>
+<td>week</td>
+<td>w</td>
+<td>1..2</td>
+<td>27</td>
+<td>Week of Year.</td>
+</tr>
+<tr>
+<td></td>
+<td>W</td>
+<td>1</td>
+<td>3</td>
+<td>Week of Month</td>
+</tr>
+<tr>
+<td>day</td>
+<td>d</td>
+<td>1..2</td>
+<td>1</td>
+<td>Date - Day of the month</td>
+</tr>
+<tr>
+<td></td>
+<td>D</td>
+<td>1..3</td>
+<td>345</td>
+<td>Day of year</td>
+</tr>
+<tr>
+<td></td>
+<td>F</td>
+<td>1</td>
+<td>2</td>
+<td>Day of Week in Month. The example is for the 2nd Wed in July</td>
+</tr>
+<tr>
+<td></td>
+<td>g</td>
+<td>1..n</td>
+<td>2451334</td>
+<td>Modified Julian day. This is different from the conventional Julian day number in two regards. First, it demarcates days at local zone midnight, rather than noon GMT. Second, it is a local number; that is, it depends on the local time zone. It can be thought of as a single number that encompasses all the date-related fields.</td>
+</tr>
+<tr>
+<td>week day</td>
+<td>E</td>
+<td>1..3</td>
+<td>Tues</td>
+<td>Day of week - Use one through three letters for the short day, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td></td>
+<td>e</td>
+<td>1..2</td>
+<td>2</td>
+<td>Local day of week. Same as E except adds a numeric value that will depend on the local starting day of the week, using one or two letters. For this example, Monday is the first day of the week.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Tues</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td></td>
+<td>c</td>
+<td>1</td>
+<td>2</td>
+<td><strong>Stand-Alone</strong> local day of week - Use one letter for the local numeric value (same as ‘e’), three for the short day, or four for the full name, or five for the narrow name.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>3</td>
+<td>Tues</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Tuesday</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>5</td>
+<td>T</td>
+</tr>
+<tr>
+<td>period</td>
+<td>a</td>
+<td>1</td>
+<td>AM</td>
+<td>AM or PM</td>
+</tr>
+<tr>
+<td>hour</td>
+<td>h</td>
+<td>1..2</td>
+<td>11</td>
+<td>Hour [1-12].</td>
+</tr>
+<tr>
+<td></td>
+<td>H</td>
+<td>1..2</td>
+<td>13</td>
+<td>Hour [0-23].</td>
+</tr>
+<tr>
+<td></td>
+<td>K</td>
+<td>1..2</td>
+<td>0</td>
+<td>Hour [0-11].</td>
+</tr>
+<tr>
+<td></td>
+<td>k</td>
+<td>1..2</td>
+<td>24</td>
+<td>Hour [1-24].</td>
+</tr>
+<tr>
+<td></td>
+<td>j</td>
+<td>1..2</td>
+<td>n/a</td>
+<td>This is a special-purpose symbol. It must not occur in patterns, but is reserved for use in APIs doing flexible date pattern generation, and requests the preferred format (12 vs 24 hour) for the language in question.</td>
+</tr>
+<tr>
+<td>minute</td>
+<td>m</td>
+<td>1..2</td>
+<td>59</td>
+<td>Minute. Use one or two for zero padding.</td>
+</tr>
+<tr>
+<td>second</td>
+<td>s</td>
+<td>1..2</td>
+<td>12</td>
+<td>Second. Use one or two for zero padding.</td>
+</tr>
+<tr>
+<td></td>
+<td>S</td>
+<td>1..n</td>
+<td>3457</td>
+<td>Fractional Second - rounds to the count of letters. (example is for 12.34567)</td>
+</tr>
+<tr>
+<td></td>
+<td>A</td>
+<td>1..n</td>
+<td>69540000</td>
+<td>Milliseconds in day. This field behaves  _exactly_  like a composite of all time-related fields, not including the zone fields. As such, it also reflects discontinuities of those fields on DST transition days. On a day of DST onset, it will jump forward. On a day of DST cessation, it will jump backward. This reflects the fact that is must be combined with the offset field to obtain a unique local time value.</td>
+</tr>
+<tr>
+<td>zone</td>
+<td>z</td>
+<td>1..3</td>
+<td>PDT _fallbacks: _HPG-8:00 GMT-08:00</td>
+<td>Timezone - with the s _pecific non-location format_ . Where that is unavailable, falls back to  _localized GMT format_ . Use one to three letters for the short format or four for the full format. In the short format, metazone names are not used unless the commonlyUsed flag is on in the locale.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Pacific Daylight Time _fallbacks:_  HPG-8:00 GMT-08:00</td>
+</tr>
+<tr>
+<td></td>
+<td>Z</td>
+<td>1..3</td>
+<td>-0800</td>
+<td>Timezone - Use one to three letters for RFC 822 format, four letters for the localized GMT format.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>HPG+8:00 _fallbacks:_ GMT-08:00</td>
+</tr>
+<tr>
+<td></td>
+<td>v</td>
+<td>1</td>
+<td>PT</td>
+<td>Timezone - with the  _generic_   _non-location format_ . Where that is unavailable, uses special fallback rules given in  _[Appendix J][6]_ . Use one letter for short format, four for long format.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>Pacific Time _fallbacks:_ Pacific Time (Canada) Pacific Time (Yellowknife) United States (Los Angeles) Time HPG-8:35 GMT-08:35</td>
+</tr>
+<tr>
+<td></td>
+<td>V</td>
+<td>1</td>
+<td>PST HPG-8:00 GMT-08:00</td>
+<td>Timezone - with the same format as z, except that metazone timezone abbreviations are to be displayed if available, regardless of the value of commonlyUsed.</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4</td>
+<td>United States (Los Angeles) Time _fallbacks:_  HPG-8:35 MT-08:35</td>
+<td>Timezone - with the  _generic_   _location format_ . Where that is unavailable, falls back to the localized GMT format. (Fallback is only necessary with a GMT-style Timezone ID, like Etc/GMT-830.) This is especially useful when presenting possible timezone choices for user selection, since the naming is more uniform than the v format.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ol>
+<li><a href="http://unicode.org/reports/tr35/tr35-10.html#Date_Format_Patternss" rel="external nofollow noopener noreferrer" target="_blank">UNICODE LOCALE DATA MARKUP LANGUAGE (LDML)</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/暂无分类/指定初始化函数" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1654,133 +2185,6 @@
 <figure class="highlight taggerscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">em:/^<span class="symbol">\*</span>((?:<span class="symbol">\*</span><span class="symbol">\*</span>|[<span class="symbol">\s</span><span class="symbol">\S</span>])+?)<span class="symbol">\*</span>(?!<span class="symbol">\*</span>)/,</span><br></pre></td></tr></table></figure>
 <p>这样一来MathJax就能与marked.js共存了。重启一下hexo看一下吧</p>
 
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/hexo/自己搭建博客的经历" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/hexo/">hexo</a>
-    </div>
-
-                        
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/hexo/自己搭建博客的经历/">
-            <time datetime="2018-02-13T07:33:17.000Z" itemprop="datePublished">2018-02-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/hexo/自己搭建博客的经历/">自己搭建博客的经历</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文记录自己搭建博客的记录，前提是Node.js、Git安装完成。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/hexo/自己搭建博客的经历/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-工具/git/git详细记录/git分支管理" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/工具/">工具</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/">git</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/工具/git/git详细记录/">git详细记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Git/">Git</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/工具/git/git详细记录/git分支管理/">
-            <time datetime="2018-02-12T04:18:26.000Z" itemprop="datePublished">2018-02-12</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/工具/git/git详细记录/git分支管理/">Git分支管理(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文全部复制<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" rel="external nofollow noopener noreferrer" target="_blank">Git教程</a>,自己理解的就简单复制，没有理解的就全部粘贴。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/工具/git/git详细记录/git分支管理/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

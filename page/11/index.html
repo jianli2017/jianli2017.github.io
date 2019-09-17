@@ -453,15 +453,6 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
-                            GCD
-                        </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/GCD/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
-                    </li> 
-                    
-                    <li class="directory">
-                        <a href="#" data-role="directory">
-                            <i class="fa fa-folder"></i>
-                            &nbsp;
                             IOS12
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a></li>  </ul> 
@@ -645,6 +636,15 @@
                             动态库
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/动态库/static_lib_aggregate_script/">合并真机模拟器静态库(转载)</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            多线程
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/多线程/NSOperation/">NSOperation</a></li>  <li class="file"><a href="/wiki/IOS/多线程/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -842,7 +842,7 @@
                             &nbsp;
                             高数
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/高数/函数与极限/">函数与极限</a></li>  <li class="file"><a href="/wiki/数学知识/高数/导数与微分/">导数与微分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/four_indefinite_integral/">不定积分</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数学知识/高数/函数与极限/">函数与极限</a></li>  <li class="file"><a href="/wiki/数学知识/高数/导数与微分/">导数与微分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/four_indefinite_integral/">不定积分</a></li>  <li class="file"><a href="/wiki/数学知识/高数/定积分/">定积分</a></li>  </ul> 
                     </li> 
                      <li class="file"><a href="/wiki/数学知识/经典数学文章/">经典数学文章</a></li>  <li class="file"><a href="/wiki/数学知识/数学基础知识/">数学知识一对数指数</a></li>  </ul> 
                     </li> 
@@ -1062,6 +1062,151 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/IOS12/IOS12-compatibility" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/IOS12/">IOS12</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/IOS12-兼容/">IOS12 兼容</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/IOS12/IOS12-compatibility/">
+            <time datetime="2018-08-22T04:07:12.000Z" itemprop="datePublished">2018-08-22</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/IOS12/IOS12-compatibility/">IOS12 兼容</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>主要遇到的问题：</p>
+<ol>
+<li>Xcode10移除了libstdc++库，由libc++这个库取而代之，苹果的解释是libstdc++已经标记为废弃有5年了，建议大家使用经过了llvm优化过并且全面支持C++11的libc++库。</li>
+<li>CocoaPods 1.3.1 版本不能将pod中的资源文件拷贝到APP中</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/IOS12/IOS12-compatibility/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-C++语言/C++Primer/第七章类/类" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/">C++Primer</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-Primer/第七章类/">第七章类</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/类/">类</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/C++语言/C++Primer/第七章类/类/">
+            <time datetime="2018-08-20T04:07:12.000Z" itemprop="datePublished">2018-08-20</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/C++语言/C++Primer/第七章类/类/">类</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>主要内容：</p>
+<ol>
+<li>定义抽象数据类型</li>
+<li>访问控制与封装</li>
+<li>类的其他特性</li>
+<li>类的作用域</li>
+<li>构造函数再探</li>
+<li>类的静态成员</li>
+</ol>
+<p>数据抽象能帮助我们将对象的具体实现和对象所能执行的操作分离开来。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/C++语言/C++Primer/第七章类/类/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-C++语言/C++Primer/第四章 表达式/表达式" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1607,72 +1752,6 @@
 
 
     
-        <article id="post-linux命令/export命令" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/linux命令/">linux命令</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/export/">export</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/linux命令/export命令/">
-            <time datetime="2018-07-20T04:07:12.000Z" itemprop="datePublished">2018-07-20</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/linux命令/export命令/">export命令</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>export命令设置或显示环境变量。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/linux命令/export命令/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-linux命令/set命令" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1739,7 +1818,7 @@
 
 
     
-        <article id="post-linux命令/特殊参数" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-linux命令/export命令" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1755,13 +1834,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/set/">set</a>
+        <a class="tag-link" href="/tags/export/">export</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/linux命令/特殊参数/">
+        <a href="/wiki/linux命令/export命令/">
             <time datetime="2018-07-20T04:07:12.000Z" itemprop="datePublished">2018-07-20</time>
         </a>
     </div>
@@ -1773,7 +1852,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/linux命令/特殊参数/">linux shell下的特殊用法及参数的说明</a>
+            <a class="article-title" href="/wiki/linux命令/export命令/">export命令</a>
         </h1>
     
 
@@ -1785,79 +1864,13 @@
         
             
                 
-                <p></p><p>记录下linux shell下的特殊用法及参数的说明.</p><p></p>
+                <p></p><p>export命令设置或显示环境变量。</p><p></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/linux命令/特殊参数/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-C++语言/C++关键字理解/static" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/C-关键字理解/">C++关键字理解</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/static/">static</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/C++语言/C++关键字理解/static/">
-            <time datetime="2018-07-17T10:07:12.000Z" itemprop="datePublished">2018-07-17</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/C++语言/C++关键字理解/static/">static关键字作用总结(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>在平时经常会遇到static关键字，有时候不理解为什么使用这个关键字，这里总结了static关键字的作用。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/C++语言/C++关键字理解/static/#more">查看更多</a>
+                <a href="/wiki/linux命令/export命令/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
