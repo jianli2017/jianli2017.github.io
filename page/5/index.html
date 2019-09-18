@@ -644,7 +644,7 @@
                             &nbsp;
                             多线程
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/多线程/NSOperation/">NSOperation</a></li>  <li class="file"><a href="/wiki/IOS/多线程/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  <li class="file"><a href="/wiki/IOS/多线程/GCD_Source/">GCD源码理解</a></li>  <li class="file"><a href="/wiki/IOS/多线程/referr/">多线程参考资料</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/多线程/NSOperation/">NSOperation</a></li>  <li class="file"><a href="/wiki/IOS/多线程/use-dispatch-semaphore/">dispatch_semaphore 的使用方法</a></li>  <li class="file"><a href="/wiki/IOS/多线程/GCD_Source/">GCD源码理解</a></li>  <li class="file"><a href="/wiki/IOS/多线程/referr/">多线程参考资料</a></li>  <li class="file"><a href="/wiki/IOS/多线程/NSOperaionQueue/">NSOperaionQueue 源码学习</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1062,6 +1062,144 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/暂无分类/ios_sign" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/暂无分类/">暂无分类</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/iOS-App-签名的原理/">iOS App 签名的原理</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/暂无分类/ios_sign/">
+            <time datetime="2019-06-03T04:07:12.000Z" itemprop="datePublished">2019-06-03</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/暂无分类/ios_sign/">iOS App 签名的原理([抄袭的，有问题请联系](http://wereadteam.github.io/2017/03/13/Signature/))</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/暂无分类/ios_sign/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-数据结构与算法/算法4/第5章字符串/5_1_sort" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/第5章字符串/">第5章字符串</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/字符串排序/">字符串排序</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">
+            <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">字符串排序</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
+<h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p>
+<ol>
+<li>计算各组的频率<code>count[r+1]++</code>;</li>
+<li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li>
+<li>数据分类</li>
+<li>回写</li>
+</ol>
+<h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p>
+<p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p>
+<h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-数据结构与算法/算法4/第5章字符串/5_3_findSubString" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1197,78 +1335,6 @@
 <h3 id="put"><a href="#put" class="headerlink" title="put"></a>put</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> Node put(Node x, <span class="keyword">String</span> <span class="built_in">key</span>, Value val, <span class="built_in">int</span> d) &#123;</span><br><span class="line">	<span class="keyword">if</span>(x == <span class="keyword">null</span>) x= <span class="keyword">new</span> Node();</span><br><span class="line">	<span class="keyword">if</span>(d == <span class="built_in">key</span>.length()) &#123;x.val = val, <span class="keyword">return</span> x;&#125;</span><br><span class="line">	<span class="built_in">char</span> c = <span class="built_in">key</span>.charAt(d);</span><br><span class="line">	x.next[c] = put(x.next[c],<span class="built_in">key</span>,val,d+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> put(<span class="keyword">String</span> <span class="built_in">key</span>, Value val) &#123;</span><br><span class="line">	root = put(root,<span class="built_in">key</span>,val,<span class="number">0</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="查找所有键"><a href="#查找所有键" class="headerlink" title="查找所有键"></a>查找所有键</h3><figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> collect(Node x, <span class="keyword">String</span> pre, Queue&lt;<span class="keyword">String</span>&gt;) &#123;</span><br><span class="line">	<span class="keyword">if</span>(x== <span class="keyword">null</span>) <span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span>(x.val != <span class="keyword">null</span>) q.enqueue(pre);</span><br><span class="line">	<span class="keyword">for</span>(<span class="built_in">char</span> c=<span class="number">0</span>; c&lt;R; c++) &#123;</span><br><span class="line">		collect(x.next[c],pre+c,q);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> Iterable&lt;<span class="keyword">String</span>&gt; keysWithPrefix(<span class="keyword">String</span> pre) &#123;</span><br><span class="line">	Queue&lt;<span class="keyword">String</span>&gt;  q = <span class="keyword">new</span> Queue&lt;Sting&gt;();</span><br><span class="line">	collect(<span class="built_in">get</span>(root,pre,<span class="number">0</span>),pre,q);</span><br><span class="line">	<span class="keyword">return</span> q;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="通配符匹配"><a href="#通配符匹配" class="headerlink" title="通配符匹配"></a>通配符匹配</h3>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-数据结构与算法/算法4/第5章字符串/5_1_sort" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/第5章字符串/">第5章字符串</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/字符串排序/">字符串排序</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">
-            <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">字符串排序</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
-<h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p>
-<ol>
-<li>计算各组的频率<code>count[r+1]++</code>;</li>
-<li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li>
-<li>数据分类</li>
-<li>回写</li>
-</ol>
-<h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p>
-<p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p>
-<h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>
-
             </div>
         
         <footer class="article-footer">
@@ -1717,86 +1783,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/swift语言/swift学习摘要/24__自动引用计数器/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/swift语言/swift学习摘要/23__泛型" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/swift学习摘要/">swift学习摘要</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/泛型/">泛型</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/23__泛型/">
-            <time datetime="2019-01-29T03:07:12.000Z" itemprop="datePublished">2019-01-29</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/23__泛型/">23. 泛型</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>官方目录：</p>
-<ol>
-<li>The Problem That Generics Solve</li>
-<li>Generic Functions</li>
-<li>Type Parameters</li>
-<li>Naming Type Parameters</li>
-<li>Generic Types</li>
-<li>Extending a Generic Type</li>
-<li>Type Constraints</li>
-<li>Associated Types</li>
-<li>Generic Where Clauses</li>
-<li>Extensions with a Generic Where Clause</li>
-<li>Associated Types with a Generic Where Clause</li>
-<li>Generic Subscripts</li>
-</ol><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/23__泛型/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
