@@ -509,7 +509,7 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Runtime/经典文章/Objective_C_Category/">深入理解Objective-C：Category(转载)</a></li>  <li class="file"><a href="/wiki/IOS/Runtime/经典文章/meta_class/">Objective-C 中的元类（meta class）是什么？</a></li>  </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/IOS/Runtime/reffer/">学习runtime的参考文档</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1062,6 +1062,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/Runtime/objc/17_weak" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/retain-和-release/">retain 和 release</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/17_weak/">
+            <time datetime="2018-12-04T02:38:11.000Z" itemprop="datePublished">2018-12-04</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/17_weak/">17. weak 相关源码分析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>weak相关源码分析</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/17_weak/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/Runtime/objc/15_autoreleasepool" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1206,77 +1272,6 @@
 
 
     
-        <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/initialize/">initialize</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/12_initialize/">
-            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>这篇文章可能是对 Objective-C 源代码解析系列文章中最短的一篇了，在 Objective-C 中，我们总是会同时想到 <code>load</code>、<code>initialize</code> 这两个类方法。而这两个方法也经常在一起比较。</p>
-<p>本文会主要介绍：</p>
-<ol>
-<li><code>initialize</code> 方法的调用为什么是惰性的。</li>
-<li>这货能干啥。</li>
-</ol><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/12_initialize/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-IOS/Runtime/objc/13_class_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1396,6 +1391,77 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/initialize/">initialize</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/12_initialize/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>这篇文章可能是对 Objective-C 源代码解析系列文章中最短的一篇了，在 Objective-C 中，我们总是会同时想到 <code>load</code>、<code>initialize</code> 这两个类方法。而这两个方法也经常在一起比较。</p>
+<p>本文会主要介绍：</p>
+<ol>
+<li><code>initialize</code> 方法的调用为什么是惰性的。</li>
+<li>这货能干啥。</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/12_initialize/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1660,85 +1726,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/objc/7_NXMapTable/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/objc/6_NXHashTable" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/list-array-tt/">list_array_tt</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">
-            <time datetime="2018-11-22T02:38:11.000Z" itemprop="datePublished">2018-11-22</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p><blockquote>
-<p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
-</blockquote>
-</p><p>文章会介绍上古时代 Objective-C 哈希表，也就是 <code>NXHashTable</code> ：</p>
-<ul>
-<li><code>NXHashTable</code> 的实现</li>
-<li><code>NXHashTable</code> 的性能分析</li>
-<li><code>NXHashTable</code> 的作用</li>
-</ul>
-<p><code>NXHashTable</code> 的实现有着将近 30 年的历史，不过仍然作为重要的底层数据结构存储整个应用中的类。</p>
-<blockquote>
-<p>文中会涉及一些数据结构方面的简单知识，例如<a href="https://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists" rel="external nofollow noopener noreferrer" target="_blank">拉链法</a>。</p>
-<p>注意：<strong>文章中分析的不是 <code>NSHashTable</code> 而是 <code>NXHashTable</code>。</strong></p>
-</blockquote><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/6_NXHashTable/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
