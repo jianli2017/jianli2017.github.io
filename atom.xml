@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-09-19T07:15:43.922Z</updated>
+  <updated>2019-09-27T08:47:00.124Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Block的本质</title>
+    <link href="http://yoursite.com/wiki/IOS/Block/swiftUI/"/>
+    <id>http://yoursite.com/wiki/IOS/Block/swiftUI/</id>
+    <published>2019-09-27T04:07:12.000Z</published>
+    <updated>2019-09-27T08:47:00.124Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文理解block的本质</p><a id="more"></a><h2 id="block的底层实现"><a href="#block的底层实现" class="headerlink" title="block的底层实现"></a>block的底层实现</h2><p>源码</p><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">void (^<span class="keyword">block)(void) </span>= ^&#123;</span><br><span class="line">    NSLog(@<span class="string">"this is a block"</span>)<span class="comment">;</span></span><br><span class="line">    NSLog(@<span class="string">"this is a block"</span>)<span class="comment">;</span></span><br><span class="line">    NSLog(@<span class="string">"this is a block"</span>)<span class="comment">;</span></span><br><span class="line">&#125;<span class="comment">;</span></span><br><span class="line"><span class="keyword">block();</span></span><br></pre></td></tr></table></figure><p>翻译为CPP代码</p><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">void (<span class="name">*block</span>)(<span class="name">void</span>) = &amp;__main_block_impl_0(<span class="name">__main_block_func_0</span>, <span class="symbol">&amp;__main_block_desc_0_DATA</span>)<span class="comment">;</span></span><br><span class="line">block-&gt;FuncPtr(<span class="name">block</span>)<span class="comment">;</span></span><br></pre></td></tr></table></figure><p>所以，block 的本质是<code>__main_block_impl_0</code>结构体，构造一个<code>__main_block_impl_0</code>结构，将<code>__main_block_impl_0</code>的地址赋值给block,执行block的过程是通过block找到函数指针FuncPtr，调用。  <code>__main_block_impl_0</code>的结构如下（这几个结构体名字不好记，牢记impl是整体实现，实现里面有函数指针func）：</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">__main_block_impl_0</span></span> &#123;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">__block_impl</span></span> <span class="keyword">impl</span>;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">__main_block_desc_0</span></span>* Desc;</span><br><span class="line">    <span class="comment">//构造函数</span></span><br><span class="line">    __main_block_impl_0(void *fp, <span class="class"><span class="keyword">struct</span> <span class="title">__main_block_desc_0</span></span> *desc, int flags=<span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">impl</span>.isa = &amp;_NSConcreteStackBlock;</span><br><span class="line">        <span class="keyword">impl</span>.Flags = flags;</span><br><span class="line">        <span class="keyword">impl</span>.FuncPtr = fp;</span><br><span class="line">        Desc = desc;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure><p><code>__main_block_impl_0</code>包含两个成员，如下：</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> __<span class="title">block_impl</span> &#123;</span></span><br><span class="line">    <span class="keyword">void</span> *isa;   <span class="comment">//isa，说明是OC对象</span></span><br><span class="line">    <span class="keyword">int</span> Flags;</span><br><span class="line">    <span class="keyword">int</span> Reserved;</span><br><span class="line">    <span class="keyword">void</span> *FuncPtr;  <span class="comment">//block内的代码封装为函数指针</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">struct</span> __<span class="title">main_block_desc_0</span> &#123;</span></span><br><span class="line">    <span class="keyword">size_t</span> reserved;</span><br><span class="line">    <span class="keyword">size_t</span> Block_size;</span><br><span class="line">&#125; __main_block_desc_0_DATA = &#123; <span class="number">0</span>, <span class="keyword">sizeof</span>(struct __main_block_impl_0)&#125;;</span><br></pre></td></tr></table></figure><p>其中，函数指针 <code>__main_block_func_0</code>的定义</p><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static void <span class="variable">__main_block_func_0</span>(struct <span class="variable">__main_block_impl_0</span> *<span class="variable">__cself</span>) &#123;</span><br><span class="line">    NSLog((NSString *)&amp;<span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_0</span>);</span><br><span class="line">    NSLog((NSString *)&amp;<span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_1</span>);</span><br><span class="line">    NSLog((NSString *)&amp;<span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//常量字符串定义在数据区</span></span><br><span class="line">static <span class="variable">__NSConstantStringImpl</span> <span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_0</span> <span class="variable">__attribute__</span> ((section (<span class="string">"__DATA, __cfstring"</span>))) = &#123;<span class="variable">__CFConstantStringClassReference</span>,<span class="number">0</span>x000007c8,<span class="string">"this is a block"</span>,<span class="number">15</span>&#125;;</span><br><span class="line">static <span class="variable">__NSConstantStringImpl</span> <span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_1</span> <span class="variable">__attribute__</span> ((section (<span class="string">"__DATA, __cfstring"</span>))) = &#123;<span class="variable">__CFConstantStringClassReference</span>,<span class="number">0</span>x000007c8,<span class="string">"this is a block"</span>,<span class="number">15</span>&#125;;</span><br><span class="line">static <span class="variable">__NSConstantStringImpl</span> <span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_2</span> <span class="variable">__attribute__</span> ((section (<span class="string">"__DATA, __cfstring"</span>))) = &#123;<span class="variable">__CFConstantStringClassReference</span>,<span class="number">0</span>x000007c8,<span class="string">"this is a block"</span>,<span class="number">15</span>&#125;;</span><br></pre></td></tr></table></figure><p>整体捋下思路，block的结构简单理解为：</p><figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Block是一个<span class="keyword">impl</span>结构 -&gt; isa，表明是OC对象</span><br><span class="line">        -&gt; func函数指针,封装block的代码</span><br><span class="line">        -&gt; 描述</span><br></pre></td></tr></table></figure><blockquote><p>总结: block的本质就是封装了函数调用以及函数调用环境的OC对象</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文理解block的本质&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="Block" scheme="http://yoursite.com/categories/IOS/Block/"/>
+    
+    
+      <category term="Block" scheme="http://yoursite.com/tags/Block/"/>
+    
+  </entry>
   
   <entry>
     <title>学习runtime的参考文档</title>
@@ -41,6 +65,30 @@
   </entry>
   
   <entry>
+    <title>NSOperaionQueue 源码学习</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperaionQueue/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/</id>
+    <published>2019-09-17T02:35:49.000Z</published>
+    <updated>2019-09-18T03:56:35.505Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录NSOperaionQueue的理解</p><a id="more"></a><p><img src="/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png" alt="Queue执行operaion的流程"><br><img src="/wiki/IOS/多线程/NSOperaionQueue/2.png" alt="是否并发文档"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
+    
+  </entry>
+  
+  <entry>
     <title>GCD源码理解</title>
     <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/GCD_Source/"/>
     <id>http://yoursite.com/wiki/IOS/多线程/GCD_Source/</id>
@@ -59,30 +107,6 @@
     
       <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>多线程参考资料</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
-    <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-18T10:39:43.475Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录读过的文章</p><a id="more"></a><h2 id="读过的文章"><a href="#读过的文章" class="headerlink" title="读过的文章"></a>读过的文章</h2><ol><li><a href="https://bujige.net/blog/iOS-Complete-learning-NSOperation.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『NSOperation、NSOperationQueue』详尽总结</a></li><li><a href="https://objccn.io/issue-2-1/#challenges" rel="external nofollow noopener noreferrer" target="_blank">并发编程：API 及挑战</a></li><li><a href="https://blog.ibireme.com/2015/05/18/runloop/" rel="external nofollow noopener noreferrer" target="_blank">深入理解RunLoop</a>    </li><li><a href="https://bujige.net/blog/iOS-Complete-learning-RunLoop.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『RunLoop』详尽总结</a></li></ol><h2 id="需要读的"><a href="#需要读的" class="headerlink" title="需要读的"></a>需要读的</h2><ol><li><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html" rel="external nofollow noopener noreferrer" target="_blank">Concurrency Programming Guide</a></li><li><a href="https://leylfl.github.io/2018/01/16/浅谈iOS多线程-源码/" rel="external nofollow noopener noreferrer" target="_blank">浅谈iOS多线程(源码)</a></li><li><a href="https://objccn.io/issue-2-3/" rel="external nofollow noopener noreferrer" target="_blank">底层并发 API</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录读过的文章&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
     
   </entry>
   
@@ -111,17 +135,17 @@
   </entry>
   
   <entry>
-    <title>NSOperaionQueue 源码学习</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperaionQueue/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/</id>
+    <title>多线程参考资料</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
     <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-18T03:56:35.505Z</updated>
+    <updated>2019-09-18T10:39:43.475Z</updated>
     
-    <content type="html"><![CDATA[<p>记录NSOperaionQueue的理解</p><a id="more"></a><p><img src="/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png" alt="Queue执行operaion的流程"><br><img src="/wiki/IOS/多线程/NSOperaionQueue/2.png" alt="是否并发文档"></p>]]></content>
+    <content type="html"><![CDATA[<p>记录读过的文章</p><a id="more"></a><h2 id="读过的文章"><a href="#读过的文章" class="headerlink" title="读过的文章"></a>读过的文章</h2><ol><li><a href="https://bujige.net/blog/iOS-Complete-learning-NSOperation.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『NSOperation、NSOperationQueue』详尽总结</a></li><li><a href="https://objccn.io/issue-2-1/#challenges" rel="external nofollow noopener noreferrer" target="_blank">并发编程：API 及挑战</a></li><li><a href="https://blog.ibireme.com/2015/05/18/runloop/" rel="external nofollow noopener noreferrer" target="_blank">深入理解RunLoop</a>    </li><li><a href="https://bujige.net/blog/iOS-Complete-learning-RunLoop.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『RunLoop』详尽总结</a></li></ol><h2 id="需要读的"><a href="#需要读的" class="headerlink" title="需要读的"></a>需要读的</h2><ol><li><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html" rel="external nofollow noopener noreferrer" target="_blank">Concurrency Programming Guide</a></li><li><a href="https://leylfl.github.io/2018/01/16/浅谈iOS多线程-源码/" rel="external nofollow noopener noreferrer" target="_blank">浅谈iOS多线程(源码)</a></li><li><a href="https://objccn.io/issue-2-3/" rel="external nofollow noopener noreferrer" target="_blank">底层并发 API</a></li></ol>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
+      &lt;p&gt;记录读过的文章&lt;/p&gt;
     
     </summary>
     
@@ -467,32 +491,6 @@
     
     
       <category term="线性代数" scheme="http://yoursite.com/tags/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>aspect源码浅析</title>
-    <link href="http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/"/>
-    <id>http://yoursite.com/wiki/IOS/opensource/Aspects/aspect/</id>
-    <published>2019-08-08T02:07:12.000Z</published>
-    <updated>2019-08-08T03:59:31.281Z</updated>
-    
-    <content type="html"><![CDATA[<p>图解<a href="https://github.com/steipete/Aspects" rel="external nofollow noopener noreferrer" target="_blank">aspect</a>。</p><a id="more"></a><h2 id="图解aspect"><a href="#图解aspect" class="headerlink" title="图解aspect"></a>图解aspect</h2><p>aspect 切方法分为两种：</p><ol><li>为实例切方法，只实例有效，类的其他实例不受影响，类似KVO，原理是交换了isa。</li><li>为类切方法： 交换了类的实例方法，所有实例都生效。</li></ol><p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_1.png" alt="aspect主流程"></p><p>其实看过原理后，就交换了两个方法，一个是当前selector，一个是forwardInvocation。<br><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_2.png" alt="aspect交换方法后的结果"></p><p>一定要理解方法的中包含SEL、IMP，SEL理解为方法的名称，IMP是方法的代码实现，图中很多地方使用SEL、IMP后缀区分两着。</p><p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_3.png" alt="aspect执行切片方法的流程"></p><p><img src="/wiki/IOS/opensource/Aspects/aspect/aspect_4.png" alt="aspect执行切片方法的流程直观理解"><br>特别注意步骤9，解决的是如果向切片类发送了非切片类的方法，还走原来的消息转发流程，如不认识的方法报 not recognize selector send to instance错误。</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p>无</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;图解&lt;a href=&quot;https://github.com/steipete/Aspects&quot; rel=&quot;external nofollow noopener noreferrer&quot; target=&quot;_blank&quot;&gt;aspect&lt;/a&gt;。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="opensource" scheme="http://yoursite.com/categories/IOS/opensource/"/>
-    
-      <category term="Aspects" scheme="http://yoursite.com/categories/IOS/opensource/Aspects/"/>
-    
-    
-      <category term="aspect" scheme="http://yoursite.com/tags/aspect/"/>
     
   </entry>
   
