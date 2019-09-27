@@ -13,11 +13,11 @@
 <meta name="keywords" content="Block">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Block的本质">
-<meta property="og:url" content="http://yoursite.com/wiki/IOS/Block/swiftUI/index.html">
+<meta property="og:url" content="http://yoursite.com/wiki/IOS/Block/block/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="本文理解block的本质">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-09-27T08:47:00.124Z">
+<meta property="og:updated_time" content="2019-09-27T08:56:30.811Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Block的本质">
 <meta name="twitter:description" content="本文理解block的本质">
@@ -457,7 +457,7 @@
                             &nbsp;
                             Block
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Block/swiftUI/">Block的本质</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/Block/block/">Block的本质</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1072,7 +1072,7 @@
     <div id="toTop" class="fa fa-angle-up"></div>
 </aside>
             
-            <section id="main"><article id="post-IOS/Block/swiftUI" class="article article-type-post" itemscope="" itemprop="blogPost">
+            <section id="main"><article id="post-IOS/Block/block" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1094,7 +1094,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Block/swiftUI/">
+        <a href="/wiki/IOS/Block/block/">
             <time datetime="2019-09-27T04:07:12.000Z" itemprop="datePublished">2019-09-27</time>
         </a>
     </div>
@@ -1137,7 +1137,7 @@
 <p>其中，函数指针 <code>__main_block_func_0</code>的定义</p>
 <figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">static void <span class="variable">__main_block_func_0</span>(struct <span class="variable">__main_block_impl_0</span> *<span class="variable">__cself</span>) &#123;</span><br><span class="line">    NSLog((NSString *)&amp;<span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_0</span>);</span><br><span class="line">    NSLog((NSString *)&amp;<span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_1</span>);</span><br><span class="line">    NSLog((NSString *)&amp;<span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_2</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//常量字符串定义在数据区</span></span><br><span class="line">static <span class="variable">__NSConstantStringImpl</span> <span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_0</span> <span class="variable">__attribute__</span> ((section (<span class="string">"__DATA, __cfstring"</span>))) = &#123;<span class="variable">__CFConstantStringClassReference</span>,<span class="number">0</span>x000007c8,<span class="string">"this is a block"</span>,<span class="number">15</span>&#125;;</span><br><span class="line">static <span class="variable">__NSConstantStringImpl</span> <span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_1</span> <span class="variable">__attribute__</span> ((section (<span class="string">"__DATA, __cfstring"</span>))) = &#123;<span class="variable">__CFConstantStringClassReference</span>,<span class="number">0</span>x000007c8,<span class="string">"this is a block"</span>,<span class="number">15</span>&#125;;</span><br><span class="line">static <span class="variable">__NSConstantStringImpl</span> <span class="variable">__NSConstantStringImpl__var_folders_hs_21g8l7ps1p9cmwpn1nbnfn700000gn_T_main_77e4e1_mi_2</span> <span class="variable">__attribute__</span> ((section (<span class="string">"__DATA, __cfstring"</span>))) = &#123;<span class="variable">__CFConstantStringClassReference</span>,<span class="number">0</span>x000007c8,<span class="string">"this is a block"</span>,<span class="number">15</span>&#125;;</span><br></pre></td></tr></table></figure>
 <p>整体捋下思路，block的结构简单理解为：</p>
-<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Block是一个<span class="keyword">impl</span>结构 	-&gt; isa，表明是OC对象</span><br><span class="line">        			-&gt; func函数指针,封装block的代码</span><br><span class="line">        			-&gt; 描述</span><br></pre></td></tr></table></figure>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Block是一个<span class="keyword">impl</span>结构  -&gt;__block_impl     -&gt; isa，表明是OC对象</span><br><span class="line">                   |                  -&gt; func函数指针,封装block的代码</span><br><span class="line">                   |</span><br><span class="line">                   -&gt; 描述</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>总结: block的本质就是封装了函数调用以及函数调用环境的OC对象</p>
 </blockquote>
@@ -1168,7 +1168,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/Block/swiftUI/" data-title="Block的本质" data-url="http://yoursite.com/wiki/IOS/Block/swiftUI/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/Block/block/" data-title="Block的本质" data-url="http://yoursite.com/wiki/IOS/Block/block/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
