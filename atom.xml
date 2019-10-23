@@ -89,6 +89,52 @@
   </entry>
   
   <entry>
+    <title>GCD源码理解</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/GCD_Source/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/GCD_Source/</id>
+    <published>2019-09-17T02:35:49.000Z</published>
+    <updated>2019-09-17T11:57:53.764Z</updated>
+    
+    <content type="html"><![CDATA[<p>GCD源码理解</p><a id="more"></a><h2 id="GCD理解"><a href="#GCD理解" class="headerlink" title="GCD理解"></a>GCD理解</h2><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_sync.png" alt="同步"></p><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_async.png" alt="异步"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;GCD源码理解&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>NSOperaionQueue 源码学习</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperaionQueue/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/</id>
+    <published>2019-09-17T02:35:49.000Z</published>
+    <updated>2019-09-18T03:56:35.505Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录NSOperaionQueue的理解</p><a id="more"></a><p><img src="/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png" alt="Queue执行operaion的流程"><br><img src="/wiki/IOS/多线程/NSOperaionQueue/2.png" alt="是否并发文档"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
+    
+  </entry>
+  
+  <entry>
     <title>NSOperation</title>
     <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperation/"/>
     <id>http://yoursite.com/wiki/IOS/多线程/NSOperation/</id>
@@ -113,28 +159,6 @@
   </entry>
   
   <entry>
-    <title>GCD源码理解</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/GCD_Source/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/GCD_Source/</id>
-    <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-17T11:57:53.764Z</updated>
-    
-    <content type="html"><![CDATA[<p>GCD源码理解</p><a id="more"></a><h2 id="GCD理解"><a href="#GCD理解" class="headerlink" title="GCD理解"></a>GCD理解</h2><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_sync.png" alt="同步"></p><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_async.png" alt="异步"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;GCD源码理解&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-  </entry>
-  
-  <entry>
     <title>多线程参考资料</title>
     <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
     <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
@@ -146,30 +170,6 @@
     <summary type="html">
     
       &lt;p&gt;记录读过的文章&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NSOperaionQueue 源码学习</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperaionQueue/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/</id>
-    <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-18T03:56:35.505Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录NSOperaionQueue的理解</p><a id="more"></a><p><img src="/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png" alt="Queue执行operaion的流程"><br><img src="/wiki/IOS/多线程/NSOperaionQueue/2.png" alt="是否并发文档"></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
     
     </summary>
     
@@ -376,30 +376,6 @@
   
   <entry>
     <title>第一章 基本知识</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E6%A6%82%E7%8E%87%E8%AE%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
-    <id>http://yoursite.com/wiki/数学知识/概率论和数理统计/第一章 概率论的基本概念/</id>
-    <published>2019-08-13T02:07:12.000Z</published>
-    <updated>2019-08-22T02:19:08.698Z</updated>
-    
-    <content type="html"><![CDATA[<p>随机现象：个别实验中其结果呈现不确定性，在大量重复实验中其结果又具有统计规律的现象</p><a id="more"></a><h2 id="随机实验"><a href="#随机实验" class="headerlink" title="随机实验"></a>随机实验</h2><ol><li>可以在相同的条件下重复地进行</li><li>每次实验的可能结果不止一个，并且能事先明确实验的所有可能结果</li><li>进行一次实验前不能确定哪一个结果会出现 </li></ol><p>我们将具有上面三个特点的实验称为随机实验</p><h2 id="样本空间、-随机事件"><a href="#样本空间、-随机事件" class="headerlink" title="样本空间、 随机事件"></a>样本空间、 随机事件</h2><h3 id="一-样本空间"><a href="#一-样本空间" class="headerlink" title="一 样本空间"></a>一 样本空间</h3><p>我们将随机实验E的所有可能结果组成的集合称为E的<strong>样本空间</strong>。记作S 样本空间的每个结果称为<strong>样本点</strong></p><h3 id="二-随机事件"><a href="#二-随机事件" class="headerlink" title="二 随机事件"></a>二 随机事件</h3><p>一般，我们称实验E的样本空间S的子集为E 的<strong>随机事件</strong>，当且仅当这一子集中的样本点出现时，称这一事件发生。</p><p>由一个样本点组成的单点集，称为<strong>基本事件</strong>  </p><p>每个实验中它总是发生的，S称为<strong>必然事件</strong> 。空集是<strong>不可能事件</strong></p><h3 id="事件间的关系和运算"><a href="#事件间的关系和运算" class="headerlink" title="事件间的关系和运算"></a>事件间的关系和运算</h3><ol><li>若$A\subset{B}$ 事件A发生必然导致事件B发生。</li><li>$A\cup{B}$ 和事件，当且仅当A、B至少有衣蛾发生时，事件A\cup{B}$ 发生</li><li>事件$A\cap{B}$积事件，当且仅当A、B同时发生时，事件$A\cap{B}$发生。</li><li>差事件，A-B 当且仅当A发生，B不发生时，事件A-B发生。</li><li>若$A\cap{B}=\emptyset$ ,则称事件A与时间B互不相容或互斥。事件A、B不能同时发生。</li><li>若$A\cup{B}=s$ 且$A\cap{B}=\emptyset$则称事件A与时间B互为逆事件。或对立事件</li></ol><h2 id="频率和概率"><a href="#频率和概率" class="headerlink" title="频率和概率"></a>频率和概率</h2><p>定义： 在相同条件下，进行n次试验，在这n次试验中，事件A发生的次数称为事件A的频数，比值$n_a/n$称为事件A发生的频率。并记作$f_n（A）$</p><p>概率的性质：</p><ol><li>P($\emptyset$)=0</li><li>有限可加性 ，$若A_1，A_2,… A_n$是两两互不相容的事件，则有P（$A_1\cup{A_2}…\cap{A_n}$） = $P(A_1)+P(A_2)+…+P(A_n)$</li><li>设A、B是两个事件，若$A\subset{B}$,则：$$P(B-A)=P(B)-P(A)$$</li><li>对任一事件A P(A)&lt;=1</li><li>逆事件概率，对于任一事件A有$ P(\overline A) $= 1- P(A)</li><li>加法公式： 对任意两事件 A、B 有，$ P(A\cup B) = P(A)+P(B)-P(AB)$</li></ol><h2 id="等可能概型（古典概型）"><a href="#等可能概型（古典概型）" class="headerlink" title="等可能概型（古典概型）"></a>等可能概型（古典概型）</h2><p>若事件A包含k个基本事件 ，则<br>$$P(A)=\frac {k} {n} = \frac {A包含的基本事件数} {S中基本事件的总数}$$</p><p>$$\left ( \frac {N}{n} \right ) = \frac {N(N-1)…(N-n+1)} {n!} \text N<br>中取n个的总数$$</p><p>$$A_N^n = N(N-1)…(N-n+1) \text 也是N中取n个的总数 $$</p><h2 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h2><p>设A，B是两个事件，且P（A） &gt; 0 称 </p><p>$$ P(B|A)=\frac{P(AB)}{P(A)}$$<br>为在事件A发生的条件下，事件B发生的条件概率。</p><p><strong>乘法定理</strong>： $P(AB)=P(B|A)P(A)$</p><p><strong>全概率公式</strong>： 设实验E的样本空间为S，A为E的事件，$B_1,B_2,…,B_n$为S的一个划分，且$P(B_i)$&gt;0,则<br>$$P(A)=P(A|B_1)P(B_1)+P(A|B_2)P(B_2)+…+P(A|B_n)P(B_n)$$<br>称为全概率公式。</p><p><strong>个人理解</strong>：A和每个划分的积事件之和。</p><p><strong>贝叶斯公式</strong>：设实验E的样本空间为S，A为E的事件，$B_1,B_2,…,B_n$为S的一个划分，则<br>$$P(B_i|A)=\frac{P(A|B_i)P(B)}{\sum_{j=1}^{n}{P(A|B_j)P(B_j)}}$$<br>称为贝叶斯公式</p><p>当n=2时，全概率公式和贝叶斯公式分别为：</p><p>$$P(A)=P(A|B)P(B)+P(A|\overline B)P(\overline B)$$</p><p>$$P(B|A)=\frac{P(AB)}{P(A)}=\frac{P(A|B)P(B)}{P(A|B)P(B)+P(A|\overline B)P(\overline B)}$$</p><h2 id="独立性"><a href="#独立性" class="headerlink" title="独立性"></a>独立性</h2><p>定义： 设A，B是两个事件，如果满足等式：<br>$$P(AB)=P(A)P(B)$$<br>则称事件AB是相互独立，简称A，B独立</p><p>定理1： 设A，B是两个事件，若A，B相互独立，则P(B|A) = P(B),反之亦然。</p><p>定理2：如事件A与B相互独立，则下列各事件也相互独立：<br>$$A \text{与} \overline{B} , \overline A 与B，\overline A与\overline B$$</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;随机现象：个别实验中其结果呈现不确定性，在大量重复实验中其结果又具有统计规律的现象&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
-    
-      <category term="概率论和数理统计" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/"/>
-    
-    
-      <category term="概率论" scheme="http://yoursite.com/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第一章 基本知识</title>
     <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1(%E5%90%8C%E6%B5%8E%E5%8D%81%E4%BA%8C%E4%BA%94)/%E7%AC%AC%E4%B8%80%E7%AB%A0%E9%9A%8F%E6%9C%BA%E4%BA%8B%E4%BB%B6%E4%B8%8E%E6%A6%82%E7%8E%87/"/>
     <id>http://yoursite.com/wiki/数学知识/概率论与数理统计(同济十二五)/第一章随机事件与概率/</id>
     <published>2019-08-13T02:07:12.000Z</published>
@@ -416,6 +392,30 @@
       <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
     
       <category term="概率论与数理统计(同济十二五)" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E4%B8%8E%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1-%E5%90%8C%E6%B5%8E%E5%8D%81%E4%BA%8C%E4%BA%94/"/>
+    
+    
+      <category term="概率论" scheme="http://yoursite.com/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>第一章 基本知识</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/%E7%AC%AC%E4%B8%80%E7%AB%A0%20%E6%A6%82%E7%8E%87%E8%AE%BA%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/"/>
+    <id>http://yoursite.com/wiki/数学知识/概率论和数理统计/第一章 概率论的基本概念/</id>
+    <published>2019-08-13T02:07:12.000Z</published>
+    <updated>2019-08-22T02:19:08.698Z</updated>
+    
+    <content type="html"><![CDATA[<p>随机现象：个别实验中其结果呈现不确定性，在大量重复实验中其结果又具有统计规律的现象</p><a id="more"></a><h2 id="随机实验"><a href="#随机实验" class="headerlink" title="随机实验"></a>随机实验</h2><ol><li>可以在相同的条件下重复地进行</li><li>每次实验的可能结果不止一个，并且能事先明确实验的所有可能结果</li><li>进行一次实验前不能确定哪一个结果会出现 </li></ol><p>我们将具有上面三个特点的实验称为随机实验</p><h2 id="样本空间、-随机事件"><a href="#样本空间、-随机事件" class="headerlink" title="样本空间、 随机事件"></a>样本空间、 随机事件</h2><h3 id="一-样本空间"><a href="#一-样本空间" class="headerlink" title="一 样本空间"></a>一 样本空间</h3><p>我们将随机实验E的所有可能结果组成的集合称为E的<strong>样本空间</strong>。记作S 样本空间的每个结果称为<strong>样本点</strong></p><h3 id="二-随机事件"><a href="#二-随机事件" class="headerlink" title="二 随机事件"></a>二 随机事件</h3><p>一般，我们称实验E的样本空间S的子集为E 的<strong>随机事件</strong>，当且仅当这一子集中的样本点出现时，称这一事件发生。</p><p>由一个样本点组成的单点集，称为<strong>基本事件</strong>  </p><p>每个实验中它总是发生的，S称为<strong>必然事件</strong> 。空集是<strong>不可能事件</strong></p><h3 id="事件间的关系和运算"><a href="#事件间的关系和运算" class="headerlink" title="事件间的关系和运算"></a>事件间的关系和运算</h3><ol><li>若$A\subset{B}$ 事件A发生必然导致事件B发生。</li><li>$A\cup{B}$ 和事件，当且仅当A、B至少有衣蛾发生时，事件A\cup{B}$ 发生</li><li>事件$A\cap{B}$积事件，当且仅当A、B同时发生时，事件$A\cap{B}$发生。</li><li>差事件，A-B 当且仅当A发生，B不发生时，事件A-B发生。</li><li>若$A\cap{B}=\emptyset$ ,则称事件A与时间B互不相容或互斥。事件A、B不能同时发生。</li><li>若$A\cup{B}=s$ 且$A\cap{B}=\emptyset$则称事件A与时间B互为逆事件。或对立事件</li></ol><h2 id="频率和概率"><a href="#频率和概率" class="headerlink" title="频率和概率"></a>频率和概率</h2><p>定义： 在相同条件下，进行n次试验，在这n次试验中，事件A发生的次数称为事件A的频数，比值$n_a/n$称为事件A发生的频率。并记作$f_n（A）$</p><p>概率的性质：</p><ol><li>P($\emptyset$)=0</li><li>有限可加性 ，$若A_1，A_2,… A_n$是两两互不相容的事件，则有P（$A_1\cup{A_2}…\cap{A_n}$） = $P(A_1)+P(A_2)+…+P(A_n)$</li><li>设A、B是两个事件，若$A\subset{B}$,则：$$P(B-A)=P(B)-P(A)$$</li><li>对任一事件A P(A)&lt;=1</li><li>逆事件概率，对于任一事件A有$ P(\overline A) $= 1- P(A)</li><li>加法公式： 对任意两事件 A、B 有，$ P(A\cup B) = P(A)+P(B)-P(AB)$</li></ol><h2 id="等可能概型（古典概型）"><a href="#等可能概型（古典概型）" class="headerlink" title="等可能概型（古典概型）"></a>等可能概型（古典概型）</h2><p>若事件A包含k个基本事件 ，则<br>$$P(A)=\frac {k} {n} = \frac {A包含的基本事件数} {S中基本事件的总数}$$</p><p>$$\left ( \frac {N}{n} \right ) = \frac {N(N-1)…(N-n+1)} {n!} \text N<br>中取n个的总数$$</p><p>$$A_N^n = N(N-1)…(N-n+1) \text 也是N中取n个的总数 $$</p><h2 id="条件概率"><a href="#条件概率" class="headerlink" title="条件概率"></a>条件概率</h2><p>设A，B是两个事件，且P（A） &gt; 0 称 </p><p>$$ P(B|A)=\frac{P(AB)}{P(A)}$$<br>为在事件A发生的条件下，事件B发生的条件概率。</p><p><strong>乘法定理</strong>： $P(AB)=P(B|A)P(A)$</p><p><strong>全概率公式</strong>： 设实验E的样本空间为S，A为E的事件，$B_1,B_2,…,B_n$为S的一个划分，且$P(B_i)$&gt;0,则<br>$$P(A)=P(A|B_1)P(B_1)+P(A|B_2)P(B_2)+…+P(A|B_n)P(B_n)$$<br>称为全概率公式。</p><p><strong>个人理解</strong>：A和每个划分的积事件之和。</p><p><strong>贝叶斯公式</strong>：设实验E的样本空间为S，A为E的事件，$B_1,B_2,…,B_n$为S的一个划分，则<br>$$P(B_i|A)=\frac{P(A|B_i)P(B)}{\sum_{j=1}^{n}{P(A|B_j)P(B_j)}}$$<br>称为贝叶斯公式</p><p>当n=2时，全概率公式和贝叶斯公式分别为：</p><p>$$P(A)=P(A|B)P(B)+P(A|\overline B)P(\overline B)$$</p><p>$$P(B|A)=\frac{P(AB)}{P(A)}=\frac{P(A|B)P(B)}{P(A|B)P(B)+P(A|\overline B)P(\overline B)}$$</p><h2 id="独立性"><a href="#独立性" class="headerlink" title="独立性"></a>独立性</h2><p>定义： 设A，B是两个事件，如果满足等式：<br>$$P(AB)=P(A)P(B)$$<br>则称事件AB是相互独立，简称A，B独立</p><p>定理1： 设A，B是两个事件，若A，B相互独立，则P(B|A) = P(B),反之亦然。</p><p>定理2：如事件A与B相互独立，则下列各事件也相互独立：<br>$$A \text{与} \overline{B} , \overline A 与B，\overline A与\overline B$$</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;随机现象：个别实验中其结果呈现不确定性，在大量重复实验中其结果又具有统计规律的现象&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
+    
+      <category term="概率论和数理统计" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/"/>
     
     
       <category term="概率论" scheme="http://yoursite.com/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
@@ -447,17 +447,17 @@
   </entry>
   
   <entry>
-    <title>第三章 矩阵的初等变换和线性方程组</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/matrixTransformation/"/>
-    <id>http://yoursite.com/wiki/数学知识/线性代数/matrixTransformation/</id>
+    <title>第五章 相似矩阵</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9B%B8%E4%BC%BC%E7%9F%A9%E9%98%B5/"/>
+    <id>http://yoursite.com/wiki/数学知识/线性代数/相似矩阵/</id>
     <published>2019-08-11T02:07:12.000Z</published>
-    <updated>2019-08-12T07:11:26.487Z</updated>
+    <updated>2019-08-13T06:19:02.194Z</updated>
     
-    <content type="html"><![CDATA[<p>学习线性代数的第三章。</p><a id="more"></a><h2 id="矩阵初等变换"><a href="#矩阵初等变换" class="headerlink" title="矩阵初等变换"></a>矩阵初等变换</h2><p>定义1　下面3种变换称为矩阵的初等行变换：</p><ol><li>对调矩阵的两行（对调i，j两行，记作ri↔rj）；</li><li>将某一行所有元素乘以数k≠0（第i行乘k，记作ri×k）；</li><li>把某一行所有元素的k倍加到另一行对应元素上去（第j行的k倍加到第i行上，记作ri+krj）.</li></ol><p><strong>矩阵的初等行变换与初等列变换统称为矩阵的初等变换.</strong></p><p>这里，矩阵B1与B2都称为<strong>行阶梯形矩阵</strong>，其特点是：可画一条一行为一个台阶的阶梯线，线的下方元素全为0，台阶数就是非零行的行数，阶梯线的竖线（每段竖线的长度为一行）后面的第一个元素为非零元，也就是非零行的第一个非零元.</p><p>行阶梯形矩阵B2还称为行<strong>最简形矩阵</strong>，其特点是：每个非零行的第一个非零元为1，且这些非零元所在的列的其他元素都为0.</p><p><strong>标准形</strong>，其特点是：左上角是一个单位矩阵，其余元素全为</p><p>任何矩阵A都有唯一的标准形.等价矩阵有相同的标准形.即有相同标准形的矩阵是等价的.因此所有与A等价的矩阵组成一个集合，称为一个等价类，标准形F是这个等价类中形式最简单的矩阵.</p><h2 id="初等矩阵"><a href="#初等矩阵" class="headerlink" title="初等矩阵"></a>初等矩阵</h2><p>定义2　由单位矩阵E经过一次初等变换得到的方阵称为初等矩阵.</p><p>定理1　设A是一个m×n矩阵，则对A施行一次初等行变换，相当于用相应的m阶初等矩阵左乘A；对A施行一次初等列变换，相当于用相应的n阶初等矩阵右乘A.</p><p>定理2　方阵A可逆的充分必要条件是存在有限个初等矩阵P1，P2，…，Ps，使A=P1P2…Ps.</p><p>推论4　对于n阶矩阵A与n×s矩阵B，若，则A可逆，且X=A1B.特别地，对于n个未知数n个方程的线性方程组Ax=b，若增广矩阵，则A可逆，且x=A1b为方程组的唯一解.</p><h2 id="矩阵的秩"><a href="#矩阵的秩" class="headerlink" title="矩阵的秩"></a>矩阵的秩</h2><h3 id="矩阵秩的定义"><a href="#矩阵秩的定义" class="headerlink" title="矩阵秩的定义"></a>矩阵秩的定义</h3><p>定义4　设在m×n矩阵A中有一个不等于0的r阶子式D，且所有的r+1阶子式（如果存在的话）全等于0，则D称为矩阵A的最高阶非零子式.数r称为矩阵A的秩，记作R（A）=r.我们规定零矩阵的秩为0.</p><p>注意：</p><ol><li>由行列式的展开法则可知，在A中，当所有r+l阶子式全等于0时，所有高于r+l阶的子式也全等于0，因此把r阶非零子式称为A的最高阶非零子式，而A的秩R（A）就是A中不等于0的子式的最高阶数. </li><li>若矩阵A中存在某个s阶子式不等于0，则R（A）≥s；若所有t阶子式全为0，则R（A）&lt;t.</li><li>对任意m×n矩阵A，有O≤R（A）≤min{m，n}.</li><li>对任意m×n矩阵A，有R（A）=$R(A^T)$. </li><li>对n阶方阵A，若|A|≠0，则R（A）=n，此时方阵A可逆，所以可逆矩阵又称满秩矩阵；若|A|=0，则R（A）&lt;n，此时方阵A不可逆，因此不可逆矩阵又称降秩矩阵（或奇异矩阵）.</li></ol><h3 id="矩阵秩与矩阵的初等变换"><a href="#矩阵秩与矩阵的初等变换" class="headerlink" title="矩阵秩与矩阵的初等变换"></a>矩阵秩与矩阵的初等变换</h3><p>定理3　若A～B，则R（A）=R（B）.</p><p>由定理3可知，要求矩阵的秩，只要把矩阵用初等行变换化为行阶梯形矩阵，则行阶梯形矩阵中，非零行的行数即为该矩阵的秩.</p><h3 id="矩阵的秩的性质"><a href="#矩阵的秩的性质" class="headerlink" title="矩阵的秩的性质"></a>矩阵的秩的性质</h3><ol><li>性质1　0≤R（Am×n）≤min{m，n}，且R（A）=0的充分必要条件是A=O.</li><li>性质2　R（A）=R（$A^T$）.</li><li>性质3　R（A）=R（kA）（k≠0）.</li><li>性质4　若A～B，则R（A）=R（B）.</li><li>性质5　若P，Q可逆，则R（PAQ）=R（A）.</li><li>性质6　max{R（A），R（B）}≤R（A，B）≤R（A）+R（B），特别地，当B=b为列向量时，有R（A）≤R（A，b）≤R（A）+1.</li><li>性质7　R（A±B）≤R（A）+R（B）</li><li>性质8　R（AB）≤min{R（A），R（B）}.</li><li>性质9　若$A_{m×n}B_{n×l}=O$，则R（A）+R（B）≤n.</li></ol><h2 id="线性方程组的解"><a href="#线性方程组的解" class="headerlink" title="线性方程组的解"></a>线性方程组的解</h2><p>消元法就是<strong>增广矩阵</strong> 变换的过程。</p><p>定理4　n元非齐次线性方程组Ax=b，</p><ol><li>无解的充分必要条件是R（A）&lt;R（A，b）；</li><li>有唯一解的充分必要条件是R（A）=R（A，b）=n；</li><li>有无穷多解的充分必要条件是R（A）=R（A，b）&lt;n.</li></ol><p>由定理4，可知解线性方程组Ax=b时，只需对增广矩阵B=（A，b）施行初等行变换化为行阶梯形矩阵，判别线性方程组是否有解；在有解时，继续对增广矩阵施行初等行变换化为行最简形矩阵，而后求出线性方程组的解.</p><p>定理5　矩阵方程AX=B有解的充分必要条件是R（A）=R（A，B）.</p><p>齐次线性方程组有非零解的充分必要条件：</p><p>定理7　n元齐次线性方程组Ax=0有非零解的充分必要条件是系数矩阵A的秩R（A）&lt;n；而只有零解得充分必要条件是R（A）=n.</p><p>推论1　若齐次线性方程组Ax=0中方程的个数小于未知数的个数，则它必有非零解.</p><p>推论2　n个方程n个未知数的齐次线性方程组Ax=0有非零解的充分必要条件是系数行列式|A|=0；而它只有零解的充分必要条件是系数行列式|A|≠0.定理7还可以推广到矩阵方程情形中.</p><p>定理8　矩阵方程$A_{m×n}X_{n×l}=O_{m×l}$只有零解的充分必要条件是R（A）=n.</p>]]></content>
+    <content type="html"><![CDATA[<p>矩阵的特征值与特征向量是线性代数中十分重要的内容，是矩阵和向量理论深层次上的发展.本章主要讨论矩阵的特征值与特征向量的概念、性质与计算及矩阵的相似对角化问题，特别是对称矩阵的正交相似对角化问题.</p><a id="more"></a><h2 id="向量的內积和正交性"><a href="#向量的內积和正交性" class="headerlink" title="向量的內积和正交性"></a>向量的內积和正交性</h2><h3 id="向量的內积"><a href="#向量的內积" class="headerlink" title="向量的內积"></a>向量的內积</h3><p>$$[x，y]=x_1y_2+x_2y_2+…+x_ny_n.$$</p><p><strong>内积的运算规律</strong>（其中x，y，z为n维向量，λ为实数）：</p><ol><li>[x，y]=[y，x]；</li><li>[λx，y]=λ[x，y]；</li><li>[x+y，z]=[x，z]+[y，z]；</li><li>[x，x]≥0，当且仅当x=0时，[x，x]=0；</li><li>柯西一施瓦茨（CauchySchwarz）不等式：$[x，y]^2≤[x，x][y，y]$，当且仅当x与y线性相关时等号成立.</li></ol><h3 id="向量的长度"><a href="#向量的长度" class="headerlink" title="向量的长度"></a>向量的长度</h3><p>定义2　设x是n维向量，称$\sqrt{[x,x]}$为向量x的长度（或范数），记作‖x‖.即若x＝（x1，x2，…，xn）T，则有<br>$$||x||=\sqrt{[x,x]}=\sqrt{x_1^2+x_2^2+x_n^2}$$</p><p>向量的长度具有以下<strong>性质</strong>：</p><ol><li>非负性　‖x‖≥0，当且仅当x=0时等号成立；</li><li>齐次性　‖λx‖=|λ|‖x‖，λ为任意实数；</li><li>三角不等式　‖x+y‖≤‖x‖+‖y‖.</li></ol><p>若‖x‖=1，则称x为单位向量.</p><p>设a为任意非零向量，则向量$\frac{1}{||a||}a$为单位向量，</p><p>对于一个非零向量，用a的长度‖a‖去除a，即得到一个单位向量，这个过程称为将a单位化.</p><h3 id="向量的夹角与正交向量组"><a href="#向量的夹角与正交向量组" class="headerlink" title="向量的夹角与正交向量组"></a>向量的夹角与正交向量组</h3><p><strong>定义3</strong>　设向量x与y均是n维非零向量，称</p><p>$$\theta=arccos\frac{[x,y]}{||x|| ||y||}$$<br>为向量x与y的夹角.<strong>当[x，y]=0时，称向量x与y正交</strong>.显然，零向量与任何向量都正交.两两正交的非零向量组，称为正交向量组.</p><p><strong>定理1</strong>　若向量组$a_1，a_2，…，a_m$是正交向量组，则$a_1，a_2，…，a_m$线性无关.</p><p>定义4　设n维向量组$e_1，e_2，…，e_r$是向量空间V的一个基，若$e_1，e_2，…，e_r$两两<strong>正交</strong>，且都是<strong>单位</strong>向量，则称$e_1，e_2，…，e_r$是V的一个规范正交基</p><p>规范正交化的步骤  :</p><p><img src="/wiki/数学知识/线性代数/相似矩阵/1.png" alt="规范正交化的步骤 "></p><h3 id="正交矩阵与正交变换"><a href="#正交矩阵与正交变换" class="headerlink" title="正交矩阵与正交变换"></a>正交矩阵与正交变换</h3><p><img src="/wiki/数学知识/线性代数/相似矩阵/2.png" alt="正交矩阵的定义 "></p><p><strong>性质：</strong></p><p><img src="/wiki/数学知识/线性代数/相似矩阵/3.png" alt="正交矩阵的定义 "></p><h2 id="方阵的特征值与特征向量"><a href="#方阵的特征值与特征向量" class="headerlink" title="方阵的特征值与特征向量"></a>方阵的特征值与特征向量</h2><h3 id="特征值和特征向量的概念"><a href="#特征值和特征向量的概念" class="headerlink" title="特征值和特征向量的概念"></a>特征值和特征向量的概念</h3><p>定义7　设A为n阶方阵，若存在数λ和非零n维列向量x，使得$$Ax=λx（5.1）成立，$$则称数λ为方阵A的特征值，非零向量x称为A的对应于特征值λ的特征向量.式（5.1）也可写成$$（A-λE）x=0，（5.2）$$这是n个未知数n个方程的齐次线性方程组</p><p>求n阶方阵A的特征值和特征向量的步骤：</p><ol><li>第一步：求出A的特征多项式|A-λE|；</li><li>第二步：求解特征方程|A-λE|=0，得到A的n个特征值λ1，λ2，…λn；</li><li>第三步：对于A的每一个特征值λi，求出齐次线性方程组（A-λiE）x=0的一个基础解系ξ1，ξ2，…ξs，则A的对应于特征值λi的全部特征向量为pi=c1ξ1+c2ξ2+…+csξs，其中，c1，c2，…，cs为不全为零的任意实数.</li></ol><h3 id="方阵的特征值和特征向量的性质"><a href="#方阵的特征值和特征向量的性质" class="headerlink" title="方阵的特征值和特征向量的性质"></a>方阵的特征值和特征向量的性质</h3><p><strong>性质1</strong>　一个特征向量只能属于一个特征值（相同的看成一个）</p><p><strong>性质2　</strong>若λ是方阵A的特征值，x是属于λ的特征向量，则</p><ol><li>μλ是μA的特征值，x是属于μλ的特征向量（μ是常数）：</li><li>λk是Ak的特征值，x是属于λk的特征向量（k是正整数）；</li><li>当|A|≠0时λ1是A1的特征值，λ1|A|为$A*$的特征值，且x为对应的特征向量.</li><li>φ（λ）是φ（A）的特征值（其中φ（λ）$=a_0+a_1λ+…+a_mλ^m$是λ的多项式，φ（A）=$a_0E+a_1A+…+a_mA^m$是方阵A的多项式）</li></ol><p><strong>性质3</strong>　A与AT有相同的特征值</p><p><strong>性质5</strong>　设λ1，λ2，…，λm是方阵A的m个特征值，p1，p2，…，pm是依次与之对应的特征向量.若λ1，λ2，…，λm互不相等，则p1，p2，…，pm线性无关.</p><h2 id="相似矩阵"><a href="#相似矩阵" class="headerlink" title="相似矩阵"></a>相似矩阵</h2><h3 id="相似矩阵的定义"><a href="#相似矩阵的定义" class="headerlink" title="相似矩阵的定义"></a>相似矩阵的定义</h3><p>定义8　设A，B都是n阶方阵，若存在一个n阶可逆矩阵P，使$$P^1AP=B$$</p><p>则称A与B是相似的，或称B是A的相似矩阵.称$P^1AP$为对A作相似变换，可逆矩阵P称为把A变成B的相似变换矩阵</p><p><strong>性质1</strong>　若A与B相似，则R（A）=R（B），且|A|=|B|.</p><p><strong>性质2</strong>　若A可逆，且A与B相似，则B可逆，且A1与B1也相似.</p><p><strong>性质3</strong>　若A与B相似，则$A^k$与$B^k$（k为整数）相似.</p><p><strong>定理3</strong>　若n阶方阵A与B相似，则A与B的特征多项式相同，从而A与B的特征值也相同.</p><p><strong>推论</strong>　若n阶方阵A与对角矩阵相似，则λ1，λ2，…，λn是A的n个特征值.</p><h3 id="矩阵的对角化"><a href="#矩阵的对角化" class="headerlink" title="矩阵的对角化"></a>矩阵的对角化</h3><p>定理4　n阶方阵A与对角矩阵相似的充分必要条件是A有n个线性无关的特征向量.</p><p>推论　若n阶方阵A有n个互不相同的特征值，则A与对角矩阵相似.</p><p>定理5　若对于n阶方阵A的任一k重特征值λ，有R（A-λE）=n-k，则A可对角化.</p><h3 id="实对称矩阵的对角化"><a href="#实对称矩阵的对角化" class="headerlink" title="实对称矩阵的对角化"></a>实对称矩阵的对角化</h3><p>定理7 实对称矩阵不同特征值对象特征向量正交  </p><p>定理8　A为n阶实对称矩阵，则必存在正交矩阵P，使得$$P^1AP=P^TAP=A$$，其中A是以A的n个特征值未对角线元素的对角矩阵</p><p>推论： 设A为n阶实对称矩阵，λ是A的k重特征值，则 R（A-λE）= n-k，从而对应特征值λ恰好有k个线性无关的特征向量</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;学习线性代数的第三章。&lt;/p&gt;
+      &lt;p&gt;矩阵的特征值与特征向量是线性代数中十分重要的内容，是矩阵和向量理论深层次上的发展.本章主要讨论矩阵的特征值与特征向量的概念、性质与计算及矩阵的相似对角化问题，特别是对称矩阵的正交相似对角化问题.&lt;/p&gt;
     
     </summary>
     
@@ -471,17 +471,17 @@
   </entry>
   
   <entry>
-    <title>第五章 相似矩阵</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/%E7%9B%B8%E4%BC%BC%E7%9F%A9%E9%98%B5/"/>
-    <id>http://yoursite.com/wiki/数学知识/线性代数/相似矩阵/</id>
+    <title>第三章 矩阵的初等变换和线性方程组</title>
+    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E7%BA%BF%E6%80%A7%E4%BB%A3%E6%95%B0/matrixTransformation/"/>
+    <id>http://yoursite.com/wiki/数学知识/线性代数/matrixTransformation/</id>
     <published>2019-08-11T02:07:12.000Z</published>
-    <updated>2019-08-13T06:19:02.194Z</updated>
+    <updated>2019-08-12T07:11:26.487Z</updated>
     
-    <content type="html"><![CDATA[<p>矩阵的特征值与特征向量是线性代数中十分重要的内容，是矩阵和向量理论深层次上的发展.本章主要讨论矩阵的特征值与特征向量的概念、性质与计算及矩阵的相似对角化问题，特别是对称矩阵的正交相似对角化问题.</p><a id="more"></a><h2 id="向量的內积和正交性"><a href="#向量的內积和正交性" class="headerlink" title="向量的內积和正交性"></a>向量的內积和正交性</h2><h3 id="向量的內积"><a href="#向量的內积" class="headerlink" title="向量的內积"></a>向量的內积</h3><p>$$[x，y]=x_1y_2+x_2y_2+…+x_ny_n.$$</p><p><strong>内积的运算规律</strong>（其中x，y，z为n维向量，λ为实数）：</p><ol><li>[x，y]=[y，x]；</li><li>[λx，y]=λ[x，y]；</li><li>[x+y，z]=[x，z]+[y，z]；</li><li>[x，x]≥0，当且仅当x=0时，[x，x]=0；</li><li>柯西一施瓦茨（CauchySchwarz）不等式：$[x，y]^2≤[x，x][y，y]$，当且仅当x与y线性相关时等号成立.</li></ol><h3 id="向量的长度"><a href="#向量的长度" class="headerlink" title="向量的长度"></a>向量的长度</h3><p>定义2　设x是n维向量，称$\sqrt{[x,x]}$为向量x的长度（或范数），记作‖x‖.即若x＝（x1，x2，…，xn）T，则有<br>$$||x||=\sqrt{[x,x]}=\sqrt{x_1^2+x_2^2+x_n^2}$$</p><p>向量的长度具有以下<strong>性质</strong>：</p><ol><li>非负性　‖x‖≥0，当且仅当x=0时等号成立；</li><li>齐次性　‖λx‖=|λ|‖x‖，λ为任意实数；</li><li>三角不等式　‖x+y‖≤‖x‖+‖y‖.</li></ol><p>若‖x‖=1，则称x为单位向量.</p><p>设a为任意非零向量，则向量$\frac{1}{||a||}a$为单位向量，</p><p>对于一个非零向量，用a的长度‖a‖去除a，即得到一个单位向量，这个过程称为将a单位化.</p><h3 id="向量的夹角与正交向量组"><a href="#向量的夹角与正交向量组" class="headerlink" title="向量的夹角与正交向量组"></a>向量的夹角与正交向量组</h3><p><strong>定义3</strong>　设向量x与y均是n维非零向量，称</p><p>$$\theta=arccos\frac{[x,y]}{||x|| ||y||}$$<br>为向量x与y的夹角.<strong>当[x，y]=0时，称向量x与y正交</strong>.显然，零向量与任何向量都正交.两两正交的非零向量组，称为正交向量组.</p><p><strong>定理1</strong>　若向量组$a_1，a_2，…，a_m$是正交向量组，则$a_1，a_2，…，a_m$线性无关.</p><p>定义4　设n维向量组$e_1，e_2，…，e_r$是向量空间V的一个基，若$e_1，e_2，…，e_r$两两<strong>正交</strong>，且都是<strong>单位</strong>向量，则称$e_1，e_2，…，e_r$是V的一个规范正交基</p><p>规范正交化的步骤  :</p><p><img src="/wiki/数学知识/线性代数/相似矩阵/1.png" alt="规范正交化的步骤 "></p><h3 id="正交矩阵与正交变换"><a href="#正交矩阵与正交变换" class="headerlink" title="正交矩阵与正交变换"></a>正交矩阵与正交变换</h3><p><img src="/wiki/数学知识/线性代数/相似矩阵/2.png" alt="正交矩阵的定义 "></p><p><strong>性质：</strong></p><p><img src="/wiki/数学知识/线性代数/相似矩阵/3.png" alt="正交矩阵的定义 "></p><h2 id="方阵的特征值与特征向量"><a href="#方阵的特征值与特征向量" class="headerlink" title="方阵的特征值与特征向量"></a>方阵的特征值与特征向量</h2><h3 id="特征值和特征向量的概念"><a href="#特征值和特征向量的概念" class="headerlink" title="特征值和特征向量的概念"></a>特征值和特征向量的概念</h3><p>定义7　设A为n阶方阵，若存在数λ和非零n维列向量x，使得$$Ax=λx（5.1）成立，$$则称数λ为方阵A的特征值，非零向量x称为A的对应于特征值λ的特征向量.式（5.1）也可写成$$（A-λE）x=0，（5.2）$$这是n个未知数n个方程的齐次线性方程组</p><p>求n阶方阵A的特征值和特征向量的步骤：</p><ol><li>第一步：求出A的特征多项式|A-λE|；</li><li>第二步：求解特征方程|A-λE|=0，得到A的n个特征值λ1，λ2，…λn；</li><li>第三步：对于A的每一个特征值λi，求出齐次线性方程组（A-λiE）x=0的一个基础解系ξ1，ξ2，…ξs，则A的对应于特征值λi的全部特征向量为pi=c1ξ1+c2ξ2+…+csξs，其中，c1，c2，…，cs为不全为零的任意实数.</li></ol><h3 id="方阵的特征值和特征向量的性质"><a href="#方阵的特征值和特征向量的性质" class="headerlink" title="方阵的特征值和特征向量的性质"></a>方阵的特征值和特征向量的性质</h3><p><strong>性质1</strong>　一个特征向量只能属于一个特征值（相同的看成一个）</p><p><strong>性质2　</strong>若λ是方阵A的特征值，x是属于λ的特征向量，则</p><ol><li>μλ是μA的特征值，x是属于μλ的特征向量（μ是常数）：</li><li>λk是Ak的特征值，x是属于λk的特征向量（k是正整数）；</li><li>当|A|≠0时λ1是A1的特征值，λ1|A|为$A*$的特征值，且x为对应的特征向量.</li><li>φ（λ）是φ（A）的特征值（其中φ（λ）$=a_0+a_1λ+…+a_mλ^m$是λ的多项式，φ（A）=$a_0E+a_1A+…+a_mA^m$是方阵A的多项式）</li></ol><p><strong>性质3</strong>　A与AT有相同的特征值</p><p><strong>性质5</strong>　设λ1，λ2，…，λm是方阵A的m个特征值，p1，p2，…，pm是依次与之对应的特征向量.若λ1，λ2，…，λm互不相等，则p1，p2，…，pm线性无关.</p><h2 id="相似矩阵"><a href="#相似矩阵" class="headerlink" title="相似矩阵"></a>相似矩阵</h2><h3 id="相似矩阵的定义"><a href="#相似矩阵的定义" class="headerlink" title="相似矩阵的定义"></a>相似矩阵的定义</h3><p>定义8　设A，B都是n阶方阵，若存在一个n阶可逆矩阵P，使$$P^1AP=B$$</p><p>则称A与B是相似的，或称B是A的相似矩阵.称$P^1AP$为对A作相似变换，可逆矩阵P称为把A变成B的相似变换矩阵</p><p><strong>性质1</strong>　若A与B相似，则R（A）=R（B），且|A|=|B|.</p><p><strong>性质2</strong>　若A可逆，且A与B相似，则B可逆，且A1与B1也相似.</p><p><strong>性质3</strong>　若A与B相似，则$A^k$与$B^k$（k为整数）相似.</p><p><strong>定理3</strong>　若n阶方阵A与B相似，则A与B的特征多项式相同，从而A与B的特征值也相同.</p><p><strong>推论</strong>　若n阶方阵A与对角矩阵相似，则λ1，λ2，…，λn是A的n个特征值.</p><h3 id="矩阵的对角化"><a href="#矩阵的对角化" class="headerlink" title="矩阵的对角化"></a>矩阵的对角化</h3><p>定理4　n阶方阵A与对角矩阵相似的充分必要条件是A有n个线性无关的特征向量.</p><p>推论　若n阶方阵A有n个互不相同的特征值，则A与对角矩阵相似.</p><p>定理5　若对于n阶方阵A的任一k重特征值λ，有R（A-λE）=n-k，则A可对角化.</p><h3 id="实对称矩阵的对角化"><a href="#实对称矩阵的对角化" class="headerlink" title="实对称矩阵的对角化"></a>实对称矩阵的对角化</h3><p>定理7 实对称矩阵不同特征值对象特征向量正交  </p><p>定理8　A为n阶实对称矩阵，则必存在正交矩阵P，使得$$P^1AP=P^TAP=A$$，其中A是以A的n个特征值未对角线元素的对角矩阵</p><p>推论： 设A为n阶实对称矩阵，λ是A的k重特征值，则 R（A-λE）= n-k，从而对应特征值λ恰好有k个线性无关的特征向量</p>]]></content>
+    <content type="html"><![CDATA[<p>学习线性代数的第三章。</p><a id="more"></a><h2 id="矩阵初等变换"><a href="#矩阵初等变换" class="headerlink" title="矩阵初等变换"></a>矩阵初等变换</h2><p>定义1　下面3种变换称为矩阵的初等行变换：</p><ol><li>对调矩阵的两行（对调i，j两行，记作ri↔rj）；</li><li>将某一行所有元素乘以数k≠0（第i行乘k，记作ri×k）；</li><li>把某一行所有元素的k倍加到另一行对应元素上去（第j行的k倍加到第i行上，记作ri+krj）.</li></ol><p><strong>矩阵的初等行变换与初等列变换统称为矩阵的初等变换.</strong></p><p>这里，矩阵B1与B2都称为<strong>行阶梯形矩阵</strong>，其特点是：可画一条一行为一个台阶的阶梯线，线的下方元素全为0，台阶数就是非零行的行数，阶梯线的竖线（每段竖线的长度为一行）后面的第一个元素为非零元，也就是非零行的第一个非零元.</p><p>行阶梯形矩阵B2还称为行<strong>最简形矩阵</strong>，其特点是：每个非零行的第一个非零元为1，且这些非零元所在的列的其他元素都为0.</p><p><strong>标准形</strong>，其特点是：左上角是一个单位矩阵，其余元素全为</p><p>任何矩阵A都有唯一的标准形.等价矩阵有相同的标准形.即有相同标准形的矩阵是等价的.因此所有与A等价的矩阵组成一个集合，称为一个等价类，标准形F是这个等价类中形式最简单的矩阵.</p><h2 id="初等矩阵"><a href="#初等矩阵" class="headerlink" title="初等矩阵"></a>初等矩阵</h2><p>定义2　由单位矩阵E经过一次初等变换得到的方阵称为初等矩阵.</p><p>定理1　设A是一个m×n矩阵，则对A施行一次初等行变换，相当于用相应的m阶初等矩阵左乘A；对A施行一次初等列变换，相当于用相应的n阶初等矩阵右乘A.</p><p>定理2　方阵A可逆的充分必要条件是存在有限个初等矩阵P1，P2，…，Ps，使A=P1P2…Ps.</p><p>推论4　对于n阶矩阵A与n×s矩阵B，若，则A可逆，且X=A1B.特别地，对于n个未知数n个方程的线性方程组Ax=b，若增广矩阵，则A可逆，且x=A1b为方程组的唯一解.</p><h2 id="矩阵的秩"><a href="#矩阵的秩" class="headerlink" title="矩阵的秩"></a>矩阵的秩</h2><h3 id="矩阵秩的定义"><a href="#矩阵秩的定义" class="headerlink" title="矩阵秩的定义"></a>矩阵秩的定义</h3><p>定义4　设在m×n矩阵A中有一个不等于0的r阶子式D，且所有的r+1阶子式（如果存在的话）全等于0，则D称为矩阵A的最高阶非零子式.数r称为矩阵A的秩，记作R（A）=r.我们规定零矩阵的秩为0.</p><p>注意：</p><ol><li>由行列式的展开法则可知，在A中，当所有r+l阶子式全等于0时，所有高于r+l阶的子式也全等于0，因此把r阶非零子式称为A的最高阶非零子式，而A的秩R（A）就是A中不等于0的子式的最高阶数. </li><li>若矩阵A中存在某个s阶子式不等于0，则R（A）≥s；若所有t阶子式全为0，则R（A）&lt;t.</li><li>对任意m×n矩阵A，有O≤R（A）≤min{m，n}.</li><li>对任意m×n矩阵A，有R（A）=$R(A^T)$. </li><li>对n阶方阵A，若|A|≠0，则R（A）=n，此时方阵A可逆，所以可逆矩阵又称满秩矩阵；若|A|=0，则R（A）&lt;n，此时方阵A不可逆，因此不可逆矩阵又称降秩矩阵（或奇异矩阵）.</li></ol><h3 id="矩阵秩与矩阵的初等变换"><a href="#矩阵秩与矩阵的初等变换" class="headerlink" title="矩阵秩与矩阵的初等变换"></a>矩阵秩与矩阵的初等变换</h3><p>定理3　若A～B，则R（A）=R（B）.</p><p>由定理3可知，要求矩阵的秩，只要把矩阵用初等行变换化为行阶梯形矩阵，则行阶梯形矩阵中，非零行的行数即为该矩阵的秩.</p><h3 id="矩阵的秩的性质"><a href="#矩阵的秩的性质" class="headerlink" title="矩阵的秩的性质"></a>矩阵的秩的性质</h3><ol><li>性质1　0≤R（Am×n）≤min{m，n}，且R（A）=0的充分必要条件是A=O.</li><li>性质2　R（A）=R（$A^T$）.</li><li>性质3　R（A）=R（kA）（k≠0）.</li><li>性质4　若A～B，则R（A）=R（B）.</li><li>性质5　若P，Q可逆，则R（PAQ）=R（A）.</li><li>性质6　max{R（A），R（B）}≤R（A，B）≤R（A）+R（B），特别地，当B=b为列向量时，有R（A）≤R（A，b）≤R（A）+1.</li><li>性质7　R（A±B）≤R（A）+R（B）</li><li>性质8　R（AB）≤min{R（A），R（B）}.</li><li>性质9　若$A_{m×n}B_{n×l}=O$，则R（A）+R（B）≤n.</li></ol><h2 id="线性方程组的解"><a href="#线性方程组的解" class="headerlink" title="线性方程组的解"></a>线性方程组的解</h2><p>消元法就是<strong>增广矩阵</strong> 变换的过程。</p><p>定理4　n元非齐次线性方程组Ax=b，</p><ol><li>无解的充分必要条件是R（A）&lt;R（A，b）；</li><li>有唯一解的充分必要条件是R（A）=R（A，b）=n；</li><li>有无穷多解的充分必要条件是R（A）=R（A，b）&lt;n.</li></ol><p>由定理4，可知解线性方程组Ax=b时，只需对增广矩阵B=（A，b）施行初等行变换化为行阶梯形矩阵，判别线性方程组是否有解；在有解时，继续对增广矩阵施行初等行变换化为行最简形矩阵，而后求出线性方程组的解.</p><p>定理5　矩阵方程AX=B有解的充分必要条件是R（A）=R（A，B）.</p><p>齐次线性方程组有非零解的充分必要条件：</p><p>定理7　n元齐次线性方程组Ax=0有非零解的充分必要条件是系数矩阵A的秩R（A）&lt;n；而只有零解得充分必要条件是R（A）=n.</p><p>推论1　若齐次线性方程组Ax=0中方程的个数小于未知数的个数，则它必有非零解.</p><p>推论2　n个方程n个未知数的齐次线性方程组Ax=0有非零解的充分必要条件是系数行列式|A|=0；而它只有零解的充分必要条件是系数行列式|A|≠0.定理7还可以推广到矩阵方程情形中.</p><p>定理8　矩阵方程$A_{m×n}X_{n×l}=O_{m×l}$只有零解的充分必要条件是R（A）=n.</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;矩阵的特征值与特征向量是线性代数中十分重要的内容，是矩阵和向量理论深层次上的发展.本章主要讨论矩阵的特征值与特征向量的概念、性质与计算及矩阵的相似对角化问题，特别是对称矩阵的正交相似对角化问题.&lt;/p&gt;
+      &lt;p&gt;学习线性代数的第三章。&lt;/p&gt;
     
     </summary>
     
