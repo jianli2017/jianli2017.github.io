@@ -18,7 +18,9 @@
 <meta property="og:description" content="记录导数与微分的主要知识点">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/12.png">
-<meta property="og:updated_time" content="2019-10-23T06:16:24.438Z">
+<meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/13.png">
+<meta property="og:image" content="http://yoursite.com/wiki/数学知识/高数/导数与微分/14.png">
+<meta property="og:updated_time" content="2019-10-23T06:21:20.123Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="第二章导数与微分">
 <meta name="twitter:description" content="记录导数与微分的主要知识点">
@@ -1139,7 +1141,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一节、导数的概念"><span class="toc-number">1.</span> <span class="toc-text">第一节、导数的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导数的引例"><span class="toc-number">1.1.</span> <span class="toc-text">导数的引例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二节、函数的求导法则"><span class="toc-number">2.</span> <span class="toc-text">第二节、函数的求导法则</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#第一节、导数的概念"><span class="toc-number">1.</span> <span class="toc-text">第一节、导数的概念</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#导数的引例"><span class="toc-number">1.1.</span> <span class="toc-text">导数的引例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二节、函数的求导法则"><span class="toc-number">2.</span> <span class="toc-text">第二节、函数的求导法则</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第二节求导法则总结"><span class="toc-number">3.</span> <span class="toc-text">第二节求导法则总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三节、高阶导数"><span class="toc-number">4.</span> <span class="toc-text">第三节、高阶导数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第五节、函数的微分"><span class="toc-number">5.</span> <span class="toc-text">第五节、函数的微分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#微分公式总结"><span class="toc-number">6.</span> <span class="toc-text">微分公式总结</span></a></li></ol>
                 </div>
             
         
@@ -1166,8 +1168,125 @@
 </li>
 <li><p><strong>幂函数的导数</strong> ：<br>$<br>(x^n)’=<br>\begin{cases}<br>0, &amp; \text{n=1} \\<br>n x^{n-1}, &amp; n&gt;1<br>\end{cases}<br>$</p>
 </li>
+<li><p><strong>sinx的导数</strong> $(\sin x)’=\cos x$、 $(\cos x)’ = - \sin x$</p>
+</li>
+<li><p><strong>指数函数的导数</strong>： $(a^x)’ = \lim_{h \to 0} {\frac{ {\alpha}^{x+h} - {\alpha}^x}{h} } = {\alpha}^x \lim_{h \to 0} \frac{ {\alpha}^h - 1}{h} = a^{x} \ln{a} $</p>
+</li>
+<li><p><strong>对数函数的导数</strong>：$(\log_ x)’ = \frac{1}{x \ln a}$<br>$\begin{equation} \begin{split}<br>f’(x)&amp;=\lim_{h \to 0} \frac{\log_{\alpha}{(x+h)} - \log_{\alpha}{x} }{h}\\<br>&amp;=\lim_{h \to 0}{\frac{1}{h} } \log_{\alpha}{\frac{x+h}{x} } = \lim_{h \to 0}{\frac{1}{x} } \cdot \frac{x}{h} \log_{\alpha}{(1+\frac{h}{x})}\\<br>&amp;=\frac{1}{x} \lim_{h \to 0}{\frac{\log_{\alpha}{(1+\frac{h}{x})} }{\frac{h}{x} } }\\<br>&amp;=\frac{1}{x \cdot \ln{\alpha} }<br>\end{split}\end{equation}$</p>
+</li>
 </ul>
-<h2 id="第二节、函数的求导法则"><a href="#第二节、函数的求导法则" class="headerlink" title="第二节、函数的求导法则"></a>第二节、函数的求导法则</h2>
+<p><strong>导数的几何意义</strong>：函数y=f(x)在$x_0$处的导数表示曲线y=f(x）在点M处的切线的斜率。</p>
+<ol>
+<li>切线方程： $y-y_0 = f’(x_0)(x-x_0)$</li>
+<li>法线方程： $y-y_0 = - \frac{1}{f’(x_0)}(x-x_0)$ </li>
+</ol>
+<p><img src="/wiki/数学知识/高数/导数与微分/13.png" alt="切线示意图"></p>
+<p>函数的可导性和可连续性的关系：</p>
+<ol>
+<li>如果y=f(x)在点x处可导，那么函数在该点x处必连续。 $\frac{\Delta y}{\Delta y} = f’(x)+\alpha \Rightarrow \Delta y = f’(x) \Delta x +\alpha \Delta x$</li>
+<li>连续不一定可导</li>
+</ol>
+<h2 id="第二节、函数的求导法则"><a href="#第二节、函数的求导法则" class="headerlink" title="第二节、函数的求导法则"></a>第二节、函数的求导法则</h2><p>一、 函数的和、差、积、商的求导法则</p>
+<p><strong>定理1</strong> 如果函数$\mu$=$\mu(x)$及$\nu(x)$=$\nu(x)$都在点x具有导数，那么它们的和、差、积、商（除分母为零的点外）都在点x具有导数，且 </p>
+<ol>
+<li>[ $\mu(x)$ + $\nu(x)]’ = \mu(x)’ + \nu(x)’ $</li>
+<li>$[\mu(x)\nu(x)]’ = \mu(x)’\nu(x) + \mu(x)\nu(x)’$</li>
+<li>$[\frac{\mu(x)}{\nu(x)}]’ = \frac{\mu(x)’\nu(x)- \mu(x)\nu(x)’}{\nu^2(x)}$ 其中$\nu(x)$!=0</li>
+</ol>
+<p><strong>定理2（反函数求导法则）</strong>:如果函数x=f(y)在区间$I_y$内单调、可导且f’(y) $\ne$ 0，那么他的反函数y=$f^{-1}(x)$在区间$I_x$内也可导，且：<br>$$[f^{-1}(x)]’ = \frac{1}{f’(y)}或 \frac{dy}{dx}=\frac{1}{\frac{dx}{dy} }$$ </p>
+<blockquote>
+<p>简单的说：反函数的导数等于直接函数导数的倒数。</p>
+</blockquote>
+<p><strong>示例：</strong></p>
+<p>设x = sin y 为直接函数，则 y = arcsin x 是它的反函数。计算过程如下：</p>
+<p>$<br>\begin{equation}\begin{split}<br>(arcsin x)’&amp; =\frac{1}{(sin y)’} = \frac{1}{cos y}\\<br>&amp;又:cos y = \sqrt {1- sin^2y} = \sqrt{1-x^2}\\<br>&amp;所以:(arcsin x)’ = \frac{1}{\sqrt{1- x^2} }\\<br>\end{split}\end{equation}<br>$</p>
+<p><strong>定理3（复合函数求导法则</strong>）如果u=g(x)在点x可导，而y=f(u)在点u=g(x)可导，那么符合函数y=f[g(x)]在点x可导，且其导数为：<br>$$\frac{dy}{dx}=f’(u) \cdot g’(x) 或 \frac{dy}{dx}=\frac{dy}{du} \cdot \frac{du}{dx}$$</p>
+<h2 id="第二节求导法则总结"><a href="#第二节求导法则总结" class="headerlink" title="第二节求导法则总结"></a>第二节求导法则总结</h2><p>一、 导数公式和基本求导法则 </p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">常用导数公式</th>
+<th style="text-align:left">常用导数公式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(1). $(C)’ = 0 $</td>
+<td style="text-align:left">(2). $(x^{\mu})’ = {\mu}x^{\mu -1} $</td>
+</tr>
+<tr>
+<td style="text-align:left">(3). $(\sin x)’ = \cos x $</td>
+<td style="text-align:left">(4). $(\cos x)’ = - \sin x $</td>
+</tr>
+<tr>
+<td style="text-align:left">(5). $(\tan x)’ = \sec^{2} x $</td>
+<td style="text-align:left">(6). $(\cot x)’ = - \csc^{2} x $</td>
+</tr>
+<tr>
+<td style="text-align:left">(7). $(\sec x)’ = - \sec{x} \tan{x} $</td>
+<td style="text-align:left">(8). $(\csc x)’ = - \csc{x} \cot{x} $</td>
+</tr>
+<tr>
+<td style="text-align:left">(9). $({\alpha}^x)’ = {\alpha}^x \ln{\alpha} $</td>
+<td style="text-align:left">(10). $({e}^x)’ = e^x  $</td>
+</tr>
+<tr>
+<td style="text-align:left">(11). $(\log_{\alpha}{x})’ = \frac{1}{x \ln{\alpha} } $</td>
+<td style="text-align:left">(12). $(\log_{\alpha}{x})’ = \frac{1}{x \ln{\alpha} } $</td>
+</tr>
+<tr>
+<td style="text-align:left">(13). $(\arcsin x)’ = \frac{1}{\sqrt{1-x^2} } $</td>
+<td style="text-align:left">(14). $(\arccos x)’ = - \frac{1}{\sqrt{1-x^2} } $</td>
+</tr>
+<tr>
+<td style="text-align:left">(15). $(\arctan x)’ =  \frac{1}{1 + x^2} $</td>
+<td style="text-align:left">(16). $(arccot x)’ = - \frac{1}{1 + x^2} $</td>
+</tr>
+</tbody>
+</table>
+<p>二、 函数的和、差、积、商的求导法则</p>
+<p>设$\mu = \mu (x)$，$\nu = \nu (x)$ 都可导，则</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">函数的和、差、积、商的求导法则</th>
+<th style="text-align:left">函数的和、差、积、商的求导法则</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">(1). $ (\mu + \nu)’ = {\mu}’ + {\nu}’ $</td>
+<td style="text-align:left">(2). $ (C \mu)’ = C{\mu}’ $</td>
+</tr>
+<tr>
+<td style="text-align:left">(3). $ (\mu \nu)’ = {\mu}’ \nu + \mu {\nu}’ $</td>
+<td style="text-align:left">(4). $ (\frac{\mu}{\nu})’ = \frac{ {\mu}’ \nu + \mu {\nu}’}{ {\nu}^2} $</td>
+</tr>
+</tbody>
+</table>
+<p>三、 反函数求导法则 </p>
+<p>如果函数x=f(y)在区间$I_y$内单调、可导且f’(y) $\ne$ 0，那么他的反函数y=$f^{-1}(x)$在区间$I_x$内也可导，且：<br>$$[f^{-1}(x)]’ = \frac{1}{f’(y)}或 \frac{dy}{dx}=\frac{1}{\frac{dx}{dy} }$$ </p>
+<p>四、 复合函数求导法则  </p>
+<p>如果u=g(x)在点x可导，而y=f(u)在点u=g(x)可导，那么符合函数y=f[g(x)]在点x可导，且其导数为：<br>$$\frac{dy}{dx}=f’(u) \cdot g’(x) 或 \frac{dy}{dx}=\frac{dy}{du} \cdot \frac{du}{dx}$$</p>
+<h2 id="第三节、高阶导数"><a href="#第三节、高阶导数" class="headerlink" title="第三节、高阶导数"></a>第三节、高阶导数</h2><p>没有学习</p>
+<h2 id="第五节、函数的微分"><a href="#第五节、函数的微分" class="headerlink" title="第五节、函数的微分"></a>第五节、函数的微分</h2><p>定义： 设函数 y= f(x)在某区间内有定义，$x_0$及$x_0 + \Delta x$在这区间内，如果函数的增量：</p>
+<p>$$\Delta y = f(x_0 + \Delta x) - f(x_0)$$</p>
+<p>可表示为：</p>
+<p>$$\Delta y = A \Delta x + o(\Delta x)$$</p>
+<p>其中A是不依赖于$\Delta x$的常数，那么称函数 y = f(x)在点 $x_0$处是可微的，而$A \Delta x$叫做函数 y = f(x)在点$x_0$相应于自变量增量$\Delta x​$的微分，记作 dy 即</p>
+<p>$$dy = A \Delta x$$</p>
+<p>$$dy = f’(x_0) \Delta x$$</p>
+<blockquote>
+<p>微分的理解：相对于自变量的增量，因变量的变化，这个变化时微小的，理解为微分。</p>
+</blockquote>
+<p>微分和$\Delta y$的关系：<br>$$ \Delta y = dy + o(dy) $$</p>
+<p><strong>微分可以近视代替因变量的增量 。微分是 $\Delta y$的主部。</strong></p>
+<p>通常把自变量x的增量$\Delta x$称为自变量微分（微小的数），记作dx，于是函数y=f(x)的微分又可记作<br>$$dy = f’(x)dx$$</p>
+<p><strong>微分的几何意义</strong>： dy 是曲线的切线上点的众坐标的相应增量。非线性函数的局部线性化。</p>
+<p><img src="/wiki/数学知识/高数/导数与微分/14.png" alt="微分的几何意义"></p>
+<p>从图中可以看出，dy = QP。当$\Delta y$是曲线y = f（x） 上的点的众坐标的增量， dy是曲线的切线上点的众坐标的相应的增量。当$\Delta x$很小时，$\Delta y - dy$比 $\Delta x$小的多，因此在点M的邻近，我们可以使用切线段来近视代替曲线段。 这就是<strong>非线性函数的局部线性化</strong>。</p>
+<h2 id="微分公式总结"><a href="#微分公式总结" class="headerlink" title="微分公式总结"></a>微分公式总结</h2><p>暂无</p>
+
             </div>
         
         <footer class="article-footer">
