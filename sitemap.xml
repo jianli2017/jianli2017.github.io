@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/%E5%AE%9A%E7%A7%AF%E5%88%86/</loc>
+    
+    <lastmod>2019-10-26T09:59:19.211Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/four_indefinite_integral/</loc>
     
     <lastmod>2019-10-26T07:32:33.631Z</lastmod>
@@ -89,13 +96,6 @@
     <loc>http://yoursite.com/wiki/%E8%B5%84%E6%96%99%E6%94%B6%E9%9B%86/learn/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</loc>
     
     <lastmod>2019-09-16T06:53:29.483Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/%E5%AE%9A%E7%A7%AF%E5%88%86/</loc>
-    
-    <lastmod>2019-09-10T10:10:45.085Z</lastmod>
     
   </url>
   
