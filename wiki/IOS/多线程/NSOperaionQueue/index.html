@@ -19,7 +19,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png">
 <meta property="og:image" content="http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/2.png">
-<meta property="og:updated_time" content="2019-09-18T03:56:35.505Z">
+<meta property="og:updated_time" content="2019-12-09T06:34:14.171Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="NSOperaionQueue 源码学习">
 <meta name="twitter:description" content="记录NSOperaionQueue的理解">
@@ -460,7 +460,7 @@
                             &nbsp;
                             Block
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Block/block/">Block的本质</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Block/block/">Block的本质</a></li>  <li class="file"><a href="/wiki/IOS/Block/block_getCapture/">获取Block捕获的变量</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -558,6 +558,15 @@
                             AFNetworking
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/opensource/AFNetworking/AFNetworking/">AFNetworking 源码浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            AlamoFire
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/opensource/AlamoFire/alamofile学习/"></a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -901,7 +910,7 @@
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/数据结构与算法/LeetCode/top1_10/1_两数之和/">1. 两数之和</a></li>  <li class="file"><a href="/wiki/数据结构与算法/LeetCode/top1_10/3_无重复字符的最长子串/">1. 两数之和</a></li>  <li class="file"><a href="/wiki/数据结构与算法/LeetCode/top1_10/5_最长回文子串/">1. 两数之和</a></li>  </ul> 
                     </li> 
-                     </ul> 
+                     <li class="file"><a href="/wiki/数据结构与算法/LeetCode/206_链表反转/">206. 链表反转</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -994,6 +1003,15 @@
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/编程理论/正则表达式/正则表达式学习/">正则表达式学习摘要</a></li>  </ul> 
                     </li> 
                      </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            英语
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/英语/英语单词/">英语单词</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1131,7 +1149,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#NSOperation与GCD区别"><span class="toc-number">1.</span> <span class="toc-text">NSOperation与GCD区别</span></a></li></ol>
                 </div>
             
         
@@ -1139,6 +1157,17 @@
             <p>记录NSOperaionQueue的理解</p>
 <a id="more"></a>
 <p><img src="/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png" alt="Queue执行operaion的流程"><br><img src="/wiki/IOS/多线程/NSOperaionQueue/2.png" alt="是否并发文档"></p>
+<h2 id="NSOperation与GCD区别"><a href="#NSOperation与GCD区别" class="headerlink" title="NSOperation与GCD区别"></a>NSOperation与GCD区别</h2><p>其实我们在通过NSOperation和GCD进行开发过程中，会发现两者执行的方式有许多相似之处，NSOperation和GCD参照对比，NSOperationQueue和dispatch_queue参照对比，但是两者之间还是有许多差别的，具体区别:</p>
+<ol>
+<li><p>GCD的核心是C语言写的系统服务，执行和操作简单高效，因此NSOperation底层也通过GCD实现，换个说法就是NSOperation是对GCD更高层次的抽象，这是他们之间最本质的区别。因此如果希望自定义任务，建议使用NSOperation</p>
+</li>
+<li><p>依赖关系，NSOperation可以设置两个NSOperation之间的依赖，第二个任务依赖于第一个任务完成执行，GCD无法设置依赖关系，不过可以通过dispatch_barrier_async来实现这种效果；</p>
+</li>
+<li>KVO(键值对观察)，NSOperation和容易判断Operation当前的状态(是否执行，是否取消)，对此GCD无法通过KVO进行判断；</li>
+<li>优先级，NSOperation可以设置自身的优先级，但是优先级高的不一定先执行，GCD只能设置队列的优先级，无法在执行的block设置优先级；</li>
+<li>继承，NSOperation是一个抽象类，实际开发中常用的两个类是NSInvocationOperation和NSBlockOperation，同样我们可以自定义NSOperation，GCD执行任务可以自由组装，没有继承那么高的代码复用度；</li>
+<li>效率，直接使用GCD效率确实会更高效，NSOperation会多一点开销，但是通过NSOperation可以获得依赖，优先级，继承，键值对观察这些优势，相对于多的那么一点开销确实很划算，鱼和熊掌不可得兼，取舍在于开发者自己；</li>
+</ol>
 
             </div>
         
@@ -1151,19 +1180,19 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/多线程/NSOperation/" id="article-nav-newer" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/多线程/referr/" id="article-nav-newer" class="article-nav-link-wrap">
             <strong class="article-nav-caption">上一篇</strong>
             <div class="article-nav-title">
                 
-                    NSOperation
+                    多线程参考资料
                 
             </div>
         </a>
     
     
-        <a href="/wiki/数学知识/高数/定积分/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/IOS/多线程/GCD_Source/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">定积分</div>
+            <div class="article-nav-title">GCD源码理解</div>
         </a>
     
 </nav>
