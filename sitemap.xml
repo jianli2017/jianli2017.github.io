@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/%E8%B5%84%E6%96%99%E6%94%B6%E9%9B%86/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</loc>
+    
+    <lastmod>2019-12-17T11:17:56.185Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/foundation%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/NSInvocation%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF/</loc>
     
     <lastmod>2019-12-17T11:09:20.607Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://yoursite.com/wiki/IOS/%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86/event/</loc>
     
     <lastmod>2019-12-17T09:34:54.338Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/wiki/%E8%B5%84%E6%96%99%E6%94%B6%E9%9B%86/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%BA%90/</loc>
-    
-    <lastmod>2019-12-12T08:55:54.048Z</lastmod>
     
   </url>
   
