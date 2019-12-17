@@ -3,23 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>LJ小窝</title>
+    <title>AlamoFire 源码浅析 | LJ小窝</title>
     
     
-        <meta name="keywords" content="LJ小窝">
+        <meta name="keywords" content="AlamoFire">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="AlamoFire 学习 一、AlamoFire 使用1234567///创建一个请求let request = AF.request(&quot;https://httpbin.org/post&quot;, method: .post)//添加一个完成Block，序列化器序列的类型Stringrequest.responseString &amp;#123; response in                requ">
+    <meta name="description" content="AlamoFire 学习">
+<meta name="keywords" content="AlamoFire">
 <meta property="og:type" content="article">
-<meta property="og:title" content="LJ小窝">
+<meta property="og:title" content="AlamoFire 源码浅析">
 <meta property="og:url" content="http://yoursite.com/wiki/IOS/opensource/AlamoFire/alamofile学习/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="AlamoFire 学习 一、AlamoFire 使用1234567///创建一个请求let request = AF.request(&quot;https://httpbin.org/post&quot;, method: .post)//添加一个完成Block，序列化器序列的类型Stringrequest.responseString &amp;#123; response in                requ">
+<meta property="og:description" content="AlamoFire 学习">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-12-11T11:21:49.596Z">
+<meta property="og:updated_time" content="2019-12-17T09:36:31.304Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LJ小窝">
-<meta name="twitter:description" content="AlamoFire 学习 一、AlamoFire 使用1234567///创建一个请求let request = AF.request(&quot;https://httpbin.org/post&quot;, method: .post)//添加一个完成Block，序列化器序列的类型Stringrequest.responseString &amp;#123; response in                requ">
+<meta name="twitter:title" content="AlamoFire 源码浅析">
+<meta name="twitter:description" content="AlamoFire 学习">
     
 
     
@@ -562,7 +563,7 @@
                             &nbsp;
                             AlamoFire
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/opensource/AlamoFire/alamofile学习/"></a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file active"><a href="/wiki/IOS/opensource/AlamoFire/alamofile学习/">AlamoFire 源码浅析</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1102,14 +1103,56 @@
     <div class="article-inner">
         
         
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/opensource/">opensource</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/opensource/AlamoFire/">AlamoFire</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/AlamoFire/">AlamoFire</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/opensource/AlamoFire/alamofile学习/">
+            <time datetime="2019-12-15T10:07:12.000Z" itemprop="datePublished">2019-12-15</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 class="article-title" itemprop="name">
+            AlamoFire 源码浅析
+        </h1>
+    
+
+            </header>
+        
         
         <div class="article-entry" itemprop="articleBody">
         
         
             
+                <div id="toc" class="toc-article">
+                <strong class="toc-title">文章目录</strong>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#一、AlamoFire-使用"><span class="toc-number">1.</span> <span class="toc-text">一、AlamoFire 使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#二、-AF命名空间"><span class="toc-number">2.</span> <span class="toc-text">二、 AF命名空间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#三、-URLConvertible"><span class="toc-number">3.</span> <span class="toc-text">三、 URLConvertible</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#请求方式"><span class="toc-number">4.</span> <span class="toc-text">请求方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#编码器"><span class="toc-number">5.</span> <span class="toc-text">编码器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#URLEncoding-类"><span class="toc-number">5.1.</span> <span class="toc-text">URLEncoding 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#JSONEncoding"><span class="toc-number">5.2.</span> <span class="toc-text">JSONEncoding</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#拦截器部分（RequestInterceptor适配、重试）"><span class="toc-number">6.</span> <span class="toc-text">拦截器部分（RequestInterceptor适配、重试）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RequestAdapter-协议"><span class="toc-number">6.1.</span> <span class="toc-text">RequestAdapter 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Result-表示结果的枚举"><span class="toc-number">6.2.</span> <span class="toc-text">Result 表示结果的枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RetryResult重试枚举"><span class="toc-number">6.3.</span> <span class="toc-text">RetryResult重试枚举</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RequestRetrier协议"><span class="toc-number">6.4.</span> <span class="toc-text">RequestRetrier协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RequestInterceptor-协议"><span class="toc-number">6.5.</span> <span class="toc-text">RequestInterceptor 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Adapter-类"><span class="toc-number">6.6.</span> <span class="toc-text">Adapter 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Retrier-类"><span class="toc-number">6.7.</span> <span class="toc-text">Retrier 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Interceptor类"><span class="toc-number">6.8.</span> <span class="toc-text">Interceptor类</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ServerTrustManager–服务信任管理"><span class="toc-number">7.</span> <span class="toc-text">ServerTrustManager–服务信任管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ServerTrustEvaluating-评估器协议"><span class="toc-number">7.1.</span> <span class="toc-text">ServerTrustEvaluating 评估器协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DefaultTrustEvaluator"><span class="toc-number">7.2.</span> <span class="toc-text">DefaultTrustEvaluator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#RevocationTrustEvaluator-类"><span class="toc-number">7.3.</span> <span class="toc-text">RevocationTrustEvaluator  类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PinnedCertificatesTrustEvaluator"><span class="toc-number">7.4.</span> <span class="toc-text">PinnedCertificatesTrustEvaluator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PublicKeysTrustEvaluator"><span class="toc-number">7.5.</span> <span class="toc-text">PublicKeysTrustEvaluator</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RedirectHandler-–-重定向处理"><span class="toc-number">8.</span> <span class="toc-text">RedirectHandler – 重定向处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Redirector-结构体"><span class="toc-number">8.1.</span> <span class="toc-text">Redirector 结构体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CachedResponseHandler-缓存协议"><span class="toc-number">9.</span> <span class="toc-text">CachedResponseHandler 缓存协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ResponseCacher-结构体"><span class="toc-number">9.1.</span> <span class="toc-text">ResponseCacher 结构体</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RequestDelegate-请求代理"><span class="toc-number">10.</span> <span class="toc-text">RequestDelegate 请求代理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#SessionStateProvider"><span class="toc-number">10.1.</span> <span class="toc-text">SessionStateProvider</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#小小节"><span class="toc-number">10.2.</span> <span class="toc-text">小小节</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#序列化响应"><span class="toc-number">11.</span> <span class="toc-text">序列化响应</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DataResponseSerializerProtocol-协议"><span class="toc-number">11.1.</span> <span class="toc-text">DataResponseSerializerProtocol 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DownloadResponseSerializerProtocol-协议"><span class="toc-number">11.2.</span> <span class="toc-text">DownloadResponseSerializerProtocol 协议</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ResponseSerializer"><span class="toc-number">11.3.</span> <span class="toc-text">ResponseSerializer</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DataPreprocessor-数据预处理器"><span class="toc-number">11.4.</span> <span class="toc-text">DataPreprocessor 数据预处理器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ResponseSerializer-协议扩展"><span class="toc-number">11.5.</span> <span class="toc-text">ResponseSerializer  协议扩展</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DataRequest-在序列化文件中的扩展"><span class="toc-number">11.6.</span> <span class="toc-text">DataRequest 在序列化文件中的扩展</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Request"><span class="toc-number">12.</span> <span class="toc-text">Request</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#初始状态部分"><span class="toc-number">12.1.</span> <span class="toc-text">初始状态部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#可变状态部分"><span class="toc-number">12.2.</span> <span class="toc-text">可变状态部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进度部分"><span class="toc-number">12.3.</span> <span class="toc-text">进度部分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#重定向、缓存"><span class="toc-number">12.4.</span> <span class="toc-text">重定向、缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#response"><span class="toc-number">12.5.</span> <span class="toc-text">response</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#task"><span class="toc-number">12.6.</span> <span class="toc-text">task</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内部功能"><span class="toc-number">12.7.</span> <span class="toc-text">内部功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证响应"><span class="toc-number">12.8.</span> <span class="toc-text">验证响应</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Protector"><span class="toc-number">13.</span> <span class="toc-text">Protector</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#session"><span class="toc-number">14.</span> <span class="toc-text">session</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RequestTaskMap"><span class="toc-number">15.</span> <span class="toc-text">RequestTaskMap</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Extended命名作用域"><span class="toc-number">16.</span> <span class="toc-text">Extended命名作用域</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#学习到的知识"><span class="toc-number">17.</span> <span class="toc-text">学习到的知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#OptionSet"><span class="toc-number">17.1.</span> <span class="toc-text">OptionSet</span></a></li></ol></li></ol>
+                </div>
+            
         
         
             <p>AlamoFire 学习</p>
+<a id="more"></a>
 <h2 id="一、AlamoFire-使用"><a href="#一、AlamoFire-使用" class="headerlink" title="一、AlamoFire 使用"></a>一、AlamoFire 使用</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">///创建一个请求</span></span><br><span class="line">let request = AF.request(<span class="string">"https://httpbin.org/post"</span>, method: .post)</span><br><span class="line"></span><br><span class="line"><span class="comment">//添加一个完成Block，序列化器序列的类型String</span></span><br><span class="line">request<span class="selector-class">.responseString</span> &#123; response <span class="keyword">in</span></span><br><span class="line">                requestComplete(response<span class="selector-class">.response</span>, response.result)</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
 <p>下面是两个函数的定义</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">request</span><span class="params">(<span class="number">_</span> url: URLConvertible,</span></span></span><br><span class="line"><span class="function"><span class="params">                               method: HTTPMethod = .<span class="keyword">get</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                               parameters: Parameters? = <span class="literal">nil</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                               encoding: ParameterEncoding = URLEncoding.<span class="keyword">default</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                               headers: HTTPHeaders? = <span class="literal">nil</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                               interceptor: RequestInterceptor? = <span class="literal">nil</span>)</span></span> -&gt; <span class="type">DataRequest</span> </span><br><span class="line">                               </span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">responseString</span><span class="params">(queue: DispatchQueue = .main,</span></span></span><br><span class="line"><span class="function"><span class="params">                               encoding: String.Encoding? = <span class="literal">nil</span>,</span></span></span><br><span class="line"><span class="function"><span class="params">                               completionHandler: @escaping <span class="params">(AFDataResponse&lt;String&gt;)</span></span></span> -&gt; <span class="type">Void</span>) -&gt; <span class="type">Self</span></span><br></pre></td></tr></table></figure>
@@ -1328,19 +1371,10 @@
     
 <nav id="article-nav">
     
-        <a href="/wiki/IOS/Block/block_getCapture/" id="article-nav-newer" class="article-nav-link-wrap">
-            <strong class="article-nav-caption">上一篇</strong>
-            <div class="article-nav-title">
-                
-                    获取Block捕获的变量
-                
-            </div>
-        </a>
     
-    
-        <a href="/wiki/IOS/swift语言/小码哥视频学习记录/13 汇编分析String、Array的结构/" id="article-nav-older" class="article-nav-link-wrap">
+        <a href="/wiki/英语/英语单词/" id="article-nav-older" class="article-nav-link-wrap">
             <strong class="article-nav-caption">下一篇</strong>
-            <div class="article-nav-title">13 汇编分析String、Array的结构</div>
+            <div class="article-nav-title">英语单词</div>
         </a>
     
 </nav>
@@ -1352,7 +1386,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/IOS/opensource/AlamoFire/alamofile学习/" data-title="" data-url="http://yoursite.com/wiki/IOS/opensource/AlamoFire/alamofile学习/"></div>
+    <div class="ds-thread" data-thread-key="wiki/IOS/opensource/AlamoFire/alamofile学习/" data-title="AlamoFire 源码浅析" data-url="http://yoursite.com/wiki/IOS/opensource/AlamoFire/alamofile学习/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
