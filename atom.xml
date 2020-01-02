@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-12-17T09:36:31.304Z</updated>
+  <updated>2020-01-02T10:59:19.670Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>YYCache 源码浅析</title>
+    <link href="http://yoursite.com/wiki/IOS/opensource/YYCache/logan/"/>
+    <id>http://yoursite.com/wiki/IOS/opensource/YYCache/logan/</id>
+    <published>2020-01-02T04:07:12.000Z</published>
+    <updated>2020-01-02T10:59:19.670Z</updated>
+    
+    <content type="html"><![CDATA[<p>学习YYCache开源库</p><a id="more"></a><h2 id="一、基本结构"><a href="#一、基本结构" class="headerlink" title="一、基本结构"></a>一、基本结构</h2><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">-------YYCache------</span><br><span class="line">|<span class="string"></span>|</span><br><span class="line">|<span class="string"></span>|</span><br><span class="line">YYMemoryCache     YYDiskCache(磁盘缓存的接口层)</span><br><span class="line">|</span><br><span class="line"><span class="string"></span>|</span><br><span class="line">  YYKVStorage实现层(小数据SQLite存储、大数据文件存储)</span><br><span class="line">                           |</span><br><span class="line"><span class="string">                           </span>|</span><br><span class="line">               ------------------------</span><br><span class="line">               |<span class="string">  </span>|</span><br><span class="line">               |<span class="string"> </span>|</span><br><span class="line">           小数据SQLite存储     大数据文件存储，SQLite辅助存储卫星数据，</span><br><span class="line">           包括修改时间、访问时间、key等数据</span><br><span class="line">           方便查找</span><br></pre></td></tr></table></figure><h2 id="二、内存缓存"><a href="#二、内存缓存" class="headerlink" title="二、内存缓存"></a>二、内存缓存</h2><h3 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h3><p>使用双向链表实现了LRU缓存策略，数据结构采用自顶向下的方式说明：</p><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@implementation YYMemoryCache &#123;</span><br><span class="line">    pthread_mutex_t <span class="variable">_lock</span>;</span><br><span class="line">    <span class="variable">_YYLinkedMap</span> *<span class="variable">_lru</span>;</span><br><span class="line">    dispatch_queue_t <span class="variable">_queue</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">其中<span class="variable">_lru</span>就是LRU的具体结构</span><br></pre></td></tr></table></figure><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@interface <span class="variable">_YYLinkedMap</span> : NSObject &#123;</span><br><span class="line">    @package</span><br><span class="line">    CFMutableDictionaryRef <span class="variable">_dic</span>; <span class="comment">// do not set object directly</span></span><br><span class="line">    NSUInteger <span class="variable">_totalCost</span>;</span><br><span class="line">    NSUInteger <span class="variable">_totalCount</span>;</span><br><span class="line">    <span class="variable">_YYLinkedMapNode</span> *<span class="variable">_head</span>; <span class="comment">// MRU, do not change it directly</span></span><br><span class="line">    <span class="variable">_YYLinkedMapNode</span> *<span class="variable">_tail</span>; <span class="comment">// LRU, do not change it directly</span></span><br><span class="line">    BOOL <span class="variable">_releaseOnMainThread</span>;</span><br><span class="line">    BOOL <span class="variable">_releaseAsynchronously</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">分为两个结构：</span><br><span class="line"></span><br><span class="line">一个是hash表<span class="variable">_dic</span>用户快速查找，以「Key：<span class="variable">_YYLinkedMapNode</span>」的形式存储</span><br><span class="line">一个是双向链表，用<span class="variable">_head</span>、<span class="variable">_tail</span>存储头尾节点，为了实现LRU缓存淘汰算法，头结点插入，尾结点删除</span><br></pre></td></tr></table></figure><figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">@interface <span class="variable">_YYLinkedMapNode</span> : NSObject &#123;</span><br><span class="line">    @package</span><br><span class="line">    <span class="variable">__unsafe_unretained</span> <span class="variable">_YYLinkedMapNode</span> *<span class="variable">_prev</span>; <span class="comment">// retained by dic</span></span><br><span class="line">    <span class="variable">__unsafe_unretained</span> <span class="variable">_YYLinkedMapNode</span> *<span class="variable">_next</span>; <span class="comment">// retained by dic</span></span><br><span class="line">    id <span class="variable">_key</span>;</span><br><span class="line">    id <span class="variable">_value</span>;</span><br><span class="line">    NSUInteger <span class="variable">_cost</span>;</span><br><span class="line">    NSTimeInterval <span class="variable">_time</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">这个是具体的节点信息</span><br></pre></td></tr></table></figure><h3 id="添加逻辑"><a href="#添加逻辑" class="headerlink" title="添加逻辑"></a>添加逻辑</h3><ol><li>从_dic中找出节点</li><li>如果节点已经存在，移到链表头（最新访问）</li><li>如果_dic中没有，创建新节点，头插</li><li>最后，如果超过容量，循环删除尾结点</li></ol><h3 id="删除逻辑"><a href="#删除逻辑" class="headerlink" title="删除逻辑"></a>删除逻辑</h3><p>在_dic中通过key找到节点（_YYLinkedMapNode），在_dic和链表中同时删除</p><h3 id="按照时间删除"><a href="#按照时间删除" class="headerlink" title="按照时间删除"></a>按照时间删除</h3><p>循环的取出尾结点，如果早于指定时间，删除，直到尾节点时间晚于指定时间。</p><h3 id="按照成本删除"><a href="#按照成本删除" class="headerlink" title="按照成本删除"></a>按照成本删除</h3><p>如果总成本大于指定的cost，循环的取出尾结点，删除。直到总成本小于cost</p><h3 id="YYCache没有使用NSCache的原因"><a href="#YYCache没有使用NSCache的原因" class="headerlink" title="YYCache没有使用NSCache的原因"></a>YYCache没有使用NSCache的原因</h3><ol><li>It uses LRU (least-recently-used) to remove objects; NSCache’s eviction method is non-deterministic.</li><li>it can be controlled by cost, count and age; NSCache’s limits are imprecise.</li><li>It can be configured to automatically evict objects when receive memory warning or app enter background.</li></ol><h2 id="三、磁盘缓存"><a href="#三、磁盘缓存" class="headerlink" title="三、磁盘缓存"></a>三、磁盘缓存</h2><h3 id="磁盘存储结构"><a href="#磁盘存储结构" class="headerlink" title="磁盘存储结构"></a>磁盘存储结构</h3><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">/path/</span></span><br><span class="line">     <span class="string">/manifest.sqlite</span>   存储记录的相关信息</span><br><span class="line">     <span class="string">/manifest.sqlite-shm</span>  共享内存使用的？</span><br><span class="line">     <span class="string">/manifest.sqlite-wal</span>  wal模式恢复数据库使用</span><br><span class="line">     <span class="string">/data/</span> 大数据实际存储位置</span><br><span class="line">          <span class="string">/e10adc3949ba59abbe56e057f20f883e</span></span><br><span class="line">          <span class="string">/e10adc3949ba59abbe56e057f20f883e</span></span><br><span class="line">     <span class="string">/trash/</span> 删除的时候会首先移动到这里</span><br><span class="line">           <span class="string">/unused_file_or_folder</span></span><br></pre></td></tr></table></figure><p>缓存对象表结构</p><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> manifest (</span><br><span class="line">    <span class="keyword">key</span>                 <span class="built_in">text</span>,</span><br><span class="line">    filename            <span class="built_in">text</span>,</span><br><span class="line">    <span class="keyword">size</span>                <span class="built_in">integer</span>,</span><br><span class="line">    inline_data         <span class="built_in">blob</span>,</span><br><span class="line">    modification_time   <span class="built_in">integer</span>,</span><br><span class="line">    last_access_time    <span class="built_in">integer</span>,</span><br><span class="line">    extended_data       <span class="built_in">blob</span>,</span><br><span class="line">    primary <span class="keyword">key</span>(<span class="keyword">key</span>)</span><br><span class="line"> );</span><br></pre></td></tr></table></figure><figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">YYKVStorage</span><br><span class="line"><span class="string">|</span></span><br><span class="line"><span class="string">|-----数据的size小于阈值存储与SQLite中，也就是value直接存储在表中</span></span><br><span class="line">    <span class="string">|</span></span><br><span class="line"><span class="string">|-----没有限制：SQLite和文件都存储   </span></span><br><span class="line"><span class="string">|</span></span><br><span class="line"><span class="string">|-----大于阈值：使用文件存储Value，表中只存储卫星数据(修改时间、访问时间、key等)，</span></span><br><span class="line">      便于查找、删除</span><br></pre></td></tr></table></figure><h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><ol><li>如果存储方式是文件，将数据写入文件，进入第三步，更新SQLite中的卫星数据</li><li>如果存储类型是SQLite，进入第三步存储数据</li><li>使用SQL语句存储：insert or replace into manifest (key, filename, size, inline_data, modification_time, last_access_time, extended_data) values (?1, ?2, ?3, ?4, ?5, ?6, ?7);如果是存储卫星数据inline_data为NULL。</li></ol><h3 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h3><ol><li>如果存储方式是文件，将数据从文件删除，进入第三步删除SQLite中的卫星数据</li><li>如果存储类型是SQLite，进入第三步直接删除数据</li><li>使用SQL语句存储：insert or replace into manifest (key, filename, size, inline_data, modification_time, last_access_time, extended_data) values (?1, ?2, ?3, ?4, ?5, ?6, ?7);如果是存储卫星数据inline_data为NULL。</li></ol><h3 id="删除大小大于size的记录"><a href="#删除大小大于size的记录" class="headerlink" title="删除大小大于size的记录"></a>删除大小大于size的记录</h3><ol><li>使用SQL找出条目的名称 select filename from manifest where size &gt; ?1 and filename is not null;</li><li>删除文件</li><li>删除条目 delete from manifest where size &gt; ?1;</li></ol><h3 id="删除时间早于time的对象"><a href="#删除时间早于time的对象" class="headerlink" title="删除时间早于time的对象"></a>删除时间早于time的对象</h3><ol><li>数据库中找出时间（time）前修改的对象<br>select filename from manifest where last_access_time &lt; ?1 and filename is not null;</li><li>删除文件</li><li>数据库中删除记录 delete from manifest where last_access_time &lt; ?1;</li></ol><h3 id="四、YYCache中使用的所有的SQL语句"><a href="#四、YYCache中使用的所有的SQL语句" class="headerlink" title="四、YYCache中使用的所有的SQL语句"></a>四、YYCache中使用的所有的SQL语句</h3><ol><li>建表：</li></ol><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pragma</span> journal_mode = wal; <span class="keyword">pragma</span> <span class="keyword">synchronous</span> = <span class="keyword">normal</span>; <span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> manifest (<span class="keyword">key</span> <span class="built_in">text</span>, filename <span class="built_in">text</span>, <span class="keyword">size</span> <span class="built_in">integer</span>, inline_data <span class="built_in">blob</span>, modification_time <span class="built_in">integer</span>, last_access_time <span class="built_in">integer</span>, extended_data <span class="built_in">blob</span>, primary <span class="keyword">key</span>(<span class="keyword">key</span>)); <span class="keyword">create</span> <span class="keyword">index</span> <span class="keyword">if</span> <span class="keyword">not</span> <span class="keyword">exists</span> last_access_time_idx <span class="keyword">on</span> manifest(last_access_time);</span><br></pre></td></tr></table></figure><ol><li>新增一条记录</li></ol><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">insert <span class="keyword">or</span> replace into manifest (key, filename, size, inline_data, modification_time, last_access_time, extended_data) values (<span class="string">?1</span>, <span class="string">?2</span>, <span class="string">?3</span>, <span class="string">?4</span>, <span class="string">?5</span>, <span class="string">?6</span>, <span class="string">?7</span>);</span><br></pre></td></tr></table></figure><ol><li>更新一条记录的修改时间</li></ol><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> manifest <span class="keyword">set</span> last_access_time = ?<span class="number">1</span> <span class="keyword">where</span> <span class="keyword">key</span> = ?<span class="number">2</span>;</span><br></pre></td></tr></table></figure><ol><li>删除记录为key的一个对象：</li></ol><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> manifest <span class="keyword">where</span> <span class="keyword">key</span> = ?<span class="number">1</span>;</span><br></pre></td></tr></table></figure><ol><li>删除多个对象</li></ol><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> manifest <span class="keyword">where</span> <span class="keyword">key</span> <span class="keyword">in</span> (%@);</span><br></pre></td></tr></table></figure><ol><li>删除szie大于某个值的记录</li></ol><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> manifest <span class="keyword">where</span> <span class="keyword">size</span> &gt; ?<span class="number">1</span>;</span><br></pre></td></tr></table></figure><ol><li>删除时间久的对象</li></ol><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> manifest <span class="keyword">where</span> last_access_time &lt; ?<span class="number">1</span>;</span><br></pre></td></tr></table></figure><ol><li>查找某个对象</li></ol><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">key</span>, filename, <span class="keyword">size</span>, modification_time, last_access_time, extended_data <span class="keyword">from</span> manifest <span class="keyword">where</span> <span class="keyword">key</span> = ?<span class="number">1</span>;</span><br></pre></td></tr></table></figure><ol><li>查找大于size的记录的filename：</li></ol><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> filename <span class="keyword">from</span> manifest <span class="keyword">where</span> <span class="keyword">size</span> &gt; ?<span class="number">1</span> <span class="keyword">and</span> filename <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">null</span>;</span><br></pre></td></tr></table></figure><ol><li>查找修改时间久的指定个数对象：</li></ol><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">key</span>, filename, <span class="keyword">size</span> <span class="keyword">from</span> manifest <span class="keyword">order</span> <span class="keyword">by</span> last_access_time <span class="keyword">asc</span> <span class="keyword">limit</span> ?<span class="number">1</span>;</span><br></pre></td></tr></table></figure><ol><li>获取存储的对象的总大小：</li></ol><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">sum</span>(<span class="keyword">size</span>) <span class="keyword">from</span> manifest;</span><br></pre></td></tr></table></figure><ol><li>获取存储数量：</li></ol><figure class="highlight n1ql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">count</span>(*) <span class="keyword">from</span> manifest;</span><br></pre></td></tr></table></figure><h3 id="五、学习到的SQL知识"><a href="#五、学习到的SQL知识" class="headerlink" title="五、学习到的SQL知识"></a>五、学习到的SQL知识</h3><p>sqlite3_stmt 的理解，它就是prepared statement。表示编译过的SQL语句，SQL语句编译过才能执行（SQL语句类比为应用程序，将程序的代码编译后，才能执行）</p><p>sqlite3_stmt的生命周期：</p><ol><li>sqlite3_prepare_v2 创建 prepared statement</li><li>使用sqlite3_bind_* 向参数[parameters] 绑定值</li><li>使用sqlite3_step() 一次或多次执行SQL语句</li><li>使用 sqlite3_reset() 重置到第二步</li><li>使用sqlite3_finalize()销毁对象</li></ol><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;学习YYCache开源库&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="opensource" scheme="http://yoursite.com/categories/IOS/opensource/"/>
+    
+      <category term="YYCache" scheme="http://yoursite.com/categories/IOS/opensource/YYCache/"/>
+    
+    
+      <category term="logan" scheme="http://yoursite.com/tags/logan/"/>
+    
+  </entry>
   
   <entry>
     <title>AlamoFire 源码浅析</title>
@@ -92,104 +118,6 @@
   </entry>
   
   <entry>
-    <title>13 汇编分析String、Array的结构</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/13%20%E6%B1%87%E7%BC%96%E5%88%86%E6%9E%90String%E3%80%81Array%E7%9A%84%E7%BB%93%E6%9E%84/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/13 汇编分析String、Array的结构/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-22T06:52:10.463Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><ul><li>0x30是数字0的ascii码</li><li>tag pointer 干嘛用的？直接将内容放在变量的地址中</li><li>rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验证。</li></ul><p>长度大于0xf 的存储情况：</p><ol><li>rax 长度   </li><li>rdx 地址，地址-0x7ffffffffffffe0=真实存储地址</li></ol><p>内存分布情况：</p><ol><li>代码区</li><li>常量区</li><li>全局区</li><li>堆区</li><li>栈区</li></ol><p>内存布局图：</p><ol><li>mach-o</li><li>运行内存</li><li>动态库</li></ol><blockquote><p>小技巧： 字符串的真实地址 ： 后面的地址+0x20</p><p>小技巧：1后面跟着4个0 一般是全局区，如果不是那么一般是堆区</p></blockquote><p>append干了什么事情： 变为堆空间， 跳过32字节，后面就是内容是存储的真实字符串</p><p><strong>小小总结：</strong></p><ol><li>字符串长度&lt;=0xf  字符串内容直接存储在变量的内存中</li><li>字符串的长度&gt;0xf,字符串存放在常量区（__TEXT.cstring）,地址信息存储在在变量的后8自己中，真实地址= 后面的地址+0x20</li><li>append 后有大于0xf，会开辟空间</li></ol><p><strong>dyld_stub_binder</strong></p><ol><li>stub 翻译为符号</li><li>动态库中的函数，加载完动态库才能知道（也就是运行的时候才知道），那么编译的时候怎么办？ 放置一个占位地址，这个函数就是一个占位地址</li></ol><p><strong>数组的内存结构</strong></p><p> arr占用8字节，这8字节存储着堆空间地址，堆空间结构：</p><ol><li>？</li><li>引用计数</li><li>元素数量</li><li>数组容量</li><li>元素1</li><li>元素2</li><li>元素3</li><li>元素n</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;0x30是数字0的ascii码&lt;/li&gt;
-&lt;li&gt;tag pointer 干嘛用的？直接将内容放在变量的地址中&lt;/li&gt;
-&lt;li&gt;rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>18 swift OC 混合编程</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/18%20swift%20OC/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-26T10:45:33.885Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><p>表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用</p><p>补存内容 ： catch默认存在error</p><p>#warning()<br>// TODO:  </p><p>编码习惯： xcode自己生成的类冒号跟着前面        </p><p>@UIApplicationMain  就是新的入口 </p><p>Swift调用OC写的东西 </p><p>1 新建桥接文件 ： targetName-Bridging-Header.h  就是OC暴露给swift的东西<br>@_silgen_name(“sum”) func malloc(v1: Int32, v2: Int) -&gt; Int32</p><p>swift 暴露给OC的条件</p><ol><li>继承NSObject</li><li>objcMembers    或使用@objc 修饰需要暴露的成员 </li></ol><p>@objc  还能修改暴露给OC的类名的名称， 方法名 </p><p>字符串处理 ：</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用&lt;/p&gt;
-&lt;p&gt;补存内容 ： catch默认存在error&lt;/p&gt;
-&lt;p&gt;#warning()&lt;br&gt;// TODO:  &lt;/p&gt;
-&lt;p&gt;编码习惯： xcode自己生成的类
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>协议</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/11%20%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/11 协议/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-21T10:22:03.805Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><ul><li>协议中的变量： 属性一律var</li><li>协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类的必要初始化器， 子类实现的时候，可以省略override。</li><li>非可失败的初始化器 ：  非可失败、 ！</li><li>可失败： 三种可以</li><li>协议组合 &amp;</li><li>类型属性必须是static</li><li>遍历枚举  CaseIterable   allcases</li><li>CustomStringConvertible description</li><li>any anyObject 只能被类准守</li><li>is 判断是否是某种类型 as ？ Student 可选项 as Any</li><li>metadata 元类型</li><li>Persion.self 和堆空间的前8个字节存储一样的内容  就是元类型</li><li>Persion.Type</li><li><p>AnyClass = AnyObject.type</p></li><li><p>类名和X.self有很多相同点，可以调用方法，不同点：X.self能赋值给变量，类名不能复制给变量。</p></li></ul><ol><li>使用元类型调用的初始化方法一定是requied的，因为你可以给元类型传递一个子类的对象，如果子类没有该初始化方法，那么就失败。为了不失败，所以标记为requied</li><li>Self  应用于返回值，如果协议中定义的方法返回当前对象，在子类中就需要返回子类对象，所以使用Self</li><li></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;协议中的变量： 属性一律var&lt;/li&gt;
-&lt;li&gt;协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
     <title>14 枚举的本质、溢出运算符</title>
     <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/14%20%E6%9E%9A%E4%B8%BE%E7%9A%84%E6%9C%AC%E8%B4%A8%E3%80%81%E6%BA%A2%E5%87%BA%E8%BF%90%E7%AE%97%E7%AC%A6/"/>
     <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/14 枚举的本质、溢出运算符/</id>
@@ -259,6 +187,104 @@
   </entry>
   
   <entry>
+    <title>协议</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/11%20%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/11 协议/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-21T10:22:03.805Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><ul><li>协议中的变量： 属性一律var</li><li>协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类的必要初始化器， 子类实现的时候，可以省略override。</li><li>非可失败的初始化器 ：  非可失败、 ！</li><li>可失败： 三种可以</li><li>协议组合 &amp;</li><li>类型属性必须是static</li><li>遍历枚举  CaseIterable   allcases</li><li>CustomStringConvertible description</li><li>any anyObject 只能被类准守</li><li>is 判断是否是某种类型 as ？ Student 可选项 as Any</li><li>metadata 元类型</li><li>Persion.self 和堆空间的前8个字节存储一样的内容  就是元类型</li><li>Persion.Type</li><li><p>AnyClass = AnyObject.type</p></li><li><p>类名和X.self有很多相同点，可以调用方法，不同点：X.self能赋值给变量，类名不能复制给变量。</p></li></ul><ol><li>使用元类型调用的初始化方法一定是requied的，因为你可以给元类型传递一个子类的对象，如果子类没有该初始化方法，那么就失败。为了不失败，所以标记为requied</li><li>Self  应用于返回值，如果协议中定义的方法返回当前对象，在子类中就需要返回子类对象，所以使用Self</li><li></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;协议中的变量： 属性一律var&lt;/li&gt;
+&lt;li&gt;协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>13 汇编分析String、Array的结构</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/13%20%E6%B1%87%E7%BC%96%E5%88%86%E6%9E%90String%E3%80%81Array%E7%9A%84%E7%BB%93%E6%9E%84/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/13 汇编分析String、Array的结构/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-22T06:52:10.463Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><ul><li>0x30是数字0的ascii码</li><li>tag pointer 干嘛用的？直接将内容放在变量的地址中</li><li>rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验证。</li></ul><p>长度大于0xf 的存储情况：</p><ol><li>rax 长度   </li><li>rdx 地址，地址-0x7ffffffffffffe0=真实存储地址</li></ol><p>内存分布情况：</p><ol><li>代码区</li><li>常量区</li><li>全局区</li><li>堆区</li><li>栈区</li></ol><p>内存布局图：</p><ol><li>mach-o</li><li>运行内存</li><li>动态库</li></ol><blockquote><p>小技巧： 字符串的真实地址 ： 后面的地址+0x20</p><p>小技巧：1后面跟着4个0 一般是全局区，如果不是那么一般是堆区</p></blockquote><p>append干了什么事情： 变为堆空间， 跳过32字节，后面就是内容是存储的真实字符串</p><p><strong>小小总结：</strong></p><ol><li>字符串长度&lt;=0xf  字符串内容直接存储在变量的内存中</li><li>字符串的长度&gt;0xf,字符串存放在常量区（__TEXT.cstring）,地址信息存储在在变量的后8自己中，真实地址= 后面的地址+0x20</li><li>append 后有大于0xf，会开辟空间</li></ol><p><strong>dyld_stub_binder</strong></p><ol><li>stub 翻译为符号</li><li>动态库中的函数，加载完动态库才能知道（也就是运行的时候才知道），那么编译的时候怎么办？ 放置一个占位地址，这个函数就是一个占位地址</li></ol><p><strong>数组的内存结构</strong></p><p> arr占用8字节，这8字节存储着堆空间地址，堆空间结构：</p><ol><li>？</li><li>引用计数</li><li>元素数量</li><li>数组容量</li><li>元素1</li><li>元素2</li><li>元素3</li><li>元素n</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;0x30是数字0的ascii码&lt;/li&gt;
+&lt;li&gt;tag pointer 干嘛用的？直接将内容放在变量的地址中&lt;/li&gt;
+&lt;li&gt;rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>18 swift OC 混合编程</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/18%20swift%20OC/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-26T10:45:33.885Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用</p><p>补存内容 ： catch默认存在error</p><p>#warning()<br>// TODO:  </p><p>编码习惯： xcode自己生成的类冒号跟着前面        </p><p>@UIApplicationMain  就是新的入口 </p><p>Swift调用OC写的东西 </p><p>1 新建桥接文件 ： targetName-Bridging-Header.h  就是OC暴露给swift的东西<br>@_silgen_name(“sum”) func malloc(v1: Int32, v2: Int) -&gt; Int32</p><p>swift 暴露给OC的条件</p><ol><li>继承NSObject</li><li>objcMembers    或使用@objc 修饰需要暴露的成员 </li></ol><p>@objc  还能修改暴露给OC的类名的名称， 方法名 </p><p>字符串处理 ：</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用&lt;/p&gt;
+&lt;p&gt;补存内容 ： catch默认存在error&lt;/p&gt;
+&lt;p&gt;#warning()&lt;br&gt;// TODO:  &lt;/p&gt;
+&lt;p&gt;编码习惯： xcode自己生成的类
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Block的本质</title>
     <link href="http://yoursite.com/wiki/IOS/Block/block/"/>
     <id>http://yoursite.com/wiki/IOS/Block/block/</id>
@@ -307,17 +333,17 @@
   </entry>
   
   <entry>
-    <title>NSOperation</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperation/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/NSOperation/</id>
+    <title>多线程参考资料</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
     <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-17T09:45:48.872Z</updated>
+    <updated>2019-09-18T10:39:43.475Z</updated>
     
-    <content type="html"><![CDATA[<p>NSOperation类文档学习记录</p><a id="more"></a><h2 id="操作依赖"><a href="#操作依赖" class="headerlink" title="操作依赖"></a>操作依赖</h2><p>依赖可以控制操作执行的顺序，相关函数：</p><ol><li>addDependency</li><li>removeDependency</li></ol><p>当依赖的operation全部为完成状态时，operation才能为ready的状态。当最后一个依赖完成后，operation的状态变为ready状态。</p><p>依赖不区分operation是完成了还是取消了。</p><h2 id="KVO属性"><a href="#KVO属性" class="headerlink" title="KVO属性"></a>KVO属性</h2><p>KVO属性包括：</p><ol><li>isCancelled</li><li>isAsynchronous</li><li>isExecuting</li><li>isFinished</li><li>isReady</li><li>dependencies</li><li>queuePriority</li><li>completionBlock</li></ol><h2 id="多线程安全"><a href="#多线程安全" class="headerlink" title="多线程安全"></a>多线程安全</h2><p>多线程调用NSOperation的方法时安全的，不需要加锁。<br>子类的自定义方法需要考虑多线程问题。</p><h2 id="异步VS同步"><a href="#异步VS同步" class="headerlink" title="异步VS同步"></a>异步VS同步</h2><p>操作可以手动执行、也可以添加到queue中执行。</p><p>手动执行（直接调用start方法），分为同步operation和异步operation ，同步在当前线程立即执行。异步在新的线程执行任务。</p><p>如果操作在队列中执行，一般定义为同步的，队列不关注asynchronous属性，总是在一个单独的线程中调用start方法。所有没有理由设计为异步的。</p><h2 id="子类化"><a href="#子类化" class="headerlink" title="子类化"></a>子类化</h2><p>非并发队列：重写 main方法。<br>并发队列：需要重写start、 asynchronous、executing、finished方法。</p><p><strong>注意是否重写main决定了是否是并发操作。</strong></p><p>下面是子类化的要点：</p><ol><li>在并发队列中，start方法负责异步开始操作。</li><li>start方法中需要通过KVO更新operation的executing状态为YES。</li><li>operation完成或取消后，并发队列必须通过KVO更新isExecuting为NO 和 isFinished为YES。如果是取消，也需要更新isFinished状态为YES。</li><li>operation 只有完成了，才能从queue中移除。</li><li>同时需要重写 executing、finished属性（KVC）。</li><li>start方法需要检查是否operation被取消了。</li><li>如果定制了依赖，需要KVO isReady属性。</li></ol><p><strong>状态管理</strong>：</p><ol><li>isReady，一般不用管理，依赖的时候处理。</li><li>isExecuting，替换了start方法，一定要替换isExecuting方法，并在start开始的时候发出KVO</li><li>isFinished，替换了start方法，一定要替换isFinished方法。operation完成或取消，发出KVO</li><li>isCancelled，不需要发出KVO</li></ol><p><strong>响应取消</strong></p><p>一旦将operation添加到queue中，queue就掌管了operation。你可以通过调用operation的cancell方法取消，或者通过queue的cancelAllOperations取消。</p><p>执行中的任务并不会立马取消， 你必须显式的检测状态，需要的时候取消。</p>]]></content>
+    <content type="html"><![CDATA[<p>记录读过的文章</p><a id="more"></a><h2 id="读过的文章"><a href="#读过的文章" class="headerlink" title="读过的文章"></a>读过的文章</h2><ol><li><a href="https://bujige.net/blog/iOS-Complete-learning-NSOperation.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『NSOperation、NSOperationQueue』详尽总结</a></li><li><a href="https://objccn.io/issue-2-1/#challenges" rel="external nofollow noopener noreferrer" target="_blank">并发编程：API 及挑战</a></li><li><a href="https://blog.ibireme.com/2015/05/18/runloop/" rel="external nofollow noopener noreferrer" target="_blank">深入理解RunLoop</a>    </li><li><a href="https://bujige.net/blog/iOS-Complete-learning-RunLoop.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『RunLoop』详尽总结</a></li></ol><h2 id="需要读的"><a href="#需要读的" class="headerlink" title="需要读的"></a>需要读的</h2><ol><li><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html" rel="external nofollow noopener noreferrer" target="_blank">Concurrency Programming Guide</a></li><li><a href="https://leylfl.github.io/2018/01/16/浅谈iOS多线程-源码/" rel="external nofollow noopener noreferrer" target="_blank">浅谈iOS多线程(源码)</a></li><li><a href="https://objccn.io/issue-2-3/" rel="external nofollow noopener noreferrer" target="_blank">底层并发 API</a></li></ol>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;NSOperation类文档学习记录&lt;/p&gt;
+      &lt;p&gt;记录读过的文章&lt;/p&gt;
     
     </summary>
     
@@ -331,17 +357,17 @@
   </entry>
   
   <entry>
-    <title>多线程参考资料</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
+    <title>NSOperation</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperation/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/NSOperation/</id>
     <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-18T10:39:43.475Z</updated>
+    <updated>2019-09-17T09:45:48.872Z</updated>
     
-    <content type="html"><![CDATA[<p>记录读过的文章</p><a id="more"></a><h2 id="读过的文章"><a href="#读过的文章" class="headerlink" title="读过的文章"></a>读过的文章</h2><ol><li><a href="https://bujige.net/blog/iOS-Complete-learning-NSOperation.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『NSOperation、NSOperationQueue』详尽总结</a></li><li><a href="https://objccn.io/issue-2-1/#challenges" rel="external nofollow noopener noreferrer" target="_blank">并发编程：API 及挑战</a></li><li><a href="https://blog.ibireme.com/2015/05/18/runloop/" rel="external nofollow noopener noreferrer" target="_blank">深入理解RunLoop</a>    </li><li><a href="https://bujige.net/blog/iOS-Complete-learning-RunLoop.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『RunLoop』详尽总结</a></li></ol><h2 id="需要读的"><a href="#需要读的" class="headerlink" title="需要读的"></a>需要读的</h2><ol><li><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html" rel="external nofollow noopener noreferrer" target="_blank">Concurrency Programming Guide</a></li><li><a href="https://leylfl.github.io/2018/01/16/浅谈iOS多线程-源码/" rel="external nofollow noopener noreferrer" target="_blank">浅谈iOS多线程(源码)</a></li><li><a href="https://objccn.io/issue-2-3/" rel="external nofollow noopener noreferrer" target="_blank">底层并发 API</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>NSOperation类文档学习记录</p><a id="more"></a><h2 id="操作依赖"><a href="#操作依赖" class="headerlink" title="操作依赖"></a>操作依赖</h2><p>依赖可以控制操作执行的顺序，相关函数：</p><ol><li>addDependency</li><li>removeDependency</li></ol><p>当依赖的operation全部为完成状态时，operation才能为ready的状态。当最后一个依赖完成后，operation的状态变为ready状态。</p><p>依赖不区分operation是完成了还是取消了。</p><h2 id="KVO属性"><a href="#KVO属性" class="headerlink" title="KVO属性"></a>KVO属性</h2><p>KVO属性包括：</p><ol><li>isCancelled</li><li>isAsynchronous</li><li>isExecuting</li><li>isFinished</li><li>isReady</li><li>dependencies</li><li>queuePriority</li><li>completionBlock</li></ol><h2 id="多线程安全"><a href="#多线程安全" class="headerlink" title="多线程安全"></a>多线程安全</h2><p>多线程调用NSOperation的方法时安全的，不需要加锁。<br>子类的自定义方法需要考虑多线程问题。</p><h2 id="异步VS同步"><a href="#异步VS同步" class="headerlink" title="异步VS同步"></a>异步VS同步</h2><p>操作可以手动执行、也可以添加到queue中执行。</p><p>手动执行（直接调用start方法），分为同步operation和异步operation ，同步在当前线程立即执行。异步在新的线程执行任务。</p><p>如果操作在队列中执行，一般定义为同步的，队列不关注asynchronous属性，总是在一个单独的线程中调用start方法。所有没有理由设计为异步的。</p><h2 id="子类化"><a href="#子类化" class="headerlink" title="子类化"></a>子类化</h2><p>非并发队列：重写 main方法。<br>并发队列：需要重写start、 asynchronous、executing、finished方法。</p><p><strong>注意是否重写main决定了是否是并发操作。</strong></p><p>下面是子类化的要点：</p><ol><li>在并发队列中，start方法负责异步开始操作。</li><li>start方法中需要通过KVO更新operation的executing状态为YES。</li><li>operation完成或取消后，并发队列必须通过KVO更新isExecuting为NO 和 isFinished为YES。如果是取消，也需要更新isFinished状态为YES。</li><li>operation 只有完成了，才能从queue中移除。</li><li>同时需要重写 executing、finished属性（KVC）。</li><li>start方法需要检查是否operation被取消了。</li><li>如果定制了依赖，需要KVO isReady属性。</li></ol><p><strong>状态管理</strong>：</p><ol><li>isReady，一般不用管理，依赖的时候处理。</li><li>isExecuting，替换了start方法，一定要替换isExecuting方法，并在start开始的时候发出KVO</li><li>isFinished，替换了start方法，一定要替换isFinished方法。operation完成或取消，发出KVO</li><li>isCancelled，不需要发出KVO</li></ol><p><strong>响应取消</strong></p><p>一旦将operation添加到queue中，queue就掌管了operation。你可以通过调用operation的cancell方法取消，或者通过queue的cancelAllOperations取消。</p><p>执行中的任务并不会立马取消， 你必须显式的检测状态，需要的时候取消。</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;记录读过的文章&lt;/p&gt;
+      &lt;p&gt;NSOperation类文档学习记录&lt;/p&gt;
     
     </summary>
     
@@ -515,30 +541,6 @@
     
     
       <category term="高数" scheme="http://yoursite.com/tags/%E9%AB%98%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第二章 随机变量及其分布</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/%E7%AC%AC%E4%BA%8C%E7%AB%A0%20%E9%9A%8F%E6%9C%BA%E5%8F%98%E9%87%8F%E5%8F%8A%E5%85%B6%E5%88%86%E5%B8%83/"/>
-    <id>http://yoursite.com/wiki/数学知识/概率论和数理统计/第二章 随机变量及其分布/</id>
-    <published>2019-08-22T02:07:12.000Z</published>
-    <updated>2019-08-22T07:52:53.715Z</updated>
-    
-    <content type="html"><![CDATA[<p>第二章学习记录。</p><a id="more"></a><h2 id="随机变量"><a href="#随机变量" class="headerlink" title="随机变量"></a>随机变量</h2><p>定义： 设随机实验的样本空间为S={e},X=X(e)是定义在样本空间S上的实值单值函数，成X=X(e)为随机变量。</p><h2 id="离散型随机变量及其分布规律"><a href="#离散型随机变量及其分布规律" class="headerlink" title="离散型随机变量及其分布规律"></a>离散型随机变量及其分布规律</h2><p>有些随机变量，它全部可能取到的值是有限个或可列无限多个，这种随机变量称为离散型随机变量。</p><p>设离散型随机变量X多有可能的取值为$x_k$(k=1,2,…),X取各个可能值的概率，即事件{X=$x_k$}的概率，为<br>$$P\{X=x_k\} = p_k,k=1,2,….$$</p><h3 id="0-1分布"><a href="#0-1分布" class="headerlink" title="0-1分布"></a>0-1分布</h3><p>设随机变量X只可能取0与1两个值，它的分布律是：<br>$$P\{X=k\}=p^k(1-p)^{(1-k)}. k=0,1 (0&lt;p&lt;1)$$<br>则称X服从以p为参数的0-1分布或两点分布。</p><h3 id="伯努利实验、二项分布"><a href="#伯努利实验、二项分布" class="headerlink" title="伯努利实验、二项分布"></a>伯努利实验、二项分布</h3><p>设实验E只有两种可能，A 即 $\overline A$,则称E为伯努利实验，此时P(A)= p,$P(\overline A)=1-p$,将E独立重复的进行n次，则称这一串重复的独立实验为n重伯努利实验。</p><p>以X表示n重伯努利实验中事件A发生的次数，X是一个随机变量，我们求它的分布规律。X所有可能的取值为 0，1，2，…,n 。由于各次实验是相互独立的，因此事件A在指定的k次实验中发生，在其他n-k次实验中A不发生的概率为</p><p>$$pppp….pp(1-p)(1-p)….(1-p)=p^k(1-p)^{n-k}$$</p><p>这种指定的方式共有$\binom {n}{k}$种，他们是两两互不相容的，故在n次实验中A发生k次的概率为$\binom {n}{k}p^k(1-p)^{n-k}$,记q = 1-p，即有：</p><p>$$P\{X=k\}=\binom{n}{k}p^kq^{n-k},k=0,1,2,…,n\tag{2.6}$$</p><p>显然：</p><p>$$\sum_{k=0}^{n}P\{X=k\}=\sum_{k=0}^{n}\binom{n}{k}p^kq^{n-k}=(p+q)^n=1$$</p><p>注意到$\binom{n}{k}p^kq^{n-k}$刚好是二项式$(p+q)^n$的展开式中出现$p^k$的那一项，我们称随机变量X服从参数n，p的二项分布，并记为$X\sim b(n,p)$</p><p>特别的，当n=1时，二项分布化为：</p><p>$$P\{X=k\}=p^kq^{1-k},k=0,1$$</p><p>就是0-1分布。</p><h3 id="泊松分布"><a href="#泊松分布" class="headerlink" title="泊松分布"></a>泊松分布</h3><p>设随机变量X所有可能的取值为0，1，2…，取而代之的概率为：<br>$$P\{X=k\}=\frac{\lambda^ke^{-\lambda}}{k!},k=0,1,2….$$<br>其中$\lambda$&gt;0是常数，则称X服从参数为$\lambda$的泊松分布，记为X$\sim\pi(\lambda)$</p><p><strong>泊松定理</strong>：设$\lambda$&gt;0是一个常数，n是任意正整数，设$np_n=\lambda$，则对于人一个固定的非负整数k，有：</p><p>$$\lim_{n\to \infty}\binom{n}{k}p_n^k(1-p_n)^{n-k}=\frac{\lambda^ke^{-\lambda}}{k!}$$</p><h2 id="随机变量的分布函数"><a href="#随机变量的分布函数" class="headerlink" title="随机变量的分布函数"></a>随机变量的分布函数</h2><p><strong>分布函数</strong>：设X是一个随机变量，x是任意实数，函数：</p><p>$$F(x)=P{X&lt;=x}$$<br>称为X的分布函数。</p><p>如果将X看成是数轴上的随机点左边，那么，分布函数F（x）在x出的函数值就表示X落在区间$(-\infty,x)$上的概率。</p><p>分布函数F（x）满足的基本性质：</p><ol><li>不减函数</li><li>0-1</li></ol><h2 id="连续型随机变量及其概率密度"><a href="#连续型随机变量及其概率密度" class="headerlink" title="连续型随机变量及其概率密度"></a>连续型随机变量及其概率密度</h2><p>如果对于随机变量X的分布函数F(x)，存在非负函数f(x),对于任意实数x有</p><p>$$F(x)=\int_{-\infty}^xf(t)dt\tag{4.1}$$<br>则称x为连续型随机变量，其中函数f(x)称为X的<strong>概率密度函数</strong>，简称<strong>概率密度</strong></p><p>三种重要的连续型随机变量</p><h3 id="均匀分布"><a href="#均匀分布" class="headerlink" title="均匀分布"></a>均匀分布</h3><ol><li>指数分布</li><li>正态分布</li></ol><h2 id="随机变量的函数分布"><a href="#随机变量的函数分布" class="headerlink" title="随机变量的函数分布"></a>随机变量的函数分布</h2>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;第二章学习记录。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
-    
-      <category term="概率论和数理统计" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E6%A6%82%E7%8E%87%E8%AE%BA%E5%92%8C%E6%95%B0%E7%90%86%E7%BB%9F%E8%AE%A1/"/>
-    
-    
-      <category term="概率论" scheme="http://yoursite.com/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/"/>
     
   </entry>
   

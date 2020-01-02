@@ -586,6 +586,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            YYCache
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/opensource/YYCache/logan/">YYCache 源码浅析</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             fishhook
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/opensource/fishhook/fishHookPicture/">图解fishhook</a></li>  <li class="file"><a href="/wiki/IOS/opensource/fishhook/learn_fishhook/">fishhook学习记录</a></li>  </ul> 
@@ -1098,6 +1107,84 @@
 </aside>
             
             <section id="main">
+        <article id="post-工具/use_appledoc" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/工具/">工具</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/工具/">工具</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/工具/use_appledoc/">
+            <time datetime="2019-05-05T02:18:26.000Z" itemprop="datePublished">2019-05-05</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/工具/use_appledoc/">appledoc生成文档实践</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <a id="more"></a>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>第一步，下载appledoc，安装：</p>
+<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git clone gi<span class="variable">t:</span>//github.<span class="keyword">com</span>/tomaz/appledoc.git</span><br><span class="line"><span class="keyword">cd</span> ./appledoc</span><br><span class="line">sudo <span class="keyword">sh</span> install-appledoc.<span class="keyword">sh</span></span><br></pre></td></tr></table></figure>
+<p>第二步，验证appledoc是否安装成功：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">appledoc <span class="comment">--help</span></span><br></pre></td></tr></table></figure>
+<p>第三步， touch命令创建脚本，复制下面代码到脚本，然后添加执行权限，执行脚本：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">appledoc \</span><br><span class="line">-<span class="ruby">-output ./apiDoc \</span></span><br><span class="line"><span class="ruby">-i *.m \</span></span><br><span class="line"><span class="ruby">--project-name <span class="string">"GSecretKey"</span> \</span></span><br><span class="line"><span class="ruby">--project-company <span class="string">"com.Gome"</span> \</span></span><br><span class="line"><span class="ruby">--no-create-docset \</span></span><br><span class="line"><span class="ruby">--keep-undocumented-objects \</span></span><br><span class="line"><span class="ruby">--keep-undocumented-members \</span></span><br><span class="line"><span class="ruby">--no-warn-undocumented-object \</span></span><br><span class="line"><span class="ruby">--no-warn-undocumented-member  \</span></span><br><span class="line"><span class="ruby">./</span></span><br></pre></td></tr></table></figure>
+<p>这样就可以将<code>./</code>目录下所有头文件中的注释自动生成出对应的文档到<code>./apiDoc</code>目录下。实际使用中，可以根据需要修改源文件路径、生成文件的路径、project-name、project-company。</p>
+<p>上面的脚本是可以运行的，但是少了注释，难以理解。不添加注释的原因是：上面的命令太长，使用多行显示，使用 <code>\</code>实现多行功能，如果在 <code>\</code> 后直接添加注释，脚本会运行报错，没有地方添加注释。所以，可执行的脚本没有注释，下面将有注释的脚本单独列出来，方便理解:</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line">appledoc <span class="string">\</span></span><br><span class="line"><span class="comment">#文档输出目录</span></span><br><span class="line">--output ./apiDoc <span class="string">\</span>                                       </span><br><span class="line"><span class="comment">#忽略.m文件，因.m中均为私有api和属性，开源的接口文档中理应忽略掉</span></span><br><span class="line">-i *.m <span class="string">\</span>                                                         </span><br><span class="line"><span class="comment">#工程的名字</span></span><br><span class="line">--project-name <span class="string">"GSecretKey"</span> <span class="string">\</span></span><br><span class="line"><span class="comment">#公司的名字</span></span><br><span class="line">--project-company <span class="string">"com.Gome"</span> <span class="string">\</span></span><br><span class="line"><span class="comment">#不生成docset，直接输出html</span></span><br><span class="line">--<span class="literal">no</span>-create-docset <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的文件也输出html  --&gt;目的是看到所有的文件</span></span><br><span class="line">--keep-undocumented-objects <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的属性和方法也输出到html  --&gt;目的是看到所有的属性和方法</span></span><br><span class="line">--keep-undocumented-members <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的文件不提示警告</span></span><br><span class="line">--<span class="literal">no</span>-warn-undocumented-object <span class="string">\</span></span><br><span class="line"><span class="comment">#没有注释的属性和方法不提示警告</span></span><br><span class="line">--<span class="literal">no</span>-warn-undocumented-member <span class="string">\</span></span><br><span class="line"><span class="comment">#需要输出的文件路径  --&gt;这里推荐最好直接为当前工程路径平级输出，便于维护和使用</span></span><br><span class="line">./</span><br></pre></td></tr></table></figure>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><blockquote>
+<p>实际使用上问题挺多，尤其Xcode9之后，普遍的方法会出现此错误：ERROR | !&gt; xcrun: error: unable to find utility “docsetutil”, not a developer tool or in PATH</p>
+</blockquote>
+<p>解决办法：终端-&gt;编写脚本-&gt;运行脚本-&gt;更新脚本从而规避docsetutil找不到等错误，经过验证，将命令放在脚本中，确实解决了这个问题。</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a><div id="refer">参考</div></h2><ol>
+<li><a href="https://www.jianshu.com/p/f5cb3c728a5b" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发_编写接口文档（appledoc实用篇）</a></li>
+</ol>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/ABTest/ABTest/ABTest" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1326,7 +1413,7 @@
 
 
     
-        <article id="post-IOS/swift语言/swift学习摘要/21__扩展" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/swift语言/swift学习摘要/19__类型转换" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1342,13 +1429,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/扩展/">扩展</a>
+        <a class="tag-link" href="/tags/类型转换/">类型转换</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/">
+        <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">
             <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
         </a>
     </div>
@@ -1360,7 +1447,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/">21. 扩展</a>
+            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a>
         </h1>
     
 
@@ -1373,19 +1460,17 @@
             
                 
                 <p><ol>
-<li>Extension Syntax</li>
-<li>Computed Properties</li>
-<li>Initializers</li>
-<li>Methods</li>
-<li>Subscripts</li>
-<li>Nested Types</li>
+<li>Defining a Class Hierarchy for Type Casting</li>
+<li>Checking Type</li>
+<li>Downcasting</li>
+<li>Type Casting for Any and AnyObject</li>
 </ol></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/#more">查看更多</a>
+                <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1550,7 +1635,7 @@
 
 
     
-        <article id="post-IOS/swift语言/swift学习摘要/19__类型转换" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/swift语言/swift学习摘要/21__扩展" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1566,13 +1651,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/类型转换/">类型转换</a>
+        <a class="tag-link" href="/tags/扩展/">扩展</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">
+        <a href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/">
             <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
         </a>
     </div>
@@ -1584,7 +1669,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a>
+            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/">21. 扩展</a>
         </h1>
     
 
@@ -1597,86 +1682,19 @@
             
                 
                 <p><ol>
-<li>Defining a Class Hierarchy for Type Casting</li>
-<li>Checking Type</li>
-<li>Downcasting</li>
-<li>Type Casting for Any and AnyObject</li>
+<li>Extension Syntax</li>
+<li>Computed Properties</li>
+<li>Initializers</li>
+<li>Methods</li>
+<li>Subscripts</li>
+<li>Nested Types</li>
 </ol></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/swift语言/swift学习摘要/16__析构过程" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/swift学习摘要/">swift学习摘要</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/继承/">继承</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/16__析构过程/">
-            <time datetime="2019-01-28T02:07:12.000Z" itemprop="datePublished">2019-01-28</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/16__析构过程/">16. 析构过程</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p><ol>
-<li>ow Deinitialization Works</li>
-<li>Deinitializers in Action</li>
-</ol></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/16__析构过程/#more">查看更多</a>
+                <a href="/wiki/IOS/swift语言/swift学习摘要/21__扩展/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1765,7 +1783,7 @@
 
 
     
-        <article id="post-IOS/swift语言/swift学习摘要/18__错误处理" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/swift语言/swift学习摘要/17__可选链" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1781,13 +1799,13 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/错误处理/">错误处理</a>
+        <a class="tag-link" href="/tags/可选链/">可选链</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/18__错误处理/">
+        <a href="/wiki/IOS/swift语言/swift学习摘要/17__可选链/">
             <time datetime="2019-01-28T02:07:12.000Z" itemprop="datePublished">2019-01-28</time>
         </a>
     </div>
@@ -1799,7 +1817,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/18__错误处理/">18. 错误处理</a>
+            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/17__可选链/">17. 可选链</a>
         </h1>
     
 
@@ -1812,16 +1830,20 @@
             
                 
                 <p><ol>
-<li>Representing and Throwing Errors</li>
-<li>Handling Errors</li>
-<li>Specifying Cleanup Actions</li>
+<li>Optional Chaining as an Alternative to Forced Unwrapping</li>
+<li>Defining Model Classes for Optional Chaining</li>
+<li>Accessing Properties Through Optional Chaining</li>
+<li>Calling Methods Through Optional Chaining</li>
+<li>Accessing Subscripts Through Optional Chaining</li>
+<li>Linking Multiple Levels of Chaining</li>
+<li>Chaining on Methods with Optional Return Values</li>
 </ol></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/18__错误处理/#more">查看更多</a>
+                <a href="/wiki/IOS/swift语言/swift学习摘要/17__可选链/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
