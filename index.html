@@ -707,7 +707,7 @@
                             &nbsp;
                             暂无分类
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/ios_sign/">iOS App 签名的原理([抄袭的，有问题请联系](http://wereadteam.github.io/2017/03/13/Signature/))</a></li>  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/暂无分类/ios_sign/">iOS App 签名的原理([抄袭的，有问题请联系](http://wereadteam.github.io/2017/03/13/Signature/))</a></li>  <li class="file"><a href="/wiki/IOS/暂无分类/指定初始化函数/">正确使用NS_DESIGNATED_INITIALIZER</a></li>  <li class="file"><a href="/wiki/IOS/暂无分类/UniversalLinks/">Universal Links</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1173,6 +1173,72 @@
 
 
     
+        <article id="post-IOS/暂无分类/UniversalLinks" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/暂无分类/">暂无分类</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/Universal-Links/">Universal Links</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/暂无分类/UniversalLinks/">
+            <time datetime="2019-12-30T04:07:12.000Z" itemprop="datePublished">2019-12-30</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/暂无分类/UniversalLinks/">Universal Links</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>Universal Links  基本原理</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/暂无分类/UniversalLinks/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/opensource/AlamoFire/alamofile学习" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1357,6 +1423,82 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Block/block_getCapture/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/swift语言/小码哥视频学习记录/18 swift OC" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/小码哥视频学习记录/">小码哥视频学习记录</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/swift/">swift</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/">
+            <time datetime="2019-11-20T04:07:12.000Z" itemprop="datePublished">2019-11-20</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/">18 swift OC 混合编程</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <a id="more"></a>
+<p>表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用</p>
+<p>补存内容 ： catch默认存在error</p>
+<p>#warning()<br>// TODO:  </p>
+<p>编码习惯： xcode自己生成的类冒号跟着前面        </p>
+<p>@UIApplicationMain  就是新的入口 </p>
+<p>Swift调用OC写的东西 </p>
+<p>1 新建桥接文件 ： targetName-Bridging-Header.h  就是OC暴露给swift的东西<br>@_silgen_name(“sum”) func malloc(v1: Int32, v2: Int) -&gt; Int32</p>
+<p>swift 暴露给OC的条件</p>
+<ol>
+<li>继承NSObject</li>
+<li>objcMembers    或使用@objc 修饰需要暴露的成员 </li>
+</ol>
+<p>@objc  还能修改暴露给OC的类名的名称， 方法名 </p>
+<p>字符串处理 ：</p>
+
             </div>
         
         <footer class="article-footer">
@@ -1701,148 +1843,6 @@
 <li>元素n</li>
 </ol>
 
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/swift语言/小码哥视频学习记录/18 swift OC" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/小码哥视频学习记录/">小码哥视频学习记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/swift/">swift</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/">
-            <time datetime="2019-11-20T04:07:12.000Z" itemprop="datePublished">2019-11-20</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/">18 swift OC 混合编程</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <a id="more"></a>
-<p>表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用</p>
-<p>补存内容 ： catch默认存在error</p>
-<p>#warning()<br>// TODO:  </p>
-<p>编码习惯： xcode自己生成的类冒号跟着前面        </p>
-<p>@UIApplicationMain  就是新的入口 </p>
-<p>Swift调用OC写的东西 </p>
-<p>1 新建桥接文件 ： targetName-Bridging-Header.h  就是OC暴露给swift的东西<br>@_silgen_name(“sum”) func malloc(v1: Int32, v2: Int) -&gt; Int32</p>
-<p>swift 暴露给OC的条件</p>
-<ol>
-<li>继承NSObject</li>
-<li>objcMembers    或使用@objc 修饰需要暴露的成员 </li>
-</ol>
-<p>@objc  还能修改暴露给OC的类名的名称， 方法名 </p>
-<p>字符串处理 ：</p>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Block/block" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Block/">Block</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/Block/">Block</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Block/block/">
-            <time datetime="2019-09-27T04:07:12.000Z" itemprop="datePublished">2019-09-27</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Block/block/">Block的本质</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文理解block的本质</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Block/block/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
