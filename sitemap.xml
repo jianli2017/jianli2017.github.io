@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/wiki/IOS/Theory/IOS%20%E7%9F%A5%E8%AF%86%E7%82%B9/</loc>
+    
+    <lastmod>2020-01-06T02:44:47.976Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/wiki/IOS/opensource/YYCache/YYCache/</loc>
     
     <lastmod>2020-01-02T11:22:12.208Z</lastmod>
@@ -296,7 +303,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/5_%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</loc>
+    <loc>http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</loc>
     
     <lastmod>2019-07-25T09:31:21.420Z</lastmod>
     
@@ -310,7 +317,7 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/1_%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C/</loc>
+    <loc>http://yoursite.com/wiki/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/LeetCode/top1_10/5_%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2/</loc>
     
     <lastmod>2019-07-25T09:31:21.420Z</lastmod>
     
@@ -1290,13 +1297,6 @@
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
-    
-    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://yoursite.com/wiki/Hybird/weex/event-analize/</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
@@ -1389,6 +1389,13 @@
   
   <url>
     <loc>http://yoursite.com/wiki/%E5%B7%A5%E5%85%B7/git/git%E7%AE%80%E7%95%A5%E7%89%88/git%E7%AE%80%E7%95%A5%E7%89%88/</loc>
+    
+    <lastmod>2018-02-28T08:39:10.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/tags/index.html</loc>
     
     <lastmod>2018-02-28T08:39:10.000Z</lastmod>
     

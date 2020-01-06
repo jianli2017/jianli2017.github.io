@@ -525,6 +525,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            Theory
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Theory/IOS 知识点/">IOS 知识点总结</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             crash
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/1_system_Crash_Type/">1. 系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/4_increase_Wild_Pointer/">4.如何定位Obj-C野指针随机Crash(一):先提高野指针Crash率(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/2_Collection_Crash/">2. 收集崩溃日志方法</a></li>  <li class="file"><a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/3_KSCrash_Analize/">3. KSCrash原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/6_increase_Wild_Pointer/">6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/7_increase_Wild_Pointer/">7. Scribble& NSZombieEnabled</a></li>  </ul> 
@@ -1107,6 +1116,79 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/foundation使用记录/NSScaner" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/NSScanner/">NSScanner</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/foundation使用记录/NSScaner/">
+            <time datetime="2019-05-13T01:35:49.000Z" itemprop="datePublished">2019-05-13</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/foundation使用记录/NSScaner/">NSScanner</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <a id="more"></a>
+<p>A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations.</p>
+<p>NSScanner是一个string的解析器。</p>
+<p>An NSScanner object interprets and converts the characters of an NSString object into number and string values. </p>
+<p>NSScanner对象将 NSString对象的字符 解析转化为 数字或string。</p>
+<p>NSScanner是个类族。</p>
+<p>初始化方法：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>scannerWithString:</span><br></pre></td></tr></table></figure>
+<p>扫描字符或string</p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">scanCharactersFromSet:</span><span class="string">intoString:</span></span><br></pre></td></tr></table></figure>
+<p>扫描一个数字</p>
+<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>scanDecimal:</span><br></pre></td></tr></table></figure>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/foundation使用记录/NSURL记录" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1499,146 +1581,6 @@
 
 
     
-        <article id="post-IOS/swift语言/swift学习摘要/19__类型转换" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/swift学习摘要/">swift学习摘要</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/类型转换/">类型转换</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">
-            <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p><ol>
-<li>Defining a Class Hierarchy for Type Casting</li>
-<li>Checking Type</li>
-<li>Downcasting</li>
-<li>Type Casting for Any and AnyObject</li>
-</ol></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/swift语言/swift学习摘要/20__嵌套类型" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/swift学习摘要/">swift学习摘要</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/嵌套类型/">嵌套类型</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">
-            <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">20. 嵌套类型</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p><ol>
-<li>Nested Types in Action</li>
-<li>Referring to Nested Types</li>
-</ol></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <article id="post-IOS/swift语言/swift学习摘要/22__协议" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1794,7 +1736,7 @@
 
 
     
-        <article id="post-IOS/swift语言/swift学习摘要/15__构造过程" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/swift语言/swift学习摘要/19__类型转换" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1810,14 +1752,14 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/构造过程/">构造过程</a>
+        <a class="tag-link" href="/tags/类型转换/">类型转换</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swift语言/swift学习摘要/15__构造过程/">
-            <time datetime="2019-01-28T02:07:12.000Z" itemprop="datePublished">2019-01-28</time>
+        <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">
+            <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
         </a>
     </div>
 
@@ -1828,7 +1770,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/15__构造过程/">15. 构造过程</a>
+            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/">19. 类型转换</a>
         </h1>
     
 
@@ -1841,21 +1783,86 @@
             
                 
                 <p><ol>
-<li>Setting Initial Values for Stored Properties（设置存储属性的初始值）</li>
-<li>Customizing Initialization</li>
-<li>Default Initializers</li>
-<li>Initializer Delegation for Value Types</li>
-<li>Class Inheritance and Initialization</li>
-<li>Failable Initializers</li>
-<li>Required Initializers</li>
-<li>Setting a Default Property Value with a Closure or Function</li>
+<li>Defining a Class Hierarchy for Type Casting</li>
+<li>Checking Type</li>
+<li>Downcasting</li>
+<li>Type Casting for Any and AnyObject</li>
 </ol></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swift语言/swift学习摘要/15__构造过程/#more">查看更多</a>
+                <a href="/wiki/IOS/swift语言/swift学习摘要/19__类型转换/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/swift语言/swift学习摘要/20__嵌套类型" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/">swift语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/swift语言/swift学习摘要/">swift学习摘要</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/嵌套类型/">嵌套类型</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">
+            <time datetime="2019-01-29T02:07:12.000Z" itemprop="datePublished">2019-01-29</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/">20. 嵌套类型</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p><ol>
+<li>Nested Types in Action</li>
+<li>Referring to Nested Types</li>
+</ol></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/swift语言/swift学习摘要/20__嵌套类型/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

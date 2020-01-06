@@ -525,6 +525,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            Theory
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Theory/IOS 知识点/">IOS 知识点总结</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             crash
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/1_system_Crash_Type/">1. 系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/4_increase_Wild_Pointer/">4.如何定位Obj-C野指针随机Crash(一):先提高野指针Crash率(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/2_Collection_Crash/">2. 收集崩溃日志方法</a></li>  <li class="file"><a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/3_KSCrash_Analize/">3. KSCrash原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/6_increase_Wild_Pointer/">6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/7_increase_Wild_Pointer/">7. Scribble& NSZombieEnabled</a></li>  </ul> 
@@ -1107,6 +1116,72 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/Runtime/objc/13_class_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/initialize/">initialize</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/13_class_initialize/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文是我自己理解_class_initialize的记录</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/13_class_initialize/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/Runtime/objc/11_load" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1701,72 +1776,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/objc/3NSObject/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/objc/1_NSObject_isa" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/isa/">isa</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">
-            <time datetime="2018-11-01T02:38:11.000Z" itemprop="datePublished">2018-11-01</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/1_NSObject_isa/">1. 从 NSObject 的初始化了解 isa（转载)</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文讲解Runtime中的isa指针，本文全部抄袭，  代码位于《objc-private.h》文件</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/1_NSObject_isa/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

@@ -67,6 +67,30 @@
   </entry>
   
   <entry>
+    <title>IOS 知识点总结</title>
+    <link href="http://yoursite.com/wiki/IOS/Theory/IOS%20%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    <id>http://yoursite.com/wiki/IOS/Theory/IOS 知识点/</id>
+    <published>2019-12-19T04:07:12.000Z</published>
+    <updated>2020-01-06T02:44:47.976Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="常用知识点"><a href="#常用知识点" class="headerlink" title="常用知识点"></a>常用知识点</h2><ol><li><a href="https://www.jianshu.com/p/5254f1277dba" rel="external nofollow noopener noreferrer" target="_blank">小结iOS中的copy</a></li><li><a href="https://mp.weixin.qq.com/s/0o0SS0Bds2vB6hDjQfEl4w" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者 2019 面试总结</a></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文按总结IOS常用的知识点&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="Theory" scheme="http://yoursite.com/categories/IOS/Theory/"/>
+    
+    
+      <category term="IOS理论知识" scheme="http://yoursite.com/tags/IOS%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>AlamoFire 源码浅析</title>
     <link href="http://yoursite.com/wiki/IOS/opensource/AlamoFire/alamofile%E5%AD%A6%E4%B9%A0/"/>
     <id>http://yoursite.com/wiki/IOS/opensource/AlamoFire/alamofile学习/</id>
@@ -138,6 +162,71 @@
     
     
       <category term="Block" scheme="http://yoursite.com/tags/Block/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>13 汇编分析String、Array的结构</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/13%20%E6%B1%87%E7%BC%96%E5%88%86%E6%9E%90String%E3%80%81Array%E7%9A%84%E7%BB%93%E6%9E%84/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/13 汇编分析String、Array的结构/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-22T06:52:10.463Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><ul><li>0x30是数字0的ascii码</li><li>tag pointer 干嘛用的？直接将内容放在变量的地址中</li><li>rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验证。</li></ul><p>长度大于0xf 的存储情况：</p><ol><li>rax 长度   </li><li>rdx 地址，地址-0x7ffffffffffffe0=真实存储地址</li></ol><p>内存分布情况：</p><ol><li>代码区</li><li>常量区</li><li>全局区</li><li>堆区</li><li>栈区</li></ol><p>内存布局图：</p><ol><li>mach-o</li><li>运行内存</li><li>动态库</li></ol><blockquote><p>小技巧： 字符串的真实地址 ： 后面的地址+0x20</p><p>小技巧：1后面跟着4个0 一般是全局区，如果不是那么一般是堆区</p></blockquote><p>append干了什么事情： 变为堆空间， 跳过32字节，后面就是内容是存储的真实字符串</p><p><strong>小小总结：</strong></p><ol><li>字符串长度&lt;=0xf  字符串内容直接存储在变量的内存中</li><li>字符串的长度&gt;0xf,字符串存放在常量区（__TEXT.cstring）,地址信息存储在在变量的后8自己中，真实地址= 后面的地址+0x20</li><li>append 后有大于0xf，会开辟空间</li></ol><p><strong>dyld_stub_binder</strong></p><ol><li>stub 翻译为符号</li><li>动态库中的函数，加载完动态库才能知道（也就是运行的时候才知道），那么编译的时候怎么办？ 放置一个占位地址，这个函数就是一个占位地址</li></ol><p><strong>数组的内存结构</strong></p><p> arr占用8字节，这8字节存储着堆空间地址，堆空间结构：</p><ol><li>？</li><li>引用计数</li><li>元素数量</li><li>数组容量</li><li>元素1</li><li>元素2</li><li>元素3</li><li>元素n</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;0x30是数字0的ascii码&lt;/li&gt;
+&lt;li&gt;tag pointer 干嘛用的？直接将内容放在变量的地址中&lt;/li&gt;
+&lt;li&gt;rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>协议</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/11%20%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/11 协议/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-21T10:22:03.805Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><ul><li>协议中的变量： 属性一律var</li><li>协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类的必要初始化器， 子类实现的时候，可以省略override。</li><li>非可失败的初始化器 ：  非可失败、 ！</li><li>可失败： 三种可以</li><li>协议组合 &amp;</li><li>类型属性必须是static</li><li>遍历枚举  CaseIterable   allcases</li><li>CustomStringConvertible description</li><li>any anyObject 只能被类准守</li><li>is 判断是否是某种类型 as ？ Student 可选项 as Any</li><li>metadata 元类型</li><li>Persion.self 和堆空间的前8个字节存储一样的内容  就是元类型</li><li>Persion.Type</li><li><p>AnyClass = AnyObject.type</p></li><li><p>类名和X.self有很多相同点，可以调用方法，不同点：X.self能赋值给变量，类名不能复制给变量。</p></li></ul><ol><li>使用元类型调用的初始化方法一定是requied的，因为你可以给元类型传递一个子类的对象，如果子类没有该初始化方法，那么就失败。为了不失败，所以标记为requied</li><li>Self  应用于返回值，如果协议中定义的方法返回当前对象，在子类中就需要返回子类对象，所以使用Self</li><li></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;协议中的变量： 属性一律var&lt;/li&gt;
+&lt;li&gt;协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
     
   </entry>
   
@@ -244,71 +333,6 @@
   </entry>
   
   <entry>
-    <title>协议</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/11%20%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/11 协议/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-21T10:22:03.805Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><ul><li>协议中的变量： 属性一律var</li><li>协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类的必要初始化器， 子类实现的时候，可以省略override。</li><li>非可失败的初始化器 ：  非可失败、 ！</li><li>可失败： 三种可以</li><li>协议组合 &amp;</li><li>类型属性必须是static</li><li>遍历枚举  CaseIterable   allcases</li><li>CustomStringConvertible description</li><li>any anyObject 只能被类准守</li><li>is 判断是否是某种类型 as ？ Student 可选项 as Any</li><li>metadata 元类型</li><li>Persion.self 和堆空间的前8个字节存储一样的内容  就是元类型</li><li>Persion.Type</li><li><p>AnyClass = AnyObject.type</p></li><li><p>类名和X.self有很多相同点，可以调用方法，不同点：X.self能赋值给变量，类名不能复制给变量。</p></li></ul><ol><li>使用元类型调用的初始化方法一定是requied的，因为你可以给元类型传递一个子类的对象，如果子类没有该初始化方法，那么就失败。为了不失败，所以标记为requied</li><li>Self  应用于返回值，如果协议中定义的方法返回当前对象，在子类中就需要返回子类对象，所以使用Self</li><li></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;协议中的变量： 属性一律var&lt;/li&gt;
-&lt;li&gt;协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>13 汇编分析String、Array的结构</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/13%20%E6%B1%87%E7%BC%96%E5%88%86%E6%9E%90String%E3%80%81Array%E7%9A%84%E7%BB%93%E6%9E%84/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/13 汇编分析String、Array的结构/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-22T06:52:10.463Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><ul><li>0x30是数字0的ascii码</li><li>tag pointer 干嘛用的？直接将内容放在变量的地址中</li><li>rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验证。</li></ul><p>长度大于0xf 的存储情况：</p><ol><li>rax 长度   </li><li>rdx 地址，地址-0x7ffffffffffffe0=真实存储地址</li></ol><p>内存分布情况：</p><ol><li>代码区</li><li>常量区</li><li>全局区</li><li>堆区</li><li>栈区</li></ol><p>内存布局图：</p><ol><li>mach-o</li><li>运行内存</li><li>动态库</li></ol><blockquote><p>小技巧： 字符串的真实地址 ： 后面的地址+0x20</p><p>小技巧：1后面跟着4个0 一般是全局区，如果不是那么一般是堆区</p></blockquote><p>append干了什么事情： 变为堆空间， 跳过32字节，后面就是内容是存储的真实字符串</p><p><strong>小小总结：</strong></p><ol><li>字符串长度&lt;=0xf  字符串内容直接存储在变量的内存中</li><li>字符串的长度&gt;0xf,字符串存放在常量区（__TEXT.cstring）,地址信息存储在在变量的后8自己中，真实地址= 后面的地址+0x20</li><li>append 后有大于0xf，会开辟空间</li></ol><p><strong>dyld_stub_binder</strong></p><ol><li>stub 翻译为符号</li><li>动态库中的函数，加载完动态库才能知道（也就是运行的时候才知道），那么编译的时候怎么办？ 放置一个占位地址，这个函数就是一个占位地址</li></ol><p><strong>数组的内存结构</strong></p><p> arr占用8字节，这8字节存储着堆空间地址，堆空间结构：</p><ol><li>？</li><li>引用计数</li><li>元素数量</li><li>数组容量</li><li>元素1</li><li>元素2</li><li>元素3</li><li>元素n</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;0x30是数字0的ascii码&lt;/li&gt;
-&lt;li&gt;tag pointer 干嘛用的？直接将内容放在变量的地址中&lt;/li&gt;
-&lt;li&gt;rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
     <title>Block的本质</title>
     <link href="http://yoursite.com/wiki/IOS/Block/block/"/>
     <id>http://yoursite.com/wiki/IOS/Block/block/</id>
@@ -357,6 +381,30 @@
   </entry>
   
   <entry>
+    <title>NSOperaionQueue 源码学习</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperaionQueue/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/</id>
+    <published>2019-09-17T02:35:49.000Z</published>
+    <updated>2019-12-09T06:34:14.171Z</updated>
+    
+    <content type="html"><![CDATA[<p>记录NSOperaionQueue的理解</p><a id="more"></a><p><img src="/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png" alt="Queue执行operaion的流程"><br><img src="/wiki/IOS/多线程/NSOperaionQueue/2.png" alt="是否并发文档"></p><h2 id="NSOperation与GCD区别"><a href="#NSOperation与GCD区别" class="headerlink" title="NSOperation与GCD区别"></a>NSOperation与GCD区别</h2><p>其实我们在通过NSOperation和GCD进行开发过程中，会发现两者执行的方式有许多相似之处，NSOperation和GCD参照对比，NSOperationQueue和dispatch_queue参照对比，但是两者之间还是有许多差别的，具体区别:</p><ol><li><p>GCD的核心是C语言写的系统服务，执行和操作简单高效，因此NSOperation底层也通过GCD实现，换个说法就是NSOperation是对GCD更高层次的抽象，这是他们之间最本质的区别。因此如果希望自定义任务，建议使用NSOperation</p></li><li><p>依赖关系，NSOperation可以设置两个NSOperation之间的依赖，第二个任务依赖于第一个任务完成执行，GCD无法设置依赖关系，不过可以通过dispatch_barrier_async来实现这种效果；</p></li><li>KVO(键值对观察)，NSOperation和容易判断Operation当前的状态(是否执行，是否取消)，对此GCD无法通过KVO进行判断；</li><li>优先级，NSOperation可以设置自身的优先级，但是优先级高的不一定先执行，GCD只能设置队列的优先级，无法在执行的block设置优先级；</li><li>继承，NSOperation是一个抽象类，实际开发中常用的两个类是NSInvocationOperation和NSBlockOperation，同样我们可以自定义NSOperation，GCD执行任务可以自由组装，没有继承那么高的代码复用度；</li><li>效率，直接使用GCD效率确实会更高效，NSOperation会多一点开销，但是通过NSOperation可以获得依赖，优先级，继承，键值对观察这些优势，相对于多的那么一点开销确实很划算，鱼和熊掌不可得兼，取舍在于开发者自己；</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
+    
+  </entry>
+  
+  <entry>
     <title>多线程参考资料</title>
     <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
     <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
@@ -392,30 +440,6 @@
     <summary type="html">
     
       &lt;p&gt;NSOperation类文档学习记录&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NSOperaionQueue 源码学习</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperaionQueue/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/</id>
-    <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-12-09T06:34:14.171Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录NSOperaionQueue的理解</p><a id="more"></a><p><img src="/wiki/IOS/多线程/NSOperaionQueue/operaionQueue.png" alt="Queue执行operaion的流程"><br><img src="/wiki/IOS/多线程/NSOperaionQueue/2.png" alt="是否并发文档"></p><h2 id="NSOperation与GCD区别"><a href="#NSOperation与GCD区别" class="headerlink" title="NSOperation与GCD区别"></a>NSOperation与GCD区别</h2><p>其实我们在通过NSOperation和GCD进行开发过程中，会发现两者执行的方式有许多相似之处，NSOperation和GCD参照对比，NSOperationQueue和dispatch_queue参照对比，但是两者之间还是有许多差别的，具体区别:</p><ol><li><p>GCD的核心是C语言写的系统服务，执行和操作简单高效，因此NSOperation底层也通过GCD实现，换个说法就是NSOperation是对GCD更高层次的抽象，这是他们之间最本质的区别。因此如果希望自定义任务，建议使用NSOperation</p></li><li><p>依赖关系，NSOperation可以设置两个NSOperation之间的依赖，第二个任务依赖于第一个任务完成执行，GCD无法设置依赖关系，不过可以通过dispatch_barrier_async来实现这种效果；</p></li><li>KVO(键值对观察)，NSOperation和容易判断Operation当前的状态(是否执行，是否取消)，对此GCD无法通过KVO进行判断；</li><li>优先级，NSOperation可以设置自身的优先级，但是优先级高的不一定先执行，GCD只能设置队列的优先级，无法在执行的block设置优先级；</li><li>继承，NSOperation是一个抽象类，实际开发中常用的两个类是NSInvocationOperation和NSBlockOperation，同样我们可以自定义NSOperation，GCD执行任务可以自由组装，没有继承那么高的代码复用度；</li><li>效率，直接使用GCD效率确实会更高效，NSOperation会多一点开销，但是通过NSOperation可以获得依赖，优先级，继承，键值对观察这些优势，相对于多的那么一点开销确实很划算，鱼和熊掌不可得兼，取舍在于开发者自己；</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
     
     </summary>
     
@@ -517,30 +541,6 @@
     
     
       <category term="不定积分" scheme="http://yoursite.com/tags/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>第一章 函数与极限</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/%E5%87%BD%E6%95%B0%E4%B8%8E%E6%9E%81%E9%99%90/"/>
-    <id>http://yoursite.com/wiki/数学知识/高数/函数与极限/</id>
-    <published>2019-08-25T01:07:12.000Z</published>
-    <updated>2019-10-23T06:23:22.129Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文记录《函数与极限》章节中，比较重要的内容，以便以后复习。</p><a id="more"></a><h2 id="第二节-数列的极限"><a href="#第二节-数列的极限" class="headerlink" title="第二节 数列的极限"></a>第二节 数列的极限</h2><p><strong>定义</strong>： 设{$x_n$}为一数列，如果存在常数a，对于任意给定的正数$\epsilon$ (不论它多么小)，总存在正整数N，使得，当n&gt;N时，不等式<br>$$|x_n-a|&lt;\epsilon$$<br>都成立，那么就称常数a是数列{$x_n$}的<strong>极限</strong>，或者称数列{$x_n$}<strong>收敛</strong>于a，记为：<br>$$\lim \limits_{n \to \infty} {x_n} = a$$</p><p>如果不存在这样的常数a，就说数列没有极限，或者说数列是<strong>发散</strong>的。</p><blockquote><p>等式中的绝对值表达了两数之差，说明$x_n$无限趋近a含义,也就是两项非常的接近。</p></blockquote><p><strong>收敛数列的性质 </strong></p><p><strong>定理一（极限的唯一性）</strong> 如果数列{$x_n$}收敛，那么他的极限唯一</p><p><strong>定理二（收敛数列的有界性）</strong>如果数列{$x_n$}收敛，那么数列{$x_n$}一定有界。</p><p><strong>定理三（收敛数列的保号性）</strong>如果$\lim \limits_{n \to \infty} {x_n} = a$，且a&gt;0，那么存在正整数N，当n&gt;N时，都有$x_n$&gt;0</p><p><strong>定理四（收敛数列与其子数列间的关系）</strong>如果数列{$x_n$}收敛于a，那么他的任一子数列也收敛，且极限也是a。</p><h2 id="第三节-函数的极限"><a href="#第三节-函数的极限" class="headerlink" title="第三节 函数的极限"></a>第三节 函数的极限</h2><p>讨论函数极限时，自变量变化的情形有两种情况：</p><ol><li>自变量x任意的接近于有限值$x_0$ ，$x \to x_0$</li><li>自变量x的绝对值无限大，$x \to \infty$</li></ol><p><strong>函数极限定义1</strong> 设函数f(x)在点$x_0$的去心领域内有定义，如果存在常数A，对于任意给定的正数$\epsilon$(不论多么小)，总存在正数$\delta$,使得当x满足不等式0&lt;|x-$x_0$|&lt;$\delta$时，对应的函数值f(x)都满足不等式<br>$$|f(x)-A|&lt;\epsilon$$<br>那么常数A就叫做函数f(x)当x-&gt;$x_0$时的极限记作：<br>$$\lim_{x-&gt;x_0}f(x)=A$$</p><blockquote><p>函数极限的定义就是规定了定义域，得出值域的满足的条件 。</p></blockquote><p>函数极限的性质：</p><ol><li>极限的唯一性</li><li>局部有界性  </li><li>局部保号性</li><li>函数极限和数列极限的关系（函数有极限，数列也有极限）</li></ol><h2 id="第四节-无穷小和无穷大"><a href="#第四节-无穷小和无穷大" class="headerlink" title="第四节 无穷小和无穷大"></a>第四节 无穷小和无穷大</h2><p><strong>定义</strong>： 极限为零，那么称函数为当x-&gt;$x_0$时的无穷小</p><p>下面的定理说明无穷小与函数极限的关系：</p><p><strong>定理1</strong> ： 在自变量的同一变化过程$x-&gt;x_0$中，函数f(x)具有极限的充分必要条件是f(x) = A + $\alpha$,其中 $\alpha$是无穷小。</p><p>下面是无穷大和无穷小的关系：</p><p><strong>定理2</strong>： 在自变量的同一变化过程中，如果f(x)为无穷大，那么$\frac{1}{f(x)}$为无穷小，如果f(x)为无穷小，且f(x)!=0 .那么$\frac{1}{f(x)}$为无穷大。</p><blockquote><ol><li>充分性：由条件推断出命题成立。</li><li>必要性： 由命题成立推断出条件的成立。</li></ol></blockquote><h2 id="第五节极限运算法则"><a href="#第五节极限运算法则" class="headerlink" title="第五节极限运算法则"></a>第五节极限运算法则</h2><p><strong>定理1</strong> 两个无穷小的和是无穷小</p><p><strong>定理2</strong> 有界函数与无穷小的乘积是无穷小</p><p><strong>推论1</strong> 常数与无穷小的乘积是无穷小</p><p><strong>推论2</strong> 有限个无穷小的乘积是无穷小</p><p><strong>定理3</strong> 当$x \to x_0 （或 x \to \infty）$ 如果limf(x)=A,limg(x)=B,那么</p><ol><li>lim[f(x)+g(x)]=limf(x)+limg(x)=A+B</li><li>lim[f(x)g(x)]=limf(x)limg(x)=AB</li><li>lim$\frac{f(x)}{g(x)}$=$\frac{limf(x)}{limg(x)}=\frac{A}{B}$，其中B不等于0</li></ol><p><strong>定理4</strong> 数列和函数有类似定理3的性质</p><p><strong>定理5</strong> $\upsilon(x)&gt;=\psi$(x),而lim$\upsilon(x)$=A,lim$\psi(x)$=B,那么A&gt;=B</p><blockquote><p>注意： 求极限时，如果分母为0，需要化为不为0</p></blockquote><p><strong>定理6</strong> 复合函数的极限运算法则，设函数y=f[g(x)]是由函数u=g(x)与函数y=f(u)复合而成，f[g(x)]在点$x_0$的某个去心领域内有定义，$\lim \limits_{x \to x_0}{g(x)}=u_0$ , $\lim \limits_{u \to u_0} {f(u)}=A$,且存在$\delta_0&gt;0$，当x属于（$x_0,\delta_0$）时，有g(x)!=$u_0$,则<br>$$\lim \limits_{x \to x_0} {f[g(x)]} = \lim \limits_{u \to u_0} {f(u)}=A $$</p><h2 id="第六节-极限存在准则、两个重要极限"><a href="#第六节-极限存在准则、两个重要极限" class="headerlink" title="第六节 极限存在准则、两个重要极限"></a>第六节 极限存在准则、两个重要极限</h2><p><strong>准则1</strong> ，如果数列{$x_n$}、{$y_n$}、{$z_n$}满足下面条件：</p><p>$$y_n&lt;=x_n&lt;=$z_n$$</p><p>且$\lim_ \limits{n-&gt;\infty}y_n=a,\lim_ \limits{n-&gt;\infty}z_n=a$</p><p>那么数列{$x_n$}的极限存在，且$\lim \limits_{n-&gt;\infty}x_n=a$</p><p>这个准则称为<strong>夹逼准则</strong>。</p><p><strong>使用夹逼准则计算第一个重要的极限</strong>: $\lim_{x \to 0}{\frac{\sin x}{x} }=1$</p><p><strong>准则2 单调有界必有极限。</strong></p><p>一对重要的极限公式：$$\lim \limits_{n-&gt;\infty}(1+\frac{1}{n})^n=e$$</p><p>$$\lim \limits_{n-&gt;\infty}(1-\frac{1}{n})^n= \frac{1}{e}$$</p><p><strong>柯西极限存在准则</strong>  数列{$x_n$} 收敛的充分必要条件是：对于任意给定的正数$\epsilon$,存在正整数N，使得m&gt;N, n&gt;N时，有：</p><p>$$|x_n-x_m|&lt;\epsilon$$</p><p>上面公式说明两项的差趋于无穷小。</p><h2 id="第七节：无穷小的比较"><a href="#第七节：无穷小的比较" class="headerlink" title="第七节：无穷小的比较"></a>第七节：无穷小的比较</h2><p>上面的章节说明两个无穷小的和、差、商仍旧是无穷小，但是两个无穷小的商，确出现不同的结果。</p><p>无穷小定义： 如果函数f(x)当$x \to x_0 （或 x \to \infty）$时极限为零，那么称函数f(x)为当$x \to x_0 （或 x \to \infty）$时的无穷小。</p><p>定理1 在自变量的同一变化过程$x \to x_0 （或 x \to \infty）$中，函数f(x)具有极限A的充分必要条件是f(x)=A+a,其中a是无穷小。</p><p>定义(<strong>更小的阶数更高</strong>) ：</p><ol><li>如果$lim \frac{\beta}{\alpha}$ = 0，那么就说$\beta$是比$\alpha$高阶的无穷小，记作$\beta$=o($\alpha$)</li><li>如果$lim \frac{\beta}{\alpha}$ = $\infty$，那么就说$\beta$是比$\alpha$低阶的无穷小</li><li>如果$lim \frac{\beta}{\alpha}$ = c，那么就说$\beta$,$\alpha$同阶的无穷小</li><li>如果$lim \frac{\beta}{\alpha^k}$ =c，那么就说$\beta$是$\alpha$的k阶的无穷小</li><li>如果$lim \frac{\beta}{\alpha}$ = 1，那么就说$\beta$、$\alpha$时等阶无穷小 记作$\alpha \sim \beta$</li></ol><h2 id="第八节-函数的连续性和间断性"><a href="#第八节-函数的连续性和间断性" class="headerlink" title="第八节 函数的连续性和间断性"></a>第八节 函数的连续性和间断性</h2><p>定义： 设函数y=f(x)在点$x_0$的某一领域内有定义，如果：</p><p>$$\lim \limits_{\bigtriangleup x \to 0}\bigtriangleup y = \lim_{\Delta x \to 0}{[f(x_{x0})]}0$$</p><p>那么就称函数y=f(x)在点$x_0$连续。</p><p>下面是连续性定义中增量的示意图：<br><img src="/wiki/数学知识/高数/函数与极限/1.png" alt="增量示意图"></p><p>连续性的也可以描述为：</p><p>设函数y=f(x)在点$x_0$的某一领域内有定义，如果<br>$$lim_{x \to x_0} {f(x)} = f(x_0)$$<br>那么就称函数f(x)在点$x_0$连续。</p><p>函数的间断点：</p><p>设函数f(x)在点$x_0$的某个去心领域内有定义，在此前提下，如果函数f(x)有下列三种情形之一：</p><ol><li>在$x=x_0$没有定义</li><li>虽在$x=x_0$有定义，但$\lim_{x \to x_0}{f(x)}$不存在</li><li>虽在$x=x_0$有定义，且$\lim_{x \to x_0}{f(x)}$存在，但是不等于$f(x_0)$</li></ol><p>那么函数f(x)在点$x_0$w为不连续，且点$x_0$称为函数f(x)的<strong>不连续点</strong>或<strong>间断点</strong>。</p><h2 id="第九节-连续函数的运算与初等函数的连续性"><a href="#第九节-连续函数的运算与初等函数的连续性" class="headerlink" title="第九节 连续函数的运算与初等函数的连续性"></a>第九节 连续函数的运算与初等函数的连续性</h2><p>一. 连续函数的和、差、积、商的连续性 </p><p>连续函数的和、差、积、商的连续性  连续函数的和、差、积、商（分母不为0）是连续的</p><p>二 反函数和复合函数的连续性 </p><p><strong>定理二</strong> 如果函数f(x) 是单调增加且连续，那么反函数也单调增加且连续</p><p><strong>定理三</strong> 复合函数的两个函数连续，复合后也连续。</p><p>三 初等函数的连续性</p><p><strong>定理四</strong> 所有初等函数都是连续的。</p><p>一组重要的公式</p><ul><li>$\lim_{x \to 0}{\frac{\log_\alpha{(1+x)} }{x{ { = \lim_{x \to 0}{\log_{\alpha}{(1+x)}^{\frac{1}{x} }} = \log_{\alpha}e = \frac{1}{\ln{\alpha} }$ </li><li><p>$\lim_{x \to 0}{\frac{\alpha^x - 1}{x} }$  </p><p> 令 $\alpha^x - 1 = t$，则 $x=\log_{\alpha}{(1+t)}$,当x $\to$0， t $\to$0， 于是：</p><p> $\lim_{x \to 0}{\frac{\alpha^x - 1}{x} }$   = $\lim_{t \to 0}{\frac{t}{\log_{\alpha}{(1+t)} }} = \log_{\alpha}{e} = \frac{1}{\ln{\alpha} }$</p></li><li><p>$\lim_{x \to 0}{\frac{(1+x)^{\alpha}-1}{x} } = \alpha$</p></li></ul><h2 id="第十节-闭区间上连续函数的性质"><a href="#第十节-闭区间上连续函数的性质" class="headerlink" title="第十节 闭区间上连续函数的性质"></a>第十节 闭区间上连续函数的性质</h2><p><strong>定理1</strong> 有界性与最大值最小值定理，在闭区间上连续的函数在该区间上有界，且一定能取得他的最大值和最小值。</p><p><strong>零点定理</strong>： 设函数f(x)在闭区间【a,b】上连续，且f(a)与f(b)异号，则在开区间(a,b)内至少有一点$\epsilon$， 使 $$f(\epsilon) = 0$$</p><p><strong>定理2（介值定理）</strong> 设函数f(x)在闭区间【a,b】上连续，且在这区间的端点取不同的函数值，$$f(a)=A,f(b)=B$$<br>则对于A于B之间的任意一个数C，在开区间（a,b）内至少有一点$\epsilon$,使得</p><p>$$f(\epsilon) = C $$</p><h2 id="有用的公式"><a href="#有用的公式" class="headerlink" title="有用的公式"></a>有用的公式</h2><ol><li>$x^2-9=(x+3)(x-3)$</li><li>$1+\frac{1}{2}+\frac{1}{2^2}+…+\frac{1}{2^{n-1} }=\frac{1-\frac{1}{2^n} }{1-\frac{1}{2} }$</li><li>二项式定理 $(x+y)^n = \binom {n}{0}x^ny^0 + \binom {n}{1}x^{n-1}y^1 +\binom {n}{2}x^{n-2}y^2 + …+ \binom {n}{n-1}x^1y^{n-1} + \binom {n}{n}x^0y^n$,其中$\binom {n}{k}$为二项系数，等于$\frac{n!}{k!(n-k)!}$.</li><li>$\lim \limits_{n-&gt;\infty}(1+\frac{1}{n})^n=e=2.718281$ （二项式展开可证明）</li><li>$\lim \limits_{x \to \infty}(1-\frac{1}{x})^x = \frac{1}{e}$ </li><li>$\lim_{x \to 0} {\frac{\log_a(1+x)}{x} }=\frac{1}{\ln a}$  （将 $\frac{1}{x}提到指数位置，$利用公式4、换底公式 可以证明）</li><li>$\lim \limits_{x \to 0}{\frac{a^x -1}{x} } = \ln a$     (替换 $a^x -1 =t $，利用公式5可证明)</li><li>$\lim \limits_{x \to 0}{\frac{(1+x)^a -1 }{x} } = a$</li><li>$\ln{(1+x)} \sim x (x \to 0)$(等价无穷小)</li><li>$e^x-1 \sim x  (x \to 0)$(等价无穷小)</li><li>$(1+x)^a-1 \sim ax  (x \to 0)$ (等价无穷小)</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文记录《函数与极限》章节中，比较重要的内容，以便以后复习。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
-    
-      <category term="高数" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/"/>
-    
-    
-      <category term="高数" scheme="http://yoursite.com/tags/%E9%AB%98%E6%95%B0/"/>
     
   </entry>
   

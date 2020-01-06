@@ -525,6 +525,15 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            Theory
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Theory/IOS 知识点/">IOS 知识点总结</a></li>  </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             crash
                         </a>
                          <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/crash/1_system_Crash_Type/">1. 系统Crash日志结构介绍</a></li>  <li class="file"><a href="/wiki/IOS/crash/4_increase_Wild_Pointer/">4.如何定位Obj-C野指针随机Crash(一):先提高野指针Crash率(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/2_Collection_Crash/">2. 收集崩溃日志方法</a></li>  <li class="file"><a href="/wiki/IOS/crash/5_increase_Wild_Pointer/">5. 如何定位Obj-C野指针随机Crash(二):让非必现Crash变成必现(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/3_KSCrash_Analize/">3. KSCrash原理浅析</a></li>  <li class="file"><a href="/wiki/IOS/crash/6_increase_Wild_Pointer/">6. 如何定位Obj-C野指针随机Crash(三)：加点黑科技让Crash自报家门(转载)</a></li>  <li class="file"><a href="/wiki/IOS/crash/7_increase_Wild_Pointer/">7. Scribble& NSZombieEnabled</a></li>  </ul> 
@@ -1107,7 +1116,68 @@
 </aside>
             
             <section id="main">
-        <article id="post-IOS/swiftUI/swiftUI_Share" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-编程理论/OAuth 2.0/OAuth" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/编程理论/">编程理论</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/编程理论/OAuth-2-0/">OAuth 2.0</a>
+    </div>
+
+                        
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/编程理论/OAuth 2.0/OAuth/">
+            <time datetime="2019-07-11T04:11:35.000Z" itemprop="datePublished">2019-07-11</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/编程理论/OAuth 2.0/OAuth/">理解OAuth</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>理解OAuth</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/编程理论/OAuth 2.0/OAuth/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/swiftUI/swiftUI_DataFlow" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1129,7 +1199,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swiftUI/swiftUI_Share/">
+        <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">
             <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
         </a>
     </div>
@@ -1141,7 +1211,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_Share/">SwiftUI 分享内容</a>
+            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">SwiftUI 数据流理解</a>
         </h1>
     
 
@@ -1153,13 +1223,22 @@
         
             
                 
-                <p></p><p>介绍SwiftUI</p><p></p>
+                <p><ol>
+<li>对于不变的常量直接传递给 SwiftUI 即可。</li>
+<li>对于控件上需要管理的状态使用 @State 管理。</li>
+<li>对于外部的事件变化使用 BindableObject 发送通知。</li>
+<li>对于需要共享的视图可变数据使用 @ObjectBinding 管理。</li>
+<li>不要出现多个状态同步管理，使用 @Binding 共享一个 Source of truth。</li>
+<li>对于系统环境使用 @Enviroment 管理。</li>
+<li>对于需要共享的不可变数据使用 @EnviromemntObject 管理。</li>
+<li>@Binding 具有引用语义，可以很好的和 @Binding @objectBinding @State 协作，避免出现多个数据不同步。</li>
+</ol></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swiftUI/swiftUI_Share/#more">查看更多</a>
+                <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1239,7 +1318,7 @@
 
 
     
-        <article id="post-IOS/swiftUI/swiftUI_DataFlow" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/swiftUI/swiftUI_Share" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1261,7 +1340,7 @@
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">
+        <a href="/wiki/IOS/swiftUI/swiftUI_Share/">
             <time datetime="2019-07-02T04:07:12.000Z" itemprop="datePublished">2019-07-02</time>
         </a>
     </div>
@@ -1273,7 +1352,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_DataFlow/">SwiftUI 数据流理解</a>
+            <a class="article-title" href="/wiki/IOS/swiftUI/swiftUI_Share/">SwiftUI 分享内容</a>
         </h1>
     
 
@@ -1285,22 +1364,13 @@
         
             
                 
-                <p><ol>
-<li>对于不变的常量直接传递给 SwiftUI 即可。</li>
-<li>对于控件上需要管理的状态使用 @State 管理。</li>
-<li>对于外部的事件变化使用 BindableObject 发送通知。</li>
-<li>对于需要共享的视图可变数据使用 @ObjectBinding 管理。</li>
-<li>不要出现多个状态同步管理，使用 @Binding 共享一个 Source of truth。</li>
-<li>对于系统环境使用 @Enviroment 管理。</li>
-<li>对于需要共享的不可变数据使用 @EnviromemntObject 管理。</li>
-<li>@Binding 具有引用语义，可以很好的和 @Binding @objectBinding @State 协作，避免出现多个数据不同步。</li>
-</ol></p>
+                <p></p><p>介绍SwiftUI</p><p></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/swiftUI/swiftUI_DataFlow/#more">查看更多</a>
+                <a href="/wiki/IOS/swiftUI/swiftUI_Share/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1433,78 +1503,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/暂无分类/ios_sign/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-数据结构与算法/算法4/第5章字符串/5_1_sort" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/第5章字符串/">第5章字符串</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/字符串排序/">字符串排序</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">
-            <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">字符串排序</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
-<h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p>
-<ol>
-<li>计算各组的频率<code>count[r+1]++</code>;</li>
-<li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li>
-<li>数据分类</li>
-<li>回写</li>
-</ol>
-<h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p>
-<p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p>
-<h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>
-
             </div>
         
         <footer class="article-footer">
@@ -1666,6 +1664,78 @@
 
 
     
+        <article id="post-数据结构与算法/算法4/第5章字符串/5_1_sort" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/数据结构与算法/">数据结构与算法</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/">算法4</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/数据结构与算法/算法4/第5章字符串/">第5章字符串</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/字符串排序/">字符串排序</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">
+            <time datetime="2019-05-30T02:07:12.000Z" itemprop="datePublished">2019-05-30</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/数据结构与算法/算法4/第5章字符串/5_1_sort/">字符串排序</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+        
+        
+            <p><a href="https://algs4.cs.princeton.edu/code/javadoc/" rel="external nofollow noopener noreferrer" target="_blank">算法4 官网地址</a></p>
+<h2 id="键索引排序"><a href="#键索引排序" class="headerlink" title="键索引排序"></a>键索引排序</h2><p>说明： <code>a[]</code> 中存储待排序的数据，字符串名字，组号（我们作为键），组号在<code>0~R-1</code>，取出组号的方式：<code>a[i].key()</code></p>
+<ol>
+<li>计算各组的频率<code>count[r+1]++</code>;</li>
+<li>频率转索引  <code>count[r] = count[r-1] + count[r]</code></li>
+<li>数据分类</li>
+<li>回写</li>
+</ol>
+<h2 id="低位优先的字符串排序"><a href="#低位优先的字符串排序" class="headerlink" title="低位优先的字符串排序"></a>低位优先的字符串排序</h2><p>如果字符串的长度均为W，那就从右向左以每个字符作为键，用键索引计数法将字符串排序W遍。</p>
+<p>理解的方法是向前看：如果有两个键，他们中还没有被检查过的字符都完全相同，不同之处取决于已经检查过的字符，因为两个键已经排序，有序。另外，如果还没有被检查过的部分不同，那么已经被检查过的字符对于两者的最终顺序没有意义。之后的某轮会保证有序。</p>
+<h2 id="高位优先的字符串排序"><a href="#高位优先的字符串排序" class="headerlink" title="高位优先的字符串排序"></a>高位优先的字符串排序</h2><p>首先用键索引计数法将所有字符串按照首字母排序，然后递归的再将每个首字母所对于的子数组排序。</p>
+
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/opensource/JLRoute/JLRoute" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1715,79 +1785,6 @@
         
             <h2 id="注册流程"><a href="#注册流程" class="headerlink" title="注册流程"></a>注册流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/register.png" alt="注册流程"></p>
 <h2 id="route流程"><a href="#route流程" class="headerlink" title="route流程"></a>route流程</h2><p><img src="/wiki/IOS/opensource/JLRoute/JLRoute/routerurl.png" alt="route流程"></p>
-
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/foundation使用记录/NSScaner" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/foundation使用记录/">foundation使用记录</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/NSScanner/">NSScanner</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/foundation使用记录/NSScaner/">
-            <time datetime="2019-05-13T01:35:49.000Z" itemprop="datePublished">2019-05-13</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/foundation使用记录/NSScaner/">NSScanner</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-        
-        
-            <a id="more"></a>
-<p>A string parser that scans for substrings or characters in a character set, and for numeric values from decimal, hexadecimal, and floating-point representations.</p>
-<p>NSScanner是一个string的解析器。</p>
-<p>An NSScanner object interprets and converts the characters of an NSString object into number and string values. </p>
-<p>NSScanner对象将 NSString对象的字符 解析转化为 数字或string。</p>
-<p>NSScanner是个类族。</p>
-<p>初始化方法：</p>
-<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">+ </span>scannerWithString:</span><br></pre></td></tr></table></figure>
-<p>扫描字符或string</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">- <span class="string">scanCharactersFromSet:</span><span class="string">intoString:</span></span><br></pre></td></tr></table></figure>
-<p>扫描一个数字</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">- </span>scanDecimal:</span><br></pre></td></tr></table></figure>
 
             </div>
         
