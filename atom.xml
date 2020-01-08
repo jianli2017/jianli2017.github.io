@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-02T11:22:12.208Z</updated>
+  <updated>2020-01-08T06:59:15.548Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>swift简介</title>
+    <link href="http://yoursite.com/wiki/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/2_swift%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/wiki/视频学习记录/Swift/2_swift简介/</id>
+    <published>2020-01-08T02:07:12.000Z</published>
+    <updated>2020-01-08T06:59:15.548Z</updated>
+    
+    <content type="html"><![CDATA[<p>汇编语言pdf 学习记录</p><a id="more"></a><h2 id="swift的版本"><a href="#swift的版本" class="headerlink" title="swift的版本"></a>swift的版本</h2><ol><li>API(application programing interface) 应用程序编程接口，源码和库之间的接口</li><li>ABI(application Binary Interface) 应用程序二进制接口，应用程序与操作系统之间的底层接口，涉及的内容有：目标文件的格式，数据类型的大小布局对齐、函数调用的约定。</li></ol><h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><p>swift code -&gt; swift AST -&gt; Raw Swift IL -&gt; Canonical swift IL -&gt; LLVM IR -&gt; assemble</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;汇编语言pdf 学习记录&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="视频学习记录" scheme="http://yoursite.com/categories/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/categories/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>汇编语言</title>
+    <link href="http://yoursite.com/wiki/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/1_%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"/>
+    <id>http://yoursite.com/wiki/视频学习记录/Swift/1_汇编语言/</id>
+    <published>2020-01-08T02:07:12.000Z</published>
+    <updated>2020-01-08T06:35:58.317Z</updated>
+    
+    <content type="html"><![CDATA[<p>汇编语言pdf 学习记录</p><a id="more"></a><h2 id="寄存器和内存"><a href="#寄存器和内存" class="headerlink" title="寄存器和内存"></a>寄存器和内存</h2><ol><li>通常，CPU会先将内存中的数据存储到寄存器中，然后再对寄存器中的数据进行运算</li><li><p>假设对内存中的数据做加1处理  </p><ul><li>cpu首先会将内存空间的值放到rax中， movq  内存地址  %rax</li><li>然后让寄存器和1相加， addq  $0x1,  %rax</li><li>最后将值赋值给内存空间： movq %rax, 内存空间</li></ul></li></ol><h2 id="编程语言的发展"><a href="#编程语言的发展" class="headerlink" title="编程语言的发展"></a>编程语言的发展</h2><ol><li>机器语言  0，1 组成</li><li>汇编语言 assemble language  用符号代替了0，1 比机器语言便于阅读和记忆 </li><li>高级语言</li></ol><h2 id="汇编语言的种类"><a href="#汇编语言的种类" class="headerlink" title="汇编语言的种类"></a>汇编语言的种类</h2><ol><li>intel windows派系</li><li>AT&amp;T Unix派系</li></ol><p>IOS开发者</p><ol><li>AT&amp;T  IOS模拟器</li><li>ARM IOS真机</li></ol><h2 id="常见汇编"><a href="#常见汇编" class="headerlink" title="常见汇编"></a>常见汇编</h2><table><thead><tr><th>名称</th><th>AT&amp;T汇编</th><th>说明</th></tr></thead><tbody><tr><td>寄存器的名称</td><td>%rax</td><td></td></tr><tr><td>操作数顺序</td><td>movq %rax, %rdx</td><td>将rax的值赋值给rdx</td></tr><tr><td>常数立即数</td><td>movq $0x10, %rax</td><td>将0x10赋值给rax</td></tr><tr><td>内存赋值</td><td>movq $0ax, 0x1ff7(%rip)</td><td>将0xa赋值给地址未rip+ 0x1ff7 的内存空间</td></tr><tr><td>取值内存</td><td>leaq -0x18(%rbp), %rax</td><td>将rbp -0x18 这个地址赋值给rax</td></tr><tr><td>操作数长度</td><td>movl,movb,mobw</td><td>b byte,s short 16bit,w word 16bit,l long 32 bit,q quad 64 bits</td></tr></tbody></table><h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>有16个通用寄存器</p><ol><li>rax、rbx、rcx、rdx、rsi、rdi，rbp、rsp</li><li>r8、r9 、r10、 r11、r12、r13、r14、r15</li></ol><p>寄存器的具体用途</p><ol><li>rax、rdx常用作函数返回值使用</li><li>rdi、rsi、rdx、rcx、r8、r9 等寄存器常用语存放函数的参数</li><li>rbp、rsp 用于栈操作</li><li>rip作为指令指针<ol><li>存储着CPU下一条要执行的指令地址</li><li>一旦CPU读取一条指令，rip会自动指向下一条指令</li></ol></li></ol><h2 id="lldb常用指令"><a href="#lldb常用指令" class="headerlink" title="lldb常用指令"></a>lldb常用指令</h2><ol><li>读取寄存器的值 ： register read/格式  register read/x</li><li>修改寄存器的值 register write 寄存器名称 数值  register wirte rax 0</li><li>读取内存中的值 x/数量 格式 字节大小 内存地址 —- x/3xw 0x1000000</li><li>修改内存中的值 memory write 内存地址 数值 —-memory write 0x00000 10</li></ol><p>其中格式：</p><ol><li>x 是16进制</li><li>f 浮点</li><li>d 十进制</li></ol><p>其中的字节大小</p><ol><li>b  byte 1字节</li><li>h half word 2字节</li><li>w word 4字节</li><li>g gaint word 8字节</li></ol><p>断定指令</p><ol><li>thred step-over next n  单步运行，把子函数整体异步执行(源码级别)</li><li>thrad step-in step s 单不运行，把子函数当做整体异步执行(汇编级别)</li><li>threa step-ins-over nexti ni 单步运行，把子函数当做整体异步执行(汇编级别)</li><li>thread step-inst、stepi、si 单步运行，遇到子函数进入子函数(汇编解包)</li><li>thread step-out、finish 直接运行完当前函数的所有代码，返回到上一个函数，遇到断点卡住</li></ol><h2 id="规律"><a href="#规律" class="headerlink" title="规律"></a>规律</h2><ol><li>内存格式是0x1bc(%rip)，一般是全局变量，全局区(数据段)</li><li>内存地址格式为-0x78(%rbp),一般是局部变量，栈空间</li><li>内存地址格式为：0x10(%rax)， 一般是堆空间，因为mallc 返回的地址存储在rax中 </li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;汇编语言pdf 学习记录&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="视频学习记录" scheme="http://yoursite.com/categories/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/categories/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
   
   <entry>
     <title>YYCache 源码浅析</title>
@@ -67,13 +115,37 @@
   </entry>
   
   <entry>
+    <title>IOS知识简洁版</title>
+    <link href="http://yoursite.com/wiki/IOS/Theory/IOS%E7%9F%A5%E8%AF%86%E7%AE%80%E6%B4%81%E7%89%88/"/>
+    <id>http://yoursite.com/wiki/IOS/Theory/IOS知识简洁版/</id>
+    <published>2019-12-19T04:07:12.000Z</published>
+    <updated>2020-01-08T10:12:40.555Z</updated>
+    
+    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="HTTP三次握手、四次挥手"><a href="#HTTP三次握手、四次挥手" class="headerlink" title="HTTP三次握手、四次挥手"></a>HTTP三次握手、四次挥手</h2><p>TCP是一种可靠的面向连接的协议，而UDP不是可靠的，或说是无连接的协议。</p><p>TCP 和UDP的区别：</p><ol><li>TCP的可靠性是强的，它是可靠的，连接性，是面向连接的，报文，是面向字节流的，效率是，传输效率低，双工性，全双工，流量控制是滑动窗口，拥塞控制是慢开始，拥塞避免，快重传，快恢复的，传输速度是慢的，应用场景是对效率要求低，对准确性要求高或者要求有连接的场景。</li><li>UDP的不是可靠的，无连接的，面向报文的，传输效率高的，一对一，一对多，多对一，多对多，流量控制，无，拥塞控制，无，但是传输速度是快的，应用场景是对效率要求高，对准确性要求低的。</li></ol><p>三次握手的过程：</p><ol><li>第一次握手是在建立连接，客户端发送连接请求报文段，把标有SYN的数据包发给服务器端即为接收端。</li><li>第二次握手是服务器端即接收端收到客户端的SYN的报文段，同时发送标有SYN/ACK的数据包。</li><li>第三次握手是客户端收到服务器端的SYN/ACK的数据包后，向服务器端发送标有ACK的数据包。</li></ol><p>四次挥手：</p><ol><li>第一次挥手：客户端设置seq和 ACK ,向服务器发送一个 FIN=1报文段。此时，（第一次挥手，FIN=1，seq=u）客户端进入 FIN_WAIT 状态，表示客户端没有数据要发送给服务端了。</li><li>第二次挥手：服务端收到了客户端发送的 FIN 报文段，向客户端回了一个 ACK 报文段。</li><li>第三次挥手：服务端向客户端发送FIN 报文段，请求关闭连接，同时服务端进入 LAST_ACK 状态。</li><li>第四次挥手：客户端收到服务端发送的 FIN 报文段后，向服务端发送 ACK 报文段,然后客户端进入 TIME_WAIT 状态。服务端收到客户端的 ACK 报文段以后，就关闭连接。此时，客户端等待 2MSL（指一个片段在网络中最大的存活时间）后依然没有收到回复，则说明服务端已经正常关闭，这样客户端就可以关闭连接了。</li></ol><p>参考链接： <a href="https://mp.weixin.qq.com/s/OYNDJ9tzfZCIdPMyts2jtw" rel="external nofollow noopener noreferrer" target="_blank">TCP的 “三次握手” 和“四次挥手”，到底是什么鬼？</a></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;本文按总结IOS常用的知识点&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="Theory" scheme="http://yoursite.com/categories/IOS/Theory/"/>
+    
+    
+      <category term="IOS理论知识" scheme="http://yoursite.com/tags/IOS%E7%90%86%E8%AE%BA%E7%9F%A5%E8%AF%86/"/>
+    
+  </entry>
+  
+  <entry>
     <title>IOS 知识点总结</title>
     <link href="http://yoursite.com/wiki/IOS/Theory/IOS%20%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
     <id>http://yoursite.com/wiki/IOS/Theory/IOS 知识点/</id>
     <published>2019-12-19T04:07:12.000Z</published>
-    <updated>2020-01-06T11:04:18.953Z</updated>
+    <updated>2020-01-06T11:18:20.749Z</updated>
     
-    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="常用知识点"><a href="#常用知识点" class="headerlink" title="常用知识点"></a>常用知识点</h2><ol><li><a href="https://www.jianshu.com/p/5254f1277dba" rel="external nofollow noopener noreferrer" target="_blank">小结iOS中的copy</a></li><li><a href="https://mp.weixin.qq.com/s/0o0SS0Bds2vB6hDjQfEl4w" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者 2019 面试总结</a></li></ol><h2 id="学习过的知识"><a href="#学习过的知识" class="headerlink" title="学习过的知识"></a>学习过的知识</h2><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">属性的设置方法</span><br><span class="line">objc_setProperty_nonatomic_copy</span><br><span class="line"><span class="symbol">copyWithZone:</span></span><br></pre></td></tr></table></figure><ol><li><a href="https://www.jianshu.com/p/644fdc7503bc" rel="external nofollow noopener noreferrer" target="_blank">GCD实现多个请求都完成之后返回结果</a></li><li><a href="https://www.jianshu.com/p/ea36e0f2e7ae" rel="external nofollow noopener noreferrer" target="_blank">质量监控-卡顿检测</a></li><li><a href="https://www.jianshu.com/p/cff4ba1f8a17" rel="external nofollow noopener noreferrer" target="_blank">iOS深拷贝和浅拷贝</a></li><li><a href="https://www.jianshu.com/p/6ea244222ee4" rel="external nofollow noopener noreferrer" target="_blank">[iOS] 打包原理及脚本自动打包的实现</a></li><li><a href="https://casatwy.com/modulization_in_action.html" rel="external nofollow noopener noreferrer" target="_blank">在现有工程中实施基于CTMediator的组件化方案</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="常用知识点"><a href="#常用知识点" class="headerlink" title="常用知识点"></a>常用知识点</h2><ol><li><a href="https://www.jianshu.com/p/5254f1277dba" rel="external nofollow noopener noreferrer" target="_blank">小结iOS中的copy</a></li><li><a href="https://mp.weixin.qq.com/s/0o0SS0Bds2vB6hDjQfEl4w" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者 2019 面试总结</a></li></ol><h2 id="学习过的知识"><a href="#学习过的知识" class="headerlink" title="学习过的知识"></a>学习过的知识</h2><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">属性的设置方法</span><br><span class="line">objc_setProperty_nonatomic_copy</span><br><span class="line"><span class="symbol">copyWithZone:</span></span><br></pre></td></tr></table></figure><ol><li><a href="https://www.jianshu.com/p/644fdc7503bc" rel="external nofollow noopener noreferrer" target="_blank">GCD实现多个请求都完成之后返回结果</a></li><li><a href="https://www.jianshu.com/p/ea36e0f2e7ae" rel="external nofollow noopener noreferrer" target="_blank">质量监控-卡顿检测</a></li><li><a href="https://www.jianshu.com/p/cff4ba1f8a17" rel="external nofollow noopener noreferrer" target="_blank">iOS深拷贝和浅拷贝</a></li><li><a href="https://www.jianshu.com/p/6ea244222ee4" rel="external nofollow noopener noreferrer" target="_blank">[iOS] 打包原理及脚本自动打包的实现</a></li><li><a href="https://casatwy.com/modulization_in_action.html" rel="external nofollow noopener noreferrer" target="_blank">在现有工程中实施基于CTMediator的组件化方案</a></li><li><a href="https://casatwy.com/iOS-Modulization.html" rel="external nofollow noopener noreferrer" target="_blank">iOS应用架构谈 组件化方案</a></li></ol>]]></content>
     
     <summary type="html">
     
@@ -162,71 +234,6 @@
     
     
       <category term="Block" scheme="http://yoursite.com/tags/Block/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>13 汇编分析String、Array的结构</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/13%20%E6%B1%87%E7%BC%96%E5%88%86%E6%9E%90String%E3%80%81Array%E7%9A%84%E7%BB%93%E6%9E%84/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/13 汇编分析String、Array的结构/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-22T06:52:10.463Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><ul><li>0x30是数字0的ascii码</li><li>tag pointer 干嘛用的？直接将内容放在变量的地址中</li><li>rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验证。</li></ul><p>长度大于0xf 的存储情况：</p><ol><li>rax 长度   </li><li>rdx 地址，地址-0x7ffffffffffffe0=真实存储地址</li></ol><p>内存分布情况：</p><ol><li>代码区</li><li>常量区</li><li>全局区</li><li>堆区</li><li>栈区</li></ol><p>内存布局图：</p><ol><li>mach-o</li><li>运行内存</li><li>动态库</li></ol><blockquote><p>小技巧： 字符串的真实地址 ： 后面的地址+0x20</p><p>小技巧：1后面跟着4个0 一般是全局区，如果不是那么一般是堆区</p></blockquote><p>append干了什么事情： 变为堆空间， 跳过32字节，后面就是内容是存储的真实字符串</p><p><strong>小小总结：</strong></p><ol><li>字符串长度&lt;=0xf  字符串内容直接存储在变量的内存中</li><li>字符串的长度&gt;0xf,字符串存放在常量区（__TEXT.cstring）,地址信息存储在在变量的后8自己中，真实地址= 后面的地址+0x20</li><li>append 后有大于0xf，会开辟空间</li></ol><p><strong>dyld_stub_binder</strong></p><ol><li>stub 翻译为符号</li><li>动态库中的函数，加载完动态库才能知道（也就是运行的时候才知道），那么编译的时候怎么办？ 放置一个占位地址，这个函数就是一个占位地址</li></ol><p><strong>数组的内存结构</strong></p><p> arr占用8字节，这8字节存储着堆空间地址，堆空间结构：</p><ol><li>？</li><li>引用计数</li><li>元素数量</li><li>数组容量</li><li>元素1</li><li>元素2</li><li>元素3</li><li>元素n</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;0x30是数字0的ascii码&lt;/li&gt;
-&lt;li&gt;tag pointer 干嘛用的？直接将内容放在变量的地址中&lt;/li&gt;
-&lt;li&gt;rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>协议</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/11%20%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/11 协议/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-21T10:22:03.805Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><ul><li>协议中的变量： 属性一律var</li><li>协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类的必要初始化器， 子类实现的时候，可以省略override。</li><li>非可失败的初始化器 ：  非可失败、 ！</li><li>可失败： 三种可以</li><li>协议组合 &amp;</li><li>类型属性必须是static</li><li>遍历枚举  CaseIterable   allcases</li><li>CustomStringConvertible description</li><li>any anyObject 只能被类准守</li><li>is 判断是否是某种类型 as ？ Student 可选项 as Any</li><li>metadata 元类型</li><li>Persion.self 和堆空间的前8个字节存储一样的内容  就是元类型</li><li>Persion.Type</li><li><p>AnyClass = AnyObject.type</p></li><li><p>类名和X.self有很多相同点，可以调用方法，不同点：X.self能赋值给变量，类名不能复制给变量。</p></li></ul><ol><li>使用元类型调用的初始化方法一定是requied的，因为你可以给元类型传递一个子类的对象，如果子类没有该初始化方法，那么就失败。为了不失败，所以标记为requied</li><li>Self  应用于返回值，如果协议中定义的方法返回当前对象，在子类中就需要返回子类对象，所以使用Self</li><li></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;ul&gt;
-&lt;li&gt;协议中的变量： 属性一律var&lt;/li&gt;
-&lt;li&gt;协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
     
   </entry>
   
@@ -333,6 +340,71 @@
   </entry>
   
   <entry>
+    <title>协议</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/11%20%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/11 协议/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-21T10:22:03.805Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><ul><li>协议中的变量： 属性一律var</li><li>协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类的必要初始化器， 子类实现的时候，可以省略override。</li><li>非可失败的初始化器 ：  非可失败、 ！</li><li>可失败： 三种可以</li><li>协议组合 &amp;</li><li>类型属性必须是static</li><li>遍历枚举  CaseIterable   allcases</li><li>CustomStringConvertible description</li><li>any anyObject 只能被类准守</li><li>is 判断是否是某种类型 as ？ Student 可选项 as Any</li><li>metadata 元类型</li><li>Persion.self 和堆空间的前8个字节存储一样的内容  就是元类型</li><li>Persion.Type</li><li><p>AnyClass = AnyObject.type</p></li><li><p>类名和X.self有很多相同点，可以调用方法，不同点：X.self能赋值给变量，类名不能复制给变量。</p></li></ul><ol><li>使用元类型调用的初始化方法一定是requied的，因为你可以给元类型传递一个子类的对象，如果子类没有该初始化方法，那么就失败。为了不失败，所以标记为requied</li><li>Self  应用于返回值，如果协议中定义的方法返回当前对象，在子类中就需要返回子类对象，所以使用Self</li><li></li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;协议中的变量： 属性一律var&lt;/li&gt;
+&lt;li&gt;协议里面要求的init 刚好是父类实现的init方法，需要required、override。required（来源于协议）和 override（来源于父类）都需要。而， 父类
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>13 汇编分析String、Array的结构</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/13%20%E6%B1%87%E7%BC%96%E5%88%86%E6%9E%90String%E3%80%81Array%E7%9A%84%E7%BB%93%E6%9E%84/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/13 汇编分析String、Array的结构/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-22T06:52:10.463Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><ul><li>0x30是数字0的ascii码</li><li>tag pointer 干嘛用的？直接将内容放在变量的地址中</li><li>rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验证。</li></ul><p>长度大于0xf 的存储情况：</p><ol><li>rax 长度   </li><li>rdx 地址，地址-0x7ffffffffffffe0=真实存储地址</li></ol><p>内存分布情况：</p><ol><li>代码区</li><li>常量区</li><li>全局区</li><li>堆区</li><li>栈区</li></ol><p>内存布局图：</p><ol><li>mach-o</li><li>运行内存</li><li>动态库</li></ol><blockquote><p>小技巧： 字符串的真实地址 ： 后面的地址+0x20</p><p>小技巧：1后面跟着4个0 一般是全局区，如果不是那么一般是堆区</p></blockquote><p>append干了什么事情： 变为堆空间， 跳过32字节，后面就是内容是存储的真实字符串</p><p><strong>小小总结：</strong></p><ol><li>字符串长度&lt;=0xf  字符串内容直接存储在变量的内存中</li><li>字符串的长度&gt;0xf,字符串存放在常量区（__TEXT.cstring）,地址信息存储在在变量的后8自己中，真实地址= 后面的地址+0x20</li><li>append 后有大于0xf，会开辟空间</li></ol><p><strong>dyld_stub_binder</strong></p><ol><li>stub 翻译为符号</li><li>动态库中的函数，加载完动态库才能知道（也就是运行的时候才知道），那么编译的时候怎么办？ 放置一个占位地址，这个函数就是一个占位地址</li></ol><p><strong>数组的内存结构</strong></p><p> arr占用8字节，这8字节存储着堆空间地址，堆空间结构：</p><ol><li>？</li><li>引用计数</li><li>元素数量</li><li>数组容量</li><li>元素1</li><li>元素2</li><li>元素3</li><li>元素n</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;ul&gt;
+&lt;li&gt;0x30是数字0的ascii码&lt;/li&gt;
+&lt;li&gt;tag pointer 干嘛用的？直接将内容放在变量的地址中&lt;/li&gt;
+&lt;li&gt;rax rdx 两个寄存器存储返回值，rdi rsi rdx存储参数，可以创建一个多参数函数，验
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Block的本质</title>
     <link href="http://yoursite.com/wiki/IOS/Block/block/"/>
     <id>http://yoursite.com/wiki/IOS/Block/block/</id>
@@ -381,6 +453,28 @@
   </entry>
   
   <entry>
+    <title>GCD源码理解</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/GCD_Source/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/GCD_Source/</id>
+    <published>2019-09-17T02:35:49.000Z</published>
+    <updated>2019-09-17T11:57:53.764Z</updated>
+    
+    <content type="html"><![CDATA[<p>GCD源码理解</p><a id="more"></a><h2 id="GCD理解"><a href="#GCD理解" class="headerlink" title="GCD理解"></a>GCD理解</h2><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_sync.png" alt="同步"></p><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_async.png" alt="异步"></p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;GCD源码理解&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>NSOperaionQueue 源码学习</title>
     <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperaionQueue/"/>
     <id>http://yoursite.com/wiki/IOS/多线程/NSOperaionQueue/</id>
@@ -392,30 +486,6 @@
     <summary type="html">
     
       &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>多线程参考资料</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
-    <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-18T10:39:43.475Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录读过的文章</p><a id="more"></a><h2 id="读过的文章"><a href="#读过的文章" class="headerlink" title="读过的文章"></a>读过的文章</h2><ol><li><a href="https://bujige.net/blog/iOS-Complete-learning-NSOperation.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『NSOperation、NSOperationQueue』详尽总结</a></li><li><a href="https://objccn.io/issue-2-1/#challenges" rel="external nofollow noopener noreferrer" target="_blank">并发编程：API 及挑战</a></li><li><a href="https://blog.ibireme.com/2015/05/18/runloop/" rel="external nofollow noopener noreferrer" target="_blank">深入理解RunLoop</a>    </li><li><a href="https://bujige.net/blog/iOS-Complete-learning-RunLoop.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『RunLoop』详尽总结</a></li></ol><h2 id="需要读的"><a href="#需要读的" class="headerlink" title="需要读的"></a>需要读的</h2><ol><li><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html" rel="external nofollow noopener noreferrer" target="_blank">Concurrency Programming Guide</a></li><li><a href="https://leylfl.github.io/2018/01/16/浅谈iOS多线程-源码/" rel="external nofollow noopener noreferrer" target="_blank">浅谈iOS多线程(源码)</a></li><li><a href="https://objccn.io/issue-2-3/" rel="external nofollow noopener noreferrer" target="_blank">底层并发 API</a></li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录读过的文章&lt;/p&gt;
     
     </summary>
     
@@ -453,17 +523,17 @@
   </entry>
   
   <entry>
-    <title>GCD源码理解</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/GCD_Source/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/GCD_Source/</id>
+    <title>多线程参考资料</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/referr/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/referr/</id>
     <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-17T11:57:53.764Z</updated>
+    <updated>2019-09-18T10:39:43.475Z</updated>
     
-    <content type="html"><![CDATA[<p>GCD源码理解</p><a id="more"></a><h2 id="GCD理解"><a href="#GCD理解" class="headerlink" title="GCD理解"></a>GCD理解</h2><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_sync.png" alt="同步"></p><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_async.png" alt="异步"></p>]]></content>
+    <content type="html"><![CDATA[<p>记录读过的文章</p><a id="more"></a><h2 id="读过的文章"><a href="#读过的文章" class="headerlink" title="读过的文章"></a>读过的文章</h2><ol><li><a href="https://bujige.net/blog/iOS-Complete-learning-NSOperation.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『NSOperation、NSOperationQueue』详尽总结</a></li><li><a href="https://objccn.io/issue-2-1/#challenges" rel="external nofollow noopener noreferrer" target="_blank">并发编程：API 及挑战</a></li><li><a href="https://blog.ibireme.com/2015/05/18/runloop/" rel="external nofollow noopener noreferrer" target="_blank">深入理解RunLoop</a>    </li><li><a href="https://bujige.net/blog/iOS-Complete-learning-RunLoop.html" rel="external nofollow noopener noreferrer" target="_blank">iOS 多线程：『RunLoop』详尽总结</a></li></ol><h2 id="需要读的"><a href="#需要读的" class="headerlink" title="需要读的"></a>需要读的</h2><ol><li><a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html" rel="external nofollow noopener noreferrer" target="_blank">Concurrency Programming Guide</a></li><li><a href="https://leylfl.github.io/2018/01/16/浅谈iOS多线程-源码/" rel="external nofollow noopener noreferrer" target="_blank">浅谈iOS多线程(源码)</a></li><li><a href="https://objccn.io/issue-2-3/" rel="external nofollow noopener noreferrer" target="_blank">底层并发 API</a></li></ol>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;GCD源码理解&lt;/p&gt;
+      &lt;p&gt;记录读过的文章&lt;/p&gt;
     
     </summary>
     
@@ -472,75 +542,7 @@
       <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
     
-  </entry>
-  
-  <entry>
-    <title>定积分</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/%E5%AE%9A%E7%A7%AF%E5%88%86/"/>
-    <id>http://yoursite.com/wiki/数学知识/高数/定积分/</id>
-    <published>2019-09-10T01:07:12.000Z</published>
-    <updated>2019-10-26T09:59:19.211Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录定积分的学习记录，方便以后复习</p><a id="more"></a><h2 id="定积分的概念和性质"><a href="#定积分的概念和性质" class="headerlink" title="定积分的概念和性质"></a>定积分的概念和性质</h2><p><strong>一、 定积分问题举例</strong></p><ol><li><p>曲边梯形的面积 $A=\lim \limits_{\lambda \to 0} {\sum_{i=1}^n{f(\xi) \Delta x}}$</p></li><li><p>变速直线运动的路程 $s = \lim_{\lambda \to 0}{\sum_{i = 1}^{n}{\nu}({\tau}_i)} \Delta t_i$</p></li></ol><blockquote><p>相同点： 特定和的极限</p></blockquote><p>定义： 设函数f(x)在[a,b]上有界，在[a,b]中任意插入若干个分点</p><p>$$a=x_0 &lt; x_1&lt;x_2…&lt;x_{n-1}&lt;x_n = b$$</p><p>把区间[a,b]分成n个小区间<br>$$[x_0,x_1],[x_1,x_2],…,[x_{n-1}]$$<br>各个小区间的长度依次为<br>$$\Delta x_1 = x_1-x_0,\Delta x_2 = x_2-x_1 … \Delta x_n = x_n - x_{n-1}$$<br>在每个小区间上任意去一点$\xi$,作为函数值$f(\xi)$与小区间长度$\Delta x_i$的乘积 $f(\xi_i) \cdot \Delta x_i$，并作出和<br>$$S = \sum_{i=1}^n{f(\xi_i) \cdot \Delta x_i}$$<br>如果和的极限存在，且闭区间[a,b]的分法及点$\xi_i$的取法无关，那么这个极限I为函数f(x)在区间[a,b]上的定积分，记作$\int_a^b{f(x)dx}$，即<br>$$\int_a^b{f(x)dx} = I = \lim_{\lambda \to 0}{\sum_{i=1}^n{f(\xi_i) \Delta x_i}}$$<br>其中[a,b]叫做积分区间。a叫做积分下限，b叫做积分上限</p><p>定积分的值只与被积函数和积分区间有关，而与积分变量和记法无关。</p><p>那么，对于定积分，函数$f(x)$在[a,b]上满足怎样的条件，f(x)一定可积呢？下面两个定理回答这个问题。</p><p><strong>定理1</strong> 设f(x)在区间[a,b]上连续，则f(x)在[a,b]上可积<br><strong>定理2</strong> 设f(x)在区间[a,b]上有界，且只有有限个间断点，则f(x)在[a,b]上可积</p><p>利用积分的性质，解决开篇的两个问题 :</p><ol><li>$A = \int^b_a{f(x)dx}$</li><li>$s = \int^{T_2}_{T_1}{\nu}(t)dt$</li></ol><p><strong>三、 定积分的近似计算</strong></p><ol><li>矩形法</li><li>抛物线法</li></ol><p><strong>四、 定积分的性质 </strong></p><p><strong>性质1</strong>： 设$\alpha$与$\beta$为常数，则：</p><p>$$\int^b_a{[{\alpha}f(x)+{\beta}g(x)]dx} = {\alpha} \int^b_a{f(x)dx}+{\beta}\int^b_a{g(x)dx}$$</p><p><strong>性质2(积分区间可加性)</strong>：设a&lt;c&lt;b，则<br>$$\int^b_a{f(x)dx} = \int^c_a{f(x)dx} + \int^b_c{f(x)dx}$$</p><p><strong>性质三</strong>： 如果在区间[a,b]上f(x)=1,那么<br>$$\int^b_a 1dx = \int^b_a dx = b-a$$</p><p><strong>性质四</strong> 如果在区间[a,b]上f(x)$\ge 0$，那么</p><p>$$\int^b_a{f(x)dx} \ge 0$$</p><p><strong>性质五</strong> 如果M及m分别是函数f(x)在区间【a,b】上的最大值及最小值，则<br>$$ m(b-a) \le \int^b_a{f(x)dx} \le M(b-a)$$</p><blockquote><p>积分就是宽、高的和</p></blockquote><p><strong>性质六</strong>（定积分中值定理） 如果函数f(x)在积分区间[a,b]上连续，那么在[a,b]上至少存在一点$\xi$，使下式成立：<br>$$\int^b_a{f(x)dx} = f(\xi)(b-a)$$</p><h2 id="第二节-微分基本公式"><a href="#第二节-微分基本公式" class="headerlink" title="第二节 微分基本公式"></a>第二节 微分基本公式</h2><p><strong>一、 变速直线运动中，位置函数与速度函数之间的联系</strong></p><p>位置函数与速度函数有如下关系：</p><p>$$\int^{T_2}_{T_1}{\nu}(t)dt = s(T_2) - s(T_1) \text{，位置函数是速度函数的原函数，定积分是原函数的增量}$$</p><p><strong>二、积分上限的函数及其导数</strong> </p><p><strong>定理一</strong> 如果函数f(x)在区间[a,b]上连续，那么积分上限函数：<br>$$ \Phi (x) = \int^x_a{f(t)}dt$$<br>在[a,b]上可导，并且它的导数:</p><p>$$ {\Phi}’ (x) = \frac{d}{dx} \int^x_a{f(t)}dt = f(x)$$</p><p>这个定理指出了一个重要结论： 连续函数f(x)取边上限x的定积分，然后求导，其结果还原为f(x)本身。所以${\Phi} (x)$是连续函数 f(x)的一个原函数。</p><p><strong>定理二</strong> 如果函数f(x)在区间[a,b]上连续，那么函数</p><p>$$\Phi (x) = \int^x_a{f(t)}dt$$<br>就是f(x)在[a,b]上的一个原函数。</p><p>这个定理的意义：定积分和原函数的联系，因此我们就有可能通过原函数计算定积分。</p><p><strong>三、 牛顿-莱布尼茨公式</strong></p><p>这个定理的意义： 给出了用原函数计算定积分的公式。</p><p><strong>定理三：微积分基本定理</strong>：如果函数F(x)是连续函数f(x)在区间[a,b]上的一个原函数，那么<br>$$\int_a^b{f(x)dx}=F(b)-F(a)$$</p><p>这个函数进一步揭秘了原函数和不定积分之间的关系。</p><h2 id="第三节-定积分的换元法和分部积分法"><a href="#第三节-定积分的换元法和分部积分法" class="headerlink" title="第三节 定积分的换元法和分部积分法"></a>第三节 定积分的换元法和分部积分法</h2><p>定积分的分部积分法：</p><p>$$\int^b_a{\mu}d{\nu}= [{\mu}{\nu}]^b_a - \int^b_a{\nu} \mu d \mu$$</p><h2 id="有用的公式"><a href="#有用的公式" class="headerlink" title="有用的公式"></a>有用的公式</h2><ol><li>$1^2+2^2+..+n^2= \frac{1}{6}n(n+1)(2n+1)$</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录定积分的学习记录，方便以后复习&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
-    
-      <category term="高数" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/"/>
-    
-    
-      <category term="高数" scheme="http://yoursite.com/tags/%E9%AB%98%E6%95%B0/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>刷脸登录调研</title>
-    <link href="http://yoursite.com/wiki/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/%E4%BA%BA%E8%84%B8%E7%99%BB%E5%BD%95/faceLogin/"/>
-    <id>http://yoursite.com/wiki/编程理论/人脸登录/faceLogin/</id>
-    <published>2019-09-03T04:11:35.000Z</published>
-    <updated>2019-09-03T08:57:01.905Z</updated>
-    
-    <content type="html"><![CDATA[<p>本文调研人脸登录的实现思路。</p><a id="more"></a><h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>人脸登录包括两个流程：人脸注册、人脸查找。</p><h2 id="人脸注册"><a href="#人脸注册" class="headerlink" title="人脸注册"></a>人脸注册</h2><p><img src="/wiki/编程理论/人脸登录/faceLogin/register.png" alt="人脸注册流程"></p><p><img src="/wiki/编程理论/人脸登录/faceLogin/data1.png" alt="图片组织结构"></p><p><img src="/wiki/编程理论/人脸登录/faceLogin/data2.png" alt="facetoken和profileid对应关系"></p><h2 id="刷脸登录（查找人脸的过程）"><a href="#刷脸登录（查找人脸的过程）" class="headerlink" title="刷脸登录（查找人脸的过程）"></a>刷脸登录（查找人脸的过程）</h2><p><img src="/wiki/编程理论/人脸登录/faceLogin/login.png" alt="刷脸登录"></p><h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><ol><li>非常像的双胞胎能识别出来吗？</li></ol><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul><li><a href="https://blog.csdn.net/zzqaaasss/article/details/89194437" rel="external nofollow noopener noreferrer" target="_blank">微信小程序使用face++实现人脸识别登录注册</a></li><li><a href="https://console.faceplusplus.com.cn/documents/4888373" rel="external nofollow noopener noreferrer" target="_blank">face++文档中心</a></li><li><a href="https://blog.csdn.net/qq_23412263/article/details/86232682" rel="external nofollow noopener noreferrer" target="_blank">使用 face++ API 实现人脸识别，刷脸登陆和活体检测（张张嘴，眨眨眼）</a></li></ul>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;本文调研人脸登录的实现思路。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="编程理论" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/"/>
-    
-      <category term="人脸登录" scheme="http://yoursite.com/categories/%E7%BC%96%E7%A8%8B%E7%90%86%E8%AE%BA/%E4%BA%BA%E8%84%B8%E7%99%BB%E5%BD%95/"/>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>第四章 不定积分</title>
-    <link href="http://yoursite.com/wiki/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/four_indefinite_integral/"/>
-    <id>http://yoursite.com/wiki/数学知识/高数/four_indefinite_integral/</id>
-    <published>2019-08-29T01:07:12.000Z</published>
-    <updated>2019-10-26T07:32:33.631Z</updated>
-    
-    <content type="html"><![CDATA[<p>记录导数与微分的主要知识点，</p><a id="more"></a><h2 id="第一节-不定积分的概念和性质"><a href="#第一节-不定积分的概念和性质" class="headerlink" title="第一节 不定积分的概念和性质"></a>第一节 不定积分的概念和性质</h2><p>一、 原函数和不定积分的概念 </p><p>定义1：如果在区间I上，可导函数F(x)的导函数为f(x),即对任意x属于I都有：<br>$$F’(x)=f(x) 或dF(x)=f(x)dx$$<br>那么函数F(x)就称为f(x)（或f(x)dx）在区间I上的一个<strong>原函数</strong>。</p><p>什么样的函数才存在原函数？</p><p><strong>原函数存在定理</strong>：如果函数f(x)在区间I上连续，那么在区间I上存在可导函数F(x),使对任一x属于I，都有：</p><p>$$F’(x)=f(x)$$</p><p>简单的说，连续函数一定有原函数。</p><p>一个函数的原函数有怎样的特点呢：</p><ol><li>如果函数$f(x)$有一个原函数，那么$f(x)$有无限多个原函数</li><li>无限多个原函数相差一个常数，表达式 $F(x) + C $可以表示f(x)的任意一个原函数。</li></ol><p>所以，使用下面的定义表示无限多个原函数：</p><p><strong>定义2</strong> 在区间I上，函数$f(x)$的带有任意常数项的原函数称为$f(x)$(或$f(x)dx$)在区间I上的不定积分，记作：<br>$$\int{f(x)dx}$$<br>其中记号$\int$称为积分号，$f(x)$称为被积函数，$f(x)dx$<br>称为被积表达式，x称为积分变量。</p><p>结论：因而<strong>不定积分</strong>$\int{f(x)dx}$<strong>可以表达$f(x)$的任意一个原函数</strong>。</p><p>函数f(x)的原函数的图形称为函数f(x)的积分曲线。</p><p><strong>微分和积分的关系</strong> ：</p><p>由于$\int {f(x)dx}$ 是$f(x)$的原函数，所以：</p><p>$$\frac{d}{dx} \left[\int{f(x) dx} \right] = f(x)$$</p><p>又由于$F(x)$是$F’(x)$的原函数所以 ： $$\int F’(x)dx = F(x) + C$$</p><p>或者记作：</p><p>$$\int dF(x) = F(x) + C$$</p><p>由此可见，微分运算（以符号d表示）与不定积分运算（以记号$\int$表示）是互逆的，当$\int$和d连在一起的时候，或者可以抵消，或者抵消后差一个常数。</p><p><strong>基本积分表</strong></p><ol><li>$\int k dx = kx +C$</li><li>$\int x^{\mu} dx= \frac{x^{\mu + 1}}{\mu + 1} + C  \text  (\mu \ne -1) $</li><li>$\int \frac{dx}{x} = \ln |x| + C$</li><li>$\int \cos x dx = \sin x +C $</li><li>$\int \sin x dx$ = - cos x +C</li><li>$\int \frac{dx}{\sqrt{1-x^2}} = \arcsin x + C$</li><li>$\int \frac{dx}{\cos^2 x} = \int \sec^2 dx= \tan x + C $</li><li>$ \int \frac{dx}{\sin^2 x} = \int \csc^2 x dx = -\cot x + C$</li><li>$\int \frac{dx}{1+x^2} = \arctan x + C$</li><li>$\int \sec x \tan x dx = \sec x + C$</li><li>$\int \csc x \cot x dx = -\csc x +C$</li><li>$\int e^x dx = e^x + C$</li><li>$\int a^x dx = \frac{a^x}{\ln a} + C$</li></ol><p><strong>不定积分的性质</strong></p><p><strong>性质1(不定积分加法性质)</strong> 设函数f(x)及 g(x)<strong>的原函数存在</strong>，则</p><p>$$\int{[f(x)+g(x)]dx} = \int{f(x)dx} + \int{g(x)dx}$$</p><p><strong>性质2（不定积分系数性质）</strong> 设函数f(x)的原函数存在，k为非零常数，则 </p><p>$$\int{kf(x)dx}=k\int{f(x)dx}$$</p><h2 id="第二节-换元积分法"><a href="#第二节-换元积分法" class="headerlink" title="第二节 换元积分法"></a>第二节 换元积分法</h2><p>把复合函数的微分法反过来，用于求不定积分，利用中间变量的代换，得到复合函数的积分，称为<strong>积分换元法</strong>。</p><p>一、 第一类换元法 </p><p>定理1 设f(u)具有原函数，u=$\psi$(x)可导，则有换元公式<br>$$\int{f[\psi (x)]\psi ‘(x)dx} = [\int{f(u)du}]_{u=\psi (x)}$$</p><p>如果应用换元法求不定积分呢？设要求$\int{g(x)dx}$，如果g(x)可以化为g(x)= $f[\psi (x)]\psi ‘(x)$的形式，那么<br>$$\int {g(x)dx}= \int{f[\psi (x)]\psi ‘(x)dx}=\int{f(u)du}$$</p><blockquote><p>其中$\psi ‘(x)dx 转化为du$ 是将自变量微分形式 转化为整个因变量的微分形式。这需要理解。</p></blockquote><p>这样，就将函数$g(x)$的积分转化为函数$f(u)$的积分，如果能求出$f(u)$的原函数，那么就得到了$g(x)$的原函数。</p><p><strong>具体求解的步骤</strong>：</p><ol><li>选取$u = \psi (x)$</li><li>转化为这个$\int{f[\psi (x)]\psi ‘(x)dx} = \int{f(u)du}$  的形式</li><li>计算$f(u)$的积分</li><li>使用$u = \psi (x)$ 积分中的$u$替换为$x$。</li></ol><p><strong>示例</strong>： 计算$\int 2 \cos 2x dx$</p><ol><li>选取$u = 2x$</li><li>转化形式：$\int 2 \cos 2x dx = \int \cos 2x \cdot (2x)’ dx = \int \cos u du $</li><li>计算积分： $\int 2 \cos 2x dx = \sin u + C$</li><li>将$u$代换为$x$： $\int 2 \cos 2x dx = \sin 2x + C$</li></ol><p>二、 第二类换元法 </p><p>适当的选择变量代换，$x=\psi (t)$，将积分$\int f(x)dx$化为积分$\int f[\psi (t)] {\psi}’(t) dt $，这是另一种形式的变量代换，还原公式可以表达为 :</p><p>$$\int f(x)dx = \int f[\psi (t)] {\psi}’(t) dt$$</p><p>定理2 设$x=\psi (t)$是单调的可导函数，并且${\psi}’(t) \ne 0$ 又设$f[{\psi}(t)]{\psi}’(t)$具有原函数，则有还原公式 ：</p><p>$$\int{f(x)dx} = \left [{\int{f[{\psi(t)}]{\psi}’(t)dt}}\right ]_{t={\psi}^{-1}{(x)}}$$</p><h2 id="第三节-分部积分法"><a href="#第三节-分部积分法" class="headerlink" title="第三节 分部积分法"></a>第三节 分部积分法</h2><p>积分换元法基于的原理是复合函数求导法则， 现在我们利用两个函数乘积的求导法则，来推得另一个求积分的基本方法–分部积分法。</p><p>设$\mu = {\mu}(x)$及$\nu={\nu}(x)$具有连续的导函数，则两个函数乘积的导数公式为：<br>$$({\mu}{\nu})’ = {\mu}’{\nu}+{\mu}{\nu}’$$,<br>移项，得：<br>$${\mu}’{\nu}  = ({\mu}{\nu})’ - {\mu}{\nu}’$$<br>两边求不定积分，得<br>$$\int {\mu}’{\nu}dx  = ({\mu}{\nu}) - \int {\mu}{\nu}’dx$$</p><p>这个公式称为分部积分公式。如果求$\int {\mu}’{\nu}dx$有困难，而求$ \int {\mu}{\nu}’dx$比较容易时，分部积分公式就可以发挥作用了。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;记录导数与微分的主要知识点，&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="数学知识" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/"/>
-    
-      <category term="高数" scheme="http://yoursite.com/categories/%E6%95%B0%E5%AD%A6%E7%9F%A5%E8%AF%86/%E9%AB%98%E6%95%B0/"/>
-    
-    
-      <category term="不定积分" scheme="http://yoursite.com/tags/%E4%B8%8D%E5%AE%9A%E7%A7%AF%E5%88%86/"/>
+      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
     
   </entry>
   

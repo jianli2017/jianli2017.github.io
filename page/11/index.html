@@ -527,7 +527,7 @@
                             &nbsp;
                             Theory
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Theory/IOS 知识点/">IOS 知识点总结</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/IOS/Theory/IOS 知识点/">IOS 知识点总结</a></li>  <li class="file"><a href="/wiki/IOS/Theory/IOS知识简洁版/">IOS知识简洁版</a></li>  </ul> 
                     </li> 
                     
                     <li class="directory">
@@ -1031,6 +1031,24 @@
                         <a href="#" data-role="directory">
                             <i class="fa fa-folder"></i>
                             &nbsp;
+                            视频学习记录
+                        </a>
+                         <ul class="unstyled" id="tree"> 
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
+                            Swift
+                        </a>
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/视频学习记录/Swift/1_汇编语言/">汇编语言</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/2_swift简介/">swift简介</a></li>  </ul> 
+                    </li> 
+                     </ul> 
+                    </li> 
+                    
+                    <li class="directory">
+                        <a href="#" data-role="directory">
+                            <i class="fa fa-folder"></i>
+                            &nbsp;
                             资料收集
                         </a>
                          <ul class="unstyled" id="tree"> 
@@ -1116,7 +1134,7 @@
 </aside>
             
             <section id="main">
-        <article id="post-IOS/Runtime/objc/13_class_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <article id="post-IOS/Runtime/objc/15_autoreleasepool" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
         
@@ -1132,14 +1150,14 @@
                         
     <div class="article-tag">
         <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/initialize/">initialize</a>
+        <a class="tag-link" href="/tags/autorelease/">autorelease</a>
     </div>
 
                         
     <div class="article-date">
         <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/13_class_initialize/">
-            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        <a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">
+            <time datetime="2018-12-03T02:38:11.000Z" itemprop="datePublished">2018-12-03</time>
         </a>
     </div>
 
@@ -1150,7 +1168,7 @@
                 
     
         <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a>
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/15_autoreleasepool/">15. 自动释放池的前世今生（转载)</a>
         </h1>
     
 
@@ -1162,13 +1180,91 @@
         
             
                 
-                <p></p><p>本文是我自己理解_class_initialize的记录</p><p></p>
+                <p><blockquote>
+<p>由于 Objective-C 中的内存管理是一个比较大的话题，所以会分为两篇文章来对内存管理中的一些机制进行剖析，一部分分析自动释放池以及 <code>autorelease</code> 方法，另一部分分析 <code>retain</code>、<code>release</code> 方法的实现以及自动引用计数。</p>
+</blockquote></p>
             
         
         
             </div>   
             <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/13_class_initialize/#more">查看更多</a>
+                <a href="/wiki/IOS/Runtime/objc/15_autoreleasepool/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/Runtime/objc/14_AssociatedObject " class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/AssociatedObject/">AssociatedObject</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">
+            <time datetime="2018-12-02T02:38:11.000Z" itemprop="datePublished">2018-12-02</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/14_AssociatedObject /">14. 关联对象 AssociatedObject 完全解析（转载)</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>我们在 iOS 开发中经常需要使用分类（Category），为已经存在的类添加属性的需求，但是使用 <code>@property</code> 并不能在分类中<strong>正确</strong>创建实例变量和存取方法。</p>
+<p>不过，通过 Objective-C 运行时中的关联对象，也就是 Associated Object，我们可以实现上述需求。</p>
+<p>这篇文章包含了两方面的内容：</p>
+<ul>
+<li><a href="#关联对象的应用">使用关联对象为已经存在的类中添加属性</a></li>
+<li><a href="#关联对象的实现">关联对象在底层 Objective-C 中的实现</a></li>
+</ul>
+<blockquote>
+<p>注：如果你刚刚入门 iOS 开发，笔者相信了解第一部分的内容会对你的日常开发中有所帮助，不过第二部分的内容可能有些难以理解。</p>
+<p>如果你对关联对象的使用非常熟悉，可以直接跳过第一部分的内容，从<a href="#关联对象的实现">这里</a>开始深入了解其底层实现。</p>
+</blockquote><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/14_AssociatedObject /#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1235,6 +1331,143 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/IOS/Runtime/objc/11_load/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/Runtime/objc/13_class_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/initialize/">initialize</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/13_class_initialize/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/13_class_initialize/">13. _class_initialize 源码分析</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>本文是我自己理解_class_initialize的记录</p><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/13_class_initialize/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
+        <article id="post-IOS/Runtime/objc/12_initialize" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/initialize/">initialize</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/12_initialize/">
+            <time datetime="2018-12-01T03:38:11.000Z" itemprop="datePublished">2018-12-01</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/12_initialize/">12. 懒惰的 initialize 方法（转载）</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p></p><p>这篇文章可能是对 Objective-C 源代码解析系列文章中最短的一篇了，在 Objective-C 中，我们总是会同时想到 <code>load</code>、<code>initialize</code> 这两个类方法。而这两个方法也经常在一起比较。</p>
+<p>本文会主要介绍：</p>
+<ol>
+<li><code>initialize</code> 方法的调用为什么是惰性的。</li>
+<li>这货能干啥。</li>
+</ol><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/12_initialize/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">
@@ -1591,206 +1824,8 @@
 
 
     
-        <article id="post-IOS/Runtime/objc/5list_array_tt" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/list-array-tt/">list_array_tt</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/5list_array_tt/">
-            <time datetime="2018-11-20T02:38:11.000Z" itemprop="datePublished">2018-11-20</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/5list_array_tt/">5. list_array_tt 结构详解</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>list_array_tt 是个模板类，可以实例化出method_array_t，method_array_t在class_rw_t中使用，存储多个分类中的方法列表。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/5list_array_tt/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/objc/4entsize_list_tt" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/entsize-list-tt/">entsize_list_tt</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">
-            <time datetime="2018-11-03T02:38:11.000Z" itemprop="datePublished">2018-11-03</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/4entsize_list_tt/">4. 方法列表entsize_list_tt结构</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文讲解entsize_list_tt方法列表的数据结构。本节代码位于objc-runtime-new.h头文件中</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/4entsize_list_tt/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-IOS/Runtime/objc/3NSObject" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/NSObject/">NSObject</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/IOS/Runtime/objc/3NSObject/">
-            <time datetime="2018-11-02T02:38:11.000Z" itemprop="datePublished">2018-11-02</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/IOS/Runtime/objc/3NSObject/">3. NSObject 基本完整类图</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>本文保存了NSObject的基本完整类图。方便以后理解。</p><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/IOS/Runtime/objc/3NSObject/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
         <nav id="page-nav">
-        <a class="extend prev" rel="prev" href="/page/10/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/20/">20</a><a class="extend next" rel="next" href="/page/12/">下一页 &raquo;</a>
+        <a class="extend prev" rel="prev" href="/page/10/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="page-number" href="/page/10/">10</a><span class="page-number current">11</span><a class="page-number" href="/page/12/">12</a><a class="page-number" href="/page/13/">13</a><span class="space">&hellip;</span><a class="page-number" href="/page/21/">21</a><a class="extend next" rel="next" href="/page/12/">下一页 &raquo;</a>
         </nav>
     
 </section>
