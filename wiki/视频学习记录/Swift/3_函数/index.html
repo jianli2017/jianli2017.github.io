@@ -3,24 +3,24 @@
 <head>
     <meta charset="utf-8">
     
-    <title>函数、枚举 | LJ小窝</title>
+    <title>函数、枚举、可选项、结构体、闭包、属性 | LJ小窝</title>
     
     
         <meta name="keywords" content="swift">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="函数 学习记录">
+    <meta name="description" content="函数 、枚举、可选项学习记录">
 <meta name="keywords" content="swift">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数、枚举">
+<meta property="og:title" content="函数、枚举、可选项、结构体、闭包、属性">
 <meta property="og:url" content="http://yoursite.com/wiki/视频学习记录/Swift/3_函数/index.html">
 <meta property="og:site_name" content="LJ小窝">
-<meta property="og:description" content="函数 学习记录">
+<meta property="og:description" content="函数 、枚举、可选项学习记录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-09T02:44:07.724Z">
+<meta property="og:updated_time" content="2020-01-09T08:41:46.360Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数、枚举">
-<meta name="twitter:description" content="函数 学习记录">
+<meta name="twitter:title" content="函数、枚举、可选项、结构体、闭包、属性">
+<meta name="twitter:description" content="函数 、枚举、可选项学习记录">
     
 
     
@@ -1042,7 +1042,7 @@
                             &nbsp;
                             Swift
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/视频学习记录/Swift/1_汇编语言/">汇编语言</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/2_swift简介/">swift简介</a></li>  <li class="file active"><a href="/wiki/视频学习记录/Swift/3_函数/">函数、枚举</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/视频学习记录/Swift/1_汇编语言/">汇编语言</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/2_swift简介/">swift简介</a></li>  <li class="file active"><a href="/wiki/视频学习记录/Swift/3_函数/">函数、枚举、可选项、结构体、闭包、属性</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -1169,7 +1169,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            函数、枚举
+            函数、枚举、可选项、结构体、闭包、属性
         </h1>
     
 
@@ -1182,12 +1182,12 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数"><span class="toc-number">1.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#枚举"><span class="toc-number">2.</span> <span class="toc-text">枚举</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数"><span class="toc-number">1.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#枚举"><span class="toc-number">2.</span> <span class="toc-text">枚举</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可选类型"><span class="toc-number">3.</span> <span class="toc-text">可选类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#结构体"><span class="toc-number">4.</span> <span class="toc-text">结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#闭包"><span class="toc-number">5.</span> <span class="toc-text">闭包</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#属性"><span class="toc-number">6.</span> <span class="toc-text">属性</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#inout的本质总结"><span class="toc-number">6.1.</span> <span class="toc-text">inout的本质总结</span></a></li></ol></li></ol>
                 </div>
             
         
         
-            <p>函数 学习记录</p>
+            <p>函数 、枚举、可选项学习记录</p>
 <a id="more"></a>
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol>
 <li>形参默认是let</li>
@@ -1218,6 +1218,64 @@
 <li>递归枚举： indirect关键字指定</li>
 <li>MemoryLayout ： stride分配内存， size 实际用到的大小、 alignment对齐参数 </li>
 </ol>
+<h2 id="可选类型"><a href="#可选类型" class="headerlink" title="可选类型"></a>可选类型</h2><ol>
+<li>在类型后面添加问号来定义一个可选类型</li>
+<li>如果为nil：那么它是一个空盒子</li>
+<li>如果不为nil，那么盒子里面装的是被包装类型的数据</li>
+<li>使用感叹号取出盒子中包装的值取出来—强制解包</li>
+<li>如果对nil的可选项进行强制解包会产生运行错误。</li>
+<li>判断可选项是否包含值 <code>if num != nil</code></li>
+<li>可选绑定：如果包含值，自动解包，赋值给临时变量，返回true，否则返回false</li>
+<li>空合并运算符 <code>a ?? b</code>。a是可选项、b可以是可选项，也可以不是、ab类型相同、如果b不是可选项，返回a会自动解包。</li>
+<li>guard 如果条件为false时就执行大括号中的代码；如果条件为true，跳过guard语句；guard绑定的常量变量外层作用域中也能使用。</li>
+<li>可选的本质是枚举  </li>
+</ol>
+<h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a>结构体</h2><ol>
+<li>一旦结构体定义时定义了初始化器， 编译器就不会再帮自动生成初始化器</li>
+<li>如果类的所有成员都在定义的时候指定了初始值，编译器会为类生成无参的初始化器</li>
+<li>结构体是值类型，类是引用类型</li>
+<li>值类型赋值，是直接将所有的内容拷贝一份，是深拷贝</li>
+<li>引用类型赋值： 是将内存地址拷贝一份</li>
+<li><p>对象的堆空间的申请过程</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Class.__allocating_init()</span><br><span class="line">libswiftCore<span class="selector-class">.dylib</span>: _swift_allocObject_</span><br><span class="line">libswiftCore<span class="selector-class">.dylib</span>: _swift_slowAlloc_</span><br><span class="line">libsystem_malloc<span class="selector-class">.dylib</span>: malloc</span><br><span class="line">``</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>malloc函数分配的内存大小是16的倍数</p>
+</li>
+<li>通过<code>class_getInstancSize</code>可以得知：类的对象至少需要占用多少内存</li>
+<li>方法占用内存吗？不占用</li>
+</ol>
+<h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><p>闭包的结构如下：</p>
+<figure class="highlight livescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="params">(参数列表)</span>-&gt;</span> 返回值 <span class="keyword">in</span></span><br><span class="line">    函数体代码</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>尾随闭包简化函数调用，增强可读性。闭包作为函数的最后一个参数使用时</li>
+<li>闭包： 一个函数和它所捕获的变量、常量环境组合起来，称为闭包</li>
+<li>自动闭包  <figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span> @autoclosure 会将<span class="number">20</span>封装成闭包 &#123;<span class="number">20</span>&#125;</span><br><span class="line"><span class="number">2.</span> 只支持()-&gt;T格式的函数 </span><br><span class="line"><span class="number">3.</span> 空合并运算符只用了autoclosure技术</span><br><span class="line"><span class="number">4.</span> 有无autoclosure构成了函数重载</span><br><span class="line"><span class="number">5.</span> 使用autoclosure的地方最好注明，这个值会被延迟执行</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct Circle &#123;</span><br><span class="line">    var radius: Double</span><br><span class="line">    var diameter: Double &#123;</span><br><span class="line">        <span class="builtin-name">set</span>(newDiameter) &#123;</span><br><span class="line">           <span class="built_in"> radius </span>= newDiameter/2</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="builtin-name">get</span> &#123;</span><br><span class="line">            radius<span class="number">*2</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>定义计算属性只能用var，不能用let </li>
+<li>延迟存储属性： 第一次用到的时候才进行初始化，lazy属性必须是var，let必须在实例初始化完成之前就拥有值，所以lazy和let是互斥的。多线程不安全</li>
+<li>当结构体包含一个延迟存储属性时，只有var才能访问延迟存储属性，因为延迟粗才能属性会改变结构体的内存</li>
+<li><p>可以为非lay的var存储属性设置属性观察器  </p>
+ <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Circle</span> </span>&#123;</span><br><span class="line">       <span class="keyword">var</span> radius: <span class="type">Double</span> &#123;</span><br><span class="line">           <span class="keyword">willSet</span> &#123;</span><br><span class="line">               <span class="built_in">print</span>(<span class="string">"willset"</span>)</span><br><span class="line">           &#125; </span><br><span class="line">           disSet &#123;</span><br><span class="line">               </span><br><span class="line">           &#125;</span><br><span class="line">       &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>willSet 会传递新值，didSet会传递旧值</p>
+</li>
+<li>在初始化器中设置属性值不会触发willSet和didSet</li>
+<li>在属性定义时设置初始值也不会触发willSet和didSet</li>
+<li>属性观测器、计算属性的功能同样可以应用在全局变量、局部变量上</li>
+</ol>
+<h3 id="inout的本质总结"><a href="#inout的本质总结" class="headerlink" title="inout的本质总结"></a>inout的本质总结</h3><p>如果实参有物理内存地址，且没有设置属性观测器： 直接将实参的内存地址传入函数(实参进行引用传递)</p>
+<p>如果实参是计算属性或者设置了属性观测器： 采用copy in copy out的做法</p>
+<ol>
+<li>调用该函数时，先复制实参的值，参数副本[get] </li>
+<li>将副本的内存地址传入函数(副本进行引用传递)， 在函数内部可以修改副本的值</li>
+<li>函数返回后，再将副本的值覆盖实参的值[set]</li>
+</ol>
+<p>所以： inout的本质就是引用传递(地址传递)</p>
+<p>可以通过static 定义类型属性，在类中，也可以通过class定义类型属性</p>
+<p>类型属性： 类型存储属性默认是lazy的，多线程安全，不需要设定初始值，应为类对象没有向实例一样的初始化器。</p>
 
             </div>
         
@@ -1245,7 +1303,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/视频学习记录/Swift/3_函数/" data-title="函数、枚举" data-url="http://yoursite.com/wiki/视频学习记录/Swift/3_函数/"></div>
+    <div class="ds-thread" data-thread-key="wiki/视频学习记录/Swift/3_函数/" data-title="函数、枚举、可选项、结构体、闭包、属性" data-url="http://yoursite.com/wiki/视频学习记录/Swift/3_函数/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;
