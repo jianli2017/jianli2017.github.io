@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     
-    <title>函数 | LJ小窝</title>
+    <title>函数、枚举 | LJ小窝</title>
     
     
         <meta name="keywords" content="swift">
@@ -12,14 +12,14 @@
     <meta name="description" content="函数 学习记录">
 <meta name="keywords" content="swift">
 <meta property="og:type" content="article">
-<meta property="og:title" content="函数">
+<meta property="og:title" content="函数、枚举">
 <meta property="og:url" content="http://yoursite.com/wiki/视频学习记录/Swift/3_函数/index.html">
 <meta property="og:site_name" content="LJ小窝">
 <meta property="og:description" content="函数 学习记录">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2020-01-09T01:58:26.691Z">
+<meta property="og:updated_time" content="2020-01-09T02:44:07.724Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="函数">
+<meta name="twitter:title" content="函数、枚举">
 <meta name="twitter:description" content="函数 学习记录">
     
 
@@ -1042,7 +1042,7 @@
                             &nbsp;
                             Swift
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/视频学习记录/Swift/1_汇编语言/">汇编语言</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/2_swift简介/">swift简介</a></li>  <li class="file active"><a href="/wiki/视频学习记录/Swift/3_函数/">函数</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/视频学习记录/Swift/1_汇编语言/">汇编语言</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/2_swift简介/">swift简介</a></li>  <li class="file active"><a href="/wiki/视频学习记录/Swift/3_函数/">函数、枚举</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -1169,7 +1169,7 @@
                 
     
         <h1 class="article-title" itemprop="name">
-            函数
+            函数、枚举
         </h1>
     
 
@@ -1182,7 +1182,7 @@
             
                 <div id="toc" class="toc-article">
                 <strong class="toc-title">文章目录</strong>
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数"><span class="toc-number">1.</span> <span class="toc-text">函数</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#函数"><span class="toc-number">1.</span> <span class="toc-text">函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#枚举"><span class="toc-number">2.</span> <span class="toc-text">枚举</span></a></li></ol>
                 </div>
             
         
@@ -1205,6 +1205,18 @@
 <li>内联函数：不会内联的函数包括：函数体比较长，包含递归、动态派发<code>@inline(never)  @inline(__always)</code></li>
 <li>函数类型，条用的时候不需要参数标签</li>
 <li>typealias 用来给类型其别名 <code>typealias Byte = Int8</code></li>
+</ol>
+<h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><ol>
+<li><p>枚举的用法</p>
+ <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Direction</span>&#123;</span></span><br><span class="line">       <span class="keyword">case</span> north</span><br><span class="line">       <span class="keyword">case</span> south</span><br><span class="line">       <span class="keyword">case</span> east</span><br><span class="line">       <span class="keyword">case</span> west</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>关联值：枚举的成员值和其他类型的值关联存储在一起</p>
+</li>
+<li>原始值：枚举成员可以使用相同类型的默认值预先对应，这个默认值叫做原始值，定义方法：在枚举类型后面指定类型</li>
+<li>所以：枚举相关的名称有：成员值、原始值（不占用枚举变量的内存）、关联值</li>
+<li>隐式原始值： 如果枚举的原始值类型是Int、Stirng，swift会自动分配原始值</li>
+<li>递归枚举： indirect关键字指定</li>
+<li>MemoryLayout ： stride分配内存， size 实际用到的大小、 alignment对齐参数 </li>
 </ol>
 
             </div>
@@ -1233,7 +1245,7 @@
     
     
         <section id="comments"> 
-    <div class="ds-thread" data-thread-key="wiki/视频学习记录/Swift/3_函数/" data-title="函数" data-url="http://yoursite.com/wiki/视频学习记录/Swift/3_函数/"></div>
+    <div class="ds-thread" data-thread-key="wiki/视频学习记录/Swift/3_函数/" data-title="函数、枚举" data-url="http://yoursite.com/wiki/视频学习记录/Swift/3_函数/"></div>
     <style>
         #ds-thread #ds-reset .ds-textarea-wrapper {
             background: none;

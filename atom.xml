@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-09T01:58:26.691Z</updated>
+  <updated>2020-01-09T02:44:07.724Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,13 +17,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>函数</title>
+    <title>函数、枚举</title>
     <link href="http://yoursite.com/wiki/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/3_%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/wiki/视频学习记录/Swift/3_函数/</id>
     <published>2020-01-09T01:07:12.000Z</published>
-    <updated>2020-01-09T01:58:26.691Z</updated>
+    <updated>2020-01-09T02:44:07.724Z</updated>
     
-    <content type="html"><![CDATA[<p>函数 学习记录</p><a id="more"></a><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol><li>形参默认是let</li><li>函数体是单一表达式，隐式返回</li><li>返回元组，多参数返回</li><li><p>函数的注释： </p> <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> Parameter <span class="symbol">v1:</span></span></span><br><span class="line"><span class="ruby">- Parameter <span class="symbol">v2:</span></span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby">- <span class="symbol">Returns:</span></span></span><br><span class="line"><span class="ruby">- <span class="symbol">Note:</span></span></span><br></pre></td></tr></table></figure></li><li><p>参数标签：下划线可以省略参数标签</p></li><li>参数默认值：由于swift拥有参数标签，对默认参数没有从右向左的顺序的限制</li><li>可变参数： 类型后面三个点，一个函数只能有一个可变参数，紧跟在可变参数后面参数不能省略参数标签</li><li>输入输出参数： 类型签名添加inout， inout参数不能有默认值，本质是引用</li><li>函数重载：参数个数|参数类型|参数标签不同都构成函数重载，返回值不构成函数重载</li><li>内联函数：不会内联的函数包括：函数体比较长，包含递归、动态派发<code>@inline(never)  @inline(__always)</code></li><li>函数类型，条用的时候不需要参数标签</li><li>typealias 用来给类型其别名 <code>typealias Byte = Int8</code></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>函数 学习记录</p><a id="more"></a><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol><li>形参默认是let</li><li>函数体是单一表达式，隐式返回</li><li>返回元组，多参数返回</li><li><p>函数的注释： </p> <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> Parameter <span class="symbol">v1:</span></span></span><br><span class="line"><span class="ruby">- Parameter <span class="symbol">v2:</span></span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby">- <span class="symbol">Returns:</span></span></span><br><span class="line"><span class="ruby">- <span class="symbol">Note:</span></span></span><br></pre></td></tr></table></figure></li><li><p>参数标签：下划线可以省略参数标签</p></li><li>参数默认值：由于swift拥有参数标签，对默认参数没有从右向左的顺序的限制</li><li>可变参数： 类型后面三个点，一个函数只能有一个可变参数，紧跟在可变参数后面参数不能省略参数标签</li><li>输入输出参数： 类型签名添加inout， inout参数不能有默认值，本质是引用</li><li>函数重载：参数个数|参数类型|参数标签不同都构成函数重载，返回值不构成函数重载</li><li>内联函数：不会内联的函数包括：函数体比较长，包含递归、动态派发<code>@inline(never)  @inline(__always)</code></li><li>函数类型，条用的时候不需要参数标签</li><li>typealias 用来给类型其别名 <code>typealias Byte = Int8</code></li></ol><h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><ol><li><p>枚举的用法</p> <figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Direction</span>&#123;</span></span><br><span class="line">       <span class="keyword">case</span> north</span><br><span class="line">       <span class="keyword">case</span> south</span><br><span class="line">       <span class="keyword">case</span> east</span><br><span class="line">       <span class="keyword">case</span> west</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li><li><p>关联值：枚举的成员值和其他类型的值关联存储在一起</p></li><li>原始值：枚举成员可以使用相同类型的默认值预先对应，这个默认值叫做原始值，定义方法：在枚举类型后面指定类型</li><li>所以：枚举相关的名称有：成员值、原始值（不占用枚举变量的内存）、关联值</li><li>隐式原始值： 如果枚举的原始值类型是Int、Stirng，swift会自动分配原始值</li><li>递归枚举： indirect关键字指定</li><li>MemoryLayout ： stride分配内存， size 实际用到的大小、 alignment对齐参数 </li></ol>]]></content>
     
     <summary type="html">
     
