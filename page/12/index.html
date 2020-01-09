@@ -1040,7 +1040,7 @@
                             &nbsp;
                             Swift
                         </a>
-                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/视频学习记录/Swift/1_汇编语言/">汇编语言</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/2_swift简介/">swift简介</a></li>  </ul> 
+                         <ul class="unstyled" id="tree">  <li class="file"><a href="/wiki/视频学习记录/Swift/1_汇编语言/">汇编语言</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/2_swift简介/">swift简介</a></li>  <li class="file"><a href="/wiki/视频学习记录/Swift/3_函数/">函数</a></li>  </ul> 
                     </li> 
                      </ul> 
                     </li> 
@@ -1134,6 +1134,85 @@
 </aside>
             
             <section id="main">
+        <article id="post-IOS/Runtime/objc/6_NXHashTable" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <div class="article-inner">
+        
+        
+            <header class="article-header">
+                
+                    <div class="article-meta">
+                        
+    <div class="article-category">
+    	<i class="fa fa-folder"></i>
+        <a class="article-category-link" href="/categories/IOS/">IOS</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/">Runtime</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/IOS/Runtime/objc/">objc</a>
+    </div>
+
+                        
+    <div class="article-tag">
+        <i class="fa fa-tag"></i>
+        <a class="tag-link" href="/tags/list-array-tt/">list_array_tt</a>
+    </div>
+
+                        
+    <div class="article-date">
+        <i class="fa fa-calendar"></i>
+        <a href="/wiki/IOS/Runtime/objc/6_NXHashTable/">
+            <time datetime="2018-11-22T02:38:11.000Z" itemprop="datePublished">2018-11-22</time>
+        </a>
+    </div>
+
+
+                        
+                    </div>
+                
+                
+    
+        <h1 itemprop="name">
+            <a class="article-title" href="/wiki/IOS/Runtime/objc/6_NXHashTable/">6. 上古时代 Objective-C 中哈希表的实现(转载)</a>
+        </h1>
+    
+
+            </header>
+        
+        
+        <div class="article-entry" itemprop="articleBody">
+        
+        
+            
+                
+                <p><blockquote>
+<p>因为 ObjC 的 runtime 只能在 Mac OS 下才能编译，所以文章中的代码都是在 Mac OS，也就是 <code>x86_64</code> 架构下运行的，对于在 arm64 中运行的代码会特别说明。</p>
+</blockquote>
+</p><p>文章会介绍上古时代 Objective-C 哈希表，也就是 <code>NXHashTable</code> ：</p>
+<ul>
+<li><code>NXHashTable</code> 的实现</li>
+<li><code>NXHashTable</code> 的性能分析</li>
+<li><code>NXHashTable</code> 的作用</li>
+</ul>
+<p><code>NXHashTable</code> 的实现有着将近 30 年的历史，不过仍然作为重要的底层数据结构存储整个应用中的类。</p>
+<blockquote>
+<p>文中会涉及一些数据结构方面的简单知识，例如<a href="https://en.wikipedia.org/wiki/Hash_table#Separate_chaining_with_linked_lists" rel="external nofollow noopener noreferrer" target="_blank">拉链法</a>。</p>
+<p>注意：<strong>文章中分析的不是 <code>NSHashTable</code> 而是 <code>NXHashTable</code>。</strong></p>
+</blockquote><p></p>
+            
+        
+        
+            </div>   
+            <div class="article-more-link">
+                <a href="/wiki/IOS/Runtime/objc/6_NXHashTable/#more">查看更多</a>
+            </div>
+        
+        <footer class="article-footer">
+        </footer>
+    </div>
+</article>
+
+
+
+
+
+
+    
         <article id="post-IOS/Runtime/objc/5list_array_tt" class="article article-type-post" itemscope="" itemprop="blogPost">
     <div class="article-inner">
         
@@ -1900,77 +1979,6 @@
             </div>   
             <div class="article-more-link">
                 <a href="/wiki/C++语言/C++Primer/第十章 泛型算法/泛型算法/#more">查看更多</a>
-            </div>
-        
-        <footer class="article-footer">
-        </footer>
-    </div>
-</article>
-
-
-
-
-
-
-    
-        <article id="post-C++语言/STL源码剖析/第二章/空间配置器" class="article article-type-post" itemscope="" itemprop="blogPost">
-    <div class="article-inner">
-        
-        
-            <header class="article-header">
-                
-                    <div class="article-meta">
-                        
-    <div class="article-category">
-    	<i class="fa fa-folder"></i>
-        <a class="article-category-link" href="/categories/C-语言/">C++语言</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/STL源码剖析/">STL源码剖析</a><i class="fa fa-angle-right"></i><a class="article-category-link" href="/categories/C-语言/STL源码剖析/第二章/">第二章</a>
-    </div>
-
-                        
-    <div class="article-tag">
-        <i class="fa fa-tag"></i>
-        <a class="tag-link" href="/tags/空间配置器/">空间配置器</a>
-    </div>
-
-                        
-    <div class="article-date">
-        <i class="fa fa-calendar"></i>
-        <a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">
-            <time datetime="2018-08-29T04:07:12.000Z" itemprop="datePublished">2018-08-29</time>
-        </a>
-    </div>
-
-
-                        
-                    </div>
-                
-                
-    
-        <h1 itemprop="name">
-            <a class="article-title" href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/">空间配置器</a>
-        </h1>
-    
-
-            </header>
-        
-        
-        <div class="article-entry" itemprop="articleBody">
-        
-        
-            
-                
-                <p></p><p>主要内容</p>
-<ol>
-<li>空间配置器的标准接口</li>
-<li>具备次配置能力的SGI 空间配置器</li>
-<li>内存基本处理工具</li>
-</ol><p></p>
-            
-        
-        
-            </div>   
-            <div class="article-more-link">
-                <a href="/wiki/C++语言/STL源码剖析/第二章/空间配置器/#more">查看更多</a>
             </div>
         
         <footer class="article-footer">

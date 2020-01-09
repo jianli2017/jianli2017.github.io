@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2020-01-08T06:59:15.548Z</updated>
+  <updated>2020-01-09T01:58:26.691Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,17 +17,17 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>swift简介</title>
-    <link href="http://yoursite.com/wiki/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/2_swift%E7%AE%80%E4%BB%8B/"/>
-    <id>http://yoursite.com/wiki/视频学习记录/Swift/2_swift简介/</id>
-    <published>2020-01-08T02:07:12.000Z</published>
-    <updated>2020-01-08T06:59:15.548Z</updated>
+    <title>函数</title>
+    <link href="http://yoursite.com/wiki/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/3_%E5%87%BD%E6%95%B0/"/>
+    <id>http://yoursite.com/wiki/视频学习记录/Swift/3_函数/</id>
+    <published>2020-01-09T01:07:12.000Z</published>
+    <updated>2020-01-09T01:58:26.691Z</updated>
     
-    <content type="html"><![CDATA[<p>汇编语言pdf 学习记录</p><a id="more"></a><h2 id="swift的版本"><a href="#swift的版本" class="headerlink" title="swift的版本"></a>swift的版本</h2><ol><li>API(application programing interface) 应用程序编程接口，源码和库之间的接口</li><li>ABI(application Binary Interface) 应用程序二进制接口，应用程序与操作系统之间的底层接口，涉及的内容有：目标文件的格式，数据类型的大小布局对齐、函数调用的约定。</li></ol><h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><p>swift code -&gt; swift AST -&gt; Raw Swift IL -&gt; Canonical swift IL -&gt; LLVM IR -&gt; assemble</p>]]></content>
+    <content type="html"><![CDATA[<p>函数 学习记录</p><a id="more"></a><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol><li>形参默认是let</li><li>函数体是单一表达式，隐式返回</li><li>返回元组，多参数返回</li><li><p>函数的注释： </p> <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-<span class="ruby"> Parameter <span class="symbol">v1:</span></span></span><br><span class="line"><span class="ruby">- Parameter <span class="symbol">v2:</span></span></span><br><span class="line"><span class="ruby"></span></span><br><span class="line"><span class="ruby">- <span class="symbol">Returns:</span></span></span><br><span class="line"><span class="ruby">- <span class="symbol">Note:</span></span></span><br></pre></td></tr></table></figure></li><li><p>参数标签：下划线可以省略参数标签</p></li><li>参数默认值：由于swift拥有参数标签，对默认参数没有从右向左的顺序的限制</li><li>可变参数： 类型后面三个点，一个函数只能有一个可变参数，紧跟在可变参数后面参数不能省略参数标签</li><li>输入输出参数： 类型签名添加inout， inout参数不能有默认值，本质是引用</li><li>函数重载：参数个数|参数类型|参数标签不同都构成函数重载，返回值不构成函数重载</li><li>内联函数：不会内联的函数包括：函数体比较长，包含递归、动态派发<code>@inline(never)  @inline(__always)</code></li><li>函数类型，条用的时候不需要参数标签</li><li>typealias 用来给类型其别名 <code>typealias Byte = Int8</code></li></ol>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;汇编语言pdf 学习记录&lt;/p&gt;
+      &lt;p&gt;函数 学习记录&lt;/p&gt;
     
     </summary>
     
@@ -48,6 +48,30 @@
     <updated>2020-01-08T06:35:58.317Z</updated>
     
     <content type="html"><![CDATA[<p>汇编语言pdf 学习记录</p><a id="more"></a><h2 id="寄存器和内存"><a href="#寄存器和内存" class="headerlink" title="寄存器和内存"></a>寄存器和内存</h2><ol><li>通常，CPU会先将内存中的数据存储到寄存器中，然后再对寄存器中的数据进行运算</li><li><p>假设对内存中的数据做加1处理  </p><ul><li>cpu首先会将内存空间的值放到rax中， movq  内存地址  %rax</li><li>然后让寄存器和1相加， addq  $0x1,  %rax</li><li>最后将值赋值给内存空间： movq %rax, 内存空间</li></ul></li></ol><h2 id="编程语言的发展"><a href="#编程语言的发展" class="headerlink" title="编程语言的发展"></a>编程语言的发展</h2><ol><li>机器语言  0，1 组成</li><li>汇编语言 assemble language  用符号代替了0，1 比机器语言便于阅读和记忆 </li><li>高级语言</li></ol><h2 id="汇编语言的种类"><a href="#汇编语言的种类" class="headerlink" title="汇编语言的种类"></a>汇编语言的种类</h2><ol><li>intel windows派系</li><li>AT&amp;T Unix派系</li></ol><p>IOS开发者</p><ol><li>AT&amp;T  IOS模拟器</li><li>ARM IOS真机</li></ol><h2 id="常见汇编"><a href="#常见汇编" class="headerlink" title="常见汇编"></a>常见汇编</h2><table><thead><tr><th>名称</th><th>AT&amp;T汇编</th><th>说明</th></tr></thead><tbody><tr><td>寄存器的名称</td><td>%rax</td><td></td></tr><tr><td>操作数顺序</td><td>movq %rax, %rdx</td><td>将rax的值赋值给rdx</td></tr><tr><td>常数立即数</td><td>movq $0x10, %rax</td><td>将0x10赋值给rax</td></tr><tr><td>内存赋值</td><td>movq $0ax, 0x1ff7(%rip)</td><td>将0xa赋值给地址未rip+ 0x1ff7 的内存空间</td></tr><tr><td>取值内存</td><td>leaq -0x18(%rbp), %rax</td><td>将rbp -0x18 这个地址赋值给rax</td></tr><tr><td>操作数长度</td><td>movl,movb,mobw</td><td>b byte,s short 16bit,w word 16bit,l long 32 bit,q quad 64 bits</td></tr></tbody></table><h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>有16个通用寄存器</p><ol><li>rax、rbx、rcx、rdx、rsi、rdi，rbp、rsp</li><li>r8、r9 、r10、 r11、r12、r13、r14、r15</li></ol><p>寄存器的具体用途</p><ol><li>rax、rdx常用作函数返回值使用</li><li>rdi、rsi、rdx、rcx、r8、r9 等寄存器常用语存放函数的参数</li><li>rbp、rsp 用于栈操作</li><li>rip作为指令指针<ol><li>存储着CPU下一条要执行的指令地址</li><li>一旦CPU读取一条指令，rip会自动指向下一条指令</li></ol></li></ol><h2 id="lldb常用指令"><a href="#lldb常用指令" class="headerlink" title="lldb常用指令"></a>lldb常用指令</h2><ol><li>读取寄存器的值 ： register read/格式  register read/x</li><li>修改寄存器的值 register write 寄存器名称 数值  register wirte rax 0</li><li>读取内存中的值 x/数量 格式 字节大小 内存地址 —- x/3xw 0x1000000</li><li>修改内存中的值 memory write 内存地址 数值 —-memory write 0x00000 10</li></ol><p>其中格式：</p><ol><li>x 是16进制</li><li>f 浮点</li><li>d 十进制</li></ol><p>其中的字节大小</p><ol><li>b  byte 1字节</li><li>h half word 2字节</li><li>w word 4字节</li><li>g gaint word 8字节</li></ol><p>断定指令</p><ol><li>thred step-over next n  单步运行，把子函数整体异步执行(源码级别)</li><li>thrad step-in step s 单不运行，把子函数当做整体异步执行(汇编级别)</li><li>threa step-ins-over nexti ni 单步运行，把子函数当做整体异步执行(汇编级别)</li><li>thread step-inst、stepi、si 单步运行，遇到子函数进入子函数(汇编解包)</li><li>thread step-out、finish 直接运行完当前函数的所有代码，返回到上一个函数，遇到断点卡住</li></ol><h2 id="规律"><a href="#规律" class="headerlink" title="规律"></a>规律</h2><ol><li>内存格式是0x1bc(%rip)，一般是全局变量，全局区(数据段)</li><li>内存地址格式为-0x78(%rbp),一般是局部变量，栈空间</li><li>内存地址格式为：0x10(%rax)， 一般是堆空间，因为mallc 返回的地址存储在rax中 </li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;汇编语言pdf 学习记录&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="视频学习记录" scheme="http://yoursite.com/categories/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+      <category term="Swift" scheme="http://yoursite.com/categories/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>swift简介</title>
+    <link href="http://yoursite.com/wiki/%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/Swift/2_swift%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/wiki/视频学习记录/Swift/2_swift简介/</id>
+    <published>2020-01-08T02:07:12.000Z</published>
+    <updated>2020-01-08T06:59:15.548Z</updated>
+    
+    <content type="html"><![CDATA[<p>汇编语言pdf 学习记录</p><a id="more"></a><h2 id="swift的版本"><a href="#swift的版本" class="headerlink" title="swift的版本"></a>swift的版本</h2><ol><li>API(application programing interface) 应用程序编程接口，源码和库之间的接口</li><li>ABI(application Binary Interface) 应用程序二进制接口，应用程序与操作系统之间的底层接口，涉及的内容有：目标文件的格式，数据类型的大小布局对齐、函数调用的约定。</li></ol><h2 id="编译流程"><a href="#编译流程" class="headerlink" title="编译流程"></a>编译流程</h2><p>swift code -&gt; swift AST -&gt; Raw Swift IL -&gt; Canonical swift IL -&gt; LLVM IR -&gt; assemble</p>]]></content>
     
     <summary type="html">
     
@@ -115,13 +139,13 @@
   </entry>
   
   <entry>
-    <title>IOS知识简洁版</title>
-    <link href="http://yoursite.com/wiki/IOS/Theory/IOS%E7%9F%A5%E8%AF%86%E7%AE%80%E6%B4%81%E7%89%88/"/>
-    <id>http://yoursite.com/wiki/IOS/Theory/IOS知识简洁版/</id>
+    <title>IOS 知识点总结</title>
+    <link href="http://yoursite.com/wiki/IOS/Theory/IOS%20%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
+    <id>http://yoursite.com/wiki/IOS/Theory/IOS 知识点/</id>
     <published>2019-12-19T04:07:12.000Z</published>
-    <updated>2020-01-08T10:12:40.555Z</updated>
+    <updated>2020-01-06T11:18:20.749Z</updated>
     
-    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="HTTP三次握手、四次挥手"><a href="#HTTP三次握手、四次挥手" class="headerlink" title="HTTP三次握手、四次挥手"></a>HTTP三次握手、四次挥手</h2><p>TCP是一种可靠的面向连接的协议，而UDP不是可靠的，或说是无连接的协议。</p><p>TCP 和UDP的区别：</p><ol><li>TCP的可靠性是强的，它是可靠的，连接性，是面向连接的，报文，是面向字节流的，效率是，传输效率低，双工性，全双工，流量控制是滑动窗口，拥塞控制是慢开始，拥塞避免，快重传，快恢复的，传输速度是慢的，应用场景是对效率要求低，对准确性要求高或者要求有连接的场景。</li><li>UDP的不是可靠的，无连接的，面向报文的，传输效率高的，一对一，一对多，多对一，多对多，流量控制，无，拥塞控制，无，但是传输速度是快的，应用场景是对效率要求高，对准确性要求低的。</li></ol><p>三次握手的过程：</p><ol><li>第一次握手是在建立连接，客户端发送连接请求报文段，把标有SYN的数据包发给服务器端即为接收端。</li><li>第二次握手是服务器端即接收端收到客户端的SYN的报文段，同时发送标有SYN/ACK的数据包。</li><li>第三次握手是客户端收到服务器端的SYN/ACK的数据包后，向服务器端发送标有ACK的数据包。</li></ol><p>四次挥手：</p><ol><li>第一次挥手：客户端设置seq和 ACK ,向服务器发送一个 FIN=1报文段。此时，（第一次挥手，FIN=1，seq=u）客户端进入 FIN_WAIT 状态，表示客户端没有数据要发送给服务端了。</li><li>第二次挥手：服务端收到了客户端发送的 FIN 报文段，向客户端回了一个 ACK 报文段。</li><li>第三次挥手：服务端向客户端发送FIN 报文段，请求关闭连接，同时服务端进入 LAST_ACK 状态。</li><li>第四次挥手：客户端收到服务端发送的 FIN 报文段后，向服务端发送 ACK 报文段,然后客户端进入 TIME_WAIT 状态。服务端收到客户端的 ACK 报文段以后，就关闭连接。此时，客户端等待 2MSL（指一个片段在网络中最大的存活时间）后依然没有收到回复，则说明服务端已经正常关闭，这样客户端就可以关闭连接了。</li></ol><p>参考链接： <a href="https://mp.weixin.qq.com/s/OYNDJ9tzfZCIdPMyts2jtw" rel="external nofollow noopener noreferrer" target="_blank">TCP的 “三次握手” 和“四次挥手”，到底是什么鬼？</a></p>]]></content>
+    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="常用知识点"><a href="#常用知识点" class="headerlink" title="常用知识点"></a>常用知识点</h2><ol><li><a href="https://www.jianshu.com/p/5254f1277dba" rel="external nofollow noopener noreferrer" target="_blank">小结iOS中的copy</a></li><li><a href="https://mp.weixin.qq.com/s/0o0SS0Bds2vB6hDjQfEl4w" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者 2019 面试总结</a></li></ol><h2 id="学习过的知识"><a href="#学习过的知识" class="headerlink" title="学习过的知识"></a>学习过的知识</h2><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">属性的设置方法</span><br><span class="line">objc_setProperty_nonatomic_copy</span><br><span class="line"><span class="symbol">copyWithZone:</span></span><br></pre></td></tr></table></figure><ol><li><a href="https://www.jianshu.com/p/644fdc7503bc" rel="external nofollow noopener noreferrer" target="_blank">GCD实现多个请求都完成之后返回结果</a></li><li><a href="https://www.jianshu.com/p/ea36e0f2e7ae" rel="external nofollow noopener noreferrer" target="_blank">质量监控-卡顿检测</a></li><li><a href="https://www.jianshu.com/p/cff4ba1f8a17" rel="external nofollow noopener noreferrer" target="_blank">iOS深拷贝和浅拷贝</a></li><li><a href="https://www.jianshu.com/p/6ea244222ee4" rel="external nofollow noopener noreferrer" target="_blank">[iOS] 打包原理及脚本自动打包的实现</a></li><li><a href="https://casatwy.com/modulization_in_action.html" rel="external nofollow noopener noreferrer" target="_blank">在现有工程中实施基于CTMediator的组件化方案</a></li><li><a href="https://casatwy.com/iOS-Modulization.html" rel="external nofollow noopener noreferrer" target="_blank">iOS应用架构谈 组件化方案</a></li></ol>]]></content>
     
     <summary type="html">
     
@@ -139,13 +163,13 @@
   </entry>
   
   <entry>
-    <title>IOS 知识点总结</title>
-    <link href="http://yoursite.com/wiki/IOS/Theory/IOS%20%E7%9F%A5%E8%AF%86%E7%82%B9/"/>
-    <id>http://yoursite.com/wiki/IOS/Theory/IOS 知识点/</id>
+    <title>IOS知识简洁版</title>
+    <link href="http://yoursite.com/wiki/IOS/Theory/IOS%E7%9F%A5%E8%AF%86%E7%AE%80%E6%B4%81%E7%89%88/"/>
+    <id>http://yoursite.com/wiki/IOS/Theory/IOS知识简洁版/</id>
     <published>2019-12-19T04:07:12.000Z</published>
-    <updated>2020-01-06T11:18:20.749Z</updated>
+    <updated>2020-01-08T10:12:40.555Z</updated>
     
-    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="常用知识点"><a href="#常用知识点" class="headerlink" title="常用知识点"></a>常用知识点</h2><ol><li><a href="https://www.jianshu.com/p/5254f1277dba" rel="external nofollow noopener noreferrer" target="_blank">小结iOS中的copy</a></li><li><a href="https://mp.weixin.qq.com/s/0o0SS0Bds2vB6hDjQfEl4w" rel="external nofollow noopener noreferrer" target="_blank">iOS 开发者 2019 面试总结</a></li></ol><h2 id="学习过的知识"><a href="#学习过的知识" class="headerlink" title="学习过的知识"></a>学习过的知识</h2><figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">属性的设置方法</span><br><span class="line">objc_setProperty_nonatomic_copy</span><br><span class="line"><span class="symbol">copyWithZone:</span></span><br></pre></td></tr></table></figure><ol><li><a href="https://www.jianshu.com/p/644fdc7503bc" rel="external nofollow noopener noreferrer" target="_blank">GCD实现多个请求都完成之后返回结果</a></li><li><a href="https://www.jianshu.com/p/ea36e0f2e7ae" rel="external nofollow noopener noreferrer" target="_blank">质量监控-卡顿检测</a></li><li><a href="https://www.jianshu.com/p/cff4ba1f8a17" rel="external nofollow noopener noreferrer" target="_blank">iOS深拷贝和浅拷贝</a></li><li><a href="https://www.jianshu.com/p/6ea244222ee4" rel="external nofollow noopener noreferrer" target="_blank">[iOS] 打包原理及脚本自动打包的实现</a></li><li><a href="https://casatwy.com/modulization_in_action.html" rel="external nofollow noopener noreferrer" target="_blank">在现有工程中实施基于CTMediator的组件化方案</a></li><li><a href="https://casatwy.com/iOS-Modulization.html" rel="external nofollow noopener noreferrer" target="_blank">iOS应用架构谈 组件化方案</a></li></ol>]]></content>
+    <content type="html"><![CDATA[<p>本文按总结IOS常用的知识点</p><a id="more"></a><h2 id="HTTP三次握手、四次挥手"><a href="#HTTP三次握手、四次挥手" class="headerlink" title="HTTP三次握手、四次挥手"></a>HTTP三次握手、四次挥手</h2><p>TCP是一种可靠的面向连接的协议，而UDP不是可靠的，或说是无连接的协议。</p><p>TCP 和UDP的区别：</p><ol><li>TCP的可靠性是强的，它是可靠的，连接性，是面向连接的，报文，是面向字节流的，效率是，传输效率低，双工性，全双工，流量控制是滑动窗口，拥塞控制是慢开始，拥塞避免，快重传，快恢复的，传输速度是慢的，应用场景是对效率要求低，对准确性要求高或者要求有连接的场景。</li><li>UDP的不是可靠的，无连接的，面向报文的，传输效率高的，一对一，一对多，多对一，多对多，流量控制，无，拥塞控制，无，但是传输速度是快的，应用场景是对效率要求高，对准确性要求低的。</li></ol><p>三次握手的过程：</p><ol><li>第一次握手是在建立连接，客户端发送连接请求报文段，把标有SYN的数据包发给服务器端即为接收端。</li><li>第二次握手是服务器端即接收端收到客户端的SYN的报文段，同时发送标有SYN/ACK的数据包。</li><li>第三次握手是客户端收到服务器端的SYN/ACK的数据包后，向服务器端发送标有ACK的数据包。</li></ol><p>四次挥手：</p><ol><li>第一次挥手：客户端设置seq和 ACK ,向服务器发送一个 FIN=1报文段。此时，（第一次挥手，FIN=1，seq=u）客户端进入 FIN_WAIT 状态，表示客户端没有数据要发送给服务端了。</li><li>第二次挥手：服务端收到了客户端发送的 FIN 报文段，向客户端回了一个 ACK 报文段。</li><li>第三次挥手：服务端向客户端发送FIN 报文段，请求关闭连接，同时服务端进入 LAST_ACK 状态。</li><li>第四次挥手：客户端收到服务端发送的 FIN 报文段后，向服务端发送 ACK 报文段,然后客户端进入 TIME_WAIT 状态。服务端收到客户端的 ACK 报文段以后，就关闭连接。此时，客户端等待 2MSL（指一个片段在网络中最大的存活时间）后依然没有收到回复，则说明服务端已经正常关闭，这样客户端就可以关闭连接了。</li></ol><p>参考链接： <a href="https://mp.weixin.qq.com/s/OYNDJ9tzfZCIdPMyts2jtw" rel="external nofollow noopener noreferrer" target="_blank">TCP的 “三次握手” 和“四次挥手”，到底是什么鬼？</a></p>]]></content>
     
     <summary type="html">
     
@@ -234,39 +258,6 @@
     
     
       <category term="Block" scheme="http://yoursite.com/tags/Block/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>18 swift OC 混合编程</title>
-    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/18%20swift%20OC/"/>
-    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/</id>
-    <published>2019-11-20T04:07:12.000Z</published>
-    <updated>2019-11-26T10:45:33.885Z</updated>
-    
-    <content type="html"><![CDATA[<a id="more"></a><p>表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用</p><p>补存内容 ： catch默认存在error</p><p>#warning()<br>// TODO:  </p><p>编码习惯： xcode自己生成的类冒号跟着前面        </p><p>@UIApplicationMain  就是新的入口 </p><p>Swift调用OC写的东西 </p><p>1 新建桥接文件 ： targetName-Bridging-Header.h  就是OC暴露给swift的东西<br>@_silgen_name(“sum”) func malloc(v1: Int32, v2: Int) -&gt; Int32</p><p>swift 暴露给OC的条件</p><ol><li>继承NSObject</li><li>objcMembers    或使用@objc 修饰需要暴露的成员 </li></ol><p>@objc  还能修改暴露给OC的类名的名称， 方法名 </p><p>字符串处理 ：</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
-&lt;p&gt;表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用&lt;/p&gt;
-&lt;p&gt;补存内容 ： catch默认存在error&lt;/p&gt;
-&lt;p&gt;#warning()&lt;br&gt;// TODO:  &lt;/p&gt;
-&lt;p&gt;编码习惯： xcode自己生成的类
-      
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
-    
-      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
-    
-    
-      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
     
   </entry>
   
@@ -405,6 +396,39 @@
   </entry>
   
   <entry>
+    <title>18 swift OC 混合编程</title>
+    <link href="http://yoursite.com/wiki/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/18%20swift%20OC/"/>
+    <id>http://yoursite.com/wiki/IOS/swift语言/小码哥视频学习记录/18 swift OC/</id>
+    <published>2019-11-20T04:07:12.000Z</published>
+    <updated>2019-11-26T10:45:33.885Z</updated>
+    
+    <content type="html"><![CDATA[<a id="more"></a><p>表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用</p><p>补存内容 ： catch默认存在error</p><p>#warning()<br>// TODO:  </p><p>编码习惯： xcode自己生成的类冒号跟着前面        </p><p>@UIApplicationMain  就是新的入口 </p><p>Swift调用OC写的东西 </p><p>1 新建桥接文件 ： targetName-Bridging-Header.h  就是OC暴露给swift的东西<br>@_silgen_name(“sum”) func malloc(v1: Int32, v2: Int) -&gt; Int32</p><p>swift 暴露给OC的条件</p><ol><li>继承NSObject</li><li>objcMembers    或使用@objc 修饰需要暴露的成员 </li></ol><p>@objc  还能修改暴露给OC的类名的名称， 方法名 </p><p>字符串处理 ：</p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;a id=&quot;more&quot;&gt;&lt;/a&gt;
+&lt;p&gt;表达式模式，调用了~=运算符 ，是一些复杂的情况 ，简单的没有调用&lt;/p&gt;
+&lt;p&gt;补存内容 ： catch默认存在error&lt;/p&gt;
+&lt;p&gt;#warning()&lt;br&gt;// TODO:  &lt;/p&gt;
+&lt;p&gt;编码习惯： xcode自己生成的类
+      
+    
+    </summary>
+    
+      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
+    
+      <category term="swift语言" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="小码哥视频学习记录" scheme="http://yoursite.com/categories/IOS/swift%E8%AF%AD%E8%A8%80/%E5%B0%8F%E7%A0%81%E5%93%A5%E8%A7%86%E9%A2%91%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/"/>
+    
+    
+      <category term="swift" scheme="http://yoursite.com/tags/swift/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Block的本质</title>
     <link href="http://yoursite.com/wiki/IOS/Block/block/"/>
     <id>http://yoursite.com/wiki/IOS/Block/block/</id>
@@ -453,17 +477,17 @@
   </entry>
   
   <entry>
-    <title>GCD源码理解</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/GCD_Source/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/GCD_Source/</id>
+    <title>NSOperation</title>
+    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperation/"/>
+    <id>http://yoursite.com/wiki/IOS/多线程/NSOperation/</id>
     <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-17T11:57:53.764Z</updated>
+    <updated>2019-09-17T09:45:48.872Z</updated>
     
-    <content type="html"><![CDATA[<p>GCD源码理解</p><a id="more"></a><h2 id="GCD理解"><a href="#GCD理解" class="headerlink" title="GCD理解"></a>GCD理解</h2><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_sync.png" alt="同步"></p><p><img src="/wiki/IOS/多线程/GCD_Source/dispatch_async.png" alt="异步"></p>]]></content>
+    <content type="html"><![CDATA[<p>NSOperation类文档学习记录</p><a id="more"></a><h2 id="操作依赖"><a href="#操作依赖" class="headerlink" title="操作依赖"></a>操作依赖</h2><p>依赖可以控制操作执行的顺序，相关函数：</p><ol><li>addDependency</li><li>removeDependency</li></ol><p>当依赖的operation全部为完成状态时，operation才能为ready的状态。当最后一个依赖完成后，operation的状态变为ready状态。</p><p>依赖不区分operation是完成了还是取消了。</p><h2 id="KVO属性"><a href="#KVO属性" class="headerlink" title="KVO属性"></a>KVO属性</h2><p>KVO属性包括：</p><ol><li>isCancelled</li><li>isAsynchronous</li><li>isExecuting</li><li>isFinished</li><li>isReady</li><li>dependencies</li><li>queuePriority</li><li>completionBlock</li></ol><h2 id="多线程安全"><a href="#多线程安全" class="headerlink" title="多线程安全"></a>多线程安全</h2><p>多线程调用NSOperation的方法时安全的，不需要加锁。<br>子类的自定义方法需要考虑多线程问题。</p><h2 id="异步VS同步"><a href="#异步VS同步" class="headerlink" title="异步VS同步"></a>异步VS同步</h2><p>操作可以手动执行、也可以添加到queue中执行。</p><p>手动执行（直接调用start方法），分为同步operation和异步operation ，同步在当前线程立即执行。异步在新的线程执行任务。</p><p>如果操作在队列中执行，一般定义为同步的，队列不关注asynchronous属性，总是在一个单独的线程中调用start方法。所有没有理由设计为异步的。</p><h2 id="子类化"><a href="#子类化" class="headerlink" title="子类化"></a>子类化</h2><p>非并发队列：重写 main方法。<br>并发队列：需要重写start、 asynchronous、executing、finished方法。</p><p><strong>注意是否重写main决定了是否是并发操作。</strong></p><p>下面是子类化的要点：</p><ol><li>在并发队列中，start方法负责异步开始操作。</li><li>start方法中需要通过KVO更新operation的executing状态为YES。</li><li>operation完成或取消后，并发队列必须通过KVO更新isExecuting为NO 和 isFinished为YES。如果是取消，也需要更新isFinished状态为YES。</li><li>operation 只有完成了，才能从queue中移除。</li><li>同时需要重写 executing、finished属性（KVC）。</li><li>start方法需要检查是否operation被取消了。</li><li>如果定制了依赖，需要KVO isReady属性。</li></ol><p><strong>状态管理</strong>：</p><ol><li>isReady，一般不用管理，依赖的时候处理。</li><li>isExecuting，替换了start方法，一定要替换isExecuting方法，并在start开始的时候发出KVO</li><li>isFinished，替换了start方法，一定要替换isFinished方法。operation完成或取消，发出KVO</li><li>isCancelled，不需要发出KVO</li></ol><p><strong>响应取消</strong></p><p>一旦将operation添加到queue中，queue就掌管了operation。你可以通过调用operation的cancell方法取消，或者通过queue的cancelAllOperations取消。</p><p>执行中的任务并不会立马取消， 你必须显式的检测状态，需要的时候取消。</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;GCD源码理解&lt;/p&gt;
+      &lt;p&gt;NSOperation类文档学习记录&lt;/p&gt;
     
     </summary>
     
@@ -471,6 +495,8 @@
     
       <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
     
+    
+      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
     
   </entry>
   
@@ -486,30 +512,6 @@
     <summary type="html">
     
       &lt;p&gt;记录NSOperaionQueue的理解&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="IOS" scheme="http://yoursite.com/categories/IOS/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/categories/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-    
-      <category term="NSOperation" scheme="http://yoursite.com/tags/NSOperation/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>NSOperation</title>
-    <link href="http://yoursite.com/wiki/IOS/%E5%A4%9A%E7%BA%BF%E7%A8%8B/NSOperation/"/>
-    <id>http://yoursite.com/wiki/IOS/多线程/NSOperation/</id>
-    <published>2019-09-17T02:35:49.000Z</published>
-    <updated>2019-09-17T09:45:48.872Z</updated>
-    
-    <content type="html"><![CDATA[<p>NSOperation类文档学习记录</p><a id="more"></a><h2 id="操作依赖"><a href="#操作依赖" class="headerlink" title="操作依赖"></a>操作依赖</h2><p>依赖可以控制操作执行的顺序，相关函数：</p><ol><li>addDependency</li><li>removeDependency</li></ol><p>当依赖的operation全部为完成状态时，operation才能为ready的状态。当最后一个依赖完成后，operation的状态变为ready状态。</p><p>依赖不区分operation是完成了还是取消了。</p><h2 id="KVO属性"><a href="#KVO属性" class="headerlink" title="KVO属性"></a>KVO属性</h2><p>KVO属性包括：</p><ol><li>isCancelled</li><li>isAsynchronous</li><li>isExecuting</li><li>isFinished</li><li>isReady</li><li>dependencies</li><li>queuePriority</li><li>completionBlock</li></ol><h2 id="多线程安全"><a href="#多线程安全" class="headerlink" title="多线程安全"></a>多线程安全</h2><p>多线程调用NSOperation的方法时安全的，不需要加锁。<br>子类的自定义方法需要考虑多线程问题。</p><h2 id="异步VS同步"><a href="#异步VS同步" class="headerlink" title="异步VS同步"></a>异步VS同步</h2><p>操作可以手动执行、也可以添加到queue中执行。</p><p>手动执行（直接调用start方法），分为同步operation和异步operation ，同步在当前线程立即执行。异步在新的线程执行任务。</p><p>如果操作在队列中执行，一般定义为同步的，队列不关注asynchronous属性，总是在一个单独的线程中调用start方法。所有没有理由设计为异步的。</p><h2 id="子类化"><a href="#子类化" class="headerlink" title="子类化"></a>子类化</h2><p>非并发队列：重写 main方法。<br>并发队列：需要重写start、 asynchronous、executing、finished方法。</p><p><strong>注意是否重写main决定了是否是并发操作。</strong></p><p>下面是子类化的要点：</p><ol><li>在并发队列中，start方法负责异步开始操作。</li><li>start方法中需要通过KVO更新operation的executing状态为YES。</li><li>operation完成或取消后，并发队列必须通过KVO更新isExecuting为NO 和 isFinished为YES。如果是取消，也需要更新isFinished状态为YES。</li><li>operation 只有完成了，才能从queue中移除。</li><li>同时需要重写 executing、finished属性（KVC）。</li><li>start方法需要检查是否operation被取消了。</li><li>如果定制了依赖，需要KVO isReady属性。</li></ol><p><strong>状态管理</strong>：</p><ol><li>isReady，一般不用管理，依赖的时候处理。</li><li>isExecuting，替换了start方法，一定要替换isExecuting方法，并在start开始的时候发出KVO</li><li>isFinished，替换了start方法，一定要替换isFinished方法。operation完成或取消，发出KVO</li><li>isCancelled，不需要发出KVO</li></ol><p><strong>响应取消</strong></p><p>一旦将operation添加到queue中，queue就掌管了operation。你可以通过调用operation的cancell方法取消，或者通过queue的cancelAllOperations取消。</p><p>执行中的任务并不会立马取消， 你必须显式的检测状态，需要的时候取消。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;NSOperation类文档学习记录&lt;/p&gt;
     
     </summary>
     
